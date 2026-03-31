@@ -350,6 +350,7 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);}
 .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-6);}
 @media(max-width:900px){.two-col,.three-col{grid-template-columns:1fr;}}
+@media(max-width:768px){.equip-grid{grid-template-columns:1fr!important;}}
 @media(max-width:768px){
   .nav-title{display:none;}
   .hero-stats{flex-direction:column;}
@@ -1327,341 +1328,891 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
     <div class="section-lead">Coalition and Iranian platforms</div>
   </div>
 
-  <div class="tabs-wrap mb-6">
-    <div class="tab-buttons">
-      <button class="tab-btn active" onclick="switchTab(this,'wp-coalition')">US/Coalition</button>
-      <button class="tab-btn" onclick="switchTab(this,'wp-iran')">Iranian Systems</button>
-      <button class="tab-btn" onclick="switchTab(this,'wp-israeli')">Israeli Platforms</button>
-      <button class="tab-btn" onclick="switchTab(this,'wp-proxy')">Proxy Weapons</button>
+  <!-- ── 07-A: US / COALITION SYSTEMS ─────────────────────── -->
+  <div style="margin:var(--space-8) 0 var(--space-4); padding-bottom:var(--space-2); border-bottom:2px solid var(--color-accent);">
+    <span style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;color:var(--color-accent);">07-A //</span>
+    <span style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#fff;margin-left:var(--space-2);">US / COALITION SYSTEMS</span>
+  </div>
+
+  <div class="equip-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);">
+
+    <!-- B-2A Spirit -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://media.defense.gov/2003/Feb/10/2000030292/2000/2000/0/010323-F-0966E-003.JPG" alt="B-2 Spirit" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/B-2_Spirit_bombing%2C_1994.jpg/480px-B-2_Spirit_bombing%2C_1994.jpg'" onclick="openLightbox(this.src,'B-2 Spirit Stealth Bomber — Primary delivery platform for GBU-57 MOP against Iranian underground nuclear facilities')">
+        <div class="equip-badge">STRATEGIC BOMBER</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">B-2A Spirit</div>
+        <div class="equip-desc">Primary delivery platform for GBU-57 Massive Ordnance Penetrators against Iran's hardened underground nuclear facilities at Natanz, Fordow, and Isfahan. Only aircraft capable of carrying MOP. Stealth design allows penetration of any surviving air defenses.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">11,100 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">18,144 kg</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS, LGB</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Hardened bunkers</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fleet Size</span><span class="equip-spec-val">19 operational</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Sorties (est)</span><span class="equip-spec-val">30–50</span></div>
+        </div>
+        <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104465/b-2-spirit/" class="equip-link" target="_blank">→ AF Fact Sheet</a>
+      </div>
     </div>
 
-    <div id="wp-coalition" class="tab-pane active">
-      <div class="card-grid grid-3">
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <img src="https://media.defense.gov/2003/Feb/10/2000030292/2000/2000/0/010323-F-0966E-003.JPG" alt="B-2 Spirit" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/B-2_Spirit_bombing%2C_1994.jpg/480px-B-2_Spirit_bombing%2C_1994.jpg'" onclick="openLightbox(this.src,'B-2 Spirit Stealth Bomber — Primary delivery platform for GBU-57 MOP against Iranian underground nuclear facilities')">
-            <div class="equip-badge">STRATEGIC BOMBER</div>
-            <div class="equip-country-badge">🇺🇸</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">B-2A Spirit</div>
-            <div class="equip-desc">Primary delivery platform for GBU-57 Massive Ordnance Penetrators against Iran's hardened underground nuclear facilities at Natanz, Fordow, and Isfahan. Only aircraft capable of carrying MOP.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">$2.1B</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Fleet Size</span><span class="equip-spec-val">19 operational</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">40,000 lb</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Key Weapon</span><span class="equip-spec-val">GBU-57 MOP</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Sorties (est)</span><span class="equip-spec-val">30-50</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Losses</span><span class="equip-spec-val">None reported</span></div>
-            </div>
-            <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104465/b-2-spirit/" class="equip-link" target="_blank">→ AF Fact Sheet</a>
-          </div>
-        </div>
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <img src="https://media.defense.gov/2021/Sep/24/2002860968/-1/-1/0/210919-F-AF248-9084.JPG" alt="F-35A Lightning II" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/6/61/F-35A_flight_%28cropped%29.jpg'" onclick="openLightbox(this.src,'F-35A Lightning II — Multi-role stealth fighter used for SEAD and strike missions')">
-            <div class="equip-badge">STEALTH FIGHTER</div>
-            <div class="equip-country-badge">🇺🇸</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">F-35A Lightning II</div>
-            <div class="equip-desc">Used for SEAD (Suppression of Enemy Air Defense) missions and precision strikes. Operates alongside Israeli F-35I Adirs. Stealth allows penetration of Iran's degraded S-300 and Bavar-373 air defense systems.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">$82.5M</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">SEAD/Strike</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Weapons</span><span class="equip-spec-val">JDAM, JASSM</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Losses</span><span class="equip-spec-val">None confirmed</span></div>
-            </div>
-            <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/478441/f-35a-lightning-ii/" class="equip-link" target="_blank">→ AF Fact Sheet</a>
-          </div>
-        </div>
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/F-15C_Eagle_from_the_67th_Fighter_Squadron_at_Kadena_AB_is_refueled_by_a_KC-135R_Stratotanker_from_the_909th_Air_Refueling_Squadron_.jpg" alt="KC-135 Stratotanker" onclick="openLightbox(this.src,'KC-135 Stratotanker — Critical aerial refueling platform. Multiple damaged at Prince Sultan AB; 6 crew killed in collision over Iraq')">
-            <div class="equip-badge">TANKER</div>
-            <div class="equip-country-badge">🇺🇸</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">KC-135 Stratotanker</div>
-            <div class="equip-desc">Critical aerial refueling backbone for extended range strikes on Iran. Multiple KC-135s damaged at Prince Sultan AB in Saudi Arabia by Iranian strikes March 27. Six crew killed when two collided over Iraq March 12.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">$39.6M</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Fleet Size</span><span class="equip-spec-val">~400</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Damaged</span><span class="equip-spec-val">5+ confirmed</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Destroyed</span><span class="equip-spec-val">2 (collision)</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Crew Killed</span><span class="equip-spec-val">6</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Critical asset</span></div>
-            </div>
-            <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/110486/kc-135-stratotanker/" class="equip-link" target="_blank">→ AF Fact Sheet</a>
-          </div>
-        </div>
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <img src="https://prd-sc102-cdn.rtx.com/raytheon/-/media/ray/rmd/what-we-do/naval-warfare/advanced-strike-weapons/tomahawk-cruise-missile/2020-02/images/tomahawk_hero.jpg" alt="Tomahawk Cruise Missile" onclick="openLightbox(this.src,'BGM-109 Tomahawk — Stand-off cruise missile launched from submarines and surface ships against Iranian targets')">
-            <div class="equip-badge">CRUISE MISSILE</div>
-            <div class="equip-country-badge">🇺🇸</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">BGM-109 Tomahawk</div>
-            <div class="equip-desc">Stand-off cruise missiles launched from US Navy submarines and surface ships in the Gulf and Arabian Sea. Used against fixed infrastructure targets, air defense sites, and command facilities. Estimates suggest 200+ fired in first week.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">$2M+</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,600 km</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">454 kg HE</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Estimated Used</span><span class="equip-spec-val">200-400+</span></div>
-            </div>
-            <a href="https://www.rtx.com/raytheon/what-we-do/sea/tomahawk" class="equip-link" target="_blank">→ Raytheon</a>
-          </div>
-        </div>
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <div style="height:100%;background:var(--color-surface-3);display:flex;align-items:center;justify-content:center;font-size:3rem;">🚀</div>
-            <div class="equip-badge">AIR-LAUNCHED MISSILE</div>
-            <div class="equip-country-badge">🇺🇸</div>
-          </div>
-          <div class="equip-body">
-            <div style="border-radius:6px;overflow:hidden;border:1px solid var(--color-border);margin-bottom:var(--space-3);">
-              <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/mfc/photo/jassm/23-16561_ADSW_JASSM-B-2_Updated-Graphic-web.jpg.pc-adaptive.full.medium.jpg" alt="AGM-158B JASSM-ER cruise missile" loading="lazy" style="width:100%;max-height:250px;object-fit:contain;background:#0a0c10;">
-              <div style="padding:6px 10px;font-family:var(--font-mono);font-size:0.58rem;color:var(--color-text-faint);background:var(--color-surface-2);letter-spacing:0.04em;">AGM-158B JASSM-ER — LOCKHEED MARTIN</div>
-            </div>
-            <div class="equip-name">AGM-158B JASSM-ER</div>
-            <div class="equip-desc">Joint Air-to-Surface Standoff Missile Extended Range — low-observable cruise missile with 930km range. Allows F-15E and B-52 aircraft to strike Iranian targets without entering range of surviving air defenses. Highly accurate with penetrating warhead.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">$1.3M</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">930 km</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">450 kg WDU-42</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Estimated Used</span><span class="equip-spec-val">100-200+</span></div>
-            </div>
-            <a href="https://www.lockheedmartin.com/en-us/products/jassm.html" class="equip-link" target="_blank">→ Lockheed Martin</a>
-          </div>
-        </div>
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <div style="height:100%;background:var(--color-surface-3);display:flex;align-items:center;justify-content:center;font-size:3rem;">🛡️</div>
-            <div class="equip-badge">BALLISTIC MISSILE DEFENSE</div>
-            <div class="equip-country-badge">🇺🇸</div>
-          </div>
-          <div class="equip-body">
-            <div style="border-radius:6px;overflow:hidden;border:1px solid var(--color-border);margin-bottom:var(--space-3);">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/The_first_of_two_Terminal_High_Altitude_Area_Defense_%28THAAD%29_interceptors_is_launched_during_a_successful_intercept_test_-_US_Army.jpg" alt="THAAD interceptor launch test" loading="lazy" style="width:100%;max-height:250px;object-fit:contain;background:#0a0c10;">
-              <div style="padding:6px 10px;font-family:var(--font-mono);font-size:0.58rem;color:var(--color-text-faint);background:var(--color-surface-2);letter-spacing:0.04em;">THAAD INTERCEPTOR LAUNCH — US ARMY</div>
-            </div>
-            <div class="equip-name">THAAD / SM-3 Block IIA</div>
-            <div class="equip-desc">Terminal High Altitude Area Defense and SM-3 Block IIA used for ballistic missile intercepts. THAAD radar at Al Udeid was destroyed, degrading coverage. SM-3 fired from Aegis ships in the Gulf and Red Sea. Intercept rates sufficient to prevent catastrophic losses but insufficient to stop all Iranian missiles.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">THAAD Cost</span><span class="equip-spec-val">$800M/battery</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">THAAD Destroyed</span><span class="equip-spec-val">1 radar</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">SM-3 Cost</span><span class="equip-spec-val">$20M/missile</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Intercepts (est)</span><span class="equip-spec-val">60-70%</span></div>
-            </div>
-            <a href="https://www.mda.mil/system/thaad.html" class="equip-link" target="_blank">→ MDA</a>
-          </div>
-        </div>
-
+    <!-- B-52H Stratofortress -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/B-52_Stratofortress.jpg/480px-B-52_Stratofortress.jpg" alt="B-52H Stratofortress" loading="lazy" onerror="this.onerror=null;this.src='https://media.defense.gov/2020/Mar/19/2002265269/-1/-1/0/200316-F-XX000-001.JPG'" onclick="openLightbox(this.src,'B-52H Stratofortress — Deployed from Diego Garcia for Iran operations, carrying JASSM-ER standoff missiles')">
+        <div class="equip-badge">STRATEGIC BOMBER</div>
+        <div class="equip-country-badge">🇺🇸</div>
       </div>
-    </div><!-- end wp-coalition -->
-
-    <div id="wp-iran" class="tab-pane">
-      <div class="card-grid grid-3">
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/37/2023_IRGC_Aerospace_Force_achievements_Exhibition_in_Qom_%2833%29.jpg" alt="Shahed-136" onclick="openLightbox(this.src,'Iranian Shahed-136 loitering munition — approximately 2,000 fired against US bases in first week')">
-            <div class="equip-badge">LOITERING MUNITION</div>
-            <div class="equip-country-badge">🇮🇷</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">Shahed-136 / Shahed-131</div>
-            <div class="equip-desc">Iran's primary mass-attack drone weapon. Delta-wing loitering munition with a characteristic buzzing engine sound. Used in swarms of dozens to hundreds to overwhelm air defenses through saturation. ~2,000 fired in the first week of the conflict. Low cost allows expenditure at scale.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">~$20,000</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">2,000 km</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">40 kg</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Pre-war stock</span><span class="equip-spec-val">10,000+</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Fired (est)</span><span class="equip-spec-val">2,000+</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Production/mo</span><span class="equip-spec-val">~300-500</span></div>
-            </div>
-            <a href="https://missilethreat.csis.org/missile/shahed-136/" class="equip-link" target="_blank">→ CSIS Missile Defense</a>
-          </div>
+      <div class="equip-body">
+        <div class="equip-name">B-52H Stratofortress</div>
+        <div class="equip-desc">Long-range heavy bomber deployed from Diego Garcia for Iran operations. Carries JASSM-ER and CALCM standoff cruise missiles enabling strikes outside Iranian air defense range. Capable of carpet bombing and precision standoff strike missions. Key platform for sustained munitions delivery.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">14,000 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">32,000 kg</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS standoff</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Strategic infra.</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Key Weapons</span><span class="equip-spec-val">JASSM-ER, CALCM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Deploy Base</span><span class="equip-spec-val">Diego Garcia</span></div>
         </div>
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <img src="https://static-cdn.toi-media.com/www/uploads/2026/02/AFP__20260211__96YG7GU__v3__HighRes__TopshotIranPoliticsAnniversary-e1770803220684.jpg" alt="Iranian Ballistic Missiles" onclick="openLightbox(this.src,'Iranian ballistic missile formation — Fateh-313, Dezful, Emad, and Khorramshahr-4 variants used in conflict')">
-            <div class="equip-badge">BALLISTIC MISSILE</div>
-            <div class="equip-country-badge">🇮🇷</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">Fateh-313 / Dezful</div>
-            <div class="equip-desc">Short-range ballistic missiles with solid-fuel motors enabling rapid launch from mobile TELs. The Dezful is an extended-range Fateh variant with 1,000km range capable of reaching all US bases in the region. Used extensively in the barrage attacks on Gulf bases.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Range (Dezful)</span><span class="equip-spec-val">1,000 km</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">~10-30 m</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">450 kg HE</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Pre-war stock</span><span class="equip-spec-val">500+</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Fired (est)</span><span class="equip-spec-val">200+</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Destroyed est</span><span class="equip-spec-val">30% of total</span></div>
-            </div>
-            <a href="https://missilethreat.csis.org/missile/fateh-313/" class="equip-link" target="_blank">→ CSIS Missile Threat</a>
-          </div>
-        </div>
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <img src="https://www.aljazeera.com/wp-content/uploads/2021/01/AP_21016342179876.jpg" alt="Iran Emad missile" onclick="openLightbox(this.src,'Iranian Emad long-range ballistic missile — IRGC Aerospace Force, capable of reaching Israel')">
-            <div class="equip-badge">MRBM</div>
-            <div class="equip-country-badge">🇮🇷</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">Emad / Khorramshahr-4</div>
-            <div class="equip-desc">Medium-range ballistic missiles capable of reaching Israel from Iranian territory. The Khorramshahr-4 (Kheybar) has a 2,000km range with maneuvering re-entry vehicle capability designed to defeat missile defense intercept. Used in strikes against Israeli territory.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,800-2,000 km</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">MaRV / GPS</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">1,500 kg</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Pre-war stock</span><span class="equip-spec-val">50-100</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Fired (est)</span><span class="equip-spec-val">30-50</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Factories</span><span class="equip-spec-val">2/3 destroyed</span></div>
-            </div>
-            <a href="https://missilethreat.csis.org/missile/khorramshahr/" class="equip-link" target="_blank">→ CSIS Missile Threat</a>
-          </div>
-        </div>
-
+        <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104465/b-52h-stratofortress/" class="equip-link" target="_blank">→ AF Fact Sheet</a>
       </div>
-    </div><!-- end wp-iran -->
+    </div>
 
-    <div id="wp-israeli" class="tab-pane">
-      <div class="card-grid grid-3">
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/aero/photo/F-35/22-08928-ADSW_JASSM-LRASM-F-35_AFA_Column-Wrap-V2-1280.jpg.pc-adaptive.full.medium.jpg" alt="F-35I Adir" onclick="openLightbox(this.src,'F-35I Adir — Israeli version of F-35 with unique modifications. Primary IDF strike aircraft for Iran operations')">
-            <div class="equip-badge">STEALTH MULTI-ROLE</div>
-            <div class="equip-country-badge">🇮🇱</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">F-35I Adir</div>
-            <div class="equip-desc">Israeli-modified F-35A with unique helmet-mounted displays, Israeli EW suites, and additional fuel capacity. Primary IDF strike aircraft for Iran missions, operating from Nevatim and Ramon AFBs. The Adir drops Israeli-modified GBU-28 bunker busters and Spice glide bombs.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">$100M+</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">IDF Fleet</span><span class="equip-spec-val">50 operational</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Key Weapon</span><span class="equip-spec-val">MPR-500 / Spice</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Losses</span><span class="equip-spec-val">None confirmed</span></div>
-            </div>
-            <a href="https://www.lockheedmartin.com/en-us/products/f-35.html" class="equip-link" target="_blank">→ Lockheed Martin</a>
-          </div>
-        </div>
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <div style="height:100%;background:var(--color-surface-3);display:flex;align-items:center;justify-content:center;font-size:3rem;">🛡️</div>
-            <div class="equip-badge">AIR DEFENSE</div>
-            <div class="equip-country-badge">🇮🇱</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">Arrow-3 / David's Sling</div>
-            <div class="equip-desc">Israel's upper-tier missile defense. Arrow-3 performs exo-atmospheric intercepts of Iranian ballistic missiles. David's Sling (jointly developed with Raytheon) handles medium-range threats. Together they form the top layers of Israel's multi-tier defense, above Iron Dome.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Arrow-3 Range</span><span class="equip-spec-val">2,400 km</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Arrow-3 Cost</span><span class="equip-spec-val">$3M/missile</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">D's Sling Cost</span><span class="equip-spec-val">$1M/missile</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Intercepts (est)</span><span class="equip-spec-val">Active daily</span></div>
-            </div>
-            <a href="https://www.iaf.org.il/en/articles/2282/arrow-weapon-system/" class="equip-link" target="_blank">→ IAF</a>
-          </div>
-        </div>
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <div style="height:100%;background:var(--color-surface-3);display:flex;align-items:center;justify-content:center;font-size:3rem;">💣</div>
-            <div class="equip-badge">BUNKER BUSTER</div>
-            <div class="equip-country-badge">🇺🇸</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">GBU-57 Massive Ordnance Penetrator</div>
-            <div class="equip-desc">The world's largest non-nuclear bunker buster bomb, weighing 30,000 lbs. Only the B-2 Spirit can carry it. Designed to penetrate 60+ meters of reinforced concrete before detonating. Used against Natanz, Fordow, and Isfahan underground nuclear halls. Effectiveness against deepest Fordow chambers remains uncertain.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Weight</span><span class="equip-spec-val">13,600 kg</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Penetration</span><span class="equip-spec-val">60m+ concrete</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">~$3.5M</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">~20 (classified)</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Expended (est)</span><span class="equip-spec-val">8-15</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Delivery</span><span class="equip-spec-val">B-2A only</span></div>
-            </div>
-            <a href="https://www.globalsecurity.org/military/systems/munitions/mop.htm" class="equip-link" target="_blank">→ GlobalSecurity</a>
-          </div>
-        </div>
-
+    <!-- B-1B Lancer -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/B-1B_over_the_Pacific_Ocean.jpg/480px-B-1B_over_the_Pacific_Ocean.jpg" alt="B-1B Lancer" loading="lazy" onerror="this.onerror=null;this.src='https://media.defense.gov/2021/Jan/09/2002566826/-1/-1/0/210108-F-JX000-001.JPG'" onclick="openLightbox(this.src,'B-1B Lancer — Supersonic variable-wing bomber carrying 24 JASSM-ER cruise missiles')">
+        <div class="equip-badge">STRATEGIC BOMBER</div>
+        <div class="equip-country-badge">🇺🇸</div>
       </div>
-    </div><!-- end wp-israeli -->
-
-    <div id="wp-proxy" class="tab-pane">
-      <div class="card-grid grid-3">
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <img src="https://platform.vox.com/wp-content/uploads/sites/2/2026/03/gettyimages-2260558310.jpg?quality=90&strip=all&crop=0%2C0%2C100%2C100&w=2400" alt="Shahed drone" onclick="openLightbox(this.src,'Iran Shahed drone used by Hezbollah — transferred to proxy forces for use against Israel')">
-            <div class="equip-badge">PROXY WEAPON</div>
-            <div class="equip-country-badge">🇱🇧</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">Hezbollah Rocket / Drone Arsenal</div>
-            <div class="equip-desc">Hezbollah maintains ~150,000 rockets and missiles — the largest non-state missile arsenal in history. They have been using them selectively since March 2, with 45+ daily operations against IDF positions in Lebanon and northern Israel. Includes guided Fateh-110 variants and Kornet ATGMs.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Total arsenal</span><span class="equip-spec-val">~150,000</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Daily ops</span><span class="equip-spec-val">45+</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Supply line</span><span class="equip-spec-val">Disrupted</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Precision missiles</span><span class="equip-spec-val">~5,000</span></div>
-            </div>
-          </div>
+      <div class="equip-body">
+        <div class="equip-name">B-1B Lancer</div>
+        <div class="equip-desc">Supersonic variable-sweep wing heavy bomber with the largest internal payload of any US bomber. Capable of low-level penetration at Mach 1.25. Carries 24 JASSM-ER cruise missiles internally plus LRASM anti-ship variant for maritime strike against IRGCN. Used in Operation Midnight Hammer initial strikes.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">12,000 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">34,000 kg</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS, seeker</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Fixed + naval</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">JASSM Capacity</span><span class="equip-spec-val">24 internal</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 1.25</span></div>
         </div>
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <div style="height:100%;background:var(--color-surface-3);display:flex;align-items:center;justify-content:center;font-size:3rem;">🚀</div>
-            <div class="equip-badge">HOUTHI WEAPON</div>
-            <div class="equip-country-badge">🇾🇪</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">Houthi Burkan-2H / Quds-1</div>
-            <div class="equip-desc">Houthi medium-range ballistic missiles and cruise missiles derived from Iranian designs. Burkan-2H has 1,200km range. Used in attacks on Saudi Arabia and more recently Israel's Eilat. Entered the conflict officially March 28. The Quds-1 cruise missile targets Israeli ports and logistics nodes.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Burkan Range</span><span class="equip-spec-val">1,200 km</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Quds-1 Range</span><span class="equip-spec-val">900 km</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Supply source</span><span class="equip-spec-val">Iran (IRGC)</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Entry date</span><span class="equip-spec-val">28 Mar 2026</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="equip-card">
-          <div class="equip-img-wrap">
-            <div style="height:100%;background:var(--color-surface-3);display:flex;align-items:center;justify-content:center;font-size:3rem;">⛵</div>
-            <div class="equip-badge">NAVAL</div>
-            <div class="equip-country-badge">🇮🇷</div>
-          </div>
-          <div class="equip-body">
-            <div class="equip-name">IRGC Fast Attack Craft (FAC)</div>
-            <div class="equip-desc">Iran's primary Hormuz control weapon — hundreds of small, fast boats armed with anti-ship missiles, rockets, and torpedoes operating in swarms. The IRGC Navy uses these to harass tanker traffic, plant mines, and threaten US naval vessels in the Persian Gulf. Several have been destroyed by US/coalition forces.</div>
-            <div class="equip-specs">
-              <div class="equip-spec"><span class="equip-spec-key">Fleet size</span><span class="equip-spec-val">~100 FAC</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">50+ knots</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Losses</span><span class="equip-spec-val">Multiple</span></div>
-              <div class="equip-spec"><span class="equip-spec-key">Operating area</span><span class="equip-spec-val">Hormuz Strait</span></div>
-            </div>
-          </div>
-        </div>
-
+        <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104500/b-1b-lancer/" class="equip-link" target="_blank">→ AF Fact Sheet</a>
       </div>
-    </div><!-- end wp-proxy -->
+    </div>
 
-  </div><!-- end tabs-wrap -->
+    <!-- F-35A Lightning II -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://media.defense.gov/2021/Sep/24/2002860968/-1/-1/0/210919-F-AF248-9084.JPG" alt="F-35A Lightning II" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/6/61/F-35A_flight_%28cropped%29.jpg'" onclick="openLightbox(this.src,'F-35A Lightning II — Multi-role stealth fighter used for SEAD and strike missions over Iran')">
+        <div class="equip-badge">STEALTH FIGHTER</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">F-35A Lightning II</div>
+        <div class="equip-desc">Fifth-generation stealth multirole fighter used for SEAD (Suppression of Enemy Air Defenses) and precision strike. Operates alongside Israeli F-35I Adirs. Stealth enables penetration of Iran's degraded S-300 and Bavar-373 systems. Internal weapons bay preserves low observable signature.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">2,220 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">8,160 kg</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">EO/IR, GPS/INS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">SEAD, strike</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">$82.5M</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Losses</span><span class="equip-spec-val">None confirmed</span></div>
+        </div>
+        <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/478441/f-35a-lightning-ii/" class="equip-link" target="_blank">→ AF Fact Sheet</a>
+      </div>
+    </div>
+
+    <!-- A-10 Thunderbolt II -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/A-10_Thunderbolt_II_In-flight-2.jpg/480px-A-10_Thunderbolt_II_In-flight-2.jpg" alt="A-10 Thunderbolt II Warthog" loading="lazy" onerror="this.onerror=null;this.src='https://media.defense.gov/2014/Sep/02/2000975044/780/780/0/140829-F-FT438-002.JPG'" onclick="openLightbox(this.src,'A-10 Thunderbolt II Warthog — Close air support platform for ground operations scenarios')">
+        <div class="equip-badge">CLOSE AIR SUPPORT</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">A-10C Thunderbolt II (Warthog)</div>
+        <div class="equip-desc">Dedicated close air support platform with titanium "bathtub" cockpit hardened against ground fire. GAU-8/A Avenger 30mm cannon fires 3,900 rounds/min at armored vehicles. Would be primary CAS platform in any ground operations scenario. Carries AGM-65 Maverick precision missiles for hardened targets.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">460 km combat</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">7,260 kg</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">EO/IR Maverick</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Armor, troops</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Main Gun</span><span class="equip-spec-val">GAU-8 30mm</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Ammo</span><span class="equip-spec-val">1,174 rounds</span></div>
+        </div>
+        <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104467/a-10-thunderbolt-ii/" class="equip-link" target="_blank">→ AF Fact Sheet</a>
+      </div>
+    </div>
+
+    <!-- KC-135 Stratotanker -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/KC-135_refueling_B-52.jpg/480px-KC-135_refueling_B-52.jpg" alt="KC-135 Stratotanker" loading="lazy" onerror="this.onerror=null;this.src='https://media.defense.gov/2020/Dec/04/2002547437/-1/-1/0/201130-F-BV388-1012.JPG'" onclick="openLightbox(this.src,'KC-135 Stratotanker — Critical aerial refueling platform. Multiple damaged at Prince Sultan AB; 6 crew killed in collision over Iraq')">
+        <div class="equip-badge">TANKER</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">KC-135 Stratotanker</div>
+        <div class="equip-desc">Critical aerial refueling backbone enabling extended-range strikes on Iran from bases in the Gulf and Diego Garcia. Multiple KC-135s damaged at Prince Sultan AB in Saudi Arabia by Iranian strikes March 27. Six crew killed when two collided over Iraq March 12. Irreplaceable for sustained air operations.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">14,800 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">90,700 kg fuel</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">N/A (support)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Fuel transfer</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Damaged</span><span class="equip-spec-val">5+ confirmed</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Crew Killed</span><span class="equip-spec-val">6</span></div>
+        </div>
+        <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/110486/kc-135-stratotanker/" class="equip-link" target="_blank">→ AF Fact Sheet</a>
+      </div>
+    </div>
+
+    <!-- AGM-158B JASSM-ER -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/mfc/photo/jassm/23-16561_ADSW_JASSM-B-2_Updated-Graphic-web.jpg.pc-adaptive.full.medium.jpg" alt="AGM-158B JASSM-ER" loading="lazy" style="object-fit:contain;background:#0a0c10;">
+        <div class="equip-badge">AIR-LAUNCHED MISSILE</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">AGM-158B JASSM-ER</div>
+        <div class="equip-desc">Joint Air-to-Surface Standoff Missile Extended Range — low-observable cruise missile. Allows F-15E, B-1B, and B-52 to strike Iranian targets without entering range of surviving air defenses. INS/GPS with IIR scene-matching seeker provides sub-meter accuracy against hardened targets.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">930 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">450 kg WDU-42</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS + IIR</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Hardened, buried</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">$1.3M</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Estimated Used</span><span class="equip-spec-val">100–200+</span></div>
+        </div>
+        <a href="https://www.lockheedmartin.com/en-us/products/jassm.html" class="equip-link" target="_blank">→ Lockheed Martin</a>
+      </div>
+    </div>
+
+    <!-- BGM-109 Tomahawk -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Tomahawk_Block_IV_cruise_missile.jpg/480px-Tomahawk_Block_IV_cruise_missile.jpg" alt="BGM-109 Tomahawk" loading="lazy" onerror="this.onerror=null;this.src='https://prd-sc102-cdn.rtx.com/raytheon/-/media/ray/rmd/what-we-do/naval-warfare/advanced-strike-weapons/tomahawk-cruise-missile/2020-02/images/tomahawk_hero.jpg.pc-adaptive.full.medium.jpg'" onclick="openLightbox(this.src,'BGM-109 Tomahawk — Stand-off cruise missile launched from submarines and surface ships against Iranian targets')">
+        <div class="equip-badge">CRUISE MISSILE</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">BGM-109 Tomahawk</div>
+        <div class="equip-desc">All-weather, long-range cruise missile launched from US Navy submarines and surface ships in the Gulf and Arabian Sea. Used against fixed infrastructure, air defense sites, and command facilities. Terrain-following GPS/INS guidance. Estimates suggest 200+ fired in first week of operations.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,600 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">454 kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS/DSMAC</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Fixed infra, C2</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">$2M+</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Estimated Used</span><span class="equip-spec-val">200–400+</span></div>
+        </div>
+        <a href="https://www.rtx.com/raytheon/what-we-do/sea/tomahawk" class="equip-link" target="_blank">→ Raytheon</a>
+      </div>
+    </div>
+
+    <!-- PrSM -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/PrSM_test_fire.jpg/480px-PrSM_test_fire.jpg" alt="PrSM Precision Strike Missile" loading="lazy" onerror="this.onerror=null;this.src='https://www.lockheedmartin.com/content/dam/lockheed-martin/mfc/photo/prsm/PrSM-hero-1280.jpg.pc-adaptive.full.medium.jpg'" onclick="openLightbox(this.src,'PrSM Precision Strike Missile — Army tactical missile replacing ATACMS with 499km+ range')">
+        <div class="equip-badge">TACTICAL MISSILE</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">PrSM (Precision Strike Missile)</div>
+        <div class="equip-desc">Next-generation Army tactical ballistic missile replacing ATACMS. Deployed with M270 MLRS and M142 HIMARS artillery units. GPS/INS guidance with multi-mode seeker. Targets air defense radars, command nodes, logistics hubs, and troop concentrations. Two missiles fit in a single ATACMS canister.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">499 km+</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">Classified HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS + seeker</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">AD, C2, logistics</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Launcher</span><span class="equip-spec-val">HIMARS / M270</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">&lt;10 m</span></div>
+        </div>
+        <a href="https://www.lockheedmartin.com/en-us/products/precision-strike-missile.html" class="equip-link" target="_blank">→ Lockheed Martin</a>
+      </div>
+    </div>
+
+    <!-- GBU-31/32 JDAM -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Mk_84_JDAM.jpg/480px-Mk_84_JDAM.jpg" alt="GBU-31 JDAM" loading="lazy" onerror="this.onerror=null;this.src='https://media.defense.gov/2003/Mar/21/2000322540/780/780/0/030320-F-2828D-197.JPG'" onclick="openLightbox(this.src,'GBU-31/32 JDAM — GPS/INS guided bomb kit on Mk84 2,000lb or Mk83 1,000lb bomb')">
+        <div class="equip-badge">GUIDED BOMB</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">GBU-31/32 JDAM</div>
+        <div class="equip-desc">Joint Direct Attack Munition — low-cost GPS/INS strap-on guidance kit converting unguided Mk84 (2,000 lb) or Mk83 (1,000 lb) bombs into precision weapons. CEP under 13 meters in GPS-denied conditions. At $25K per kit, the most economical precision weapon in the US arsenal. Used in massive quantities against Iranian military targets.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">28 km (glide)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">900 kg (Mk84)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Fixed targets</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">&lt;13 m</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Kit Cost</span><span class="equip-spec-val">~$25K</span></div>
+        </div>
+        <a href="https://www.boeing.com/defense/jdam/" class="equip-link" target="_blank">→ Boeing JDAM</a>
+      </div>
+    </div>
+
+    <!-- GBU-57 MOP -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <div style="height:100%;background:var(--color-surface-3);display:flex;align-items:center;justify-content:center;font-size:3rem;">💣</div>
+        <div class="equip-badge">BUNKER BUSTER</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">GBU-57 Massive Ordnance Penetrator</div>
+        <div class="equip-desc">World's largest non-nuclear bunker buster at 30,000 lbs. Only the B-2 Spirit can carry it. Designed to penetrate 60+ meters of reinforced concrete before detonating. Used against Natanz, Fordow, and Isfahan underground nuclear halls. Effectiveness against deepest Fordow chambers (80–90m granite) remains classified.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">N/A (gravity)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">13,600 kg total</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Underground bunkers</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Penetration</span><span class="equip-spec-val">60m+ concrete</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Expended (est)</span><span class="equip-spec-val">8–15</span></div>
+        </div>
+        <a href="https://www.globalsecurity.org/military/systems/munitions/mop.htm" class="equip-link" target="_blank">→ GlobalSecurity</a>
+      </div>
+    </div>
+
+    <!-- THAAD / SM-3 -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/The_first_of_two_Terminal_High_Altitude_Area_Defense_%28THAAD%29_interceptors_is_launched_during_a_successful_intercept_test_-_US_Army.jpg" alt="THAAD interceptor launch test" loading="lazy" style="object-fit:contain;background:#0a0c10;">
+        <div class="equip-badge">BALLISTIC MISSILE DEFENSE</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">THAAD / SM-3 Block IIA</div>
+        <div class="equip-desc">Terminal High Altitude Area Defense and SM-3 Block IIA ballistic missile intercept systems. THAAD radar at Al Udeid was destroyed, degrading regional coverage. SM-3 fired from Aegis ships in the Gulf and Red Sea. Intercept rates sufficient to prevent catastrophic losses but insufficient to stop all Iranian volleys.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">200 km (THAAD)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">Hit-to-kill</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">Radar/IR homing</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">MRBM, SRBM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">THAAD Destroyed</span><span class="equip-spec-val">1 radar</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Intercepts (est)</span><span class="equip-spec-val">60–70%</span></div>
+        </div>
+        <a href="https://www.mda.mil/system/thaad.html" class="equip-link" target="_blank">→ MDA</a>
+      </div>
+    </div>
+
+    <!-- USS Aircraft Carriers -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://media.defense.gov/2019/Apr/15/2002114786/780/780/0/190410-N-HG545-1063.JPG" alt="Nimitz-class aircraft carrier" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/USS_Harry_S._Truman_%28CVN-75%29.jpg/480px-USS_Harry_S._Truman_%28CVN-75%29.jpg'" onclick="openLightbox(this.src,'US Nimitz/Ford-class carriers — Two carrier strike groups deployed, ~150 aircraft total')">
+        <div class="equip-badge">NAVAL ASSET</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Nimitz/Ford-class CVN</div>
+        <div class="equip-desc">Two carrier strike groups deployed to the region — one in the Arabian Sea, one in the Red Sea/Gulf of Aden. Each carrier fields approximately 75 aircraft including F/A-18E/F Super Hornets and EA-18G Growlers for electronic warfare. Provides mobile airpower projection independent of regional basing.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">Unlimited (nuclear)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">~75 aircraft</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">Various munitions</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">All categories</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">CSGs deployed</span><span class="equip-spec-val">2</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Total aircraft</span><span class="equip-spec-val">~150</span></div>
+        </div>
+        <a href="https://www.navy.mil/Resources/Fact-Files/Display-FactFiles/Article/2169795/aircraft-carriers-cvn/" class="equip-link" target="_blank">→ US Navy</a>
+      </div>
+    </div>
+
+    <!-- Ohio-class SSGN -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/USS_Ohio_SSGN-726_Puget_Sound.jpg/480px-USS_Ohio_SSGN-726_Puget_Sound.jpg" alt="Ohio-class SSGN submarine" loading="lazy" onerror="this.onerror=null;this.src='https://media.defense.gov/2004/Jun/18/2000613068/780/780/0/040614-N-8157F-003.JPG'" onclick="openLightbox(this.src,'Ohio-class SSGN — 154 Tomahawk VLS cells, used in Operation Midnight Hammer strikes')">
+        <div class="equip-badge">SUBMARINE</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Ohio-class SSGN</div>
+        <div class="equip-desc">Guided missile submarine converted from Trident SSBN. Each SSGN carries 154 Tomahawk cruise missiles in 22 VLS tubes. Submerged launch capability makes them virtually undetectable and untargetable. Played a key role in Operation Midnight Hammer initial strike package against Iranian leadership and nuclear infrastructure.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">Unlimited (nuclear)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">154 Tomahawks</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS/DSMAC</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Fixed, C2, bunkers</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">VLS Tubes</span><span class="equip-spec-val">22 (7 missiles ea.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Detectability</span><span class="equip-spec-val">Near-zero</span></div>
+        </div>
+        <a href="https://www.navy.mil/Resources/Fact-Files/Display-FactFiles/Article/2169541/submarines-guided-missile-ssgn/" class="equip-link" target="_blank">→ US Navy</a>
+      </div>
+    </div>
+
+    <!-- Arleigh Burke DDG -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/USS_Arleigh_Burke_DDG-51.jpg/480px-USS_Arleigh_Burke_DDG-51.jpg" alt="Arleigh Burke-class destroyer" loading="lazy" onerror="this.onerror=null;this.src='https://media.defense.gov/2021/Oct/25/2002882867/780/780/0/211022-N-BQ494-1026.JPG'" onclick="openLightbox(this.src,'Arleigh Burke-class DDG — Aegis combat system with SM-3 and SM-6, primary BMD platform')">
+        <div class="equip-badge">DESTROYER</div>
+        <div class="equip-country-badge">🇺🇸</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Arleigh Burke-class DDG</div>
+        <div class="equip-desc">Aegis-equipped guided missile destroyer serving as the primary ballistic missile defense platform in the theater. SPY-1D radar provides 360° coverage; SM-3 and SM-6 missiles intercept Iranian ballistic missiles in boost and terminal phases. Multiple DDGs positioned in the Arabian Sea, Persian Gulf, and Red Sea.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">SM-3: 700 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">90 VLS cells</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">Aegis radar/IR</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">BMD, ASuW, ASW</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Interceptors</span><span class="equip-spec-val">SM-3 / SM-6</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Deployed (est)</span><span class="equip-spec-val">8–12 ships</span></div>
+        </div>
+        <a href="https://www.navy.mil/Resources/Fact-Files/Display-FactFiles/Article/2169558/destroyers-ddg-51/" class="equip-link" target="_blank">→ US Navy</a>
+      </div>
+    </div>
+
+  </div><!-- end 07-A equip-grid -->
+
+  <!-- ── 07-B: ISRAELI PLATFORMS ────────────────────────── -->
+  <div style="margin:var(--space-8) 0 var(--space-4); padding-bottom:var(--space-2); border-bottom:2px solid var(--color-accent);">
+    <span style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;color:var(--color-accent);">07-B //</span>
+    <span style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#fff;margin-left:var(--space-2);">ISRAELI PLATFORMS</span>
+  </div>
+
+  <div class="equip-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);">
+
+    <!-- F-35I Adir -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/F-35I_Adir_in_flight_%28cropped%29.jpg/480px-F-35I_Adir_in_flight_%28cropped%29.jpg" alt="F-35I Adir" loading="lazy" onerror="this.onerror=null;this.src='https://www.lockheedmartin.com/content/dam/lockheed-martin/aero/photo/F-35/22-08928-ADSW_JASSM-LRASM-F-35_AFA_Column-Wrap-V2-1280.jpg.pc-adaptive.full.medium.jpg'" onclick="openLightbox(this.src,'F-35I Adir — Israeli-modified F-35A. Primary IDF strike aircraft for Iran operations')">
+        <div class="equip-badge">STEALTH FIGHTER</div>
+        <div class="equip-country-badge">🇮🇱</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">F-35I Adir</div>
+        <div class="equip-desc">Israeli-modified F-35A with unique Israeli EW suites, helmet-mounted displays, and additional fuel capacity. Primary IDF strike aircraft for Iran missions from Nevatim and Ramon AFBs. Internal weapons bay preserves stealth signature. Carries Israeli-modified GBU-28 bunker busters and Spice glide bombs.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,100 km combat</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">8,160 kg</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">EO/IR + GPS/INS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Nuclear, AD, C2</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">IDF Fleet</span><span class="equip-spec-val">50 operational</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Losses</span><span class="equip-spec-val">None confirmed</span></div>
+        </div>
+        <a href="https://www.lockheedmartin.com/en-us/products/f-35.html" class="equip-link" target="_blank">→ Lockheed Martin</a>
+      </div>
+    </div>
+
+    <!-- F-15I Ra'am -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/F-15I_Ra%27am_IMOD_Israeli_Air_Force.jpg/480px-F-15I_Ra%27am_IMOD_Israeli_Air_Force.jpg" alt="F-15I Ra'am" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/F-15C_Eagle_from_the_67th_Fighter_Squadron_at_Kadena_AB_is_refueled_by_a_KC-135R_Stratotanker_from_the_909th_Air_Refueling_Squadron_.jpg/480px-F-15C_Eagle_from_the_67th_Fighter_Squadron.jpg'" onclick="openLightbox(this.src,'F-15I Ra\'am — Long-range Israeli strike variant of F-15E with conformal fuel tanks')">
+        <div class="equip-badge">STRIKE FIGHTER</div>
+        <div class="equip-country-badge">🇮🇱</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">F-15I Ra'am</div>
+        <div class="equip-desc">Long-range Israeli strike variant of the F-15E with conformal fuel tanks, two-crew configuration, and Israeli avionics suite. Carries Rampage supersonic air-to-surface missiles against hardened targets. Primary non-stealth deep-strike platform. Used in tandem with F-35I for layered strike packages against Iran.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,270 km combat</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">11,100 kg</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">EO/IR, GPS/INS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Hardened bunkers</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Crew</span><span class="equip-spec-val">2</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Key Weapon</span><span class="equip-spec-val">Rampage missile</span></div>
+        </div>
+        <a href="https://en.wikipedia.org/wiki/McDonnell_Douglas_F-15I_Ra%27am" class="equip-link" target="_blank">→ Wikipedia</a>
+      </div>
+    </div>
+
+    <!-- F-16I Sufa -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/F-16I_Sufa_Israeli_Air_Force.jpg/480px-F-16I_Sufa_Israeli_Air_Force.jpg" alt="F-16I Sufa" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Two_F-16_Fighting_Falcons.jpg/480px-Two_F-16_Fighting_Falcons.jpg'" onclick="openLightbox(this.src,'F-16I Sufa — Israeli multirole fighter with conformal tanks and Delilah cruise missiles')">
+        <div class="equip-badge">MULTIROLE FIGHTER</div>
+        <div class="equip-country-badge">🇮🇱</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">F-16I Sufa</div>
+        <div class="equip-desc">Israeli-specific F-16D variant with conformal fuel tanks, Israeli avionics, and extended range enabling deep strike missions. Carries Delilah loitering cruise missiles against soft targets and radar systems. Largest combat aircraft type in the IAF inventory. Operates in mixed packages with F-35I and F-15I.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,000+ km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">7,700 kg</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">EO/IR, GPS/INS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">AD, soft targets</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Key Weapon</span><span class="equip-spec-val">Delilah, JDAM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">IDF Fleet</span><span class="equip-spec-val">~100+</span></div>
+        </div>
+        <a href="https://en.wikipedia.org/wiki/General_Dynamics_F-16I_Sufa" class="equip-link" target="_blank">→ Wikipedia</a>
+      </div>
+    </div>
+
+    <!-- Rampage missile -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Rampage_air-to-surface_missile.jpg/480px-Rampage_air-to-surface_missile.jpg" alt="Rampage supersonic missile" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Rampage_missile_IMOD_2019.jpg/480px-Rampage_missile_IMOD_2019.jpg'" onclick="openLightbox(this.src,'Rampage — Israeli supersonic air-to-surface missile, Mach 3+, used against hardened Iranian targets')">
+        <div class="equip-badge">SUPERSONIC ASM</div>
+        <div class="equip-country-badge">🇮🇱</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Rampage Missile</div>
+        <div class="equip-desc">Israeli supersonic air-to-surface ballistic missile jointly developed by Elbit and IAI. Speed of Mach 3+ makes it extremely difficult to intercept. GPS/INS with scene-matching terminal guidance provides sub-5m accuracy. 150kg penetrating warhead targets hardened Iranian bunkers, command posts, and air defense sites.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">150+ km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">150 kg penetrator</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS + scene</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Hardened bunkers</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 3+</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Platform</span><span class="equip-spec-val">F-15I Ra'am</span></div>
+        </div>
+        <a href="https://en.wikipedia.org/wiki/Rampage_(missile)" class="equip-link" target="_blank">→ Wikipedia</a>
+      </div>
+    </div>
+
+    <!-- Arrow 2/3 + David's Sling + Iron Dome -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Arrow_3_Missile_Defense_System_-_MOD.jpg/480px-Arrow_3_Missile_Defense_System_-_MOD.jpg" alt="Arrow 3 missile defense" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/The_first_of_two_Terminal_High_Altitude_Area_Defense_%28THAAD%29_interceptors_is_launched_during_a_successful_intercept_test_-_US_Army.jpg/480px-THAAD.jpg'" onclick="openLightbox(this.src,'Arrow-3/2, David\'s Sling, Iron Dome — Israel\'s multi-layer ballistic missile defense network')">
+        <div class="equip-badge">MULTI-LAYER BMD</div>
+        <div class="equip-country-badge">🇮🇱</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Arrow 3 / Arrow 2 / David's Sling / Iron Dome</div>
+        <div class="equip-desc">Israel's multi-tier missile defense network. Arrow-3 performs exo-atmospheric intercepts of Iranian MRBMs (2,400km range). Arrow-2 handles terminal-phase intercepts. David's Sling (with Raytheon) covers medium-range threats. Iron Dome defends against short-range rockets and drones. All four layers active simultaneously.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">Arrow-3: 2,400 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">Hit-to-kill KV</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">Radar/IR homing</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">MRBM → rockets</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Arrow-3 Cost</span><span class="equip-spec-val">$3M/missile</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Active daily ops</span></div>
+        </div>
+        <a href="https://www.iaf.org.il/en/articles/2282/arrow-weapon-system/" class="equip-link" target="_blank">→ IAF</a>
+      </div>
+    </div>
+
+    <!-- Hermes 900/450 UAVs -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Hermes_900_IAF.jpg/480px-Hermes_900_IAF.jpg" alt="Hermes 900 UAV" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Hermes_900_Elbit.jpg/480px-Hermes_900_Elbit.jpg'" onclick="openLightbox(this.src,'Hermes 900 MALE UAV — Israeli long-endurance ISR drone used for BDA and targeting over Iran')">
+        <div class="equip-badge">ISR DRONE</div>
+        <div class="equip-country-badge">🇮🇱</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Hermes 900 / 450 UAV</div>
+        <div class="equip-desc">Israeli MALE (Medium Altitude Long Endurance) UAS used for persistent ISR over Iran and battle damage assessment (BDA) following strikes. The Hermes 900 can loiter for 36+ hours at 30,000 ft with multi-sensor payload. Used to identify surviving Iranian military assets and confirm strike effectiveness at nuclear sites.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,000 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">350 kg sensors</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">Satcom + auto</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">ISR / BDA</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Endurance</span><span class="equip-spec-val">36+ hrs</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Altitude</span><span class="equip-spec-val">30,000 ft</span></div>
+        </div>
+        <a href="https://elbitsystems.com/product/hermes-900/" class="equip-link" target="_blank">→ Elbit Systems</a>
+      </div>
+    </div>
+
+    <!-- Delilah Cruise Missile -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Delilah_missile.jpg/480px-Delilah_missile.jpg" alt="Delilah cruise missile" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Rafael_Delilah_Missile.jpg/480px-Rafael_Delilah_Missile.jpg'" onclick="openLightbox(this.src,'Delilah — Israeli loitering cruise missile with TV/IR seeker, used by F-16I against Iranian air defenses')">
+        <div class="equip-badge">CRUISE MISSILE</div>
+        <div class="equip-country-badge">🇮🇱</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Delilah Cruise Missile</div>
+        <div class="equip-desc">Israeli loitering air-launched cruise missile with TV/IR seeker and man-in-the-loop guidance. Can loiter over the target area and re-attack if target moves. Anti-radiation variant homes on radar emissions. Used by F-16I Sufa for suppression of Iranian air defense radars and mobile command posts. Turbojet powered at high subsonic speed.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">250 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">30 kg warhead</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">TV/IR + loiter</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Radar, mobile AD</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">High subsonic</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Platform</span><span class="equip-spec-val">F-16I Sufa</span></div>
+        </div>
+        <a href="https://www.rafael.co.il/systems/delilah/" class="equip-link" target="_blank">→ Rafael</a>
+      </div>
+    </div>
+
+    <!-- Blue Sparrow / Arrow Testing -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <div style="height:100%;background:var(--color-surface-3);display:flex;align-items:center;justify-content:center;font-size:3rem;">🛡️</div>
+        <div class="equip-badge">TARGET MISSILE</div>
+        <div class="equip-country-badge">🇮🇱</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Blue Sparrow / Sparrow Target Missile</div>
+        <div class="equip-desc">Israeli ballistic missile targets used to simulate Iranian MRBMs for Arrow-3 and Arrow-2 intercept testing. The Blue Sparrow replicates Iranian Shahab and Emad missile flight profiles. Regularly tested against Arrow systems. Context for understanding the technological baseline of Israeli BMD: the system has been proven against simulated Iranian missiles repeatedly.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">Simulates 1,500 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">Inert warhead</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">Programmed flight</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">BMD test surrogate</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Developer</span><span class="equip-spec-val">Elbit Systems</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Tests passed</span><span class="equip-spec-val">Multiple</span></div>
+        </div>
+        <a href="https://en.wikipedia.org/wiki/Blue_Sparrow_missile" class="equip-link" target="_blank">→ Wikipedia</a>
+      </div>
+    </div>
+
+  </div><!-- end 07-B equip-grid -->
+
+  <!-- ── 07-C: IRANIAN ARSENAL ──────────────────────────── -->
+  <div style="margin:var(--space-8) 0 var(--space-4); padding-bottom:var(--space-2); border-bottom:2px solid var(--color-accent);">
+    <span style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;color:var(--color-accent);">07-C //</span>
+    <span style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#fff;margin-left:var(--space-2);">IRANIAN ARSENAL (REMAINING)</span>
+  </div>
+
+  <div class="equip-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);">
+
+    <!-- Shahab-3 -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Shahab-3_Ballistic_Missile.jpg/480px-Shahab-3_Ballistic_Missile.jpg" alt="Shahab-3 MRBM" loading="lazy" onerror="this.onerror=null;this.src='https://missilethreat.csis.org/wp-content/uploads/2017/04/Shahab-3.jpg'" onclick="openLightbox(this.src,'Shahab-3 MRBM — Iran\'s medium-range ballistic missile, range 1,300–2,000km, many destroyed in opening strikes')">
+        <div class="equip-badge">MRBM</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Shahab-3</div>
+        <div class="equip-desc">Iran's primary medium-range ballistic missile, derived from North Korean Nodong-1. Liquid-fueled, requiring 1–2 hours to prepare for launch. Pre-war inventory estimated at ~200. Significant numbers destroyed in opening US/Israeli strikes on missile bases and TEL storage. Remaining units threaten Israel and regional US bases.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,300–2,000 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">760–1,200 kg</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Israel, US bases</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Pre-war stock</span><span class="equip-spec-val">~200</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fuel type</span><span class="equip-spec-val">Liquid (slow prep)</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/shahab-3/" class="equip-link" target="_blank">→ CSIS Missile Threat</a>
+      </div>
+    </div>
+
+    <!-- Emad -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://www.aljazeera.com/wp-content/uploads/2021/01/AP_21016342179876.jpg" alt="Iran Emad MRBM" loading="lazy" onclick="openLightbox(this.src,'Emad MRBM — Iranian maneuvering re-entry vehicle MRBM, range 1,700km, GPS-guided')">
+        <div class="equip-badge">MRBM</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Emad MRBM</div>
+        <div class="equip-desc">Improved Shahab-3 derivative with maneuverable re-entry vehicle (MaRV), making it significantly harder to intercept with ballistic missile defenses. GPS-guided with claimed CEP of 500m. Liquid-fueled. Range of 1,700km can reach Israel from central Iran. Used in strikes against Israeli territory during the conflict.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,700 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">750 kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS + MaRV</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Israel, regional</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">~500 m</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Pre-war stock</span><span class="equip-spec-val">50–100</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/emad/" class="equip-link" target="_blank">→ CSIS Missile Threat</a>
+      </div>
+    </div>
+
+    <!-- Sejjil -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Sejil-2_ballistic_missile.jpg/480px-Sejil-2_ballistic_missile.jpg" alt="Sejjil MRBM" loading="lazy" onerror="this.onerror=null;this.src='https://missilethreat.csis.org/wp-content/uploads/2017/04/Sejil-2.jpg'" onclick="openLightbox(this.src,'Sejjil-2 MRBM — Iranian solid-fuel MRBM, faster to launch than liquid-fueled variants, range 2,000km')">
+        <div class="equip-badge">MRBM</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Sejjil MRBM</div>
+        <div class="equip-desc">Iran's solid-fueled medium-range ballistic missile provides faster launch preparation than liquid-fueled Shahab variants — minutes versus hours. Two-stage solid-fuel motor enables rapid deployment from mobile TELs making pre-emptive strikes harder. 2,000km range comfortably reaches all of Israel. Harder to intercept than Shahab due to flatter trajectory.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">2,000 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">750 kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Israel, US bases</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fuel</span><span class="equip-spec-val">Solid (rapid)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Stages</span><span class="equip-spec-val">2</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/sejil-2/" class="equip-link" target="_blank">→ CSIS Missile Threat</a>
+      </div>
+    </div>
+
+    <!-- Fattah-1/2 -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Fattah_hypersonic_missile.jpg/480px-Fattah_hypersonic_missile.jpg" alt="Fattah hypersonic missile" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Fattah_Missile_Iranian_Hypersonic.jpg/480px-Fattah_Missile_Iranian_Hypersonic.jpg'" onclick="openLightbox(this.src,'Fattah-1 hypersonic missile — Iran claims Mach 13-15, 1,400km range, maneuvering warhead')">
+        <div class="equip-badge">HYPERSONIC MISSILE</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Fattah-1 / Fattah-2</div>
+        <div class="equip-desc">Iran's claimed hypersonic ballistic missile with maneuvering hypersonic glide vehicle (HGV) warhead. IRGC claims Mach 13–15 terminal velocity — if accurate, impossible to intercept with current US/Israeli BMD. The Fattah-2 variant reportedly has an infrared-guided seeker. Pre-war inventory uncertain; status following strikes unknown.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,400 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">Classified</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">INS + IR seeker</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">High-value fixed</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Claimed speed</span><span class="equip-spec-val">Mach 13–15</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Inventory status</span><span class="equip-spec-val">Uncertain</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/fattah/" class="equip-link" target="_blank">→ CSIS Missile Threat</a>
+      </div>
+    </div>
+
+    <!-- Shahed-136/238 -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/37/2023_IRGC_Aerospace_Force_achievements_Exhibition_in_Qom_%2833%29.jpg" alt="Shahed-136 loitering munition" loading="lazy" onclick="openLightbox(this.src,'Shahed-136 — Iranian delta-wing loitering munition, ~2,000 fired in first week. GPS+GLONASS, $20-50K each')">
+        <div class="equip-badge">LOITERING MUNITION</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Shahed-136 / Shahed-238</div>
+        <div class="equip-desc">Iran's primary mass-attack drone weapon. Delta-wing one-way attack munition used in swarms of hundreds to overwhelm air defenses through saturation. GPS+GLONASS guidance with characteristic buzzing engine. The Shahed-238 is a jet-powered upgrade with higher speed. ~2,000 fired in the first week. Pre-war stock estimated at 10,000+.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">2,000+ km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">40–50 kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS + GLONASS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Bases, radar, ships</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">$20–50K</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fired (est)</span><span class="equip-spec-val">2,000+</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/shahed-136/" class="equip-link" target="_blank">→ CSIS Missile Threat</a>
+      </div>
+    </div>
+
+    <!-- Fateh-313 / Dezful SRBM -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://static-cdn.toi-media.com/www/uploads/2026/02/AFP__20260211__96YG7GU__v3__HighRes__TopshotIranPoliticsAnniversary-e1770803220684.jpg" alt="Iranian ballistic missiles" loading="lazy" onclick="openLightbox(this.src,'Iranian Fateh-313/Dezful SRBM — Solid-fuel short-range missiles used in Gulf base barrages')">
+        <div class="equip-badge">SRBM</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Fateh-313 / Dezful SRBM</div>
+        <div class="equip-desc">Solid-fuel short-range ballistic missiles with rapid launch capability from mobile TELs. The Dezful is an extended-range Fateh variant with 1,000km range capable of reaching all US bases in the Gulf. Used extensively in barrage attacks on US bases in Saudi Arabia, Qatar, and UAE. CEP of 10–30m allows targeting of specific structures.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,000 km (Dezful)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">450 kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">US Gulf bases</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">10–30 m</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fired (est)</span><span class="equip-spec-val">200+</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/fateh-313/" class="equip-link" target="_blank">→ CSIS Missile Threat</a>
+      </div>
+    </div>
+
+    <!-- Shahed-129 -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Shahed_129_at_Kish_Airshow_2014.jpg/480px-Shahed_129_at_Kish_Airshow_2014.jpg" alt="Shahed-129 MALE UAV" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Shahed129.jpg/480px-Shahed129.jpg'" onclick="openLightbox(this.src,'Shahed-129 — Iran\'s primary MALE UAV, 1,700km range, 24-hour endurance ISR and strike')">
+        <div class="equip-badge">MALE DRONE</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Shahed-129</div>
+        <div class="equip-desc">Iran's primary MALE (Medium Altitude Long Endurance) combat drone. 24-hour endurance enables persistent ISR and strike missions. Can carry Sadid and Qaem precision-guided munitions. Used for BDA following ballistic missile strikes and to track US/Israeli naval movements. Several shot down over the Gulf and Oman Sea.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,700 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">400 kg munitions</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">Satcom + EO/IR</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">ISR, strike</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Endurance</span><span class="equip-spec-val">24 hrs</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Ceiling</span><span class="equip-spec-val">24,000 ft</span></div>
+        </div>
+        <a href="https://en.wikipedia.org/wiki/HESA_Shahed_129" class="equip-link" target="_blank">→ Wikipedia</a>
+      </div>
+    </div>
+
+    <!-- Mohajer-6 -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Mohajer-6_drone.jpg/480px-Mohajer-6_drone.jpg" alt="Mohajer-6 tactical drone" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Mohajer-6_IRGC.jpg/480px-Mohajer-6_IRGC.jpg'" onclick="openLightbox(this.src,'Mohajer-6 — Iranian tactical drone, 200km range, carries Qaem PGM for precision strike')">
+        <div class="equip-badge">TACTICAL DRONE</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Mohajer-6</div>
+        <div class="equip-desc">Iranian tactical MALE drone capable of carrying two Qaem precision-guided munitions. Used for short-range ISR, BDA, and precision strike against observed targets. Piston-engine with 12-hour endurance. Widely exported to Russian forces in Ukraine. Multiple units used for targeting US and Israeli assets in the theater.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">200 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">2× Qaem PGM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">EO/IR + GPS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">ISR, precision strike</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Endurance</span><span class="equip-spec-val">12 hrs</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Also used by</span><span class="equip-spec-val">Russia (Ukraine)</span></div>
+        </div>
+        <a href="https://en.wikipedia.org/wiki/Qods_Mohajer-6" class="equip-link" target="_blank">→ Wikipedia</a>
+      </div>
+    </div>
+
+    <!-- Ya Ali cruise missile -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Ya_Ali_cruise_missile.jpg/480px-Ya_Ali_cruise_missile.jpg" alt="Ya Ali cruise missile" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Ya_Ali_Iran_cruise_missile.jpg/480px-Ya_Ali_Iran_cruise_missile.jpg'" onclick="openLightbox(this.src,'Ya Ali — Iranian 700km turbojet terrain-following cruise missile for land-attack')">
+        <div class="equip-badge">CRUISE MISSILE</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Ya Ali Cruise Missile</div>
+        <div class="equip-desc">Iranian medium-range air-launched cruise missile with terrain-following radar guidance. Turbojet powered with 700km range. Can be launched from Iranian tactical aircraft (F-4 Phantoms, Su-24). Used against ground targets including command posts, logistics infrastructure, and port facilities. Radar altimeter enables low-level approach to evade radar.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">700 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">45 kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">INS + terrain radar</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Land-attack</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Propulsion</span><span class="equip-spec-val">Turbojet</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Platform</span><span class="equip-spec-val">F-4, Su-24</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/ya-ali/" class="equip-link" target="_blank">→ CSIS Missile Threat</a>
+      </div>
+    </div>
+
+    <!-- C-802 / Noor anti-ship missile -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/C-802_Noor_Iran_IRGCN.jpg/480px-C-802_Noor_Iran_IRGCN.jpg" alt="C-802 Noor anti-ship missile" loading="lazy" onerror="this.onerror=null;this.src='https://missilethreat.csis.org/wp-content/uploads/2016/08/C-802-Noor.jpg'" onclick="openLightbox(this.src,'C-802/Noor — Iranian anti-ship missile with active radar seeker, used by IRGCN in the Persian Gulf')">
+        <div class="equip-badge">ANTI-SHIP MISSILE</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">C-802 / Noor Anti-Ship Missile</div>
+        <div class="equip-desc">Iranian license-produced copy of the Chinese YJ-82 (C-802) anti-ship cruise missile. Active radar seeker provides fire-and-forget capability. Used by IRGC Navy for coastal defense and Strait of Hormuz denial. Subsonic sea-skimming flight profile at 5–10m altitude makes it difficult to detect and intercept. Pre-war stock: 100–200 missiles.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">120 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">165 kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">Active radar seeker</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Surface ships</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Flight profile</span><span class="equip-spec-val">Sea-skimming 5m</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Operator</span><span class="equip-spec-val">IRGC Navy</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/c-802/" class="equip-link" target="_blank">→ CSIS Missile Threat</a>
+      </div>
+    </div>
+
+    <!-- EM-52 Naval Mines -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <div style="height:100%;background:var(--color-surface-3);display:flex;align-items:center;justify-content:center;font-size:3rem;">⚓</div>
+        <div class="equip-badge">NAVAL MINES</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">EM-52 / Sea Mines Arsenal</div>
+        <div class="equip-desc">Iran possesses approximately 6,000 sea mines — the world's third-largest naval mine inventory. Mix of contact mines, influence mines (acoustic, magnetic, pressure), and smart mines. The EM-52 "rocket-propelled" mine is particularly dangerous. Strategically positioned, these can close the Strait of Hormuz to tanker traffic, triggering a global oil shock. Primarily deployed by IRGC Navy submarines and fast boats.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">Stationary</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">500+ kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">Acoustic/magnetic</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Ships, tankers</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Total stock</span><span class="equip-spec-val">~6,000</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Strategic effect</span><span class="equip-spec-val">Hormuz closure</span></div>
+        </div>
+        <a href="https://www.csis.org/programs/transnational-threats-project/past-projects/gulf-military-balance" class="equip-link" target="_blank">→ CSIS Gulf Balance</a>
+      </div>
+    </div>
+
+    <!-- F-14A Tomcat -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Iranian_Air_Force_F-14_Tomcat.jpg/480px-Iranian_Air_Force_F-14_Tomcat.jpg" alt="Iranian F-14A Tomcat" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/IRIAF_F-14.jpg/480px-IRIAF_F-14.jpg'" onclick="openLightbox(this.src,'Iranian Air Force F-14A Tomcat — Iran\'s only heavy interceptor, ~20 airworthy pre-war, most likely grounded or destroyed')">
+        <div class="equip-badge">HEAVY INTERCEPTOR</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">F-14A Tomcat (IRIAF)</div>
+        <div class="equip-desc">Iran's sole heavy air superiority fighter, purchased before the 1979 revolution. Long-range AWG-9 radar and AIM-54 Phoenix missiles gave it a 185km engagement range. Approximately 20 estimated airworthy pre-war from an original 79-aircraft fleet. Maintenance challenges from sanctions made most non-operational. Likely grounded or destroyed in opening strikes on Iranian airfields.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">925 km combat</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">AIM-54 Phoenix</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">AWG-9 radar</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Enemy aircraft</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Pre-war airworthy</span><span class="equip-spec-val">~20</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Current status</span><span class="equip-spec-val">Likely grounded</span></div>
+        </div>
+        <a href="https://en.wikipedia.org/wiki/Grumman_F-14_Tomcat#Iran" class="equip-link" target="_blank">→ Wikipedia</a>
+      </div>
+    </div>
+
+    <!-- Ghadir-class submarine -->
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Ghadir_class_submarine_Iran.jpg/480px-Ghadir_class_submarine_Iran.jpg" alt="Ghadir-class midget submarine" loading="lazy" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Iran_Navy_Submarine.jpg/480px-Iran_Navy_Submarine.jpg'" onclick="openLightbox(this.src,'Ghadir-class midget submarine — ~23 units pre-war, capable of mine-laying and torpedo attacks in shallow Gulf waters')">
+        <div class="equip-badge">SUBMARINE</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Ghadir-class Midget Submarine</div>
+        <div class="equip-desc">Iranian domestically produced midget submarine optimized for shallow Persian Gulf operations. Armed with two heavyweight torpedoes and capable of mine-laying. Approximately 23 units pre-war. Small size and shallow-water proficiency makes detection difficult by US ASW assets optimized for deep-water operations. Can threaten carrier strike groups and tankers in the Strait.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">Operational Gulf</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">2× torpedo + mines</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">Wire-guided torp.</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Ships, tankers</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Pre-war fleet</span><span class="equip-spec-val">~23 units</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Operating depth</span><span class="equip-spec-val">Shallow Gulf</span></div>
+        </div>
+        <a href="https://en.wikipedia.org/wiki/Ghadir-class_submarine" class="equip-link" target="_blank">→ Wikipedia</a>
+      </div>
+    </div>
+
+  </div><!-- end 07-C equip-grid -->
+
+  <!-- ── 07-D: PROXY WEAPONS ────────────────────────────── -->
+  <div style="margin:var(--space-8) 0 var(--space-4); padding-bottom:var(--space-2); border-bottom:2px solid var(--color-accent);">
+    <span style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;color:var(--color-accent);">07-D //</span>
+    <span style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#fff;margin-left:var(--space-2);">PROXY WEAPONS</span>
+  </div>
+
+  <div class="equip-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);">
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <img src="https://platform.vox.com/wp-content/uploads/sites/2/2026/03/gettyimages-2260558310.jpg?quality=90&strip=all&crop=0%2C0%2C100%2C100&w=2400" alt="Shahed drone" loading="lazy" onclick="openLightbox(this.src,'Iran Shahed drone used by Hezbollah — transferred to proxy forces for use against Israel')">
+        <div class="equip-badge">PROXY WEAPON</div>
+        <div class="equip-country-badge">🇱🇧</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Hezbollah Rocket / Drone Arsenal</div>
+        <div class="equip-desc">Hezbollah maintains ~150,000 rockets and missiles — the largest non-state missile arsenal in history. They have been using them selectively since March 2, with 45+ daily operations against IDF positions in Lebanon and northern Israel. Includes guided Fateh-110 variants and Kornet ATGMs.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Total arsenal</span><span class="equip-spec-val">~150,000</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Daily ops</span><span class="equip-spec-val">45+</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Supply line</span><span class="equip-spec-val">Disrupted</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Precision missiles</span><span class="equip-spec-val">~5,000</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <div style="height:100%;background:var(--color-surface-3);display:flex;align-items:center;justify-content:center;font-size:3rem;">🚀</div>
+        <div class="equip-badge">HOUTHI WEAPON</div>
+        <div class="equip-country-badge">🇾🇪</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Houthi Burkan-2H / Quds-1</div>
+        <div class="equip-desc">Houthi medium-range ballistic missiles and cruise missiles derived from Iranian designs. Burkan-2H has 1,200km range. Used in attacks on Saudi Arabia and more recently Israel's Eilat. Entered the conflict officially March 28. The Quds-1 cruise missile targets Israeli ports and logistics nodes.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Burkan Range</span><span class="equip-spec-val">1,200 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Quds-1 Range</span><span class="equip-spec-val">900 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Supply source</span><span class="equip-spec-val">Iran (IRGC)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Entry date</span><span class="equip-spec-val">28 Mar 2026</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <div style="height:100%;background:var(--color-surface-3);display:flex;align-items:center;justify-content:center;font-size:3rem;">⛵</div>
+        <div class="equip-badge">NAVAL</div>
+        <div class="equip-country-badge">🇮🇷</div>
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">IRGC Fast Attack Craft (FAC)</div>
+        <div class="equip-desc">Iran's primary Hormuz control weapon — hundreds of small, fast boats armed with anti-ship missiles, rockets, and torpedoes operating in swarms. The IRGC Navy uses these to harass tanker traffic, plant mines, and threaten US naval vessels in the Persian Gulf. Several have been destroyed by US/coalition forces.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Fleet size</span><span class="equip-spec-val">~100 FAC</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">50+ knots</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Losses</span><span class="equip-spec-val">Multiple</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Operating area</span><span class="equip-spec-val">Hormuz Strait</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end 07-D equip-grid -->
 </div>
 </section>
 
@@ -1978,6 +2529,437 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
   </div>
 </div>
 </section>
+
+
+
+<!-- ════════════ SECTION 10A: KHARG ISLAND GROUND OFFENSIVE ASSESSMENT ════════════ -->
+<section id="section-10a-kharg" class="page-section" data-section="10A" data-title="Kharg Island Assessment" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 10A</span><span class="sb-date">UPDATED 2026-03-31</span></div>
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">10A // GROUND OFFENSIVE TARGET</div>
+      <h2 class="section-title">Kharg Island Assessment</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">90% of Iran's oil exports — 20,000 civilians</div>
+  </div>
+
+  <!-- INTEL ALERT: Trump Truth Social -->
+  <div class="intel-alert red" style="margin-bottom:var(--space-6);">
+    <div class="intel-alert-head">⚠ FLASH // TRUMP TRUTH SOCIAL — 31 MAR 2026</div>
+    <p>President Trump posted to Truth Social on March 31, 2026: <em>"Iran's Kharg Island is the crown jewel of their oil empire. Without it, Iran has NOTHING. We know where it is, we know what it does, and Iran should know that nothing is off the table. The 31st MEU is ready. The 82nd is ready. We will do what we have to do to WIN!"</em></p>
+    <p style="margin-bottom:0;color:var(--color-text-faint);font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;">SOURCE: TRUTH SOCIAL @REALDONALDTRUMP · 31 MAR 2026 · <a href="https://www.reuters.com/world/middle-east/trump-threatens-kharg-island-2026/" target="_blank" rel="noopener" style="color:var(--color-blue);">REUTERS →</a></p>
+  </div>
+
+  <!-- LEAFLET MAP -->
+  <div id="kharg-map" style="height:500px;border-radius:var(--radius-lg);border:1px solid var(--color-border);margin-bottom:var(--space-6);"></div>
+
+  <!-- MAP LEGEND -->
+  <div class="map-legend" style="margin-bottom:var(--space-8);">
+    <div class="map-legend-title">KHARG AREA MAP LEGEND</div>
+    <div class="map-legend-grid">
+      <div class="legend-item"><div class="legend-dot" style="background:#f97316;"></div> Kharg Island (Target)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#60a5fa;"></div> Bushehr Port</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div> Iranian Mainland IRGC</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#C8962E;border:2px solid #E8B84B;"></div> Strait of Hormuz (350 mi S)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#4ade80;"></div> US Naval Assets</div>
+    </div>
+  </div>
+
+  <!-- TWO-COLUMN: Island Profile + Force Assessment -->
+  <div class="two-col mb-8">
+    <!-- LEFT: Island Profile -->
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--color-accent);margin-bottom:var(--space-4);">Island Profile</h3>
+
+      <!-- Stats grid -->
+      <div class="card-grid" style="grid-template-columns:repeat(2,1fr);gap:var(--space-3);margin-bottom:var(--space-5);">
+        <div class="wildcard-card">
+          <div class="wildcard-title" style="color:var(--color-accent);">22 km²</div>
+          <div class="wildcard-desc">Area — 5 miles long, 2–2.5 miles wide. Coral island, Persian Gulf.</div>
+        </div>
+        <div class="wildcard-card">
+          <div class="wildcard-title" style="color:var(--color-accent-bright);">90%</div>
+          <div class="wildcard-desc">Iran's oil exports processed here — ~1.6M barrels per day, ~950M bbl/year.</div>
+        </div>
+        <div class="wildcard-card">
+          <div class="wildcard-title" style="color:var(--color-orange);">20,000</div>
+          <div class="wildcard-desc">Iranian civilian residents. Requires security clearance to visit — the "Forbidden Island."</div>
+        </div>
+        <div class="wildcard-card">
+          <div class="wildcard-title" style="color:var(--color-blue);">15 nmi</div>
+          <div class="wildcard-desc">Distance from Iranian mainland — 28km. 55km NW of Bushehr port.</div>
+        </div>
+      </div>
+
+      <h4 style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-3);">Oil Infrastructure</h4>
+      <div class="data-table-wrap" style="margin-bottom:var(--space-5);">
+        <table class="data-table">
+          <thead><tr><th>Asset</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>VLCC Berths</td><td class="td-accent">Deep water — VLCCs up to 2M barrel capacity</td></tr>
+            <tr><td>Export Volume</td><td>~1.6M bbl/day (~950M bbl/year)</td></tr>
+            <tr><td>Share of Exports</td><td class="td-red">90% of Iran's total oil export capacity</td></tr>
+            <tr><td>Location</td><td>Bushehr Province, 350 mi NW of Hormuz Strait</td></tr>
+            <tr><td>US Strikes (Mar 13)</td><td>90 military installations struck — oil infra spared</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-3);">Defense Profile</h4>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>System</th><th>Assessment</th></tr></thead>
+          <tbody>
+            <tr><td>Air Defense</td><td class="td-red">SAM batteries — multiple layered systems</td></tr>
+            <tr><td>Sea Barriers</td><td>Steel barriers, observation posts, patrol boats</td></tr>
+            <tr><td>Security Command</td><td>IRGC — "Forbidden Island" clearance required</td></tr>
+            <tr><td>Historical</td><td class="td-accent">Survived Iran-Iraq War bombing campaigns</td></tr>
+            <tr><td>Civilian Shield</td><td class="td-red">20,000 civilians — humanitarian / IHL risk</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- RIGHT: Force Assessment -->
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--color-accent);margin-bottom:var(--space-4);">Force Assessment</h3>
+
+      <h4 style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-3);">Available Forces</h4>
+      <div class="escalation-ladder" style="margin-bottom:var(--space-5);">
+        <div class="esc-rung esc-level-2">
+          <div class="esc-level-num">31st MEU · USS TRIPOLI (ARR. 27 MAR)</div>
+          <div class="esc-level-name">1,200 Marines</div>
+          <div class="esc-level-desc">V-22 Ospreys, F-35Bs, AH-1Z Vipers, CH-53Es. Primary amphibious and heliborne assault capability in theater.</div>
+        </div>
+        <div class="esc-rung esc-level-2">
+          <div class="esc-level-num">11th MEU · USS BOXER ARG</div>
+          <div class="esc-level-name">Additional MEU Force</div>
+          <div class="esc-level-desc">Deploying to theater. Provides second amphibious ready group capacity for simultaneous or sequential landings.</div>
+        </div>
+        <div class="esc-rung esc-level-3">
+          <div class="esc-level-num">82nd AIRBORNE (IMMEDIATE RESPONSE FORCE)</div>
+          <div class="esc-level-name">~2,000 Paratroopers</div>
+          <div class="esc-level-desc">Immediate Response Force deployed to region. Airborne insertion option — requires fighter escort for AD suppression over Kharg.</div>
+        </div>
+        <div class="esc-rung esc-level-4">
+          <div class="esc-level-num">PENTAGON SURGE (UNDER CONSIDERATION)</div>
+          <div class="esc-level-name">+10,000 Infantry / Armored</div>
+          <div class="esc-level-desc">Pentagon reviewing deployment of 10,000 additional troops (infantry + armored). Total regional force: ~60,000 (50,000 existing + 10,000 surge).</div>
+        </div>
+      </div>
+
+      <h4 style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-3);">Insertion Options — Least to Most Survivable</h4>
+      <div class="escalation-ladder">
+        <div class="esc-rung esc-level-6">
+          <div class="esc-level-num">OPTION 1 — AMPHIBIOUS ASSAULT</div>
+          <div class="esc-level-name" style="color:var(--color-red);">EXTREME RISK</div>
+          <div class="esc-level-desc">Must navigate Strait of Hormuz then 350 miles north through Persian Gulf. Threat gauntlet: sea mines, anti-ship cruise missiles (ASCMs), drone boat swarms, IRGC fast attack craft (FAC). Ships are maximally exposed throughout transit.</div>
+          <div class="esc-level-trigger">THREAT: Mines / ASCMs / FAC swarms entire 350mi route</div>
+        </div>
+        <div class="esc-arrow">▼</div>
+        <div class="esc-rung esc-level-5">
+          <div class="esc-level-num">OPTION 2 — HELIBORNE ASSAULT</div>
+          <div class="esc-level-name" style="color:var(--color-orange);">HIGH RISK</div>
+          <div class="esc-level-desc">Avoids maritime threat corridor entirely. V-22 Ospreys, CH-53Es from USS Tripoli can approach from over-the-horizon. However aircraft become stationary drone and missile targets on landing and during troop off-load.</div>
+          <div class="esc-level-trigger">THREAT: Aircraft vulnerable during landing — 5-mile kill zone active</div>
+        </div>
+        <div class="esc-arrow">▼</div>
+        <div class="esc-rung esc-level-3">
+          <div class="esc-level-num">OPTION 3 — AIRBORNE INSERTION</div>
+          <div class="esc-level-name" style="color:var(--color-accent);">MOST SURVIVABLE (STILL HIGH RISK)</div>
+          <div class="esc-level-desc">82nd Airborne paratroopers with fighter escort suppress Kharg air defenses. Paratroopers disperse across island on landing — harder to target than massed helicopters. Critical risk: laden paratroopers blown off target over water could drown. Island is 22 km² with sea on all sides.</div>
+          <div class="esc-level-trigger">RISK: Wind drift over water · 20,000 civilians in drop zone · 5-mile IRGC kill zone</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYST ASSESSMENT CARDS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--color-accent);margin-bottom:var(--space-5);">Analyst Assessments</h3>
+  <div class="card-grid grid-2" style="margin-bottom:var(--space-6);">
+    <div class="tt-card">
+      <div class="tt-header">
+        <div class="tt-name">Michael Eisenstadt</div>
+        <div class="tt-relevance">Washington Institute for Near East Policy</div>
+      </div>
+      <blockquote class="policy-quote" style="margin:0 0 var(--space-3);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);">
+        "Kharg Island would be a drone and missile magnet. Any force inserted there could suffer much larger casualties than planners expect."
+        <span class="policy-quote-attr">— Michael Eisenstadt, Washington Institute for Near East Policy</span>
+      </blockquote>
+      <div class="tt-focus">Assessment: EXTREME RISK — Casualties Likely Underestimated</div>
+    </div>
+
+    <div class="tt-card">
+      <div class="tt-header">
+        <div class="tt-name">Brobst &amp; McMillan</div>
+        <div class="tt-relevance">Foundation for Defense of Democracies (FDD)</div>
+      </div>
+      <blockquote class="policy-quote" style="margin:0 0 var(--space-3);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);">
+        "No guarantee of decisive victory. A ground assault on Kharg Island would likely produce the opposite effect — entrenching Iranian resolve and giving the IRGC a hostage crisis on international terms."
+        <span class="policy-quote-attr">— FDD, Brobst &amp; McMillan Analysis</span>
+      </blockquote>
+      <div class="tt-focus">Assessment: COUNTERPRODUCTIVE — No Decisive Outcome Likely</div>
+    </div>
+
+    <div class="tt-card">
+      <div class="tt-header">
+        <div class="tt-name">Gen. Joseph Votel (Ret.)</div>
+        <div class="tt-relevance">Former CENTCOM Commander</div>
+      </div>
+      <blockquote class="policy-quote" style="margin:0 0 var(--space-3);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);">
+        "We can do anything if we prioritize it. The US military has the capability — the question is whether the cost in blood and strategic consequence is worth the objective."
+        <span class="policy-quote-attr">— Gen. Joseph Votel, former CENTCOM Commander</span>
+      </blockquote>
+      <div class="tt-focus">Assessment: FEASIBLE — But Strategic Cost Is the Central Question</div>
+    </div>
+
+    <div class="tt-card" style="border-color:rgba(248,113,113,.3);">
+      <div class="tt-header">
+        <div class="tt-name" style="color:var(--color-red);">Harrison Mann</div>
+        <div class="tt-relevance">Responsible Statecraft</div>
+      </div>
+      <blockquote class="policy-quote" style="margin:0 0 var(--space-3);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);border-left-color:var(--color-red);">
+        "Somewhere between a suicide mission and a self-imposed hostage crisis. Iran controls a 5-mile kill zone around the island. They could let US troops land — then trap them."
+        <span class="policy-quote-attr">— Harrison Mann, Responsible Statecraft</span>
+      </blockquote>
+      <div class="tt-focus" style="color:var(--color-red);">Assessment: SUICIDE MISSION / HOSTAGE SCENARIO</div>
+    </div>
+  </div>
+
+  <!-- RISK CALLOUT: Snake Island Comparison -->
+  <div class="intel-alert" style="border-left-color:var(--color-orange);background:color-mix(in oklch,var(--color-orange) 6%,var(--color-surface));margin-bottom:var(--space-6);">
+    <div class="intel-alert-head" style="color:var(--color-orange);">⚠ HISTORICAL PARALLEL: SNAKE ISLAND (UKRAINE 2022)</div>
+    <p>Ukraine's Snake Island — a similarly small, strategically vital island — illustrated the disproportionate cost of island seizures in a high-threat environment. Russian forces initially captured it on Day 1 of the 2022 invasion but sustained continuous Ukrainian missile, drone, and artillery bombardment for months. The garrison became a focus of strategic attention far beyond its 0.17 km² size.</p>
+    <p>Kharg Island is <strong style="color:var(--color-accent);">130× larger than Snake Island</strong>, but surrounded on all sides by Iran's home waters, 350 miles inside Iranian-controlled Gulf waters, with a 20,000-civilian population and Iran's most critical economic asset concentrated in one target. Any occupying force would face sustained Iranian counter-attack with no organic resupply route that doesn't transit the Hormuz gauntlet. <a href="https://www.responsiblestatecraft.org/kharg-island-ground-assault/" target="_blank" rel="noopener">Responsible Statecraft Analysis →</a></p>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="xref-links">
+    <span class="xref-label">Sources:</span>
+    <a href="https://www.bbc.com/news/world-middle-east/kharg-island" target="_blank" rel="noopener" class="xref-chip">BBC — Kharg Island</a>
+    <a href="https://www.aljazeera.com/news/2026/3/kharg-island-iran-oil" target="_blank" rel="noopener" class="xref-chip">Al Jazeera</a>
+    <a href="https://www.responsiblestatecraft.org/kharg-island-ground-assault/" target="_blank" rel="noopener" class="xref-chip">Responsible Statecraft</a>
+    <a href="https://www.stripes.com/theaters/middle_east/2026-03-31/kharg-island-marines-assault" target="_blank" rel="noopener" class="xref-chip">Stars &amp; Stripes</a>
+    <a href="https://www.cnbc.com/2026/03/31/kharg-island-iran-oil-exports.html" target="_blank" rel="noopener" class="xref-chip">CNBC</a>
+  </div>
+
+</div>
+</section>
+
+<!-- ════════════ SECTION 10B: ADDITIONAL GROUND OFFENSIVE TARGETS ════════════ -->
+<section id="section-10b-targets" class="page-section alt-bg" data-section="10B" data-title="Ground Target Options" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 10B</span><span class="sb-date">UPDATED 2026-03-31</span></div>
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">10B // GROUND OFFENSIVE TARGETS</div>
+      <h2 class="section-title">Additional Ground Target Options</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Strategic facilities across the Persian Gulf theater</div>
+  </div>
+
+  <div class="intel-alert blue" style="margin-bottom:var(--space-6);">
+    <div class="intel-alert-head">INTEL NOTE // GROUND TARGET MATRIX — 31 MAR 2026</div>
+    <p>Beyond Kharg Island, US planners are evaluating multiple ground and amphibious assault targets across the Persian Gulf theater. Each option carries distinct strategic value, force requirements, and operational risk profiles. Feasibility ratings reflect assessed difficulty of seizure and sustainable occupation — not merely initial assault viability.</p>
+  </div>
+
+  <!-- TARGET CARDS GRID -->
+  <div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(min(380px,100%),1fr));gap:var(--space-5);margin-bottom:var(--space-8);">
+
+    <!-- 1. Abu Musa Island -->
+    <div class="equip-card">
+      <div id="map-abu-musa" style="height:200px;background:var(--color-surface-2);"></div>
+      <div class="equip-body">
+        <div class="equip-badge">DISPUTED ISLAND</div>
+        <div class="equip-name">Abu Musa Island</div>
+        <div class="equip-desc">Iranian-occupied island in the Strait of Hormuz, disputed with UAE. Iran seized it in 1971 alongside the Greater and Lesser Tunbs. Commands northern Hormuz approaches. IRGCN base with anti-ship missile batteries.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Location</span><span class="equip-spec-val">25.88°N 55.03°E</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Disputed with</span><span class="equip-spec-val">UAE (Sharjah)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Force req.</span><span class="equip-spec-val">1 MEU sufficient</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Feasibility</span><span class="equip-spec-val" style="color:var(--color-orange);">MEDIUM</span></div>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3);"><strong style="color:var(--color-accent);">Strategic Value:</strong> Controls northern Hormuz approaches. Seizure could establish forward observation post and deny IRGCN use of the island as a patrol/missile base. UAE would welcome return of sovereignty.<br><strong style="color:var(--color-red);">Key Risk:</strong> Iran would view seizure as direct territorial loss — escalation to expanded strikes on Gulf states. Diplomatic minefield with UAE, Sharjah sovereignty dispute.</p>
+        <div class="flex-wrap gap-2">
+          <span class="tag tag-orange">HORMUZ CONTROL</span>
+          <span class="tag tag-red">SOVEREIGNTY DISPUTE</span>
+          <span class="tag" style="color:var(--color-orange);border-color:rgba(249,115,22,.3);">MEDIUM RISK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Greater Tunb -->
+    <div class="equip-card">
+      <div id="map-greater-tunb" style="height:200px;background:var(--color-surface-2);"></div>
+      <div class="equip-body">
+        <div class="equip-badge">STRATEGIC ISLAND</div>
+        <div class="equip-name">Greater Tunb Island</div>
+        <div class="equip-desc">Iranian-occupied island seized from Ras al-Khaimah (UAE) in 1971, hours before British withdrawal from the Gulf. Together with Lesser Tunb, commands the western entrance to the Strait of Hormuz. IRGC military outpost.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Location</span><span class="equip-spec-val">26.27°N 55.32°E</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Disputed with</span><span class="equip-spec-val">UAE (Ras al-Khaimah)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Force req.</span><span class="equip-spec-val">SEAL team / MEU</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Feasibility</span><span class="equip-spec-val" style="color:var(--color-orange);">MEDIUM</span></div>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3);"><strong style="color:var(--color-accent);">Strategic Value:</strong> Controls western Hormuz approaches alongside Abu Musa. Smaller garrison than Abu Musa — potentially seizeable by SEAL/MARSOC raid before full MEU landing. Would deny Iran forward positions at strait entrance.<br><strong style="color:var(--color-red);">Key Risk:</strong> Small island = exposed defenders but also exposed attackers. IRGCN FAC swarm response within minutes from Bandar Abbas.</p>
+        <div class="flex-wrap gap-2">
+          <span class="tag tag-orange">HORMUZ ENTRANCE</span>
+          <span class="tag tag-red">FAC SWARM RISK</span>
+          <span class="tag" style="color:var(--color-orange);border-color:rgba(249,115,22,.3);">MEDIUM RISK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Bandar Abbas Naval Base -->
+    <div class="equip-card" style="border-color:rgba(248,113,113,.3);">
+      <div id="map-bandar-abbas" style="height:200px;background:var(--color-surface-2);"></div>
+      <div class="equip-body">
+        <div class="equip-badge" style="color:var(--color-red);border-color:rgba(248,113,113,.3);">EXTREME RISK</div>
+        <div class="equip-name" style="color:var(--color-red);">Bandar Abbas Naval Base</div>
+        <div class="equip-desc">Iran's primary naval headquarters — home of both the conventional IRIN and IRGCN commands. Houses submarine pens (Kilo-class), fast attack craft base, surface combatants, and shore-based anti-ship missile batteries. City population of 500,000+.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Location</span><span class="equip-spec-val">27.19°N 56.28°E</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Pop.</span><span class="equip-spec-val">500,000+ civilians</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Force req.</span><span class="equip-spec-val">Division+ (10,000+)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Feasibility</span><span class="equip-spec-val" style="color:var(--color-red);">EXTREME RISK</span></div>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3);"><strong style="color:var(--color-accent);">Strategic Value:</strong> Destruction of IRIN/IRGCN headquarters would cripple Iran's naval command and control. Submarine pens elimination removes undersea threat to Hormuz transit.<br><strong style="color:var(--color-red);">Key Risk:</strong> Assault on a major Iranian city would trigger maximum escalation response. Urban warfare against hardened IRGC garrison. International law implications of attacking port city.</p>
+        <div class="flex-wrap gap-2">
+          <span class="tag tag-red">IRIGCN HQ</span>
+          <span class="tag tag-red">SUBMARINE PENS</span>
+          <span class="tag tag-red">URBAN WARFARE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Chabahar Port -->
+    <div class="equip-card">
+      <div id="map-chabahar" style="height:200px;background:var(--color-surface-2);"></div>
+      <div class="equip-body">
+        <div class="equip-badge" style="color:var(--color-blue);">STRATEGIC PORT</div>
+        <div class="equip-name">Chabahar Port</div>
+        <div class="equip-desc">Iran's only deep-water port on the Gulf of Oman — outside the Strait of Hormuz. Developed by India under long-term lease agreement as alternate supply route to Afghanistan. Now a potential Iranian resupply terminal and naval expansion point outside US Hormuz control zone.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Location</span><span class="equip-spec-val">25.29°N 60.64°E</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Developed by</span><span class="equip-spec-val">India (IOTL lease)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Force req.</span><span class="equip-spec-val">MEU + Ranger BN</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Feasibility</span><span class="equip-spec-val" style="color:var(--color-orange);">MEDIUM</span></div>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3);"><strong style="color:var(--color-accent);">Strategic Value:</strong> Seizure would close Iran's alternate export/import terminal, cutting off potential Hormuz bypass route. Also blocks Indian access, creating major diplomatic crisis with New Delhi.<br><strong style="color:var(--color-red);">Key Risk:</strong> Indian investment makes this diplomatically toxic. Isolated location — farthest target from US naval assets. Overland Iranian reinforcement is feasible.</p>
+        <div class="flex-wrap gap-2">
+          <span class="tag tag-blue">OUTSIDE HORMUZ</span>
+          <span class="tag tag-orange">INDIA DIPLOMATIC RISK</span>
+          <span class="tag" style="color:var(--color-orange);border-color:rgba(249,115,22,.3);">MEDIUM RISK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Jask Port -->
+    <div class="equip-card">
+      <div id="map-jask" style="height:200px;background:var(--color-surface-2);"></div>
+      <div class="equip-body">
+        <div class="equip-badge">ALT. EXPORT TERMINAL</div>
+        <div class="equip-name">Jask Port</div>
+        <div class="equip-desc">Iran's alternate oil export terminal on the Gulf of Oman, outside Hormuz. Iran has invested heavily in pipeline infrastructure connecting Jask to internal oil fields as a Hormuz bypass route — enabling oil export even if the Strait is contested or closed.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Location</span><span class="equip-spec-val">25.64°N 57.77°E</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Purpose</span><span class="equip-spec-val">Hormuz bypass export</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Force req.</span><span class="equip-spec-val">Ranger BN + SOCOM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Feasibility</span><span class="equip-spec-val" style="color:var(--color-green);">HIGH</span></div>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3);"><strong style="color:var(--color-accent);">Strategic Value:</strong> Eliminating Jask removes Iran's Hormuz bypass option — ensuring any Hormuz closure also blocks Iranian exports, increasing pressure to negotiate. Small garrison, remote location.<br><strong style="color:var(--color-red);">Key Risk:</strong> Pipeline destruction is easier via air strike — seizure may not add value over bombing. Overland Iranian counterattack path from Bandar Abbas viable.</p>
+        <div class="flex-wrap gap-2">
+          <span class="tag tag-green">HIGH FEASIBILITY</span>
+          <span class="tag">HORMUZ BYPASS</span>
+          <span class="tag tag-green">SOCOM VIABLE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Kish Island -->
+    <div class="equip-card">
+      <div id="map-kish" style="height:200px;background:var(--color-surface-2);"></div>
+      <div class="equip-body">
+        <div class="equip-badge">INTELLIGENCE HUB</div>
+        <div class="equip-name">Kish Island</div>
+        <div class="equip-desc">Iran's primary free trade zone and financial hub in the Persian Gulf. Home to international businesses, tourist infrastructure, and — under the surface — a major IRGC intelligence operations center. Used for sanctions circumvention operations and as a financial clearing point for IRGC revenue.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Location</span><span class="equip-spec-val">26.54°N 53.98°E</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Pop.</span><span class="equip-spec-val">~40,000 residents</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Force req.</span><span class="equip-spec-val">MEU + MARSOC</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Feasibility</span><span class="equip-spec-val" style="color:var(--color-orange);">MEDIUM</span></div>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3);"><strong style="color:var(--color-accent);">Strategic Value:</strong> Disrupts IRGC intelligence networks, sanctions circumvention infrastructure, and financial flows. Symbolic blow to Iran's economic parallel state.<br><strong style="color:var(--color-red);">Key Risk:</strong> Large civilian population including foreign nationals and businesspeople. Not a primary military target — strategic value may not justify ground assault risk.</p>
+        <div class="flex-wrap gap-2">
+          <span class="tag tag-blue">INTEL HUB</span>
+          <span class="tag tag-orange">CIVILIAN RISK</span>
+          <span class="tag" style="color:var(--color-orange);border-color:rgba(249,115,22,.3);">MEDIUM RISK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Lavan Island -->
+    <div class="equip-card">
+      <div id="map-lavan" style="height:200px;background:var(--color-surface-2);"></div>
+      <div class="equip-body">
+        <div class="equip-badge">OIL + NAVAL</div>
+        <div class="equip-name">Lavan Island</div>
+        <div class="equip-desc">Small island in the Persian Gulf hosting Iranian oil processing facilities and an IRGC naval base. Serves as a secondary oil collection/processing point and forward naval operating base for IRGCN fast attack craft operations in the central Gulf.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Location</span><span class="equip-spec-val">26.80°N 53.35°E</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Assets</span><span class="equip-spec-val">Oil processing + IRGCN</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Force req.</span><span class="equip-spec-val">MEU element</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Feasibility</span><span class="equip-spec-val" style="color:var(--color-green);">HIGH</span></div>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3);"><strong style="color:var(--color-accent);">Strategic Value:</strong> Eliminates secondary IRGCN FAC base and oil processing infrastructure. Relatively small garrison. Could be seized to establish a forward operating base northwest of Hormuz.<br><strong style="color:var(--color-red);">Key Risk:</strong> Deep inside Iranian Gulf waters, 250+ miles from open ocean. Any garrison would require sustained air cover. Helicopter resupply vulnerable to Iranian counter-air.</p>
+        <div class="flex-wrap gap-2">
+          <span class="tag tag-green">HIGH FEASIBILITY</span>
+          <span class="tag">OIL PROCESSING</span>
+          <span class="tag tag-red">DEEP GULF EXPOSURE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Qeshm Island -->
+    <div class="equip-card" style="border-color:rgba(248,113,113,.3);">
+      <div id="map-qeshm" style="height:200px;background:var(--color-surface-2);"></div>
+      <div class="equip-body">
+        <div class="equip-badge" style="color:var(--color-red);border-color:rgba(248,113,113,.3);">MAJOR TARGET</div>
+        <div class="equip-name" style="color:var(--color-red);">Qeshm Island</div>
+        <div class="equip-desc">Largest island in the Persian Gulf — 1,491 km² with a population of 130,000. Home to major IRGC naval bases, drone manufacturing and operations facilities, and a civilian free trade zone. Qeshm's drone operations have supplied Houthis and other Iran proxies. Multiple IRGCN fast attack craft squadrons based here.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Location</span><span class="equip-spec-val">26.85°N 55.90°E</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Area</span><span class="equip-spec-val">1,491 km² (67× Kharg)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Force req.</span><span class="equip-spec-val">Division+ (15,000+)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Feasibility</span><span class="equip-spec-val" style="color:var(--color-red);">EXTREME RISK</span></div>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3);"><strong style="color:var(--color-accent);">Strategic Value:</strong> Eliminating Qeshm's IRGCN drone operations would degrade Iran's proxy supply chain significantly. Controls Hormuz northern shore. Major psychological blow.<br><strong style="color:var(--color-red);">Key Risk:</strong> Massive — 1,491 km² island requires division-level forces just to secure perimeters. 130,000 civilian population. Adjacent to Bandar Abbas — Iran's main naval base is 15km away. Assault would trigger full Iranian naval counterattack.</p>
+        <div class="flex-wrap gap-2">
+          <span class="tag tag-red">EXTREME RISK</span>
+          <span class="tag tag-red">DRONE OPS</span>
+          <span class="tag tag-red">IRGCN BASES</span>
+          <span class="tag tag-red">ADJACENT TO BANDAR ABBAS</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end card grid -->
+
+  <!-- SOURCES -->
+  <div class="xref-links">
+    <span class="xref-label">Sources:</span>
+    <a href="https://www.washingtonpost.com/world/2026/03/31/iran-gulf-islands-ground-assault/" target="_blank" rel="noopener" class="xref-chip">Washington Post</a>
+    <a href="https://www.latimes.com/world-nation/story/2026-03-31/iran-kharg-ground-targets" target="_blank" rel="noopener" class="xref-chip">LA Times</a>
+    <a href="https://arabcenterdc.org/resource/iran-gulf-islands-strategic-assessment/" target="_blank" rel="noopener" class="xref-chip">Arab Center DC</a>
+    <a href="https://nymag.com/intelligencer/2026/03/iran-war-ground-options.html" target="_blank" rel="noopener" class="xref-chip">NY Mag / Intelligencer</a>
+  </div>
+
+</div>
+</section>
+
 
 
 <!-- ════════════ SECTION 13: LEBANON FRONT ════════════ -->
@@ -2811,10 +3793,167 @@ function initHormuzMap() {
 }
 
 // Initialize maps on page load
+
+// ── KHARG ISLAND MAP ─────────────────────────────────
+function initKhargMap() {
+  if (!document.getElementById('kharg-map')) return;
+
+  const map = L.map('kharg-map', {
+    center: [29.2333, 50.3167],
+    zoom: 9,
+    zoomControl: true
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd', maxZoom: 19
+  }).addTo(map);
+
+  function makeSmIcon(color, shape) {
+    let svg = '';
+    if (shape === 'circle') svg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="${color}" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" opacity="0.95"/></svg>`;
+    else if (shape === 'square') svg = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><rect x="1" y="1" width="12" height="12" fill="${color}" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" opacity="0.95"/></svg>`;
+    else if (shape === 'diamond') svg = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><polygon points="7,1 13,7 7,13 1,7" fill="${color}" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" opacity="0.95"/></svg>`;
+    return L.divIcon({ html: svg, className: '', iconSize: [16,16], iconAnchor: [8,8] });
+  }
+
+  // Kharg Island — main target marker (large)
+  const khargIcon = L.divIcon({
+    html: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"><circle cx="11" cy="11" r="9" fill="#f97316" stroke="#E8B84B" stroke-width="2" opacity="0.95"/><circle cx="11" cy="11" r="4" fill="#fff" opacity="0.7"/></svg>`,
+    className: '', iconSize: [22, 22], iconAnchor: [11, 11]
+  });
+  L.marker([29.2333, 50.3167], {icon: khargIcon}).addTo(map)
+    .bindPopup('<strong>KHARG ISLAND</strong><br>90% of Iran oil exports<br>~1.6M bbl/day<br>20,000 civilians<br>IRGC — heavily fortified<br>15 nmi from mainland');
+
+  // Kharg Island outline (approximate polygon)
+  L.polygon([
+    [29.29, 50.29], [29.31, 50.34], [29.28, 50.38],
+    [29.22, 50.37], [29.18, 50.32], [29.20, 50.28], [29.25, 50.27]
+  ], {color: '#f97316', fillColor: '#f97316', fillOpacity: 0.15, weight: 2, dashArray: '4 3'})
+    .addTo(map).bindPopup('<strong>Kharg Island</strong><br>22 km² — 5 mi long, 2–2.5 mi wide<br>Coral island, Bushehr Province');
+
+  // Iranian mainland coast marker
+  L.marker([29.10, 50.62], {icon: makeSmIcon('#f87171','square')}).addTo(map)
+    .bindPopup('<strong>Iranian Mainland</strong><br>IRGC coastal positions<br>15 nmi (28km) from Kharg');
+
+  // Distance line: Kharg to mainland
+  L.polyline([[29.2333, 50.3167],[29.10, 50.62]], {
+    color: '#f87171', weight: 1.5, dashArray: '5 4', opacity: 0.6
+  }).addTo(map).bindPopup('<strong>~15 nmi to Mainland</strong><br>Iranian coast — IRGC positions');
+
+  // Bushehr port
+  L.marker([28.9892, 50.8457], {icon: makeSmIcon('#60a5fa','circle')}).addTo(map)
+    .bindPopup('<strong>Bushehr Port</strong><br>55km SE of Kharg<br>Bushehr Nuclear Plant nearby<br>IRGCN patrol base');
+
+  // Distance annotation Kharg → Bushehr
+  L.polyline([[29.2333, 50.3167],[28.9892, 50.8457]], {
+    color: '#60a5fa', weight: 1, dashArray: '3 4', opacity: 0.5
+  }).addTo(map).bindPopup('<strong>55 km to Bushehr</strong>');
+
+  // US Naval presence (USS Tripoli - symbolic position in northern Gulf)
+  const usIcon = L.divIcon({
+    html: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><polygon points="8,1 15,15 1,15" fill="#4ade80" stroke="rgba(255,255,255,0.4)" stroke-width="1" opacity="0.95"/></svg>`,
+    className: '', iconSize: [16,16], iconAnchor: [8,12]
+  });
+  L.marker([28.50, 50.10], {icon: usIcon}).addTo(map)
+    .bindPopup('<strong>US Naval Assets (approx.)</strong><br>31st MEU — USS Tripoli<br>1,200 Marines, F-35Bs, V-22s<br>Arrived 27 Mar 2026');
+
+  // Strait of Hormuz reference marker (far south)
+  L.marker([26.55, 56.30], {icon: makeSmIcon('#C8962E','diamond')}).addTo(map)
+    .bindPopup('<strong>Strait of Hormuz</strong><br>~350 miles south of Kharg<br>21M bbl/day pre-war transit<br>IRGC interdiction zone');
+
+  // Annotation line — Kharg to Hormuz direction
+  L.polyline([[29.2333, 50.3167],[27.50, 52.50]], {
+    color: '#C8962E', weight: 1, dashArray: '6 6', opacity: 0.35
+  }).addTo(map).bindPopup('<strong>→ Strait of Hormuz</strong><br>350 miles south');
+
+  // Distance label via DivOverlay workaround — polyline label
+  L.marker([28.36, 51.41], {
+    icon: L.divIcon({
+      html: `<div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#C8962E;letter-spacing:.08em;background:rgba(10,12,16,.8);padding:2px 5px;border:1px solid rgba(200,150,46,.3);white-space:nowrap;">350 mi → HORMUZ</div>`,
+      className: '', iconSize: [100,18], iconAnchor: [50,9]
+    })
+  }).addTo(map);
+
+  // Map legend
+  const leg = L.control({position: 'bottomright'});
+  leg.onAdd = function() {
+    const d = L.DomUtil.create('div');
+    d.style.cssText = 'background:rgba(10,12,16,0.92);border:1px solid rgba(200,150,46,0.3);padding:10px 14px;font-family:"Share Tech Mono",monospace;font-size:10px;color:#8a94a8;line-height:1.9;';
+    d.innerHTML = `<div style="color:#C8962E;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">KHARG LEGEND</div>
+<div>● <span style="color:#f97316;">Kharg Island (Target)</span></div>
+<div>■ <span style="color:#f87171;">Iranian Mainland</span></div>
+<div>● <span style="color:#60a5fa;">Bushehr Port</span></div>
+<div>▲ <span style="color:#4ade80;">US Naval Assets</span></div>
+<div>◆ <span style="color:#C8962E;">Hormuz Strait</span></div>`;
+    return d;
+  };
+  leg.addTo(map);
+}
+
+// ── GROUND TARGETS MINI-MAPS ─────────────────────────
+function initTargetMiniMap(mapId, lat, lng, name, note, zoom) {
+  zoom = zoom || 9;
+  const el = document.getElementById(mapId);
+  if (!el) return;
+  const map = L.map(mapId, {
+    center: [lat, lng],
+    zoom: zoom,
+    zoomControl: false,
+    scrollWheelZoom: false,
+    dragging: false,
+    doubleClickZoom: false,
+    touchZoom: false
+  });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '', subdomains: 'abcd', maxZoom: 19
+  }).addTo(map);
+  // Main target marker
+  const icon = L.divIcon({
+    html: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"><circle cx="9" cy="9" r="7" fill="#f97316" stroke="#E8B84B" stroke-width="2" opacity="0.95"/><circle cx="9" cy="9" r="3" fill="#fff" opacity="0.7"/></svg>`,
+    className: '', iconSize: [18, 18], iconAnchor: [9, 9]
+  });
+  L.marker([lat, lng], {icon}).addTo(map)
+    .bindPopup(`<strong>${name}</strong><br>${note}`);
+  // Label overlay
+  const label = L.control({position: 'topleft'});
+  label.onAdd = function() {
+    const d = L.DomUtil.create('div');
+    d.style.cssText = 'background:rgba(10,12,16,0.88);border:1px solid rgba(200,150,46,0.3);padding:4px 8px;font-family:"Share Tech Mono",monospace;font-size:9px;color:#C8962E;letter-spacing:.08em;text-transform:uppercase;pointer-events:none;';
+    d.textContent = name.toUpperCase();
+    return d;
+  };
+  label.addTo(map);
+  // Coords
+  const coords = L.control({position: 'bottomleft'});
+  coords.onAdd = function() {
+    const d = L.DomUtil.create('div');
+    d.style.cssText = 'background:rgba(10,12,16,0.75);padding:2px 6px;font-family:"Share Tech Mono",monospace;font-size:9px;color:#4a5168;pointer-events:none;';
+    d.textContent = `${lat.toFixed(4)}°N ${lng.toFixed(4)}°E`;
+    return d;
+  };
+  coords.addTo(map);
+}
+
+function initAllTargetMaps() {
+  initTargetMiniMap('map-abu-musa',     25.8760, 55.0330, 'Abu Musa Island',      'Iranian-occupied, disputed UAE. IRGCN base.', 10);
+  initTargetMiniMap('map-greater-tunb', 26.2670, 55.3170, 'Greater Tunb',         'Seized 1971 — western Hormuz approaches.', 10);
+  initTargetMiniMap('map-bandar-abbas', 27.1865, 56.2808, 'Bandar Abbas',         'IRIN/IRGCN HQ. Submarine pens. 500K pop.', 11);
+  initTargetMiniMap('map-chabahar',     25.2919, 60.6430, 'Chabahar Port',        'Indian-developed outside-Hormuz port.', 10);
+  initTargetMiniMap('map-jask',         25.6383, 57.7700, 'Jask',                 'Iran alternate oil export terminal.', 10);
+  initTargetMiniMap('map-kish',         26.5400, 53.9800, 'Kish Island',          'IRGC intel hub, free trade zone.', 10);
+  initTargetMiniMap('map-lavan',        26.8033, 53.3533, 'Lavan Island',         'Oil processing + IRGCN naval base.', 10);
+  initTargetMiniMap('map-qeshm',        26.8500, 55.9000, 'Qeshm Island',         'Largest Gulf island — IRGC drone ops.', 10);
+}
+
+
+// Initialize maps on page load
 window.addEventListener('DOMContentLoaded', function() {
   setTimeout(function() {
     initTheaterMap();
     initHormuzMap();
+    initKhargMap();
+    initAllTargetMaps();
     if (window.lucide) lucide.createIcons();
   }, 300);
 });
