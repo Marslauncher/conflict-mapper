@@ -1,0 +1,227 @@
+{
+  "metadata": {
+    "description": "Preferred resources for Conflict Mapper. Check these sources first for updated information, articles, and analysis before searching other sites.",
+    "last_updated": "2026-03-31",
+    "instructions": "When researching any topic covered by these sources, check them FIRST before general web search. Add new resources via the 'Save to Preferred Resources' workflow."
+  },
+  "categories": {
+    "nuclear_nonproliferation": {
+      "label": "Nuclear & Nonproliferation",
+      "sources": [
+        {
+          "name": "Institute for Science and International Security (ISIS)",
+          "url": "https://isis-online.org/",
+          "reports_url": "https://isis-online.org/isis-reports",
+          "description": "Premier source for nuclear facility analysis, satellite imagery assessment, and proliferation tracking. David Albright's team provides the most detailed post-strike damage assessments of Iranian nuclear sites.",
+          "priority": "critical",
+          "topics": ["Iran nuclear facilities", "satellite imagery analysis", "enrichment tracking", "proliferation assessment"]
+        },
+        {
+          "name": "Arms Control Association",
+          "url": "https://www.armscontrol.org/",
+          "key_page": "https://www.armscontrol.org/blog/2025-06-25/irans-nuclear-facilities-status-updates",
+          "description": "Authoritative source on arms control agreements, nuclear policy, and weapons treaties. Maintains detailed facility status trackers for Iran.",
+          "priority": "critical",
+          "topics": ["arms control treaties", "Iran nuclear status", "JCPOA", "nuclear weapons policy"]
+        },
+        {
+          "name": "Arms Control Center",
+          "url": "https://armscontrolcenter.org/",
+          "key_page": "https://armscontrolcenter.org/fact-sheet-facilities-related-to-irans-nuclear-weapons-program/",
+          "description": "Fact sheets and analysis on nuclear weapons programs, facilities, and arms control policy.",
+          "priority": "high",
+          "topics": ["Iran nuclear facilities", "weapons program fact sheets", "arms control policy"]
+        },
+        {
+          "name": "Center for Nonproliferation Studies (CNS)",
+          "url": "https://nonproliferation.org/",
+          "description": "Monterey Institute affiliate. Research on WMD nonproliferation, export controls, and disarmament.",
+          "priority": "high",
+          "topics": ["WMD nonproliferation", "export controls", "nuclear treaties", "biological/chemical weapons"]
+        },
+        {
+          "name": "SIPRI — Stockholm International Peace Research Institute",
+          "url": "https://www.sipri.org/",
+          "description": "World's premier independent institute on conflict, armaments, arms control, and disarmament. Publisher of the SIPRI Yearbook — definitive compendium on military expenditure, arms transfers, and nuclear arsenals.",
+          "priority": "high",
+          "topics": ["nuclear arsenals", "arms transfers", "military spending", "disarmament"]
+        }
+      ]
+    },
+    "conflict_tracking": {
+      "label": "Conflict Tracking & Military Analysis",
+      "sources": [
+        {
+          "name": "Institute for the Study of War (ISW)",
+          "url": "https://understandingwar.org/",
+          "description": "Most widely cited daily source of open-source intelligence on active conflicts. Daily assessments of Russia-Ukraine and Iran war operations. Maps and operational assessments cited by governments and military analysts worldwide.",
+          "priority": "critical",
+          "topics": ["Russia-Ukraine war", "Iran conflict", "daily operational assessments", "battlefield intelligence"]
+        },
+        {
+          "name": "The War Zone (TWZ)",
+          "url": "https://www.twz.com/",
+          "description": "Detailed military technology and operations coverage. Excellent for weapons platform analysis, strike assessments, and operational details of ongoing conflicts.",
+          "priority": "critical",
+          "topics": ["military technology", "weapons platforms", "strike analysis", "air operations"]
+        },
+        {
+          "name": "International Crisis Group (ICG)",
+          "url": "https://www.crisisgroup.org/",
+          "description": "Gold standard for field-based conflict analysis and early warning. Watch List publications identify countries most at risk of conflict escalation.",
+          "priority": "high",
+          "topics": ["conflict prevention", "early warning", "ceasefire advocacy", "field-based analysis"]
+        },
+        {
+          "name": "IISS — International Institute for Strategic Studies",
+          "url": "https://www.iiss.org/",
+          "description": "Publisher of The Military Balance — definitive reference on armed forces and defense budgets of 170+ countries. Organizes Shangri-La Dialogue.",
+          "priority": "high",
+          "topics": ["military balance", "armed forces data", "defense economics", "strategic deterrence"]
+        }
+      ]
+    },
+    "geopolitical_think_tanks": {
+      "label": "Geopolitical Think Tanks — Tier 1",
+      "sources": [
+        {
+          "name": "Brookings Institution",
+          "url": "https://www.brookings.edu/",
+          "description": "One of the most cited policy research organizations. Covers foreign policy, economics, governance, and international security.",
+          "priority": "high",
+          "topics": ["US foreign policy", "global governance", "China-US relations", "international security"]
+        },
+        {
+          "name": "Carnegie Endowment for International Peace",
+          "url": "https://carnegieendowment.org/",
+          "description": "Global network of policy research centers in US, Russia, China, Europe, Middle East, and India.",
+          "priority": "high",
+          "topics": ["nuclear policy", "Russia-Eurasia", "Middle East", "China strategy", "global order"]
+        },
+        {
+          "name": "Council on Foreign Relations (CFR)",
+          "url": "https://www.cfr.org/",
+          "description": "Most prestigious American foreign policy institution. Publishes Foreign Affairs journal and Global Conflict Tracker.",
+          "priority": "high",
+          "topics": ["US foreign policy", "conflict tracking", "preventive diplomacy"]
+        },
+        {
+          "name": "RAND Corporation",
+          "url": "https://www.rand.org/",
+          "description": "Most methodologically rigorous policy research organization. Defense, national security, AI/emerging tech.",
+          "priority": "high",
+          "topics": ["defense policy", "nuclear strategy", "AI and emerging tech", "national security"]
+        },
+        {
+          "name": "Center for Strategic and International Studies (CSIS)",
+          "url": "https://www.csis.org/",
+          "description": "Bipartisan Washington think tank. Defense and National Security Center of Excellence. Influential on China, Indo-Pacific, defense modernization.",
+          "priority": "critical",
+          "topics": ["US national security", "China/Indo-Pacific", "cybersecurity", "defense modernization"]
+        },
+        {
+          "name": "JINSA — Jewish Institute for National Security of America",
+          "url": "https://jinsa.org/",
+          "description": "US-Israel security relationship, Middle East defense policy, Iran threat assessment.",
+          "priority": "high",
+          "topics": ["US-Israel security", "Iran threat", "Middle East defense", "military aid"]
+        },
+        {
+          "name": "Stimson Center",
+          "url": "https://www.stimson.org/",
+          "description": "Nonpartisan policy research center on international peace and security. Notable Iran post-conflict scenario analysis.",
+          "priority": "high",
+          "topics": ["arms control", "Iran scenarios", "South Asia security", "space security"]
+        },
+        {
+          "name": "Eurasia Group",
+          "url": "https://www.eurasiagroup.net/",
+          "description": "World's leading geopolitical risk advisory. Annual Top Risks report by Ian Bremmer.",
+          "priority": "medium",
+          "topics": ["geopolitical risk forecasting", "political risk for investors"]
+        },
+        {
+          "name": "Chatham House",
+          "url": "https://www.chathamhouse.org/",
+          "description": "One of world's most respected international affairs institutes. Named for the Chatham House Rule.",
+          "priority": "medium",
+          "topics": ["global policy research", "Europe security", "Russia-Eurasia", "Middle East"]
+        },
+        {
+          "name": "Royal United Services Institute (RUSI)",
+          "url": "https://www.rusi.org/",
+          "description": "World's oldest defense and security think tank (1831). Declared 'undesirable' in Russia — testament to its Ukraine analysis quality.",
+          "priority": "medium",
+          "topics": ["UK defense policy", "nuclear proliferation", "Ukraine conflict", "cyber security"]
+        },
+        {
+          "name": "Atlantic Council",
+          "url": "https://www.atlanticcouncil.org/",
+          "description": "Foremost US institution on transatlantic security and NATO affairs. Scowcroft Center for Strategy and Security.",
+          "priority": "medium",
+          "topics": ["NATO", "transatlantic security", "global foresight", "trade policy"]
+        }
+      ]
+    },
+    "regional_specialist": {
+      "label": "Regional & Specialist",
+      "sources": [
+        {
+          "name": "Belfer Center — Harvard Kennedy School",
+          "url": "https://www.belfercenter.org/",
+          "description": "Harvard's premier national security research institution. Graham Allison's Avoiding Great Power War Project.",
+          "priority": "medium",
+          "topics": ["great power competition", "nuclear security", "intelligence studies"]
+        },
+        {
+          "name": "Lowy Institute",
+          "url": "https://www.lowyinstitute.org/",
+          "description": "Australia's leading international policy think tank. Asia-Pacific focus. Annual Lowy Institute Poll.",
+          "priority": "medium",
+          "topics": ["Indo-Pacific security", "Australia-Asia relations", "climate-security"]
+        },
+        {
+          "name": "MERICS — Mercator Institute for China Studies",
+          "url": "https://www.merics.org/",
+          "description": "Largest European research institute on contemporary China. Sanctioned by Beijing for independence of research.",
+          "priority": "medium",
+          "topics": ["China policy", "EU-China relations", "Chinese technology strategy"]
+        },
+        {
+          "name": "Observer Research Foundation (ORF)",
+          "url": "https://www.orfonline.org/",
+          "description": "India's most prominent international think tank. Hosts Raisina Dialogue.",
+          "priority": "medium",
+          "topics": ["India foreign policy", "Indo-Pacific", "Global South"]
+        },
+        {
+          "name": "SWP — German Institute for International Security Affairs",
+          "url": "https://www.swp-berlin.org/",
+          "description": "Advises German Bundestag, Federal Government, EU, NATO, and UN.",
+          "priority": "medium",
+          "topics": ["German foreign policy", "European security", "great-power dynamics"]
+        }
+      ]
+    },
+    "intelligence_reference": {
+      "label": "Intelligence & Reference Documents",
+      "sources": [
+        {
+          "name": "CIA — Iran Nuclear Sites (Abbottabad Compound)",
+          "url": "https://www.cia.gov/library/abbottabad-compound/D0/D0C1F7344A7441A8E1DC43A83A4B51F4_iran_nuclear_sites.pdf",
+          "description": "CIA reference document on Iranian nuclear site locations. Found in Abbottabad compound raid materials.",
+          "priority": "reference",
+          "topics": ["Iran nuclear facilities", "facility locations"]
+        },
+        {
+          "name": "IAEA — International Atomic Energy Agency",
+          "url": "https://www.iaea.org/",
+          "description": "Official UN nuclear watchdog. Safeguards inspections, verification reports, Board of Governors decisions.",
+          "priority": "critical",
+          "topics": ["nuclear safeguards", "Iran inspections", "enrichment verification"]
+        }
+      ]
+    }
+  },
+  "full_think_tanks_guide": "data/think-tanks-guide.md"
+}

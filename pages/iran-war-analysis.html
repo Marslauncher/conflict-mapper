@@ -239,7 +239,15 @@ section{border-top:1px solid var(--color-border-2);}
 .leader-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));gap:var(--space-4);}
 .leader-card{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);text-align:center;transition:border-color .2s;}
 .leader-card:hover{border-color:var(--color-accent);}
-.leader-icon{width:60px;height:60px;border-radius:50%;background:var(--color-surface-2);border:2px solid var(--color-border);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-3);font-size:1.8rem;}
+.leader-icon { 
+  width: 80px; height: 80px; border-radius: 50%; overflow: hidden; 
+  border: 2px solid var(--color-border); flex-shrink: 0;
+  background: var(--color-surface-2);
+  margin: 0 auto var(--space-3);
+}
+.leader-icon img { 
+  width: 100%; height: 100%; object-fit: cover; 
+}
 .leader-role{font-family:var(--font-mono);font-size:10px;color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-1);}
 .leader-name{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);}
 .leader-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.5;}
@@ -1002,7 +1010,7 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
   <div class="leader-grid mb-8">
 
     <div class="leader-card">
-      <div class="leader-icon">👤</div>
+      <div class="leader-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Ayatollah_Mojtaba_Khamenei%2C_March_8%2C_2026_%28cropped%29.jpg" alt="Mojtaba Khamenei"></div>
       <div class="leader-role">Supreme Leader</div>
       <div class="leader-name">Mojtaba Khamenei</div>
       <div class="leader-desc">Son of killed Supreme Leader. Appointed by Assembly of Experts in emergency session March 8. Reportedly injured in initial strikes. No formal government or religious administrative experience. Lacks Grand Ayatollah status required for full <em>marja</em> authority.</div>
@@ -1010,7 +1018,7 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
     </div>
 
     <div class="leader-card">
-      <div class="leader-icon">⚔️</div>
+      <div class="leader-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Seal_of_the_Islamic_Revolutionary_Guard_Corps.svg/440px-Seal_of_the_Islamic_Revolutionary_Guard_Corps.svg.png" alt="IRGC Seal"></div>
       <div class="leader-role">De Facto Power</div>
       <div class="leader-name">IRGC Command Council</div>
       <div class="leader-desc">With civilian leadership weakened, the Islamic Revolutionary Guard Corps has effectively assumed control of strategic decisions, military operations, and domestic security. Multiple senior IRGC commanders have been killed but the institutional structure remains operational with regional commanders assuming higher roles.</div>
@@ -1018,7 +1026,7 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
     </div>
 
     <div class="leader-card">
-      <div class="leader-icon">🏛️</div>
+      <div class="leader-icon"><img src="https://cdn.britannica.com/63/258763-050-B78B5DA8/Iran-presidential-candidate-Mohammad-Bagher-Ghalibaf-speaks-at-rally-to-support-the-Palestinians-of-the-Gaza-Strip-and-to-mark-the-44th-anniversary-of-the-start-of-the-Iran-hostage-crisis-on-November-4-2023.jpg" alt="Mohammad Bagher Ghalibaf"></div>
       <div class="leader-role">Parliament Speaker</div>
       <div class="leader-name">Mohammad Bagher Ghalibaf</div>
       <div class="leader-desc">Former IRGC brigadier general and Tehran mayor. Currently serving as Parliament Speaker. Represents the hardline faction and has publicly demanded maximum retaliation. Has called for strikes on Israeli cities. One of the few senior figures with both military and governmental experience remaining.</div>
@@ -1026,7 +1034,7 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
     </div>
 
     <div class="leader-card">
-      <div class="leader-icon">🔐</div>
+      <div class="leader-icon"><img src="https://www.atlanticcouncil.org/wp-content/uploads/2024/06/Saeed_Jalili_2021_cropped.jpg" alt="Saeed Jalili"></div>
       <div class="leader-role">Former Security Advisor</div>
       <div class="leader-name">Saeed Jalili</div>
       <div class="leader-desc">Former Secretary of the Supreme National Security Council and nuclear negotiator. Lost 2024 presidential election. Has emerged as a hardline voice demanding continued warfare and refusing any negotiations. His influence over Mojtaba Khamenei is reportedly significant.</div>
@@ -1034,7 +1042,7 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
     </div>
 
     <div class="leader-card">
-      <div class="leader-icon">🏥</div>
+      <div class="leader-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Ali_Khamenei_crop.jpg/440px-Ali_Khamenei_crop.jpg" alt="Ali Khamenei"></div>
       <div class="leader-role">Supreme Leader (Killed)</div>
       <div class="leader-name">Ali Khamenei</div>
       <div class="leader-desc">Served as Supreme Leader 1989–2026. Killed in US-Israeli strike on Pasteur Street leadership compound, Tehran, February 28, 2026. His death removed the 37-year stabilizing figure of Iran's post-revolutionary political system.</div>
@@ -1042,7 +1050,7 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
     </div>
 
     <div class="leader-card">
-      <div class="leader-icon">🌙</div>
+      <div class="leader-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Imam_Reza_shrine_-Mashhad_-Iran.jpg/1280px-Imam_Reza_shrine_-Mashhad_-Iran.jpg" alt="Qom Religious Establishment"></div>
       <div class="leader-role">Grand Ayatollahs</div>
       <div class="leader-name">Qom Religious Establishment</div>
       <div class="leader-desc">Multiple senior Grand Ayatollahs in Qom have remained publicly silent or issued ambiguous statements. Several have privately questioned the legitimacy of Mojtaba's appointment. A religious crisis of legitimacy could fracture the regime if the Qom establishment publicly withdraws support.</div>
@@ -1104,6 +1112,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
                 <div class="step-text">Iran acquires nuclear weapons within 3-5 years, making future preventive strikes impossible. The IRGC state becomes permanent.</div>
               </div>
             </div>
+            <p style="margin-top:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;">The Stimson Center's analysis identifies this outcome as an "IRGC Republic" — a scenario in which the Revolutionary Guard transitions from a parallel power structure to the outright governing authority, using the wartime emergency to permanently subordinate clerical institutions. In this model, the new Supreme Leader becomes a ceremonial figurehead while the IRGC Coordination Council makes all strategic and domestic security decisions. Historical precedent from post-war Iraq and post-sanctions Russia suggests this kind of institutional consolidation can persist for decades even under sustained international pressure.</p>
+            <div style="margin-top:var(--space-3);font-size:var(--text-xs);color:var(--color-text-faint);">→ <a href="https://www.stimson.org/2026/scenarios-for-irans-future-and-implications-for-gcc-security/" target="_blank" style="color:var(--color-accent);">Stimson Center: Scenarios for Iran's Future</a></div>
           </div>
         </div>
         <div id="iran-sc2" class="tab-pane">
@@ -1124,6 +1134,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
                 <div class="step-text">Prolonged instability. US/Israel would need to secure nuclear sites. Massive humanitarian crisis exceeding Lebanon scenario.</div>
               </div>
             </div>
+            <p style="margin-top:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;">The fragmentation pathway most closely resembles the Syria and Libya models: proxy groups that previously operated under centralized IRGC command begin acting autonomously as payroll and command-and-control chains dissolve. Hezbollah, Houthi leadership, and Iraqi Shia militias each have their own institutional interests that may diverge sharply from Tehran's directives. Simultaneously, competing IRGC factions — the Quds Force remnants, the Basij domestic wing, and regional corps commanders — may pursue separate agendas, with provincial power centers in Isfahan, Khuzestan, and Khorasan emerging as competing nodes of authority rather than a unified resistance.</p>
+            <div style="margin-top:var(--space-3);font-size:var(--text-xs);color:var(--color-text-faint);">→ <a href="https://pppescp.com/2026/03/21/iran-war-2026-a-multi-theater-conflict-without-a-clear-end-state/" target="_blank" style="color:var(--color-accent);">ESCP: Multi-Theater Conflict Without a Clear End State</a></div>
           </div>
         </div>
         <div id="iran-sc3" class="tab-pane">
@@ -1144,8 +1156,13 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
                 <div class="step-text">Nuclear deal 2.0 — but far more restrictive. Iran accepts permanent monitoring of rebuilt facilities. Partial normalization over 5-10 years.</div>
               </div>
             </div>
+            <p style="margin-top:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;">A counterintuitive dynamic observed in multiple conflict studies suggests that external military pressure may paradoxically consolidate the Iranian regime rather than weaken it. The rally-around-the-flag effect, amplified by information blackouts and wartime nationalism, has historically strengthened authoritarian governments under foreign attack — including Iran's own experience during the Iran-Iraq War, when Khomeini leveraged Saddam's invasion to suppress internal opposition and cement revolutionary institutions. The same logic may apply here: absent a decisive military collapse or internal mutiny, the IRGC has strong incentives to frame negotiation as betrayal rather than pragmatism.</p>
+            <div style="margin-top:var(--space-3);font-size:var(--text-xs);color:var(--color-text-faint);">→ <a href="https://dialogueinitiatives.org/iran-conflict-chaos-or-change-in-2026/" target="_blank" style="color:var(--color-accent);">ICDI: Conflict, Chaos or Change in 2026?</a></div>
           </div>
         </div>
+      </div>
+      <div style="margin-top:var(--space-4); padding:var(--space-3) var(--space-4); background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:4px; font-family:var(--font-mono); font-size:0.65rem; color:var(--color-text-muted); letter-spacing:0.04em;">
+        ANALYSIS SOURCES: <a href="https://www.stimson.org/2026/scenarios-for-irans-future-and-implications-for-gcc-security/" target="_blank" style="color:var(--color-accent);">Stimson Center</a> · <a href="https://pppescp.com/2026/03/21/iran-war-2026-a-multi-theater-conflict-without-a-clear-end-state/" target="_blank" style="color:var(--color-accent);">ESCP International Politics</a> · <a href="https://dialogueinitiatives.org/iran-conflict-chaos-or-change-in-2026/" target="_blank" style="color:var(--color-accent);">ICDI Dialogue Initiatives</a>
       </div>
     </div>
   </div>
@@ -1154,12 +1171,12 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 
 
 <!-- ════════════ SECTION 7: NUCLEAR ANALYSIS ════════════ -->
-<section id="nuclear" class="page-section" data-section="06" data-title="Nuclear Stockpile Analysis" data-last-updated="2026-03-31">
+<section id="nuclear" class="page-section" data-section="06" data-title="Nuclear Program" data-last-updated="2026-03-31">
 <div class="section-badge"><span class="sb-num">§ 06</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
-      <div class="section-num">06 // NUCLEAR STOCKPILE ANALYSIS</div>
+      <div class="section-num">06 // NUCLEAR PROGRAM</div>
       <h2 class="section-title">Iran's Nuclear Program</h2>
     </div>
     <div class="section-divider"></div>
@@ -1169,6 +1186,15 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
   <div class="intel-alert red mb-6">
     <div class="intel-alert-head">☢ CRITICAL // NUCLEAR RECONSTITUTION RISK</div>
     <p><strong>Alma Center (Israel) reports:</strong> Iran is actively rebuilding centrifuge operations at Isfahan and transferring centrifuge cascades to hardened mountain facilities. Scientific knowledge and human capital for the program remain intact. While physical facilities were heavily damaged, Iran's nuclear weapons capability has not been permanently eliminated — it has been set back by an estimated 2-5 years.</p>
+  </div>
+
+  <div style="margin-bottom:var(--space-6); padding:var(--space-4); background:linear-gradient(135deg, rgba(255,74,28,0.08), rgba(255,74,28,0.02)); border:1px solid rgba(255,74,28,0.3); border-radius:6px; display:flex; align-items:center; gap:var(--space-4);">
+    <div style="font-size:2rem;">☢</div>
+    <div style="flex:1;">
+      <div style="font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:#ff4a1c;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">DEEP DIVE AVAILABLE</div>
+      <div style="font-size:var(--text-sm);color:var(--color-text-muted);">Comprehensive post-strike assessment of all 11 nuclear facilities with satellite imagery, dual-zoom maps, per-site damage analysis, breakout scenarios, and reconstitution assessment.</div>
+    </div>
+    <a href="/pages/nuclear-deep-dive.html" style="font-family:var(--font-mono);font-size:0.75rem;color:#ff4a1c;background:rgba(255,74,28,0.12);padding:8px 16px;border:1px solid rgba(255,74,28,0.4);border-radius:4px;white-space:nowrap;text-decoration:none;letter-spacing:0.06em;">VIEW NUCLEAR DEEP DIVE →</a>
   </div>
 
   <div class="nuke-grid mb-8">
@@ -1399,6 +1425,10 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
             <div class="equip-country-badge">🇺🇸</div>
           </div>
           <div class="equip-body">
+            <div style="border-radius:6px;overflow:hidden;border:1px solid var(--color-border);margin-bottom:var(--space-3);">
+              <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/mfc/photo/jassm/23-16561_ADSW_JASSM-B-2_Updated-Graphic-web.jpg.pc-adaptive.full.medium.jpg" alt="AGM-158B JASSM-ER cruise missile" loading="lazy" style="width:100%;max-height:250px;object-fit:contain;background:#0a0c10;">
+              <div style="padding:6px 10px;font-family:var(--font-mono);font-size:0.58rem;color:var(--color-text-faint);background:var(--color-surface-2);letter-spacing:0.04em;">AGM-158B JASSM-ER — LOCKHEED MARTIN</div>
+            </div>
             <div class="equip-name">AGM-158B JASSM-ER</div>
             <div class="equip-desc">Joint Air-to-Surface Standoff Missile Extended Range — low-observable cruise missile with 930km range. Allows F-15E and B-52 aircraft to strike Iranian targets without entering range of surviving air defenses. Highly accurate with penetrating warhead.</div>
             <div class="equip-specs">
@@ -1418,6 +1448,10 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
             <div class="equip-country-badge">🇺🇸</div>
           </div>
           <div class="equip-body">
+            <div style="border-radius:6px;overflow:hidden;border:1px solid var(--color-border);margin-bottom:var(--space-3);">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/The_first_of_two_Terminal_High_Altitude_Area_Defense_%28THAAD%29_interceptors_is_launched_during_a_successful_intercept_test_-_US_Army.jpg" alt="THAAD interceptor launch test" loading="lazy" style="width:100%;max-height:250px;object-fit:contain;background:#0a0c10;">
+              <div style="padding:6px 10px;font-family:var(--font-mono);font-size:0.58rem;color:var(--color-text-faint);background:var(--color-surface-2);letter-spacing:0.04em;">THAAD INTERCEPTOR LAUNCH — US ARMY</div>
+            </div>
             <div class="equip-name">THAAD / SM-3 Block IIA</div>
             <div class="equip-desc">Terminal High Altitude Area Defense and SM-3 Block IIA used for ballistic missile intercepts. THAAD radar at Al Udeid was destroyed, degrading coverage. SM-3 fired from Aegis ships in the Gulf and Red Sea. Intercept rates sufficient to prevent catastrophic losses but insufficient to stop all Iranian missiles.</div>
             <div class="equip-specs">
@@ -1642,7 +1676,7 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
       <h2 class="section-title">Battle Damage Assessment</h2>
     </div>
     <div class="section-divider"></div>
-    <div class="section-lead">Both sides // as of Day 29</div>
+    <div class="section-lead">Both sides // as of Day 31</div>
   </div>
 
   <div class="two-col mb-8">
@@ -1662,7 +1696,7 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
           <tbody>
             <tr>
               <td>KC-135 Stratotankers</td>
-              <td class="td-red">5+ damaged, 2 destroyed</td>
+              <td class="td-red">6+ damaged, 3+ destroyed</td>
               <td>$39.6M</td>
               <td>Prince Sultan AB + Iraq collision</td>
               <td><a href="https://www.wsj.com" target="_blank">WSJ</a></td>
@@ -1687,6 +1721,13 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
               <td>~$800M system</td>
               <td>Al Udeid AB, Qatar</td>
               <td>Multiple</td>
+            </tr>
+            <tr>
+              <td>E-3 Sentry AWACS</td>
+              <td class="td-red">1 destroyed</td>
+              <td>~$270M</td>
+              <td>Prince Sultan AB — tail severed, radar dome detached. Mar 27.</td>
+              <td><a href="https://www.cnn.com/2026/03/30/middleeast/us-air-force-awacs-jet-destroyed-saudi-arabia-intl-hnk-ml" target="_blank">CNN</a></td>
             </tr>
             <tr>
               <td>Army Tactical Operations Center</td>
