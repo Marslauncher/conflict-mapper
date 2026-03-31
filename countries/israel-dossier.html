@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Israel // A-10 Country Dossier — Geopolitical Intelligence Platform v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+:root {
+  --color-bg: #0a0c10;
+  --color-surface: #0f1117;
+  --color-surface-2: #141820;
+  --color-surface-3: #1a2030;
+  --color-border: rgba(0,61,145,0.25);
+  --color-border-2: rgba(255,200,50,0.18);
+  --color-text: #dde2ec;
+  --color-text-muted: #8a94a8;
+  --color-text-faint: #4a5168;
+  --color-accent: #003d91;
+  --color-accent-bright: #1a5fd9;
+  --color-gold: #ffc832;
+  --color-teal: #2dd4bf;
+  --color-blue: #60a5fa;
+  --color-red: #e63946;
+  --font-display: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+  --space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
+  --space-12:3rem;--space-16:4rem;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);font-size:1rem;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--color-blue);text-decoration:none;transition:color 0.18s}
+a:hover{color:var(--color-accent-bright)}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,12,16,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);height:60px;display:flex;align-items:center;padding:0 var(--space-6)}
+.nav-inner{display:flex;align-items:center;gap:var(--space-8);width:100%;max-width:1400px;margin:0 auto}
+.nav-brand{display:flex;align-items:center;gap:var(--space-3);font-family:var(--font-display);font-weight:700;font-size:0.9rem;letter-spacing:0.12em;color:var(--color-accent-bright);text-transform:uppercase;white-space:nowrap}
+.nav-brand .flag{font-size:1.2rem}
+.nav-links{display:flex;gap:var(--space-1);overflow-x:auto;flex:1;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-link{font-family:var(--font-display);font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-text-muted);padding:var(--space-2) var(--space-3);border-radius:4px;border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.18s;cursor:pointer}
+.nav-link:hover,.nav-link.active{color:var(--color-accent-bright);border-bottom-color:var(--color-accent-bright);background:rgba(26,95,217,0.08)}
+.nav-badge{font-family:var(--font-mono);font-size:0.65rem;background:rgba(0,61,145,0.2);border:1px solid var(--color-border);color:var(--color-accent-bright);padding:2px 6px;border-radius:3px;letter-spacing:0.05em;white-space:nowrap}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:60px}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#000814 0%,#001133 40%,#002266 70%,#003d91 100%);z-index:0}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,61,145,0.15) 1px,transparent 1px),linear-gradient(90deg,rgba(0,61,145,0.15) 1px,transparent 1px);background-size:60px 60px;z-index:1;opacity:0.6}
+.hero-scan{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--color-accent-bright),transparent);animation:scan 4s linear infinite;z-index:2}
+@keyframes scan{0%{top:0;opacity:1}100%{top:100%;opacity:0}}
+.hero-content{position:relative;z-index:3;max-width:1400px;margin:0 auto;padding:var(--space-16) var(--space-8);width:100%}
+.hero-flag{font-size:5rem;margin-bottom:var(--space-4);filter:drop-shadow(0 0 20px rgba(0,61,145,0.8))}
+.hero-eyebrow{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.25em;color:var(--color-gold);text-transform:uppercase;margin-bottom:var(--space-4);opacity:0.9}
+.hero-title{font-family:var(--font-display);font-weight:700;font-size:clamp(2.5rem,8vw,6rem);line-height:1.05;margin-bottom:var(--space-4);text-transform:uppercase;letter-spacing:0.04em}
+.hero-title .native{display:block;font-size:clamp(1.2rem,3vw,2.2rem);color:var(--color-text-muted);font-weight:400;letter-spacing:0.08em;margin-bottom:var(--space-2)}
+.hero-title .en{display:block;background:linear-gradient(135deg,#fff 0%,var(--color-accent-bright) 60%,var(--color-gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-subtitle{font-size:1.1rem;color:var(--color-text-muted);max-width:700px;margin-bottom:var(--space-6);line-height:1.7}
+.hero-stamp{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.2em;color:var(--color-text-faint);text-transform:uppercase;margin-bottom:var(--space-8)}
+.hero-stats{display:flex;flex-wrap:wrap;gap:var(--space-4)}
+.hero-stat{background:rgba(0,61,145,0.12);border:1px solid var(--color-border);border-radius:8px;padding:var(--space-4) var(--space-5);min-width:160px;backdrop-filter:blur(8px)}
+.hero-stat-val{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--color-accent-bright);line-height:1;margin-bottom:var(--space-1)}
+.hero-stat-key{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--color-text-faint);text-transform:uppercase}
+.hero-stat-sub{font-size:0.75rem;color:var(--color-text-muted);margin-top:2px}
+.scroll-cue{position:absolute;bottom:var(--space-8);left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:var(--space-2);color:var(--color-text-faint);font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.15em;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+/* LAYOUT */
+.container{max-width:1400px;margin:0 auto;padding:var(--space-16) var(--space-8)}
+.section-wrap{border-top:1px solid var(--color-border);padding-top:var(--space-16)}
+.section-header{display:flex;align-items:baseline;gap:var(--space-4);margin-bottom:var(--space-8)}
+.section-num{font-family:var(--font-mono);font-size:0.75rem;color:var(--color-accent-bright);letter-spacing:0.15em;opacity:0.8}
+.section-title{font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.5rem);font-weight:700;text-transform:uppercase;letter-spacing:0.06em}
+.section-title .accent{color:var(--color-accent-bright)}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-6)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)}
+@media(max-width:1024px){.grid-3{grid-template-columns:repeat(2,1fr)}.grid-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.container{padding:var(--space-8) var(--space-4)}}
+
+/* CARDS */
+.card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:10px;padding:var(--space-6);transition:border-color 0.18s,box-shadow 0.18s}
+.card:hover{border-color:rgba(0,61,145,0.5);box-shadow:0 4px 24px rgba(0,61,145,0.15)}
+.card-title{font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-bright);margin-bottom:var(--space-3)}
+.card-body{color:var(--color-text-muted);font-size:0.9rem;line-height:1.7}
+
+/* EQUIP CARD */
+.equip-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:10px;overflow:hidden;transition:all 0.22s}
+.equip-card:hover{border-color:rgba(0,61,145,0.6);box-shadow:0 8px 32px rgba(0,61,145,0.2);transform:translateY(-2px)}
+.equip-img-wrap{position:relative;overflow:hidden;height:220px;background:var(--color-surface-2);cursor:pointer}
+.equip-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+.equip-card:hover .equip-img-wrap img{transform:scale(1.04)}
+.equip-badge{position:absolute;top:var(--space-3);left:var(--space-3);font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;background:rgba(0,61,145,0.85);border:1px solid rgba(26,95,217,0.5);color:var(--color-accent-bright);padding:3px 8px;border-radius:3px;z-index:2}
+.equip-body{padding:var(--space-4)}
+.equip-name{font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;color:var(--color-text);margin-bottom:var(--space-2)}
+.equip-desc{color:var(--color-text-muted);font-size:0.82rem;line-height:1.65;margin-bottom:var(--space-3)}
+.equip-specs{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-1) var(--space-4);margin-bottom:var(--space-3);background:var(--color-surface-2);border-radius:6px;padding:var(--space-3)}
+.equip-spec{display:contents}
+.equip-spec-key{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-text-faint)}
+.equip-spec-val{font-family:var(--font-mono);font-size:0.72rem;color:var(--color-gold);font-weight:600}
+.equip-link{display:inline-flex;align-items:center;gap:var(--space-2);font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.08em;color:var(--color-text-muted);border:1px solid var(--color-border);padding:4px 10px;border-radius:4px;transition:all 0.18s}
+.equip-link:hover{color:var(--color-accent-bright);border-color:var(--color-accent-bright);background:rgba(0,61,145,0.1)}
+
+/* DATA TABLE */
+.data-table-wrap{overflow-x:auto;border:1px solid var(--color-border);border-radius:10px}
+.data-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.data-table thead{background:var(--color-surface-2)}
+.data-table th{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-text-faint);padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border)}
+.data-table td{padding:var(--space-3) var(--space-4);border-bottom:1px solid rgba(0,61,145,0.1);color:var(--color-text-muted);vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(0,61,145,0.05)}
+.data-table td:first-child{color:var(--color-text);font-weight:500}
+.data-table .qty{font-family:var(--font-mono);color:var(--color-accent-bright);font-weight:700}
+.data-table a{color:var(--color-blue);font-size:0.8rem}
+
+/* STAT BARS */
+.stat-row{display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:var(--space-3)}
+.stat-label{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-display);font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase}
+.stat-val{font-family:var(--font-mono);color:var(--color-gold);font-size:0.85rem}
+.stat-bar{height:6px;background:var(--color-surface-3);border-radius:3px;overflow:hidden}
+.stat-fill{height:100%;background:linear-gradient(90deg,var(--color-accent),var(--color-accent-bright));border-radius:3px;transition:width 1.2s cubic-bezier(0.16,1,0.3,1)}
+
+/* INTEL ALERT */
+.intel-alert{background:rgba(0,61,145,0.08);border:1px solid rgba(0,61,145,0.35);border-left:3px solid var(--color-accent-bright);border-radius:8px;padding:var(--space-5);margin:var(--space-6) 0}
+.intel-alert-head{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-bright);margin-bottom:var(--space-3)}
+.intel-alert p{color:var(--color-text-muted);font-size:0.88rem;line-height:1.7}
+.intel-alert .critical{color:var(--color-gold);font-weight:600}
+.intel-alert-warning{border-color:rgba(255,200,50,0.35);border-left-color:var(--color-gold);background:rgba(255,200,50,0.06)}
+.intel-alert-warning .intel-alert-head{color:var(--color-gold)}
+.intel-alert-danger{border-color:rgba(230,57,70,0.35);border-left-color:var(--color-red);background:rgba(230,57,70,0.06)}
+.intel-alert-danger .intel-alert-head{color:var(--color-red)}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:var(--space-8)}
+.timeline::before{content:'';position:absolute;left:var(--space-3);top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--color-accent) 0%,transparent 100%)}
+.tl-item{position:relative;margin-bottom:var(--space-6)}
+.tl-dot{position:absolute;left:calc(-1 * var(--space-8) + var(--space-3));top:4px;width:10px;height:10px;background:var(--color-accent-bright);border:2px solid var(--color-bg);border-radius:50%;box-shadow:0 0 10px rgba(26,95,217,0.6)}
+.tl-year{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--color-gold);margin-bottom:var(--space-1)}
+.tl-title{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--color-text);margin-bottom:var(--space-1)}
+.tl-desc{color:var(--color-text-muted);font-size:0.84rem;line-height:1.65}
+.tl-desc a{color:var(--color-blue);font-size:0.8rem}
+
+/* TABS */
+.tab-bar{display:flex;gap:var(--space-2);margin-bottom:var(--space-6);flex-wrap:wrap}
+.tab-btn{font-family:var(--font-display);font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:var(--space-2) var(--space-4);border:1px solid var(--color-border);border-radius:6px;color:var(--color-text-muted);cursor:pointer;transition:all 0.18s;background:transparent}
+.tab-btn:hover{color:var(--color-text);border-color:rgba(0,61,145,0.5)}
+.tab-btn.active{color:var(--color-accent-bright);border-color:var(--color-accent-bright);background:rgba(0,61,145,0.12)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* COLLAPSIBLE */
+.collapsible{border:1px solid var(--color-border);border-radius:8px;overflow:hidden;margin-bottom:var(--space-3)}
+.collapsible-head{display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);cursor:pointer;background:var(--color-surface);font-family:var(--font-display);font-size:0.9rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.18s}
+.collapsible-head:hover{background:var(--color-surface-2)}
+.collapsible-head .chev{transition:transform 0.2s;flex-shrink:0}
+.collapsible-head.open .chev{transform:rotate(180deg)}
+.collapsible-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease;background:var(--color-surface-2)}
+.collapsible-body.open{max-height:2000px}
+.collapsible-body-inner{padding:var(--space-5);color:var(--color-text-muted);font-size:0.88rem;line-height:1.7}
+
+/* MAP */
+.map-container{position:relative;border:1px solid var(--color-border);border-radius:10px;overflow:hidden;cursor:pointer;margin-bottom:var(--space-4)}
+.map-img{width:100%;object-fit:cover;transition:transform 0.4s;max-height:500px}
+.map-container:hover .map-img{transform:scale(1.02)}
+.map-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,rgba(10,12,16,0.9) 0%,transparent 100%);padding:var(--space-4)}
+.map-caption{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;color:var(--color-accent-bright);text-transform:uppercase}
+.map-stats-row{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-6)}
+.map-stat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:6px;padding:var(--space-3) var(--space-4);flex:1;min-width:120px;text-align:center}
+.map-stat-val{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--color-accent-bright)}
+.map-stat-key{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;color:var(--color-text-faint);text-transform:uppercase;margin-top:2px}
+
+/* INLINE IMAGE */
+.inline-img{margin:var(--space-6) 0;border:1px solid var(--color-border);border-radius:10px;overflow:hidden;cursor:pointer}
+.inline-img img{width:100%;max-height:500px;object-fit:cover;transition:transform 0.4s}
+.inline-img:hover img{transform:scale(1.02)}
+.inline-img figcaption{padding:var(--space-3) var(--space-4);font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.1em;color:var(--color-text-faint);background:var(--color-surface)}
+
+/* POLICY QUOTE */
+.policy-quote{background:var(--color-surface-2);border:1px solid var(--color-border-2);border-left:3px solid var(--color-gold);border-radius:8px;padding:var(--space-6);margin:var(--space-6) 0;font-style:italic;font-size:1rem;color:var(--color-text);line-height:1.8}
+.policy-quote-attr{display:block;margin-top:var(--space-3);font-style:normal;font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.12em;color:var(--color-text-faint);text-transform:uppercase}
+
+/* DOCTRINE CARD */
+.doctrine-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:10px;padding:var(--space-5);transition:border-color 0.18s}
+.doctrine-card:hover{border-color:rgba(0,61,145,0.5)}
+.doctrine-icon{width:36px;height:36px;background:rgba(0,61,145,0.15);border:1px solid var(--color-border);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-3);color:var(--color-accent-bright)}
+.doctrine-name{font-family:var(--font-display);font-size:0.95rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--color-text);margin-bottom:var(--space-2)}
+.doctrine-desc{font-size:0.82rem;color:var(--color-text-muted);line-height:1.65}
+
+/* RISK BARS */
+.risk-item{margin-bottom:var(--space-4)}
+.risk-label{display:flex;justify-content:space-between;margin-bottom:var(--space-2);font-size:0.85rem}
+.risk-name{color:var(--color-text);font-weight:500}
+.risk-pct{font-family:var(--font-mono);color:var(--color-gold)}
+.risk-bar{height:8px;background:var(--color-surface-3);border-radius:4px;overflow:hidden}
+.risk-fill{height:100%;border-radius:4px;transition:width 1.2s cubic-bezier(0.16,1,0.3,1)}
+.risk-high{background:linear-gradient(90deg,var(--color-red),#ff6b7a)}
+.risk-med{background:linear-gradient(90deg,var(--color-gold),#ffe066)}
+.risk-low{background:linear-gradient(90deg,var(--color-teal),#7fffd4)}
+
+/* NUCLEAR BADGE */
+.nuclear-badge{display:inline-flex;align-items:center;gap:var(--space-2);font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;background:rgba(0,61,145,0.12);border:1px solid var(--color-border);color:var(--color-accent-bright);padding:var(--space-2) var(--space-3);border-radius:5px}
+.nuclear-symbol{font-size:1rem}
+
+/* SECTION FULLWIDTH IMG */
+.section-img{width:100%;max-height:420px;object-fit:cover;border-radius:10px;border:1px solid var(--color-border);cursor:pointer;margin-bottom:var(--space-6);transition:transform 0.3s}
+.section-img:hover{transform:scale(1.01)}
+
+/* FOOTER */
+.footer{background:var(--color-surface);border-top:1px solid var(--color-border);padding:var(--space-8);text-align:center}
+.footer-logo{font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:0.2em;color:var(--color-text-faint);text-transform:uppercase;margin-bottom:var(--space-3)}
+.footer-notice{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;color:var(--color-text-faint);max-width:800px;margin:0 auto;line-height:1.8}
+
+/* LIGHTBOX */
+#lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;flex-direction:column;padding:var(--space-8)}
+#lightbox.active{display:flex}
+#lightbox-img{max-width:90vw;max-height:80vh;border-radius:8px;border:1px solid var(--color-border)}
+#lightbox-cap{margin-top:var(--space-4);font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.1em;color:var(--color-text-muted);text-align:center;max-width:700px}
+.lightbox-close{position:fixed;top:var(--space-6);right:var(--space-6);cursor:pointer;color:var(--color-text-muted);background:var(--color-surface);border:1px solid var(--color-border);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;transition:all 0.18s}
+.lightbox-close:hover{color:var(--color-text);border-color:var(--color-accent-bright)}
+
+/* RATING BAR */
+.rating-bar{display:flex;align-items:center;gap:var(--space-2)}
+.rating-fill{height:6px;background:linear-gradient(90deg,var(--color-accent),var(--color-accent-bright));border-radius:3px}
+.rating-num{font-family:var(--font-mono);font-size:0.72rem;color:var(--color-gold);white-space:nowrap}
+.rating-track{flex:1;height:6px;background:var(--color-surface-3);border-radius:3px;overflow:hidden}
+
+/* SOURCES GRID */
+.sources-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)}
+@media(max-width:768px){.sources-grid{grid-template-columns:1fr}}
+.sources-category{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-bright);margin-bottom:var(--space-4);padding-bottom:var(--space-2);border-bottom:1px solid var(--color-border)}
+.source-item{display:flex;align-items:flex-start;gap:var(--space-3);margin-bottom:var(--space-3)}
+.source-dot{width:6px;height:6px;background:var(--color-accent);border-radius:50%;flex-shrink:0;margin-top:6px}
+.source-text{font-size:0.82rem}
+.source-text a{color:var(--color-blue);font-size:0.82rem}
+.source-text .source-desc{color:var(--color-text-faint);font-size:0.75rem;margin-top:2px}
+
+/* CLASSIFICATION NOTICE */
+.classification-notice{background:var(--color-surface-2);border:1px solid var(--color-border-2);border-radius:10px;padding:var(--space-6);margin-top:var(--space-8);text-align:center}
+.class-stamp{font-family:var(--font-mono);font-size:0.9rem;letter-spacing:0.3em;color:var(--color-gold);border:2px solid rgba(255,200,50,0.4);display:inline-block;padding:var(--space-2) var(--space-6);border-radius:4px;margin-bottom:var(--space-4)}
+.class-text{color:var(--color-text-faint);font-size:0.8rem;line-height:1.7;max-width:700px;margin:0 auto}
+
+/* HIGHLIGHT */
+.highlight{color:var(--color-accent-bright);font-weight:600}
+.text-gold{color:var(--color-gold)}
+.text-mono{font-family:var(--font-mono)}
+.text-muted{color:var(--color-text-muted)}
+.mb-6{margin-bottom:var(--space-6)}
+.mb-4{margin-bottom:var(--space-4)}
+.mt-6{margin-top:var(--space-6)}
+.gap-intro{margin-bottom:var(--space-8);color:var(--color-text-muted);font-size:0.95rem;line-height:1.75;max-width:900px}
+
+/* SECTION BG ALTERNATING */
+#section-nuclear, #section-special, #section-risk {
+  background: linear-gradient(180deg, rgba(0,61,145,0.03) 0%, transparent 100%);
+}
+</style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <div class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x" style="width:18px;height:18px"></i></div>
+  <img id="lightbox-img" src="" alt="">
+  <div id="lightbox-cap"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><span class="flag">🇮🇱</span>ISRAEL // A-10</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#section-map">01 Map</a>
+      <a class="nav-link" href="#section-overview">02 Overview</a>
+      <a class="nav-link" href="#section-ground">03 Ground</a>
+      <a class="nav-link" href="#section-navy">04 Navy</a>
+      <a class="nav-link" href="#section-airforce">05 Air Force</a>
+      <a class="nav-link" href="#section-missile">06 Missiles</a>
+      <a class="nav-link" href="#section-nuclear">07 Nuclear</a>
+      <a class="nav-link" href="#section-special">08 Intel/Cyber</a>
+      <a class="nav-link" href="#section-cyber">09 Cyber/Space</a>
+      <a class="nav-link" href="#section-doctrine">10 Doctrine</a>
+      <a class="nav-link" href="#section-foreign">11 Foreign Policy</a>
+      <a class="nav-link" href="#section-risk">12 Risk</a>
+      <a class="nav-link" href="#section-sources">13 Sources</a>
+    </div>
+    <div class="nav-badge">OPEN-SOURCE // MAR 2026</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-scan"></div>
+  <div class="hero-content">
+    <div class="hero-flag">🇮🇱</div>
+    <div class="hero-eyebrow">CLASSIFIED OPEN-SOURCE ANALYSIS // MARCH 2026 // SERIES A — A-10</div>
+    <h1 class="hero-title">
+      <span class="native">מְדִינַת יִשְׂרָאֵל — State of Israel</span>
+      <span class="en">ISRAEL</span>
+    </h1>
+    <p class="hero-subtitle">Middle East's most technologically advanced military force. Multi-front operations underway against Iran, Gaza remnants, and Hezbollah. Active participant in Operation Epic Fury — February 2026 joint U.S.-Israeli strikes on Iran.</p>
+    <p class="hero-stamp">Israel Defense Forces (IDF) ⬥ Tzva'a Kanit (Ground) ⬥ Heyl Ha'Avir (Air) ⬥ Heyl Ha'Yam (Navy) ⬥ Mossad ⬥ Unit 8200</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">634,500</div>
+        <div class="hero-stat-key">Total Personnel</div>
+        <div class="hero-stat-sub">170K active + 465K reserves</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">$36.9B</div>
+        <div class="hero-stat-key">Defense Budget 2025</div>
+        <div class="hero-stat-sub">NIS 136B total; 5–6% of GDP</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">80–100</div>
+        <div class="hero-stat-key">Nuclear Warheads</div>
+        <div class="hero-stat-sub">Undeclared; nuclear ambiguity</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">278</div>
+        <div class="hero-stat-key">Combat Aircraft</div>
+        <div class="hero-stat-sub">F-35I, F-15I, F-16I</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">3</div>
+        <div class="hero-stat-key">Submarines</div>
+        <div class="hero-stat-sub">Dolphin-class; nuclear deterrent</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">▼ SCROLL TO ANALYZE</div>
+</section>
+
+<!-- ============================================================
+     SECTION 01 — GEOGRAPHIC OVERVIEW
+     ============================================================ -->
+<section id="section-map">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Geographic <span class="accent">Overview</span></h2>
+    </div>
+    <p class="gap-intro">Israel occupies a strategically critical position at the land bridge connecting three continents—Africa, Asia, and Europe—at the eastern shore of the Mediterranean Sea. Despite its small physical size (20,770 km²), Israel commands critical chokepoints, coastal access, and proximity to the Suez Canal trade route, making it one of the most geopolitically significant nations on Earth relative to its area.</p>
+    
+    <div class="grid-2" style="margin-bottom:var(--space-6)">
+      <div class="map-container">
+        <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a24c283d421d0500350ccc2530d704b3233d37e2.jpg" alt="Israel topographic map with borders" width="800" height="600" loading="lazy" onclick="openLightbox(this.src,'Israel — Topographic & Strategic Map. Shows West Bank, Gaza Strip, Golan Heights, and neighboring states.')">
+        <div class="map-overlay"><div class="map-caption">TOPOGRAPHIC OVERVIEW // STATE OF ISRAEL</div></div>
+      </div>
+      <div class="map-container">
+        <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/d156c3e78b2a988ce4a64a9ec414df6b2d989bb6.jpg" alt="Israel strategic position map empires" width="800" height="600" loading="lazy" onclick="openLightbox(this.src,'Israel Strategic Position — Historical Empires Convergence Zone. The Levant has served as the strategic crossroads of Macedonian, Persian, Roman, and Ottoman empires.')">
+        <div class="map-overlay"><div class="map-caption">STRATEGIC CONVERGENCE ZONE — LEVANT</div></div>
+      </div>
+    </div>
+    
+    <div class="map-stats-row">
+      <div class="map-stat"><div class="map-stat-val">20,770</div><div class="map-stat-key">Area km²</div></div>
+      <div class="map-stat"><div class="map-stat-val">9.9M</div><div class="map-stat-key">Population</div></div>
+      <div class="map-stat"><div class="map-stat-val">273 km</div><div class="map-stat-key">Coastline (Med)</div></div>
+      <div class="map-stat"><div class="map-stat-val">1,017 km</div><div class="map-stat-key">Total Borders</div></div>
+      <div class="map-stat"><div class="map-stat-val">5</div><div class="map-stat-key">Border States</div></div>
+      <div class="map-stat"><div class="map-stat-val">Jerusalem</div><div class="map-stat-key">Capital</div></div>
+    </div>
+    
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚠ STRATEGIC GEOGRAPHIC CONSTRAINT</div>
+      <p>Israel's primary geographic vulnerability is its <strong class="critical">lack of strategic depth</strong>. At its narrowest point near Netanya, Israel is only <strong class="critical">15 km wide</strong> from the Mediterranean to the 1967 armistice line — insufficient to absorb conventional ground invasion. This constraint drives Israeli military doctrine toward preemptive strikes, forward defense, and the maintenance of control over the Golan Heights and West Bank as buffer zones. The Golan Heights (1,200 m elevation) provides critical observation and defense against Syrian advances.</p>
+    </div>
+    
+    <div class="grid-2">
+      <div>
+        <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:1rem;color:var(--color-text-muted)">Territorial Disputes &amp; Claims</h3>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Territory</th><th>Status</th><th>Claimant</th></tr></thead>
+            <tbody>
+              <tr><td>Gaza Strip</td><td>~65% IDF-controlled (Mar 2026)</td><td>Hamas / PA claim</td></tr>
+              <tr><td>West Bank</td><td>Partial IDF security control</td><td>Palestinian Authority</td></tr>
+              <tr><td>Golan Heights</td><td>Israeli-administered (1981 annex.)</td><td>Syria claims sovereignty</td></tr>
+              <tr><td>East Jerusalem</td><td>Israeli-administered</td><td>Palestinian Authority</td></tr>
+              <tr><td>Shebaa Farms</td><td>Israeli-held</td><td>Lebanon / Syria dispute</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:1rem;color:var(--color-text-muted)">Strategic Geography</h3>
+        <div class="card">
+          <div class="card-body">
+            <p style="margin-bottom:var(--space-3)"><strong style="color:var(--color-accent-bright)">Mediterranean Access:</strong> Israel's 273 km Mediterranean coastline provides naval access, offshore gas field exploitation (Leviathan, Tamar fields), and trade route proximity to Suez Canal.</p>
+            <p style="margin-bottom:var(--space-3)"><strong style="color:var(--color-accent-bright)">Red Sea Access:</strong> Port of Eilat provides Indian Ocean access, bypassing Suez Canal. Houthi attacks on Red Sea shipping have impacted Israeli maritime commerce.</p>
+            <p><strong style="color:var(--color-accent-bright)">Negev Desert:</strong> Southern desert (60% of land area) hosts critical military infrastructure including Dimona nuclear facility, Nevatim Airbase (F-35I), and classified test ranges.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 02 — MILITARY OVERVIEW
+     ============================================================ -->
+<section id="section-overview">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Military <span class="accent">Overview</span></h2>
+    </div>
+    
+    <figure class="inline-img" onclick="openLightbox(this.querySelector('img').src,'IDF paratroopers — Elite Israeli airborne forces in formation. Israel maintains one of the world\'s highest per-capita military readiness levels.')">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/9b34ef445ea4b83ab3b4822b582922b94cfa02e4.jpg" alt="Israeli IDF paratroopers red berets formation" width="1200" height="600" loading="lazy">
+      <figcaption>IDF PARATROOPERS // TZANHANIM BRIGADE — ISRAEL DEFENSE FORCES ELITE AIRBORNE FORMATION</figcaption>
+    </figure>
+    
+    <div class="intel-alert">
+      <div class="intel-alert-head">🛡 EXECUTIVE SUMMARY — A-10 ISRAEL</div>
+      <p>Israel maintains the <strong class="critical">Middle East's most technologically advanced and operationally effective military</strong>, with a comprehensive multi-layered defense architecture. As of March 2026, the IDF comprises approximately <strong class="critical">634,500 total military personnel</strong>, including 170,000 active duty and over 465,000 highly trained reserves — the largest reserve mobilization in Israeli history. The nation's strategic position is defined by its Qualitative Military Edge (QME), undeclared nuclear capabilities, state-of-the-art missile defense, and unmatched cyber warfare capabilities. <strong class="critical">Operation Epic Fury</strong> (February 28, 2026) — joint U.S.-Israeli strikes on Iran killing Supreme Leader Khamenei — represents the most significant Israeli military action in decades.</p>
+    </div>
+    
+    <div class="grid-2">
+      <div>
+        <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-5);font-size:1rem;color:var(--color-text-muted)">Force Composition 2026</h3>
+        <div class="stat-row"><div class="stat-label"><span>Ground Army (Tzva'a Kanit)</span><span class="stat-val">526,000</span></div><div class="stat-bar"><div class="stat-fill" style="width:83%"></div></div></div>
+        <div class="stat-row"><div class="stat-label"><span>Israeli Air Force (Heyl Ha'Avir)</span><span class="stat-val">89,000</span></div><div class="stat-bar"><div class="stat-fill" style="width:14%"></div></div></div>
+        <div class="stat-row"><div class="stat-label"><span>Israeli Navy (Heyl Ha'Yam)</span><span class="stat-val">19,500</span></div><div class="stat-bar"><div class="stat-fill" style="width:3%"></div></div></div>
+        <div class="stat-row"><div class="stat-label"><span>Intelligence Corps (Aman)</span><span class="stat-val">~12,000</span></div><div class="stat-bar"><div class="stat-fill" style="width:2%"></div></div></div>
+        <div class="stat-row"><div class="stat-label"><span>Active Duty Total</span><span class="stat-val">169,500</span></div><div class="stat-bar"><div class="stat-fill" style="width:27%"></div></div></div>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-5);font-size:1rem;color:var(--color-text-muted)">Defense Budget 2025</h3>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Category</th><th>Amount</th></tr></thead>
+            <tbody>
+              <tr><td>Defense Ministry Budget</td><td class="qty">NIS 110B ($29B)</td></tr>
+              <tr><td>Total Defense Budget 2025</td><td class="qty">NIS 136B ($36.9B)</td></tr>
+              <tr><td>Emergency Supplemental</td><td class="qty">NIS 42B ($12.5B)</td></tr>
+              <tr><td>% of GDP</td><td class="qty">~5–6%</td></tr>
+              <tr><td>U.S. Annual Military Aid</td><td class="qty">$3.7–3.8B</td></tr>
+              <tr><td>U.S. Aid Since Oct 2023</td><td class="qty">$21.7B+</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section-header" style="margin-top:var(--space-12)">
+      <h3 style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-muted)">Military Modernization Timeline</h3>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1973 — YOM KIPPUR WAR</div>
+        <div class="tl-title">Doctrine Revolution</div>
+        <div class="tl-desc">Near-catastrophic surprise attack by Egypt and Syria reshapes IDF doctrine. Preemptive strike authority expanded; reserve mobilization protocols overhauled. Intelligence failure leads to creation of Aman reform and enhanced SIGINT capability. <a href="https://www.rand.org/pubs/research_reports/RR3038.html" target="_blank" rel="noopener">RAND analysis →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1981 — OPERATION OPERA</div>
+        <div class="tl-title">Begin Doctrine Established</div>
+        <div class="tl-desc">Israel destroys Iraq's Osirak nuclear reactor in a precision air strike. Prime Minister Begin articulates doctrine: Israel will preventively strike hostile nuclear programs. Template for all subsequent counter-proliferation operations. <a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2008–2010 — OPERATION OLYMPIC GAMES</div>
+        <div class="tl-title">Stuxnet / Cyber Warfare Debut</div>
+        <div class="tl-desc">Joint NSA–Unit 8200 operation deploys Stuxnet worm against Iran's Natanz centrifuge facility, destroying ~1,000 centrifuges. Inaugurates cyber warfare as strategic military domain. <a href="https://www.cisa.gov" target="_blank" rel="noopener">CISA →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2011 — IRON DOME OPERATIONAL</div>
+        <div class="tl-title">Multi-Layer Air Defense Deployed</div>
+        <div class="tl-desc">Iron Dome achieves operational status, achieving 90%+ intercept rates in combat. Followed by David's Sling (2017) and Arrow-3 (2017). Three-tier system provides comprehensive ballistic missile defense. <a href="https://missilethreat.csis.org/defsys/iron-dome/" target="_blank" rel="noopener">CSIS Missile Threat →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2016 — F-35I ADIR ARRIVAL</div>
+        <div class="tl-title">5th Generation Air Capability</div>
+        <div class="tl-desc">First two F-35I Adirs arrive at Nevatim Airbase, making Israel the first nation outside the U.S. to field operational F-35 squadrons. First F-35 combat operations globally in May 2018. <a href="https://www.iaf.org.il" target="_blank" rel="noopener">IAF →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">OCT 2023 — OCTOBER 7 ATTACK</div>
+        <div class="tl-title">Hamas Terrorist Attack; Gaza War</div>
+        <div class="tl-desc">Hamas kills ~1,200 Israelis; largest mass murder of Jewish people since Holocaust. IDF launches Operation Iron Swords, followed by ground invasion. Multi-year Gaza campaign begins. <a href="https://www.rand.org" target="_blank" rel="noopener">RAND →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">JUNE 2025 — TWELVE-DAY WAR</div>
+        <div class="tl-title">First Direct Israel-Iran War</div>
+        <div class="tl-desc">Israel launches 200+ jets in five waves against Iran: nuclear sites, air defense, ballistic missile bases, government compounds. Iran retaliates with 550+ ballistic missiles and 1,000+ drones. 90%+ IDF intercept rate. U.S. joins strikes. <a href="https://www.csis.org" target="_blank" rel="noopener">CSIS →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">FEB 28, 2026 — OPERATION EPIC FURY</div>
+        <div class="tl-title">Khamenei Assassinated; Joint U.S.-Israel Iran War</div>
+        <div class="tl-desc">Joint U.S.-Israeli operation executes ~900 strikes in opening 12 hours. Iranian Supreme Leader Ayatollah Ali Khamenei assassinated. Iran's ballistic missile program, nuclear infrastructure, and air defense systems severely degraded. Conflict ongoing as of March 2026. <a href="https://www.defense.gov" target="_blank" rel="noopener">DoD →</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 03 — GROUND FORCE
+     ============================================================ -->
+<section id="section-ground">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Ground <span class="accent">Force</span></h2>
+    </div>
+    <p class="gap-intro">The IDF Ground Army (Tzva'a Kanit) comprises approximately 526,000 personnel and represents the largest component of Israeli military manpower. Forces are organized into multiple regional commands configured for sustained multi-front operations across Gaza, the West Bank, and the Lebanese border, with combined arms doctrine integrating infantry, armor, engineers, and air defense.</p>
+    
+    <div class="grid-3 mb-6">
+      <!-- Merkava IV -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">MAIN BATTLE TANK</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5c01921a86137f4806378cefebc5be20746657ef.jpg" alt="Merkava Mark IV tanks in field" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Merkava Mark IV — Israel\'s primary main battle tank. Features Trophy APS active protection system and 120mm smoothbore cannon.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Merkava Mark IV (מרכבה)</div>
+          <div class="equip-desc">Israel's indigenous main battle tank, operational since 2004. Primary MBT optimized for crew survivability and urban warfare. Features Trophy APS active protection providing 360° defense against ATGMs, RPGs, and kinetic threats.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">400+ Mk IV active</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Armament</span><span class="equip-spec-val">120mm smoothbore</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Engine</span><span class="equip-spec-val">1,500 hp diesel</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">60 km/h road</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">500+ km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Crew</span><span class="equip-spec-val">4 personnel</span></div>
+          </div>
+          <a href="https://www.idf.il/en/mini-sites/idf-units/ground-forces/" target="_blank" rel="noopener" class="equip-link">IDF Ground Forces <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+      <!-- Merkava Barak (5th Gen) -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">5TH GEN MBT</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/bba768277cec4cab6c320aab43f30e7095aa72c5.jpg" alt="Merkava Barak 5th generation tank" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Merkava Barak (5th Generation) — Israel\'s next-generation AI-integrated main battle tank. Features autonomous targeting, enhanced Trophy 2 APS, and digital battlefield integration.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Merkava Barak (5th Gen)</div>
+          <div class="equip-desc">Next-generation AI-integrated variant of the Merkava series, entering operational service 2023–2024. Features advanced artificial intelligence for target identification, enhanced Trophy APS (Trophy 2), 360° visual coverage, and full digital battlefield integration with network-centric warfare systems.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Operational 2023–24</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">AI Capability</span><span class="equip-spec-val">Autonomous targeting</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Protection</span><span class="equip-spec-val">Trophy 2 APS</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Observation</span><span class="equip-spec-val">360° panoramic</span></div>
+          </div>
+          <a href="https://www.imod.gov.il" target="_blank" rel="noopener" class="equip-link">Israel MoD <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+      <!-- Namer IFV -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">HEAVY IFV</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/c228e67c5b6553c5dacb1654d443684491cb563e.jpg" alt="Namer IFV infantry fighting vehicle Israel" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Namer IFV — The world\'s most heavily protected infantry fighting vehicle. Based on Merkava Mk IV chassis; crew of 4–5 + 8–10 combat infantry.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Namer (נמר) — Heavy IFV</div>
+          <div class="equip-desc">World's most heavily protected infantry combat vehicle, based on Merkava Mark IV tank chassis. Operational since 2008 with extensive deployment in Gaza and Lebanon operations. Provides unparalleled infantry protection in urban warfare, proven under fire in Operation Protective Edge and subsequent campaigns.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Capacity</span><span class="equip-spec-val">4–5 crew + 8–10 inf.</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Armament</span><span class="equip-spec-val">30mm cannon + 7.62mm</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Weight</span><span class="equip-spec-val">60 metric tons</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">60 km/h max</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">APS</span><span class="equip-spec-val">Trophy active protect.</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Base</span><span class="equip-spec-val">Merkava Mk IV chassis</span></div>
+          </div>
+          <a href="https://www.janes.com" target="_blank" rel="noopener" class="equip-link">Jane's Defence <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:1rem;color:var(--color-text-muted)">Ground Force Order of Battle</h3>
+    <div class="data-table-wrap mb-6">
+      <table class="data-table">
+        <thead><tr><th>System</th><th>Quantity</th><th>Role</th><th>Notes</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Merkava Mark IV MBT</td><td class="qty">400+</td><td>Primary MBT</td><td>Trophy APS; 120mm cannon; urban/conventional warfare</td><td><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS →</a></td></tr>
+          <tr><td>Merkava Barak (Mk V)</td><td class="qty">~50</td><td>5th Gen AI MBT</td><td>AI-assisted targeting; entering operational service</td><td><a href="https://www.idf.il" target="_blank" rel="noopener">IDF →</a></td></tr>
+          <tr><td>Namer Heavy IFV</td><td class="qty">400+</td><td>Armored infantry carrier</td><td>Merkava Mk IV chassis; world's most protected IFV</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">Janes →</a></td></tr>
+          <tr><td>M113 APC</td><td class="qty">5,000+</td><td>Armored transport</td><td>Legacy platforms; being replaced by Namer</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">GFP →</a></td></tr>
+          <tr><td>M109A6 Paladin SPH</td><td class="qty">~600</td><td>Self-propelled howitzer</td><td>155mm; US-supplied; precision capability</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">DoD →</a></td></tr>
+          <tr><td>LYNX 120mm Mortar Carrier</td><td class="qty">~400</td><td>Direct fire support</td><td>Wheeled mortar system; high mobility</td><td><a href="https://www.imod.gov.il" target="_blank" rel="noopener">IDF →</a></td></tr>
+          <tr><td>ATMOS 2000 SPH</td><td class="qty">~300</td><td>Wheeled artillery</td><td>155mm/52cal; rapid deployment</td><td><a href="https://www.elbitystems.com" target="_blank" rel="noopener">Elbit →</a></td></tr>
+          <tr><td>AH-64D Apache</td><td class="qty">~48</td><td>Attack helicopter</td><td>Anti-armor; fire support; Hellfire missiles</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></td></tr>
+          <tr><td>UH-60 Black Hawk</td><td class="qty">~65</td><td>Transport / MEDEVAC</td><td>Combat transport; special operations support</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">GFP →</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="intel-alert intel-alert-warning">
+      <div class="intel-alert-head">⚡ CURRENT OPERATIONS — MARCH 2026</div>
+      <p>As of March 2026, IDF ground forces maintain active control of approximately <strong class="critical">65% of Gaza territory</strong> following Operation Gideon's Chariots (May 2025) and subsequent offensive expansion. IDF acknowledged a <strong class="critical">shortfall of 10,000–12,000 soldiers</strong> in early 2026 due to unprecedented multi-front operational tempo. The extraordinary reserve mobilization of 465,000 represents the highest in Israeli history, straining civilian economic productivity. Northern Command maintains elevated alert on the Lebanese border, with rapid-reaction elements positioned for contingency operations against Hezbollah.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 04 — NAVY
+     ============================================================ -->
+<section id="section-navy">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Israeli <span class="accent">Navy</span></h2>
+    </div>
+    <p class="gap-intro">The Israeli Navy (Heyl Ha'Yam) comprises approximately 19,500 personnel and operates a specialized, compact fleet optimized for regional sea control, power projection, and strategic deterrence in the Eastern Mediterranean, Red Sea, and Arabian Gulf. Doctrine emphasizes protection of offshore energy infrastructure, anti-ship operations, naval air defense, and maintenance of the submarine-based nuclear deterrent.</p>
+    
+    <div class="grid-3 mb-6">
+      <!-- Dolphin Submarine -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">STRATEGIC SUBMARINE</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e666d51d0adbd54f513c9c5be26c9051e0469437.jpg" alt="Israel Dolphin class submarines at sea" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Israeli Dolphin-class submarines — Nuclear-capable SSKs carrying Popeye Turbo SLCM. Provide Israel\'s sea-based nuclear second-strike deterrent capability.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Dolphin-Class Submarine (SSK)</div>
+          <div class="equip-desc">Israel's strategic underwater deterrent platform. Carries Popeye Turbo submarine-launched cruise missiles (SLCMs) with estimated 200-kiloton nuclear warheads, providing Israel's sea-based second-strike capability. Three active, newer Dakar-class variants in development.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">3 Dolphin-class</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">1,900 tons submerged</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Strategic Arm</span><span class="equip-spec-val">Popeye Turbo SLCM</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Depth</span><span class="equip-spec-val">300+ m operational</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Endurance</span><span class="equip-spec-val">45+ days submerged</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Tubes</span><span class="equip-spec-val">6×533mm + 2×650mm</span></div>
+          </div>
+          <a href="https://www.naval-technology.com/projects/dolphin-submarine/" target="_blank" rel="noopener" class="equip-link">Naval Technology <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+      <!-- Sa'ar 6 Corvette -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">GUIDED MISSILE CORVETTE</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/19c62f5185badda3174aee271b445ee1be3f7cf9.jpg" alt="Israeli Navy Sa'ar 5 missile corvette at sea" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Israeli Navy Sa\'ar-class missile corvette — Multi-purpose guided missile corvette with Barak air defense system and anti-ship cruise missiles.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Sa'ar 6 (Magen) Corvette</div>
+          <div class="equip-desc">Israel's most modern surface combatant, commissioned beginning 2016. Combines stealth design, advanced radar, Barak air defense missile systems, and Harpoon/Gabriel anti-ship cruise missiles. Four Sa'ar 6 vessels provide anti-ship, anti-air, and general-purpose naval combat capability.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">2,000 tons full load</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Length</span><span class="equip-spec-val">90 meters</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Air Defense</span><span class="equip-spec-val">Barak missile system</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Anti-ship</span><span class="equip-spec-val">Harpoon / Gabriel</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">25+ knots</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">4,000+ nmi</span></div>
+          </div>
+          <a href="https://www.naval-technology.com/projects/saar-6-corvette/" target="_blank" rel="noopener" class="equip-link">Naval Technology <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+      <!-- Fast Attack Craft -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">MISSILE CORVETTE</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f30517f7b5ee4a90275d47279f139d3d697caa99.jpg" alt="Two Israeli Navy Sa'ar 5 corvettes in formation" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Israeli Navy Sa\'ar 5-class corvettes in formation — Israel maintains a small but highly capable surface fleet optimized for Eastern Mediterranean operations.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Sa'ar 5 (Lahav) Corvette</div>
+          <div class="equip-desc">Sa'ar 5 class represents the prior generation of Israeli surface combatants, providing anti-ship and anti-air capability. Three ships remain operational alongside newer Sa'ar 6 platforms, providing rapid interdiction, special operations support, and coastal defense.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Class</span><span class="equip-spec-val">Sa'ar 5 (Lahav)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">1,075 tons</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Armament</span><span class="equip-spec-val">Harpoon + Barak SAM</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">3 active</span></div>
+          </div>
+          <a href="https://www.idf.il/en/mini-sites/idf-units/navy/" target="_blank" rel="noopener" class="equip-link">IDF Navy <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:1rem;color:var(--color-text-muted)">Fleet Order of Battle</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Platform</th><th>Qty</th><th>Type</th><th>Primary Role</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Dolphin-class SSK</td><td class="qty">3</td><td>Diesel-Electric Submarine</td><td>Strategic nuclear deterrent; anti-ship; ASW</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></td></tr>
+          <tr><td>Sa'ar 6 (Magen) Corvette</td><td class="qty">4</td><td>Guided Missile Corvette</td><td>Anti-ship; anti-air; power projection</td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">NavTech →</a></td></tr>
+          <tr><td>Sa'ar 5 (Lahav) Corvette</td><td class="qty">3</td><td>Missile Corvette</td><td>Anti-ship; anti-air; rapid interdiction</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></td></tr>
+          <tr><td>Shaldag Mk II/V FAC</td><td class="qty">8+</td><td>Fast Attack Craft</td><td>Coastal patrol; special ops; interdiction</td><td><a href="https://www.idf.il" target="_blank" rel="noopener">IDF →</a></td></tr>
+          <tr><td>Dabur-class PB</td><td class="qty">12+</td><td>Patrol Boat</td><td>Coastal defense; counterterrorism</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">GFP →</a></td></tr>
+          <tr><td>Dvora-class FAC</td><td class="qty">4</td><td>Fast Attack Craft</td><td>Patrol; interdiction; missile delivery</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">GFP →</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 05 — AIR FORCE
+     ============================================================ -->
+<section id="section-airforce">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Israeli Air <span class="accent">Force</span></h2>
+    </div>
+    <p class="gap-intro">The Israeli Air Force (IAF — Heyl Ha'Avir) stands as the Middle East's most technologically advanced and operationally effective air arm, with approximately 89,000 personnel and 278 combat aircraft. The IAF operates three complementary generations of fighter aircraft and has proven its effectiveness through continuous operations in Gaza, the June 2025 Twelve-Day War, and Operation Epic Fury in February 2026.</p>
+    
+    <div class="grid-3 mb-6">
+      <!-- F-35I Adir -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">5TH GEN STEALTH FIGHTER</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e721df9124739bd3fe4175160d97365630cea5dd.jpg" alt="Israeli Air Force F-35I Adir stealth fighter" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'F-35I Adir (Mighty One) — Israel\'s next-generation stealth fighter. First F-35 outside U.S. to achieve operational status. Used in Operation Epic Fury, February 2026.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">F-35I Adir (אדיר — Mighty One)</div>
+          <div class="equip-desc">Israel's 5th-generation stealth multi-role fighter, making Israel the first nation outside the U.S. to operate F-35s operationally. Customized with Israeli electronic warfare systems, weapons integration, and operational doctrine. First F-35 globally to perform combat operations in May 2018; extensively used in Operation Epic Fury.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">38 F-35I Adir</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 1.6+</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Combat Radius</span><span class="equip-spec-val">1,200+ km + refuel</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Altitude</span><span class="equip-spec-val">50,000+ ft</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Crew</span><span class="equip-spec-val">Single pilot</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Operational</span><span class="equip-spec-val">Since Dec 2016</span></div>
+          </div>
+          <a href="https://www.airforce-technology.com/projects/f-35i-adir/" target="_blank" rel="noopener" class="equip-link">AF Technology <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+      <!-- F-15I Ra'am -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">HEAVY STRIKE FIGHTER</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/34a6f47ff9fa734642b67c9d994bd29741128abb.jpg" alt="F-15I Ra'am Israeli Air Force fighters" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'F-15I Ra\'am (Thunder) — Israel\'s heavy multi-role fighter. Primary long-range strike platform. 66 aircraft; combat radius 1,500+ km. Extensively used in Iran strikes.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">F-15I Ra'am (רעם — Thunder)</div>
+          <div class="equip-desc">Israel's primary heavy multi-role strike aircraft, operational since 1998. Optimized for long-range deep-penetration strikes, air superiority, and electronic warfare. Israel's platform of choice for strategic deep-strike missions against Iranian nuclear sites. Combat radius enables strikes on targets throughout the Middle East.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">66 F-15I Ra'am</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 2.5+</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Combat Radius</span><span class="equip-spec-val">1,500+ km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">GBU-31 JDAM, Popeye</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Crew</span><span class="equip-spec-val">2 (pilot + WSO)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Operational</span><span class="equip-spec-val">Since 1998</span></div>
+          </div>
+          <a href="https://www.airforce-technology.com/projects/f15i/" target="_blank" rel="noopener" class="equip-link">AF Technology <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+      <!-- F-16I Sufa -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">MULTIROLE FIGHTER</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/087be513410e204cad9943bcdf0bc3752ed8b717.jpg" alt="F-16I Sufa Israeli Air Force multirole fighter" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'F-16I Sufa (Storm) — Israel operates the world\'s largest F-16 fleet outside the USAF. 174 aircraft provide close air support, interdiction, and patrol. Workhorse of IAF routine and sustained operations.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">F-16I Sufa (סופה — Storm)</div>
+          <div class="equip-desc">Customized F-16 variant, operational since 2004. Israel operates the world's largest F-16 fleet outside the USAF — 174 aircraft providing close air support, interdiction, and general multirole capabilities. The workhorse of the IAF for routine operations, quick-reaction sorties, and sustained combat missions including Gaza operations.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">174 F-16I Sufa</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 2.0+</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Combat Radius</span><span class="equip-spec-val">800–1,000+ km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">CAS, interdiction, AD</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Crew</span><span class="equip-spec-val">Single pilot</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Note</span><span class="equip-spec-val">Largest F-16 fleet ex-USAF</span></div>
+          </div>
+          <a href="https://www.airforce-technology.com/projects/f-16i-sufa/" target="_blank" rel="noopener" class="equip-link">AF Technology <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:1rem;color:var(--color-text-muted)">IAF Aircraft Inventory</h3>
+    <div class="data-table-wrap mb-6">
+      <table class="data-table">
+        <thead><tr><th>Aircraft</th><th>Qty</th><th>Role</th><th>Primary Weapon</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>F-35I Adir</td><td class="qty">38</td><td>5th Gen stealth multi-role</td><td>AIM-120 AMRAAM; precision munitions</td><td><a href="https://www.iaf.org.il" target="_blank" rel="noopener">IAF →</a></td></tr>
+          <tr><td>F-15I Ra'am</td><td class="qty">66</td><td>Heavy multi-role / deep strike</td><td>GBU-31 JDAM; Popeye; AIM-120</td><td><a href="https://www.iaf.org.il" target="_blank" rel="noopener">IAF →</a></td></tr>
+          <tr><td>F-16I Sufa</td><td class="qty">174</td><td>Multi-role / CAS / patrol</td><td>GBU-15/24; AIM-9; cannon</td><td><a href="https://www.iaf.org.il" target="_blank" rel="noopener">IAF →</a></td></tr>
+          <tr><td>AH-64D Apache</td><td class="qty">~48</td><td>Attack helicopter</td><td>AGM-114 Hellfire; Hydra 70 rockets</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></td></tr>
+          <tr><td>UH-60 Black Hawk</td><td class="qty">~65</td><td>Transport / CSAR</td><td>Defensive systems only</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></td></tr>
+          <tr><td>CH-53 Sikorsky</td><td class="qty">~35</td><td>Heavy-lift helicopter</td><td>N/A (transport)</td><td><a href="https://www.iaf.org.il" target="_blank" rel="noopener">IAF →</a></td></tr>
+          <tr><td>KC-130 Tanker</td><td class="qty">~5</td><td>Aerial refueling</td><td>N/A (tanker)</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></td></tr>
+          <tr><td>Heron / Heron TP UAV</td><td class="qty">50+</td><td>MALE reconnaissance / strike</td><td>Hellfire (strike variant)</td><td><a href="https://www.idf.il" target="_blank" rel="noopener">IDF →</a></td></tr>
+          <tr><td>Hermes 450/900 UAV</td><td class="qty">50+</td><td>ISR / strike</td><td>Precision munitions</td><td><a href="https://www.elbitystems.com" target="_blank" rel="noopener">Elbit →</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚡ OPERATION EPIC FURY — FEBRUARY 28, 2026</div>
+      <p>During the opening strikes on Iran, the IAF demonstrated <strong class="critical">unprecedented operational scale</strong>: more than <strong class="critical">200 fighter jets</strong> executed nearly <strong class="critical">900 strikes in just the first 12 hours</strong>, dropping over 330 munitions on approximately 100 targets. F-35I Adirs, F-15I Ra'ams, and F-16I Sufas executed coordinated penetrating strikes against Iranian air defense systems, ballistic missile bases, nuclear facilities, and regime leadership compounds. The F-35I Adir has been confirmed as achieving <strong class="critical">first F-35 "Beast Mode"</strong> (fully external weapons load) in combat, globally.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 06 — MISSILE / ROCKET FORCE
+     ============================================================ -->
+<section id="section-missile">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Missile <span class="accent">Defense &amp; Offense</span></h2>
+    </div>
+    <p class="gap-intro">Israel's missile arsenal combines advanced offensive strike systems with the world's most battle-proven multi-layered air and missile defense architecture. The three-tier defense system (Iron Dome, David's Sling, Arrow) has intercepted hundreds of Iranian ballistic missiles and drones across the 2025–2026 conflict cycle with documented 90%+ intercept rates.</p>
+    
+    <div class="grid-3 mb-6">
+      <!-- Iron Dome -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">SHORT-RANGE DEFENSE</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/6cf9b0413c105785dc3331e45c461e1899eed544.jpg" alt="Iron Dome missile defense system launch" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Iron Dome — Israeli short-range air defense system. Intercepts rockets, mortars, and low-flying threats within 4–70 km. Operational since 2011; 90%+ intercept rate documented.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Iron Dome (כיפת ברזל)</div>
+          <div class="equip-desc">Israel's frontline short-range air defense system, operational since 2011. Defeats short-range rockets (Qassam, Katyusha), mortars, and aircraft within 4–70 km. Uses advanced radar to track incoming projectiles and engages only threats assessed to impact populated areas, maximizing economic efficiency.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">4–70 km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Intercept Rate</span><span class="equip-spec-val">90%+ (combat proven)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Battery</span><span class="equip-spec-val">Mobile; rapid deploy</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Operational</span><span class="equip-spec-val">Since 2011</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/defsys/iron-dome/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+      <!-- David's Sling -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">MEDIUM-RANGE DEFENSE</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/cdb66de02beddbba9f8f98e23a971b3c31f2e243.jpg" alt="David's Sling missile system launchers" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'David\'s Sling (Kelah David) — Israeli medium-range missile defense system. Intercepts medium-to-long range ballistic missiles, large rockets, and cruise missiles at 40–300 km range.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">David's Sling (קלע דוד)</div>
+          <div class="equip-desc">Israel's medium-range air and missile defense system, operational since 2017. Fills the gap between Iron Dome and Arrow systems, intercepting medium-to-long range ballistic missiles, large-caliber rockets, and cruise missiles. Developed jointly with Raytheon as the successor to the Patriot system for Israeli requirements.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">40–300 km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">MRBM, cruise missiles</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Interceptor</span><span class="equip-spec-val">Stunner missile</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Operational</span><span class="equip-spec-val">Since 2017</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/defsys/davids-sling/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+      <!-- Arrow-3 -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">EXOATMOSPHERIC DEFENSE</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/d1646eb5fe0de2590ad9ee0193bda3ccc89d6aa8.jpg" alt="Arrow missile defense system launch" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Arrow-3 — Israeli exoatmospheric ballistic missile defense. Intercepts long-range ballistic missiles outside the atmosphere at 100–2,400 km range. Joint Israeli-U.S. development; export to Germany approved 2023.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Arrow-3 (Hetz-3 / חץ-3)</div>
+          <div class="equip-desc">Israel's upper-tier exoatmospheric ballistic missile defense system. Intercepts long-range ballistic missiles in space before atmospheric reentry, providing the highest layer of Israel's three-tier defense. Successfully intercepted Iranian Shahab and Fattah ballistic missiles during the 2025–2026 conflict cycle. Arrow-4 development underway jointly with the United States.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">100–2,400 km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Altitude</span><span class="equip-spec-val">Exoatmospheric</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">ICBM / IRBM / MRBM</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Developer</span><span class="equip-spec-val">IAI + Boeing (U.S.)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Operational</span><span class="equip-spec-val">Since 2017</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Export</span><span class="equip-spec-val">Germany (2023)</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/defsys/arrow-3/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:1rem;color:var(--color-text-muted)">Offensive Missile Systems</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>System</th><th>Type</th><th>Range</th><th>Warhead</th><th>Notes</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Jericho III</td><td>ICBM / IRBM</td><td class="qty">4,800–6,500+ km</td><td>Nuclear (est. 750 kt–1 Mt)</td><td>Solid-fuel; silo and road-mobile; primary nuclear delivery</td><td><a href="https://missilethreat.csis.org/missile/jericho-3/" target="_blank" rel="noopener">CSIS →</a></td></tr>
+          <tr><td>Jericho II</td><td>MRBM</td><td class="qty">1,500–3,500 km</td><td>Nuclear or conventional</td><td>Operational since 1990; road-mobile; covers all regional targets</td><td><a href="https://missilethreat.csis.org/missile/jericho-2/" target="_blank" rel="noopener">CSIS →</a></td></tr>
+          <tr><td>Popeye Turbo SLCM</td><td>Submarine-Launched Cruise Missile</td><td class="qty">1,500+ km</td><td>Nuclear (est. 200 kt)</td><td>Sea-based nuclear deterrent; Dolphin-class 650mm tubes</td><td><a href="https://missilethreat.csis.org/missile/popeye-turbo/" target="_blank" rel="noopener">CSIS →</a></td></tr>
+          <tr><td>LORA</td><td>Long-Range Artillery Rocket</td><td class="qty">~400 km</td><td>Conventional 570 kg</td><td>Precision ballistic rocket; naval/ground launch</td><td><a href="https://www.imod.gov.il" target="_blank" rel="noopener">IAI →</a></td></tr>
+          <tr><td>Delilah Cruise Missile</td><td>Air-Launched Cruise Missile</td><td class="qty">250 km+</td><td>30 kg precision</td><td>Loitering strike missile; jam-resistant; F-15I/F-16I</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+          <tr><td>Spice-2000</td><td>Air-Launched Precision Bomb</td><td class="qty">~100 km standoff</td><td>2,000 lb precision</td><td>GPS/EO guided; used extensively in Gaza and Iran strikes</td><td><a href="https://www.rafael.co.il" target="_blank" rel="noopener">Rafael →</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 07 — NUCLEAR POSTURE
+     ============================================================ -->
+<section id="section-nuclear">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Nuclear <span class="accent">Posture</span></h2>
+    </div>
+    
+    <div class="intel-alert intel-alert-warning">
+      <div class="intel-alert-head">☢ NUCLEAR AMBIGUITY — OFFICIAL POLICY</div>
+      <p>Israel maintains an undeclared but widely acknowledged nuclear weapons arsenal, adhering to the strategic posture known as <strong class="critical">"nuclear ambiguity"</strong> or <strong class="critical">"opacity" (amimut)</strong>. This doctrine avoids explicit admission of nuclear possession while maintaining de facto deterrent capabilities. Israel has NOT signed the Nuclear Non-Proliferation Treaty (NPT) and resists international transparency while simultaneously opposing regional nuclear development by adversaries. The Samson Option — undeclared doctrine of massive nuclear retaliation to existential threats — is widely assessed as Israeli strategic reserve doctrine.</p>
+    </div>
+    
+    <div class="grid-3 mb-6">
+      <div class="doctrine-card">
+        <div class="doctrine-icon"><i data-lucide="zap" style="width:20px;height:20px"></i></div>
+        <div class="doctrine-name">Land-Based Triad (Jericho)</div>
+        <div class="doctrine-desc">Jericho II/III ballistic missiles based in underground silos and road-mobile launchers at Sdot Micha airbase. Estimated 50+ nuclear warheads assigned. Ranges cover all Middle Eastern targets and portions of Europe. Primary first-strike and second-strike nuclear capability.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-icon"><i data-lucide="anchor" style="width:20px;height:20px"></i></div>
+        <div class="doctrine-name">Sea-Based Deterrent (Dolphin)</div>
+        <div class="doctrine-desc">Three Dolphin-class diesel-electric submarines carry Popeye Turbo SLCMs with estimated 200-kiloton nuclear warheads. Continuous at-sea deterrent deployment provides second-strike capability surviving any first strike. Range exceeds 1,500 km, covering all regional and some global targets.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-icon"><i data-lucide="plane" style="width:20px;height:20px"></i></div>
+        <div class="doctrine-name">Air-Delivered Capability</div>
+        <div class="doctrine-desc">F-15I Ra'am and F-35I Adir aircraft assessed as nuclear-capable delivery platforms for gravity bombs or air-launched cruise missiles. Israel is believed to have modified versions of U.S. B61 nuclear bombs. Air delivery provides third leg of undeclared triad with flexible targeting.</div>
+      </div>
+    </div>
+    
+    <div class="grid-2">
+      <div>
+        <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:1rem;color:var(--color-text-muted)">Arsenal Estimates (FAS / SIPRI)</h3>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Metric</th><th>Estimate</th><th>Confidence</th></tr></thead>
+            <tbody>
+              <tr><td>Assembled Warheads</td><td class="qty">80–100</td><td>High</td></tr>
+              <tr><td>Weapons-Grade Plutonium</td><td class="qty">340–900 kg</td><td>Medium</td></tr>
+              <tr><td>Theoretical Warhead Capacity</td><td class="qty">100–200</td><td>Medium</td></tr>
+              <tr><td>Primary Fissile Material</td><td class="qty">Plutonium (Dimona)</td><td>High</td></tr>
+              <tr><td>Strategy</td><td class="qty">Minimum sufficient deterrence</td><td>High</td></tr>
+              <tr><td>NPT Status</td><td class="qty">Not a signatory</td><td>Confirmed</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.75rem;color:var(--color-text-faint);margin-top:var(--space-2)">Sources: <a href="https://fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener">FAS Nuclear Notebook</a> / <a href="https://www.sipri.org" target="_blank" rel="noopener">SIPRI</a> / <a href="https://www.armscontrol.org" target="_blank" rel="noopener">Arms Control Association</a></p>
+      </div>
+      <div>
+        <div class="nuclear-badge" style="margin-bottom:var(--space-4)"><span class="nuclear-symbol">☢</span> DIMONA NUCLEAR COMPLEX</div>
+        <div class="card">
+          <div class="card-body">
+            <p style="margin-bottom:var(--space-3)">The <strong style="color:var(--color-accent-bright)">Negev Nuclear Research Center</strong> (Dimona, Negev Desert) is Israel's primary nuclear weapons production facility, operational since the early 1960s with French technical assistance. Produces weapons-grade plutonium through an unsafeguarded 26–40 MWt heavy-water reactor. A 1986 disclosure by whistleblower Mordechai Vanunu revealed a sophisticated nuclear weapons production complex including plutonium reprocessing, lithium-6 deuteride production for thermonuclear weapons, and warhead manufacturing.</p>
+            <p>Israeli nuclear command authority is believed to reside with the Prime Minister, with military officers and intelligence leadership supporting through classified decision-making mechanisms. Decentralized authority systems ensure second-strike capability even after comprehensive first strikes.</p>
+          </div>
+        </div>
+        <a href="https://fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener" class="equip-link" style="margin-top:var(--space-3);display:inline-flex">FAS Nuclear Forces <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        <a href="https://www.sipri.org/yearbook" target="_blank" rel="noopener" class="equip-link" style="margin-top:var(--space-3);display:inline-flex;margin-left:var(--space-2)">SIPRI Yearbook <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+    
+    <div class="policy-quote">
+      "Israel will not be the first to introduce nuclear weapons into the Middle East."
+      <span class="policy-quote-attr">— Levi Eshkol, Prime Minister of Israel (1963–1969), articulating Israel's nuclear ambiguity policy | <a href="https://www.armscontrol.org/factsheets/israelprofile" target="_blank" rel="noopener">Arms Control Association →</a></span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 08 — INTELLIGENCE / SPECIAL OPERATIONS
+     ============================================================ -->
+<section id="section-special">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2 class="section-title">Intelligence &amp; <span class="accent">Special Ops</span></h2>
+    </div>
+    <p class="gap-intro">Israel maintains one of the world's most capable and experienced intelligence communities, structured around three primary agencies plus specialized military units. These services routinely conduct operations spanning human intelligence (HUMINT), signals intelligence (SIGINT), cyber operations, targeted killings, and counter-proliferation. The October 7, 2023 intelligence failure prompted a comprehensive structural overhaul that is ongoing as of 2026.</p>
+    
+    <div class="grid-2 mb-6">
+      <!-- MOSSAD -->
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">FOREIGN INTELLIGENCE</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/2cbbeba279e578e4867cf5e5b41f3249ed1052aa.jpg" alt="Mossad Israeli intelligence agency emblem" width="400" height="250" loading="lazy" style="object-position:center;background:#1a1e28" onclick="openLightbox(this.src,'Mossad — The Institute for Intelligence and Special Operations. Israel\'s external intelligence service. Known for targeted killing programs, counterterrorism, counter-proliferation, and human intelligence operations globally.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Mossad (המוסד)</div>
+          <div class="equip-desc">Israel's foreign intelligence service and one of the world's most capable espionage agencies. Operates globally via human intelligence networks, cyber operations, technical collection, and direct action missions (targeted killings). Notable operations include the assassination of Hamas leader Ismail Haniyeh (Tehran, July 2024) and Hezbollah pager/radio detonation operation (September 2024). Reports directly to the Prime Minister.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Type</span><span class="equip-spec-val">Foreign intelligence</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Est.</span><span class="equip-spec-val">1949</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Reports to</span><span class="equip-spec-val">Prime Minister</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Key Ops</span><span class="equip-spec-val">Haniyeh kill, Pager Op</span></div>
+          </div>
+          <a href="https://www.mossad.gov.il" target="_blank" rel="noopener" class="equip-link">Mossad (Official) <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+      <!-- AMAN/SHIN BET -->
+      <div class="card">
+        <div class="card-title">Shin Bet &amp; Aman — Domestic &amp; Military Intelligence</div>
+        <div class="card-body">
+          <p style="margin-bottom:var(--space-3)"><strong style="color:var(--color-accent-bright)">Shin Bet (Shabak / שב"כ):</strong> Israel's internal security service, responsible for counterterrorism, counterespionage, and protection of critical infrastructure within Israel and the Territories. Operates extensive networks within Palestinian territories. The primary agency responsible for monitoring Hamas and Hezbollah cells operating in Israel. Failed to prevent Oct 7 — comprehensive reform ongoing.</p>
+          <p style="margin-bottom:var(--space-3)"><strong style="color:var(--color-accent-bright)">Aman (Military Intelligence):</strong> IDF's military intelligence directorate, providing strategic intelligence assessments to senior command. Responsible for National Intelligence Assessment and adversary order of battle tracking. The Oct 7 failure — despite pre-attack intelligence received — prompted a fundamental Aman reassessment with new commander (2024) and reorganized collection protocols.</p>
+          <p><strong style="color:var(--color-accent-bright)">Unit 504:</strong> IDF's clandestine HUMINT unit conducting agent recruitment and running in hostile countries, focusing on Lebanon, Syria, Iran, and Palestinian territories. Has operated some of Israel's most sensitive intelligence assets inside enemy territory.</p>
+        </div>
+      </div>
+    </div>
+    
+    <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:1rem;color:var(--color-text-muted)">Elite Special Operations Forces</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Unit</th><th>Type</th><th>Primary Role</th><th>Notable Operations</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Sayeret Matkal (Unit 262)</td><td>General Staff Reconnaissance</td><td>Deep penetration, hostage rescue, strategic intelligence gathering</td><td>Entebbe (1976); targeted killings; Operation Sept (Syria)</td><td><a href="https://www.idf.il" target="_blank" rel="noopener">IDF →</a></td></tr>
+          <tr><td>Shayetet 13 (Naval Commando)</td><td>Naval Special Warfare</td><td>Maritime counterterrorism; underwater demolition; coastal raids</td><td>Gaza maritime interdiction; weapon seizures; hostage rescue</td><td><a href="https://www.idf.il" target="_blank" rel="noopener">IDF →</a></td></tr>
+          <tr><td>Shaldag (Sky Rider)</td><td>Air Force Special Operations</td><td>Target designation; CSAR; special reconnaissance; direct action</td><td>Airfield seizure ops; SOF insertion/extraction; Iran strikes TDA</td><td><a href="https://www.iaf.org.il" target="_blank" rel="noopener">IAF →</a></td></tr>
+          <tr><td>Duvdevan (Unit 217)</td><td>Undercover CT</td><td>Undercover operations in West Bank; arrest/kill targeted terrorists</td><td>Extensive West Bank operations; Oct 7 response; Gaza raids</td><td><a href="https://www.idf.il" target="_blank" rel="noopener">IDF →</a></td></tr>
+          <tr><td>Egoz Reconnaissance</td><td>Guerrilla / Unconventional warfare</td><td>Counter-guerrilla; anti-tunnel; mountainous terrain</td><td>Lebanon operations; Gaza tunnel operations</td><td><a href="https://www.idf.il" target="_blank" rel="noopener">IDF →</a></td></tr>
+          <tr><td>Kidon (Mossad)</td><td>Direct Action</td><td>Targeted assassinations; wet operations; overseas counterterror</td><td>Munich (1972 aftermath); Haniyeh assassination (July 2024)</td><td><a href="https://www.cia.gov" target="_blank" rel="noopener">Open Source →</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="intel-alert intel-alert-warning" style="margin-top:var(--space-6)">
+      <div class="intel-alert-head">⚠ HEZBOLLAH PAGER OPERATION — SEPTEMBER 2024</div>
+      <p>In September 2024, Mossad executed one of the most sophisticated supply chain intelligence operations in history: embedding explosive devices inside pagers and walkie-talkies sold to Hezbollah operatives across Lebanon. Simultaneous detonation of thousands of devices killed approximately <strong class="critical">39 Hezbollah members</strong>, injured 3,000+, and eliminated Hezbollah's encrypted communications network. The operation demonstrated Mossad's unparalleled capability for penetrating adversary supply chains at a strategic level. <a href="https://www.bbc.com/news/articles/c5y35y5e5plo" target="_blank" rel="noopener">BBC →</a></p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 09 — CYBER / SPACE
+     ============================================================ -->
+<section id="section-cyber">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2 class="section-title">Cyber &amp; <span class="accent">Space</span></h2>
+    </div>
+    <p class="gap-intro">Israel is a Tier-1 cyber power with offensive and defensive capabilities that rival or exceed those of most major nations. The combination of Unit 8200 (the world's largest military SIGINT unit by many measures), the Israel National Cyber Directorate, and a thriving dual-use private sector creates an unparalleled digital warfare ecosystem. Israel also maintains a growing space intelligence and reconnaissance capability through the Ofeq spy satellite program.</p>
+    
+    <div class="grid-3 mb-6">
+      <div class="doctrine-card">
+        <div class="doctrine-icon"><i data-lucide="shield" style="width:20px;height:20px"></i></div>
+        <div class="doctrine-name">Unit 8200 (SIGINT / Cyber)</div>
+        <div class="doctrine-desc">IDF's elite signals intelligence and cyber warfare unit, analogous to the NSA. Employs thousands of analysts and operators; alumni founded companies including NSO Group, Check Point, Waze, CyberArk, and hundreds more. Responsible for Stuxnet (co-developed with NSA), systematic monitoring of Iranian nuclear activities, and ongoing offensive cyber operations against Hezbollah, Hamas, and Iranian networks. <a href="https://www.nytimes.com/2014/07/10/world/middleeast/israel-unit-8200-cyber.html" target="_blank" rel="noopener" style="color:var(--color-blue)">NYT →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-icon"><i data-lucide="cpu" style="width:20px;height:20px"></i></div>
+        <div class="doctrine-name">Israel National Cyber Directorate</div>
+        <div class="doctrine-desc">Civilian cyber organization under the Prime Minister's Office responsible for national cyber defense, critical infrastructure protection, and coordination of national cyber strategy. Works with Unit 8200 on offensive/defensive overlap. Israel maintains the highest per-capita density of cybersecurity companies globally, with Tel Aviv ranked #2 cyber hub worldwide after San Francisco. <a href="https://www.gov.il/en/departments/israel_national_cyber_directorate" target="_blank" rel="noopener" style="color:var(--color-blue)">INCD →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-icon"><i data-lucide="satellite" style="width:20px;height:20px"></i></div>
+        <div class="doctrine-name">Space Intelligence (Ofeq)</div>
+        <div class="doctrine-desc">Israel operates the Ofeq (Horizon) series of reconnaissance satellites, making it one of only about 10 nations with independent space-based intelligence collection. Ofeq-16 launched 2020; provides electro-optical imagery of regional targets including Iranian nuclear sites and military installations. The AMOS commercial satellite series provides additional strategic communications. <a href="https://www.iai.co.il" target="_blank" rel="noopener" style="color:var(--color-blue)">IAI →</a></div>
+      </div>
+    </div>
+    
+    <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:1rem;color:var(--color-text-muted)">Key Cyber Operations &amp; Capabilities</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Operation / Capability</th><th>Date</th><th>Type</th><th>Effect</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Stuxnet (Operation Olympic Games)</td><td>2009–2010</td><td>Offensive Cyber (joint NSA/8200)</td><td>Destroyed ~1,000 Iranian centrifuges at Natanz; delayed enrichment 2+ years</td><td><a href="https://www.wired.com/story/stuxnet/" target="_blank" rel="noopener">Wired →</a></td></tr>
+          <tr><td>Iran Nuclear Database Hack</td><td>2020</td><td>Offensive Cyber / HUMINT</td><td>Theft of Iranian AMAD nuclear program archive (55,000 pages, 55,000 files)</td><td><a href="https://www.timesofisrael.com" target="_blank" rel="noopener">ToI →</a></td></tr>
+          <tr><td>Natanz Explosion / IAEA Camera Hack</td><td>2021</td><td>Sabotage + Cyber</td><td>Destroyed advanced centrifuges; temporarily blinded IAEA monitoring cameras</td><td><a href="https://www.nytimes.com" target="_blank" rel="noopener">NYT →</a></td></tr>
+          <tr><td>Hezbollah Pager Detonation</td><td>Sep 2024</td><td>Supply Chain / Physical</td><td>~39 killed; 3,000+ wounded; destroyed Hezbollah's communication network</td><td><a href="https://www.reuters.com" target="_blank" rel="noopener">Reuters →</a></td></tr>
+          <tr><td>Gaza Signals Intelligence</td><td>Ongoing</td><td>SIGINT / Offensive</td><td>Real-time intercept of Hamas command networks; autonomous AI target generation</td><td><a href="https://+972mag.com" target="_blank" rel="noopener">+972 Mag →</a></td></tr>
+          <tr><td>Lavender / Where's Daddy AI</td><td>2023–2025</td><td>AI-Assisted Targeting</td><td>Machine-learning system generating Hamas/PIJ target lists at scale</td><td><a href="https://+972mag.com" target="_blank" rel="noopener">+972 Mag →</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 10 — MILITARY DOCTRINE
+     ============================================================ -->
+<section id="section-doctrine">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h2 class="section-title">Strategic <span class="accent">Doctrine</span></h2>
+    </div>
+    <p class="gap-intro">Israeli military doctrine is shaped by existential geographic constraints: no strategic depth, a small population, and multiple adversaries on multiple borders simultaneously. These factors combine to create a distinctively aggressive and preemptive doctrine focused on achieving rapid decisive results in adversary territory, deterrence through demonstrated capacity for disproportionate retaliation, and denying enemies the ability to develop existential capabilities.</p>
+    
+    <div class="grid-4 mb-6">
+      <div class="doctrine-card">
+        <div class="doctrine-icon"><i data-lucide="alert-triangle" style="width:20px;height:20px"></i></div>
+        <div class="doctrine-name">Preemptive Strike Doctrine</div>
+        <div class="doctrine-desc">Israel reserves the unilateral right to strike preemptively against existential military threats before they materialize. Applied against Iraq (Osirak 1981), Syria (Al-Kibar 2007), Iran (multiple, ongoing). Requires intelligence superiority and willingness to act without allied authorization.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-icon"><i data-lucide="shield-off" style="width:20px;height:20px"></i></div>
+        <div class="doctrine-name">Begin Doctrine</div>
+        <div class="doctrine-desc">Named for Prime Minister Menachem Begin: Israel will not allow any hostile state in the region to develop nuclear weapons. Applied in 1981 (Iraq), 2007 (Syria), and implicitly in all Iran counter-proliferation operations. Forms the legal-strategic basis for Israeli strikes on Iranian nuclear infrastructure.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-icon"><i data-lucide="target" style="width:20px;height:20px"></i></div>
+        <div class="doctrine-name">Dahiya Doctrine</div>
+        <div class="doctrine-desc">Articulated following the 2006 Lebanon War: targeting civilian infrastructure deliberately used by non-state actors will result in its destruction. Applied to Lebanon's southern suburbs (Dahiya quarter) and Gaza's infrastructure to raise the cost of continued conflict for the civilian population hosting terrorist organizations.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-icon"><i data-lucide="zap" style="width:20px;height:20px"></i></div>
+        <div class="doctrine-name">Campaign Between Wars (CBW)</div>
+        <div class="doctrine-desc">Systematic low-level kinetic and cyber operations between declared conflicts to degrade adversary capabilities. Primarily applied against Iran-backed weapons transfers to Hezbollah via Syria. Over 600 airstrikes against Syrian territory 2017–2024 targeting Iranian and Hezbollah weapons caches and logistics nodes.</div>
+      </div>
+    </div>
+    
+    <div class="grid-2">
+      <div>
+        <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:1rem;color:var(--color-text-muted)">Qualitative Military Edge (QME)</h3>
+        <div class="card mb-6">
+          <div class="card-body">
+            <p style="margin-bottom:var(--space-3)">A cornerstone of U.S.-Israel strategic relations, formalized in the Naval Vessel Transfer Act of 2008: the United States is legally obligated to ensure Israel maintains a <strong style="color:var(--color-accent-bright)">Qualitative Military Edge</strong> — meaning superior military capability — over all neighboring and regional states, individually and collectively. This has resulted in exclusive access to technologies denied to other allies, including advanced F-35I customizations, Arrow air defense development, and priority access to classified U.S. intelligence assessments.</p>
+            <p>QME underpins Israeli exclusion of GCC states from receiving F-35s while Israel operates them, and forms the basis for restricting U.S. arms sales to Gulf states that could be used against Israel.</p>
+          </div>
+        </div>
+        <div class="intel-alert">
+          <div class="intel-alert-head">⚡ SAMSON OPTION</div>
+          <p>The Samson Option refers to an undeclared Israeli nuclear policy of last-resort: in the event of an existential attack that threatens Israel's survival, Israel would launch a massive nuclear strike against all identified adversaries simultaneously, including their capitals and population centers — even if this cannot prevent Israel's own destruction. Named for Samson destroying the Temple in Judges. <a href="https://www.fas.org" target="_blank" rel="noopener">FAS →</a></p>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:1rem;color:var(--color-text-muted)">Force Employment Doctrine</h3>
+        <div class="collapsible">
+          <div class="collapsible-head" onclick="toggleCollapsible(this)">Speed and Initiative<svg class="chev" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="collapsible-body"><div class="collapsible-body-inner">Israeli doctrine mandates rapid offensive action that moves the fight to enemy territory as quickly as possible. The lack of strategic depth means any war fought on Israeli soil inflicts disproportionate civilian casualties. Reserves can mobilize within 24–72 hours due to pre-positioned equipment and streamlined call-up protocols. All major conflicts since 1967 have begun with Israeli offensive initiative.</div></div>
+        </div>
+        <div class="collapsible">
+          <div class="collapsible-head" onclick="toggleCollapsible(this)">Intelligence-Driven Warfare<svg class="chev" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="collapsible-body"><div class="collapsible-body-inner">All Israeli military operations are preceded by intensive intelligence preparation. Aman provides adversary order-of-battle intelligence; Unit 8200 provides SIGINT and cyber intelligence; Mossad provides strategic HUMINT. AI-assisted target generation systems (Lavender, Gospel) are now integrated into targeting cycles, enabling faster kill chains. The Oct 7 failure demonstrated the catastrophic consequences of intelligence failure, accelerating AI integration.</div></div>
+        </div>
+        <div class="collapsible">
+          <div class="collapsible-head" onclick="toggleCollapsible(this)">Multi-Domain Integration<svg class="chev" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="collapsible-body"><div class="collapsible-body-inner">Israeli doctrine increasingly integrates cyber, space, electronic warfare, and kinetic operations simultaneously. The 2024–2026 Iran campaign illustrates full-spectrum operations: cyber attacks (Stuxnet, database thefts) and targeted physical sabotage prepared conditions for air strikes, which were simultaneously supported by SIGINT collection and coordinated with U.S. space-based assets. This multi-domain integration represents the future of Israeli force employment.</div></div>
+        </div>
+        <div class="collapsible">
+          <div class="collapsible-head" onclick="toggleCollapsible(this)">Urban Warfare Doctrine<svg class="chev" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="collapsible-body"><div class="collapsible-body-inner">Refined in Jenin (2002), Gaza (2008, 2014, 2023+) and Lebanon (2006), IDF urban warfare doctrine emphasizes combined arms (tank-infantry-engineer teams), above-ground breaching (to avoid booby-trapped entry points), heavy use of UAVs for real-time ISR, and specialized urban combat units (Duvdevan, Egoz). The Namer IFV was specifically developed for urban operations, providing infantry the protection of an MBT while maneuvering through Gaza's tunnel-dense environment.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 11 — FOREIGN POLICY
+     ============================================================ -->
+<section id="section-foreign">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">11</span>
+      <h2 class="section-title">Foreign Policy &amp; <span class="accent">Alliances</span></h2>
+    </div>
+    
+    <figure class="inline-img" onclick="openLightbox(this.querySelector('img').src,'Abraham Accords Signing — Trump, Netanyahu, Mohamed bin Zayed. The 2020 Abraham Accords normalized relations between Israel and the UAE, Bahrain, Sudan, and Morocco — the first Arab-Israeli peace agreements since 1994.')">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/2f749938f004084cd01a7b553020b2b713deb04e.jpg" alt="Abraham Accords signing ceremony Trump Netanyahu UAE" width="1200" height="600" loading="lazy">
+      <figcaption>ABRAHAM ACCORDS SIGNING — WHITE HOUSE // SEPTEMBER 15, 2020 — NORMALIZATION WITH UAE, BAHRAIN, SUDAN, MOROCCO</figcaption>
+    </figure>
+    
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="showTab('tab-us','tab-group-1',this)">U.S. Alliance</button>
+      <button class="tab-btn" onclick="showTab('tab-abraham','tab-group-1',this)">Abraham Accords</button>
+      <button class="tab-btn" onclick="showTab('tab-adversaries','tab-group-1',this)">Adversaries</button>
+      <button class="tab-btn" onclick="showTab('tab-nato','tab-group-1',this)">NATO / Europe</button>
+    </div>
+    
+    <div id="tab-us" class="tab-pane active" data-group="tab-group-1">
+      <div class="grid-2">
+        <div>
+          <div class="card">
+            <div class="card-title">U.S.-Israel Strategic Partnership</div>
+            <div class="card-body">
+              <p style="margin-bottom:var(--space-3)">The United States and Israel maintain a <strong style="color:var(--color-accent-bright)">special relationship</strong> formalized through annual military assistance ($3.7–3.8B per year), intelligence sharing, joint exercises, and co-development of defense systems. U.S. security assistance since October 2023 alone totals over $21.7B, including emergency munitions packages, air defense equipment, and combat vehicles.</p>
+              <p style="margin-bottom:var(--space-3)">Key U.S.-Israel joint developments include: Arrow missile defense (co-developed with Boeing), Iron Dome (partial U.S. funding via Raytheon), and Trophy APS (now equipping U.S. M1A2 SEPv3 Abrams tanks). The QME legal framework ensures Israel receives U.S. military technology denied to regional peers.</p>
+              <p>During Operation Epic Fury (February 2026), U.S. forces participated directly alongside Israeli forces in strikes against Iranian targets, representing the deepest operational military integration in the alliance's history.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Component</th><th>Detail</th></tr></thead>
+              <tbody>
+                <tr><td>Annual U.S. Military Aid</td><td class="qty">$3.7–3.8B/yr</td></tr>
+                <tr><td>U.S. Aid Since Oct 2023</td><td class="qty">$21.7B+</td></tr>
+                <tr><td>Joint Systems</td><td>Arrow 2/3, Iron Dome, Trophy</td></tr>
+                <tr><td>Intel Sharing</td><td>Full SIGINT/imagery sharing via NSA–Unit 8200</td></tr>
+                <tr><td>Exercises</td><td>Juniper Cobra, Austere Challenge</td></tr>
+                <tr><td>Joint Combat Ops</td><td>Epic Fury (Feb 2026)</td></tr>
+                <tr><td>QME Legal Basis</td><td>Naval Vessel Transfer Act (2008)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="tab-abraham" class="tab-pane" data-group="tab-group-1">
+      <div class="intel-alert" style="margin-bottom:var(--space-6)">
+        <div class="intel-alert-head">🤝 ABRAHAM ACCORDS — SIGNED SEPTEMBER 15, 2020</div>
+        <p>The Abraham Accords represent the most significant expansion of Israeli regional diplomatic recognition since the Egypt (1979) and Jordan (1994) peace treaties. Brokered by the Trump administration, the Accords normalized relations between Israel and four Arab states in a single year: <strong class="critical">UAE, Bahrain, Sudan, and Morocco</strong>. Saudi normalization was reported to be in advanced discussions as of late 2025, though the Gaza war and Operation Epic Fury have complicated negotiations.</p>
+      </div>
+      <div class="grid-4">
+        <div class="doctrine-card"><div class="doctrine-icon"><span style="font-size:1.5rem">🇦🇪</span></div><div class="doctrine-name">UAE (Sep 2020)</div><div class="doctrine-desc">Full normalization; trade, tourism, direct flights, security cooperation. UAE-Israel bilateral trade: $3B+ annually. Active security intelligence sharing on Iranian threats.</div></div>
+        <div class="doctrine-card"><div class="doctrine-icon"><span style="font-size:1.5rem">🇧🇭</span></div><div class="doctrine-name">Bahrain (Sep 2020)</div><div class="doctrine-desc">Full normalization; U.S. Fifth Fleet base provides strategic triangulation. Security and intelligence cooperation against Iranian threats to Gulf states.</div></div>
+        <div class="doctrine-card"><div class="doctrine-icon"><span style="font-size:1.5rem">🇸🇩</span></div><div class="doctrine-name">Sudan (Oct 2020)</div><div class="doctrine-desc">Agreement in principle; formalization complicated by Sudanese internal politics. Strategic value: eliminates prior Arab League support for Palestinian cause.</div></div>
+        <div class="doctrine-card"><div class="doctrine-icon"><span style="font-size:1.5rem">🇲🇦</span></div><div class="doctrine-name">Morocco (Dec 2020)</div><div class="doctrine-desc">Normalization in exchange for U.S. recognition of Moroccan sovereignty over Western Sahara. Defense cooperation; Israeli security technology exports to Morocco.</div></div>
+      </div>
+    </div>
+    
+    <div id="tab-adversaries" class="tab-pane" data-group="tab-group-1">
+      <div class="grid-2">
+        <div>
+          <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:0.9rem;color:var(--color-text-muted)">PRIMARY ADVERSARIES</h3>
+          <div class="collapsible">
+            <div class="collapsible-head" onclick="toggleCollapsible(this)">Iran 🇮🇷<svg class="chev" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <div class="collapsible-body"><div class="collapsible-body-inner">Israel's primary existential threat. Iran funds and equips Hezbollah, Hamas, and Palestinian Islamic Jihad, and has pursued nuclear weapons. Israel has conducted covert operations against Iranian nuclear programs since the 1990s. The June 2025 Twelve-Day War marked the first direct Israel-Iran armed conflict; Operation Epic Fury (Feb 2026) resulted in Khamenei's assassination and severe degradation of Iran's military infrastructure.</div></div>
+          </div>
+          <div class="collapsible">
+            <div class="collapsible-head" onclick="toggleCollapsible(this)">Hezbollah (Lebanon) 🇱🇧<svg class="chev" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <div class="collapsible-body"><div class="collapsible-body-inner">Iran-backed Shia militant organization controlling southern Lebanon. Possesses an estimated 100,000–150,000 rockets and missiles as of early 2024. Israel has conducted hundreds of strikes against Hezbollah weapons transfers in Syria; the September 2024 pager/radio detonation operation devastated Hezbollah's mid-level leadership. Hezbollah's threat partially neutralized by the autumn 2024 exchange and subsequent ceasefire.</div></div>
+          </div>
+          <div class="collapsible">
+            <div class="collapsible-head" onclick="toggleCollapsible(this)">Hamas (Gaza) / PIJ<svg class="chev" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <div class="collapsible-body"><div class="collapsible-body-inner">Hamas remains the primary challenge in the Gaza Strip. After October 7, 2023, the IDF has systematically degraded Hamas's military capability through Operations Iron Swords, Gideon's Chariots, and successive ground offensives. As of March 2026, IDF controls approximately 65% of Gaza territory. Hamas's political and military leadership has been largely eliminated; remaining leadership has dispersed. A lasting political solution remains undefined.</div></div>
+          </div>
+        </div>
+        <div>
+          <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-4);font-size:0.9rem;color:var(--color-text-muted)">COMPLEX RELATIONSHIPS</h3>
+          <div class="collapsible">
+            <div class="collapsible-head" onclick="toggleCollapsible(this)">Saudi Arabia 🇸🇦<svg class="chev" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <div class="collapsible-body"><div class="collapsible-body-inner">Covert intelligence sharing relationship existed for years before normalization talks began. Saudi-Israel normalization was being negotiated under U.S. mediation through 2025 but complicated by Gaza casualties and Iranian nuclear developments. Shared Iranian threat creates alignment. Saudi Arabia tacitly approved Israeli overflight rights for the 2025–2026 Iran strikes, according to multiple reports.</div></div>
+          </div>
+          <div class="collapsible">
+            <div class="collapsible-head" onclick="toggleCollapsible(this)">Turkey 🇹🇷<svg class="chev" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <div class="collapsible-body"><div class="collapsible-body-inner">Relations severely strained since 2010 Mavi Marmara incident and further deteriorated following Gaza operations. Erdogan suspended trade with Israel in May 2024. Historical close military cooperation (joint exercises, Israeli drone sales) has ended. Turkey's NATO membership creates complications for U.S.-Israel operational coordination.</div></div>
+          </div>
+          <div class="collapsible">
+            <div class="collapsible-head" onclick="toggleCollapsible(this)">Jordan / Egypt 🇯🇴 🇪🇬<svg class="chev" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <div class="collapsible-body"><div class="collapsible-body-inner">Formal peace treaties with both. Egypt (1979) and Jordan (1994) remain Israel's most durable regional peace agreements. Both participated in intercepting Iranian projectiles during the October 2024 attack (Jordan allowed coalition forces to use airspace; Egypt provided intelligence). Both governments face significant domestic pressure regarding Palestinian issue. Jordan's role in Gaza's post-war governance is under active negotiation.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="tab-nato" class="tab-pane" data-group="tab-group-1">
+      <div class="intel-alert" style="margin-bottom:var(--space-6)">
+        <div class="intel-alert-head">🇪🇺 ISRAEL-EUROPE RELATIONS — 2026 STATUS</div>
+        <p>Israel's relations with European governments have been strained by Gaza operations casualties. An International Criminal Court arrest warrant was issued for Prime Minister Netanyahu (November 2024) related to alleged Gaza war crimes. Several European states have suspended arms exports to Israel. However, strategic defense cooperation with key European states — particularly Germany, Italy, and Greece — remains active. Germany is the primary recipient of Arrow-3 system export, representing continued defense alignment against Iranian ballistic missile threats.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Germany 🇩🇪 — Primary European Partner</div>
+          <div class="card-body">Purchased Arrow-3 air defense system for €4B (2023) as part of national layered air defense. Continued arms exports to Israel despite domestic political controversy. Long-standing Holocaust-era moral commitment to Israel's security. Maintains robust intelligence and security cooperation.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Greece &amp; Cyprus 🇬🇷 🇨🇾 — Eastern Med Alignment</div>
+          <div class="card-body">Israel-Greece-Cyprus trilateral security framework; joint naval exercises; ISR basing cooperation. Energy cooperation through EastMed gas pipeline diplomacy. Shared concern over Turkish regional ambitions creates strategic convergence. Greece has served as an informal NATO liaison for Israeli intelligence.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 12 — RISK ASSESSMENT
+     ============================================================ -->
+<section id="section-risk">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">12</span>
+      <h2 class="section-title">Strategic <span class="accent">Risk Assessment</span></h2>
+    </div>
+    <p class="gap-intro">As of March 2026, Israel faces an extraordinarily complex and multi-directional threat environment. Operation Epic Fury's success in killing Khamenei has degraded Iran's strategic capabilities but opens an unstable transitional period in Tehran. Multi-front operational tempo is straining IDF force readiness and Israeli society simultaneously.</p>
+    
+    <div class="grid-2 mb-6">
+      <div>
+        <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-5);font-size:1rem;color:var(--color-text-muted)">Threat Vector Assessment (March 2026)</h3>
+        <div class="risk-item">
+          <div class="risk-label"><span class="risk-name">Iranian Nuclear Program Revival</span><span class="risk-pct">CRITICAL</span></div>
+          <div class="risk-bar"><div class="risk-fill risk-high" style="width:90%"></div></div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-label"><span class="risk-name">Hezbollah Resurgence / North Front</span><span class="risk-pct">HIGH</span></div>
+          <div class="risk-bar"><div class="risk-fill risk-high" style="width:72%"></div></div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-label"><span class="risk-name">Gaza Persistent Insurgency</span><span class="risk-pct">HIGH</span></div>
+          <div class="risk-bar"><div class="risk-fill risk-med" style="width:78%"></div></div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-label"><span class="risk-name">IDF Force Readiness Degradation</span><span class="risk-pct">ELEVATED</span></div>
+          <div class="risk-bar"><div class="risk-fill risk-med" style="width:65%"></div></div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-label"><span class="risk-name">Economic / Social Cohesion Strain</span><span class="risk-pct">MEDIUM</span></div>
+          <div class="risk-bar"><div class="risk-fill risk-med" style="width:60%"></div></div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-label"><span class="risk-name">Houthi / Red Sea Disruption</span><span class="risk-pct">ELEVATED</span></div>
+          <div class="risk-bar"><div class="risk-fill risk-med" style="width:55%"></div></div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-label"><span class="risk-name">West Bank Escalation</span><span class="risk-pct">MEDIUM</span></div>
+          <div class="risk-bar"><div class="risk-fill risk-med" style="width:50%"></div></div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-label"><span class="risk-name">International Isolation</span><span class="risk-pct">MEDIUM</span></div>
+          <div class="risk-bar"><div class="risk-fill risk-low" style="width:45%"></div></div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-label"><span class="risk-name">U.S. Alliance Divergence</span><span class="risk-pct">LOW</span></div>
+          <div class="risk-bar"><div class="risk-fill risk-low" style="width:20%"></div></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-5);font-size:1rem;color:var(--color-text-muted)">Strategic Strengths</h3>
+        <div class="stat-row"><div class="stat-label"><span>Air Superiority (Regional)</span><span class="stat-val">98/100</span></div><div class="stat-bar"><div class="stat-fill" style="width:98%"></div></div></div>
+        <div class="stat-row"><div class="stat-label"><span>Intelligence Capability</span><span class="stat-val">97/100</span></div><div class="stat-bar"><div class="stat-fill" style="width:97%"></div></div></div>
+        <div class="stat-row"><div class="stat-label"><span>Missile Defense Coverage</span><span class="stat-val">93/100</span></div><div class="stat-bar"><div class="stat-fill" style="width:93%"></div></div></div>
+        <div class="stat-row"><div class="stat-label"><span>Cyber Warfare Capability</span><span class="stat-val">95/100</span></div><div class="stat-bar"><div class="stat-fill" style="width:95%"></div></div></div>
+        <div class="stat-row"><div class="stat-label"><span>Nuclear Deterrent</span><span class="stat-val">90/100</span></div><div class="stat-bar"><div class="stat-fill" style="width:90%"></div></div></div>
+        <div class="stat-row"><div class="stat-label"><span>Special Operations</span><span class="stat-val">96/100</span></div><div class="stat-bar"><div class="stat-fill" style="width:96%"></div></div></div>
+        <div class="stat-row"><div class="stat-label"><span>Ground Force Readiness</span><span class="stat-val">74/100</span></div><div class="stat-bar"><div class="stat-fill" style="width:74%"></div></div></div>
+        <div class="stat-row"><div class="stat-label"><span>Strategic Reserve Sustainment</span><span class="stat-val">65/100</span></div><div class="stat-bar"><div class="stat-fill" style="width:65%"></div></div></div>
+      </div>
+    </div>
+    
+    <h3 style="font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-5);font-size:1rem;color:var(--color-text-muted)">Critical Scenarios (12–24 Month Horizon)</h3>
+    <div class="grid-3">
+      <div class="intel-alert intel-alert-danger">
+        <div class="intel-alert-head">🔴 CRITICAL — IRAN POST-KHAMENEI</div>
+        <p>Iranian succession following Khamenei's assassination creates the highest short-term risk. A hardline IRGC-backed successor pursuing accelerated nuclear acquisition to demonstrate regime survival is assessed as the <strong>primary strategic concern</strong>. Window of vulnerability during Iranian political transition. <a href="https://www.csis.org" target="_blank" rel="noopener">CSIS →</a></p>
+      </div>
+      <div class="intel-alert intel-alert-warning">
+        <div class="intel-alert-head">🟡 ELEVATED — HEZBOLLAH REARMAMENT</div>
+        <p>Despite significant degradation in autumn 2024, Hezbollah retains substantial rocket and missile capabilities in Lebanon. Iran's degraded ability to resupply may slow rearmament but cannot eliminate the northern threat. Estimated 70,000+ rockets retained despite losses. <a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></p>
+      </div>
+      <div class="intel-alert">
+        <div class="intel-alert-head">🔵 MONITORED — NORMALIZATION PAUSE</div>
+        <p>Saudi Arabia-Israel normalization, which could reshape regional security architecture, has been delayed by Gaza and Iran strike fallout. A successful Gaza reconstruction plan could revive normalization efforts and complete the transformation of the regional balance of power. <a href="https://foreignpolicy.com" target="_blank" rel="noopener">FP →</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 13 — SOURCES
+     ============================================================ -->
+<section id="section-sources">
+<div class="container">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">13</span>
+      <h2 class="section-title">Intelligence <span class="accent">Sources</span></h2>
+    </div>
+    
+    <div class="sources-grid">
+      <div>
+        <div class="sources-category">Government & Official</div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.idf.il/en/" target="_blank" rel="noopener">Israel Defense Forces (IDF)</a><div class="source-desc">Official order of battle, operational updates, unit information</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.imod.gov.il" target="_blank" rel="noopener">Israel Ministry of Defense</a><div class="source-desc">Procurement, defense policy, official statements</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.iaf.org.il/en/" target="_blank" rel="noopener">Israeli Air Force (IAF)</a><div class="source-desc">Aircraft inventories, operational details, history</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.defense.gov" target="_blank" rel="noopener">U.S. Department of Defense</a><div class="source-desc">Security assistance, joint operations, QME assessments</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.gov.il/en/departments/israel_national_cyber_directorate" target="_blank" rel="noopener">Israel National Cyber Directorate</a><div class="source-desc">Cyber policy, national strategy, incident reporting</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.mossad.gov.il" target="_blank" rel="noopener">Mossad (Official)</a><div class="source-desc">Organizational overview, unclassified history</div></div></div>
+      </div>
+      <div>
+        <div class="sources-category">Research & Analysis</div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS Military Balance</a><div class="source-desc">Annual authoritative military capability assessments for all nations</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS Missile Defense Project</a><div class="source-desc">Missile defense systems, offensive missile inventories, threat analysis</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://fas.org/issues/nuclear-weapons/" target="_blank" rel="noopener">FAS Nuclear Notebook</a><div class="source-desc">Israel nuclear inventory estimates, proliferation assessments</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.sipri.org" target="_blank" rel="noopener">SIPRI Yearbook</a><div class="source-desc">Arms transfers, nuclear forces, military expenditure data</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.rand.org/topics/israel.html" target="_blank" rel="noopener">RAND Corporation</a><div class="source-desc">Strategic analysis, conflict studies, force assessment reports</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.armscontrol.org/factsheets/israelprofile" target="_blank" rel="noopener">Arms Control Association</a><div class="source-desc">Nuclear, chemical, biological treaty compliance status</div></div></div>
+      </div>
+      <div>
+        <div class="sources-category">Open Source Intelligence</div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.janes.com" target="_blank" rel="noopener">Jane's Defence Weekly</a><div class="source-desc">Platform specifications, procurement intelligence, ORBAT data</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.timesofisrael.com/topic/israel-defense-forces/" target="_blank" rel="noopener">Times of Israel — Defense</a><div class="source-desc">Daily operational reporting; IDF spokesperson statements</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.haaretz.com/israel-news/security-aviation" target="_blank" rel="noopener">Haaretz — Security</a><div class="source-desc">Israeli security reporting; policy analysis; oversight coverage</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.globalfirepower.com/country-military-strength-detail.php?country_id=israel" target="_blank" rel="noopener">Global Firepower — Israel</a><div class="source-desc">Aggregate inventory data; force composition estimates</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://www.naval-technology.com" target="_blank" rel="noopener">Naval Technology</a><div class="source-desc">Israeli Navy platform specifications and procurement</div></div></div>
+        <div class="source-item"><div class="source-dot"></div><div class="source-text"><a href="https://acleddata.com" target="_blank" rel="noopener">ACLED Conflict Monitor</a><div class="source-desc">Gaza, West Bank, Lebanon conflict event data and mapping</div></div></div>
+      </div>
+    </div>
+    
+    <div class="classification-notice mt-6">
+      <div class="class-stamp">UNCLASSIFIED // FOR EDUCATIONAL USE</div>
+      <p class="class-text">This dossier — <strong>A-10 ISRAEL</strong> — is compiled from publicly available open-source intelligence, academic research, and official government publications. It does not contain classified information. All data represents best estimates based on unclassified sources as of <strong>March 2026</strong>. This document is intended for educational, research, and analytical purposes. Information may be imprecise due to deliberate Israeli government opacity on certain capabilities (especially nuclear). Analysts are advised to consult primary sources and apply appropriate confidence weighting. Part of the <strong>Geopolitical Intelligence Platform</strong> country dossier series.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">GEOPOLITICAL INTELLIGENCE PLATFORM</div>
+  <p class="footer-notice">A-10 ISRAEL // COUNTRY DOSSIER // MARCH 2026 EDITION<br>Compiled from open-source intelligence, official publications, and academic sources. Not classified. For research and educational use only. All data subject to revision. Series includes A-01 through A-42+ country dossiers.</p>
+</footer>
+
+<script>
+// Lucide icons
+document.addEventListener('DOMContentLoaded',()=>{
+  if(window.lucide) lucide.createIcons();
+});
+
+// LIGHTBOX
+function openLightbox(src, cap) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-cap').textContent = cap || '';
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow='';
+}
+document.getElementById('lightbox').addEventListener('click', function(e){
+  if(e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
+
+// TABS
+function showTab(id, group, btn) {
+  document.querySelectorAll('[data-group="'+group+'"]').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// COLLAPSIBLES
+function toggleCollapsible(head) {
+  const body = head.nextElementSibling;
+  head.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+// ACTIVE NAV
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section[id]');
+function updateActiveNav() {
+  let current = '';
+  sections.forEach(s => {
+    const top = s.getBoundingClientRect().top;
+    if(top < 120) current = s.id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+}
+window.addEventListener('scroll', updateActiveNav, {passive:true});
+
+// ANIMATE BARS ON SCROLL
+function animateBars() {
+  document.querySelectorAll('.stat-fill, .risk-fill, .rating-fill').forEach(bar => {
+    const rect = bar.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 50) {
+      const w = bar.style.width;
+      bar.style.width = '0';
+      requestAnimationFrame(() => {
+        setTimeout(() => { bar.style.width = w; }, 50);
+      });
+      bar._animated = true;
+    }
+  });
+}
+// Run once on page load
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      entry.target.querySelectorAll('.stat-fill, .risk-fill, .rating-fill').forEach(b => {
+        const target = b.style.width;
+        b.style.width = '0';
+        requestAnimationFrame(() => setTimeout(() => { b.style.width = target; }, 80));
+      });
+    }
+  });
+}, {threshold: 0.1});
+document.querySelectorAll('.stat-row, .risk-item').forEach(el => observer.observe(el.closest('section') || el));
+
+// Fade in cards on scroll
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, {threshold: 0.06});
+document.querySelectorAll('.equip-card, .doctrine-card, .card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+  fadeObserver.observe(el);
+});
+</script>
+</body>
+</html>

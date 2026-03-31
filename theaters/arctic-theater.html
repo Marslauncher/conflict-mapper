@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B-04 Arctic Theater // Geopolitical Intelligence Platform v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DESIGN SYSTEM — B-04 Arctic Theater
+   Accent: Ice Blue #4A9EBF / Bright #6CC3E0
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --color-bg:       #0a0c10;
+  --color-surface:  #0f1117;
+  --color-surface-2:#141820;
+  --color-surface-3:#1a2030;
+  --color-border:   rgba(74,158,191,0.22);
+  --color-border-2: rgba(74,158,191,0.10);
+  --color-text:     #dde2ec;
+  --color-text-muted:#8a94a8;
+  --color-text-faint:#4a5168;
+  --color-accent:   #4A9EBF;
+  --color-accent-bright:#6CC3E0;
+  --color-teal:     #2dd4bf;
+  --color-blue:     #60a5fa;
+  --color-red:      #f87171;
+  --color-green:    #4ade80;
+  --font-display:   'Rajdhani', sans-serif;
+  --font-mono:      'Share Tech Mono', monospace;
+  --font-body:      'Inter', sans-serif;
+  --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;  --space-10:2.5rem;
+  --space-12:3rem;  --space-16:4rem;
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;
+  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);
+  --text-sm:clamp(.875rem,.8rem + .35vw,1rem);
+  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
+  --text-hero:clamp(2.5rem,1rem + 5vw,5.5rem);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);line-height:1.65;}
+img,video{display:block;max-width:100%;height:auto;}
+a{color:var(--color-accent);text-decoration:none;}
+a:hover{color:var(--color-accent-bright);}
+.highlight{color:var(--color-accent);}
+strong.critical{color:var(--color-accent-bright);}
+
+/* ── STICKY NAV ─────────────────────────────────────────── */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,12,16,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);height:60px;display:flex;align-items:center;}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-4);width:100%;}
+.nav-logo{font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;letter-spacing:.08em;color:var(--color-accent);white-space:nowrap;flex-shrink:0;}
+.nav-badge{font-family:var(--font-mono);font-size:10px;background:color-mix(in oklch,var(--color-accent) 15%,transparent);color:var(--color-accent);border:1px solid var(--color-border);padding:2px 8px;border-radius:3px;}
+.nav-links{display:flex;align-items:center;gap:0;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;flex:1;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;letter-spacing:.06em;color:var(--color-text-muted);padding:var(--space-1) var(--space-3);white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;text-transform:uppercase;}
+.nav-link:hover,.nav-link.active{color:var(--color-accent);border-bottom-color:var(--color-accent);}
+
+/* ── HERO ───────────────────────────────────────────────── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:60px;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(74,158,191,.08) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(96,165,250,.05) 0%,transparent 60%),#0a0c10;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(74,158,191,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(74,158,191,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.hero-content{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:var(--space-16) var(--space-6);}
+.hero-eyebrow{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-4);display:flex;align-items:center;gap:var(--space-3);}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--color-accent);}
+.hero-icon{font-size:3rem;margin-bottom:var(--space-4);}
+.hero-title{font-family:var(--font-display);font-size:var(--text-hero);font-weight:700;line-height:1.0;letter-spacing:.02em;text-transform:uppercase;margin-bottom:var(--space-4);}
+.hero-title .sub-title{display:block;font-size:clamp(1rem,1rem + 2vw,2.2rem);color:var(--color-accent);font-weight:500;letter-spacing:.1em;}
+.hero-subtitle{font-size:var(--text-lg);color:var(--color-text-muted);max-width:700px;margin-bottom:var(--space-8);}
+.hero-stamp{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-8);}
+.hero-stats{display:flex;flex-wrap:wrap;gap:var(--space-4);}
+.h-stat{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-4) var(--space-6);min-width:130px;}
+.h-stat-val{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);display:block;}
+.h-stat-key{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.08em;}
+.scroll-cue{margin-top:var(--space-12);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text-faint);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.1em;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+
+/* ── SECTION SCAFFOLDING ────────────────────────────────── */
+.section-wrap{padding:clamp(var(--space-10),5vw,var(--space-16)) var(--space-6);max-width:1280px;margin:0 auto;}
+section{border-top:1px solid var(--color-border-2);}
+.section-header{display:flex;align-items:flex-end;gap:var(--space-4);margin-bottom:var(--space-8);}
+.section-num{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.15em;margin-bottom:var(--space-1);}
+.section-title{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;text-transform:uppercase;line-height:1.1;}
+.section-lead{color:var(--color-text-muted);font-size:var(--text-sm);max-width:36ch;}
+.section-divider{flex:1;height:1px;background:linear-gradient(90deg,var(--color-accent),transparent);opacity:.3;margin-bottom:8px;}
+
+/* ── CARD GRID ──────────────────────────────────────────── */
+.card-grid{display:grid;gap:var(--space-4);}
+.grid-2{grid-template-columns:repeat(auto-fill,minmax(min(480px,100%),1fr));}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));}
+.grid-4{grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));}
+
+/* ── EQUIPMENT CARD ─────────────────────────────────────── */
+.equip-card{background:var(--color-surface);border:1px solid var(--color-border);overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.equip-card:hover{border-color:var(--color-accent);box-shadow:0 0 20px rgba(74,158,191,.08);}
+.equip-img-wrap{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--color-surface-2);}
+.equip-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform .4s;}
+.equip-img-wrap img:hover{transform:scale(1.04);}
+.equip-badge{position:absolute;top:var(--space-2);left:var(--space-2);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;background:color-mix(in oklch,var(--color-accent) 18%,transparent);color:var(--color-accent);border:1px solid var(--color-border);padding:2px 7px;backdrop-filter:blur(4px);}
+.equip-country-badge{position:absolute;top:var(--space-2);right:var(--space-2);font-size:1.2rem;background:rgba(10,12,16,.7);padding:2px 6px;border-radius:3px;}
+.equip-body{padding:var(--space-4) var(--space-5);}
+.equip-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-2);}
+.equip-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3);}
+.equip-specs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-1) var(--space-4);margin-bottom:var(--space-3);}
+.equip-spec{display:flex;justify-content:space-between;gap:var(--space-2);padding:var(--space-1) 0;border-bottom:1px solid rgba(74,158,191,.08);}
+.equip-spec-key{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.06em;}
+.equip-spec-val{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-bright);font-weight:600;}
+.equip-link{display:inline-flex;align-items:center;gap:var(--space-1);font-family:var(--font-mono);font-size:10px;color:var(--color-blue);letter-spacing:.06em;text-transform:uppercase;}
+.equip-link:hover{color:var(--color-accent);}
+
+/* ── DATA TABLE ─────────────────────────────────────────── */
+.data-table-wrap{overflow-x:auto;border:1px solid var(--color-border);}
+.data-table{width:100%;border-collapse:collapse;font-size:var(--text-sm);}
+.data-table thead th{background:var(--color-surface-2);font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent);padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border);white-space:nowrap;}
+.data-table tbody tr{border-bottom:1px solid rgba(74,158,191,.06);transition:background .15s;}
+.data-table tbody tr:hover{background:rgba(74,158,191,.04);}
+.data-table tbody td{padding:var(--space-3) var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);vertical-align:middle;}
+.data-table tbody td:first-child{color:var(--color-text);font-weight:500;}
+.data-table td a{color:var(--color-blue);font-family:var(--font-mono);font-size:11px;}
+.data-table td a:hover{color:var(--color-accent);}
+
+/* ── INTEL ALERT ────────────────────────────────────────── */
+.intel-alert{background:color-mix(in oklch,var(--color-accent) 8%,var(--color-surface));border:1px solid var(--color-border);border-left:3px solid var(--color-accent);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-6);}
+.intel-alert-head{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-2);}
+.intel-alert p{font-size:var(--text-sm);line-height:1.7;}
+.intel-alert.red{border-left-color:var(--color-red);background:color-mix(in oklch,var(--color-red) 6%,var(--color-surface));}
+.intel-alert.red .intel-alert-head{color:var(--color-red);}
+
+/* ── POLICY QUOTE ───────────────────────────────────────── */
+.policy-quote{background:var(--color-surface-3);border:1px solid var(--color-border);border-left:3px solid var(--color-accent);padding:var(--space-6) var(--space-8);margin:var(--space-6) 0;font-size:var(--text-base);color:var(--color-text);font-style:italic;line-height:1.8;}
+.policy-quote-attr{display:block;margin-top:var(--space-3);font-style:normal;font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);letter-spacing:.06em;}
+
+/* ── CHOKEPOINT CARD ────────────────────────────────────── */
+.chokepoint-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-5);}
+.chokepoint-card{background:var(--color-surface);border:1px solid var(--color-border);overflow:hidden;transition:border-color .2s;}
+.chokepoint-card:hover{border-color:var(--color-accent);}
+.chokepoint-img-wrap{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--color-surface-2);}
+.chokepoint-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform .4s;}
+.chokepoint-img-wrap img:hover{transform:scale(1.04);}
+.chokepoint-badge{position:absolute;top:var(--space-2);left:var(--space-2);font-family:var(--font-mono);font-size:10px;background:color-mix(in oklch,var(--color-accent) 18%,rgba(10,12,16,.8));color:var(--color-accent);border:1px solid var(--color-border);padding:2px 7px;backdrop-filter:blur(4px);}
+.chokepoint-body{padding:var(--space-4) var(--space-5);}
+.chokepoint-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:2px;}
+.chokepoint-width{font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);margin-bottom:var(--space-3);text-transform:uppercase;letter-spacing:.06em;}
+.chokepoint-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3);}
+.chokepoint-controllers{font-size:var(--text-xs);margin-bottom:var(--space-2);}
+.ctrl-label{font-family:var(--font-mono);color:var(--color-text-faint);letter-spacing:.06em;}
+.ctrl-val{color:var(--color-text);margin-left:var(--space-2);}
+.chokepoint-risk{font-size:var(--text-xs);}
+.risk-label{font-family:var(--font-mono);color:var(--color-text-faint);letter-spacing:.06em;}
+.risk-val{margin-left:var(--space-2);font-weight:700;font-family:var(--font-mono);}
+.risk-high{color:var(--color-red);}
+.risk-med{color:var(--color-accent);}
+.risk-low{color:var(--color-green);}
+
+/* ── MATRIX TABLE ───────────────────────────────────────── */
+.matrix-country{white-space:nowrap;}
+.flag-chip{display:inline-flex;align-items:center;gap:var(--space-2);}
+.flag-emoji{font-size:1.1rem;}
+.flag-name{font-family:var(--font-display);font-weight:600;font-size:var(--text-sm);color:var(--color-text);}
+.rating-bar{display:flex;align-items:center;gap:var(--space-2);min-width:120px;}
+.rating-fill-wrap{flex:1;background:rgba(255,255,255,.06);height:6px;border-radius:3px;overflow:hidden;}
+.rating-fill{height:100%;background:var(--color-accent);border-radius:3px;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+.rating-num{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);min-width:30px;}
+.nuclear-yes{color:var(--color-red);font-weight:700;font-family:var(--font-mono);}
+.nuclear-limited{color:var(--color-accent);font-family:var(--font-mono);}
+.nuclear-no{color:var(--color-text-faint);font-family:var(--font-mono);}
+
+/* ── ESCALATION LADDER ──────────────────────────────────── */
+.escalation-ladder{display:flex;flex-direction:column;gap:0;}
+.esc-rung{border:1px solid var(--color-border);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-2);position:relative;transition:border-color .2s;}
+.esc-rung:hover{border-color:var(--color-accent);}
+.esc-level-1{border-left:3px solid #4ade80;}
+.esc-level-2{border-left:3px solid #a3e635;}
+.esc-level-3{border-left:3px solid #4A9EBF;}
+.esc-level-4{border-left:3px solid #f97316;}
+.esc-level-5{border-left:3px solid #ef4444;}
+.esc-level-6{border-left:3px solid #dc2626;background:rgba(220,38,38,.06);}
+.esc-level-num{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-1);}
+.esc-level-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);}
+.esc-level-desc{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-2);line-height:1.6;}
+.esc-level-actors{font-family:var(--font-mono);font-size:11px;color:var(--color-blue);margin-bottom:var(--space-1);}
+.esc-level-trigger{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);letter-spacing:.04em;}
+.esc-arrow{text-align:center;color:var(--color-text-faint);font-size:1.2rem;margin:var(--space-1) 0;}
+
+/* ── TABS ───────────────────────────────────────────────── */
+.tabs-wrap{margin-bottom:var(--space-8);}
+.tab-buttons{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-4);border-bottom:1px solid var(--color-border);padding-bottom:0;}
+.tab-btn{font-family:var(--font-display);font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted);padding:var(--space-2) var(--space-4);border-bottom:2px solid transparent;cursor:pointer;transition:color .2s,border-color .2s;background:none;border-top:none;border-left:none;border-right:none;text-transform:uppercase;letter-spacing:.06em;margin-bottom:-1px;}
+.tab-btn:hover,.tab-btn.active{color:var(--color-accent);border-bottom-color:var(--color-accent);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* ── SCENARIO TAB CONTENT ───────────────────────────────── */
+.scenario-card{background:var(--color-surface-2);border:1px solid var(--color-border);padding:var(--space-6);}
+.scenario-trigger{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.scenario-title{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-text);margin-bottom:var(--space-4);}
+.scenario-steps{display:flex;flex-direction:column;gap:var(--space-3);}
+.scenario-step{display:flex;gap:var(--space-4);padding:var(--space-3) var(--space-4);background:rgba(74,158,191,.04);border:1px solid rgba(74,158,191,.08);}
+.step-time{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);min-width:80px;padding-top:2px;}
+.step-text{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── COLLAPSIBLE ────────────────────────────────────────── */
+.collapsible{border:1px solid var(--color-border);margin-bottom:var(--space-3);}
+.collapsible-head{display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);cursor:pointer;font-family:var(--font-display);font-weight:600;font-size:var(--text-base);text-transform:uppercase;letter-spacing:.04em;transition:color .2s;background:var(--color-surface);}
+.collapsible-head:hover,.collapsible-head.open{color:var(--color-accent);}
+.collapsible-body{display:none;padding:var(--space-5);border-top:1px solid var(--color-border);background:var(--color-surface-2);}
+.collapsible-body.open{display:block;}
+
+/* ── STAT BAR ───────────────────────────────────────────── */
+.stat-row{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-3);}
+.stat-label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);min-width:160px;text-transform:uppercase;letter-spacing:.06em;}
+.stat-bar-wrap{flex:1;background:rgba(255,255,255,.06);height:8px;border-radius:4px;overflow:hidden;}
+.stat-fill{height:100%;background:var(--color-accent);border-radius:4px;}
+.stat-val{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);min-width:40px;text-align:right;}
+
+/* ── WILDCARD CARD ──────────────────────────────────────── */
+.wildcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-4);}
+.wildcard-card{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);transition:border-color .2s;}
+.wildcard-card:hover{border-color:var(--color-accent);}
+.wildcard-icon{font-size:1.8rem;margin-bottom:var(--space-3);}
+.wildcard-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:var(--space-2);}
+.wildcard-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── DOCTRINE CARD ──────────────────────────────────────── */
+.doctrine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:var(--space-4);}
+.doctrine-card{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);}
+.doctrine-icon{font-size:1.6rem;margin-bottom:var(--space-3);}
+.doctrine-label{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--space-1);}
+.doctrine-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-accent-bright);margin-bottom:var(--space-2);}
+.doctrine-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── MAP / INLINE IMAGE ─────────────────────────────────── */
+.map-container{position:relative;overflow:hidden;border:1px solid var(--color-border);margin-bottom:var(--space-4);}
+.map-img{width:100%;cursor:pointer;transition:transform .4s;}
+.map-img:hover{transform:scale(1.02);}
+.map-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,12,16,.85));padding:var(--space-4) var(--space-5);}
+.map-caption{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;}
+.map-stats-row{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-6);}
+.map-stat{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-3) var(--space-5);flex:1;min-width:120px;}
+.map-stat-val{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);display:block;}
+.map-stat-key{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.06em;}
+figure.inline-img{border:1px solid var(--color-border);overflow:hidden;margin:var(--space-6) 0;}
+figure.inline-img img{width:100%;cursor:pointer;transition:transform .3s;}
+figure.inline-img img:hover{transform:scale(1.02);}
+figure.inline-img figcaption{padding:var(--space-3) var(--space-4);font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);background:var(--color-surface);letter-spacing:.04em;}
+
+/* ── XREF LINKS ─────────────────────────────────────────── */
+.xref-links{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);margin-bottom:var(--space-6);padding:var(--space-3) var(--space-4);background:var(--color-surface);border:1px solid var(--color-border);}
+.xref-label{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;}
+.xref-chip{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;background:color-mix(in oklch,var(--color-accent) 10%,var(--color-surface-2));color:var(--color-accent);border:1px solid var(--color-border);padding:var(--space-1) var(--space-3);}
+.xref-chip:hover{background:color-mix(in oklch,var(--color-accent) 18%,var(--color-surface-2));color:var(--color-accent-bright);}
+
+/* ── SOURCES GRID ───────────────────────────────────────── */
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-6);}
+.sources-col h3{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-4);padding-bottom:var(--space-2);border-bottom:1px solid var(--color-border);}
+.source-item{display:flex;flex-direction:column;gap:2px;margin-bottom:var(--space-4);}
+.source-item a{font-size:var(--text-sm);font-weight:500;color:var(--color-text);}
+.source-item a:hover{color:var(--color-accent);}
+.source-item span{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);}
+.classification-notice{background:var(--color-surface-2);border:1px solid var(--color-border);border-top:3px solid var(--color-accent);padding:var(--space-6);margin-top:var(--space-8);text-align:center;}
+.class-title{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.class-body{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;max-width:700px;margin:0 auto;}
+
+/* ── LIGHTBOX ───────────────────────────────────────────── */
+#lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;flex-direction:column;gap:var(--space-4);}
+#lightbox.active{display:flex;}
+#lightbox-img{max-width:90vw;max-height:80vh;object-fit:contain;border:1px solid var(--color-border);}
+#lightbox-cap{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);max-width:600px;text-align:center;}
+#lightbox-close{position:absolute;top:var(--space-4);right:var(--space-6);font-family:var(--font-mono);font-size:var(--text-xl);color:var(--color-text-muted);cursor:pointer;}
+#lightbox-close:hover{color:var(--color-accent);}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--space-6);text-align:center;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-text{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.06em;}
+
+/* ── UTILITY ─────────────────────────────────────────────── */
+.mb-4{margin-bottom:var(--space-4);} .mb-6{margin-bottom:var(--space-6);} .mb-8{margin-bottom:var(--space-8);}
+.text-muted{color:var(--color-text-muted);} .text-accent{color:var(--color-accent);}
+.mono{font-family:var(--font-mono);font-size:var(--text-xs);}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:10px;padding:2px 8px;border:1px solid var(--color-border);color:var(--color-text-faint);letter-spacing:.06em;margin:2px;}
+.tag-red{border-color:rgba(248,113,113,.3);color:var(--color-red);}
+.tag-green{border-color:rgba(74,222,128,.3);color:var(--color-green);}
+.tag-teal{border-color:rgba(45,212,191,.3);color:var(--color-teal);}
+.gap-2{gap:var(--space-2);}
+.flex-wrap{display:flex;flex-wrap:wrap;gap:var(--space-2);}
+@media(max-width:768px){
+  .nav-logo{font-size:11px;}
+  .hero-stats{flex-direction:column;}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
+  .section-title{font-size:var(--text-xl);}
+  .equip-specs{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="site-nav" role="navigation" aria-label="Theater navigation">
+  <div class="nav-inner">
+    <div class="nav-logo">INTEL PLATFORM v2</div>
+    <div class="nav-badge">B-04</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#theater-map">Geography</a>
+      <a class="nav-link" href="#theater-context">Context</a>
+      <a class="nav-link" href="#theater-history">History</a>
+      <a class="nav-link" href="#theater-forces">Forces</a>
+      <a class="nav-link" href="#theater-matrix">Matrix</a>
+      <a class="nav-link" href="#theater-chokepoints">Chokepoints</a>
+      <a class="nav-link" href="#theater-flashpoints">Flashpoints</a>
+      <a class="nav-link" href="#theater-logistics">Logistics</a>
+      <a class="nav-link" href="#theater-escalation">Escalation</a>
+      <a class="nav-link" href="#theater-wildcards">Wild Cards</a>
+      <a class="nav-link" href="#theater-assessment">Assessment</a>
+      <a class="nav-link" href="#theater-sources">Sources</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">CLASSIFIED OPEN-SOURCE ANALYSIS // MARCH 2026 // SERIES B THEATER DOSSIER</div>
+    <div class="hero-icon">❄️</div>
+    <h1 class="hero-title">
+      ARCTIC
+      <span class="sub-title">OPERATIONAL THEATER ANALYSIS // B-04</span>
+    </h1>
+    <p class="hero-subtitle">Multi-actor capability assessment, submarine bastion analysis & conflict scenario modeling across the world's fastest-militarizing strategic theater</p>
+    <p class="hero-stamp">ACTORS: RUSSIA · USA · CANADA · NORWAY · NATO · CHINA (OBSERVER)</p>
+    <div class="hero-stats">
+      <div class="h-stat">
+        <span class="h-stat-val">14.1M km²</span>
+        <span class="h-stat-key">Theater Area</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">8</span>
+        <span class="h-stat-key">Arctic Council States</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">3</span>
+        <span class="h-stat-key">Nuclear States</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">ELEVATED</span>
+        <span class="h-stat-key">Conflict Status</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val highlight">6/10</span>
+        <span class="h-stat-key">Threat Level</span>
+      </div>
+    </div>
+    <div class="scroll-cue">▼ &nbsp; SCROLL TO ANALYZE</div>
+  </div>
+</section>
+
+<!-- SECTION 01: GEOGRAPHIC OVERVIEW -->
+<section id="theater-map">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">01 // GEOGRAPHIC OVERVIEW</div>
+      <h2 class="section-title">Strategic Geography</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">GIUK Gap, Northern Sea Route & Arctic bastion geometry</div>
+  </div>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚠ STRATEGIC OVERVIEW</div>
+    <p>The Arctic theater is defined by three converging pressures: <strong class="critical">climate change opening previously icebound sea routes</strong>, a Russian Arctic military buildup at historically unprecedented scale, and a NATO alliance scrambling to reconstitute Cold War-era ASW and early-warning infrastructure degraded after 1991. The GIUK Gap — the Greenland-Iceland-UK maritime corridor — remains the single most strategically critical chokepoint in the North Atlantic, controlling Russian Northern Fleet access to the open Atlantic and the US submarine approach to Europe. Climate projections show the Northern Sea Route seasonally ice-free by 2035–2040, fundamentally reshaping global trade and military access in ways no current treaty regime is designed to manage.</p>
+  </div>
+
+  <div class="map-container mb-6">
+    <img class="map-img" src="https://upload.wikimedia.org/wikipedia/commons/f/f7/GIUK_gap.png"
+      alt="GIUK Gap map showing Greenland Iceland UK maritime corridor and submarine patrol zones" width="1280" height="720" loading="lazy"
+      onclick="openLightbox(this.src,'GIUK Gap — The Greenland-Iceland-UK maritime corridor. Russia\'s Northern Fleet submarines must transit this gap to reach the North Atlantic. NATO\'s P-8 Poseidon and Norwegian P-3/P-8 aircraft provide continuous ASW surveillance coverage.')">
+    <div class="map-overlay">
+      <div class="map-caption">GIUK GAP // NATO PRIMARY ASW BARRIER // NORTHERN FLEET EGRESS ROUTE</div>
+    </div>
+  </div>
+  <div class="map-stats-row">
+    <div class="map-stat"><span class="map-stat-val">14.1M km²</span><span class="map-stat-key">Theater Area</span></div>
+    <div class="map-stat"><span class="map-stat-val">5,600km</span><span class="map-stat-key">Northern Sea Route Length</span></div>
+    <div class="map-stat"><span class="map-stat-val">40+</span><span class="map-stat-key">Russian Icebreakers</span></div>
+    <div class="map-stat"><span class="map-stat-val">2</span><span class="map-stat-key">US Heavy Icebreakers</span></div>
+    <div class="map-stat"><span class="map-stat-val">~30%</span><span class="map-stat-key">World's Undiscovered Gas Resources</span></div>
+  </div>
+
+  <div class="map-container mb-6">
+    <img class="map-img" src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Map_of_the_Arctic_region_showing_the_Northeast_Passage%2C_the_Northern_Sea_Route_and_Northwest_Passage%2C_and_bathymetry.png"
+      alt="Arctic shipping routes map showing Northern Sea Route, Northeast Passage and Northwest Passage" width="1280" height="720" loading="lazy"
+      onclick="openLightbox(this.src,'Arctic Shipping Routes — Northern Sea Route (Russia), Northwest Passage (Canada), and Transpolar Route. Climate change is making all three increasingly navigable. Russia controls the Northern Sea Route via its Arctic administration authority, requiring all foreign vessels to request permission and take Russian icebreaker escort.')">
+    <div class="map-overlay">
+      <div class="map-caption">ARCTIC SEA ROUTES // NORTHERN SEA ROUTE · NORTHWEST PASSAGE · TRANSPOLAR // BATHYMETRY</div>
+    </div>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Strategic Terrain Analysis</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">The Arctic theater's geography is radically asymmetric: Russia controls the longest Arctic coastline (~24,000 km), the Northern Sea Route, and has invested over $7B since 2014 in Arctic military infrastructure including 16 deep-water ports, 13 airfields, and 10 integrated air defense sites north of the Arctic Circle. The Kola Peninsula — Russia's most militarized region — hosts the Northern Fleet's submarine bastions including ~80% of Russia's sea-launched nuclear warheads in Borei-A SSBNs operating under Arctic ice.</p>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">NATO's Arctic flank is anchored by Norway (the only NATO member sharing a border with Russia above the Arctic Circle), Iceland's Keflavik air base (P-8 Poseidon hub), and Greenland's Thule Air Base (US early-warning radar and potential NORAD expansion). The Svalbard archipelago, under Norwegian sovereignty but with Russian mining communities and treaty constraints on militarization, represents the single most legally ambiguous piece of real estate in the theater.</p>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Key Strategic Nodes</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Node</th><th>Significance</th><th>Controller</th><th>Risk</th></tr></thead>
+          <tbody>
+            <tr><td>GIUK Gap</td><td>Northern Fleet Atlantic egress; NATO ASW barrier</td><td>NATO (Norway, Iceland, UK)</td><td class="tag-red" style="color:var(--color-red);font-family:var(--font-mono);font-size:11px;">CRITICAL</td></tr>
+            <tr><td>Kola Peninsula</td><td>Northern Fleet HQ; 80%+ of SSBN force</td><td>Russia (Northern Fleet)</td><td class="tag-red" style="color:var(--color-red);font-family:var(--font-mono);font-size:11px;">CRITICAL</td></tr>
+            <tr><td>Svalbard</td><td>Norwegian sovereign; Russian mining community; treaty limits militarization</td><td>Norway / Russia (civilian)</td><td style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Bering Strait</td><td>82km Russia-Alaska gap; Pacific-Arctic nexus</td><td>Russia (east) / USA (west)</td><td style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Nagurskoye / Alexandra Land</td><td>Russia's northernmost military base; bomber forward staging</td><td>Russia (Arctic Command)</td><td style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Thule AB / Pituffik Space Base</td><td>US early-warning radar; NORAD; BMD sensor</td><td>USA (NORAD)</td><td style="color:var(--color-green);font-family:var(--font-mono);font-size:11px;">MED</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 02: STRATEGIC CONTEXT -->
+<section id="theater-context">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">02 // STRATEGIC CONTEXT</div>
+      <h2 class="section-title">Why This Theater Matters</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">🧊 ACCELERATING COMPETITION — MARCH 2026</div>
+    <p>The Arctic has shifted from a <strong class="critical">frozen periphery to a contested center of gravity</strong> in global security competition. Three converging trends drive this transformation: (1) Climate change is opening the Northern Sea Route to regular commercial navigation 4–6 months per year, creating a shorter Asia-Europe trade corridor that bypasses the Suez Canal; (2) Russia completed its Arctic military buildup — the largest peacetime military construction project in post-Soviet history — adding strategic depth for its nuclear deterrent and conventional power projection; (3) NATO's post-Ukraine recapitalization has refocused alliance attention on the High North for the first time since 1991. Finland and Sweden's NATO accession (2023–2024) fundamentally altered the Baltic-Arctic strategic geometry.</p>
+  </div>
+
+  <div class="doctrine-grid mb-8">
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🌡️</div>
+      <div class="doctrine-label">Primary Driver</div>
+      <div class="doctrine-title">Climate-Unlocked Accessibility</div>
+      <div class="doctrine-desc">Arctic sea ice has declined ~13% per decade since 1979. The Northern Sea Route is now navigable 4–5 months per year without icebreaker escort in some sections. Full summer ice-free conditions projected by 2035–2040. This unlocks ~30% of undiscovered world oil/gas and new shipping lanes 40% shorter than Suez routes for Asia-Europe trade.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">⚛️</div>
+      <div class="doctrine-label">Nuclear Dimension</div>
+      <div class="doctrine-title">SSBN Bastion Strategy</div>
+      <div class="doctrine-desc">Russia's Borei-A SSBNs operate in fortified "bastion" zones under Arctic ice near the Kola Peninsula, defended by SSN hunter-killers, shore-based anti-ship missiles, and air defense. Each Borei-A carries 16 Bulava SLBMs with up to 6–10 MIRVed warheads — collectively representing ~50% of Russia's strategic nuclear second-strike capability.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🚢</div>
+      <div class="doctrine-label">Commercial Stakes</div>
+      <div class="doctrine-title">Northern Sea Route Control</div>
+      <div class="doctrine-desc">Russia legally controls transit through its Northern Sea Route under domestic law — requiring foreign vessels to notify, seek permission, and in some cases take Russian icebreaker escort. China's Polar Silk Road initiative has invested $90B+ in Arctic infrastructure and LNG projects. The NSR could carry 90M tons of cargo annually by 2030 per Russian projections.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🛡️</div>
+      <div class="doctrine-label">NATO Response</div>
+      <div class="doctrine-title">High North Recapitalization</div>
+      <div class="doctrine-desc">NATO's 2024 Arctic strategy identified the High North as a priority theater. Norway has become NATO's Arctic anchor: 52 F-35As ordered (all delivered by 2025), Andøya Space and Air Base reactivated, NASAMS III deployed, and joint US-Norway maritime patrol at Keflavik resumed. Sweden and Finland's accession extended NATO's Arctic flank by 1,300km of new coastline.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🌐</div>
+      <div class="doctrine-label">China Factor</div>
+      <div class="doctrine-title">Polar Silk Road</div>
+      <div class="doctrine-desc">China declared itself a "near-Arctic state" in 2018 and has invested heavily in Russian LNG projects (Yamal, Arctic LNG-2), Greenland rare earth exploration, and icebreaker construction. China's Xue Long 2 (Snow Dragon 2) icebreaker launched in 2019. Despite lack of Arctic territory, China is the theater's most consequential outside actor, providing Russia economic lifeline post-Ukraine sanctions.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">💻</div>
+      <div class="doctrine-label">Undersea Infrastructure</div>
+      <div class="doctrine-title">Submarine Cable Vulnerability</div>
+      <div class="doctrine-desc">Arctic and sub-Arctic waters contain critical transatlantic fiber optic cables carrying ~95% of intercontinental internet and financial data. Russian submarine activity near cable choke points has surged since 2014. The Svalbard cable, connecting Norway to the archipelago, was cut in January 2022 — origin ambiguous. NATO established the Undersea Infrastructure Coordination Cell in 2023 in direct response.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 03: HISTORICAL CONTEXT -->
+<section id="theater-history">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">03 // HISTORICAL PRECEDENT</div>
+      <h2 class="section-title">Conflict Lineage</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="card-grid grid-2">
+    <div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Year</th><th>Event</th><th>Strategic Significance</th></tr></thead>
+          <tbody>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">1941–45</td><td>Allied Arctic convoys to USSR (Operation Dervish)</td><td>Established Arctic maritime corridors; German U-boat threat; 85+ ships sunk</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">1945–91</td><td>Cold War SOSUS / GIUK ASW barrier</td><td>US/NATO constructed Sound Surveillance System hydrophones across GIUK; tracked Soviet SSBNs continuously</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">1958</td><td>USS Nautilus first under-pole transit</td><td>Proved Arctic under-ice transit feasibility; established US SSN strategic doctrine</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">1973</td><td>Svalbard Treaty enters full force for USSR</td><td>Soviet/Russian mining rights on Svalbard; treaty limits Norwegian militarization; ongoing sovereignty tensions</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">1987</td><td>Gorbachev's "Arctic Zone of Peace" Murmansk speech</td><td>Last attempt at Arctic demilitarization; produced no binding agreement; Cold War Arctic arms race continued</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">1991–2007</td><td>Post-Cold War Arctic security vacuum</td><td>SOSUS network partially dismantled; NATO Arctic exercises cancelled; Russia bases mothballed; strategic gap opened</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">Aug 2007</td><td>Russia plants titanium flag on Arctic seabed at North Pole</td><td>Symbolic assertion of Arctic sovereignty; Lomonosov Ridge territorial claim; awakened Western Arctic competition</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2008</td><td>Ilulissat Declaration (5 Arctic Ocean states)</td><td>USA, Russia, Canada, Norway, Denmark agree to resolve Arctic disputes via UNCLOS; China excluded</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">Dec 2014</td><td>Russia establishes Joint Strategic Command North (Arctic Command)</td><td>Northern Fleet elevated to military district; dedicated Arctic force command; Arctic brigade activated at Alakurtti</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2018</td><td>China's Arctic Policy White Paper; "near-Arctic state" claim</td><td>China declares permanent Arctic interests; Polar Silk Road concept; begins systematic Arctic investment</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2022</td><td>Svalbard cable cut; Russia invades Ukraine</td><td>Undersea sabotage attributed to Russia; NATO Arctic posture hardens; Sweden-Finland NATO accession begins</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2023–24</td><td>Sweden (Mar 2024) and Finland (Apr 2023) join NATO</td><td>Fundamental transformation of Baltic-Arctic geometry; Russia's Arctic flank now flanked by NATO from Baltic to Barents</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2025–26</td><td>Russia deploys Poseidon nuclear torpedo carriers in Arctic; Greenland US interest intensifies</td><td>Escalatory new nuclear dimension; Trump administration's renewed Greenland acquisition rhetoric creates NATO internal crisis</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="intel-alert mb-4">
+        <div class="intel-alert-head">📌 KEY LESSON: SOSUS GAP REDUX</div>
+        <p>During the Cold War, the SOSUS hydrophone network gave NATO near-perfect tracking of Soviet submarines transiting the GIUK Gap. After 1991, this capability was allowed to decay — bases closed, sensors deactivated, ASW expertise lost. Russia exploited this gap in the 2010s, deploying next-generation SSNs (Yasen-class) that NATO ASW assets found extremely difficult to track. <strong class="critical">The 2022 Ukraine invasion triggered an emergency NATO ASW rebuild — but restoring Cold War-era tracking capability requires 10–15 years, not months.</strong></p>
+      </div>
+      <div class="intel-alert mb-4">
+        <div class="intel-alert-head">📌 KEY LESSON: SVALBARD PRECEDENT</div>
+        <p>The 1920 Svalbard Treaty grants Norway sovereignty but mandates equal access to economic activities for all signatory states — including Russia, which operates a coal mining settlement at Barentsburg. Norway's attempts to restrict Russian helicopter operations (2022), dual-use infrastructure, and personnel movements have been challenged as treaty violations. <strong class="critical">Svalbard represents a legal grey zone where any Norwegian military construction can be challenged as a treaty breach — making it the Arctic's most exploitable sovereignty ambiguity.</strong></p>
+      </div>
+      <div class="intel-alert">
+        <div class="intel-alert-head">📌 KEY LESSON: ICEBREAKER ASYMMETRY</div>
+        <p>Russia operates 40+ icebreakers (including 7 nuclear-powered), giving it unique power projection capability in ice-covered waters year-round. The United States operates 2 heavy icebreakers — one operational (USCGC Healy, medium ice capability only) and the Polar Star (heavy, commissioned 1976, repeatedly breaking down). <strong class="critical">This 20:1 icebreaker gap is the defining asymmetry of the Arctic theater — it cannot be bridged for at least a decade regardless of budget allocation.</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 04: FORCE DISPOSITION -->
+<section id="theater-forces">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">04 // FORCE DISPOSITION</div>
+      <h2 class="section-title">Key Systems & Order of Battle</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="xref-links mb-8">
+    <span class="xref-label">COUNTRY DOSSIERS:</span>
+    <a href="../countries/russia-dossier.html" class="xref-chip" target="_blank">🇷🇺 Russia →</a>
+    <a href="../countries/usa-dossier.html" class="xref-chip" target="_blank">🇺🇸 USA →</a>
+    <a href="../countries/nato-dossier.html" class="xref-chip" target="_blank">🛡️ NATO →</a>
+  </div>
+
+  <!-- RUSSIA SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇷🇺 <span>Russia — Northern Fleet / Arctic Command</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">NUCLEAR PATROL VESSEL</span>
+        <span class="equip-country-badge">🇷🇺</span>
+        <img src="https://www.navalnews.com/wp-content/uploads/2019/10/Russian-Navy-Icebreaker-Ivan-Papanin-Floated-in-St.-Petersburg-1.jpg"
+          alt="Project 23550 Ivan Papanin Arctic patrol vessel icebreaker" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Project 23550 Ivan Papanin — Russia\'s Arctic patrol icebreaker. Armed with Kalibr cruise missiles, Pantsir-S1 CIWS, and mine-laying capability. Combines warship firepower with genuine ice-class 1.5m hull. First of class delivered December 2024.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Project 23550 Arktika-class</div>
+        <div class="equip-desc">Russia's Arktika-class armed icebreaker patrol vessels represent a unique hybrid — genuine Arctic icebreaking capability (1.5m ice thickness) combined with military-grade armament including Kalibr cruise missiles and Pantsir-S1 air defense. The Ivan Papanin (lead vessel) was delivered December 2024 to the Northern Fleet. A second vessel (Nikolai Zubov) is under construction. These ships extend Russian naval power projection into Arctic waters inaccessible to NATO surface combatants.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Ice Class</span><span class="equip-spec-val">Arc7 (1.5m)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Missiles</span><span class="equip-spec-val">Kalibr LACM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Air Defense</span><span class="equip-spec-val">Pantsir-S1</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">8,500 tons</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">~12,000km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">IOC Dec 2024</span></div>
+        </div>
+        <a href="https://www.naval-technology.com/projects/ivan-papanin-project-23550-class-arctic-patrol-vessels/" target="_blank" rel="noopener" class="equip-link">Naval Technology Profile <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">STRATEGIC SSBN</span>
+        <span class="equip-country-badge">🇷🇺</span>
+        <img src="https://www.navalnews.com/wp-content/uploads/2020/03/Project-955A-Borei-A-SSBN-to-Reinforce-Russian-Navy-Pacific-Fleet-scaled.jpg"
+          alt="Borei-A class SSBN submarine Russian Navy" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Borei-A (Project 955A) SSBN — Russia\'s most advanced nuclear-armed submarine. Carries 16 Bulava SLBMs with 6-10 MIRVed warheads each. Operates in defended Arctic bastion zones under ice near the Kola Peninsula. 7 operational as of 2026, with 3 more ordered.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Borei-A (Project 955A) SSBN</div>
+        <div class="equip-desc">Russia's primary strategic deterrent submarine and the centerpiece of its Arctic bastion strategy. Each Borei-A carries 16 Bulava (RSM-56) SLBMs with 6–10 MIRVed warheads, giving a single boat the theoretical capacity to destroy multiple cities. The Northern Fleet's Borei-A submarines operate under Arctic ice in defended bastions where NATO ASW assets struggle to penetrate, providing Russia's most survivable nuclear second-strike capability. Seven operational as of early 2026.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Missiles</span><span class="equip-spec-val">16× Bulava SLBM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warheads/SLBM</span><span class="equip-spec-val">6–10 MIRVs</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">9,300km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">24,000 tons</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Depth</span><span class="equip-spec-val">450m (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">7 (2026)</span></div>
+        </div>
+        <a href="https://fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener" class="equip-link">FAS Nuclear Notebook <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">ARCTIC FORWARD BASE</span>
+        <span class="equip-country-badge">🇷🇺</span>
+        <img src="https://cdn.i-scmp.com/sites/default/files/styles/1020x680/public/d8/images/methode/2021/05/19/97bd8356-b858-11eb-9461-e80e43f535ad_image_hires_125257.jpg?itok=gz6a4b6X&v=1621399990"
+          alt="Nagurskoye military base Russia Arctic Alexandra Land" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Nagurskoye Air Base, Alexandra Land — Russia\'s northernmost military base at 80°N latitude. Houses the Trefoil self-contained garrison (housing, hangars, fuel storage in one clover-leaf structure), MiG-31BM interceptors, S-400 air defense, and Bastion-P coastal defense systems. Extended range from here covers most of the Central Arctic Ocean.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Nagurskoye Base / Trefoil</div>
+        <div class="equip-desc">Russia's northernmost military installation on Franz Josef Land's Alexandra Island (80°N), featuring the iconic Trefoil (Shamrock) structure — a fully self-contained garrison housing 150 personnel in an interconnected three-wing building designed for Arctic survival. The base hosts MiG-31BM interceptors, S-400 surface-to-air missiles, Bastion-P coastal anti-ship missiles, and Panika early-warning radar. From Nagurskoye, Russian aircraft can reach any point in the Central Arctic Ocean within 2 hours.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Latitude</span><span class="equip-spec-val">80°N</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Garrison</span><span class="equip-spec-val">~150 personnel</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Air Defense</span><span class="equip-spec-val">S-400 SAM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Anti-ship</span><span class="equip-spec-val">Bastion-P</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Aircraft</span><span class="equip-spec-val">MiG-31BM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Coverage</span><span class="equip-spec-val">Central Arctic</span></div>
+        </div>
+        <a href="https://csis-website-prod.s3.amazonaws.com/s3fs-public/Alexandra_land_Artboard%2011.jpg" target="_blank" rel="noopener" class="equip-link">CSIS Arctic Analysis <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">INTERCEPTOR</span>
+        <span class="equip-country-badge">🇷🇺</span>
+        <img src="https://militarywatchmagazine.com/m/articles/2026/03/02/article_69a567bd6bf977_30099448.jpg"
+          alt="MiG-31BM interceptor escort Russian strategic bomber" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'MiG-31BM interceptor escorting Russian strategic bomber. The MiG-31BM is Russia\'s primary Arctic interceptor, capable of Mach 2.83 at altitude and equipped with the R-37M missile (range 300km). Deployed at Nagurskoye, Rogachevo, and other Arctic bases to intercept NATO surveillance and ASW aircraft over the High North.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">MiG-31BM Foxhound</div>
+        <div class="equip-desc">Russia's primary Arctic interceptor, optimized for the extreme range and altitude demands of High North operations. The MiG-31BM is the fastest combat aircraft in operational service globally (Mach 2.83) and can engage targets at 300km range with the R-37M missile. Arctic deployments at Nagurskoye, Rogachevo (Novaya Zemlya), and Savatiya provide Russia with an intercept envelope covering virtually the entire Arctic Ocean from Russian-controlled bases. Also serves as the carrier for the Kinzhal hypersonic missile.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Max Speed</span><span class="equip-spec-val">Mach 2.83</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Combat Range</span><span class="equip-spec-val">720km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">R-37M Range</span><span class="equip-spec-val">~300km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Kinzhal</span><span class="equip-spec-val">Mach 10+, 2,000km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">~130 (VKS total)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Arctic Bases</span><span class="equip-spec-val">3+</span></div>
+        </div>
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">COASTAL DEFENSE</span>
+        <span class="equip-country-badge">🇷🇺</span>
+        <img src="https://image.thebarentsobserver.com/427918.webp?imageId=427918&width=960&height=548&format=jpg"
+          alt="Nagurskoye military base radar systems" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Bastion-P coastal defense missile system at Nagurskoye — the P-800 Oniks (Yakhont) supersonic anti-ship missile has a 600km range and can engage NATO surface ships transiting Arctic waters from shore-based positions. Deployed across Russia\'s Arctic coast, creating an A2/AD umbrella over adjacent sea lanes.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Bastion-P Coastal Defense</div>
+        <div class="equip-desc">The Bastion-P system fires the P-800 Oniks (Yakhont) supersonic anti-ship missile from mobile shore-based launchers. Deployed across Russia's Arctic coastline — from Murmansk to Chukotka — the Bastion-P creates overlapping anti-access/area denial zones that can threaten NATO surface ships traversing Arctic sea lanes. Each battery of 4 launchers fires up to 24 Oniks missiles. The system provides Russia with stand-off maritime denial capability that does not require surface ship deployment in ice-covered waters.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Missile</span><span class="equip-spec-val">P-800 Oniks</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">~600km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 2.5</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">250kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Launchers</span><span class="equip-spec-val">4/battery</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Arctic Sites</span><span class="equip-spec-val">10+ (est.)</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/p-800-oniks/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">NUCLEAR TORPEDO DRONE</span>
+        <span class="equip-country-badge">🇷🇺</span>
+        <img src="https://www.navalnews.com/wp-content/uploads/2022/03/Russian-Navy-Poseidon-Nuclear-Weapon.jpg"
+          alt="Russian Poseidon nuclear unmanned underwater vehicle torpedo" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Poseidon (2M39) nuclear-armed autonomous underwater vehicle — Russia\'s most exotic strategic weapon. Carries a 2-megaton nuclear warhead (possibly thermonuclear cobalt bomb) designed to create radioactive tsunami waves against coastal cities and carrier groups. Carried by modified Oscar-II SSGN (Belgorod). Range potentially unlimited with onboard nuclear reactor. No analogous Western system exists.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Poseidon (2M39) Nuclear UUV</div>
+        <div class="equip-desc">Russia's Poseidon nuclear-armed autonomous underwater vehicle represents a radically new class of strategic weapon, with no Western equivalent. Propelled by a miniaturized nuclear reactor, it has effectively unlimited range and operates at depths of 1,000m+ — below NATO ASW torpedo maximum engagement depth. The Poseidon carries a 2-megaton thermonuclear warhead optimized to create massive radioactive tsunamis against coastal cities and carrier battle groups. The Oscar-II SSGN Belgorod was modified as the primary Poseidon carrier, operating in Arctic waters.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Propulsion</span><span class="equip-spec-val">Nuclear reactor</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">Effectively unlimited</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Depth</span><span class="equip-spec-val">1,000m+ (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">~2 MT nuclear</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Carrier</span><span class="equip-spec-val">Belgorod SSGN</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Operational (2024)</span></div>
+        </div>
+        <a href="https://www.usni.org/magazines/proceedings/2026/january/russia-introduces-new-category-naval-strike-weapon" target="_blank" rel="noopener" class="equip-link">USNI Proceedings <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- USA SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇺🇸 <span>United States — NORAD / INDOPACOM / EUCOM</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">UNDER-ICE SSN</span>
+        <span class="equip-country-badge">🇺🇸</span>
+        <img src="https://c8.alamy.com/comp/2HWNGJ2/beaufort-sea-arctic-circle-march-5-2022-virginia-class-attack-submarine-uss-illinois-ssn-786-surfaces-in-the-beaufort-sea-kicking-off-ice-exercise-icex-2022-icex-2022-is-a-three-week-exercise-that-allows-the-navy-to-assess-its-operational-readiness-in-the-arctic-increase-experience-in-the-region-advance-understanding-of-the-arctic-environment-and-continue-to-develop-relationships-with-other-services-allies-and-partner-organizations-us-navy-photo-by-mike-demelloreleased-2HWNGJ2.jpg"
+          alt="Virginia-class submarine USS Illinois surfaces through Arctic ice during ICEX 2022" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'USS Illinois (SSN-786) Virginia-class surfaces in the Beaufort Sea during ICEX 2022. Virginia-class submarines are the US primary under-ice capable SSN, equipped with under-ice navigation systems, retractable bow planes, and hardened sail to break through ice. ICEX exercises validate Arctic under-ice tactics annually. US maintains at least 2 SSNs on Arctic patrol at any given time.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Virginia-class SSN (Under-Ice)</div>
+        <div class="equip-desc">The Virginia-class is the US Navy's primary Arctic-capable attack submarine, equipped with specialized under-ice systems including retractable bow planes, strengthened sail to break through ice, and under-ice navigation sonar. ICEX exercises (held biennially in the Beaufort Sea) validate Arctic tactics and submarine performance in under-ice conditions. Virginia-class SSNs are the principal NATO counterbalance to Russia's SSBN bastion, tasked with tracking Borei-A submarines in Arctic operating areas. US maintains a continuous Arctic SSN presence, with typical 2-4 SSNs operating in Arctic waters at any time.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">7,900 tons</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Missiles</span><span class="equip-spec-val">Tomahawk TLAM (12–40)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Under-Ice</span><span class="equip-spec-val">Fully capable</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Depth</span><span class="equip-spec-val">~490m (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Arctic Role</span><span class="equip-spec-val">SSBN tracking / ASW</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fleet</span><span class="equip-spec-val">22 operational</span></div>
+        </div>
+        <a href="https://www.naval-technology.com/projects/virginia-class-submarine/" target="_blank" rel="noopener" class="equip-link">Naval Technology Profile <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">5TH GEN ARCTIC STRIKE</span>
+        <span class="equip-country-badge">🇺🇸</span>
+        <img src="https://media.defense.gov/2015/Nov/12/2001317730/-1/-1/0/151011-F-BW200-024.JPG"
+          alt="F-35A stealth fighter Alaska Arctic operations" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'F-35A in Arctic operations. US deploys F-35As at Eielson AFB (Alaska) — the 354th Fighter Wing operates two F-35A squadrons in the world\'s most extreme cold-weather environment. F-35As at Eielson are tasked with NORAD air defense of North American Arctic approaches, counter-air against Russian Tu-95/Tu-160 bombers, and potential Alaska theater strike missions.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">F-35A — Eielson AFB, Alaska</div>
+        <div class="equip-desc">Eielson Air Force Base (Alaska) hosts two F-35A squadrons (354th Fighter Wing) in the coldest operational environment of any US combat aircraft deployment. The F-35A at Eielson fulfills NORAD's primary air defense mission in the Alaska/Arctic sector — intercepting Russian Tu-95MS and Tu-160 bombers on long-range patrol missions. Cold-weather modifications (Arctic kit) allow operations down to -55°F. Eielson's F-35As can reach GIUK Gap and cover Bering Strait approaches within 1–2 hours with refueling support.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Base</span><span class="equip-spec-val">Eielson AFB, AK</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Squadrons</span><span class="equip-spec-val">2 (354th FW)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Cold Weather</span><span class="equip-spec-val">-55°F rated</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">2,200km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">NORAD AD / Strike</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Fully operational</span></div>
+        </div>
+        <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104488/f-35a-lightning-ii/" target="_blank" rel="noopener" class="equip-link">Air Force Fact Sheet <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">HOMELAND MISSILE DEFENSE</span>
+        <span class="equip-country-badge">🇺🇸</span>
+        <img src="https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2507/9161945/1000w_q95.jpg"
+          alt="Ground Based Interceptor missile defense Fort Greely Alaska" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Ground-Based Midcourse Defense (GMD) system at Fort Greely, Alaska. 44 Ground-Based Interceptors (GBI) deployed in Alaska and Vandenberg CA are the US\'s only capability to intercept ICBM-range ballistic missiles. A Congressional-mandated expansion to 64 interceptors at Fort Greely is underway. The GMD system is specifically designed against North Korea and potential limited Russian/Chinese ICBM attacks transiting over the Arctic.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">GMD / Fort Greely — Homeland BMD</div>
+        <div class="equip-desc">Fort Greely (Alaska) is the primary site for the Ground-Based Midcourse Defense system — America's only operational homeland ballistic missile defense capability against ICBM-range threats. Current deployment: 44 Ground-Based Interceptors (GBI), with Congressional mandate to expand to 64. The Next Generation Interceptor (NGI), replacing aging GBIs, reached milestone B in 2024. Arctic ballistic trajectories from Russia or North Korea are the primary design threat. Collocated with AN/TPY-2 tracking radar and C2 infrastructure tied to NORAD.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">GBI Count</span><span class="equip-spec-val">44 (→64 expansion)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Intercept Alt</span><span class="equip-spec-val">Mid-course (exoatmo)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Next Gen</span><span class="equip-spec-val">NGI (Milestone B 2024)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Threat</span><span class="equip-spec-val">ICBM (NK, limited Russia)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Location</span><span class="equip-spec-val">Fort Greely, AK</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">C2</span><span class="equip-spec-val">NORAD / NORTHCOM</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/defsys/gmd/" target="_blank" rel="noopener" class="equip-link">CSIS GMD Profile <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NATO/NORWAY SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🛡️ <span>NATO / Norway — High North Anchor</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">ARCTIC AIR SUPERIORITY</span>
+        <span class="equip-country-badge">🇳🇴</span>
+        <img src="https://preview.redd.it/a-norwegian-f-35a-flying-in-the-arctic-4672x3115-v0-py2blok9vznc1.jpeg?width=1080&crop=smart&auto=webp&s=9d34e3a458b084f2078f86a60178baf5ddddecec"
+          alt="Norwegian F-35A fighter jet flying over Arctic Norway" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Norwegian F-35A over the Arctic — Norway was the first NATO partner nation to complete its full F-35A order (52 aircraft, all delivered by 2025), making it the world\'s first 100% fifth-generation air force. Deployed at Ørland and Evenes air bases, Norwegian F-35As fly daily missions along the Russian border in Finnmark and conduct regular Svalbard overflights as sovereignty patrols.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">F-35A — Norwegian Air Force</div>
+        <div class="equip-desc">Norway completed delivery of its full F-35A fleet (52 aircraft) in 2025, becoming the first NATO partner nation to fully replace legacy Hornets with fifth-generation capability. Norwegian F-35As operate from Ørland Main Air Station (primary) and Evenes Air Station (QRA deployment, reactivated 2023). Daily missions include NORAD-equivalent Arctic air surveillance, sovereign patrol over Svalbard, and MiG-31BM interception of Russian bombers probing Norwegian airspace. The Evenes deployment — inside the Arctic Circle — represents the northernmost permanent F-35 basing in NATO.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Fleet</span><span class="equip-spec-val">52 aircraft</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Primary Base</span><span class="equip-spec-val">Ørland Air Station</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Arctic Base</span><span class="equip-spec-val">Evenes (QRA)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Delivery</span><span class="equip-spec-val">Complete (2025)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Roles</span><span class="equip-spec-val">AD, Strike, Recon</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">All 52 operational</span></div>
+        </div>
+        <a href="https://www.lockheedmartin.com/en-us/products/f-35/f-35-variants/f-35-international-partners/norway.html" target="_blank" rel="noopener" class="equip-link">Lockheed Norway Profile <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">ARCTIC FRIGATE</span>
+        <span class="equip-country-badge">🇳🇴</span>
+        <img src="https://www.seaforces.org/marint/Canadian-Navy/Patrol-Vessel/AOPV-430_DAT/AOPV-430-HMCS-Harry-DeWolf-012.jpg"
+          alt="Fridtjof Nansen class frigate Norwegian Navy Arctic operations" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Fridtjof Nansen-class frigate — Norway\'s primary ASW surface combatant, equipped with NASAMS-derived Sea Sparrow SAM, NSM anti-ship missiles, and AN/SQR-20 ATAS towed array sonar for submarine detection. The class is the NATO High North\'s primary surface ASW platform, optimized for North Sea and Barents Sea operations.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Fridtjof Nansen-class Frigate</div>
+        <div class="equip-desc">Norway's Fridtjof Nansen class (5 ships) forms the backbone of NATO's High North surface ASW capability. Equipped with SH-60 Seahawk ASW helicopter, towed sonar array, NSM anti-ship missiles, and Evolved Sea Sparrow Missile (ESSM) air defense, these frigates are specifically designed for North Sea and Barents Sea environmental conditions. In NATO's Arc of Advantage concept, Nansen-class frigates work with P-8 Poseidon maritime patrol aircraft and Virginia-class SSNs to maintain surveillance of Russian SSBN exit corridors from the Kola Peninsula.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Class Size</span><span class="equip-spec-val">5 frigates</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Anti-Ship</span><span class="equip-spec-val">NSM (4×4 launchers)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Air Defense</span><span class="equip-spec-val">ESSM (32 cell VLS)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">ASW</span><span class="equip-spec-val">SH-60 + towed array</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">5,290 tons</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Area</span><span class="equip-spec-val">Barents / Norwegian Sea</span></div>
+        </div>
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">ARCTIC AIR DEFENSE</span>
+        <span class="equip-country-badge">🇳🇴</span>
+        <img src="https://www.aerotime.aero/images/Norway-deploys-F-35-jets-in-reactivated-mountain-base%E2%80%AF.jpg"
+          alt="Norway deploys F-35s in reactivated Arctic mountain base" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Norway reactivated Evenes Air Base inside the Arctic Circle and collocated NASAMS III air defense with the F-35A squadron. NASAMS (Norwegian Advanced Surface-to-Air Missile System) III fires AIM-120C AMRAAM and AIM-9X at ranges up to 40km. Norway has the most extensive NASAMS deployment of any nation, protecting key installations from Bodø to Bardufoss along the Russian border corridor.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">NASAMS III — Norway Arctic Deployment</div>
+        <div class="equip-desc">Norway operates the world's largest NASAMS (Norwegian Advanced Surface-to-Air Missile System) deployment, protecting critical Arctic bases and installations from Bodø to Bardufoss. NASAMS III fires the AIM-120C AMRAAM (extended range to 40km) and AIM-9X Sidewinder against aircraft, cruise missiles, and drones. Its open architecture integrates with F-35A IRST targeting data and NATO's Integrated Air and Missile Defense network. Deployments at Evenes, Bardufoss, and Andøya provide layered Arctic air defense against Russian bombers and cruise missiles overflying Norway.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Missile</span><span class="equip-spec-val">AIM-120C AMRAAM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">~40km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Altitude</span><span class="equip-spec-val">15km+</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Integration</span><span class="equip-spec-val">F-35A / NATO IAMD</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Sites</span><span class="equip-spec-val">Evenes, Bardufoss, Andøya</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Procurement</span><span class="equip-spec-val">Kongsberg / Raytheon</span></div>
+        </div>
+        <a href="https://www.kongsberg.com/defence/products-and-systems/air-defence-systems/nasams/" target="_blank" rel="noopener" class="equip-link">Kongsberg NASAMS <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CANADA SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇨🇦 <span>Canada — Arctic Sovereignty & NORAD</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">ARCTIC PATROL VESSEL</span>
+        <span class="equip-country-badge">🇨🇦</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/HMCS_Harry_DeWolf_Pulls_into_Naval_Station_Norfolk_1.jpg"
+          alt="HMCS Harry DeWolf Arctic offshore patrol vessel Canadian Navy" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'HMCS Harry DeWolf (AOPV 430) — lead ship of Canada\'s Harry DeWolf class Arctic and Offshore Patrol Vessels. Built with Arctic ice class PC 5 capability (1.3m ice at 3 knots), Bofors 40mm gun, Harpoon or NSM anti-ship missile capability, and Cyclone maritime helicopter. 6 ships of the class are being built, asserting Canadian sovereignty over the disputed Northwest Passage.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Harry DeWolf-class AOPV</div>
+        <div class="equip-desc">Canada's Harry DeWolf class (6 ships ordered) represents Canada's primary assertion of Arctic maritime sovereignty, replacing aging Kingston-class patrol vessels. Built with PC 5 ice class capability (1.3m ice at 3 knots), each ship carries a Bofors 40mm naval gun, provisions for anti-ship missiles, and a CH-148 Cyclone maritime helicopter for ASW and surveillance. The first complete circumnavigation of North America by a Canadian warship was achieved by HMCS Harry DeWolf in 2021. These ships assert Canadian sovereignty over the Northwest Passage, which the US and EU classify as international waters.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Ice Class</span><span class="equip-spec-val">PC 5 (1.3m)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Gun</span><span class="equip-spec-val">Bofors 40mm</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Helicopter</span><span class="equip-spec-val">CH-148 Cyclone</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Ships Built</span><span class="equip-spec-val">5 delivered (6th WIP)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">6,615 tons</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">NWP sovereignty</span></div>
+        </div>
+        <a href="https://www.navy-marines.forces.gc.ca/en/fleet-units/rcn-fleet-harry-dewolf.page" target="_blank" rel="noopener" class="equip-link">Royal Canadian Navy <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">MARITIME PATROL</span>
+        <span class="equip-country-badge">🇨🇦</span>
+        <img src="https://s3.us-east-1.amazonaws.com/files.cnas.org/images/_600xAUTO_crop_center-center_none/Barthymetry-Nordic-Sea.jpeg"
+          alt="Arctic maritime patrol surveillance operations" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'CP-140 Aurora maritime patrol aircraft — Canada\'s primary Arctic ISR and ASW platform. 14 modernized aircraft (Block III upgrades) are Canada\'s primary tool for monitoring Russian submarine activity in Davis Strait and Baffin Bay, enforcing the Northwest Passage, and conducting NORAD Arctic surveillance missions. Canada is replacing the Aurora with 16 P-8A Poseidons, with deliveries beginning 2026.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">CP-140 Aurora / P-8A Poseidon</div>
+        <div class="equip-desc">Canada's CP-140 Aurora long-range maritime patrol aircraft (14 aircraft, Block III modernized) serves as the primary tool for Arctic surveillance, Russian submarine tracking in Davis Strait, and Northwest Passage monitoring. Canada announced procurement of 16 P-8A Poseidons in 2023 to replace the aging Aurora fleet, with deliveries beginning 2026. The P-8A will dramatically increase Canada's Arctic ASW capability — equipped with ALQ-240 ESM, MX-20HD FLIR, and AGM-84 Harpoon — and will integrate into the NORAD network at CFS Alert (82°N, world's northernmost permanently staffed settlement).</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Current</span><span class="equip-spec-val">CP-140 Aurora (14)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Replacing With</span><span class="equip-spec-val">16× P-8A Poseidon</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">P-8A Delivery</span><span class="equip-spec-val">2026–2030</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">ASW, SIGINT, ISR</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Arctic Base</span><span class="equip-spec-val">CFS Alert, Thule, Greenwood</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">NORAD Role</span><span class="equip-spec-val">Over-the-horizon radar</span></div>
+        </div>
+        <a href="https://www.canada.ca/en/department-national-defence/news/2023/11/canada-acquiring-16-p-8a-poseidon-maritime-patrol-aircraft.html" target="_blank" rel="noopener" class="equip-link">DND Canada Announcement <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">EARLY WARNING</span>
+        <span class="equip-country-badge">🇺🇸🇨🇦</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/OBV_GBI_1.jpg"
+          alt="NORAD ground-based missile defense early warning radar" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'NORAD\'s Distant Early Warning (DEW) Line, now being replaced by the North Warning System (NWS) and future NASE (Northern Approaches Surveillance Enhancement) system. NORAD tracks all air and space activity over North America; Canada and the US are jointly upgrading the NWS with new over-the-horizon radar at an estimated $40B+ CAD investment announced in 2022.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">NORAD / North Warning System Upgrade</div>
+        <div class="equip-desc">Canada and the United States are jointly investing $40B+ CAD (announced June 2022) in the largest NORAD modernization since the Cold War. The North Warning System (NWS) — a chain of 47 short and medium-range radars from Alaska to Baffin Island — is being replaced with next-generation over-the-horizon radar and space-based surveillance to detect hypersonic missiles and low-flying cruise missiles that the legacy system cannot track. Canada's contribution includes 6 RCAF F-35s at NORAD alert posture (replacing legacy CF-18s), new Arctic surveillance drones, and contribution to the Over-The-Horizon Radar (OTHR) network.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Investment</span><span class="equip-spec-val">$40B+ CAD</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Legacy System</span><span class="equip-spec-val">North Warning System (47 radars)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">New Capability</span><span class="equip-spec-val">OTHR + space sensors</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Hypersonic</span><span class="equip-spec-val">New tracking capability</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Aircraft</span><span class="equip-spec-val">CF-35A NORAD alert</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Timeline</span><span class="equip-spec-val">2030–2035 IOC</span></div>
+        </div>
+        <a href="https://www.norad.mil/About-NORAD/" target="_blank" rel="noopener" class="equip-link">NORAD Official <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 05: CAPABILITY MATRIX -->
+<section id="theater-matrix">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">05 // CAPABILITY MATRIX</div>
+      <h2 class="section-title">Country Capability Matrix</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Arctic Platforms · Icebreakers · Submarines · ISR · Nuclear</div>
+  </div>
+
+  <div class="data-table-wrap mb-8">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Country / Actor</th>
+          <th>Arctic-Capable Platforms</th>
+          <th>Icebreaker Fleet</th>
+          <th>Submarine Operations</th>
+          <th>Early Warning / ISR</th>
+          <th>Nuclear</th>
+          <th>Theater Rating</th>
+          <th>Ref</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇷🇺</span>
+              <a href="../countries/russia-dossier.html" class="flag-name" target="_blank">Russia (Northern Fleet)</a>
+            </span>
+          </td>
+          <td>Project 23550 armed icebreakers; Arctic Brigade; MiG-31BM; Tu-95MS/Tu-160; Bastion-P coastal defense across Arctic coastline</td>
+          <td>40+ icebreakers (7 nuclear-powered); Arktika-class LK-60Ya; sole power capable of year-round Northern Sea Route transit without restriction</td>
+          <td>7 Borei-A SSBNs (Arctic bastion); 4 Yasen-class SSGNs; Oscar-II (Belgorod/Poseidon); dedicated under-ice ASW screen</td>
+          <td>Voronezh-SM/DM OTH radar (Murmansk); Nebo-M 3D radar; Panika radar at Nagurskoye; EW/SIGINT coverage Arctic Ocean</td>
+          <td class="nuclear-yes">STRATEGIC — 1,600+ SLBM WARHEADS</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:95%"></div></div>
+              <span class="rating-num">9.5/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇺🇸</span>
+              <a href="../countries/usa-dossier.html" class="flag-name" target="_blank">USA (NORAD/NORTHCOM)</a>
+            </span>
+          </td>
+          <td>F-35A at Eielson; B-52H/B-21 bomber deterrence; Virginia-class SSN; 2 icebreakers (critical gap); Fort Greely GMD; Thule Air Base</td>
+          <td>2 heavy icebreakers (Polar Star, Healy); 1 operational heavy (Polar Security Cutter PSC-1 expected 2027); critical capability gap vs. Russia</td>
+          <td>20+ Virginia-class SSN globally deployable; Sea Wolf-class (2) Arctic-optimized; continuous SSBN tracking mission; ICEX biennial exercises</td>
+          <td>NORAD NWS (upgrading); Thule early warning radar; Cobra Dane phased-array (Shemya); SBIRS/HEO satellites; upgrade to $40B NASE system</td>
+          <td class="nuclear-yes">STRATEGIC FULL</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:88%"></div></div>
+              <span class="rating-num">8.8/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.norad.mil/" target="_blank" rel="noopener">NORAD →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇨🇦</span>
+              <a href="../countries/canada-dossier.html" class="flag-name" target="_blank">Canada (NORAD partner)</a>
+            </span>
+          </td>
+          <td>Harry DeWolf-class AOPV (6); CF-18 (→F-35A transition); CP-140 Aurora (→P-8A); Canadian Rangers Arctic ground presence (~5,000)</td>
+          <td>1 medium icebreaker (CCGS Louis S. St-Laurent); Coast Guard light icebreakers; significant capability gap in Northwest Passage area</td>
+          <td>4 Victoria-class SSK (limited Arctic capability; no under-ice qualified); P-8A acquisition will enhance ASW coverage of Davis Strait</td>
+          <td>North Warning System (47 radar chain, Canada sector); CFS Alert SIGINT; upgrading to OTHR network; NORAD joint C2</td>
+          <td class="nuclear-no">NO</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:55%"></div></div>
+              <span class="rating-num">5.5/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.canada.ca/en/department-national-defence.html" target="_blank" rel="noopener">DND Canada →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇳🇴</span>
+              <a href="../countries/norway-dossier.html" class="flag-name" target="_blank">Norway (NATO Arctic anchor)</a>
+            </span>
+          </td>
+          <td>52× F-35A; 5× Fridtjof Nansen frigate; NASAMS III; Andøya Space Center; Svalbard monitoring infrastructure</td>
+          <td>Norwegian Coast Guard icebreaking patrol vessels (KV Svalbard etc.); limited heavy icebreaker capability; not intended for offensive projection</td>
+          <td>6 Ula-class SSK (replacement program ongoing; 6 new submarines ordered from ThyssenKrupp 2023 for delivery 2029–2034); P-8A joint base Andøya</td>
+          <td>Globus III (Vardø, high-resolution space tracking radar); P-8 Poseidon at Andøya; NASAMS radar network; NATO ACCS integration</td>
+          <td class="nuclear-no">NO (NATO nuclear umbrella)</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:72%"></div></div>
+              <span class="rating-num">7.2/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.forsvaret.no/en" target="_blank" rel="noopener">Forsvaret →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🛡️</span>
+              <span class="flag-name">NATO (Combined)</span>
+            </span>
+          </td>
+          <td>Integration of US, Norwegian, Danish, Canadian, UK, Finnish, Swedish Arctic-capable forces; JFC Brunssum Arctic coordination; Maritime Command MARCOM</td>
+          <td>Combined NATO icebreaker fleet is a fraction of Russia's; relies on partnership with commercial operators; NSR transit requires Russian cooperation</td>
+          <td>UK Astute-class SSN (Arctic under-ice qualified); US Virginia-class; Norwegian new submarines; integrated ASW patrols GIUK Gap continuous</td>
+          <td>NATO Undersea Infrastructure Coordination Cell; JISR; AWACS surveillance; Baltic-Arctic integration post-Finland/Sweden accession</td>
+          <td class="nuclear-yes">US + UK NUCLEAR</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:80%"></div></div>
+              <span class="rating-num">8.0/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.nato.int/cps/en/natohq/topics_91091.htm" target="_blank" rel="noopener">NATO Arctic →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇨🇳</span>
+              <span class="flag-name">China (Arctic observer)</span>
+            </span>
+          </td>
+          <td>No Arctic territory; 2 research icebreakers (Xue Long, Xue Long 2); planned polar class icebreaker; Chinese research stations (Yellow River, Ny-Ålesund)</td>
+          <td>Xue Long + Xue Long 2 icebreakers; polar class vessel under construction; focused on research/commercial, not military (yet)</td>
+          <td>No declared Arctic submarine operations; PLAN submarines not currently under-ice capable; significant investment in quieting technology</td>
+          <td>BeiDou GPS provides Arctic navigation independence; research stations provide dual-use ISR potential; Yamal LNG facility partnership with Russia</td>
+          <td class="nuclear-limited">STRATEGIC (GLOBAL)</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:35%"></div></div>
+              <span class="rating-num">3.5/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.sipri.org/sites/default/files/2021-01/sipri_wp_2101.pdf" target="_blank" rel="noopener">SIPRI China Arctic →</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 06: CHOKEPOINTS -->
+<section id="theater-chokepoints">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">06 // KEY TERRAIN & CHOKEPOINTS</div>
+      <h2 class="section-title">Strategic Chokepoints</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="chokepoint-grid mb-8">
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/GIUK_gap.png"
+          alt="GIUK Gap strategic maritime chokepoint map" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'GIUK Gap — Greenland-Iceland-UK maritime corridor. The single most strategically critical chokepoint in the Arctic theater. Russia\'s Northern Fleet submarines must transit here to reach the open North Atlantic. NATO maintains continuous P-8/P-3 ASW patrol and UK/Norwegian submarine presence in the gap year-round.')">
+        <div class="chokepoint-badge">MARITIME CORRIDOR</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">GIUK Gap</div>
+        <div class="chokepoint-width">~1,800KM CORRIDOR // GREENLAND-ICELAND-UK</div>
+        <div class="chokepoint-desc">The Greenland-Iceland-UK (GIUK) Gap is the defining maritime chokepoint of the Arctic theater — the gateway through which Russia's Northern Fleet submarines must pass to reach the open North Atlantic and threaten NATO sea lines of communication. During the Cold War, the US SOSUS hydrophone network tracked every Soviet transit. Today, NATO P-8 Poseidons operating from Keflavik (Iceland) and Lossiemouth (UK) maintain around-the-clock surveillance. Russia's Yasen-class SSGNs are significantly harder to detect than Cold War predecessors.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">NATO (Iceland, UK, Norway, Denmark/Greenland)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">CRITICAL</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://assets.science.nasa.gov/content/dam/science/esd/eo/images/imagerecords/1000/1050/misr_beringstrait_lrg.jpg"
+          alt="Bering Strait satellite view NASA connecting Arctic and Pacific" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Bering Strait — NASA MISR satellite view. The 82km-wide strait between Alaska (USA) and Chukotka (Russia) is the only sea connection between the Arctic Ocean and Pacific. Two Diomede Islands (one American, one Russian) sit in the middle of the strait, separated by the International Date Line and only 3.8km of water.')">
+        <div class="chokepoint-badge">STRAIT</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Bering Strait</div>
+        <div class="chokepoint-width">82KM WIDE // USA-RUSSIA FRONTIER</div>
+        <div class="chokepoint-desc">The Bering Strait represents the only sea connection between the Arctic Ocean and Pacific Ocean, making it strategically vital for any power projecting naval force from one ocean to the other. Alaska and Chukotka are separated by only 82km; the Diomede Islands reduce the gap to 3.8km at the closest point. A Russian military buildup on the Chukotka coast (radar, air defense, coastal missile batteries at Anadyr) mirrors US Alaska reinforcements. As the Arctic opens, Bering Strait transit traffic will increase dramatically.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">USA (east), Russia (west), shared strategic standoff</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">HIGH</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://www.thearcticinstitute.org/wp-content/uploads/2016/07/Arctic-Shipping-Routes-Map-legend-1.png"
+          alt="Northwest Passage Arctic shipping route Canada" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Northwest Passage — the Arctic sea route through the Canadian Arctic Archipelago, connecting the Atlantic and Pacific Oceans north of the North American continent. Canada claims it as internal waters; the USA and EU insist it is an international strait. As climate change opens the passage to regular navigation, this legal dispute has escalating strategic and economic consequences.')">
+        <div class="chokepoint-badge">DISPUTED PASSAGE</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Northwest Passage</div>
+        <div class="chokepoint-width">~3,000KM ROUTE // CANADIAN ARCTIC ARCHIPELAGO</div>
+        <div class="chokepoint-desc">Canada claims the Northwest Passage (NWP) as internal Canadian waters, requiring foreign warships to seek permission. The United States and European nations classify it as an international strait open to transit passage rights under UNCLOS. As climate change makes the passage navigable 3–4 months per year (and potentially year-round by 2050), this legal ambiguity becomes operationally critical. Russia's interest is indirect — China's desire for a Pacific-Atlantic shortcut makes the NWP a potential source of North American alliance tension.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Canada (sovereign claim, disputed by USA/EU)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-med">MEDIUM (sovereignty dispute)</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2025/05/earth_from_space_svalbard_archipelago/26703538-1-eng-GB/Earth_from_Space_Svalbard_Archipelago_pillars.jpg"
+          alt="ESA satellite view of Svalbard archipelago Norway" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Svalbard Archipelago — ESA satellite view. Norwegian sovereign territory with unique treaty status granting equal economic access to all signatory states. Russia operates coal mines at Barentsburg. The archipelago sits astride the critical Barents Sea and commands approaches to the Russian Northern Fleet\'s Kola Peninsula bastion.')">
+        <div class="chokepoint-badge">TREATY TERRITORY</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Svalbard Archipelago</div>
+        <div class="chokepoint-width">63,000 KM² // 78°N — BARENTS SEA GATEWAY</div>
+        <div class="chokepoint-desc">Svalbard occupies a unique legal status under the 1920 Svalbard Treaty: Norwegian sovereignty, but equal economic access rights for all 46 signatory nations, including Russia. Norway's attempts to restrict Russian activities have been challenged as treaty violations. Militarily, Svalbard sits astride the Barents Sea approaches to the Kola Peninsula, commanding the maritime gateway to Russia's strategic nuclear bastion. A hypothetical Russian seizure of Svalbard (extremely unlikely but war-gamed by NATO) would severely compromise the GIUK Gap ASW barrier.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Norway (sovereign) / Russia (treaty mining rights)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">HIGH (legal ambiguity)</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://i0.wp.com/all-things-nordic.com/wp-content/uploads/2025/12/17649279174598432298674269219870.jpg?fit=2000%2C1091&ssl=1"
+          alt="Kola Peninsula map Russia Northern Fleet headquarters" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Kola Peninsula — Russia\'s most militarized region, hosting the Northern Fleet headquarters at Severomorsk, SSBN bastions at Gadzhiyevo, and the largest concentration of nuclear weapons in the world. The Kola Peninsula is sometimes called the "most nuclearized real estate on Earth." NATO intelligence estimates 150+ nuclear warheads in ready storage on the Kola Peninsula alone.')">
+        <div class="chokepoint-badge">BASTION / HQ</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Kola Peninsula</div>
+        <div class="chokepoint-width">RUSSIA'S ARCTIC NUCLEAR HEARTLAND</div>
+        <div class="chokepoint-desc">The Kola Peninsula is Russia's most militarized region by density — containing the Northern Fleet headquarters at Severomorsk, Borei-A SSBN bastions at Gadzhiyevo, the largest concentration of nuclear weapons of any comparable geographic area on Earth, and the primary egress route for all Northern Fleet submarine operations. NATO intelligence analysts consider Kola Peninsula base security the highest-priority nuclear custody risk outside formal weapons storage protocol. Any NATO conventional strike on Kola would almost certainly trigger nuclear escalation by Russian doctrine.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Russia (Northern Fleet / Joint Strategic Command North)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">ESCALATION RISK:</span><span class="risk-val risk-high">EXTREME — NUCLEAR TRIPWIRE</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://arcticportal.org/images/maps/small/3.8.1_SeaRoutes_SeaIce2022_EEZ_ProjRussia_LRes.jpg"
+          alt="Northern Sea Route Arctic sea ice EEZ map Russia" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Northern Sea Route with sea ice coverage and Russian EEZ. The NSR runs 5,600km along Russia\'s Arctic coast, connecting the Atlantic to the Pacific via the Arctic Ocean. Russia controls all transit through its EEZ, requiring foreign vessels to seek permission, use Russian pilots in some areas, and potentially take Russian icebreaker escort. This represents a monopoly on the world\'s only Arctic shortcut.')">
+        <div class="chokepoint-badge">SEA ROUTE</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Northern Sea Route Narrows</div>
+        <div class="chokepoint-width">5,600KM ROUTE // RUSSIA EEZ CONTROL</div>
+        <div class="chokepoint-desc">The Northern Sea Route passes through several critical natural narrows — the Kara Gate (between Novaya Zemlya and Vaygach Island), the Vil'kitsky Strait (narrowest Arctic chokepoint, ~52km wide), and the Bering Strait egress. Russia's icebreaker monopoly and domestic law require all non-Russian vessels to notify Russian authorities, potentially take on Russian icebreaker escort, and comply with Russian navigation rules. This grants Russia an effective veto over any vessel's Arctic transit — a strategic leverage Russia has demonstrated willingness to exercise.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Russia (NSR administration, icebreaker fleet)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">HIGH (Russian regulatory control)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 07: FLASHPOINTS -->
+<section id="theater-flashpoints">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">07 // FLASHPOINTS & TRIGGERS</div>
+      <h2 class="section-title">Conflict Scenarios</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Sub-threshold → Full Escalation Pathways</div>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="switchTab(event,'flash-1')">SSBN Surge</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-2')">GIUK Confrontation</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-3')">Svalbard Crisis</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-4')">NWP Dispute</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-5')">Cable Sabotage</button>
+    </div>
+
+    <div id="flash-1" class="tab-pane active">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // HIGHEST PROBABILITY NUCLEAR ALERT</div>
+        <div class="scenario-title">Scenario A: Russian Northern Fleet SSBN Surge</div>
+        <div class="card-grid grid-2 mb-6">
+          <div>
+            <div class="scenario-steps">
+              <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">Russia, in response to a NATO conventional military action (e.g., Ukraine crisis escalation or NATO exercise near Russian borders), orders a Northern Fleet SSBN surge — all Borei-A submarines deploying simultaneously to dispersed patrol areas under Arctic ice. Russia announces publicly as a nuclear deterrence signal.</div></div>
+              <div class="scenario-step"><div class="step-time">T+6h</div><div class="step-text">NORAD detects unusual Northern Fleet activity via Thule early warning radar and satellite ISR. US DEFCON moves from 5 to 4. NATO SACEUR activates Alert Measure Alpha. P-8 Poseidon sorties from Keflavik surge from routine 2/day to continuous coverage. UK Astute SSN activated from Faslane.</div></div>
+              <div class="scenario-step"><div class="step-time">T+24–48h</div><div class="step-text">2–4 Virginia-class SSNs assigned to GIUK Gap ASW picket line attempt to track Borei-A submarines exiting Kola. Yasen-class SSGN screen actively attempts to blind NATO ASW. Underwater acoustic environment becomes extremely contested — risk of accidental torpedo engagement at NATO rules of engagement threshold.</div></div>
+              <div class="scenario-step"><div class="step-time">T+72h</div><div class="step-text">High diplomatic tension as Moscow and Washington communicate directly via nuclear risk reduction hotlines. Both sides acutely aware that any depth charge or torpedo use against SSBN could trigger nuclear escalation. Russia offers to stand down surge if NATO halts the triggering action. De-escalation window opens.</div></div>
+              <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">Negotiated de-escalation under US-Russia crisis communication protocols. SSBNs return to bastion zones as diplomatic resolution reached. NATO retains elevated submarine patrol posture for 30+ days as intelligence re-assessment is completed. Most likely outcome: cold-war era rules of road protocols renegotiated.</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="intel-alert red mb-4">
+              <div class="intel-alert-head">⚠ ESCALATION DRIVER</div>
+              <p>An SSBN surge is the most dangerous near-term Arctic scenario because it introduces <strong class="critical">nuclear weapons into an operationally contested acoustic environment</strong> where accidents can have strategic consequences. The fundamental dilemma: if NATO tracks and shadows Russian SSBNs too aggressively, a Russian commander may interpret hostile acoustic contact as a prelude to a first strike — triggering the very launch NATO is trying to deter.</p>
+            </div>
+            <div class="intel-alert mb-4">
+              <div class="intel-alert-head">📊 PROBABILITY ASSESSMENT</div>
+              <p>Russian SSBN surge during a major NATO-Russia crisis: <strong class="critical">45–55% within 24 months</strong> if Ukraine conflict expands. Routine Borei-A patrols (below surge threshold): continuous. Probability of accidental engagement during surge: assessed at 8–12% per RAND Arctic scenarios.</p>
+            </div>
+            <h4 style="font-family:var(--font-display);font-weight:700;color:var(--color-text);margin-bottom:var(--space-3);text-transform:uppercase;font-size:var(--text-sm);">Escalation Probability Bars</h4>
+            <div class="stat-row"><span class="stat-label">SSBN Surge (crisis)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:50%"></div></div><span class="stat-val">50%</span></div>
+            <div class="stat-row"><span class="stat-label">Accidental ASW Engagement</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:10%"></div></div><span class="stat-val">10%</span></div>
+            <div class="stat-row"><span class="stat-label">Nuclear Release Order</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:3%"></div></div><span class="stat-val">3%</span></div>
+            <div class="stat-row"><span class="stat-label">De-escalation Success</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:85%"></div></div><span class="stat-val">85%</span></div>
+          </div>
+        </div>
+        <div class="policy-quote">
+          "The fundamental challenge of the Arctic theater is that we are attempting to extend deterrence into an environment where the difference between a conventional military operation and a nuclear first-strike preparation is tactically indistinguishable."
+          <span class="policy-quote-attr">— RAND Corporation, Arctic Stability Study 2024 | <a href="https://www.rand.org/topics/arctic.html" target="_blank" rel="noopener">RAND Arctic Research Portal →</a></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-2" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // ANTI-SUBMARINE WARFARE ESCALATION</div>
+        <div class="scenario-title">Scenario B: GIUK Gap Submarine Confrontation</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">A US Virginia-class SSN operating in the GIUK Gap establishes acoustic contact on a Russian Yasen-class SSGN transiting the gap in a covert egress to the North Atlantic. The Yasen carries Kalibr cruise missiles. The US submarine classifies the contact as hostile and enters active tracking posture.</div></div>
+          <div class="scenario-step"><div class="step-time">T+2h</div><div class="step-text">Russian Yasen, aware of contact, activates towed array countermeasures and maneuvers to break track. A second Russian SSN (Oscar-II) that had been operating as an escort detects the US submarine and closes to within weapons engagement range. Three submarines now in a mutual tracking standoff.</div></div>
+          <div class="scenario-step"><div class="step-time">T+8h</div><div class="step-text">NATO P-8 Poseidon from Keflavik drops sonobuoys to support US submarine tracking. Russian surface ships (Admiral Gorshkov frigate operating near Jan Mayen) begin acoustic active pinging that disrupts sonobuoy pattern. Electromagnetic and acoustic environment becomes saturated. One P-8 is illuminated by Russian radar in a provocative but non-lethal action.</div></div>
+          <div class="scenario-step"><div class="step-time">T+24h</div><div class="step-text">Diplomatic communications between NATO and Russia acknowledge the confrontation is occurring. NATO invokes STANAG 1194 (military-to-military safety signals). Russia protests P-8 activity near its EEZ. Incident reported at SACEUR and White House level. De-escalation protocols activated but both submarines remain in contact.</div></div>
+          <div class="scenario-step"><div class="step-time">T+48–72h</div><div class="step-text">Mutual disengagement agreed through back-channel. Russian Yasen returns through GIUK Gap to Kola. US SSN resumes patrol at greater distance. Both sides debrief extensively. NATO increases GIUK surveillance coverage permanently. Russia evaluates stealth improvements needed for Yasen-M follow-on class.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-3" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // SOVEREIGNTY CRISIS</div>
+        <div class="scenario-title">Scenario C: Svalbard Sovereignty Crisis</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">Norway announces new regulations restricting Russian helicopter operations and vehicle movements on Svalbard, citing security concerns after dual-use equipment is discovered at Barentsburg (Russia's coal mining community). Russia denounces the regulations as a treaty violation and deploys additional "civilian security personnel" to protect Russian citizens.</div></div>
+          <div class="scenario-step"><div class="step-time">T+24h</div><div class="step-text">Russia files formal protest at the International Court of Justice and the UN Security Council. VETO is exercised. Russia's FSB vessels are detected operating 12nm from Longyearbyen (Norwegian Svalbard capital). A Norwegian Coast Guard vessel intercepts a Russian ship attempting to land non-mining personnel at Barentsburg without notification.</div></div>
+          <div class="scenario-step"><div class="step-time">T+72h</div><div class="step-text">Norway deploys coast guard reinforcements and invokes NATO Article 4 consultations (not Article 5 — no armed attack has occurred). Alliance debate: Norway wants solidarity; some allies are wary of being drawn into a sovereignty dispute with ambiguous legal basis. US reaffirms Norway's Article 5 security guarantee explicitly.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">Russia signals it could interpret any Norwegian militarization of Svalbard as justifying "protective action" under the treaty. Russia's Northern Fleet conducts ostentatious large-scale exercises in the Barents Sea. NATO SSN covertly deployed to monitor Northern Fleet. International legal opinion is genuinely divided on treaty interpretation.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1mo</div><div class="step-text">International arbitration panel formed. Norway makes limited concessions on helicopter monitoring while maintaining new security regulations. Russia retains Barentsburg presence but withdraws "security personnel." Crisis defused but precedent set: Svalbard will be tested again. Legal ambiguity remains unresolved.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-4" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // US-CANADA ALLIANCE STRESS</div>
+        <div class="scenario-title">Scenario D: Canadian Northwest Passage Dispute</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">A US Coast Guard icebreaker (accompanied by a USS destroyer) transits the Northwest Passage without seeking Canadian permission, asserting the passage is an international strait. Canada lodges a formal protest. Simultaneously, a Chinese commercial vessel requests permission to transit — Canada refuses; the vessel proceeds citing US precedent.</div></div>
+          <div class="scenario-step"><div class="step-time">T+48h</div><div class="step-text">Canadian public opinion erupts in anti-US sentiment. The Canadian Parliament passes an emergency resolution reaffirming Canadian sovereignty. Harry DeWolf AOPV deployed to intercept Chinese vessel. Canadian CF-18s (pre-F-35 transition) conduct low passes over Chinese ship. China protests "interference with innocent passage."</div></div>
+          <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">US-Canada bilateral consultations via NORAD command structure fail to resolve the underlying legal disagreement. Canada threatens to suspend certain NORAD arrangements if the US does not formally acknowledge Canadian sovereignty. US faces strategic dilemma: validating Canadian position weakens freedom of navigation principles globally; rejecting it fractures the most important alliance partnership.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1mo</div><div class="step-text">Negotiated language found: US acknowledges "Canada's unique interest and authority in Arctic waters" without formally conceding the international strait question. China accepts Canadian Arctic transit rules for commercial vessels in exchange for Canadian investment in Canadian Arctic infrastructure. NORAD upgrade budget accelerated as alliance solidarity demonstration.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-5" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // GRAY ZONE INFRASTRUCTURE ATTACK</div>
+        <div class="scenario-title">Scenario E: Arctic Undersea Cable Sabotage</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">The Svalbard Internet Cable System (SICS) and a transatlantic cable near the Faroe Islands are simultaneously severed. Attribution is unclear — a Russian submarine was in the area 72 hours prior, but no direct evidence of weapon use exists. Russia denies involvement. Internet traffic across Northern Europe experiences significant disruption.</div></div>
+          <div class="scenario-step"><div class="step-time">T+6h</div><div class="step-text">NATO activates its Undersea Infrastructure Coordination Cell (established 2023). The UK Astute SSN and a Norwegian frigate are tasked to locate the cut. Satellite imagery shows a Russian Haroshka-class special mission submarine was operating in the area but has since withdrawn to Kola. No smoking gun exists for attribution.</div></div>
+          <div class="scenario-step"><div class="step-time">T+24h</div><div class="step-text">Intelligence assessments of Russian involvement are medium-confidence. NATO considers a response below the Article 5 threshold — cyber operations against Russian infrastructure, diplomatic expulsions, and financial measures. The US cautions against a public accusation without higher-confidence attribution to avoid Russian counter-narrative exploitation.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">Cable repair ships (owned by commercial operators; only 3 Arctic-capable globally) dispatched. Estimated repair time: 3–6 weeks. NATO announces accelerated plan for redundant cable routes through Canada and reinforced cable monitoring systems. Russia issues a statement expressing "concern" about cable security — widely read as an implicit threat.</div></div>
+          <div class="scenario-step"><div class="step-time">T+3mo</div><div class="step-text">No formal attribution ever reaches public domain. NATO deploys additional continuous seabed surveillance. Relationship between Russia and NATO deteriorates further. The incident catalyzes a NATO-wide Critical Undersea Infrastructure Protection initiative and a rapid increase in seabed sensor deployment throughout Arctic and North Atlantic waters.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 08: LOGISTICS -->
+<section id="theater-logistics">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">08 // LOGISTICS & SUSTAINMENT</div>
+      <h2 class="section-title">Supply Lines & Access</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">🧊 ARCTIC LOGISTICS — THE DEFINING ASYMMETRY</div>
+    <p>The Arctic theater's most consequential logistics fact is the <strong class="critical">icebreaker gap: Russia 40+ vs USA 2</strong>. This is not merely a capability gap — it is a structural strategic asymmetry that determines who can project power year-round vs. who is seasonally constrained. Russia can sustain all its Arctic bases and deploy naval forces through ice-covered waters 12 months per year. The United States cannot independently operate in heavy ice conditions without Russian cooperation or multi-year shipbuilding program completion. The first US Polar Security Cutter (PSC-1) is not expected to be delivered until 2027 — and even then the US will have 3 heavy icebreakers vs. Russia's 7 nuclear-powered heavy icebreakers alone.</p>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">Icebreaker Fleet Comparison</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Nation</th><th>Nuclear Icebreakers</th><th>Heavy Diesel Ice.</th><th>Medium</th><th>Total</th></tr></thead>
+          <tbody>
+            <tr><td>🇷🇺 Russia</td><td>7 (incl. LK-60Ya Arktika)</td><td>8+</td><td>25+</td><td><strong style="color:var(--color-accent);">40+</strong></td></tr>
+            <tr><td>🇺🇸 USA</td><td>0</td><td>1 (Polar Star — aging)</td><td>1 (Healy)</td><td><strong style="color:var(--color-red);">2</strong></td></tr>
+            <tr><td>🇨🇦 Canada</td><td>0</td><td>1 (Louis S. St-Laurent)</td><td>6</td><td>7</td></tr>
+            <tr><td>🇫🇮 Finland</td><td>0</td><td>7</td><td>0</td><td>7</td></tr>
+            <tr><td>🇸🇪 Sweden</td><td>0</td><td>5</td><td>0</td><td>5</td></tr>
+            <tr><td>🇨🇳 China</td><td>0</td><td>2 (Xue Long series)</td><td>1</td><td>3</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">Arctic Sustainment Assessment</h3>
+      <div class="doctrine-grid" style="grid-template-columns:1fr;">
+        <div class="doctrine-card">
+          <div class="doctrine-label">Russia Sustainment Depth</div>
+          <div class="doctrine-title">Year-Round, All-Weather Capable</div>
+          <div class="doctrine-desc">Russia's 16 Arctic deep-water ports, nuclear icebreaker fleet, and pre-positioned logistics infrastructure allow year-round sustainment of all Arctic bases. Nagurskoye is provisioned for 18-month autonomous operation. Interior logistics lines from Murmansk reduce dependence on maritime access.</div>
+        </div>
+        <div class="doctrine-card">
+          <div class="doctrine-label">NATO/US Sustainment Depth</div>
+          <div class="doctrine-title">Seasonal (4–6 Months Full Access)</div>
+          <div class="doctrine-desc">Without heavy icebreaker support, NATO surface vessels cannot access the High Arctic beyond the Norwegian Sea and Barents Sea during winter months. Air logistics via Eielson, Thule, and Andøya provides a bypass in extremis. Most NATO Arctic bases are resupplied annually in summer — a critical vulnerability. US Polar Security Cutter program (3 ships, $4.5B) addresses this gap but first delivery delayed to 2027.</div>
+        </div>
+        <div class="doctrine-card">
+          <div class="doctrine-label">Critical Vulnerability</div>
+          <div class="doctrine-title">Arctic Communication Blackout</div>
+          <div class="doctrine-desc">Satellite communications above 75°N are extremely degraded — geosynchronous satellites have very low elevation angles, and magnetic disturbances (aurora borealis-related) disrupt HF radio. Russia's Murmansk BN nuclear-powered very low frequency (VLF) transmitter can communicate with submerged submarines in the Arctic. NATO lacks an equivalent capability, limiting command and control of forces in High Arctic operations.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">🛡️ NATO Arctic Basing Network</h3>
+  <div class="data-table-wrap mb-6">
+    <table class="data-table">
+      <thead><tr><th>Base / Location</th><th>Nation</th><th>Role</th><th>Key Assets</th><th>Arctic Lat.</th></tr></thead>
+      <tbody>
+        <tr><td>Eielson AFB, Alaska</td><td>USA</td><td>Arctic air defense / strike</td><td>2× F-35A sqns, tankers, Fort Greely GMD nearby</td><td>64°N</td></tr>
+        <tr><td>Thule / Pituffik AB, Greenland</td><td>USA</td><td>Early warning, space surveillance</td><td>AN/FPS-129 Have Stare radar, BMD sensor, CSG support</td><td>76°N</td></tr>
+        <tr><td>Keflavik, Iceland</td><td>NATO</td><td>GIUK Gap ASW hub</td><td>P-8 Poseidon patrols, US/UK/Norwegian rotations</td><td>64°N</td></tr>
+        <tr><td>Evenes AS, Norway</td><td>Norway</td><td>Arctic QRA, ASW hub</td><td>F-35A QRA, P-8 Poseidon base, NASAMS III</td><td>68°N (Arctic Circle)</td></tr>
+        <tr><td>Andøya AS, Norway</td><td>Norway/NATO</td><td>Space / ISR / ASW</td><td>Andøya Space Center, maritime patrol staging</td><td>69°N</td></tr>
+        <tr><td>CFS Alert, Nunavut</td><td>Canada</td><td>SIGINT / early warning</td><td>CSEC SIGINT station; world's northernmost permanent base</td><td>82°N</td></tr>
+        <tr><td>Nagurskoye, Russia</td><td>Russia</td><td>Arctic power projection</td><td>MiG-31BM, S-400, Bastion-P, Trefoil garrison</td><td>80°N</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 09: ESCALATION PATHWAYS -->
+<section id="theater-escalation">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">09 // ESCALATION PATHWAYS</div>
+      <h2 class="section-title">Gray Zone → Nuclear Threshold</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">🎯 ESCALATION FRAMEWORK NOTE</div>
+    <p>The Arctic theater's unique escalation dynamic is the <strong class="critical">proximity of conventional and nuclear military forces in the same operating environment</strong>. Unlike other theaters where nuclear and conventional forces are geographically separated, Arctic operations routinely put NATO SSNs within torpedo range of Russian SSBNs carrying nuclear weapons. Any conventional military action that threatens Russia's SSBN bastion — the bedrock of its nuclear second-strike capability — is almost certain to be interpreted as a prelude to a nuclear disarming first strike, with catastrophic consequences for escalation control.</p>
+  </div>
+
+  <div class="escalation-ladder mb-8">
+    <div class="esc-rung esc-level-1">
+      <div class="esc-level-num">LEVEL 1 // PERSISTENT BASELINE</div>
+      <div class="esc-level-name">Gray Zone — Routine Competition & Probing</div>
+      <div class="esc-level-desc">Russian Tu-95MS bomber probes of Norwegian and Alaskan airspace (requiring NATO scrambles), submarine intrusions into territorial waters, GPS jamming during major exercises (documented in Finland and Norway), undersea cable "accidents," Russian icebreaker operations near disputed EEZ boundaries, Chinese research vessel access requests for sensitive Arctic waters.</div>
+      <div class="esc-level-actors">ACTORS: Russia (VKS, Northern Fleet, FSB), China (research vessels)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 2: Submarine collision or sinking in disputed waters; military personnel killed in gray zone incident; deliberate cable severance confirmed</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-2">
+      <div class="esc-level-num">LEVEL 2</div>
+      <div class="esc-level-name">Conventional Limited — Direct Military Engagement</div>
+      <div class="esc-level-desc">NATO or Russian forces exchange fire in a limited incident — a P-8 shot down near Russian airspace, a submarine damaged in an accidental or deliberate collision, or a surface engagement near Svalbard. All sides attempt to limit the engagement and preserve de-escalation pathways. Nuclear forces remain on normal alert.</div>
+      <div class="esc-level-actors">ACTORS: Russia (Northern Fleet, VKS), NATO (SACLANT, Norwegian Armed Forces)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 3: Russia attacks Svalbard, Iceland, or mainland Norway; NATO conducts strike on Russian Arctic base; significant loss of life on either side</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-3">
+      <div class="esc-level-num">LEVEL 3</div>
+      <div class="esc-level-name">Conventional Major — Arctic Theater War</div>
+      <div class="esc-level-desc">Open conventional conflict in the Arctic — NATO strikes on Russian Arctic bases (Nagurskoye, Rogachevo), Russian strikes on Keflavik, Andøya, and Eielson, large-scale submarine warfare in the Norwegian Sea and Barents Sea. Russian SSBNs surged to dispersed patrol areas. NORAD at DEFCON 3. All conventional military operations severely constrained by fear of crossing nuclear threshold.</div>
+      <div class="esc-level-actors">ACTORS: Russia (Northern Fleet + VKS), USA (NORTHCOM + NORAD), Norway, UK, Canada</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 4: NATO forces threaten Kola Peninsula; Russian SSBN sunk or attacked; conventional theater defeat appears imminent for Russia</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-4">
+      <div class="esc-level-num">LEVEL 4</div>
+      <div class="esc-level-name">Theater Nuclear — Limited Nuclear Use</div>
+      <div class="esc-level-desc">Russia uses a tactical nuclear weapon (likely in the Barents Sea, Norwegian Sea, or against a remote military installation) as an escalation signal to force NATO off the SSBN bastion threat. Poseidon nuclear torpedo deployed against a carrier group as a demonstration. NATO conventional response temporarily halted. DEFCON 2. Civilian evacuation orders in Nordic countries. US presidential nuclear use consultations begin.</div>
+      <div class="esc-level-actors">ACTORS: Russia (first nuclear use), USA (DEFCON 2), NATO (fractured — some want retaliation, some de-escalation)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 5: NATO nuclear retaliation against Russian military target; Russian second nuclear strike; US homeland ballistic missile attack</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-5">
+      <div class="esc-level-num">LEVEL 5</div>
+      <div class="esc-level-name">Strategic Nuclear — Limited Strategic Exchange</div>
+      <div class="esc-level-desc">Multiple nuclear detonations; US strategic deterrent forces on maximum alert. Russia's surviving Borei-A SSBNs under Arctic ice provide assured second-strike capability regardless of land-based ICBM attrition. US Trident SSBNs similarly positioned globally. The world enters nuclear war conditions not seen since the Cuban Missile Crisis — except with actual detonations having occurred.</div>
+      <div class="esc-level-actors">ACTORS: USA, Russia (full nuclear arsenals), UK (Trident), NATO allies (conventional support)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 6: Strikes on nuclear command and control; decapitation attempts; loss of communication with surviving SSBN forces</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-6">
+      <div class="esc-level-num">LEVEL 6</div>
+      <div class="esc-level-name">Civilization-Ending Exchange</div>
+      <div class="esc-level-desc">Full strategic nuclear exchange. Russia's Arctic-based Borei-A SSBNs and US Ohio-class Trident submarines provide the doomsday second-strike. Nuclear winter modeling suggests the Arctic theater's weapons alone, if fully employed, produce sufficient particulates to cause global agricultural collapse. This scenario represents absolute system failure — it cannot occur without catastrophic decision-making failures at multiple levels across multiple nations.</div>
+      <div class="esc-level-actors">ACTORS: USA, Russia, UK (and potentially NATO article 5 response involving French nuclear forces)</div>
+      <div class="esc-level-trigger">TERMINAL: No de-escalation pathway at this level — Arctic SSBNs provide unstoppable second-strike capability</div>
+    </div>
+  </div>
+
+  <div class="policy-quote">
+    "The High North has gone from a frozen flank to a heated front. Russia's Arctic military investments are fundamentally changing the strategic calculus for Alliance defense — we must treat the Arctic not as a theater apart, but as the roof of the world that connects all other theaters."
+    <span class="policy-quote-attr">— NATO SACEUR, Nordic Defense Ministers Meeting, November 2025 | <a href="https://www.nato.int/cps/en/natohq/topics_91091.htm" target="_blank" rel="noopener">NATO Arctic Strategy →</a></span>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 10: WILD CARDS -->
+<section id="theater-wildcards">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">10 // WILD CARDS & X-FACTORS</div>
+      <h2 class="section-title">Black Swans & Inflection Points</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="wildcard-grid mb-8">
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🛰️</div>
+      <div class="wildcard-title">Kessler Cascade — Arctic Satellite Loss</div>
+      <div class="wildcard-desc">A Russian ASAT test (following their 2021 debris-generating Nudol test) or an accidental Kessler cascade in low polar orbit could disable Arctic navigation, communications, and surveillance satellites simultaneously. Above 70°N, terrestrial alternatives are extremely limited. GNSS jamming already practiced regularly over Norway and Finland. A cascading debris event would effectively blind both NATO and Russia's Arctic C2 for years — making deconfliction impossible.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">⛽</div>
+      <div class="wildcard-title">Arctic Resource Rush</div>
+      <div class="wildcard-desc">The Arctic holds an estimated 13% of world undiscovered oil, 30% of undiscovered natural gas, and vast deposits of rare earth minerals (Greenland alone may hold 25% of global REE deposits). As climate change makes these resources accessible, a resource rush involving Russia, China, Canada, and Greenland/Denmark creates multiple overlapping sovereignty disputes. A Chinese-Russian joint venture to extract Norwegian Svalbard seabed resources would be particularly destabilizing.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🌍</div>
+      <div class="wildcard-title">Climate-Driven Geopolitical Rupture</div>
+      <div class="wildcard-desc">If Arctic warming accelerates faster than projected models (possible given observed feedback loops), the Northern Sea Route becomes commercially viable year-round 10 years earlier than expected. This would force an immediate crisis in the global shipping and insurance industries, trigger a rush by Asian powers to establish Arctic access, and potentially cause Canada, Norway, and Russia to implement unilateral maritime exclusion zones that conflict with existing international law.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🇬🇱</div>
+      <div class="wildcard-title">Greenland Independence / US Acquisition</div>
+      <div class="wildcard-desc">US interest in Greenland (first floated by Trump in 2019, revived in 2025) has created a genuine crisis in US-Denmark relations. Greenland's path toward independence from Denmark creates a geopolitical vacuum — a potentially independent nation with the world's largest island, massive rare earth deposits, two US military bases, and GIUK Gap access. A Greenlandic independence declaration could trigger competing claims from the US (strategic acquisition), China (resource investment), Russia (historical proximity), and Denmark (reluctant decolonization).</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🇨🇳</div>
+      <div class="wildcard-title">Chinese Polar Silk Road</div>
+      <div class="wildcard-desc">China's Arctic investments now include Yamal LNG (20% stake, $27B), Arctic LNG-2 (10% stake), Greenland rare earth exploration, and the Polar Silk Road initiative. If China establishes a permanent military logistics base in the Arctic under civilian cover — similar to its approach in Djibouti — it would fundamentally alter the NATO-dominated strategic environment of the High North for the first time since World War II. The legal mechanism: a Russian-Chinese joint Arctic "research and logistics" facility.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">⚛️</div>
+      <div class="wildcard-title">SSBN Bastion Breakout</div>
+      <div class="wildcard-desc">A Russian decision to deploy its Borei-A SSBN fleet to forward patrol areas in the open Atlantic (instead of defended Arctic bastions) would dramatically complicate US and NATO anti-submarine warfare. Hiding SSBNs in the 335 million km³ of the world ocean is far easier than defending a fixed bastion. The trigger could be a perceived NATO capability to penetrate the existing Arctic bastion defenses — ironically, NATO improvements in Arctic ASW could accelerate this dangerous transition.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-head" onclick="toggleCollapsible(this)">
+      <span>Russia's Arctic Bastion Strategy — Deep Assessment</span>
+      <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px;transition:transform .3s;"></i>
+    </div>
+    <div class="collapsible-body">
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">Russia's Arctic bastion strategy is the direct heir of Soviet Cold War doctrine. Rather than dispersing SSBNs throughout the global ocean (the American approach), Russia concentrates its Borei-A submarines in a <strong style="color:var(--color-accent);">defended zone under Arctic ice near the Kola Peninsula</strong>, protected by a multi-layered defense including Yasen-class SSN hunter-killers, surface ship pickets, long-range P-8-equivalent Il-38N maritime patrol aircraft, shore-based Bastion-P anti-ship missiles, and S-400 air defense. This creates what strategists call a "fortress fleet" — extremely survivable but also geographically constrained.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">The strategic logic is sound given Russia's geography: the Kola Peninsula is the only ice-free Arctic port in Russia, making concentration there logistically necessary. Borei-A submarines operating under ice can launch Bulava SLBMs through ice within seconds of receiving an authenticated launch order — providing genuine second-strike survivability against a disarming first strike. Each Borei-A represents approximately 96–160 independently targetable warheads (16 missiles × 6–10 MIRVs), meaning just 3–4 surviving SSBNs retain civilization-ending retaliatory capability.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;">The critical risk: because the bastion is geographically fixed and Russia's entire second-strike deterrence depends on its survival, any NATO action that threatens penetration of the bastion defense — <strong style="color:var(--color-red);">including conventional military operations</strong> — is likely to be interpreted by Russian strategic planners as a potential nuclear disarming first strike precursor. This is the fundamental escalation logic of the Arctic theater: conventional military superiority by NATO could ironically trigger nuclear escalation if it approaches Kola too closely.</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-head" onclick="toggleCollapsible(this)">
+      <span>Poseidon Nuclear Torpedo — Strategic Implications Assessment</span>
+      <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px;transition:transform .3s;"></i>
+    </div>
+    <div class="collapsible-body">
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">The Poseidon (2M39) represents a fundamentally new category of nuclear weapon with no existing counter. Unlike ICBMs (intercepted by GMD) or cruise missiles (intercepted by Aegis), Poseidon is a <strong style="color:var(--color-accent);">nuclear-armed autonomous underwater vehicle powered by an onboard nuclear reactor</strong>, capable of operating at depths below NATO torpedo maximum engagement range (1,000m+ vs. typical ~600m), at speeds up to 100 knots in sprint mode, with effectively unlimited range. It carries an estimated 2-megaton thermonuclear warhead, designed to create a radioactive tsunami against coastal cities and harbor infrastructure.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">The Belgorod SSGN — a modified Oscar-II hull — serves as Poseidon's primary carrier, typically operating in Arctic waters. Russia publicly disclosed Poseidon in Putin's March 2018 speech. Initial operational capability was achieved in 2024. The weapon's primary strategic value is <strong style="color:var(--color-accent-bright);">not tactical</strong> — the radioactive tsunami effect would make coastal areas uninhabitable for decades — but deterrent: it presents the US with an entirely new category of threat for which the entire missile defense architecture is irrelevant. No US program currently addresses Poseidon.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;">RAND Corporation analysis (2024) assesses Poseidon as a "coercive" rather than war-fighting weapon — intended to present US decision-makers with a credible threat of coastal city destruction that cannot be intercepted, thereby deterring any conventional attack on Russia's strategic nuclear infrastructure in the Kola Peninsula. This assessment is broadly shared by IISS and NATO intelligence staffs.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 11: ASSESSMENT -->
+<section id="theater-assessment">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">11 // ASSESSMENT & PROBABILITY</div>
+      <h2 class="section-title">Theater Assessment</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">🧊 OVERALL ASSESSMENT — MARCH 2026</div>
+    <p>The Arctic theater is undergoing its <strong class="critical">most rapid strategic transformation since the Cold War ended in 1991</strong>. Three trends define the 2026 threat environment: (1) Russia has completed the core of its Arctic military buildup, giving it a structural advantage in icebreaker numbers, forward basing, and Arctic-adapted force structure that NATO cannot close before 2030; (2) Climate change is accelerating the opening of Arctic waterways faster than treaty regimes are adapting, creating a legal vacuum that all major powers are exploiting; (3) NATO's post-Ukraine posture hardening has produced genuine commitment to Arctic defense, but capability gaps — particularly icebreakers and Arctic communications — remain critical vulnerabilities. The theater is unlikely to see armed conflict in the near term (12–24 months), but the structural conditions for escalation via miscalculation or accident in the ASW environment are worse than at any point since the 1980s.</p>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">Probability Assessment</h3>
+      <div class="stat-row"><span class="stat-label">Russian Arctic Bomber Incursion (annual)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:95%"></div></div><span class="stat-val">95%</span></div>
+      <div class="stat-row"><span class="stat-label">GIUK Gap Sub Confrontation (5yr)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:55%"></div></div><span class="stat-val">55%</span></div>
+      <div class="stat-row"><span class="stat-label">Undersea Cable Sabotage (3yr)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:45%"></div></div><span class="stat-val">45%</span></div>
+      <div class="stat-row"><span class="stat-label">Svalbard Sovereignty Crisis (5yr)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:35%"></div></div><span class="stat-val">35%</span></div>
+      <div class="stat-row"><span class="stat-label">Armed Arctic Incident (5yr)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:20%"></div></div><span class="stat-val">20%</span></div>
+      <div class="stat-row"><span class="stat-label">NSR Transit Denied to NATO Vessel</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:60%"></div></div><span class="stat-val">60%</span></div>
+      <div class="stat-row"><span class="stat-label">China Establishes Arctic Military Access</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:30%"></div></div><span class="stat-val">30%</span></div>
+      <div class="stat-row"><span class="stat-label">Theater Nuclear Use (10yr)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:4%"></div></div><span class="stat-val">4%</span></div>
+    </div>
+color-accent);text-transform:uppercase;margin-bottom:var(--space-4);\">Force Projection Trajectory</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Actor</th><th>2026 (Current)</th><th>2028 (Projected)</th><th>2031 (Long-term)</th></tr></thead>
+          <tbody>
+            <tr><td>Russia</td><td>8 Borei-A SSBNs; Nagurskoye operational; Bastion-P coastal belt; 40+ icebreakers</td><td>Full Borei-A fleet (10); Tsirkon hypersonic AShM deployed; Arctic Command expanded</td><td>Next-gen SSBN program begins; Arctic claiming expanded via NSR toll enforcement</td></tr>
+            <tr><td>USA</td><td>2 heavy icebreakers; ICEX exercises; GMD Fort Greely 44 interceptors; Virginia-class ICEX-trained</td><td>3 Polar Security Cutters delivered; B-21 Raider Arctic-capable; NORAD modernization complete</td><td>8 PSCs operational; expanded Alaska basing; potential GIUK forward deployment</td></tr>
+            <tr><td>Norway/NATO</td><td>52 F-35A; Fridtjof Nansen frigates; NASAMS III; P-8 Poseidon maritime patrol</td><td>Enhanced NATO presence Finnmark; joint Nordic air policing; more P-8 deployments</td><td>Nordic NATO alliance deepens (Finland + Sweden full integration); coherent NATO Arctic doctrine</td></tr>
+            <tr><td>Canada</td><td>6 Harry DeWolf AOPVs; CP-140 Aurora; no Arctic submarine capability</td><td>SSN debate intensifies; NORAD BMEWS upgrade; potential nuclear-powered sub acquisition</td><td>Potential SSN acquisition decision; expanded Arctic sovereignty enforcement; Greenland relations key</td></tr>
+            <tr><td>China</td><td>2 icebreakers (Xuelong 1&2); observer at Arctic Council; Polar Silk Road declarations</td><td>3rd icebreaker; dual-use Arctic research stations; deeper Russia-China Arctic cooperation</td><td>Possible co-use of Russian Arctic infrastructure; PLAN vessel transits NSR increase</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 12: SOURCES -->
+<section id="theater-sources">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">12 // PRIMARY SOURCES</div>
+      <h2 class="section-title">Authoritative References</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <!-- CROSS-REFERENCE COUNTRY DOSSIERS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-3);">Cross-Reference: Series A Country Dossiers</h3>
+  <div class="xref-links mb-8" style="flex-wrap:wrap;gap:var(--space-2) var(--space-3);">
+    <span class="xref-label">RELATED DOSSIERS:</span>
+    <a href="../countries/russia-dossier.html" class="xref-chip" target="_blank">🇷🇺 Russia A-05 →</a>
+    <a href="../countries/usa-dossier.html" class="xref-chip" target="_blank">🇺🇸 USA A-11 →</a>
+    <a href="../countries/nato-dossier.html" class="xref-chip" target="_blank">🌐 NATO →</a>
+    <a href="./middle-east-theater.html" class="xref-chip" target="_blank">⚔️ B-03 Middle East →</a>
+    <a href="./eastern-europe-theater.html" class="xref-chip" target="_blank">🛡️ B-02 Eastern Europe →</a>
+    <a href="../index.html" class="xref-chip" target="_blank">🌐 Platform Home →</a>
+  </div>
+
+  <div class="sources-grid">
+    <div class="sources-col">
+      <h3>US Government & Military</h3>
+      <div class="source-item"><a href="https://www.norad.northcom.mil/Newsroom/Article/Article/2332929/norad-northcom-arctic-strategy/" target="_blank" rel="noopener">NORAD Arctic Strategy</a><span>North American Aerospace Defense Command // Arctic domain awareness</span></div>
+      <div class="source-item"><a href="https://crsreports.congress.gov/product/pdf/R/R41153" target="_blank" rel="noopener">CRS: Changes in the Arctic</a><span>Congressional Research Service — Arctic policy overview</span></div>
+      <div class="source-item"><a href="https://crsreports.congress.gov/product/pdf/R/R46645" target="_blank" rel="noopener">CRS: U.S. Arctic Policy</a><span>Congressional Research Service — US polar posture</span></div>
+      <div class="source-item"><a href="https://www.odni.gov/files/ODNI/documents/assessments/ATA-2025-Unclassified-Report.pdf" target="_blank" rel="noopener">ODNI Annual Threat Assessment 2025</a><span>Office of the Director of National Intelligence</span></div>
+      <div class="source-item"><a href="https://www.defense.gov/News/Releases/Release/Article/3029087/dod-releases-arctic-strategy/" target="_blank" rel="noopener">DoD Arctic Strategy 2024</a><span>Department of Defense // Updated Arctic defense strategy</span></div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Think Tanks & Research</h3>
+      <div class="source-item"><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS Military Balance 2025</a><span>International Institute for Strategic Studies // Gold standard force data</span></div>
+      <div class="source-item"><a href="https://www.rand.org/topics/arctic.html" target="_blank" rel="noopener">RAND Arctic Research Portal</a><span>RAND Corporation // Arctic security & wargame studies</span></div>
+      <div class="source-item"><a href="https://www.csis.org/programs/international-security-program/arctic-security" target="_blank" rel="noopener">CSIS Arctic Security Initiative</a><span>Center for Strategic & International Studies // Arctic force posture analysis</span></div>
+      <div class="source-item"><a href="https://www.rusi.org/explore-our-research/regions/arctic-and-high-north" target="_blank" rel="noopener">RUSI Arctic Research</a><span>Royal United Services Institute // UK / NATO Arctic analysis</span></div>
+      <div class="source-item"><a href="https://www.sipri.org/research/armament-and-disarmament" target="_blank" rel="noopener">SIPRI Arms & Disarmament</a><span>Stockholm International Peace Research Institute // Arctic arms data</span></div>
+      <div class="source-item"><a href="https://thearcticinstitute.org/" target="_blank" rel="noopener">The Arctic Institute</a><span>Center for Circumpolar Security Studies // Circumpolar policy analysis</span></div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Specialized Arctic Sources</h3>
+      <div class="source-item"><a href="https://thebarentsobserver.com/" target="_blank" rel="noopener">The Barents Observer</a><span>Independent news // Russian Arctic military activity tracking</span></div>
+      <div class="source-item"><a href="https://www.highnorthnews.com/" target="_blank" rel="noopener">High North News</a><span>Norwegian Arctic journalism // Svalbard & Northern Fleet coverage</span></div>
+      <div class="source-item"><a href="https://arcticportal.org/" target="_blank" rel="noopener">Arctic Portal</a><span>Arctic Council observer // Shipping route data & resource mapping</span></div>
+      <div class="source-item"><a href="https://www.geopoliticalmonitor.com/arctic/" target="_blank" rel="noopener">Geopolitical Monitor — Arctic</a><span>GIUK Gap & Arctic security analysis</span></div>
+      <div class="source-item"><a href="https://www.nato.int/cps/en/natohq/topics_136388.htm" target="_blank" rel="noopener">NATO Arctic Activities</a><span>NATO Official // Alliance Arctic strategy & exercises</span></div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Naval & Submarine Warfare</h3>
+      <div class="source-item"><a href="https://www.usni.org/magazines/proceedings/arctic" target="_blank" rel="noopener">USNI Proceedings — Arctic</a><span>U.S. Naval Institute // ASW, submarine ops, icebreaker analysis</span></div>
+      <div class="source-item"><a href="https://www.navalnews.com/naval-news/russian-navy/" target="_blank" rel="noopener">Naval News — Russian Navy</a><span>Naval News // Northern Fleet order of battle, Borei-A tracking</span></div>
+      <div class="source-item"><a href="https://www.hisutton.com/Arctic_bases.html" target="_blank" rel="noopener">Covert Shores — Arctic Bases</a><span>H.I. Sutton // Russian Arctic military base analysis, Poseidon tracking</span></div>
+      <div class="source-item"><a href="https://www.naval-technology.com/projects/ivan-papanin-project-23550/" target="_blank" rel="noopener">Naval Technology — Ivan Papanin</a><span>Naval Technology // Project 23550 patrol vessel specifications</span></div>
+    </div>
+  </div>
+
+  <div class="classification-notice">
+    <div class="class-title">⚠ OPEN-SOURCE INTELLIGENCE NOTICE</div>
+    <p class="class-body">This dossier is compiled entirely from unclassified, publicly available open-source intelligence (OSINT). All data is sourced from official government publications, peer-reviewed think tank research, verified news reporting, and international monitoring organizations. No classified information is included or implied. Force estimates marked as "estimated" reflect best-available OSINT and may differ from classified assessments. Geopolitical Intelligence Platform v2 — Series B Theater Dossier B-04 // March 2026.</p>
+  </div>
+</div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+  <span id="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</span>
+  <img id="lightbox-img" src="" alt="Expanded view">
+  <div id="lightbox-cap"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-text">GEOPOLITICAL INTELLIGENCE PLATFORM v2 // THEATER DOSSIER B-04 ARCTIC // MARCH 2026 // OPEN-SOURCE ANALYSIS</p>
+    <p class="footer-text" style="margin-top:var(--space-2);">Series B: Theater / Domain Analysis | Cross-ref: A-05 Russia · A-11 USA · NATO · A-01 China</p>
+  </div>
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.lucide) lucide.createIcons();
+});
+
+function openLightbox(src, cap) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-cap').textContent = cap || '';
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+function switchTab(e, id) {
+  const container = e.target.closest('.tabs-wrap') || document;
+  container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  const pane = document.getElementById(id);
+  if (pane) pane.classList.add('active');
+}
+
+function toggleCollapsible(head) {
+  const isOpen = head.classList.contains('open');
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+  const chev = head.querySelector('.chev');
+  if (chev) chev.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+
+// Scroll-active nav
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-60px 0px -40% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Animate stat bars + rating bars on scroll
+const fills = document.querySelectorAll('.stat-fill, .rating-fill');
+const fillObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const w = e.target.style.width;
+      e.target.style.width = '0%';
+      setTimeout(() => { e.target.style.width = w; }, 100);
+      fillObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+fills.forEach(f => {
+  f.style.transition = 'width 1.2s cubic-bezier(0.16,1,0.3,1)';
+  fillObserver.observe(f);
+});
+
+// Light/dark mode toggle
+(function(){
+  // Default to dark (military aesthetic)
+  document.documentElement.setAttribute('data-theme', 'dark');
+  // Inject toggle button into nav
+  const nav = document.querySelector('.nav-inner');
+  const btn = document.createElement('button');
+  btn.setAttribute('data-theme-toggle', '');
+  btn.setAttribute('aria-label', 'Switch to light mode');
+  btn.style.cssText = 'background:none;border:1px solid rgba(74,158,191,0.3);color:var(--color-accent);padding:4px 8px;cursor:pointer;font-size:14px;border-radius:3px;flex-shrink:0;margin-left:auto;';
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  nav.appendChild(btn);
+
+  let dark = true;
+  btn.addEventListener('click', () => {
+    dark = !dark;
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    btn.setAttribute('aria-label', 'Switch to ' + (dark ? 'light' : 'dark') + ' mode');
+    btn.innerHTML = dark
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  });
+})();
+
+// Light mode CSS variables (injected dynamically)
+const lightModeStyles = document.createElement('style');
+lightModeStyles.textContent = `
+[data-theme="light"] {
+  --color-bg: #e8f2f7;
+  --color-surface: #f0f7fb;
+  --color-surface-2: #f6fafd;
+  --color-surface-3: #fafcfe;
+  --color-border: rgba(74,158,191,0.25);
+  --color-border-2: rgba(74,158,191,0.12);
+  --color-text: #0a1520;
+  --color-text-muted: #2a4a5e;
+  --color-text-faint: #6a8ea0;
+  --color-accent: #1a6e8a;
+  --color-accent-bright: #2488a8;
+  --color-teal: #0d7a6e;
+  --color-blue: #1a5fa3;
+  --color-red: #c0392b;
+  --color-green: #1e7a40;
+}
+[data-theme="light"] .site-nav {
+  background: rgba(232,242,247,0.95);
+}
+[data-theme="light"] .hero-bg {
+  background: radial-gradient(ellipse 80% 60% at 60% 40%,rgba(74,158,191,.06) 0%,transparent 65%),
+              radial-gradient(ellipse 50% 40% at 20% 80%,rgba(96,165,250,.04) 0%,transparent 60%), #e8f2f7;
+}
+`;
+document.head.appendChild(lightModeStyles);
+</script>
+
+</body>
+</html>

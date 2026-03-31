@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pakistan // A-09 // Geopolitical Intelligence Platform v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   PAKISTAN DOSSIER — A-09
+   Accent: #01411C (Pakistan Flag Green) / #016b2e (Bright)
+   Platform: Geopolitical Intelligence Platform v2
+   March 2026
+═══════════════════════════════════════════════════════════ */
+
+:root {
+  --color-bg:         #0a0c10;
+  --color-surface:    #0f1117;
+  --color-surface-2:  #141820;
+  --color-surface-3:  #1a2030;
+  --color-border:     rgba(1,65,28,0.30);
+  --color-border-2:   rgba(255,200,50,0.18);
+  --color-text:       #dde2ec;
+  --color-text-muted: #8a94a8;
+  --color-text-faint: #4a5168;
+  --color-accent:     #01411C;
+  --color-accent-bright: #016b2e;
+  --color-accent-glow: #1f9d57;
+  --color-gold:       #ffc832;
+  --color-teal:       #2dd4bf;
+  --color-blue:       #60a5fa;
+  --color-red:        #ef4444;
+  --color-orange:     #f97316;
+  --font-display: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+  --space-1:0.25rem; --space-2:0.5rem; --space-3:0.75rem; --space-4:1rem;
+  --space-5:1.25rem; --space-6:1.5rem; --space-8:2rem; --space-10:2.5rem;
+  --space-12:3rem; --space-16:4rem;
+  --radius-sm:4px; --radius-md:8px; --radius-lg:12px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{
+  font-family:var(--font-body);
+  font-size:15px;
+  line-height:1.6;
+  color:var(--color-text);
+  background:var(--color-bg);
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--color-accent-glow);text-decoration:none}
+a:hover{color:var(--color-gold)}
+
+/* ── NAV ── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,12,16,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--color-border);
+  height:60px;
+  display:flex;align-items:center;
+}
+.nav-inner{
+  width:100%;max-width:1300px;margin:0 auto;
+  padding:0 var(--space-6);
+  display:flex;align-items:center;gap:var(--space-4);
+}
+.nav-logo{
+  font-family:var(--font-mono);
+  font-size:13px;
+  color:var(--color-accent-glow);
+  letter-spacing:0.1em;
+  white-space:nowrap;
+  margin-right:var(--space-4);
+}
+.nav-links{
+  display:flex;align-items:center;gap:0;
+  overflow-x:auto;flex:1;
+  scrollbar-width:none;
+}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-link{
+  font-family:var(--font-display);
+  font-size:12px;font-weight:600;
+  letter-spacing:0.08em;
+  color:var(--color-text-muted);
+  padding:var(--space-2) var(--space-3);
+  white-space:nowrap;
+  border-bottom:2px solid transparent;
+  transition:color 0.2s,border-color 0.2s;
+}
+.nav-link:hover,.nav-link.active{
+  color:var(--color-accent-glow);
+  border-bottom-color:var(--color-accent-glow);
+}
+.nav-badge{
+  margin-left:auto;
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--color-accent-glow);
+  border:1px solid var(--color-accent-glow);
+  padding:2px 8px;border-radius:3px;
+  white-space:nowrap;
+}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  padding-top:60px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(1,65,28,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(1,107,46,0.10) 0%, transparent 60%),
+    #0a0c10;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(1,65,28,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(1,65,28,0.07) 1px, transparent 1px);
+  background-size:50px 50px;
+}
+.hero-content{
+  position:relative;z-index:2;
+  text-align:center;
+  padding:var(--space-8) var(--space-6);
+  max-width:900px;
+}
+.hero-flag{font-size:80px;line-height:1;margin-bottom:var(--space-4)}
+.hero-eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--color-accent-glow);
+  letter-spacing:0.2em;
+  margin-bottom:var(--space-4);
+}
+.hero-title{
+  font-family:var(--font-display);
+  font-size:clamp(48px,8vw,100px);
+  font-weight:700;
+  line-height:1;
+  letter-spacing:0.02em;
+  color:#fff;
+  margin-bottom:var(--space-4);
+}
+.hero-title .native{
+  display:block;
+  font-size:clamp(20px,3vw,36px);
+  font-weight:400;
+  color:var(--color-accent-glow);
+  letter-spacing:0.1em;
+  margin-bottom:var(--space-2);
+}
+.hero-subtitle{
+  font-size:16px;
+  color:var(--color-text-muted);
+  max-width:600px;
+  margin:0 auto var(--space-6);
+  line-height:1.7;
+}
+.hero-stamp{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--color-text-faint);
+  letter-spacing:0.15em;
+  margin-bottom:var(--space-8);
+}
+.hero-stats{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-4);
+  margin-bottom:var(--space-8);
+}
+.hstat{
+  background:var(--color-surface);
+  border:1px solid var(--color-border);
+  padding:var(--space-4) var(--space-5);
+  border-radius:var(--radius-md);
+  min-width:140px;text-align:center;
+}
+.hstat-val{
+  font-family:var(--font-display);
+  font-size:28px;font-weight:700;
+  color:var(--color-accent-glow);
+  line-height:1.1;
+}
+.hstat-key{
+  font-family:var(--font-mono);
+  font-size:10px;
+  color:var(--color-text-faint);
+  letter-spacing:0.1em;
+  margin-top:4px;
+}
+.scroll-cue{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--color-text-faint);
+  letter-spacing:0.15em;
+  animation:bounce 2s infinite;
+}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ── SECTIONS ── */
+.section{
+  padding:var(--space-16) 0;
+  border-bottom:1px solid var(--color-border);
+}
+.section-wrap{
+  max-width:1300px;margin:0 auto;
+  padding:0 var(--space-6);
+}
+.section-head{
+  display:flex;align-items:baseline;gap:var(--space-4);
+  margin-bottom:var(--space-8);
+}
+.section-num{
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--color-accent-glow);
+  letter-spacing:0.1em;
+}
+.section-title{
+  font-family:var(--font-display);
+  font-size:clamp(26px,3vw,38px);
+  font-weight:700;
+  color:#fff;
+  letter-spacing:0.04em;
+}
+.section-sub{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--color-text-faint);
+  letter-spacing:0.1em;
+  margin-left:auto;
+}
+
+/* ── INTEL ALERT ── */
+.intel-alert{
+  background:linear-gradient(135deg,rgba(1,65,28,0.15),rgba(1,107,46,0.08));
+  border:1px solid rgba(1,107,46,0.35);
+  border-left:3px solid var(--color-accent-glow);
+  padding:var(--space-5) var(--space-6);
+  border-radius:var(--radius-md);
+  margin-bottom:var(--space-6);
+}
+.intel-alert-head{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--color-accent-glow);
+  letter-spacing:0.15em;
+  margin-bottom:var(--space-2);
+}
+.intel-alert p{font-size:14px;color:var(--color-text-muted);line-height:1.7}
+.intel-alert strong,.critical{color:var(--color-gold)}
+.intel-alert .highlight{color:var(--color-accent-glow)}
+
+/* ── GRID LAYOUTS ── */
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-6)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5)}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)}
+@media(max-width:900px){
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+}
+@media(min-width:600px) and (max-width:900px){
+  .grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ── MAP ── */
+.map-container{
+  position:relative;
+  overflow:hidden;
+  border-radius:var(--radius-lg);
+  border:1px solid var(--color-border);
+  cursor:zoom-in;
+  margin-bottom:var(--space-4);
+}
+.map-img{width:100%;height:auto;display:block}
+.map-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(10,12,16,0.85));
+  padding:var(--space-4) var(--space-5);
+}
+.map-caption{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--color-accent-glow);
+  letter-spacing:0.15em;
+}
+.map-stats-row{
+  display:flex;flex-wrap:wrap;gap:var(--space-4);
+  margin-bottom:var(--space-6);
+}
+.map-stat{
+  background:var(--color-surface);
+  border:1px solid var(--color-border);
+  padding:var(--space-3) var(--space-4);
+  border-radius:var(--radius-sm);
+  text-align:center;
+  min-width:120px;
+}
+.map-stat-val{
+  font-family:var(--font-display);
+  font-size:20px;font-weight:700;
+  color:var(--color-accent-glow);
+  display:block;
+}
+.map-stat-key{
+  font-family:var(--font-mono);
+  font-size:10px;
+  color:var(--color-text-faint);
+  letter-spacing:0.1em;
+}
+
+/* ── EQUIPMENT CARDS ── */
+.equip-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:var(--space-5);
+  margin-bottom:var(--space-8);
+}
+.equip-card{
+  background:var(--color-surface);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  transition:border-color 0.2s,transform 0.2s;
+}
+.equip-card:hover{
+  border-color:rgba(1,107,46,0.5);
+  transform:translateY(-2px);
+}
+.equip-img-wrap{position:relative;overflow:hidden}
+.equip-img-wrap img{
+  width:100%;height:200px;object-fit:cover;
+  cursor:zoom-in;
+  transition:transform 0.3s;
+}
+.equip-img-wrap:hover img{transform:scale(1.04)}
+.equip-badge{
+  position:absolute;top:var(--space-2);left:var(--space-2);
+  background:rgba(1,65,28,0.85);
+  color:var(--color-accent-glow);
+  font-family:var(--font-mono);
+  font-size:10px;letter-spacing:0.1em;
+  padding:3px 8px;border-radius:3px;
+  border:1px solid rgba(1,107,46,0.4);
+}
+.equip-body{padding:var(--space-4) var(--space-5)}
+.equip-name{
+  font-family:var(--font-display);
+  font-size:18px;font-weight:700;
+  color:#fff;
+  margin-bottom:var(--space-2);
+}
+.equip-desc{
+  font-size:13px;color:var(--color-text-muted);
+  line-height:1.6;margin-bottom:var(--space-3);
+}
+.equip-specs{display:flex;flex-direction:column;gap:6px;margin-bottom:var(--space-3)}
+.equip-spec{
+  display:flex;justify-content:space-between;
+  padding:4px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  font-size:12px;
+}
+.equip-spec-key{color:var(--color-text-faint);font-family:var(--font-mono)}
+.equip-spec-val{color:var(--color-gold);font-weight:600}
+.equip-link{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--color-accent-glow);
+  letter-spacing:0.05em;
+}
+.equip-link:hover{color:var(--color-gold)}
+
+/* ── DATA TABLES ── */
+.data-table-wrap{
+  overflow-x:auto;
+  margin-bottom:var(--space-6);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-lg);
+}
+.data-table{
+  width:100%;border-collapse:collapse;
+  font-size:13px;
+}
+.data-table thead{
+  background:var(--color-surface-2);
+}
+.data-table th{
+  font-family:var(--font-mono);
+  font-size:10px;letter-spacing:0.12em;
+  color:var(--color-accent-glow);
+  padding:var(--space-3) var(--space-4);
+  text-align:left;
+  border-bottom:1px solid var(--color-border);
+  white-space:nowrap;
+}
+.data-table td{
+  padding:var(--space-3) var(--space-4);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  color:var(--color-text-muted);
+  vertical-align:top;
+}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(1,65,28,0.08)}
+.data-table td:first-child{color:var(--color-text);font-weight:500}
+.data-table a{color:var(--color-accent-glow);font-family:var(--font-mono);font-size:12px}
+.data-table a:hover{color:var(--color-gold)}
+.data-table .qty{color:var(--color-gold);font-weight:700;font-family:var(--font-display);font-size:14px}
+
+/* ── STAT BARS ── */
+.stat-list{display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-6)}
+.stat-row{display:flex;flex-direction:column;gap:4px}
+.stat-label-row{display:flex;justify-content:space-between;align-items:center}
+.stat-label{font-family:var(--font-mono);font-size:11px;color:var(--color-text-muted);letter-spacing:0.08em}
+.stat-val{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--color-gold)}
+.stat-track{
+  height:6px;
+  background:var(--color-surface-3);
+  border-radius:3px;
+  overflow:hidden;
+}
+.stat-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--color-accent),var(--color-accent-glow));
+  border-radius:3px;
+  width:0%;
+  transition:width 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:var(--space-8)}
+.timeline::before{
+  content:'';
+  position:absolute;left:12px;top:0;bottom:0;
+  width:1px;
+  background:linear-gradient(var(--color-accent-glow),transparent);
+}
+.tl-item{position:relative;margin-bottom:var(--space-6)}
+.tl-dot{
+  position:absolute;left:calc(-1*var(--space-8) + 8px);top:6px;
+  width:8px;height:8px;
+  background:var(--color-accent-glow);
+  border-radius:50%;
+  box-shadow:0 0 8px var(--color-accent-glow);
+}
+.tl-year{
+  font-family:var(--font-mono);
+  font-size:11px;color:var(--color-accent-glow);
+  letter-spacing:0.1em;margin-bottom:4px;
+}
+.tl-title{
+  font-family:var(--font-display);
+  font-size:16px;font-weight:700;color:#fff;
+  margin-bottom:4px;
+}
+.tl-desc{font-size:13px;color:var(--color-text-muted);line-height:1.6}
+.tl-desc a{color:var(--color-accent-glow)}
+
+/* ── TABS ── */
+.tab-nav{
+  display:flex;gap:0;
+  border-bottom:1px solid var(--color-border);
+  margin-bottom:var(--space-6);
+  overflow-x:auto;
+}
+.tab-btn{
+  font-family:var(--font-display);
+  font-size:13px;font-weight:600;
+  color:var(--color-text-muted);
+  padding:var(--space-3) var(--space-5);
+  cursor:pointer;
+  background:none;border:none;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;
+  transition:color 0.2s,border-color 0.2s;
+}
+.tab-btn:hover,.tab-btn.active{
+  color:var(--color-accent-glow);
+  border-bottom-color:var(--color-accent-glow);
+}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* ── DOCTRINE CARDS ── */
+.doctrine-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:var(--space-4);
+  margin-bottom:var(--space-6);
+}
+.doctrine-card{
+  background:var(--color-surface);
+  border:1px solid var(--color-border);
+  padding:var(--space-5);
+  border-radius:var(--radius-md);
+  transition:border-color 0.2s;
+}
+.doctrine-card:hover{border-color:rgba(1,107,46,0.5)}
+.doctrine-card-icon{
+  font-size:28px;margin-bottom:var(--space-3);
+}
+.doctrine-card-title{
+  font-family:var(--font-display);
+  font-size:15px;font-weight:700;
+  color:#fff;margin-bottom:var(--space-2);
+}
+.doctrine-card-desc{
+  font-size:13px;color:var(--color-text-muted);line-height:1.6;
+}
+
+/* ── POLICY QUOTE ── */
+.policy-quote{
+  background:var(--color-surface-2);
+  border-left:3px solid var(--color-gold);
+  padding:var(--space-5) var(--space-6);
+  border-radius:0 var(--radius-md) var(--radius-md) 0;
+  font-style:italic;
+  font-size:15px;color:var(--color-text);
+  line-height:1.7;
+  margin-bottom:var(--space-6);
+}
+.policy-quote-attr{
+  display:block;
+  margin-top:var(--space-3);
+  font-style:normal;
+  font-family:var(--font-mono);
+  font-size:11px;color:var(--color-text-faint);
+  letter-spacing:0.08em;
+}
+
+/* ── COLLAPSIBLE ── */
+.collapsible{
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  margin-bottom:var(--space-3);
+}
+.collapsible-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:var(--space-4) var(--space-5);
+  background:var(--color-surface);
+  cursor:pointer;
+  font-family:var(--font-display);
+  font-size:14px;font-weight:600;color:#fff;
+  transition:background 0.2s;
+}
+.collapsible-head:hover{background:var(--color-surface-2)}
+.collapsible-head.open .chev{transform:rotate(180deg)}
+.chev{transition:transform 0.3s;color:var(--color-accent-glow)}
+.collapsible-body{
+  display:none;
+  padding:var(--space-5);
+  font-size:13px;color:var(--color-text-muted);
+  line-height:1.7;
+  border-top:1px solid var(--color-border);
+}
+.collapsible-body.open{display:block}
+.collapsible-body a{color:var(--color-accent-glow)}
+
+/* ── INLINE IMAGE ── */
+.inline-img{
+  margin:var(--space-6) 0;
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  cursor:zoom-in;
+}
+.inline-img img{width:100%;height:auto}
+.inline-img figcaption{
+  padding:var(--space-3) var(--space-4);
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--color-text-faint);
+  background:var(--color-surface);
+  letter-spacing:0.08em;
+}
+
+/* ── RISK PROBABILITY ── */
+.risk-prob{
+  display:flex;align-items:center;gap:var(--space-4);
+  margin-bottom:var(--space-3);
+}
+.risk-prob-label{
+  font-family:var(--font-mono);
+  font-size:12px;color:var(--color-text-muted);
+  min-width:200px;
+}
+.risk-prob-track{
+  flex:1;height:8px;
+  background:var(--color-surface-3);
+  border-radius:4px;overflow:hidden;
+}
+.risk-prob-fill{
+  height:100%;border-radius:4px;
+  width:0%;
+  transition:width 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+.risk-low{background:var(--color-teal)}
+.risk-med{background:var(--color-gold)}
+.risk-high{background:var(--color-orange)}
+.risk-critical{background:var(--color-red)}
+.risk-prob-pct{
+  font-family:var(--font-display);
+  font-size:16px;font-weight:700;
+  min-width:50px;text-align:right;
+}
+
+/* ── PROJECTION TABLE ── */
+.proj-table{
+  width:100%;border-collapse:collapse;font-size:13px;
+  margin-bottom:var(--space-6);
+}
+.proj-table th{
+  font-family:var(--font-mono);
+  font-size:10px;letter-spacing:0.12em;
+  color:var(--color-accent-glow);
+  padding:var(--space-3) var(--space-4);
+  border-bottom:1px solid var(--color-border);
+  text-align:left;
+}
+.proj-table td{
+  padding:var(--space-3) var(--space-4);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  color:var(--color-text-muted);
+}
+.proj-table td:first-child{color:var(--color-text);font-weight:500}
+
+/* ── SOURCES ── */
+.sources-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:var(--space-5);
+}
+@media(max-width:900px){.sources-grid{grid-template-columns:1fr}}
+.source-col-title{
+  font-family:var(--font-mono);
+  font-size:11px;color:var(--color-accent-glow);
+  letter-spacing:0.12em;
+  margin-bottom:var(--space-4);
+  padding-bottom:var(--space-2);
+  border-bottom:1px solid var(--color-border);
+}
+.source-item{
+  display:flex;flex-direction:column;
+  margin-bottom:var(--space-3);
+  padding:var(--space-3);
+  background:var(--color-surface);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-sm);
+  transition:border-color 0.2s;
+}
+.source-item:hover{border-color:rgba(1,107,46,0.5)}
+.source-name{
+  font-size:13px;font-weight:600;color:#fff;
+  margin-bottom:3px;
+}
+.source-desc{font-size:11px;color:var(--color-text-faint)}
+.source-link{
+  display:inline-block;
+  margin-top:6px;
+  font-family:var(--font-mono);
+  font-size:11px;color:var(--color-accent-glow);
+}
+.source-link:hover{color:var(--color-gold)}
+
+/* ── CLASSIFICATION NOTICE ── */
+.class-notice{
+  background:var(--color-surface);
+  border:1px solid var(--color-border-2);
+  border-radius:var(--radius-md);
+  padding:var(--space-5) var(--space-6);
+  margin-top:var(--space-8);
+  text-align:center;
+}
+.class-notice-title{
+  font-family:var(--font-mono);
+  font-size:11px;color:var(--color-gold);
+  letter-spacing:0.2em;margin-bottom:var(--space-2);
+}
+.class-notice p{font-size:12px;color:var(--color-text-faint);max-width:600px;margin:0 auto}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--color-surface);
+  border-top:1px solid var(--color-border);
+  padding:var(--space-8) var(--space-6);
+  text-align:center;
+}
+.footer-inner{max-width:1300px;margin:0 auto}
+.footer-logo{
+  font-family:var(--font-mono);
+  font-size:12px;color:var(--color-accent-glow);
+  letter-spacing:0.15em;margin-bottom:var(--space-2);
+}
+.footer-note{font-size:11px;color:var(--color-text-faint)}
+
+/* ── LIGHTBOX ── */
+#lightbox{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(0,0,0,0.92);
+  display:none;align-items:center;justify-content:center;
+  cursor:zoom-out;
+}
+#lightbox.active{display:flex}
+#lightbox img{
+  max-width:90vw;max-height:85vh;
+  object-fit:contain;
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-lg);
+}
+#lightbox-cap{
+  position:fixed;bottom:var(--space-6);left:50%;transform:translateX(-50%);
+  font-family:var(--font-mono);font-size:12px;
+  color:var(--color-text-muted);
+  background:rgba(0,0,0,0.8);
+  padding:var(--space-2) var(--space-4);
+  border-radius:var(--radius-sm);
+  letter-spacing:0.08em;
+}
+
+/* ── NUCLEAR CARDS ── */
+.nuclear-triad{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:var(--space-5);
+  margin-bottom:var(--space-6);
+}
+@media(max-width:700px){.nuclear-triad{grid-template-columns:1fr}}
+.triad-card{
+  background:var(--color-surface);
+  border:1px solid rgba(255,200,50,0.2);
+  padding:var(--space-5);
+  border-radius:var(--radius-md);
+  text-align:center;
+}
+.triad-icon{font-size:36px;margin-bottom:var(--space-3)}
+.triad-title{
+  font-family:var(--font-display);
+  font-size:16px;font-weight:700;
+  color:var(--color-gold);margin-bottom:var(--space-2);
+}
+.triad-systems{
+  font-size:12px;color:var(--color-text-muted);
+  line-height:1.8;
+}
+
+/* ── FLAG CHIP ── */
+.flag-chip{display:inline-flex;align-items:center;gap:6px}
+.flag-emoji{font-size:16px}
+.flag-name{font-size:13px;font-weight:500;color:var(--color-text)}
+
+/* ── RATING BAR ── */
+.rating-bar{display:flex;align-items:center;gap:var(--space-2)}
+.rating-fill{
+  height:6px;border-radius:3px;
+  background:linear-gradient(90deg,var(--color-accent),var(--color-accent-glow));
+  min-width:4px;
+}
+.rating-num{
+  font-family:var(--font-mono);font-size:11px;
+  color:var(--color-text-muted);white-space:nowrap;
+}
+
+/* ── XREF LINKS ── */
+.xref-links{
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3);
+  margin-top:var(--space-6);
+  padding:var(--space-4) var(--space-5);
+  background:var(--color-surface);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-md);
+}
+.xref-label{
+  font-family:var(--font-mono);
+  font-size:11px;color:var(--color-text-faint);
+  letter-spacing:0.1em;
+}
+.xref-chip{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:var(--font-mono);
+  font-size:12px;
+  padding:4px 10px;
+  background:var(--color-surface-2);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-sm);
+  color:var(--color-accent-glow);
+}
+.xref-chip:hover{border-color:var(--color-accent-glow);color:var(--color-gold)}
+
+/* ── CYBER TABLE ── */
+.cyber-table{
+  width:100%;border-collapse:collapse;font-size:13px;
+}
+.cyber-table th{
+  font-family:var(--font-mono);
+  font-size:10px;letter-spacing:0.12em;
+  color:var(--color-accent-glow);
+  padding:var(--space-3) var(--space-4);
+  border-bottom:1px solid var(--color-border);
+  text-align:left;background:var(--color-surface-2);
+}
+.cyber-table td{
+  padding:var(--space-3) var(--space-4);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  color:var(--color-text-muted);vertical-align:top;
+}
+.cyber-table td:first-child{color:var(--color-text);font-weight:500}
+.rating-pill{
+  display:inline-block;
+  padding:2px 10px;border-radius:10px;
+  font-family:var(--font-mono);font-size:10px;
+  letter-spacing:0.08em;font-weight:600;
+}
+.pill-high{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3)}
+.pill-med{background:rgba(249,115,22,0.15);color:#fb923c;border:1px solid rgba(249,115,22,0.3)}
+.pill-limited{background:rgba(74,81,104,0.3);color:#8a94a8;border:1px solid rgba(74,81,104,0.4)}
+.pill-growing{background:rgba(45,212,191,0.12);color:#2dd4bf;border:1px solid rgba(45,212,191,0.3)}
+
+/* ── WARHEAD ESTIMATE VISUAL ── */
+.warhead-vis{
+  display:flex;flex-wrap:wrap;gap:6px;
+  margin:var(--space-4) 0;
+}
+.warhead-dot{
+  width:14px;height:14px;
+  border-radius:50%;
+  background:var(--color-gold);
+  box-shadow:0 0 6px rgba(255,200,50,0.5);
+}
+.warhead-dot.deployed{background:var(--color-red);box-shadow:0 0 6px rgba(239,68,68,0.5)}
+
+/* Responsive nav */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hero-stats{gap:var(--space-3)}
+  .hstat{min-width:100px;padding:var(--space-3) var(--space-4)}
+  .hstat-val{font-size:22px}
+  .nuclear-triad{grid-template-columns:1fr}
+}
+
+/* ── ALLIANCE MATRIX ── */
+.alliance-matrix{display:flex;flex-direction:column;gap:var(--space-4);margin-bottom:var(--space-6)}
+.alliance-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);transition:border-color 0.2s}
+.alliance-card:hover{border-color:rgba(1,107,46,0.5)}
+.alliance-card.tier-1{border-left:4px solid var(--color-accent-glow)}
+.alliance-card.tier-2{border-left:4px solid var(--color-gold)}
+.alliance-card.tier-3{border-left:4px solid var(--color-text-faint)}
+.alliance-head{display:flex;align-items:flex-start;gap:var(--space-4);margin-bottom:var(--space-3)}
+.alliance-flag{font-size:36px;line-height:1}
+.alliance-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;margin-bottom:4px}
+.alliance-tier{font-family:var(--font-mono);font-size:10px;color:var(--color-accent-glow);letter-spacing:0.15em}
+.alliance-desc{font-size:13px;color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-3)}
+.alliance-areas{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.alliance-badge{font-family:var(--font-mono);font-size:10px;padding:3px 8px;background:rgba(1,65,28,0.3);border:1px solid rgba(1,107,46,0.3);border-radius:3px;color:var(--color-accent-glow);letter-spacing:0.05em}
+
+/* ── LEADER GRID ── */
+.leader-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--space-5);margin-bottom:var(--space-6)}
+.leader-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color 0.2s;display:flex;flex-direction:column}
+.leader-card:hover{border-color:rgba(1,107,46,0.5)}
+.leader-img-wrap{background:var(--color-surface-2);height:200px;overflow:hidden;flex-shrink:0}
+.leader-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.leader-body{padding:var(--space-4) var(--space-5);flex:1}
+.leader-name{font-family:var(--font-display);font-size:18px;font-weight:700;color:#fff;margin-bottom:4px}
+.leader-title{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-glow);letter-spacing:0.1em;margin-bottom:var(--space-2)}
+.leader-desc{font-size:13px;color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3)}
+
+/* ── DOSSIER FOOTER ── */
+.dossier-footer{background:var(--color-surface);border-top:2px solid var(--color-border);padding:var(--space-12) var(--space-6) var(--space-8)}
+.footer-grid{display:grid;grid-template-columns:200px 1fr 1fr;gap:var(--space-8);margin-bottom:var(--space-8)}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr}}
+.footer-logo{font-family:var(--font-mono);font-size:24px;font-weight:700;color:var(--color-accent-glow);letter-spacing:0.1em;margin-bottom:var(--space-2)}
+.footer-classif{font-family:var(--font-display);font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.footer-tagline{font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);letter-spacing:0.1em}
+.footer-col-head{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-glow);letter-spacing:0.15em;margin-bottom:var(--space-3);padding-bottom:var(--space-2);border-bottom:1px solid var(--color-border)}
+.footer-links{display:flex;flex-direction:column;gap:var(--space-2)}
+.footer-links a{font-size:13px;color:var(--color-text-muted)}
+.footer-links a:hover{color:var(--color-accent-glow)}
+.footer-meta{display:flex;flex-wrap:wrap;gap:var(--space-4);justify-content:center;padding-top:var(--space-6);border-top:1px solid var(--color-border);font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);letter-spacing:0.1em}
+
+/* ── INLINE IMG ── */
+.inline-img{margin-bottom:var(--space-6);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border);cursor:zoom-in}
+.inline-img img{width:100%;height:auto;display:block;transition:transform 0.3s}
+.inline-img:hover img{transform:scale(1.01)}
+.inline-img figcaption{font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);letter-spacing:0.12em;padding:var(--space-3) var(--space-4);background:var(--color-surface)}
+
+/* ── LIGHTBOX (enhanced) ── */
+.lightbox{position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.94);display:none;align-items:center;justify-content:center;flex-direction:column;gap:var(--space-4);cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox-img{max-width:90vw;max-height:82vh;object-fit:contain;border:1px solid var(--color-border);border-radius:var(--radius-lg)}
+.lightbox-caption{font-family:var(--font-mono);font-size:12px;color:var(--color-text-muted);letter-spacing:0.1em;max-width:80vw;text-align:center}
+.lightbox-close{position:fixed;top:var(--space-6);right:var(--space-6);background:var(--color-surface);border:1px solid var(--color-border);border-radius:50%;width:36px;height:36px;font-size:16px;color:var(--color-text);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:1000}
+.lightbox-close:hover{background:var(--color-surface-2);color:var(--color-accent-glow)}
+
+</style>
+</head>
+<body>
+
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">🇵🇰 A-09 // PAK</div>
+    <div class="nav-links">
+      <a href="#section-map" class="nav-link">01 GEO</a>
+      <a href="#section-overview" class="nav-link">02 OVERVIEW</a>
+      <a href="#section-ground" class="nav-link">03 GROUND</a>
+      <a href="#section-navy" class="nav-link">04 NAVY</a>
+      <a href="#section-airforce" class="nav-link">05 AIR</a>
+      <a href="#section-rocket" class="nav-link">06 MISSILES</a>
+      <a href="#section-nuclear" class="nav-link">07 NUCLEAR</a>
+      <a href="#section-special" class="nav-link">08 SSG/ISI</a>
+      <a href="#section-intel" class="nav-link">09 GEO-POL</a>
+      <a href="#section-economy" class="nav-link">10 ECONOMY</a>
+      <a href="#section-conflicts" class="nav-link">11 CONFLICTS</a>
+      <a href="#section-leadership" class="nav-link">12 LEADERSHIP</a>
+      
+    </div>
+    <div class="nav-badge">GFP #14 · 2026</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-flag">🇵🇰</div>
+    <div class="hero-eyebrow">CLASSIFIED OPEN-SOURCE ANALYSIS // MARCH 2026 // SERIES A-09</div>
+    <h1 class="hero-title">
+      <span class="native">اسلامی جمہوریۂ پاکستان</span>
+      PAKISTAN
+    </h1>
+    <p class="hero-subtitle">Strategic Forces, Regional Dynamics, and Nuclear Deterrence in South Asia — Full Spectrum Deterrence Doctrine, China-Pakistan Strategic Partnership, and ISI Proxy Operations</p>
+    <p class="hero-stamp">PAKISTAN ARMY // PAKISTAN AIR FORCE // PAKISTAN NAVY // STRATEGIC PLANS DIVISION</p>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-val">660K</div>
+        <div class="hstat-key">ACTIVE PERSONNEL</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val">$9B</div>
+        <div class="hstat-key">DEFENSE BUDGET</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val">170-200</div>
+        <div class="hstat-key">NUCLEAR WARHEADS</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val">0</div>
+        <div class="hstat-key">CARRIERS</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val">3+8</div>
+        <div class="hstat-key">SUBS (OP+ORDER)</div>
+      </div>
+    </div>
+    <div class="scroll-cue">▼ SCROLL TO ANALYZE ▼</div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 01 — GEOGRAPHIC OVERVIEW
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="section-map">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2 class="section-title">GEOGRAPHIC OVERVIEW</h2>
+      <span class="section-sub">SOUTH ASIA // STRATEGIC CHOKEPOINT</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚑ STRATEGIC GEOGRAPHIC ASSESSMENT</div>
+      <p>Pakistan occupies a uniquely critical position at the intersection of <strong>South Asia, Central Asia, and the Middle East</strong>. Control of the <strong>Khyber Pass</strong>, proximity to the Persian Gulf, and the <strong>Arabian Sea coastline</strong> give Pakistan outsized strategic value far beyond its economic standing. The <strong>China-Pakistan Economic Corridor (CPEC)</strong> has transformed Pakistan's geography into China's direct land route to the Indian Ocean, bypassing the Strait of Malacca vulnerability — a development that permanently elevated Pakistan's geostrategic importance.</p>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="map-container" onclick="openLightbox(this.querySelector('img').src,'Pakistan Satellite Terrain Map — Strategic Geography')">
+          <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e36c4b2fcbc89e3e8abd005e1b09f7a31dd165bc.jpg" alt="Pakistan satellite terrain map" width="800" height="600" loading="lazy">
+          <div class="map-overlay">
+            <div class="map-caption">SATELLITE OVERVIEW // ISLAMIC REPUBLIC OF PAKISTAN</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="map-container" onclick="openLightbox(this.querySelector('img').src,'CPEC — China-Pakistan Economic Corridor Strategic Routes')">
+          <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/79735598e9fcaa14757ae1098ae02acabe79544b.jpg" alt="CPEC China-Pakistan Economic Corridor map" width="800" height="640" loading="lazy">
+          <div class="map-overlay">
+            <div class="map-caption">CPEC CORRIDOR MAP // $62B STRATEGIC INFRASTRUCTURE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-stats-row">
+      <div class="map-stat"><span class="map-stat-val">881,913</span><span class="map-stat-key">AREA KM²</span></div>
+      <div class="map-stat"><span class="map-stat-val">240M+</span><span class="map-stat-key">POPULATION</span></div>
+      <div class="map-stat"><span class="map-stat-val">6</span><span class="map-stat-key">LAND BORDERS</span></div>
+      <div class="map-stat"><span class="map-stat-val">1,064 KM</span><span class="map-stat-key">COASTLINE</span></div>
+      <div class="map-stat"><span class="map-stat-val">8,000+</span><span class="map-stat-key">KM FRONTIER</span></div>
+      <div class="map-stat"><span class="map-stat-val">#34</span><span class="map-stat-key">WORLD BY AREA</span></div>
+    </div>
+
+    <div class="map-container" onclick="openLightbox(this.querySelector('img').src,'Kashmir Disputed Territory — Line of Control, Pakistan vs India vs China')">
+      <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/dd42f124ce5c1ab4fe5040732b9ccb616c6a4416.jpg" alt="Kashmir disputed territory map" width="1200" height="600" loading="lazy" style="max-height:400px;object-fit:cover">
+      <div class="map-overlay">
+        <div class="map-caption">KASHMIR CONFLICT ZONE // LINE OF CONTROL // ACTIVE DISPUTE</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">TERRITORIAL DISPUTES</h3>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Territory</th><th>Claimants</th><th>Status</th><th>Ref</th></tr></thead>
+            <tbody>
+              <tr><td>Azad Kashmir / AJK</td><td>Pakistan vs India</td><td style="color:var(--color-red)">Active Dispute</td><td><a href="https://www.cfr.org/global-conflict-tracker/conflict/conflict-india-and-pakistan" target="_blank" rel="noopener">→</a></td></tr>
+              <tr><td>Gilgit-Baltistan</td><td>Pakistan vs India</td><td style="color:var(--color-orange)">Administered by PAK</td><td><a href="https://www.cfr.org/global-conflict-tracker/conflict/conflict-india-and-pakistan" target="_blank" rel="noopener">→</a></td></tr>
+              <tr><td>Siachen Glacier</td><td>Pakistan vs India</td><td style="color:var(--color-red)">Military Standoff</td><td><a href="https://www.bbc.com/news/world-asia-17156936" target="_blank" rel="noopener">→</a></td></tr>
+              <tr><td>Sir Creek</td><td>Pakistan vs India</td><td style="color:var(--color-gold)">Maritime Dispute</td><td><a href="https://www.orfonline.org/research/sir-creek" target="_blank" rel="noopener">→</a></td></tr>
+              <tr><td>Durand Line</td><td>Pakistan vs Afghanistan</td><td style="color:var(--color-orange)">Contested by Taliban</td><td><a href="https://www.rand.org/pubs/research_reports/RR1757.html" target="_blank" rel="noopener">→</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">STRATEGIC GEOGRAPHY</h3>
+        <div class="doctrine-card" style="margin-bottom:var(--space-3)">
+          <div class="doctrine-card-title">🗻 Khyber Pass</div>
+          <div class="doctrine-card-desc">Historic gateway between Central and South Asia. Controls land access to/from Afghanistan. 1,070m elevation. Militarily critical for logistics and infiltration operations.</div>
+        </div>
+        <div class="doctrine-card" style="margin-bottom:var(--space-3)">
+          <div class="doctrine-card-title">⚓ Gwadar Port</div>
+          <div class="doctrine-card-desc">Deep-water port on Arabian Sea. CPEC terminus. China's critical Indian Ocean access point, 2,500 km shorter than Malacca route. Strategic naval facility potential.</div>
+        </div>
+        <div class="doctrine-card">
+          <div class="doctrine-card-title">🌊 Arabian Sea Coastline</div>
+          <div class="doctrine-card-desc">1,064 km of coastline providing access to Persian Gulf shipping lanes. PNS Karachi and Gwadar are primary naval bases. Critical for second-strike submarine deterrence.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 02 — MILITARY OVERVIEW
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="section-overview">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2 class="section-title">MILITARY OVERVIEW</h2>
+      <span class="section-sub">GFP #14 GLOBALLY · 2026</span>
+    </div>
+
+    <figure class="inline-img" onclick="openLightbox(this.querySelector('img').src,'Pakistan Armed Forces — Republic Day Parade, Islamabad')">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/05f50993b8b97d6891daadb44d42e9e585df9aa6.jpg" alt="Pakistan military parade Islamabad" width="1200" height="600" loading="lazy">
+      <figcaption>PAKISTAN ARMED FORCES // REPUBLIC DAY PARADE, ISLAMABAD // 2025</figcaption>
+    </figure>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚑ EXECUTIVE ASSESSMENT — PAKISTAN ARMED FORCES 2025-2026</div>
+      <p>Pakistan's military is the <strong>14th most powerful globally (GFP 2026)</strong> and possesses the <strong>world's fastest-growing nuclear arsenal</strong> with 170-200 warheads. The 2025 establishment of the <strong>Chief of Defence Forces (CDF)</strong> position unified command authority — the most significant military reorganization in decades. Pakistan's <strong>$9B defense budget (~2% GDP)</strong> funds heavy dependence on China (81% of arms imports), while the Army's institutional dominance over civilian governance remains the defining feature of Pakistan's political-military structure. The 2025 <strong>Pahalgam terrorist attack</strong>, linked to ISI and Lashkar-e-Taiba, represents a continuing pattern of state-sponsored proxy terrorism against India.</p>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">BRANCH PERSONNEL DISTRIBUTION</h3>
+        <div class="stat-list">
+          <div class="stat-row">
+            <div class="stat-label-row"><span class="stat-label">PAKISTAN ARMY</span><span class="stat-val">~560,000</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:85%"></div></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-row"><span class="stat-label">PAKISTAN AIR FORCE</span><span class="stat-val">~70,000</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:11%"></div></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-row"><span class="stat-label">PAKISTAN NAVY</span><span class="stat-val">~35,000</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:5%"></div></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-row"><span class="stat-label">RESERVES</span><span class="stat-val">~550,000</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:83%"></div></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-row"><span class="stat-label">PARAMILITARY (FC, Rangers, NG)</span><span class="stat-val">~500,000</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:76%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">MODERNIZATION TIMELINE</h3>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">1998</div>
+            <div class="tl-title">Nuclear Tests — Chagai-I & Chagai-II</div>
+            <div class="tl-desc">Pakistan conducts 5 nuclear tests in Balochistan, establishing declared nuclear status. <a href="https://www.armscontrol.org/factsheets/southasiamissile" target="_blank" rel="noopener">Arms Control →</a></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2001</div>
+            <div class="tl-title">Al-Khalid MBT enters service</div>
+            <div class="tl-desc">Pakistan's indigenous main battle tank with Chinese technology partnership enters service, reducing Western arms dependency. <a href="https://www.janes.com/defence/latest-news/pakistan-al-khalid" target="_blank" rel="noopener">Janes →</a></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2013</div>
+            <div class="tl-title">Full Spectrum Deterrence Doctrine</div>
+            <div class="tl-desc">Pakistan formally adopts FSD, rejecting no-first-use and emphasizing tactical nuclear weapons (Nasr) to offset India's conventional superiority. <a href="https://armscontrol.org/ACT/2013_11/Pakistan-Pursues-Tactical-Nuclear-Weapons" target="_blank" rel="noopener">ACA →</a></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2015</div>
+            <div class="tl-title">Hangor Submarine Contract ($4-5B)</div>
+            <div class="tl-desc">Pakistan signs largest arms export deal in Chinese history — 8 Type 039A/B AIP submarines from CSIC/KSEW. <a href="https://www.naval-technology.com/projects/hangor-class-submarine/" target="_blank" rel="noopener">Naval Tech →</a></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2023</div>
+            <div class="tl-title">JF-17 Block III Induction</div>
+            <div class="tl-desc">Pakistan inducts first Block III variant with AESA radar, PL-15 BVR missiles, and HMDS — achieving true 4.5-gen status. <a href="https://www.thedrive.com/the-war-zone/jf-17-block-3" target="_blank" rel="noopener">War Zone →</a></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2025</div>
+            <div class="tl-title">CDF Position Established; Azerbaijan $4.6B JF-17 Deal</div>
+            <div class="tl-desc">Pakistan unified command under CDF. Azerbaijan orders 40 JF-17 Block III aircraft ($4.6B) — largest-ever JF-17 export. White House meeting, COAS Munir visits DC. <a href="https://www.defense.gov" target="_blank" rel="noopener">DoD →</a></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2026</div>
+            <div class="tl-title">Hangor-Class Enters Active Service</div>
+            <div class="tl-desc">First Chinese-built Hangor-class submarine joins Pakistan Navy fleet, providing transformational submarine-based second-strike nuclear capability. <a href="https://www.naval-technology.com" target="_blank" rel="noopener">Naval Tech →</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin:var(--space-6) 0 var(--space-4);">INDIA vs PAKISTAN — MILITARY BALANCE 2026</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Dimension</th><th>India</th><th>Pakistan</th><th>Advantage</th></tr></thead>
+        <tbody>
+          <tr><td>Active Personnel</td><td>1.46 million</td><td class="qty">660,000</td><td style="color:var(--color-red)">India ~2.2:1</td></tr>
+          <tr><td>Defense Budget</td><td>$75B (2026)</td><td class="qty">$9B</td><td style="color:var(--color-red)">India ~8.3:1</td></tr>
+          <tr><td>Main Battle Tanks</td><td>4,200+</td><td class="qty">410+</td><td style="color:var(--color-red)">India ~10:1</td></tr>
+          <tr><td>Combat Aircraft</td><td>730 fighters</td><td class="qty">452 fighters</td><td style="color:var(--color-orange)">India ~1.6:1</td></tr>
+          <tr><td>Naval Vessels</td><td>293</td><td class="qty">121</td><td style="color:var(--color-red)">India ~2.4:1</td></tr>
+          <tr><td>Self-Propelled Artillery</td><td>100</td><td class="qty">662</td><td style="color:var(--color-accent-glow)">Pakistan 6.6:1 ✓</td></tr>
+          <tr><td>MLRS / Rocket Projectors</td><td>264</td><td class="qty">600+</td><td style="color:var(--color-accent-glow)">Pakistan 2.3:1 ✓</td></tr>
+          <tr><td>Nuclear Warheads</td><td>160+ est.</td><td class="qty">170-200</td><td style="color:var(--color-gold)">Pakistan slightly larger</td></tr>
+          <tr><td>Submarines</td><td>17+ (SSN/SSBN)</td><td class="qty">3 + 8 on order</td><td style="color:var(--color-red)">India ~2.1:1 (current)</td></tr>
+          <tr><td>GFP Global Ranking 2026</td><td>#4</td><td class="qty">#14</td><td style="color:var(--color-red)">India dominant</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 03 — GROUND FORCE
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="section-ground">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2 class="section-title">PAKISTAN ARMY</h2>
+      <span class="section-sub">~560,000 ACTIVE · PRIMARY DETERRENT</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚑ GROUND FORCE ASSESSMENT</div>
+      <p>The Pakistan Army is the dominant institution of Pakistani society and the primary conventional deterrent against India. With <strong>~560,000 active personnel</strong>, it is organized into multiple corps along the Indian border and in counterinsurgency roles in Balochistan and KPK. Pakistan holds a significant advantage in <strong>self-propelled artillery (662 vs. India's 100)</strong> and maintains a modern armored force supplemented by Ukrainian T-80UDs. The 2025 escalation with the Taliban along the Afghan border has drawn significant ground forces into a new two-front challenge.</p>
+    </div>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">MBT / INDIGENOUS</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/622081038a68cb538cdfb496d2547751dd1744c2.jpg" alt="Al-Khalid I main battle tank Pakistan" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Al-Khalid I MBT — Pakistan Army Primary Indigenous Main Battle Tank')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Al-Khalid I (MBT-2000)</div>
+          <div class="equip-desc">Pakistan's primary indigenous main battle tank developed with Chinese 125mm gun and Ukrainian KMDB diesel engine. Composite armor, advanced fire control, smoke grenades. ~300 units in active service.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">~300 active</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Main Gun</span><span class="equip-spec-val">125mm smoothbore</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Engine</span><span class="equip-spec-val">1,200 hp diesel (KMDB)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">2001–present</span></div>
+          </div>
+          <a href="https://www.janes.com/army-platforms/tanks/al-khalid" target="_blank" rel="noopener" class="equip-link">Janes Defence <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">MBT / UKRAINIAN</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/ccc3e1c790d106d0347ceb3a7946e738f8e569f6.jpg" alt="T-80UD Pakistan Army tank" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'T-80UD — Pakistan Army Ukrainian Main Battle Tank')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">T-80UD (Oplot)</div>
+          <div class="equip-desc">Ukraine's most advanced diesel-powered MBT. Superior to gas-turbine T-80 variants in fuel efficiency. 1,000 hp 6TD-1 diesel engine. Critical defensive capability against Indian T-72/T-90 armor. ~320 units.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">~320 active</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Main Gun</span><span class="equip-spec-val">125mm smoothbore</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Engine</span><span class="equip-spec-val">1,000 hp 6TD-1 diesel</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Origin</span><span class="equip-spec-val">Ukraine (Kharkiv Morozov)</span></div>
+          </div>
+          <a href="https://www.globalfirepower.com/pakistan-tanks.php" target="_blank" rel="noopener" class="equip-link">GlobalFirepower <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">MBT / UPGRADED</span>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Al-Khalid_IDEAS_2012.jpg" alt="Al-Khalid tank Pakistan" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Al-Khalid II — Upgraded Pakistan MBT with enhanced fire control')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Al-Khalid II</div>
+          <div class="equip-desc">Enhanced variant of original Al-Khalid with upgraded armor protection, improved fire control systems, and modernized combat management. Ongoing upgrade program converting legacy fleet.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">~110 upgraded</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Upgrade</span><span class="equip-spec-val">Enhanced FCS & armor</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Ongoing modernization</span></div>
+          </div>
+          <a href="https://www.janes.com/army-platforms/tanks/al-khalid-2" target="_blank" rel="noopener" class="equip-link">Janes Defence <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">GROUND FORCE ORDER OF BATTLE</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>System</th><th>Quantity</th><th>Role</th><th>Notes</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Al-Khalid I MBT</td><td class="qty">~300</td><td>Primary armor</td><td>Indigenous, Chinese gun, Ukrainian engine</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Al-Khalid II MBT</td><td class="qty">~110</td><td>Upgraded armor</td><td>Enhanced FCS, composite armor</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>T-80UD MBT</td><td class="qty">~320</td><td>Defensive armor</td><td>Ukrainian, diesel, superior fuel economy</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>T-59/T-69 (upgraded)</td><td class="qty">~200+</td><td>Secondary armor</td><td>Soviet-era with modern fire control upgrades</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Self-Propelled Artillery (total)</td><td class="qty">662</td><td>Mobile fire support</td><td>Exceeds India's 100 — key asymmetric advantage</td><td><a href="https://www.globalfirepower.com/pakistan-artillery.php" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>M109 Paladin SPH (155mm)</td><td class="qty">~150</td><td>Artillery</td><td>US-supplied, multiple variants</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>SH-15 Wheeled SPH (155mm)</td><td class="qty">~200</td><td>Mobile artillery</td><td>Chinese wheeled SPH — rapid deployment</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>MLRS / Rocket Projectors</td><td class="qty">600+</td><td>Rocket artillery</td><td>Chinese WS-series, Pakistani indigenous</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Armored Vehicles (total)</td><td class="qty">148,000+</td><td>IFV/APC/recon</td><td>BMP-series, APC M113 variants, Chinese APCs</td><td><a href="https://www.iiss.org/publications/the-military-balance" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>AH-1Z Viper Attack Helo</td><td class="qty">12+</td><td>Attack helicopter</td><td>US-supplied, anti-armor, COIN operations</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Mi-35 Hind Attack Helo</td><td class="qty">~30</td><td>Attack helicopter</td><td>Russian, capable anti-armor platform</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 04 — PAKISTAN NAVY
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="section-navy">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2 class="section-title">PAKISTAN NAVY</h2>
+      <span class="section-sub">121 VESSELS · 35,000 PERSONNEL · SECOND-STRIKE NUCLEAR</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚑ NAVAL TRANSFORMATION ASSESSMENT</div>
+      <p>The Pakistan Navy is undergoing its most significant expansion since independence, centered on the <strong>$4-5B acquisition of 8 Hangor-class (Type 039A/B) AIP submarines</strong> from China — the largest arms export deal in Chinese military history at the time of signing. The first Hangor-class submarine entered active service in <strong>2026</strong>, providing Pakistan with a <strong>credible second-strike nuclear capability</strong> via submarine-launched Babur cruise missiles. Combined with 4 commissioned <strong>Tughril-class Type 054A/P frigates</strong> and emerging Turkish MILGEM corvettes, the PNS is transforming from a coastal defense force into a credible blue-water naval power protecting CPEC and Gwadar.</p>
+    </div>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">SUBMARINE / AIP</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a7940f2bc413e45cffe3c9c022157ca1b1bc6153.jpg" alt="Hangor class submarine Pakistan Navy" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Hangor-Class (Type 039A/B) AIP Submarine — Pakistan Navy Strategic Asset')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Hangor-Class (Type 039A/B)</div>
+          <div class="equip-desc">Advanced Air-Independent Propulsion submarine with nuclear-capable cruise missile capability. 8 units ordered ($4-5B); first entered service 2026. Can launch Babur sea-launched cruise missiles for second-strike nuclear deterrence.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Contract</span><span class="equip-spec-val">8 units, $4-5B (2015)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Propulsion</span><span class="equip-spec-val">AIP (air-independent)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Weapons</span><span class="equip-spec-val">Babur SLCM (nuclear)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Status 2026</span><span class="equip-spec-val">1 active, 3 delivered, 4 building</span></div>
+          </div>
+          <a href="https://www.naval-technology.com/projects/hangor-class-submarine/" target="_blank" rel="noopener" class="equip-link">Naval Technology <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">FRIGATE / TYPE 054A/P</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5a1372a825b66089d80fa744aa7183ae97a129b2.jpg" alt="PNS Tughril frigate" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'PNS Tughril (F261) — Tughril-Class Type 054A/P Multi-Mission Frigate')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Tughril-Class Frigates (Type 054A/P)</div>
+          <div class="equip-desc">Advanced multi-mission frigates based on Chinese Type 054A. 4 commissioned: PNS Tughril, Tipu Sultan, Shah Jahan, Khaibar. Equipped with HQ-16 SAM, P282 SMASH ballistic missiles, anti-submarine warfare systems.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Commissioned</span><span class="equip-spec-val">4 frigates active</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Air Defense</span><span class="equip-spec-val">HQ-16 VLS SAM system</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Strike</span><span class="equip-spec-val">P282 SMASH ballistic missile</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">ASW</span><span class="equip-spec-val">Integrated sonar, torpedoes</span></div>
+          </div>
+          <a href="https://www.naval-technology.com/projects/tughril-class-frigate/" target="_blank" rel="noopener" class="equip-link">Naval Technology <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">SUBMARINE / LEGACY</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/c78bfe6da04e85f0f9a14e994626bfa684ac8ad5.jpg" alt="Pakistan Navy Agosta 90B submarine" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Agosta 90B Class Submarine — Pakistan Navy Legacy Platform')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Agosta 90B Class</div>
+          <div class="equip-desc">French-designed diesel-electric submarines providing baseline submarine capability. 3 units (Khalid, Saad, Hamza). Remaining operational examples providing deterrence patrol capability until Hangor class fully operational.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">3 operational</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Type</span><span class="equip-spec-val">Diesel-electric</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Weapons</span><span class="equip-spec-val">Torpedoes, Harpoon ASM</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Origin</span><span class="equip-spec-val">France (DCNS), 1990s-2000s</span></div>
+          </div>
+          <a href="https://www.naval-technology.com/projects/agosta-90b-submarine/" target="_blank" rel="noopener" class="equip-link">Naval Technology <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">FLEET ORDER OF BATTLE</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Vessel Type</th><th>Quantity</th><th>Class / Designation</th><th>Role</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Submarines (AIP, operational)</td><td class="qty">1+</td><td>Hangor-Class (039A/B)</td><td>Second-strike nuclear, anti-ship</td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Submarines (diesel-electric)</td><td class="qty">3</td><td>Agosta 90B</td><td>Anti-submarine, anti-ship</td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Submarines (on order)</td><td class="qty">7 remaining</td><td>Hangor-Class (039A/B)</td><td>Future delivery through 2028</td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Frigates (Type 054A/P)</td><td class="qty">4</td><td>Tughril-Class</td><td>Multi-mission; HQ-16 SAM, P282 SMASH</td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Frigates (legacy)</td><td class="qty">4</td><td>F-22P Zulfiquar-Class</td><td>Chinese-built patrol frigate</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Corvettes (MILGEM)</td><td class="qty">4 (by 2027)</td><td>Babur-Class (Turkish MILGEM)</td><td>Littoral warfare; 2 Istanbul + 2 Karachi built</td><td><a href="https://www.naval-technology.com/projects/milgem-corvette-pakistan" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Destroyers/DDGs</td><td class="qty">2</td><td>Tariq/Babur DDG</td><td>US-surplus destroyers (limited capability)</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Patrol Vessels</td><td class="qty">17+</td><td>Various</td><td>Coastal patrol, EEZ enforcement</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Mine Warfare Vessels</td><td class="qty">3</td><td>Munsif-Class MCM</td><td>Mine countermeasures</td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>P-3C Orion Maritime Patrol</td><td class="qty">7</td><td>P-3C (US-supplied)</td><td>ASW, maritime surveillance</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Total Naval Vessels</td><td class="qty">121</td><td>All types</td><td>Full fleet</td><td><a href="https://www.globalfirepower.com/pakistan-navy.php" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <figure class="inline-img" onclick="openLightbox(this.querySelector('img').src,'Gwadar Port — CPEC Strategic Naval Facility and Indian Ocean Access Point')">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5716d7644ee5e80d126a9603766c7fa3a336e69f.jpg" alt="Gwadar port CPEC strategic" width="1200" height="500" loading="lazy" style="max-height:350px;object-fit:cover">
+      <figcaption>GWADAR PORT // CPEC TERMINUS // CHINA'S INDIAN OCEAN ACCESS — STRATEGIC NAVAL FACILITY (BALOCHISTAN)</figcaption>
+    </figure>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 05 — AIR FORCE
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="section-airforce">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2 class="section-title">PAKISTAN AIR FORCE</h2>
+      <span class="section-sub">1,399 AIRCRAFT · 452 COMBAT · 4.5-GEN CAPABILITY</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚑ AIR FORCE CAPABILITY ASSESSMENT</div>
+      <p>The Pakistan Air Force (PAF) operates <strong>1,399 total aircraft</strong> including <strong>452 operational combat aircraft</strong>, making it one of Asia's most capable air forces. The induction of <strong>JF-17 Block III</strong> (AESA radar, PL-15 BVR missiles, HMDS) from March 2023 elevated the PAF to genuine 4.5-generation capability. The <strong>June 2025 Azerbaijan contract for 40 JF-17 Block III at $4.6B</strong> validated Pakistan's emergence as a competitive defense exporter. Pakistan maintains <strong>80+ F-16s</strong> as its primary Western air superiority platform, supplemented by legacy Mirages in ground attack roles.</p>
+    </div>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">FIGHTER / 4.5-GEN</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/175cc7ad1a66ca8c97c47de11b528ad05f6068f1.jpg" alt="JF-17 Block III fighter jet Pakistan" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'JF-17 Thunder Block III — 4.5-Generation Fighter (Sino-Pakistani)')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">JF-17 Thunder Block III</div>
+          <div class="equip-desc">Sino-Pakistani joint development (CAC/PAC). Block III features AESA radar, wide-angle HUD, helmet-mounted sights, PL-15 BVR missiles. $16-18M unit cost — most cost-effective 4.5-gen globally. 30+ inducted by Oct 2024.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Radar</span><span class="equip-spec-val">AESA (active electronically scanned)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">BVR Missile</span><span class="equip-spec-val">PL-15 (200+ km range)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">$16-18M</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Export (2025)</span><span class="equip-spec-val">40 to Azerbaijan ($4.6B)</span></div>
+          </div>
+          <a href="https://www.thedrive.com/the-war-zone/jf-17-block-3-pakistan" target="_blank" rel="noopener" class="equip-link">The War Zone <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">FIGHTER / 4TH GEN WESTERN</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a971c2c365be9d2ebfde689bda2e2cef583b52d4.jpg" alt="Pakistan F-16 Fighting Falcon" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'F-16 Fighting Falcon — Pakistan Air Force Primary Air Superiority Platform')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">F-16 Fighting Falcon (Block 15/52/D)</div>
+          <div class="equip-desc">80+ combat-proven US fighters. Multiple variants (Block 15/52 and two-seat D). Armed with AIM-120 AMRAAM for BVR engagement. Core of Pakistan's Western-standard air superiority. Combat-tested in 2019 Balakot crisis.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">80+ operational</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Radar</span><span class="equip-spec-val">APG-68 (AESA upgrade potential)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">BVR Missile</span><span class="equip-spec-val">AIM-120C AMRAAM</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Nuclear Role</span><span class="equip-spec-val">Gravity bomb delivery</span></div>
+          </div>
+          <a href="https://www.airforce-technology.com/projects/f16-pakistan/" target="_blank" rel="noopener" class="equip-link">Airforce Technology <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">FIGHTER / STRIKE</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f34d56a588a2a654a3bd2cba22d95516c769d5c3.jpg" alt="JF-17 Block 3 Thunder Pakistan Air Force" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'JF-17 Block III armed with PL-15 missiles at Pakistan Air Force base')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Mirage III/V (Rose)</div>
+          <div class="equip-desc">Legacy French fighters serving in ground attack and nuclear delivery roles. Pakistani "Rose" modernization upgraded avionics and weapons systems. Nuclear gravity bomb delivery capability preserved in aging fleet.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">~100+ (various variants)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Upgrade</span><span class="equip-spec-val">ROSE avionics modernization</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Strike, nuclear delivery</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Being phased out by JF-17</span></div>
+          </div>
+          <a href="https://www.airforce-technology.com/projects/mirage3-pakistan/" target="_blank" rel="noopener" class="equip-link">Airforce Technology <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">AIRCRAFT INVENTORY TABLE</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Aircraft</th><th>Qty</th><th>Role</th><th>Primary Weapon</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>JF-17 Thunder (all blocks)</td><td class="qty">~150+</td><td>Multi-role fighter</td><td>PL-15 BVR, PL-5E, ground attack</td><td><a href="https://www.thedrive.com/the-war-zone" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>F-16 A/B/C/D (various)</td><td class="qty">80+</td><td>Air superiority/strike</td><td>AIM-120 AMRAAM, JDAM, nuke gravity</td><td><a href="https://www.airforce-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Mirage III/V (ROSE)</td><td class="qty">~100+</td><td>Ground attack/nuclear</td><td>AM39 Exocet, nuclear gravity bombs</td><td><a href="https://www.airforce-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>A-5C Fantan</td><td class="qty">~40</td><td>Ground attack</td><td>Rockets, bombs</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Erieye AEW&C (Saab 2000)</td><td class="qty">6</td><td>Airborne Early Warning</td><td>Radar surveillance, fighter direction</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>C-130 Hercules</td><td class="qty">~20</td><td>Strategic transport</td><td>Airlift, special ops support</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>UAVs (Burraq/Shahpar/Chinese)</td><td class="qty">~50+</td><td>Recon / strike</td><td>Missiles, ISR sensors</td><td><a href="https://www.thedrive.com/the-war-zone" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Total Aircraft</td><td class="qty">1,399</td><td>All types</td><td>Complete PAF inventory</td><td><a href="https://www.globalfirepower.com/pakistan-air-force.php" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 06 — MISSILE / ROCKET FORCE
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="section-rocket">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-num">06</span>
+      <h2 class="section-title">MISSILE & ROCKET FORCE</h2>
+      <span class="section-sub">BALLISTIC · CRUISE · MIRV · TACTICAL</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚑ MISSILE FORCE ASSESSMENT</div>
+      <p>Pakistan maintains one of the most <strong>diverse missile arsenals in the developing world</strong>, spanning tactical battlefield missiles (Nasr, 70km) through strategic ballistic missiles (Ghauri, 1,300km+) to long-range cruise missiles (Babur, 700km+). The development of the <strong>Ababeel MIRV</strong> system represents a strategic leap — enabling single missiles to carry multiple independently-targetable warheads, sharply increasing the complexity facing Indian missile defenses. Pakistan's missile force is doctrine-compliant with <strong>Full Spectrum Deterrence</strong>, providing graduated escalation options across every conflict level.</p>
+    </div>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">TACTICAL / NUCLEAR</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/fa0298a7a0153deb5e3c3fc95bf8efc7a14041ed.jpg" alt="Pakistan Nasr tactical nuclear missile" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Nasr (Hatf-9) Tactical Nuclear Missile System — Pakistan Army First-Use Deterrent')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Nasr (Hatf-9)</div>
+          <div class="equip-desc">Short-range solid-fuel tactical nuclear-capable ballistic missile. Derived from Chinese WS-2 tactical rocket. Sub-kiloton to ~5kt warhead. Army-level deployment for rapid response to Indian cross-border incursions. Pakistan's most politically significant deterrence symbol.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">70 km (43 miles)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">Sub-kiloton to ~5 kt tactical nuclear</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Propulsion</span><span class="equip-spec-val">Solid-fuel (quick-reaction)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Doctrine</span><span class="equip-spec-val">No-first-use rejected; battlefield use</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/missile/nasr-hatf-9/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">CRUISE MISSILE / NUCLEAR</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/86091be41d2d6defca59288cbda2b91b7077f0aa.jpg" alt="Pakistan Babur cruise missile launch" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Babur (Hatf-7) Land-Attack Cruise Missile — Sea-Launched Second-Strike Variant')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Babur (Hatf-7)</div>
+          <div class="equip-desc">Land-attack cruise missile with terrain-following capability (low radar signature). Available in ground, air, and sea-launched variants. Sea-launched Babur from Hangor-class submarines provides invulnerable second-strike capability — Pakistan's most credible nuclear deterrent evolution.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">700+ km (sea variant extended)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Type</span><span class="equip-spec-val">Land-attack cruise, terrain-following</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Variants</span><span class="equip-spec-val">Ground, air-launched, sea-launched</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Nuclear Role</span><span class="equip-spec-val">Sea-based second-strike deterrent</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/missile/babur/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">BALLISTIC / STRATEGIC</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1b33a464da54f3db28ed8db9901e9395d41df5bd.jpg" alt="Pakistan Shaheen ballistic missile launch" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Shaheen-II Ballistic Missile — Pakistan Strategic Nuclear Deterrent (2,000km)')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Shaheen-II (Hatf-5)</div>
+          <div class="equip-desc">Intermediate-range solid-fuel ballistic missile. Primary strategic deterrent against Indian heartland targets. Road-mobile for survivability. Multiple warhead capability. 2,000km range covers all of India. Most mature leg of Pakistan's ballistic missile triad.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">2,000+ km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Propulsion</span><span class="equip-spec-val">Solid-fuel, road-mobile</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">~20-50+ kt strategic</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">In service, primary IRBM</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/missile/shaheen-2/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">COMPLETE MISSILE INVENTORY</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Designation</th><th>NATO/Name</th><th>Type</th><th>Range</th><th>Warhead</th><th>Status</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Nasr (Hatf-9)</td><td>—</td><td>SRBM tactical nuclear</td><td>70 km</td><td>Sub-kt nuclear</td><td style="color:var(--color-accent-glow)">Operational</td><td><a href="https://missilethreat.csis.org/missile/nasr-hatf-9/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Abdali (Hatf-2)</td><td>—</td><td>SRBM</td><td>200 km</td><td>HE / nuclear capable</td><td style="color:var(--color-accent-glow)">Operational</td><td><a href="https://missilethreat.csis.org/missile/hatf-2-abdali/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Ghaznavi (Hatf-3)</td><td>—</td><td>SRBM</td><td>290 km</td><td>Nuclear capable</td><td style="color:var(--color-accent-glow)">Operational</td><td><a href="https://missilethreat.csis.org/missile/ghaznavi/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Shaheen-I (Hatf-4)</td><td>—</td><td>SRBM solid-fuel</td><td>650 km</td><td>~10-20 kt nuclear</td><td style="color:var(--color-accent-glow)">Operational</td><td><a href="https://missilethreat.csis.org/missile/shaheen-1/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Ghauri (Hatf-5)</td><td>—</td><td>MRBM liquid-fuel</td><td>1,300+ km</td><td>~20-50 kt nuclear</td><td style="color:var(--color-accent-glow)">Operational</td><td><a href="https://missilethreat.csis.org/missile/ghauri/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Shaheen-II (Hatf-6)</td><td>—</td><td>IRBM solid-fuel</td><td>2,000+ km</td><td>~20-50 kt nuclear</td><td style="color:var(--color-accent-glow)">Operational</td><td><a href="https://missilethreat.csis.org/missile/shaheen-2/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Shaheen-III</td><td>—</td><td>IRBM (extended range)</td><td>2,750+ km</td><td>Strategic nuclear</td><td style="color:var(--color-gold)">In development</td><td><a href="https://missilethreat.csis.org/missile/shaheen-3/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Ababeel</td><td>—</td><td>IRBM MIRV</td><td>2,200 km</td><td>Multiple independent warheads</td><td style="color:var(--color-gold)">Testing/Development</td><td><a href="https://missilethreat.csis.org/missile/ababeel/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Babur (Hatf-7)</td><td>—</td><td>GLCM / SLCM</td><td>700+ km</td><td>Nuclear/conventional</td><td style="color:var(--color-accent-glow)">Operational</td><td><a href="https://missilethreat.csis.org/missile/babur/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Ra'ad (Hatf-8)</td><td>—</td><td>ALCM air-launched</td><td>350+ km</td><td>Nuclear/conventional</td><td style="color:var(--color-accent-glow)">Operational</td><td><a href="https://missilethreat.csis.org/missile/raad/" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 07 — NUCLEAR POSTURE
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="section-nuclear">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-num">07</span>
+      <h2 class="section-title">NUCLEAR POSTURE</h2>
+      <span class="section-sub">170-200 WARHEADS · FASTEST GROWING GLOBALLY · FSD DOCTRINE</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚠ CRITICAL NUCLEAR ASSESSMENT</div>
+      <p>Pakistan maintains an estimated <strong>170-200 nuclear warheads</strong> as of 2025-2026 — the <strong>world's fastest-growing nuclear arsenal</strong> in absolute terms. Growth from ~90-110 warheads (2010) represents near-doubling in 15 years. Intelligence assessments project <strong>220+ warheads by 2030</strong>. Pakistan's <strong>Full Spectrum Deterrence (FSD) doctrine</strong> explicitly rejects no-first-use commitments, threatens tactical nuclear weapons against Indian conventional forces, and is designed to create escalation ambiguity at every conflict level. The 2026 commissioning of Hangor-class submarines carrying <strong>Babur sea-launched nuclear cruise missiles</strong> creates Pakistan's first secure second-strike nuclear deterrent.</p>
+    </div>
+
+    <div class="nuclear-triad">
+      <div class="triad-card">
+        <div class="triad-icon">🚀</div>
+        <div class="triad-title">LAND LEG</div>
+        <div class="triad-systems">
+          Shaheen-I (650km)<br>
+          Shaheen-II (2,000km)<br>
+          Ghauri (1,300km)<br>
+          Nasr tactical (70km)<br>
+          Ababeel MIRV (dev.)<br>
+          Road-mobile, survivable
+        </div>
+      </div>
+      <div class="triad-card">
+        <div class="triad-icon">✈️</div>
+        <div class="triad-title">AIR LEG</div>
+        <div class="triad-systems">
+          F-16 (nuclear gravity bombs)<br>
+          Mirage III/V (nuclear gravity)<br>
+          Ra'ad ALCM (Hatf-8)<br>
+          350+ km air-launched<br>
+          JF-17 potential future role
+        </div>
+      </div>
+      <div class="triad-card">
+        <div class="triad-icon">🌊</div>
+        <div class="triad-title">SEA LEG (EMERGING)</div>
+        <div class="triad-systems">
+          Hangor-Class submarines (2026+)<br>
+          Babur SLCM (700+ km)<br>
+          First secure second-strike<br>
+          AIP silent propulsion<br>
+          Transformational deterrent
+        </div>
+      </div>
+    </div>
+
+    <div class="policy-quote">
+      "Pakistan's nuclear weapons are not aimed at any country. They are the guarantors of our sovereignty, independence, and territorial integrity against any aggressor. Pakistan will use nuclear weapons only in extreme circumstances threatening the state's survival — but that threshold is defined by Pakistan alone."
+      <span class="policy-quote-attr">— National Command Authority Statement, Pakistan Strategic Plans Division | <a href="https://www.fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener">FAS Nuclear Notebook →</a></span>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">WARHEAD ESTIMATE VISUALIZATION</h3>
+        <p style="font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);margin-bottom:var(--space-3);letter-spacing:0.08em;">ESTIMATED 170-200 WARHEADS (FAS/SIPRI 2025-2026)</p>
+        <div class="warhead-vis" id="warhead-dots"></div>
+        <div style="display:flex;gap:var(--space-4);margin-top:var(--space-3)">
+          <div style="display:flex;align-items:center;gap:6px"><div class="warhead-dot"></div><span style="font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint)">WARHEAD (estimated)</span></div>
+        </div>
+        <div style="margin-top:var(--space-4)">
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Year</th><th>Warhead Est.</th><th>Growth</th></tr></thead>
+              <tbody>
+                <tr><td>2010</td><td class="qty">~90-110</td><td>—</td></tr>
+                <tr><td>2015</td><td class="qty">~120-130</td><td>+20%</td></tr>
+                <tr><td>2020</td><td class="qty">~155-165</td><td>+26%</td></tr>
+                <tr><td>2025-26</td><td class="qty">170-200</td><td>+9-21%</td></tr>
+                <tr><td>2030 (proj.)</td><td class="qty">220-240+</td><td>+20%+ est.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">FSD — FULL SPECTRUM DETERRENCE</h3>
+        <div class="doctrine-card" style="margin-bottom:var(--space-3)">
+          <div class="doctrine-card-title">⚡ No-First-Use Rejected</div>
+          <div class="doctrine-card-desc">Pakistan explicitly refuses no-first-use commitment. FSD holds open nuclear first use against conventional military superiority, even non-nuclear incursions into Pakistani territory.</div>
+        </div>
+        <div class="doctrine-card" style="margin-bottom:var(--space-3)">
+          <div class="doctrine-card-title">🎯 Tactical Nuclear Weapons</div>
+          <div class="doctrine-card-desc">Nasr (70km) missiles deployed at Army-level. Sub-kiloton yields designed to destroy Indian armored columns, not cities. Closes "deterrence gap" against Cold Start doctrine.</div>
+        </div>
+        <div class="doctrine-card" style="margin-bottom:var(--space-3)">
+          <div class="doctrine-card-title">🔱 MIRV Capability (Ababeel)</div>
+          <div class="doctrine-card-desc">Ababeel MIRV system under integration, enabling single missile to deliver multiple independently-targeted warheads. Defeats Indian BMD systems, increases first-strike uncertainty.</div>
+        </div>
+        <div class="doctrine-card">
+          <div class="doctrine-card-title">🌊 Second-Strike (Sea Leg)</div>
+          <div class="doctrine-card-desc">Hangor submarine-launched Babur missiles (2026+) provide invulnerable second-strike capability. Even absorbing a first strike, Pakistan retains devastating nuclear response from submarines.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-head" onclick="toggleCollapsible(this)">
+        <span>FISSILE MATERIAL PRODUCTION — Khushab Reactors</span>
+        <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px"></i>
+      </div>
+      <div class="collapsible-body">
+        <p>Pakistan operates <strong>four heavy-water production reactors</strong> at Khushab, capable of sustained plutonium production. Estimates from FAS and SIPRI indicate fissile material production capacity supporting <strong>14-27 new warheads annually</strong>, though actual warhead production averages 5-10 per year. Pakistan also operates the Kahuta uranium enrichment complex (Khan Research Laboratories) for highly enriched uranium production. Pakistan last conducted nuclear tests in 1998 (Chagai-I and II), with all subsequent weapons development conducted through computer simulation and non-nuclear component testing.</p>
+        <p style="margin-top:var(--space-3)"><a href="https://www.fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener">FAS Nuclear Notebook →</a> | <a href="https://www.sipri.org/yearbook/2025/10" target="_blank" rel="noopener">SIPRI Yearbook 2025 →</a></p>
+      </div>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-head" onclick="toggleCollapsible(this)">
+        <span>NUCLEAR COMMAND AUTHORITY — Strategic Plans Division (SPD)</span>
+        <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px"></i>
+      </div>
+      <div class="collapsible-body">
+        <p>The <strong>Strategic Plans Division (SPD)</strong>, established 1999, serves as Pakistan's civil-military nuclear command authority. Operates under the <strong>National Command Authority (NCA)</strong> with dual civilian-military oversight. The NCA is chaired by the Prime Minister. The Employment Control Committee (ECC) is responsible for nuclear use authorization. Nuclear security protocols include personnel reliability programs, two-person rules, permissive action links, and compartmentalized storage. Pakistan's nuclear arsenal security is considered among the highest priorities of US-Pakistan engagement.</p>
+        <p style="margin-top:var(--space-3)"><a href="https://www.armscontrol.org/factsheets/Nuclearweaponswhohaswhat" target="_blank" rel="noopener">Arms Control Association →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 08 — SPECIAL CAPABILITY: SSG / ISI
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="section-special">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-num">08</span>
+      <h2 class="section-title">SSG & ISI — ASYMMETRIC OPERATIONS</h2>
+      <span class="section-sub">NUCLEAR DETERRENCE & ASYMMETRIC WARFARE</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚑ ASYMMETRIC CAPABILITY ASSESSMENT</div>
+      <p>Pakistan's primary asymmetric advantage lies in two interconnected institutions: the <strong>Special Service Group (SSG)</strong> — Pakistan's Tier 1 special operations force — and the <strong>Inter-Services Intelligence (ISI)</strong>, one of the world's most powerful and feared intelligence agencies. The ISI's directed use of <strong>militant proxy networks</strong> in Kashmir, Afghanistan, and beyond represents Pakistan's strategic answer to India's conventional dominance. The <strong>April 2025 Pahalgam attack</strong> (26 civilians killed), jointly planned by ISI and Lashkar-e-Taiba, exemplifies this ongoing asymmetric strategy.</p>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <figure class="inline-img" onclick="openLightbox(this.querySelector('img').src,'Pakistan SSG Commandos — Special Service Group Maroon Berets')">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/9ed303fbad82d653a19c1a549eb075c96c25a391.jpg" alt="Pakistan SSG special forces" width="800" height="500" loading="lazy">
+          <figcaption>PAKISTAN SSG — SPECIAL SERVICE GROUP "MAROON BERETS" // PAKISTAN ARMY SPECIAL OPERATIONS COMMAND</figcaption>
+        </figure>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">SSG — SPECIAL SERVICE GROUP</h3>
+        <div class="doctrine-grid">
+          <div class="doctrine-card">
+            <div class="doctrine-card-icon">🎯</div>
+            <div class="doctrine-card-title">Direct Action</div>
+            <div class="doctrine-card-desc">Raids on high-value targets, hostage rescue, precision strikes against enemy command nodes and nuclear facilities.</div>
+          </div>
+          <div class="doctrine-card">
+            <div class="doctrine-card-icon">🏔️</div>
+            <div class="doctrine-card-title">Mountain Warfare</div>
+            <div class="doctrine-card-desc">Specialized capability for Himalayan and Hindu Kush terrain. Critical in Kashmir Line of Control operations and Afghan border.</div>
+          </div>
+          <div class="doctrine-card">
+            <div class="doctrine-card-icon">⚓</div>
+            <div class="doctrine-card-title">Naval SSG (SSGN)</div>
+            <div class="doctrine-card-desc">Maritime special operations, underwater demolition, amphibious assault. Demonstrated capability in AMAN-25 exercise (2025).</div>
+          </div>
+          <div class="doctrine-card">
+            <div class="doctrine-card-icon">🕵️</div>
+            <div class="doctrine-card-title">COIN Operations</div>
+            <div class="doctrine-card-desc">Counterinsurgency against TTP in KPK/FATA. 2025 operations targeting Taliban affiliates along Afghan border.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin:var(--space-6) 0 var(--space-4);">ISI — INTER-SERVICES INTELLIGENCE</h3>
+
+    <div class="intel-alert" style="border-left-color:var(--color-red)">
+      <div class="intel-alert-head" style="color:var(--color-red)">⚠ HIGH CONCERN — ISI PROXY OPERATIONS</div>
+      <p>The ISI directs <strong>Lashkar-e-Taiba (LeT), Jaish-e-Mohammed (JeM), and Haqqani Network</strong> as instruments of strategic policy. The <strong>April 22, 2025 Pahalgam attack</strong> (Jammu & Kashmir, 26 killed) was jointly planned by ISI and LeT under direction of Pakistan's military leadership. ISI maintains deep operational presence in <strong>Afghanistan, Bangladesh, and across South Asia</strong>, running agent networks for influence, destabilization, and militant coordination.</p>
+    </div>
+
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">🇮🇳</div>
+        <div class="doctrine-card-title">India Operations</div>
+        <div class="doctrine-card-desc">Extensive intelligence networks supporting proxy militant operations in Kashmir and broader India. LeT and JeM primary instruments. Pahalgam 2025 most recent high-profile operation.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">🇦🇫</div>
+        <div class="doctrine-card-title">Afghanistan Presence</div>
+        <div class="doctrine-card-desc">Deep covert and overt presence in Kabul since Taliban return (2021). Offices, safe houses, agent networks throughout Afghanistan. Safeguarding Pakistan strategic interests vs. TTP.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">🌐</div>
+        <div class="doctrine-card-title">Global Operations</div>
+        <div class="doctrine-card-desc">Reported operations in Europe, UAE, Saudi Arabia, Nepal, Bangladesh. Liaison relationships with CIA (US), MI6 (UK), GIP (Saudi Arabia). Expanding Bangladesh influence 2025.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">🏛️</div>
+        <div class="doctrine-card-title">Domestic Dominance</div>
+        <div class="doctrine-card-desc">Significant autonomy from civilian oversight. Controls foreign policy (India, Afghanistan). 2022-2024 ouster of Imran Khan demonstrated ISI's political manipulation capability.</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin:var(--space-6) 0 var(--space-4);">ISI-DIRECTED MILITANT NETWORKS</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Organization</th><th>Designation</th><th>ISI Relationship</th><th>Primary Role</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Lashkar-e-Taiba (LeT)</td><td>US/UN TERRORIST</td><td>Directed proxy</td><td>Kashmir terrorism, India ops. Pahalgam 2025.</td><td><a href="https://www.state.gov/foreign-terrorist-organizations/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Jaish-e-Mohammed (JeM)</td><td>US/UN TERRORIST</td><td>ISI-supported</td><td>Kashmir suicide attacks, Pulwama 2019</td><td><a href="https://www.state.gov/foreign-terrorist-organizations/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Haqqani Network</td><td>US TERRORIST</td><td>ISI "strategic asset"</td><td>Afghanistan operations, anti-India</td><td><a href="https://www.rand.org/research/projects/haqqani.html" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Afghan Taliban (various)</td><td>Varied</td><td>Historical ISI creation</td><td>Afghan governance, now adversarial (TTP)</td><td><a href="https://www.rand.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Tehrik-e-Taliban Pakistan (TTP)</td><td>US TERRORIST</td><td>ADVERSARIAL 2025</td><td>Anti-Pakistan attacks from Afghanistan</td><td><a href="https://www.crsreports.congress.gov" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 09 — GEOPOLITICAL ALLIANCES
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="section-intel">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-num">09</span>
+      <h2 class="section-title">GEOPOLITICAL ALIGNMENTS</h2>
+      <span class="section-sub">CHINA PRIMARY · US TRANSACTIONAL · INDIA ADVERSARIAL</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚑ STRATEGIC ALIGNMENT ASSESSMENT</div>
+      <p>Pakistan's geopolitical orientation is <strong>fundamentally defined by the India-Pakistan strategic rivalry</strong>, around which all other alignments orbit. Pakistan's relationship with China has deepened into <strong>"all-weather strategic cooperation"</strong> anchored by CPEC ($62B), providing Pakistan economic lifelines and China Indian Ocean access. The US-Pakistan relationship remains <strong>transactional and episodic</strong> — valuable to both in specific crises (CT cooperation, India escalation management), but fundamentally misaligned on core issues. The 2025 high-level US engagement (White House visit, COAS Munir in DC) reflects American interest in preventing India-Pakistan escalation after Pahalgam.</p>
+    </div>
+
+    <div class="alliance-matrix">
+      <div class="alliance-card tier-1">
+        <div class="alliance-head"><span class="alliance-flag">🇨🇳</span><div><div class="alliance-title">China — "All-Weather Partner"</div><div class="alliance-tier">STRATEGIC CORE</div></div></div>
+        <div class="alliance-desc">Pakistan-China relationship is the bedrock of Pakistan's strategic posture. China provides 81% of Pakistani arms imports, $62B in CPEC infrastructure, diplomatic cover in the UN Security Council, and nuclear/missile technology transfer. China views Pakistan as critical for securing CPEC, balancing India, and maintaining Indian Ocean presence via Gwadar. Relationship institutionalized through 73 years of cooperation.</div>
+        <div class="alliance-areas"><span class="alliance-badge">Defense: 81% arms imports</span><span class="alliance-badge">CPEC: $62B investment</span><span class="alliance-badge">JF-17 Co-production</span><span class="alliance-badge">Hangor submarines</span><span class="alliance-badge">UN UNSC protection</span><span class="alliance-badge">Nuclear tech (historical)</span></div>
+        <a href="https://www.cfr.org/backgrounder/china-pakistan-relations" target="_blank" rel="noopener" class="equip-link">CFR Analysis →</a>
+      </div>
+
+      <div class="alliance-card tier-2">
+        <div class="alliance-head"><span class="alliance-flag">🇸🇦</span><div><div class="alliance-title">Saudi Arabia — Islamic Brotherhood + Petrodollar</div><div class="alliance-tier">STRATEGIC PARTNER</div></div></div>
+        <div class="alliance-desc">Deep religious, financial, and military ties. Saudi Arabia provides billions in direct financial support ($3B deposit in SBP, 2023) and discounted oil. Pakistan provides military forces to Saudi Arabia (22,000 troops, Gulf War 1991). The "Islamic bomb" thesis — Saudi Arabia as potential nuclear beneficiary — remains geopolitically speculative but widely discussed.</div>
+        <div class="alliance-areas"><span class="alliance-badge">SBP: $3B deposit 2023</span><span class="alliance-badge">Military personnel export</span><span class="alliance-badge">Oil at preferential rates</span><span class="alliance-badge">Islamic solidarity framework</span></div>
+        <a href="https://www.rand.org/pubs/research_reports/RR3085.html" target="_blank" rel="noopener" class="equip-link">RAND Analysis →</a>
+      </div>
+
+      <div class="alliance-card tier-2">
+        <div class="alliance-head"><span class="alliance-flag">🇹🇷</span><div><div class="alliance-title">Turkey — Defense-Industrial Partnership</div><div class="alliance-tier">EMERGING PARTNER</div></div></div>
+        <div class="alliance-desc">Rapidly deepening defense-industrial relationship centered on the MILGEM corvette program, Bayraktar TB2 drone acquisition, and joint development initiatives. Erdogan-era "Islamic fraternity" narrative drives political alignment against India on Kashmir. Turkish MILGEM corvettes building in Karachi, with first Pakistani-built unit commissioned 2024.</div>
+        <div class="alliance-areas"><span class="alliance-badge">MILGEM Corvettes (4 units)</span><span class="alliance-badge">Bayraktar TB2 Drones</span><span class="alliance-badge">FATF mutual support</span><span class="alliance-badge">OIC coordination</span></div>
+        <a href="https://www.naval-technology.com/projects/milgem-corvette-pakistan" target="_blank" rel="noopener" class="equip-link">Naval Technology →</a>
+      </div>
+
+      <div class="alliance-card tier-3">
+        <div class="alliance-head"><span class="alliance-flag">🇺🇸</span><div><div class="alliance-title">United States — Transactional & Episodic</div><div class="alliance-tier">COMPLICATED PARTNER</div></div></div>
+        <div class="alliance-desc">US-Pakistan relationship oscillates between strategic partnership and deep distrust. Shared interests: nuclear security, India-Pakistan crisis management, CT cooperation. Chronic conflict: ISI support for anti-India militants, Pakistan double-dealing in Afghanistan, US-India strategic deepening. 2025 White House engagement focused on Pahalgam crisis de-escalation and maintaining minimal CT collaboration.</div>
+        <div class="alliance-areas"><span class="alliance-badge">$40B+ in aid (2002-2022)</span><span class="alliance-badge">F-16 maintenance 2022 ($450M)</span><span class="alliance-badge">Crisis back-channel 2025</span><span class="alliance-badge">Periodic CT cooperation</span></div>
+        <a href="https://www.cfr.org/backgrounder/us-pakistan-relations" target="_blank" rel="noopener" class="equip-link">CFR Analysis →</a>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin:var(--space-6) 0 var(--space-4);">KEY BILATERAL FLASHPOINTS</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Bilateral</th><th>Status 2026</th><th>Core Issues</th><th>Trajectory</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Pakistan–India</td><td style="color:var(--color-red)">⚠ Critical Tension</td><td>Kashmir, Pahalgam 2025, Line of Control, water treaties</td><td style="color:var(--color-red)">Deteriorating</td><td><a href="https://www.cfr.org/global-conflict-tracker/conflict/conflict-india-and-pakistan" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Pakistan–Afghanistan</td><td style="color:var(--color-red)">⚠ Armed Conflict</td><td>TTP operations, Durand Line, Afghan refugee crackdown</td><td style="color:var(--color-red)">Actively Deteriorating</td><td><a href="https://www.crisisgroup.org/asia/south-east-asia/1-bordering-on-crisis-pakistan-and-new-afghanistan" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Pakistan–Iran</td><td style="color:var(--color-gold)">Cautious</td><td>Baloch militants cross-border, 2024 missile strike exchange</td><td style="color:var(--color-gold)">Unstable equilibrium</td><td><a href="https://www.dawn.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Pakistan–China</td><td style="color:var(--color-accent-glow)">Strong</td><td>CPEC delays, debt pressures, Gwadar security</td><td style="color:var(--color-gold)">Stable with friction</td><td><a href="https://www.cfr.org/backgrounder/china-pakistan-relations" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Pakistan–US</td><td style="color:var(--color-gold)">Transactional</td><td>Pahalgam fallout, F-16 support, IMF pressure, nuclear security</td><td style="color:var(--color-gold)">Episodically engaged</td><td><a href="https://www.cfr.org/backgrounder/us-pakistan-relations" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Pakistan–Saudi Arabia</td><td style="color:var(--color-accent-glow)">Close</td><td>Financial support, military deployment, Islamic bloc leadership</td><td style="color:var(--color-accent-glow)">Stable</td><td><a href="https://www.rand.org" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 10 — ECONOMY & POLITICAL OVERVIEW
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="section-economy">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-num">10</span>
+      <h2 class="section-title">ECONOMY & POLITICAL STRUCTURE</h2>
+      <span class="section-sub">$341B GDP · 240M POPULATION · ARMY-DOMINATED GOVERNANCE</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚑ ECONOMIC / POLITICAL ASSESSMENT</div>
+      <p>Pakistan's economy entered 2026 in <strong>fragile stabilization</strong> following a near-default sovereign debt crisis in 2022-2023 and an IMF bailout. The $7B Extended Fund Facility (2024) provided breathing room but reform implementation is sluggish. The Army's <strong>political dominance</strong> — managing the 2022 ouster of PM Imran Khan and backing the current Shehbaz Sharif government — continues to subordinate economic policy to security priorities. The 2025 India-Pakistan crisis triggered by Pahalgam halted nascent trade normalization, costing Pakistan's already strained economy further hardship.</p>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">KEY ECONOMIC INDICATORS</h3>
+        <div class="stat-list">
+          <div class="stat-row">
+            <div class="stat-label-row"><span class="stat-label">GDP (nominal)</span><span class="stat-val">$341B USD</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:35%"></div></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-row"><span class="stat-label">GDP per capita</span><span class="stat-val">~$1,450</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:10%"></div></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-row"><span class="stat-label">GDP Growth Rate (FY2025)</span><span class="stat-val">~2.7-3%</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:27%"></div></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-row"><span class="stat-label">Inflation (2025)</span><span class="stat-val">~13% (declining from 38%)</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:65%"></div></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-row"><span class="stat-label">Defense Budget</span><span class="stat-val">~$9B (2% GDP)</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:9%"></div></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-row"><span class="stat-label">Foreign Debt</span><span class="stat-val">$125B+</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:90%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:var(--space-4);">POLITICAL STRUCTURE</h3>
+        <div class="doctrine-card" style="margin-bottom:var(--space-3)">
+          <div class="doctrine-card-title">🏛️ Constitutional Structure</div>
+          <div class="doctrine-card-desc">Federal Parliamentary Republic. President (ceremonial). Prime Minister (executive). Bicameral Parliament: National Assembly (336 seats) + Senate (100 seats). Provincial assemblies: Punjab, Sindh, KPK, Balochistan.</div>
+        </div>
+        <div class="doctrine-card" style="margin-bottom:var(--space-3)">
+          <div class="doctrine-card-title">⚔️ Army Dominant Institution</div>
+          <div class="doctrine-card-desc">COAS General Syed Asim Munir effectively controls foreign and security policy. Pakistan has spent 33+ of its 77 years under direct military rule. The Army is the permanent government; civilian government the temporary occupant.</div>
+        </div>
+        <div class="doctrine-card" style="margin-bottom:var(--space-3)">
+          <div class="doctrine-card-title">📊 Current Government</div>
+          <div class="doctrine-card-desc">PM Shehbaz Sharif (PML-N), in office since February 2024 election. Coalition government with PPP. Managing IMF program, India tension post-Pahalgam, and deteriorating Afghan border situation. Army-backed.</div>
+        </div>
+        <div class="doctrine-card">
+          <div class="doctrine-card-title">🔒 Imran Khan Imprisonment</div>
+          <div class="doctrine-card-desc">Former PM Imran Khan (PTI) imprisoned on multiple charges. His imprisonment, widely seen as Army-directed, triggered Pakistan's worst political polarization in decades. PTI supporters constitute majority of urban electorate.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:18px;color:#fff;margin:var(--space-6) 0 var(--space-4);">IMF PROGRAM STATUS & ECONOMIC RISKS</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Risk Factor</th><th>Level</th><th>Description</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>IMF Program Sustainability</td><td style="color:var(--color-orange)">ELEVATED</td><td>$7B EFF (2024) requires structural reforms Pakistan historically defers. Risk of slippage.</td><td><a href="https://www.imf.org/en/Countries/PAK" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Debt Sustainability</td><td style="color:var(--color-red)">HIGH</td><td>External debt $125B+; ~30% of export revenues consumed by debt service.</td><td><a href="https://www.worldbank.org/en/country/pakistan" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>India Escalation Impact</td><td style="color:var(--color-red)">HIGH (2025-26)</td><td>Pahalgam crisis killed Pakistan-India trade normalization; diverts military spending.</td><td><a href="https://www.cfr.org/global-conflict-tracker/conflict/conflict-india-and-pakistan" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Baloch Insurgency</td><td style="color:var(--color-orange)">ELEVATED</td><td>Balochistan Liberation Army (BLA) attacks on CPEC infrastructure. 2025 spike in attacks.</td><td><a href="https://www.crisisgroup.org/asia/south-asia/pakistan" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>TTP Terrorism (Afghan border)</td><td style="color:var(--color-red)">HIGH</td><td>Tehrik-e-Taliban Pakistan surpassing 600+ attacks in 2024. No diplomatic resolution.</td><td><a href="https://www.crisisgroup.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Political Instability</td><td style="color:var(--color-orange)">ELEVATED</td><td>PTI mass movement, imprisoned Imran Khan remains most popular figure. Army-civilian tensions.</td><td><a href="https://www.crisisgroup.org/asia/south-asia/pakistan" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 11 — ACTIVE CONFLICTS & RECENT INCIDENTS
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="section-conflicts">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-num">11</span>
+      <h2 class="section-title">ACTIVE CONFLICTS & INCIDENTS</h2>
+      <span class="section-sub">2024–2026 OPERATIONAL ENVIRONMENT</span>
+    </div>
+
+    <div class="intel-alert" style="border-left-color:var(--color-red)">
+      <div class="intel-alert-head" style="color:var(--color-red)">🔴 CRITICAL INCIDENT — PAHALGAM ATTACK APRIL 22, 2025</div>
+      <p>On April 22, 2025, militants launched a <strong>mass-casualty attack on tourists in Pahalgam, Jammu & Kashmir</strong>, killing 26 civilians. India attributed responsibility to <strong>Lashkar-e-Taiba (LeT) with ISI complicity</strong>. Pakistan denied involvement. India suspended the Indus Waters Treaty, expelled Pakistani diplomats, and closed the Attari-Wagah border crossing. Pakistan responded with retaliatory diplomatic measures and military force posturing. As of March 2026, both nations maintain <strong>heightened military alert postures along the Line of Control</strong>. This represents the most severe India-Pakistan crisis since the 2019 Pulwama-Balakot confrontation, with both nations possessing demonstrated nuclear arsenals.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--color-red)"></div>
+        <div class="tl-year">Apr 2025</div>
+        <div class="tl-title">Pahalgam Attack — 26 Killed</div>
+        <div class="tl-desc">LeT/ISI-linked militants kill 26 tourists in Kashmir. India blames Pakistan. Worst India-Pakistan crisis since Pulwama 2019. India suspends Indus Waters Treaty. <a href="https://www.cfr.org/global-conflict-tracker/conflict/conflict-india-and-pakistan" target="_blank" rel="noopener">CFR →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--color-red)"></div>
+        <div class="tl-year">Jan 2024</div>
+        <div class="tl-title">Pakistan Strikes Iran — Baloch Militant Camps</div>
+        <div class="tl-desc">Pakistan Air Force strikes Balochistan Liberation Army and BRAS camps inside Iran's Sistan province — retaliating for prior Iranian strikes on Pakistani territory. Worst bilateral crisis in decades. <a href="https://www.dawn.com/news/1828940" target="_blank" rel="noopener">Dawn →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--color-orange)"></div>
+        <div class="tl-year">2024-2026</div>
+        <div class="tl-title">TTP Escalation — Afghan Border</div>
+        <div class="tl-desc">Tehrik-e-Taliban Pakistan (TTP) executed 600+ attacks in 2024, primarily in KPK and Balochistan. Pakistan military conducts regular cross-border strikes against TTP bases in Afghanistan, risking Taliban/Afghan government conflict. <a href="https://www.crisisgroup.org/asia/south-asia/pakistan/pakistan-counter-terrorism-policy" target="_blank" rel="noopener">ICG →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--color-orange)"></div>
+        <div class="tl-year">2024-2026</div>
+        <div class="tl-title">Baloch Insurgency — CPEC Attacks</div>
+        <div class="tl-desc">Balochistan Liberation Army (BLA) executing high-profile attacks on CPEC infrastructure, Chinese workers, and Pakistani military convoys. Particularly along the Quetta-Gwadar highway corridor. <a href="https://www.crisisgroup.org/asia/south-asia/pakistan/balochistan" target="_blank" rel="noopener">ICG →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--color-gold)"></div>
+        <div class="tl-year">Feb 2024</div>
+        <div class="tl-title">General Election — Army Manages Outcome</div>
+        <div class="tl-desc">Pakistan holds elections with Imran Khan in prison. PTI (Khan's party) wins plurality but Army engineers coalition producing Shehbaz Sharif (PML-N) as PM. Widely condemned internationally as manipulated. <a href="https://www.bbc.com/news/world-asia-68300124" target="_blank" rel="noopener">BBC →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--color-gold)"></div>
+        <div class="tl-year">Jul 2024</div>
+        <div class="tl-title">$7B IMF Bailout Secured</div>
+        <div class="tl-desc">Pakistan secures 37-month Extended Fund Facility from IMF. Averts sovereign default. Requires significant fiscal consolidation including removal of fuel/power subsidies. <a href="https://www.imf.org/en/Countries/PAK" target="_blank" rel="noopener">IMF →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--color-accent-glow)"></div>
+        <div class="tl-year">Jun 2025</div>
+        <div class="tl-title">Azerbaijan Orders 40 JF-17 Block III ($4.6B)</div>
+        <div class="tl-desc">Pakistan secures largest-ever JF-17 export contract. Azerbaijan orders 40 Block III aircraft in $4.6B deal — validating Pakistan's emergence as major defense exporter and the JF-17's 4.5-gen status. <a href="https://www.thedrive.com/the-war-zone" target="_blank" rel="noopener">War Zone →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--color-accent-glow)"></div>
+        <div class="tl-year">2026</div>
+        <div class="tl-title">Hangor-Class Submarine Enters Active Service</div>
+        <div class="tl-desc">First Chinese-built Type 039A/B Hangor-class AIP submarine joins Pakistan Navy, providing transformational sea-based second-strike nuclear deterrence capability. Pakistan achieves credible nuclear triad. <a href="https://www.naval-technology.com" target="_blank" rel="noopener">Naval Tech →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 12 — KEY LEADERSHIP
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="section-leadership">
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-num">12</span>
+      <h2 class="section-title">KEY LEADERSHIP</h2>
+      <span class="section-sub">MILITARY & CIVILIAN COMMAND STRUCTURE</span>
+    </div>
+
+    <div class="leader-grid">
+      <div class="leader-card">
+        <div class="leader-img-wrap">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f4ad9c4f1f8df10b3a56f2e3ee26ea2cd5f8f7d8.jpg" alt="General Syed Asim Munir COAS Pakistan Army" width="200" height="240" loading="lazy">
+        </div>
+        <div class="leader-body">
+          <div class="leader-name">General Syed Asim Munir</div>
+          <div class="leader-title">Chief of Army Staff (COAS)</div>
+          <div class="leader-desc">Pakistan's most powerful individual. Former DG-ISI and DG-MI. Appointed COAS November 2022 — the appointment engineered the ouster of Imran Khan's preferred successor. Led high-level 2025 Washington engagements post-Pahalgam. Architect of current India policy.</div>
+          <a href="https://www.dawn.com/news/1714455/syed-asim-munir-appointed-as-chief-of-army-staff" target="_blank" rel="noopener" class="equip-link">Dawn Profile →</a>
+        </div>
+      </div>
+
+      <div class="leader-card">
+        <div class="leader-img-wrap">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/92cd87c5025a8ca7f8fc20929e86c3f02b18efac.jpg" alt="Shehbaz Sharif Prime Minister Pakistan" width="200" height="240" loading="lazy">
+        </div>
+        <div class="leader-body">
+          <div class="leader-name">Shehbaz Sharif</div>
+          <div class="leader-title">Prime Minister</div>
+          <div class="leader-desc">PML-N party, brother of former 3x PM Nawaz Sharif. Current PM since February 2024 election. Managing IMF program, India crisis, and parliamentary coalition. Civilian face of Army-directed governance. Internationally credible economic reformer within Army's constraints.</div>
+          <a href="https://www.reuters.com/world/pakistan/shehbaz-sharif-takes-oath-pakistans-prime-minister-2024-03-04/" target="_blank" rel="noopener" class="equip-link">Reuters →</a>
+        </div>
+      </div>
+
+      <div class="leader-card">
+        <div class="leader-img-wrap">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a40a8a72e23e35abc2ddd4bb7714494c87ef0e3e.jpg" alt="Admiral Naveed Ashraf Chief of Naval Staff Pakistan" width="200" height="240" loading="lazy">
+        </div>
+        <div class="leader-body">
+          <div class="leader-name">Admiral Naveed Ashraf</div>
+          <div class="leader-title">Chief of Naval Staff (CNS)</div>
+          <div class="leader-desc">Overseeing Pakistan Navy's most ambitious expansion in history — Tughril-class frigates, Hangor submarines, MILGEM corvettes. Championing AMAN multilateral naval exercise (2025). Focused on protecting CPEC sea lanes and Gwadar approaches.</div>
+          <a href="https://www.paknavy.gov.pk" target="_blank" rel="noopener" class="equip-link">Pakistan Navy →</a>
+        </div>
+      </div>
+
+      <div class="leader-card">
+        <div class="leader-img-wrap">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/56e33d5d1a6c0a31f6ae0dffe8ff5d4e82c45dd5.jpg" alt="Air Chief Marshal Zaheer Ahmed Baber Sidhu Pakistan Air Force" width="200" height="240" loading="lazy">
+        </div>
+        <div class="leader-body">
+          <div class="leader-name">Air Chief Marshal Zaheer Ahmed Baber Sidhu</div>
+          <div class="leader-title">Chief of Air Staff (CAS)</div>
+          <div class="leader-desc">Overseeing JF-17 Block III fleet expansion and Azerbaijan export program. Managing F-16 modernization and Erieye AEW&C integration. 2025 AMAN-25 air exercises. Focused on air superiority parity with IAF.</div>
+          <a href="https://www.paf.gov.pk" target="_blank" rel="noopener" class="equip-link">Pakistan Air Force →</a>
+        </div>
+      </div>
+
+      <div class="leader-card">
+        <div class="leader-img-wrap">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/adc5e6e23f5a31da3a5c04e72c1ae19b8e99d78e.jpg" alt="Imran Khan PTI Pakistan Prime Minister" width="200" height="240" loading="lazy">
+        </div>
+        <div class="leader-body">
+          <div class="leader-name">Imran Khan</div>
+          <div class="leader-title">Imprisoned Former PM / PTI Leader</div>
+          <div class="leader-desc">Most popular political figure in Pakistan. Imprisoned since August 2023 on multiple charges including Official Secrets Act, sedition, and corruption. Widely viewed as Army-directed persecution. His continued imprisonment represents Pakistan's most acute political fault line.</div>
+          <a href="https://www.bbc.com/news/world-asia-pakistan-65965000" target="_blank" rel="noopener" class="equip-link">BBC →</a>
+        </div>
+      </div>
+
+      <div class="leader-card" style="background:rgba(139,0,0,0.12);border-color:rgba(139,0,0,0.4)">
+        <div class="leader-img-wrap" style="background:rgba(50,0,0,0.4)">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/7ae49efa5e35d4a2f5b48e43c94a0add7c4c7a65.jpg" alt="Hafiz Saeed Lashkar-e-Taiba ISI" width="200" height="240" loading="lazy">
+        </div>
+        <div class="leader-body">
+          <div class="leader-name">Hafiz Saeed (Lashkar-e-Taiba)</div>
+          <div class="leader-title">ISI Proxy / LeT Founder — US $10M Bounty</div>
+          <div class="leader-desc">Founder of Lashkar-e-Taiba, US-designated global terrorist. $10M US State Department bounty. Convicted in Pakistan in 2020 (terrorism finance), released 2021. LeT operationally linked to Pahalgam 2025. Remains ISI protected asset despite nominal imprisonment.</div>
+          <a href="https://www.rewardsforjustice.net/english/hafiz_saeed.html" target="_blank" rel="noopener" class="equip-link" style="color:var(--color-red)">Rewards for Justice →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="dossier-footer">
+  <div class="section-wrap" style="max-width:var(--content-wide)">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">A-09</div>
+        <div class="footer-classif">COUNTRY DOSSIER // PAKISTAN</div>
+        <div class="footer-tagline">REGIONAL STRATEGIC ANALYSIS SERIES</div>
+      </div>
+      <div>
+        <div class="footer-col-head">SECTIONS</div>
+        <div class="footer-links">
+          <a href="#section-map">01 Geography</a>
+          <a href="#section-overview">02 Military Overview</a>
+          <a href="#section-ground">03 Army</a>
+          <a href="#section-navy">04 Navy</a>
+          <a href="#section-airforce">05 Air Force</a>
+          <a href="#section-rocket">06 Missiles</a>
+          <a href="#section-nuclear">07 Nuclear</a>
+          <a href="#section-special">08 SSG / ISI</a>
+          <a href="#section-intel">09 Geopolitics</a>
+          <a href="#section-economy">10 Economy</a>
+          <a href="#section-conflicts">11 Conflicts</a>
+          <a href="#section-leadership">12 Leadership</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-head">PRIMARY SOURCES</div>
+        <div class="footer-links">
+          <a href="https://www.globalfirepower.com/country-military-strength-detail.php?country_id=pakistan" target="_blank" rel="noopener">GlobalFirepower Pakistan</a>
+          <a href="https://www.iiss.org/publications/the-military-balance" target="_blank" rel="noopener">IISS Military Balance</a>
+          <a href="https://www.sipri.org/yearbook" target="_blank" rel="noopener">SIPRI Yearbook</a>
+          <a href="https://www.fas.org/issues/nuclear-weapons/" target="_blank" rel="noopener">FAS Nuclear Notebook</a>
+          <a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS Missile Threat</a>
+          <a href="https://www.cfr.org/backgrounder/india-pakistan-relations-crisis-kashmir" target="_blank" rel="noopener">CFR India-Pakistan</a>
+          <a href="https://www.janes.com" target="_blank" rel="noopener">Janes Defence</a>
+          <a href="https://www.crisisgroup.org/asia/south-asia/pakistan" target="_blank" rel="noopener">International Crisis Group</a>
+          <a href="https://www.imf.org/en/Countries/PAK" target="_blank" rel="noopener">IMF Pakistan</a>
+          <a href="https://www.naval-technology.com" target="_blank" rel="noopener">Naval Technology</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span>DOSSIER A-09 // PAKISTAN // COMPILED MARCH 2026</span>
+      <span>ALL CLASSIFIED INFORMATION REDACTED // OPEN-SOURCE ANALYSIS ONLY</span>
+      <span>DESIGNED FOR STRATEGIC EDUCATIONAL PURPOSES</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" aria-label="Close">✕</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════ -->
+<script>
+  // Theme toggle
+  (function(){
+    const btn = document.querySelector('[data-theme-toggle]');
+    const root = document.documentElement;
+    let d = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+    root.setAttribute('data-theme', d);
+    if(btn) btn.addEventListener('click', () => {
+      d = d === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', d);
+      btn.innerHTML = d === 'dark'
+        ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+        : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    });
+  })();
+
+  // Lucide icons
+  if(window.lucide) lucide.createIcons();
+
+  // Smooth section reveals on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        e.target.classList.add('visible');
+        // Animate stat bars
+        e.target.querySelectorAll('.stat-fill').forEach(bar => {
+          bar.style.width = bar.style.width || '0%';
+          const w = bar.getAttribute('style').match(/width:(\S+)/);
+          if(w) { bar.style.width = '0%'; setTimeout(() => bar.style.width = w[1], 100); }
+        });
+      }
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.section').forEach(s => observer.observe(s));
+
+  // Nav active section highlight
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sectionIds = ['section-map','section-overview','section-ground','section-navy','section-airforce','section-rocket','section-nuclear','section-special','section-intel','section-economy','section-conflicts','section-leadership'];
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { threshold: 0.35 });
+  sectionIds.forEach(id => { const el = document.getElementById(id); if(el) sectionObserver.observe(el); });
+
+  // Mobile nav toggle
+  function toggleMobileNav() {
+    document.querySelector('.main-nav').classList.toggle('nav-open');
+  }
+
+  // Lightbox
+  function openLightbox(src, caption) {
+    const lb = document.getElementById('lightbox');
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-caption').textContent = caption || '';
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+
+  // Collapsible panels
+  function toggleCollapsible(head) {
+    const body = head.nextElementSibling;
+    const chev = head.querySelector('.chev');
+    const isOpen = body.classList.toggle('open');
+    chev.style.transform = isOpen ? 'rotate(180deg)' : '';
+  }
+
+  // Nuclear warhead visualization
+  (function(){
+    const container = document.getElementById('warhead-dots');
+    if(!container) return;
+    const count = 185;
+    for(let i = 0; i < count; i++) {
+      const d = document.createElement('div');
+      d.className = 'warhead-dot';
+      container.appendChild(d);
+    }
+  })();
+
+  // Animated number counters on scroll
+  function animateCounter(el) {
+    const target = parseInt(el.getAttribute('data-target'));
+    if(isNaN(target)) return;
+    let current = 0;
+    const increment = target / 60;
+    const timer = setInterval(() => {
+      current += increment;
+      if(current >= target) { current = target; clearInterval(timer); }
+      el.textContent = Math.floor(current).toLocaleString();
+    }, 16);
+  }
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        e.target.querySelectorAll('[data-target]').forEach(animateCounter);
+        counterObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.map-stats-row').forEach(s => counterObs.observe(s));
+
+  // Reload lucide after DOM
+  document.addEventListener('DOMContentLoaded', () => {
+    if(window.lucide) lucide.createIcons();
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B-03 Middle East Theater // Geopolitical Intelligence Platform v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DESIGN SYSTEM — B-03 Middle East Theater
+   Accent: Desert Gold #C8962E / Bright #E8B84B
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --color-bg:       #0a0c10;
+  --color-surface:  #0f1117;
+  --color-surface-2:#141820;
+  --color-surface-3:#1a2030;
+  --color-border:   rgba(200,150,46,0.22);
+  --color-border-2: rgba(200,150,46,0.10);
+  --color-text:     #dde2ec;
+  --color-text-muted:#8a94a8;
+  --color-text-faint:#4a5168;
+  --color-accent:   #C8962E;
+  --color-accent-bright:#E8B84B;
+  --color-teal:     #2dd4bf;
+  --color-blue:     #60a5fa;
+  --color-red:      #f87171;
+  --color-green:    #4ade80;
+  --font-display:   'Rajdhani', sans-serif;
+  --font-mono:      'Share Tech Mono', monospace;
+  --font-body:      'Inter', sans-serif;
+  --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;  --space-10:2.5rem;
+  --space-12:3rem;  --space-16:4rem;
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;
+  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);
+  --text-sm:clamp(.875rem,.8rem + .35vw,1rem);
+  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
+  --text-hero:clamp(2.5rem,1rem + 5vw,5.5rem);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);line-height:1.65;}
+img,video{display:block;max-width:100%;height:auto;}
+a{color:var(--color-accent);text-decoration:none;}
+a:hover{color:var(--color-accent-bright);}
+.highlight{color:var(--color-accent);}
+strong.critical{color:var(--color-accent-bright);}
+
+/* ── STICKY NAV ─────────────────────────────────────────── */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,12,16,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);height:60px;display:flex;align-items:center;}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-4);width:100%;}
+.nav-logo{font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;letter-spacing:.08em;color:var(--color-accent);white-space:nowrap;flex-shrink:0;}
+.nav-badge{font-family:var(--font-mono);font-size:10px;background:color-mix(in oklch,var(--color-accent) 15%,transparent);color:var(--color-accent);border:1px solid var(--color-border);padding:2px 8px;border-radius:3px;}
+.nav-links{display:flex;align-items:center;gap:0;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;flex:1;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;letter-spacing:.06em;color:var(--color-text-muted);padding:var(--space-1) var(--space-3);white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;text-transform:uppercase;}
+.nav-link:hover,.nav-link.active{color:var(--color-accent);border-bottom-color:var(--color-accent);}
+
+/* ── HERO ───────────────────────────────────────────────── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:60px;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(200,150,46,.08) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(96,165,250,.05) 0%,transparent 60%),#0a0c10;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(200,150,46,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(200,150,46,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.hero-content{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:var(--space-16) var(--space-6);}
+.hero-eyebrow{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-4);display:flex;align-items:center;gap:var(--space-3);}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--color-accent);}
+.hero-icon{font-size:3rem;margin-bottom:var(--space-4);}
+.hero-title{font-family:var(--font-display);font-size:var(--text-hero);font-weight:700;line-height:1.0;letter-spacing:.02em;text-transform:uppercase;margin-bottom:var(--space-4);}
+.hero-title .sub-title{display:block;font-size:clamp(1rem,1rem + 2vw,2.2rem);color:var(--color-accent);font-weight:500;letter-spacing:.1em;}
+.hero-subtitle{font-size:var(--text-lg);color:var(--color-text-muted);max-width:700px;margin-bottom:var(--space-8);}
+.hero-stamp{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-8);}
+.hero-stats{display:flex;flex-wrap:wrap;gap:var(--space-4);}
+.h-stat{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-4) var(--space-6);min-width:130px;}
+.h-stat-val{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);display:block;}
+.h-stat-key{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.08em;}
+.scroll-cue{margin-top:var(--space-12);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text-faint);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.1em;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+
+/* ── SECTION SCAFFOLDING ────────────────────────────────── */
+.section-wrap{padding:clamp(var(--space-10),5vw,var(--space-16)) var(--space-6);max-width:1280px;margin:0 auto;}
+section{border-top:1px solid var(--color-border-2);}
+.section-header{display:flex;align-items:flex-end;gap:var(--space-4);margin-bottom:var(--space-8);}
+.section-num{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.15em;margin-bottom:var(--space-1);}
+.section-title{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;text-transform:uppercase;line-height:1.1;}
+.section-lead{color:var(--color-text-muted);font-size:var(--text-sm);max-width:36ch;}
+.section-divider{flex:1;height:1px;background:linear-gradient(90deg,var(--color-accent),transparent);opacity:.3;margin-bottom:8px;}
+
+/* ── CARD GRID ──────────────────────────────────────────── */
+.card-grid{display:grid;gap:var(--space-4);}
+.grid-2{grid-template-columns:repeat(auto-fill,minmax(min(480px,100%),1fr));}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));}
+.grid-4{grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));}
+
+/* ── EQUIPMENT CARD ─────────────────────────────────────── */
+.equip-card{background:var(--color-surface);border:1px solid var(--color-border);overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.equip-card:hover{border-color:var(--color-accent);box-shadow:0 0 20px rgba(200,150,46,.08);}
+.equip-img-wrap{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--color-surface-2);}
+.equip-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform .4s;}
+.equip-img-wrap img:hover{transform:scale(1.04);}
+.equip-badge{position:absolute;top:var(--space-2);left:var(--space-2);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;background:color-mix(in oklch,var(--color-accent) 18%,transparent);color:var(--color-accent);border:1px solid var(--color-border);padding:2px 7px;backdrop-filter:blur(4px);}
+.equip-country-badge{position:absolute;top:var(--space-2);right:var(--space-2);font-size:1.2rem;background:rgba(10,12,16,.7);padding:2px 6px;border-radius:3px;}
+.equip-body{padding:var(--space-4) var(--space-5);}
+.equip-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-2);}
+.equip-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3);}
+.equip-specs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-1) var(--space-4);margin-bottom:var(--space-3);}
+.equip-spec{display:flex;justify-content:space-between;gap:var(--space-2);padding:var(--space-1) 0;border-bottom:1px solid rgba(200,150,46,.08);}
+.equip-spec-key{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.06em;}
+.equip-spec-val{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-bright);font-weight:600;}
+.equip-link{display:inline-flex;align-items:center;gap:var(--space-1);font-family:var(--font-mono);font-size:10px;color:var(--color-blue);letter-spacing:.06em;text-transform:uppercase;}
+.equip-link:hover{color:var(--color-accent);}
+
+/* ── DATA TABLE ─────────────────────────────────────────── */
+.data-table-wrap{overflow-x:auto;border:1px solid var(--color-border);}
+.data-table{width:100%;border-collapse:collapse;font-size:var(--text-sm);}
+.data-table thead th{background:var(--color-surface-2);font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent);padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border);white-space:nowrap;}
+.data-table tbody tr{border-bottom:1px solid rgba(200,150,46,.06);transition:background .15s;}
+.data-table tbody tr:hover{background:rgba(200,150,46,.04);}
+.data-table tbody td{padding:var(--space-3) var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);vertical-align:middle;}
+.data-table tbody td:first-child{color:var(--color-text);font-weight:500;}
+.data-table td a{color:var(--color-blue);font-family:var(--font-mono);font-size:11px;}
+.data-table td a:hover{color:var(--color-accent);}
+
+/* ── INTEL ALERT ────────────────────────────────────────── */
+.intel-alert{background:color-mix(in oklch,var(--color-accent) 8%,var(--color-surface));border:1px solid var(--color-border);border-left:3px solid var(--color-accent);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-6);}
+.intel-alert-head{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-2);}
+.intel-alert p{font-size:var(--text-sm);line-height:1.7;}
+.intel-alert.red{border-left-color:var(--color-red);background:color-mix(in oklch,var(--color-red) 6%,var(--color-surface));}
+.intel-alert.red .intel-alert-head{color:var(--color-red);}
+
+/* ── POLICY QUOTE ───────────────────────────────────────── */
+.policy-quote{background:var(--color-surface-3);border:1px solid var(--color-border);border-left:3px solid var(--color-accent);padding:var(--space-6) var(--space-8);margin:var(--space-6) 0;font-size:var(--text-base);color:var(--color-text);font-style:italic;line-height:1.8;}
+.policy-quote-attr{display:block;margin-top:var(--space-3);font-style:normal;font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);letter-spacing:.06em;}
+
+/* ── CHOKEPOINT CARD ────────────────────────────────────── */
+.chokepoint-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-5);}
+.chokepoint-card{background:var(--color-surface);border:1px solid var(--color-border);overflow:hidden;transition:border-color .2s;}
+.chokepoint-card:hover{border-color:var(--color-accent);}
+.chokepoint-img-wrap{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--color-surface-2);}
+.chokepoint-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform .4s;}
+.chokepoint-img-wrap img:hover{transform:scale(1.04);}
+.chokepoint-badge{position:absolute;top:var(--space-2);left:var(--space-2);font-family:var(--font-mono);font-size:10px;background:color-mix(in oklch,var(--color-accent) 18%,rgba(10,12,16,.8));color:var(--color-accent);border:1px solid var(--color-border);padding:2px 7px;backdrop-filter:blur(4px);}
+.chokepoint-body{padding:var(--space-4) var(--space-5);}
+.chokepoint-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:2px;}
+.chokepoint-width{font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);margin-bottom:var(--space-3);text-transform:uppercase;letter-spacing:.06em;}
+.chokepoint-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3);}
+.chokepoint-controllers{font-size:var(--text-xs);margin-bottom:var(--space-2);}
+.ctrl-label{font-family:var(--font-mono);color:var(--color-text-faint);letter-spacing:.06em;}
+.ctrl-val{color:var(--color-text);margin-left:var(--space-2);}
+.chokepoint-risk{font-size:var(--text-xs);}
+.risk-label{font-family:var(--font-mono);color:var(--color-text-faint);letter-spacing:.06em;}
+.risk-val{margin-left:var(--space-2);font-weight:700;font-family:var(--font-mono);}
+.risk-high{color:var(--color-red);}
+.risk-med{color:var(--color-accent);}
+.risk-low{color:var(--color-green);}
+
+/* ── MATRIX TABLE ───────────────────────────────────────── */
+.matrix-country{white-space:nowrap;}
+.flag-chip{display:inline-flex;align-items:center;gap:var(--space-2);}
+.flag-emoji{font-size:1.1rem;}
+.flag-name{font-family:var(--font-display);font-weight:600;font-size:var(--text-sm);color:var(--color-text);}
+.rating-bar{display:flex;align-items:center;gap:var(--space-2);min-width:120px;}
+.rating-fill-wrap{flex:1;background:rgba(255,255,255,.06);height:6px;border-radius:3px;overflow:hidden;}
+.rating-fill{height:100%;background:var(--color-accent);border-radius:3px;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+.rating-num{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);min-width:30px;}
+.nuclear-yes{color:var(--color-red);font-weight:700;font-family:var(--font-mono);}
+.nuclear-limited{color:var(--color-accent);font-family:var(--font-mono);}
+.nuclear-no{color:var(--color-text-faint);font-family:var(--font-mono);}
+
+/* ── ESCALATION LADDER ──────────────────────────────────── */
+.escalation-ladder{display:flex;flex-direction:column;gap:0;}
+.esc-rung{border:1px solid var(--color-border);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-2);position:relative;transition:border-color .2s;}
+.esc-rung:hover{border-color:var(--color-accent);}
+.esc-level-1{border-left:3px solid #4ade80;}
+.esc-level-2{border-left:3px solid #a3e635;}
+.esc-level-3{border-left:3px solid #C8962E;}
+.esc-level-4{border-left:3px solid #f97316;}
+.esc-level-5{border-left:3px solid #ef4444;}
+.esc-level-6{border-left:3px solid #dc2626;background:rgba(220,38,38,.06);}
+.esc-level-num{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-1);}
+.esc-level-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);}
+.esc-level-desc{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-2);line-height:1.6;}
+.esc-level-actors{font-family:var(--font-mono);font-size:11px;color:var(--color-blue);margin-bottom:var(--space-1);}
+.esc-level-trigger{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);letter-spacing:.04em;}
+.esc-arrow{text-align:center;color:var(--color-text-faint);font-size:1.2rem;margin:var(--space-1) 0;}
+
+/* ── TABS ───────────────────────────────────────────────── */
+.tabs-wrap{margin-bottom:var(--space-8);}
+.tab-buttons{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-4);border-bottom:1px solid var(--color-border);padding-bottom:0;}
+.tab-btn{font-family:var(--font-display);font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted);padding:var(--space-2) var(--space-4);border-bottom:2px solid transparent;cursor:pointer;transition:color .2s,border-color .2s;background:none;border-top:none;border-left:none;border-right:none;text-transform:uppercase;letter-spacing:.06em;margin-bottom:-1px;}
+.tab-btn:hover,.tab-btn.active{color:var(--color-accent);border-bottom-color:var(--color-accent);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* ── SCENARIO TAB CONTENT ───────────────────────────────── */
+.scenario-card{background:var(--color-surface-2);border:1px solid var(--color-border);padding:var(--space-6);}
+.scenario-trigger{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.scenario-title{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-text);margin-bottom:var(--space-4);}
+.scenario-steps{display:flex;flex-direction:column;gap:var(--space-3);}
+.scenario-step{display:flex;gap:var(--space-4);padding:var(--space-3) var(--space-4);background:rgba(200,150,46,.04);border:1px solid rgba(200,150,46,.08);}
+.step-time{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);min-width:80px;padding-top:2px;}
+.step-text{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── COLLAPSIBLE ────────────────────────────────────────── */
+.collapsible{border:1px solid var(--color-border);margin-bottom:var(--space-3);}
+.collapsible-head{display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);cursor:pointer;font-family:var(--font-display);font-weight:600;font-size:var(--text-base);text-transform:uppercase;letter-spacing:.04em;transition:color .2s;background:var(--color-surface);}
+.collapsible-head:hover,.collapsible-head.open{color:var(--color-accent);}
+.collapsible-body{display:none;padding:var(--space-5);border-top:1px solid var(--color-border);background:var(--color-surface-2);}
+.collapsible-body.open{display:block;}
+
+/* ── STAT BAR ───────────────────────────────────────────── */
+.stat-row{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-3);}
+.stat-label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);min-width:160px;text-transform:uppercase;letter-spacing:.06em;}
+.stat-bar-wrap{flex:1;background:rgba(255,255,255,.06);height:8px;border-radius:4px;overflow:hidden;}
+.stat-fill{height:100%;background:var(--color-accent);border-radius:4px;}
+.stat-val{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);min-width:40px;text-align:right;}
+
+/* ── WILDCARD CARD ──────────────────────────────────────── */
+.wildcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-4);}
+.wildcard-card{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);transition:border-color .2s;}
+.wildcard-card:hover{border-color:var(--color-accent);}
+.wildcard-icon{font-size:1.8rem;margin-bottom:var(--space-3);}
+.wildcard-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:var(--space-2);}
+.wildcard-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── DOCTRINE CARD ──────────────────────────────────────── */
+.doctrine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:var(--space-4);}
+.doctrine-card{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);}
+.doctrine-icon{font-size:1.6rem;margin-bottom:var(--space-3);}
+.doctrine-label{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--space-1);}
+.doctrine-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-accent-bright);margin-bottom:var(--space-2);}
+.doctrine-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── MAP / INLINE IMAGE ─────────────────────────────────── */
+.map-container{position:relative;overflow:hidden;border:1px solid var(--color-border);margin-bottom:var(--space-4);}
+.map-img{width:100%;cursor:pointer;transition:transform .4s;}
+.map-img:hover{transform:scale(1.02);}
+.map-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,12,16,.85));padding:var(--space-4) var(--space-5);}
+.map-caption{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;}
+.map-stats-row{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-6);}
+.map-stat{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-3) var(--space-5);flex:1;min-width:120px;}
+.map-stat-val{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);display:block;}
+.map-stat-key{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.06em;}
+figure.inline-img{border:1px solid var(--color-border);overflow:hidden;margin:var(--space-6) 0;}
+figure.inline-img img{width:100%;cursor:pointer;transition:transform .3s;}
+figure.inline-img img:hover{transform:scale(1.02);}
+figure.inline-img figcaption{padding:var(--space-3) var(--space-4);font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);background:var(--color-surface);letter-spacing:.04em;}
+
+/* ── XREF LINKS ─────────────────────────────────────────── */
+.xref-links{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);margin-bottom:var(--space-6);padding:var(--space-3) var(--space-4);background:var(--color-surface);border:1px solid var(--color-border);}
+.xref-label{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;}
+.xref-chip{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;background:color-mix(in oklch,var(--color-accent) 10%,var(--color-surface-2));color:var(--color-accent);border:1px solid var(--color-border);padding:var(--space-1) var(--space-3);}
+.xref-chip:hover{background:color-mix(in oklch,var(--color-accent) 18%,var(--color-surface-2));color:var(--color-accent-bright);}
+
+/* ── SOURCES GRID ───────────────────────────────────────── */
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-6);}
+.sources-col h3{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-4);padding-bottom:var(--space-2);border-bottom:1px solid var(--color-border);}
+.source-item{display:flex;flex-direction:column;gap:2px;margin-bottom:var(--space-4);}
+.source-item a{font-size:var(--text-sm);font-weight:500;color:var(--color-text);}
+.source-item a:hover{color:var(--color-accent);}
+.source-item span{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);}
+.classification-notice{background:var(--color-surface-2);border:1px solid var(--color-border);border-top:3px solid var(--color-accent);padding:var(--space-6);margin-top:var(--space-8);text-align:center;}
+.class-title{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.class-body{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;max-width:700px;margin:0 auto;}
+
+/* ── LIGHTBOX ───────────────────────────────────────────── */
+#lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;flex-direction:column;gap:var(--space-4);}
+#lightbox.active{display:flex;}
+#lightbox-img{max-width:90vw;max-height:80vh;object-fit:contain;border:1px solid var(--color-border);}
+#lightbox-cap{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);max-width:600px;text-align:center;}
+#lightbox-close{position:absolute;top:var(--space-4);right:var(--space-6);font-family:var(--font-mono);font-size:var(--text-xl);color:var(--color-text-muted);cursor:pointer;}
+#lightbox-close:hover{color:var(--color-accent);}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--space-6);text-align:center;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-text{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.06em;}
+
+/* ── UTILITY ─────────────────────────────────────────────── */
+.mb-4{margin-bottom:var(--space-4);} .mb-6{margin-bottom:var(--space-6);} .mb-8{margin-bottom:var(--space-8);}
+.text-muted{color:var(--color-text-muted);} .text-accent{color:var(--color-accent);}
+.mono{font-family:var(--font-mono);font-size:var(--text-xs);}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:10px;padding:2px 8px;border:1px solid var(--color-border);color:var(--color-text-faint);letter-spacing:.06em;margin:2px;}
+.tag-red{border-color:rgba(248,113,113,.3);color:var(--color-red);}
+.tag-green{border-color:rgba(74,222,128,.3);color:var(--color-green);}
+.tag-teal{border-color:rgba(45,212,191,.3);color:var(--color-teal);}
+.gap-2{gap:var(--space-2);}
+.flex-wrap{display:flex;flex-wrap:wrap;gap:var(--space-2);}
+@media(max-width:768px){
+  .nav-logo{font-size:11px;}
+  .hero-stats{flex-direction:column;}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
+  .section-title{font-size:var(--text-xl);}
+  .equip-specs{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="site-nav" role="navigation" aria-label="Theater navigation">
+  <div class="nav-inner">
+    <div class="nav-logo">INTEL PLATFORM v2</div>
+    <div class="nav-badge">B-03</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#theater-map">Geography</a>
+      <a class="nav-link" href="#theater-context">Context</a>
+      <a class="nav-link" href="#theater-history">History</a>
+      <a class="nav-link" href="#theater-forces">Forces</a>
+      <a class="nav-link" href="#theater-matrix">Matrix</a>
+      <a class="nav-link" href="#theater-chokepoints">Chokepoints</a>
+      <a class="nav-link" href="#theater-flashpoints">Flashpoints</a>
+      <a class="nav-link" href="#theater-logistics">Logistics</a>
+      <a class="nav-link" href="#theater-escalation">Escalation</a>
+      <a class="nav-link" href="#theater-wildcards">Wild Cards</a>
+      <a class="nav-link" href="#theater-assessment">Assessment</a>
+      <a class="nav-link" href="#theater-sources">Sources</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">CLASSIFIED OPEN-SOURCE ANALYSIS // MARCH 2026 // SERIES B THEATER DOSSIER</div>
+    <div class="hero-icon">⚔️</div>
+    <h1 class="hero-title">
+      MIDDLE EAST
+      <span class="sub-title">OPERATIONAL THEATER ANALYSIS // B-03</span>
+    </h1>
+    <p class="hero-subtitle">Multi-actor capability assessment, proxy network analysis & conflict scenario modeling across the world's most volatile strategic theater</p>
+    <p class="hero-stamp">ACTORS: IRAN · ISRAEL · USA-CENTCOM · SAUDI ARABIA · HOUTHIS · HEZBOLLAH · GCC</p>
+    <div class="hero-stats">
+      <div class="h-stat">
+        <span class="h-stat-val">7.2M km²</span>
+        <span class="h-stat-key">Theater Area</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">6</span>
+        <span class="h-stat-key">Major Actors</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">3</span>
+        <span class="h-stat-key">Nuclear States</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">ACTIVE</span>
+        <span class="h-stat-key">Conflict Status</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val highlight">9/10</span>
+        <span class="h-stat-key">Threat Level</span>
+      </div>
+    </div>
+    <div class="scroll-cue">▼ &nbsp; SCROLL TO ANALYZE</div>
+  </div>
+</section>
+
+<!-- SECTION 01: GEOGRAPHIC OVERVIEW -->
+<section id="theater-map">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">01 // GEOGRAPHIC OVERVIEW</div>
+      <h2 class="section-title">Strategic Geography</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Chokepoints, terrain & strategic nodes</div>
+  </div>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚠ STRATEGIC OVERVIEW</div>
+    <p>The Middle East theater encompasses the <strong class="critical">world's two most critical maritime chokepoints</strong> — the Strait of Hormuz (20% of global oil supply) and Bab el-Mandeb (12% of global trade) — plus the Suez Canal corridor. Iran's ability to threaten these passages, combined with Israel's existential security calculus and the largest U.S. military buildup in the region since 2003, makes this the highest-intensity theater in the 2026 threat environment.</p>
+  </div>
+
+  <div class="map-container mb-6">
+    <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/7810c6d666298217652782d81548a452b3a93f8d.jpg"
+      alt="Satellite view of Strait of Hormuz with Persian Gulf and Gulf of Oman" width="1280" height="720" loading="lazy"
+      onclick="openLightbox(this.src,'Strait of Hormuz — 21 million barrels of oil transited daily through this 33km-wide chokepoint')">
+    <div class="map-overlay">
+      <div class="map-caption">STRAIT OF HORMUZ // SATELLITE OVERVIEW // PRIMARY PERSIAN GULF EGRESS</div>
+    </div>
+  </div>
+  <div class="map-stats-row">
+    <div class="map-stat"><span class="map-stat-val">21M bbl/day</span><span class="map-stat-key">Hormuz Oil Flow</span></div>
+    <div class="map-stat"><span class="map-stat-val">33km</span><span class="map-stat-key">Hormuz Width (min)</span></div>
+    <div class="map-stat"><span class="map-stat-val">~50%</span><span class="map-stat-key">Global Trade Via Suez Pre-Crisis</span></div>
+    <div class="map-stat"><span class="map-stat-val">2,500km</span><span class="map-stat-key">Iran–Israel Standoff Distance</span></div>
+    <div class="map-stat"><span class="map-stat-val">50K+</span><span class="map-stat-key">US Troops CENTCOM AOR</span></div>
+  </div>
+
+  <div class="map-container mb-6">
+    <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/0a47b13a173c9ece7569ffc8619da2de85780f75.jpg"
+      alt="Middle East map showing Iran-backed armed groups across the region" width="1280" height="720" loading="lazy"
+      onclick="openLightbox(this.src,'Iran\'s Axis of Resistance network — Lebanon (Hezbollah), Iraq (PMF), Syria (IRGC), Yemen (Houthis), Gaza (Hamas/PIJ)')">
+    <div class="map-overlay">
+      <div class="map-caption">AXIS OF RESISTANCE // IRAN PROXY NETWORK // REGIONAL PRESENCE MAP</div>
+    </div>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Strategic Terrain Analysis</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">The Middle East theater is defined by extreme geographic duality: vast, tank-impassable desert and mountain ranges that favor defensive standoff warfare, punctuated by narrow maritime chokepoints whose interdiction could halt global energy and trade flows. Iran's geography — its 2,500km coastline along the Persian Gulf, Hormuz, and Gulf of Oman — gives it asymmetric leverage over energy markets disproportionate to its conventional military power.</p>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">The Zagros and Alborz mountain ranges provide Iran natural strategic depth against ground invasion. Israel's compressed geography (20,000 km²) creates existential vulnerability to precision strikes, driving its multi-layered air defense doctrine. Saudi Arabia's Eastern Province — containing 25% of the world's proven oil reserves — lies within easy missile and drone range of both Iran and Yemen.</p>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Key Strategic Nodes</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Node</th><th>Significance</th><th>Controller</th><th>Risk</th></tr></thead>
+          <tbody>
+            <tr><td>Strait of Hormuz</td><td>21M bbl oil/day; LNG transits</td><td>Iran / Oman</td><td class="tag-red" style="color:var(--color-red);font-family:var(--font-mono);font-size:11px;">CRITICAL</td></tr>
+            <tr><td>Bab el-Mandeb</td><td>12% global trade; Suez feeder</td><td>Yemen/Djibouti/Eritrea</td><td class="tag-red" style="color:var(--color-red);font-family:var(--font-mono);font-size:11px;">CRITICAL</td></tr>
+            <tr><td>Suez Canal</td><td>190 ships/day; EU-Asia trade</td><td>Egypt</td><td style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Kharg Island</td><td>90% of Iran's oil exports</td><td>Iran (IRGC)</td><td style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Abqaiq/Ghawar</td><td>Saudi Aramco core facilities</td><td>Saudi Arabia</td><td style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Nevatim / Ramon AFB</td><td>Israel F-35I strike hub</td><td>Israel (IDF)</td><td style="color:var(--color-green);font-family:var(--font-mono);font-size:11px;">MED</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 02: STRATEGIC CONTEXT -->
+<section id="theater-context">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">02 // STRATEGIC CONTEXT</div>
+      <h2 class="section-title">Why This Theater Matters</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert red">
+    <div class="intel-alert-head">🔴 ACTIVE CONFLICT — MARCH 2026</div>
+    <p>The Middle East theater is now in <strong class="critical">active high-intensity conflict</strong>. A joint US-Israel strike campaign against Iran's nuclear facilities commenced February 28, 2026, representing the largest US military operation in the region since 2003. The US has deployed 50,000+ troops including two carrier strike groups (USS Abraham Lincoln, USS Gerald R. Ford), B-52 deterrence assets, and is considering 82nd Airborne insertion. Iran's nuclear stockpile status and remaining proxy network resilience are the defining variables for escalation trajectory.</p>
+  </div>
+
+  <div class="doctrine-grid mb-8">
+    <div class="doctrine-card">
+      <div class="doctrine-icon">⚛️</div>
+      <div class="doctrine-label">Primary Flashpoint</div>
+      <div class="doctrine-title">Iran Nuclear Program</div>
+      <div class="doctrine-desc">Iran held ~440kg of 60%-enriched uranium pre-strikes — enough for 10 weapons if further enriched. IAEA estimates Fordow could produce 25kg WGU in 2-3 days. Post-strike status of Natanz, Isfahan, and Fordow remains partially unverified.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🛡️</div>
+      <div class="doctrine-label">Israel Doctrine</div>
+      <div class="doctrine-title">Multi-Front Deterrence</div>
+      <div class="doctrine-desc">Israel operates simultaneous deterrence across Gaza, Lebanon (Hezbollah), Syria (IRGC), and Iran-direct, while managing Iron Dome/Arrow/David's Sling layered defense and projecting F-35I long-range strike capability over 2,500km.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🛢️</div>
+      <div class="doctrine-label">Economic Leverage</div>
+      <div class="doctrine-title">Energy Chokepoints</div>
+      <div class="doctrine-desc">20% of global oil supply and 17% of LNG transits through the Strait of Hormuz daily. Any sustained Iranian closure would spike Brent crude above $200/bbl and trigger global recession within 90 days.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🚢</div>
+      <div class="doctrine-label">Maritime Warfare</div>
+      <div class="doctrine-title">Red Sea Interdiction</div>
+      <div class="doctrine-desc">Houthi attacks on Red Sea shipping diverted 50%+ of Suez Canal traffic to Cape of Good Hope routes. Pre-ceasefire traffic fell from 72-75 ships/day to 20-23. Cost impact: +$1M per voyage for large tankers rerouting via Cape.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🕸️</div>
+      <div class="doctrine-label">Proxy Warfare</div>
+      <div class="doctrine-title">Axis of Resistance</div>
+      <div class="doctrine-desc">Iran's strategic depth lies in four proxy vectors: Hezbollah (Lebanon), Houthis (Yemen), PMF (Iraq), and remnant Syria IRGC presence. Each can independently generate dilemmas for Israel and US forces without triggering state-level response.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🌐</div>
+      <div class="doctrine-label">US Strategic Interests</div>
+      <div class="doctrine-title">CENTCOM Objectives</div>
+      <div class="doctrine-desc">CENTCOM's stated mission: prevent nuclear-armed Iran, secure freedom of navigation, protect Israel, maintain partner access. The 2026 buildup represents the largest regional force posture since OIF 2003, with 50,000+ troops across land, sea, and air.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 03: HISTORICAL CONTEXT -->
+<section id="theater-history">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">03 // HISTORICAL PRECEDENT</div>
+      <h2 class="section-title">Conflict Lineage</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="card-grid grid-2">
+    <div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Year</th><th>Event</th><th>Strategic Significance</th></tr></thead>
+          <tbody>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">1979</td><td>Iranian Revolution; US Embassy Hostage Crisis</td><td>Established anti-US axis; ended US-Iran alliance</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">1980–88</td><td>Iran-Iraq War; Tanker War</td><td>First Gulf chokepoint crisis; chemical weapons precedent</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2003</td><td>US Invasion of Iraq (OIF)</td><td>Removed Iran's primary regional rival; empowered Shia PMF</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2006</td><td>Israel-Hezbollah War (Lebanon)</td><td>First test of Hezbollah strategic missile arsenal; IDF stalemate</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2010</td><td>Stuxnet (US-Israel) vs. Natanz</td><td>First kinetic-equivalent cyber strike on nuclear program</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2019</td><td>Abqaiq/Khurais Saudi oil facility attack</td><td>Demonstrated vulnerability of GCC critical infrastructure to drone/missile saturation</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2023–24</td><td>Oct 7 Hamas attack; Israel Gaza campaign; Lebanon war</td><td>Activated entire Axis of Resistance; reshaped theater force posture</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2023–25</td><td>Houthi Red Sea campaign</td><td>178 ships attacked; 4 sunk; Suez transits -50%; first non-state effective naval blockade</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">Jun 2025</td><td>Israel 12-day air campaign vs. Iran nuclear sites</td><td>Natanz, Isfahan, Fordow struck; IRGC senior leadership killed; nuclear program set back but not eliminated</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">Feb 2026</td><td>Joint US-Israel strikes on Iran (ongoing)</td><td>Largest US regional operation since 2003; nuclear program status disputed; proxy network status unclear</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="intel-alert mb-4">
+        <div class="intel-alert-head">📌 KEY LESSON: PROXY RESILIENCE</div>
+        <p>Every major air campaign against Iran's proxies since 2006 — US strikes on Iraqi PMF, Israeli strikes on Hezbollah, Operation Rough Rider vs. Houthis — has degraded but not eliminated proxy capabilities. <strong class="critical">Non-state actors rebuild within 12-18 months</strong> using dispersed manufacturing, Iranian resupply, and adapted tactics (shift from missiles to cheaper drones).</p>
+      </div>
+      <div class="intel-alert">
+        <div class="intel-alert-head">📌 KEY LESSON: NUCLEAR THRESHOLD MANAGEMENT</div>
+        <p>Iran has historically used nuclear advances as <strong class="critical">escalation currency</strong> — advancing enrichment to force negotiations, then trading caps for sanctions relief. Post-2026 strikes, the question is whether the remaining stockpile (estimated 440kg pre-strike, significant portion intact per IAEA) provides sufficient leverage or whether Iran will race to weaponization.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 04: FORCE DISPOSITION -->
+<section id="theater-forces">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">04 // FORCE DISPOSITION</div>
+      <h2 class="section-title">Key Systems & Order of Battle</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="xref-links mb-8">
+    <span class="xref-label">COUNTRY DOSSIERS:</span>
+    <a href="../countries/iran-dossier.html" class="xref-chip" target="_blank">🇮🇷 Iran →</a>
+    <a href="../countries/israel-dossier.html" class="xref-chip" target="_blank">🇮🇱 Israel →</a>
+    <a href="../countries/usa-dossier.html" class="xref-chip" target="_blank">🇺🇸 USA →</a>
+    <a href="../countries/saudi-arabia-dossier.html" class="xref-chip" target="_blank">🇸🇦 Saudi Arabia →</a>
+  </div>
+
+  <!-- IRAN SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇮🇷 <span>Iran — Islamic Republic</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">LOITERING MUNITION</span>
+        <span class="equip-country-badge">🇮🇷</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/aa2de6ed22c8552664914dd005944e0a00be0c10.jpg"
+          alt="Shahed-136B delta-wing loitering munition" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Shahed-136B — Iran\'s primary one-way attack drone, range ~2,500km, 50kg warhead, unit cost ~$20,000')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Shahed-136/131</div>
+        <div class="equip-desc">Delta-wing loitering munition ("kamikaze drone") built for mass saturation attacks against air defenses and hardened infrastructure. Proliferated to Russia, Hezbollah, and Houthis. Uses commercial GPS + inertial navigation with ~5m CEP. Extremely cheap to produce at scale.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">~2,500km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">50kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">185 km/h</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">~$20,000</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fleet</span><span class="equip-spec-val">Thousands</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">RCS</span><span class="equip-spec-val">Very Low</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/shahed-136/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat Database <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">BALLISTIC MISSILE</span>
+        <span class="equip-country-badge">🇮🇷</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/528f21d765d2ff0871af7a6647e8acdf1a7e3399.jpg"
+          alt="Fateh ballistic missile launch" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Fateh-110/313 series — Iran\'s primary theater ballistic missile family, used in all major strikes on Israel, Saudi Arabia, and US bases')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Fateh-110 / -313 / Dezful</div>
+        <div class="equip-desc">Iran's primary solid-fuel short-to-medium range ballistic missile family. The Dezful variant extends range to 1,000km with improved CEP. Deployed in massive salvos vs. Israel in October 2024 and 2025 attacks. Stored in dispersed underground tunnel complexes immune to air strikes.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">500–1,000km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">~10m (GPS)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">450–650kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Propulsion</span><span class="equip-spec-val">Solid-fuel</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">Hundreds</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Basing</span><span class="equip-spec-val">Underground</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/fateh-110/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">UNDERGROUND ARSENAL</span>
+        <span class="equip-country-badge">🇮🇷</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/df091a74f26818dd47ca9648c38d8a47327788a6.jpg"
+          alt="Iran underground missile base tunnel" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Iranian IRGC underground missile city — Iran operates hundreds of km of hardened tunnels housing missile launchers, designed to survive conventional air strikes')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">IRGC Underground Missile Cities</div>
+        <div class="equip-desc">Iran has built hundreds of kilometers of hardened underground tunnels housing thousands of missiles and launchers. The "missile cities" concept disperses strike assets into terrain that defeats conventional GBU-57 MOP strikes. Post-2025 Israeli strikes, Iran demonstrated launch capability from surviving underground sites within 48 hours.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Depth</span><span class="equip-spec-val">500m+ (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Network</span><span class="equip-spec-val">500+ km tunnel</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Survivability</span><span class="equip-spec-val">High</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Systems</span><span class="equip-spec-val">Multi-type</span></div>
+        </div>
+        <a href="https://www.rand.org/pubs/research_reports/RR2021.html" target="_blank" rel="noopener" class="equip-link">RAND Iran Missile Analysis <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ISRAEL SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇮🇱 <span>Israel — IDF</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">5TH GEN FIGHTER</span>
+        <span class="equip-country-badge">🇮🇱</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/c3f1fb04c1050cacbf866fc068ef645f0dcb08f1.jpg"
+          alt="Israel F-35I Adir stealth fighters at Nevatim AFB" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'F-35I Adir — Israel\'s customized F-35A with indigenous electronic warfare suite and weapons. Used in June 2025 Iranian nuclear strikes. Squadron at Nevatim AFB.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">F-35I Adir</div>
+        <div class="equip-desc">Israel's F-35A variant with indigenous electronic warfare, sensors, and weapon integration. "Adir" (Mighty) designation reflects Israeli modifications including custom EW suite that suppresses Russian-origin S-300 air defense. Used in the June 2025 12-day campaign against Iran's air defense network and nuclear sites. Operates from Nevatim AFB.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">50+ (2026)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">2,200km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Stealth</span><span class="equip-spec-val">VLO RCS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">EW Suite</span><span class="equip-spec-val">Israeli Custom</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Strike / SEAD</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Base</span><span class="equip-spec-val">Nevatim AFB</span></div>
+        </div>
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">UPPER-TIER AIR DEFENSE</span>
+        <span class="equip-country-badge">🇮🇱</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/IAF-Arrow-3-%D7%97%D7%A5-sq1666.jpg"
+          alt="Arrow-3 missile defense system launcher" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Arrow-3 — Israel\'s exoatmospheric interceptor. Intercepts ballistic missiles outside Earth\'s atmosphere at ranges up to 2,400km. Defeated Houthi MRBM fired at Eilat in 2023 — first combat exoatmospheric intercept.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Arrow-3 (Hetz-3)</div>
+        <div class="equip-desc">Israel's uppermost air defense layer, designed to intercept long-range ballistic missiles in their exoatmospheric mid-course phase. In October 2024, used alongside all other IDF defense systems to intercept over 180 Iranian missiles in the first direct Iran-Israel ballistic exchange. First combat exoatmospheric intercept recorded in 2023 (Houthi MRBM). Germany acquired Arrow-3 in 2023.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">2,400km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Altitude</span><span class="equip-spec-val">Exoatmospheric</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 9+</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Up to 14 sim.</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/defsys/arrow-3/" target="_blank" rel="noopener" class="equip-link">CSIS Arrow-3 Profile <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">SHORT-RANGE AIR DEFENSE</span>
+        <span class="equip-country-badge">🇮🇱</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a990384fcd1b4f4dec799cf93493d37548262660.jpg"
+          alt="Iron Dome interceptors firing at night" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Iron Dome — Israel\'s layered air defense backbone. Claimed 90% intercept rate against rockets and drones. Unit cost: $50,000 per Tamir missile vs. $200-2,000 per Hezbollah/Hamas rocket. Intercept economics is a long-term vulnerability.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Iron Dome / Iron Beam (Laser)</div>
+        <div class="equip-desc">Iron Dome intercepts short-range rockets, artillery shells, mortars, and drones at 4–70km range. Claimed 90% interception rate. Critical economic vulnerability: each Tamir interceptor costs ~$50,000 vs. $200–2,000 per threat. Iron Beam laser system entering operational service in 2026 addresses cost asymmetry. Laser system already downed ~40 Hezbollah drones in testing phases.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Iron Dome Range</span><span class="equip-spec-val">4–70km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Intercept Rate</span><span class="equip-spec-val">~90% (claimed)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Tamir Cost</span><span class="equip-spec-val">$50,000/shot</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Iron Beam</span><span class="equip-spec-val">$2/shot (laser)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Batteries</span><span class="equip-spec-val">10+ deployed</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Iron Beam IOC 2026</span></div>
+        </div>
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- USA SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇺🇸 <span>United States — CENTCOM</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">CARRIER STRIKE GROUP</span>
+        <span class="equip-country-badge">🇺🇸</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/2632301d29f528593f0c2e3aa4e38d9668baa186.jpg"
+          alt="USS Abraham Lincoln carrier strike group" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'USS Abraham Lincoln (CVN-72) — deployed to CENTCOM AOR January 2026. Two-carrier presence (Lincoln + Gerald R. Ford) established February 2026 representing the largest US naval force in the region since OIF 2003.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Carrier Strike Group — 5th Fleet</div>
+        <div class="equip-desc">Two CSGs deployed to CENTCOM AOR as of February 2026: USS Abraham Lincoln (CVN-72) and USS Gerald R. Ford (CVN-78). Each carries 70+ aircraft including F/A-18E/F Super Hornets, F-35C, EA-18G Growlers, and E-2D Hawkeyes. Represents 140+ strike aircraft within range of Iran plus Tomahawk-equipped surface combatants. US has maintained at least 1 carrier in region since October 7, 2023.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">CSGs Present</span><span class="equip-spec-val">2 (Feb 2026)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Strike Aircraft</span><span class="equip-spec-val">140+</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Tomahawks</span><span class="equip-spec-val">500+ (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">100,000 tons ea.</span></div>
+        </div>
+        <a href="https://www.centcom.mil/" target="_blank" rel="noopener" class="equip-link">CENTCOM Official <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">STRATEGIC BOMBER</span>
+        <span class="equip-country-badge">🇺🇸</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/88944d5c02de3e6bc081a0e3de5d07ae3b9a7bf8.jpg"
+          alt="B-52 Stratofortress bombers in formation" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'B-52H Stratofortress deployed to Diego Garcia and forward Middle East bases. Carries up to 20x GBU-57 MOPs — the only conventional munition capable of defeating Iran\'s deepest underground nuclear facilities. B-2 Spirit also forward deployed for Fordow strikes.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">B-52H / B-2 Spirit — Deterrence Patrol</div>
+        <div class="equip-desc">B-52H Stratofortress and B-2 Spirit deployed to Diego Garcia and regional forward bases for Iran deterrence/strike operations. The B-2 is the only platform capable of delivering the GBU-57 Massive Ordnance Penetrator (30,000 lbs) against Fordow's deeply buried underground enrichment facility. Multiple B-52 deterrence patrols over Middle East in early 2026 signaled strike readiness to Tehran.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">B-52H Range</span><span class="equip-spec-val">14,000km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">GBU-57 MOP</span><span class="equip-spec-val">60m penetration</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">B-2 Load</span><span class="equip-spec-val">2x MOP or 80x JDAMs</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Basing</span><span class="equip-spec-val">Diego Garcia + FWD</span></div>
+        </div>
+        <a href="https://crsreports.congress.gov/product/pdf/RL/RL32722" target="_blank" rel="noopener" class="equip-link">CRS Strategic Bomber Report <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">BALLISTIC MISSILE DEFENSE</span>
+        <span class="equip-country-badge">🇸🇦</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b359ea02795f970bbb0e39a1bcdaf79d347a0919.jpg"
+          alt="Saudi F-15SA fighter jet" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Saudi Arabia F-15SA Strike Eagle — 84 aircraft fleet, most capable F-15 variant exported. RSAF intercepted an estimated 75-90 Iranian ballistic missiles in the first 20 days of the 2026 Iran conflict using Patriot PAC-3 and one THAAD battery.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Saudi Arabia — F-15SA + THAAD + Patriot</div>
+        <div class="equip-desc">Saudi Arabia operates 84 F-15SA Strike Eagles (most advanced F-15 export), 108 Patriot PAC-3 launchers across six battalions (more than any country except USA), and 1 operational THAAD battery with a second crew completing Fort Bliss training when the 2026 Iran conflict began. During first 20 days, systems intercepted an estimated 75–90 Iranian ballistic missiles targeting Riyadh and Eastern Province.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">F-15SA</span><span class="equip-spec-val">84 aircraft</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Patriot Btry</span><span class="equip-spec-val">6 battalions / 108 launchers</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">THAAD</span><span class="equip-spec-val">1 battery (2nd training)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Intercepts (2026)</span><span class="equip-spec-val">75–90 est.</span></div>
+        </div>
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOUTHI & HEZBOLLAH -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">⚔️ <span>Non-State Actors — Houthis & Hezbollah</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">ANTI-SHIP BALLISTIC</span>
+        <span class="equip-country-badge">🇾🇪</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/35572db2a5dc10df3f8aade08a18f7bdfc8a70a4.jpg"
+          alt="Houthi Burkan-2 ballistic missile" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Houthi Burkan-2H ballistic missile — modified Scud-B with Iranian guidance upgrades. Range 1,200km. Used in attacks on Riyadh and in anti-ship targeting in the Red Sea. One of the few non-state actors to credibly threaten aircraft carriers.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Houthis — Burkan-2H + Shahed Drones</div>
+        <div class="equip-desc">The Ansar Allah (Houthi) movement operates Iran-supplied Burkan-2H ballistic missiles (range ~1,200km), Shahed-series loitering munitions, anti-ship ballistic missiles, and sea-skimming cruise missiles. Attacked 178 vessels in Red Sea 2023–25, sinking 4 ships, in the first sustained non-state maritime blockade of a major global trade route. Resumed attacks July 2025 after ceasefire.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Burkan Range</span><span class="equip-spec-val">~1,200km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Ships Attacked</span><span class="equip-spec-val">178+ (2023–25)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Ships Sunk</span><span class="equip-spec-val">4</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Drone Range</span><span class="equip-spec-val">1,500km+ (Shahed)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Missiles Est.</span><span class="equip-spec-val">~300 ballistic</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Manpower</span><span class="equip-spec-val">~200,000</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/country/yemen/" target="_blank" rel="noopener" class="equip-link">CSIS Yemen Missiles <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">PROXY DRONE FLEET</span>
+        <span class="equip-country-badge">🇱🇧</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b862317581ebb3b1d386bc0f340e4a35d4f1ebd1.jpg"
+          alt="Iron Dome intercepts over Israeli city at night" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Iron Dome intercepts during Hezbollah attack. Hezbollah has shifted post-2024 war rebuild budget heavily toward UAVs, inspired by Ukraine tactics. Unit 127 estimates production of thousands of suicide drones at Lebanese manufacturing sites.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Hezbollah — Unit 127 UAV Program</div>
+        <div class="equip-desc">Post-2024 war rebuild, Hezbollah shifted from precision missiles toward mass UAV production under Unit 127. Inspired by Russia-Ukraine drone warfare, Hezbollah is manufacturing explosive UAVs domestically in Lebanon using civilian component supply chains. Israel struck five Hezbollah drone manufacturing sites in June 2025. By March 2026, Hezbollah launched 60+ drones and rockets in single-day attacks, signaling reconstituted capability of ~25,000 rockets/missiles.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Est. Rockets</span><span class="equip-spec-val">~25,000 (2026)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">UAV Focus</span><span class="equip-spec-val">Suicide drones</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Production</span><span class="equip-spec-val">Domestic Lebanon</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Unit 127</span><span class="equip-spec-val">Active rebuild</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Manpower</span><span class="equip-spec-val">~100,000</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Active attacks</span></div>
+        </div>
+        <a href="https://www.winep.org/analysis" target="_blank" rel="noopener" class="equip-link">WINEP Analysis <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">NAVAL ASYMMETRIC</span>
+        <span class="equip-country-badge">🇮🇷</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1bb8ce64e15eac79a3102819a4a22ca7156b3bbe.jpg"
+          alt="Iranian IRGC speedboat harassing tanker" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'IRGC Navy fast attack craft (FAC) alongside oil tanker. Iran operates 100+ small FACs armed with anti-ship missiles, torpedoes, and mines. In a Hormuz closure scenario, FACs combined with shore-based anti-ship missiles, mines, and submarines create a layered A2/AD zone.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">IRGC Navy — Fast Attack Craft + Mines</div>
+        <div class="equip-desc">Iran's IRGC Naval Force operates 100+ fast attack craft armed with anti-ship missiles, rockets, torpedoes, and capable of minelaying. In a Hormuz closure scenario, FACs create harassment/attrition layer while shore-based anti-ship missiles (Noor/Qader), submarines (Kilo + Qadir-class midget subs), and aerial-dropped mines create layered A2/AD. Iran has the world's largest inventory of naval mines after Russia.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">FAC Fleet</span><span class="equip-spec-val">100+ (IRGC)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Submarines</span><span class="equip-spec-val">~19 (incl. 3 Kilo)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Anti-ship MSL</span><span class="equip-spec-val">Noor / Qader</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Mines</span><span class="equip-spec-val">Thousands (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Key Role</span><span class="equip-spec-val">Hormuz A2/AD</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Strike Range</span><span class="equip-spec-val">300km (Qader)</span></div>
+        </div>
+        <a href="https://csis.org/analysis/irans-naval-forces-hormuz" target="_blank" rel="noopener" class="equip-link">CSIS Iran Naval Analysis <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 05: COUNTRY CAPABILITY MATRIX -->
+<section id="theater-matrix">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">05 // CAPABILITY MATRIX</div>
+      <h2 class="section-title">Country Capability Matrix</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Missiles · Air Defense · Naval · Proxies · Drones</div>
+  </div>
+
+  <!-- EXPANDED CAPABILITY MATRIX: missiles, air defense, naval, proxy networks, drone warfare -->
+  <div class="data-table-wrap mb-8">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Country / Actor</th>
+          <th>Missiles</th>
+          <th>Air Defense</th>
+          <th>Naval Assets</th>
+          <th>Proxy Network</th>
+          <th>Drone Warfare</th>
+          <th>Nuclear Option</th>
+          <th>Theater Rating</th>
+          <th>Ref</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇮🇷</span>
+              <a href="../countries/iran-dossier.html" class="flag-name" target="_blank">Iran (IRGC)</a>
+            </span>
+          </td>
+          <td>Fateh-313, Dezful (1,000km), Emad MRBM (1,700km), Khorramshahr-4 (2,000km); 3,000+ ballistic/cruise missiles est.</td>
+          <td>S-300PMU-2 (degraded), Bavar-373 (indigenous), Khordad-15 SHORAD; significantly degraded by June 2025 Israeli strikes</td>
+          <td>3 Kilo-class SSK, 19 submarines total, 100+ IRGC FAC, Noor/Qader AShM (300km), extensive minelaying capacity</td>
+          <td>Hezbollah (Lebanon), Houthis (Yemen), PMF (Iraq), PIJ/Hamas (Gaza). 4-vector simultaneous dilemma strategy</td>
+          <td>Shahed-136/131 (2,500km, $20K ea.), Mohajer-6 (200km recce/strike); proliferated to all proxies</td>
+          <td class="nuclear-limited">THRESHOLD</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:85%"></div></div>
+              <span class="rating-num">8.5/10</span>
+            </div>
+          </td>
+          <td><a href="https://missilethreat.csis.org/country/iran/" target="_blank" rel="noopener">CSIS →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇮🇱</span>
+              <a href="../countries/israel-dossier.html" class="flag-name" target="_blank">Israel (IDF)</a>
+            </span>
+          </td>
+          <td>Jericho-3 ICBM (~6,500km), Popeye Turbo ALCM, Delilah cruise missile (250km); Rocks/Rampage standoff (300km)</td>
+          <td>Arrow-3 (exoatmo), Arrow-2 (endo), David's Sling (300km MRBM), Iron Dome (70km), Iron Beam laser (IOC 2026); most layered defense on Earth</td>
+          <td>Dolphin-II SSK (6, nuclear-capable est.), Sa'ar-6 corvette (Iron Dome equipped), limited surface fleet; asymmetric sub-launched cruise strike</td>
+          <td>N/A (state actor) — but Unit 8200 SIGINT feeds tactical targeting across all fronts. Global diaspora intelligence network.</td>
+          <td>Heron TP (24hr loiter), Harop loitering munition (1,000km), Hermes-900; world-class ISR drone capability</td>
+          <td class="nuclear-yes">UNDECLARED ~90</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:90%"></div></div>
+              <span class="rating-num">9/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇺🇸</span>
+              <a href="../countries/usa-dossier.html" class="flag-name" target="_blank">USA (CENTCOM)</a>
+            </span>
+          </td>
+          <td>Tomahawk TLAM (1,600km), JASSM-ER (1,000km), GBU-57 MOP (bunker buster), LRASM anti-ship; sub + surface + air-launched</td>
+          <td>THAAD (deployed regional), Patriot PAC-3 (multiple batteries), SM-3 Block IIA (sea-based), SM-6; Aegis BMD across CSG</td>
+          <td>2× CSG (Lincoln + Ford), USS Boxer MEU (MEF marines), Los Angeles/Virginia SSN, Arleigh Burke DDG (VLS Tomahawks)</td>
+          <td>Largest ally network: Israel, Saudi Arabia, UAE, Jordan, Qatar (Al-Udeid), Bahrain (5th Fleet HQ), Kuwait, Diego Garcia</td>
+          <td>MQ-9 Reaper (ISR/strike), RQ-4 Global Hawk, MQ-25 Stingray (tanker drone); 774 Yemen airstrikes 2024–25</td>
+          <td class="nuclear-yes">STRATEGIC FULL</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:97%"></div></div>
+              <span class="rating-num">9.7/10</span>
+            </div>
+          </td>
+          <td><a href="https://armedservices.house.gov/uploadedfiles/uscentcom_posture_statement_2025.pdf" target="_blank" rel="noopener">CENTCOM →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇸🇦</span>
+              <a href="../countries/saudi-arabia-dossier.html" class="flag-name" target="_blank">Saudi Arabia (RSAF)</a>
+            </span>
+          </td>
+          <td>CSS-5 DF-3A IRBM (legacy, 2,500km+), Shaheen-3 cruise missile (300km); offensive missile capability limited vs. defense posture</td>
+          <td>108× Patriot PAC-3 launchers (6 btns), 1× THAAD battery (2nd in training), Hawk & Shahine SHORAD; most Patriot outside USA</td>
+          <td>Al Riyadh-class frigates (3), Al Madinah-class frigates (4), Badr-class corvettes; primarily Gulf patrol / strait defense</td>
+          <td>GCC coordination; Arab coalition in Yemen (degraded). Tribal/influence networks in Gulf states.</td>
+          <td>MQ-9 Reaper (procuring), Haboob UCAV program; limited organic drone capability relative to threat environment</td>
+          <td class="nuclear-no">NO</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:65%"></div></div>
+              <span class="rating-num">6.5/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇾🇪</span>
+              <span class="flag-name">Houthis (Ansar Allah)</span>
+            </span>
+          </td>
+          <td>Burkan-2H SRBM (~1,200km), Quds-1 cruise missile (900km), Asef ASBM (anti-ship, ~300km); Iran-supplied and increasingly domestic</td>
+          <td>SA-6/SA-7 MANPADS, 57mm AAA; limited. Shot down US MQ-9 Reaper with locally-adapted SAM in 2019.</td>
+          <td>Tufan-class drone boat (sank MV Tutor 2024), limpet mines, fast skiffs; effective area denial in Bab el-Mandeb / Red Sea</td>
+          <td>Iran IRGC Quds Force logistics, Lebanese Hezbollah training, IRGC tactical coordination on targeting; semi-autonomous operation</td>
+          <td>Shahed-136 (Iranian supplied), Qasef-2K (200km), Samad-3 (1,500km); most drone-capable non-state actor globally</td>
+          <td class="nuclear-no">NO</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:60%"></div></div>
+              <span class="rating-num">6/10</span>
+            </div>
+          </td>
+          <td><a href="https://missilethreat.csis.org/country/yemen/" target="_blank" rel="noopener">CSIS →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇱🇧</span>
+              <span class="flag-name">Hezbollah</span>
+            </span>
+          </td>
+          <td>~25,000 rockets/missiles (2026 est.); Fateh-110, M-600, Zelzal-2; precision-guided munitions (PGM) stockpile partially depleted by 2024 war</td>
+          <td>Pechora SA-3 (legacy), MANPADS (various); limited. Relies on concealment and dispersal, not active intercept.</td>
+          <td>Naval mines (limited); maritime capability minimal. Focus is on land-to-land and land-to-sea anti-ship missiles (C-802 inventory partially depleted)</td>
+          <td>Iran IRGC Quds Force direct command/support. Palestinian Islamic Jihad coordination. Access to Lebanon state security apparatus.</td>
+          <td>Unit 127 rebuilding UAV fleet post-2024 war. Shifting from precision missiles to mass UAV production inspired by Ukraine. Iron Beam downed 40 drones in testing.</td>
+          <td class="nuclear-no">NO</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:62%"></div></div>
+              <span class="rating-num">6.2/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.winep.org/analysis" target="_blank" rel="noopener">WINEP →</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- IRAN NUCLEAR PROGRAM STATUS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">☢️ Iran Nuclear Program — Status March 2026</h3>
+
+  <figure class="inline-img mb-6">
+    <img src="https://www.criticalthreats.org/wp-content/uploads/US-and-Israeli-Strikes-Targeting-the-Iranian-Nuclear-Program-June-12-to-June-24-2025.png"
+      alt="Map of US and Israeli airstrike targets on Iranian nuclear sites June 2025"
+      width="900" height="600" loading="lazy"
+      onclick="openLightbox(this.src,'US and Israeli strikes on Iranian nuclear program, June 12–24 2025. Fordow, Natanz, Isfahan, and Tehran area sites targeted. IAEA has not inspected most bombed locations as of Feb 2026.')">
+    <figcaption>US & ISRAEL JOINT STRIKES ON IRANIAN NUCLEAR PROGRAM // JUNE 12–24 2025 // SOURCE: CRITICAL THREATS / AEI</figcaption>
+  </figure>
+
+  <div class="card-grid grid-2 mb-6">
+    <div>
+      <div class="intel-alert red">
+        <div class="intel-alert-head">☢️ NUCLEAR BREAKOUT STATUS</div>
+        <p>Pre-June 2025 strikes, Iran held <strong class="critical">440.9kg of uranium enriched to 60%</strong> — enough for 10 nuclear weapons if further enriched. The ISIS (Institute for Science and International Security) assessed Iran could convert its 60% stock into 25kg weapons-grade uranium (WGU) in <strong class="critical">2–3 days</strong> at Fordow. A "significant portion" of this stock is believed to have survived the strikes, now stored at an underground Isfahan tunnel complex the IAEA has not fully inspected. Post-strike breakout timeline: <strong class="critical">weeks, not months.</strong></p>
+      </div>
+    </div>
+    <div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Nuclear Metric</th><th>Pre-Strike (May 2025)</th><th>Post-Strike (Feb 2026)</th></tr></thead>
+          <tbody>
+            <tr><td>60% HEU stockpile</td><td>440.9kg</td><td>Partially intact (est. 200–300kg)</td></tr>
+            <tr><td>Breakout time (WGU)</td><td>2–3 days (Fordow)</td><td>Unknown — Fordow status contested</td></tr>
+            <tr><td>Bombs-worth (25kg WGU)</td><td>~9–10 weapons</td><td>~6–8 weapons (estimate)</td></tr>
+            <tr><td>Natanz status</td><td>Operational</td><td>Struck Jun 2025; partial reconstruction</td></tr>
+            <tr><td>Fordow status</td><td>Deeply buried; active</td><td>Struck by GBU-57 MOP; unknown damage</td></tr>
+            <tr><td>Isfahan status</td><td>Major enrichment hub</td><td>Struck; new underground facility found</td></tr>
+            <tr><td>IAEA access</td><td>Limited (AP suspended)</td><td>"Indispensable and urgent" per IAEA</td></tr>
+            <tr><td>NPT compliance</td><td>Violations confirmed</td><td>Withdrawal threatened post-strikes</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 06: CHOKEPOINTS -->
+<section id="theater-chokepoints">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">06 // KEY TERRAIN & CHOKEPOINTS</div>
+      <h2 class="section-title">Strategic Chokepoints</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="chokepoint-grid mb-8">
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/eab5449142adf43d74276aec8f0fbb6f99043fa7.jpg"
+          alt="Strait of Hormuz with IRGC military positions" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Strait of Hormuz — IRGC military positions. Red triangles show Iranian command positions, ASM sites, and FAC bases controlling the 21km navigable lane.')">
+        <div class="chokepoint-badge">STRAIT</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Strait of Hormuz</div>
+        <div class="chokepoint-width">21km NAVIGABLE LANE // 33km TOTAL WIDTH</div>
+        <div class="chokepoint-desc">The world's most critical energy chokepoint. 21 million barrels of oil and 3.5 billion cubic feet of LNG transit daily, representing 20% of global petroleum consumption and 17% of global LNG trade. Iran's IRGC Navy has multiple shore-based anti-ship missile batteries, fast attack craft bases, and submarine ports positioned to interdict traffic. A sustained closure would push Brent crude above $200/bbl and trigger a global recession within 90 days.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Iran (north), Oman (south), UAE (east approach)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">CRITICAL</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/ae6fdc204b7dd1257e484d7f8da7181d5b24759b.jpg"
+          alt="Map showing Bab el-Mandeb and Strait of Hormuz" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Bab el-Mandeb — 29km wide. Iran found a \'second global chokepoint\' through Houthi proxy forces in Yemen. Houthi attacks 2023–25 reduced Suez Canal transits from 72–75 ships/day to 20–23 ships/day, costing an additional $1M per voyage rerouted via Cape of Good Hope.')">
+        <div class="chokepoint-badge">STRAIT</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Bab el-Mandeb</div>
+        <div class="chokepoint-width">29km WIDE // GATEWAY TO SUEZ CANAL</div>
+        <div class="chokepoint-desc">The "Gate of Tears" connects the Red Sea to the Gulf of Aden and Indian Ocean. 12% of global trade and 8% of global LNG transits this passage en route to the Suez Canal. Houthi control of the Yemeni coast effectively gave Iran a second chokepoint lever. During 2023–25, attacks reduced Red Sea traffic from 72–75 ships/day to 20–23 ships/day — a 65–70% reduction. Pre-war traffic has not fully recovered as of March 2026.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Yemen (Houthi-controlled coast), Djibouti, Eritrea</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">CRITICAL</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://cdn.britannica.com/58/254458-050-449B1835/red-sea-locator-map.jpg"
+          alt="Red Sea and Suez Canal map" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Red Sea and Suez Canal corridor. ~10% of global trade transits Suez annually. Egyptian control of the canal is a critical stabilizing factor. Any conflict that disrupts Red Sea shipping forces Cape of Good Hope rerouting, adding 7–14 days and $1M+ to shipping costs.')">
+        <div class="chokepoint-badge">CANAL</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Suez Canal</div>
+        <div class="chokepoint-width">193km LONG // EGYPT-CONTROLLED</div>
+        <div class="chokepoint-desc">The Suez Canal carries ~10% of global trade and 12–15% of global shipping traffic annually. Transits fell from ~2,068/month (Nov 2023) to ~877/month (Oct 2024) during peak Houthi Red Sea interdiction. Egypt's $8B annual canal revenue creates strong incentive to maintain neutrality. Any direct conflict involving Egypt or Israeli strikes near Sinai could threaten canal operations and trigger treaty obligations.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Egypt (Suez Canal Authority)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-med">MEDIUM</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/7810c6d666298217652782d81548a452b3a93f8d.jpg"
+          alt="Satellite view of Strait of Hormuz from space" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Kharg Island — visible at top of Persian Gulf in this satellite view. Iran\'s oil export terminal hub. 90% of Iran\'s $50B annual oil revenue flows through Kharg Island. US options to interdict Iran\'s economy include securing or neutralizing Kharg Island, discussed in Trump administration planning as of March 2026.')">
+        <div class="chokepoint-badge">ISLAND / TERMINAL</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Kharg Island</div>
+        <div class="chokepoint-width">PERSIAN GULF OIL TERMINAL HUB</div>
+        <div class="chokepoint-desc">Iran's primary crude oil export terminal, handling 90% of Iran's petroleum exports. Neutralization of Kharg Island would cut Iran's main revenue source within days — creating strategic economic leverage comparable to blockading the entire country. US administration reportedly discussed deploying forces to Kharg Island as part of 2026 Iran conflict escalation options, which would represent direct seizure of a sovereign Iranian asset.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Iran (IRGC defended)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">ESCALATION RISK:</span><span class="risk-val risk-high">EXTREMELY HIGH</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RED SEA SHIPPING INTERDICTION DEEP DIVE -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">🚢 Red Sea Shipping Interdiction — Campaign Analysis</h3>
+
+  <figure class="inline-img mb-6">
+    <img src="https://acleddata.com/sites/default/files/styles/wysiwyg_full_width_desktop/public/2025-12/Red-Sea_Map_Houthi-attacks-against-Israel-and-commercial-ships.png"
+      alt="Map of Houthi attacks on Israel and commercial ships Red Sea 2024-2025"
+      width="1200" height="700" loading="lazy"
+      onclick="openLightbox(this.src,'Houthi attacks on Israel (red) and commercial ships (black) January 2024–November 2025. Over 520 total attacks, 178 vessels struck, 4 ships sunk, 9 sailors killed. Source: ACLED.')">
+    <figcaption>HOUTHI ATTACKS ON ISRAEL & COMMERCIAL SHIPPING // JAN 2024–NOV 2025 // SOURCE: ACLED</figcaption>
+  </figure>
+
+  <div class="card-grid grid-2">
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Red Sea Metric</th><th>Pre-Houthi (Oct 2023)</th><th>Peak Crisis (Aug 2024)</th><th>Post-Ceasefire (Jul 2025)</th></tr></thead>
+        <tbody>
+          <tr><td>Ships/day (Bab el-Mandeb)</td><td>72–75</td><td>20–23</td><td>36–37</td></tr>
+          <tr><td>Suez Canal transits/month</td><td>~2,068</td><td>~877</td><td>~1,100 (est.)</td></tr>
+          <tr><td>Vessels attacked</td><td>—</td><td>130+ (by mid-2024)</td><td>178+ total</td></tr>
+          <tr><td>Ships sunk</td><td>—</td><td>2 (incl. MV Tutor)</td><td>4 total</td></tr>
+          <tr><td>Insurance premium</td><td>Base rate</td><td>+5–7x surcharge</td><td>Elevated; partial recovery</td></tr>
+          <tr><td>Rerouting premium</td><td>—</td><td>+$1M–$3M/voyage</td><td>Ongoing Cape reroutes</td></tr>
+          <tr><td>US airstrikes (OPA/ORR)</td><td>—</td><td>774 events total</td><td>774 events / 550 casualties</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="intel-alert">
+      <div class="intel-alert-head">📊 ECONOMIC IMPACT ASSESSMENT</div>
+      <p>The Houthi Red Sea campaign represents the <strong class="critical">most economically impactful non-state maritime operation in history</strong>. Transit reductions forced 2,000+ vessels to reroute via Cape of Good Hope — adding 7–14 days and $1M–$3M per voyage. Suez Canal revenues fell by ~$7B annually at peak. The Washington Institute estimates Europe-Asia freight cost increases of 200–300% at the height of the crisis. Despite 774 US airstrikes under Operations Poseidon Archer and Rough Rider, Houthi strike capability was degraded but not eliminated. Attacks resumed July 2025 after ceasefire lapse.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 07: FLASHPOINTS -->
+<section id="theater-flashpoints">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">07 // FLASHPOINTS & TRIGGERS</div>
+      <h2 class="section-title">Conflict Scenarios</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Proxy → Direct State Conflict Pathways</div>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="switchTab(event,'flash-1')">Nuclear Breakout</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-2')">Hormuz Closure</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-3')">Hezbollah 2nd Front</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-4')">Saudi Strike Response</button>
+    </div>
+
+    <div id="flash-1" class="tab-pane active">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // HIGHEST PROBABILITY</div>
+        <div class="scenario-title">Scenario A: Iran Nuclear Weapons Declaration</div>
+        <div class="card-grid grid-2 mb-6">
+          <div>
+            <div class="scenario-steps">
+              <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">Iran declares successful weapons-grade uranium production at undeclared facility, or IAEA detects 90%+ enriched material at Isfahan tunnel complex. Iran announces NPT withdrawal.</div></div>
+              <div class="scenario-step"><div class="step-time">T+24h</div><div class="step-text">US and Israel emergency consultation. UNSC emergency session. Saudi Arabia requests Article 5–equivalent US guarantee. Israel mobilizes reserve forces and moves to Defcon 2 equivalent.</div></div>
+              <div class="scenario-step"><div class="step-time">T+48–72h</div><div class="step-text">Israel conducts preemptive conventional strike on declared nuclear site and delivery vehicle infrastructure. US provides ISR, EW, and air defense support. B-2 Spirit with GBU-57 MOPs targets Fordow.</div></div>
+              <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">Iran activates all Axis of Resistance proxies simultaneously: Hezbollah (north Lebanon), Iraqi PMF (US bases), Houthis (Red Sea + Israel missile barrage), IRGC direct missile strikes on Israel and Saudi Arabia.</div></div>
+              <div class="scenario-step"><div class="step-time">T+2–4wk</div><div class="step-text">Iran activates Hormuz denial plan: minefields, FAC swarms, submarine anti-ship positioning. Oil spikes above $200/bbl. Global economic emergency. China mediates or remains neutral; Russia supports Iran diplomatically.</div></div>
+              <div class="scenario-step"><div class="step-time">T+30–60d</div><div class="step-text">Negotiated ceasefire or regime change scenario. Ground invasion of Iran extremely unlikely given geography and cost (cf. RAND Iran invasion cost estimate: 1.5M US casualties in worst case). Diplomatic resolution remains most likely endpoint.</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="intel-alert red mb-4">
+              <div class="intel-alert-head">⚠ ESCALATION DRIVER</div>
+              <p>The critical variable is <strong class="critical">whether Iran retains ~200–300kg of 60% HEU</strong> in surviving underground facilities post-June 2025 strikes. If enrichment resumes at a covert site, breakout time remains <strong class="critical">weeks</strong>. IAEA cannot currently verify enrichment suspension at all sites.</p>
+            </div>
+            <div class="intel-alert mb-4">
+              <div class="intel-alert-head">📊 PROBABILITY ASSESSMENT</div>
+              <p>Iran nuclear declaration / weaponization attempt: <strong class="critical">25–35% within 24 months</strong> given degraded deterrence structure post-2025/2026 strikes. Negotiated deal remains the competing pathway at ~40% probability.</p>
+            </div>
+            <h4 style="font-family:var(--font-display);font-weight:700;color:var(--color-text);margin-bottom:var(--space-3);text-transform:uppercase;font-size:var(--text-sm);">Escalation Probability Bars</h4>
+            <div class="stat-row"><span class="stat-label">Proxy-Only Conflict</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:75%"></div></div><span class="stat-val">75%</span></div>
+            <div class="stat-row"><span class="stat-label">Conventional State War</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:45%"></div></div><span class="stat-val">45%</span></div>
+            <div class="stat-row"><span class="stat-label">Nuclear Threshold</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:12%"></div></div><span class="stat-val">12%</span></div>
+            <div class="stat-row"><span class="stat-label">Iranian Nuclear Use</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:3%"></div></div><span class="stat-val">3%</span></div>
+          </div>
+        </div>
+        <div class="policy-quote">
+          "The IAEA cannot verify whether Iran has suspended all enrichment-related activities. The significantly increased production and accumulation of highly enriched uranium by Iran — the only non-nuclear-weapon State to produce such nuclear material — is of serious concern."
+          <span class="policy-quote-attr">— IAEA Director General Report, February 2026 | <a href="https://www.iaea.org/sites/default/files/gov2026-8.pdf" target="_blank" rel="noopener">IAEA GOV/2026/8 →</a></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-2" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // ECONOMIC CATASTROPHE PATHWAY</div>
+        <div class="scenario-title">Scenario B: Iranian Hormuz Closure / Mining Operation</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">Iran declares Strait of Hormuz closure in response to US military action or oil sanctions escalation. IRGC Navy deploys mine-laying vessels under air cover. Fast attack craft surge into the strait's 21km navigable lane.</div></div>
+          <div class="scenario-step"><div class="step-time">T+6h</div><div class="step-text">Brent crude surges above $150/bbl within hours of announcement. Insurance markets suspend Hormuz coverage. LNG spot prices spike 400%+. Saudi Aramco activates crisis protocols for Eastern Province.</div></div>
+          <div class="scenario-step"><div class="step-time">T+24–48h</div><div class="step-text">US 5th Fleet activates mine-countermeasure (MCM) operations. MH-53E Sea Dragon helicopters and MCM ships attempt strait clearing. IRGC shore-based anti-ship missiles (Noor/Qader, range 300km) threaten MCM assets.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">US escorts first commercial convoy through strait under naval escort with full F/A-18 and destroyer air defense coverage. Iran fires warning shots. First exchange of fire between US Navy and IRGC since 1988 Operation Praying Mantis.</div></div>
+          <div class="scenario-step"><div class="step-time">T+2–6wk</div><div class="step-text">Sustained naval engagement. Saudi Arabia offers Red Sea emergency bypass via East-West pipeline (max capacity 5M bbl/day vs. 21M bbl/day Hormuz flow). Global oil deficit of 16M bbl/day. Strategic petroleum reserves release insufficient to compensate.</div></div>
+          <div class="scenario-step"><div class="step-time">T+3mo</div><div class="step-text">Economic pressure forces either Iran capitulation or full-scale US naval assault on Iranian coastal military infrastructure. China intervenes diplomatically to protect oil supply; could offer Iran economic lifeline in exchange for reopening, fracturing US-China relations further.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-3" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // SECOND FRONT ACTIVATION</div>
+        <div class="scenario-title">Scenario C: Hezbollah Full Northern Front Activation</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">Iran orders Hezbollah to open full northern front against Israel in response to US strikes on Iranian soil. Hezbollah launches mass drone/missile barrage from ~25,000-unit reconstituted arsenal — including new domestic UAV production.</div></div>
+          <div class="scenario-step"><div class="step-time">T+0–72h</div><div class="step-text">Israel activates northern emergency: mass civilian evacuation of Galilee and northern cities (200,000+ displaced). Iron Dome/David's Sling/Arrow systems face saturation from simultaneous Hezbollah + Iran direct fire. Iron Beam laser system provides first operational test under combat saturation.</div></div>
+          <div class="scenario-step"><div class="step-time">T+72h–1wk</div><div class="step-text">IDF ground forces enter Lebanon targeting Hezbollah command infrastructure and launch sites. Hezbollah deploys anti-tank ATGMs, RPGs, and tunnel networks (Radwan Force). Urban warfare in southern Lebanon villages. Civilian casualty crisis triggers international pressure on Israel.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1–3wk</div><div class="step-text">Simultaneous Houthi ballistic missile barrage at Israel (Burkan-2H series), Iraqi PMF attacks on US bases in Iraq and Syria, and Iranian direct missile strikes. Multi-vector attack overwhelms even Israel's layered defense; some precision missiles reach populated areas.</div></div>
+          <div class="scenario-step"><div class="step-time">T+4wk</div><div class="step-text">UN-brokered ceasefire pushed by US, France, and Qatar. Lebanon enters political crisis. Hezbollah leadership further degraded but organization survives in tunnel infrastructure. Strategic outcome: tactical Israeli victory, strategic Hezbollah resilience — same outcome as 2006 and 2024.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-4" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // SAUDI-IRAN DIRECT EXCHANGE</div>
+        <div class="scenario-title">Scenario D: Iranian Strike on Saudi Oil Infrastructure</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">Iran launches large-scale Shahed drone + Fateh SRBM salvo against Saudi Aramco Eastern Province facilities (Abqaiq, Ghawar, Jubail industrial complex). Inspired by 2019 Abqaiq attack but at 10× scale with combined drone/missile saturation exceeding Saudi THAAD + Patriot intercept capacity.</div></div>
+          <div class="scenario-step"><div class="step-time">T+30min</div><div class="step-text">Saudi air defense engages. THAAD intercepts high-altitude MRBMs. Patriot PAC-3 engages SRBMs. Shahed low-altitude drones evade radar and breach Abqaiq perimeter, destroying gas oil separation plants (GOSPs). Global oil production falls 5–6M bbl/day within hours.</div></div>
+          <div class="scenario-step"><div class="step-time">T+24h</div><div class="step-text">Saudi Arabia invokes Article 5–equivalent US defense guarantee. CENTCOM authorizes retaliatory strikes against IRGC missile launch sites and logistics nodes in Iran. Saudi RSAF F-15SA joins US strike package. UAE provides forward basing for US assets.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">Iran responds with Houthi Red Sea missile barrage and IRGC Navy Hormuz harassment. GCC states face mass civilian panic. Saudi government deploys National Guard to Eastern Province oilfields. Global energy emergency declared.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1mo</div><div class="step-text">Negotiated exit: Iran demands US withdrawal from Gulf + sanctions relief in exchange for ceasefire and Aramco reconstruction. US faces domestic political pressure (Trump isolationist base) vs. strategic imperative to protect Gulf oil supply. Most likely resolution: de-escalation deal brokered by Qatar / Oman.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 08: LOGISTICS -->
+<section id="theater-logistics">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">08 // LOGISTICS & SUSTAINMENT</div>
+      <h2 class="section-title">Supply Lines & Access</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">US CENTCOM Basing Network</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Base / Host Nation</th><th>Role</th><th>Key Assets</th><th>Proximity to Iran</th></tr></thead>
+          <tbody>
+            <tr><td>Al Udeid, Qatar</td><td>CENTCOM air HQ</td><td>100+ aircraft, AWACS, B-52 det.</td><td>~600km</td></tr>
+            <tr><td>Al Dhafra, UAE</td><td>ISR + Strike hub</td><td>F-35A, U-2, RQ-4, tankers</td><td>~400km</td></tr>
+            <tr><td>Muwaffaq Salti, Jordan</td><td>Strike staging</td><td>F-15E, A-10 (reactivated)</td><td>~1,200km</td></tr>
+            <tr><td>Ali Al Salem, Kuwait</td><td>Army / Logistics</td><td>Patriot, prepositioned equipment</td><td>~350km</td></tr>
+            <tr><td>NSA Bahrain</td><td>5th Fleet HQ</td><td>Command / carrier support</td><td>~300km</td></tr>
+            <tr><td>Diego Garcia, BIOT</td><td>Strategic bomber staging</td><td>B-52H, B-2, KC-135</td><td>~3,900km</td></tr>
+            <tr><td>Incirlik, Turkey</td><td>NATO asset (contested)</td><td>B61 nuclear gravity bombs</td><td>~1,500km</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">Sustainment Assessment</h3>
+      <div class="doctrine-grid" style="grid-template-columns:1fr;">
+        <div class="doctrine-card">
+          <div class="doctrine-label">US Sustainment Depth</div>
+          <div class="doctrine-title">90+ Days High-Intensity</div>
+          <div class="doctrine-desc">Pre-positioned POMCUS stocks in Kuwait + Qatar; Diego Garcia forward ammunition and fuel storage. Two CSGs = 14-day autonomous ops without resupply. KC-135/KC-46 tanker fleet enables sustained air campaign. Strategic sealift (RO-RO ships) can reinforce within 30 days from CONUS.</div>
+        </div>
+        <div class="doctrine-card">
+          <div class="doctrine-label">Iran Sustainment Depth</div>
+          <div class="doctrine-title">30–60 Days (Degraded)</div>
+          <div class="doctrine-desc">Iran operates on interior lines — all forces within own territory. Underground missile storage provides dispersion survivability but limited resupply from Russia post-Ukraine war. Sanctions-constrained fuel and aviation spare parts. Proxy resupply routes via Iraq/Syria disrupted by Israeli interdiction.</div>
+        </div>
+        <div class="doctrine-card">
+          <div class="doctrine-label">Critical Vulnerability</div>
+          <div class="doctrine-title">Interceptor Depletion (Israel)</div>
+          <div class="doctrine-desc">Israel's primary sustainment vulnerability is interceptor stockpile depletion — each Arrow-3 costs $3M, David's Sling $1M, Tamir (Iron Dome) $50K. A sustained multi-vector saturation campaign could exhaust stockpiles faster than replenishment. US emergency supply ($3.8B supplemental approved 2024) partially addresses this gap. Iron Beam laser introduction is game-changing for cost asymmetry.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 09: ESCALATION PATHWAYS -->
+<section id="theater-escalation">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">09 // ESCALATION PATHWAYS</div>
+      <h2 class="section-title">Proxy → Direct State Conflict</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">🎯 ESCALATION FRAMEWORK NOTE</div>
+    <p>The Middle East theater's unique escalation dynamic is <strong class="critical">Iran's deliberate proxy ambiguity</strong> — using non-state actors to generate pressure on Israel and the US while maintaining plausible deniability below the threshold of direct state conflict. Post-February 2026 joint US-Israel strikes, that ambiguity has been largely dissolved. The theater is now operating at Level 3 (Conventional Major) with Level 4 (Theater Nuclear) risks contingent on Iran's nuclear program status.</p>
+  </div>
+
+  <div class="escalation-ladder mb-8">
+    <div class="esc-rung esc-level-1">
+      <div class="esc-level-num">LEVEL 1 // CURRENT BASELINE</div>
+      <div class="esc-level-name">Proxy / Gray Zone Operations</div>
+      <div class="esc-level-desc">Hezbollah rocket/drone harassment of northern Israel, Iraqi PMF attacks on US bases, Houthi Red Sea shipping interdiction, Iranian cyber operations, IRGC naval harassment of tankers in Persian Gulf. All attributed to proxies, not Iran directly.</div>
+      <div class="esc-level-actors">ACTORS: Hezbollah, Houthis, Iraqi PMF, IRGC Quds Force (covert)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 2: Proxy kills US service members / attacks Israel with mass casualty weapons</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-2">
+      <div class="esc-level-num">LEVEL 2</div>
+      <div class="esc-level-name">Conventional Limited — State Response</div>
+      <div class="esc-level-desc">Israel conducts targeted strikes on IRGC Quds Force commanders and infrastructure in Syria/Iraq. US conducts punitive strikes on IRGC-linked facilities. Tit-for-tat below threshold of general war. Saudi Arabia deploys air defense reinforcements.</div>
+      <div class="esc-level-actors">ACTORS: Israel (IDF), USA (CENTCOM), Iran (IRGC direct)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 3: Iran fires ballistic missiles directly at US bases or Israeli cities; Saudi oil infrastructure attacked at scale</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-3">
+      <div class="esc-level-num">LEVEL 3 // CURRENT CONFLICT STATE (MAR 2026)</div>
+      <div class="esc-level-name">Conventional Major — Active Theater War</div>
+      <div class="esc-level-desc">Joint US-Israel air campaign against Iran's nuclear infrastructure, air defense network, and IRGC command structure. Two US carrier strike groups in theater. Simultaneous proxy attacks across all Axis of Resistance vectors. Iran retaliating with ballistic missiles against Israel and Saudi Arabia.</div>
+      <div class="esc-level-actors">ACTORS: USA, Israel, Iran (IRGC + Army), Hezbollah, Houthis, Iraqi PMF, Saudi Arabia</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 4: Iran moves to weaponize nuclear material; US ground forces enter Iranian territory; regime survival threatened</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-4">
+      <div class="esc-level-num">LEVEL 4</div>
+      <div class="esc-level-name">Theater Nuclear — Nuclear Threshold Crossed</div>
+      <div class="esc-level-desc">Iran detonates a nuclear device (as test or demonstration), uses a radiological weapon, or deploys a crude nuclear IED. Israel activates nuclear response options (widely assumed arsenal of ~90 warheads via Jericho-3 and Dolphin-class submarines). Regional nuclear cascade risk: Saudi Arabia activates nuclear agreement with Pakistan; Egypt and Turkey reconsider nuclear programs.</div>
+      <div class="esc-level-actors">ACTORS: Iran, Israel (nuclear), USA (extended deterrence)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 5: Multiple nuclear detonations; Iran launches nuclear-tipped missile at Israeli city; Israel retaliates in kind</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-5">
+      <div class="esc-level-num">LEVEL 5</div>
+      <div class="esc-level-name">Strategic Nuclear — Regional Catastrophe</div>
+      <div class="esc-level-desc">Israeli nuclear retaliation against Iranian military-industrial infrastructure and IRGC command nodes. US strategic nuclear arsenal placed on DEFCON 2. Russia and China may provide Iran nuclear umbrella or diplomatic cover. Russian tactical nuclear transfer to Iran is the catastrophic wildcard. Global economic collapse within 30 days.</div>
+      <div class="esc-level-actors">ACTORS: Israel, Iran, USA, Russia, China (escalation management)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 6: Civilization-ending exchange — extremely low probability, cannot be zero</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-6">
+      <div class="esc-level-num">LEVEL 6</div>
+      <div class="esc-level-name">Civilization-Ending Exchange</div>
+      <div class="esc-level-desc">Full strategic nuclear exchange involving US, Israel, and Russia/China intervention. Nuclear winter modeling suggests 2–5 billion deaths from blast, radiation, and famine within 10 years. This scenario represents the outer boundary of the escalation ladder, constrained by mutual deterrence and regime survival calculus.</div>
+      <div class="esc-level-actors">ACTORS: USA, Israel, Russia, China, Iran (residual)</div>
+      <div class="esc-level-trigger">TERMINAL: No de-escalation pathway at this level</div>
+    </div>
+  </div>
+
+  <div class="policy-quote">
+    "U.S. Central Command's approach of People, Partners, and Innovation puts our strategic position to prevent a nuclear-armed Iran. The United States now stands in a strategic window of opportunity to secure its interests in the Central Region."
+    <span class="policy-quote-attr">— USCENTCOM Posture Statement 2025 | <a href="https://armedservices.house.gov/uploadedfiles/uscentcom_posture_statement_2025.pdf" target="_blank" rel="noopener">HASC CENTCOM Posture Statement 2025 →</a></span>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 10: WILD CARDS -->
+<section id="theater-wildcards">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">10 // WILD CARDS & X-FACTORS</div>
+      <h2 class="section-title">Black Swans & Inflection Points</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="wildcard-grid mb-8">
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🇷🇺</div>
+      <div class="wildcard-title">Russian Nuclear Transfer to Iran</div>
+      <div class="wildcard-desc">Russia could provide Iran with tactical nuclear warhead designs or materials in exchange for Iranian drone/ammunition supply to Ukraine. Even a credible transfer would trigger a US-Russia crisis of Cold War proportions. Probability: low (~5%) but consequences civilization-ending.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🇨🇳</div>
+      <div class="wildcard-title">China's Mediation Play</div>
+      <div class="wildcard-desc">China brokered the 2023 Saudi-Iran normalization. A Chinese diplomatic intervention to end the 2026 Iran conflict on Beijing's terms (Iranian nuclear restraint for US military withdrawal from Gulf) would fundamentally reshape Middle East geopolitics and undermine the US security architecture. China's oil dependency (40% from Gulf) gives Beijing skin in the game.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">⚡</div>
+      <div class="wildcard-title">Iranian Regime Collapse</div>
+      <div class="wildcard-desc">The 2025–26 Iranian protests (triggered by government crackdown killing thousands) and economic devastation from 2026 strikes create conditions for potential regime change. A collapsed Islamic Republic creates a nuclear custody crisis — who controls Iran's remaining HEU stockpile? IRGC splinter factions could seek direct nuclear sale to non-state actors.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🛢️</div>
+      <div class="wildcard-title">Hormuz Closure Economic Cascade</div>
+      <div class="wildcard-desc">A sustained 30-day Hormuz closure would trigger the largest economic shock since the Great Depression. The US Strategic Petroleum Reserve (700M bbl) covers ~35 days of closure. Beyond that, energy rationing in Europe, economic collapse in energy-import-dependent Asia, and potential global recession/depression would exert enormous de-escalatory pressure.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🇸🇦</div>
+      <div class="wildcard-title">Saudi Nuclear Acquisition</div>
+      <div class="wildcard-desc">Saudi Arabia has a standing nuclear agreement with Pakistan that is widely understood to include an option for nuclear warhead transfer. Crown Prince MBS has stated publicly: "If Iran obtains nuclear weapons, Saudi Arabia will obtain them." A Saudi nuclear declaration would trigger an Egypt-Turkey-UAE proliferation cascade — the Middle East going from 1 to 5 nuclear states within a decade.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🔐</div>
+      <div class="wildcard-title">IRGC Nuclear Covert Transfer</div>
+      <div class="wildcard-desc">An IRGC decision to covertly transfer nuclear material or a device to Hezbollah or another non-state actor as a "dead hand" deterrent against regime destruction. This would be Iran's ultimate asymmetric escalation option — denying the US/Israel the ability to destroy the nuclear program by dispersing weapons custody beyond traceable attribution.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🤖</div>
+      <div class="wildcard-title">Autonomous Drone Swarm Escalation</div>
+      <div class="wildcard-desc">Iran or Hezbollah deploys first-ever mass autonomous drone swarm (1,000+ simultaneous coordinated drones) using AI-enabled swarming tactics. Israel's defenses — designed for sequential intercept, not true simultaneous swarms — could be overwhelmed. Iron Beam laser system offers the only cost-effective countermeasure but requires IOC validation under saturation conditions.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🌊</div>
+      <div class="wildcard-title">Turkey / Egypt Intervention</div>
+      <div class="wildcard-desc">Turkish President Erdoğan has leveraged every regional crisis for maximum geopolitical extraction. If Turkey intervenes diplomatically or militarily — potentially opposing Israel — the NATO alliance faces its most severe internal rupture. Egyptian intervention to protect Suez Canal from collateral damage would add another major state actor to an already complex theater.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-head" onclick="toggleCollapsible(this)">
+      <span>Iran's "Breakout vs. Bargaining" Nuclear Strategy — Detailed Assessment</span>
+      <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px;transition:transform .3s;"></i>
+    </div>
+    <div class="collapsible-body">
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">Iran has historically used nuclear program advances as <strong style="color:var(--color-accent);">escalation currency</strong> in a deliberate strategy of manufactured crisis. The pattern: advance enrichment to force Western concessions, then trade caps for sanctions relief (JCPOA 2015). After JCPOA collapse in 2018, Iran resumed the escalation ladder with no face-saving off-ramp available. The June 2025 Israeli strikes and February 2026 joint US-Israel campaign have fundamentally altered this calculus.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">Post-strikes, Iran faces three pathways: (1) <strong style="color:var(--color-accent-bright);">Negotiate</strong> — surrender remaining HEU stockpile for sanctions relief and security guarantees; (2) <strong style="color:var(--color-accent-bright);">Reconstitute Covertly</strong> — rebuild enrichment at undeclared sites using surviving centrifuges; (3) <strong style="color:var(--color-accent-bright);">Race to Weaponize</strong> — use surviving 60% HEU to produce 1–2 devices before another strike campaign, achieving minimum deterrence. Path 3 is the most dangerous, as Iran would need only days to convert stockpile to WGU and weeks to assemble a crude device.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;">The IAEA (Feb 2026) states it <strong style="color:var(--color-red);">"cannot verify whether Iran has suspended all enrichment-related activities"</strong> and lacks access to the Isfahan underground tunnel complex believed to hold the bulk of surviving enriched material. This intelligence gap — the single most consequential unknown in the 2026 threat environment — drives the continued US military presence and the compressed negotiating timeline with Tehran.</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-head" onclick="toggleCollapsible(this)">
+      <span>Israel Multi-Front Doctrine — Gaza / Lebanon / Iran / West Bank Simultaneity</span>
+      <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px;transition:transform .3s;"></i>
+    </div>
+    <div class="collapsible-body">
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">Israel's multi-front doctrine emerged from the post-October 7 recognition that Iran's proxy network was designed to force simultaneous operations across four independent fronts: <strong style="color:var(--color-accent);">Gaza (south), Lebanon/Hezbollah (north), Syria/IRGC (northeast), and Iran-direct (long-range ballistic)</strong>. The IDF's 2024–26 operational posture reflects a deliberate choice to accept tactical complexity across fronts in order to degrade each vector sequentially rather than allow simultaneous regeneration.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">The June 2025 12-day Iran air campaign demonstrated Israel's ability to project strike power 2,500km+ while maintaining multi-layer air defense at home. This required unprecedented tanker refueling coordination, SEAD (Suppression of Enemy Air Defenses) missions against Russian-supplied S-300 batteries, and cyber/EW support from Unit 8200 to defeat Iranian radar networks. The F-35I Adir's stealth capability was central to first-night SEAD.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;">Critical vulnerability: Israel's 20,000 km² geographic compactness means <strong style="color:var(--color-red);">every major city is within range of every threat vector simultaneously</strong>. Tel Aviv is 90km from Lebanon, 280km from Gaza, and 2,500km from Tehran. The multi-front doctrine's Achilles heel is defense budget strain — each Arrow-3 intercept costs $3M, and a sustained salvo campaign against all fronts simultaneously could exhaust the interceptor stockpile within 72 hours of peak engagement.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 11: ASSESSMENT -->
+<section id="theater-assessment">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">11 // ASSESSMENT & PROBABILITY</div>
+      <h2 class="section-title">Theater Assessment</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert red mb-6">
+    <div class="intel-alert-head">🔴 OVERALL ASSESSMENT — MARCH 2026</div>
+    <p>The Middle East theater is at its <strong class="critical">highest instability since the 2003 Iraq invasion</strong>. The 2026 Iran conflict has dissolved the proxy ambiguity that previously constrained escalation. Three variables now determine theater trajectory: (1) Iran's surviving nuclear stockpile and weaponization intent; (2) Whether Iran's proxy network can generate sufficient multi-front pressure to force a US negotiated exit; (3) Whether China mediates a nuclear freeze deal on Beijing's terms, effectively establishing Chinese strategic primacy in the Gulf. All three pathways point to a fundamentally transformed post-conflict Middle East order regardless of military outcome.</p>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">Probability Assessment</h3>
+      <div class="stat-row"><span class="stat-label">Negotiated Iran Deal (2026)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:40%"></div></div><span class="stat-val">40%</span></div>
+      <div class="stat-row"><span class="stat-label">Prolonged Proxy Conflict</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:65%"></div></div><span class="stat-val">65%</span></div>
+      <div class="stat-row"><span class="stat-label">Hormuz Closure (&gt;7 days)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:30%"></div></div><span class="stat-val">30%</span></div>
+      <div class="stat-row"><span class="stat-label">Iran Nuclear Weaponization</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:25%"></div></div><span class="stat-val">25%</span></div>
+      <div class="stat-row"><span class="stat-label">Hezbollah Full Front Activation</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:50%"></div></div><span class="stat-val">50%</span></div>
+      <div class="stat-row"><span class="stat-label">Saudi Nuclear Pursuit (5yr)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:35%"></div></div><span class="stat-val">35%</span></div>
+      <div class="stat-row"><span class="stat-label">Chinese Gulf Mediation Deal</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:20%"></div></div><span class="stat-val">20%</span></div>
+      <div class="stat-row"><span class="stat-label">Theater Nuclear Use</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:5%"></div></div><span class="stat-val">5%</span></div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">Force Projection Trajectory</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Actor</th><th>2026 (Current)</th><th>2028 (Projected)</th><th>2031 (Long-term)</th></tr></thead>
+          <tbody>
+            <tr><td>Iran</td><td>Degraded air defense; proxy network active; nuclear threshold</td><td>Rebuilt air defense; 5th-gen fighter negotiations; nuclear status unclear</td><td>Full capability reconstitution or regime change; China alignment deepens</td></tr>
+            <tr><td>Israel</td><td>Iron Beam IOC; F-35I fleet expansion; Dolphin SSK modernization</td><td>Iron Beam full coverage; F-35I squadron 3; AI-enabled targeting</td><td>Potential F-15EX procurement; 6th-gen fighter R&D; lunar space intel assets</td></tr>
+            <tr><td>USA CENTCOM</td><td>50K troops; 2 CSG; B-21 Raider deployment begins</td><td>B-21 forward deploy; 82nd Airborne in region; Aegis Ashore expansion</td><td>Reduced footprint if Iran deal; or permanent Gulf presence surge</td></tr>
+            <tr><td>Saudi Arabia</td><td>THAAD 1 battery; 108 Patriot launchers; F-35 deal pending</td><td>F-35 delivery begins; 2nd THAAD battery; Vision 2030 defense industrialization</td><td>Indigenous defense production; potential nuclear option if Iran nuclear</td></tr>
+            <tr><td>Houthis</td><td>Partially degraded; resuming attacks</td><td>Rebuilt if Iran resupply; ceasefire possible with Gaza/Iran deal</td><td>Persistent non-state naval threat in Bab el-Mandeb</td></tr>
+            <tr><td>Hezbollah</td><td>Rebuilding UAV fleet; ~25K rockets</td><td>UAV swarm capability approaching; precision missile rebuild slower</td><td>Full reconstitution with Iranian support; or neutered if Iran deal</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 12: SOURCES -->
+<section id="theater-sources">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">12 // PRIMARY SOURCES</div>
+      <h2 class="section-title">Authoritative References</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <!-- CROSS-REFERENCE COUNTRY DOSSIERS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-3);">Cross-Reference: Series A Country Dossiers</h3>
+  <div class="xref-links mb-8" style="flex-wrap:wrap;gap:var(--space-2) var(--space-3);">
+    <span class="xref-label">RELATED DOSSIERS:</span>
+    <a href="../countries/iran-dossier.html" class="xref-chip" target="_blank">🇮🇷 Iran A-07 →</a>
+    <a href="../countries/israel-dossier.html" class="xref-chip" target="_blank">🇮🇱 Israel A-10 →</a>
+    <a href="../countries/usa-dossier.html" class="xref-chip" target="_blank">🇺🇸 USA A-11 →</a>
+    <a href="../countries/saudi-arabia-dossier.html" class="xref-chip" target="_blank">🇸🇦 Saudi Arabia →</a>
+    <a href="../countries/russia-dossier.html" class="xref-chip" target="_blank">🇷🇺 Russia A-05 →</a>
+    <a href="../countries/china-dossier.html" class="xref-chip" target="_blank">🇨🇳 China A-01 →</a>
+    <a href="../countries/ukraine-dossier.html" class="xref-chip" target="_blank">🇺🇦 Ukraine A-03 →</a>
+    <a href="../countries/north-korea-dossier.html" class="xref-chip" target="_blank">🇰🇵 North Korea A-06 →</a>
+    <a href="./eastern-europe-theater.html" class="xref-chip" target="_blank">⚔️ B-02 Eastern Europe →</a>
+    <a href="./asia-pacific-theater.html" class="xref-chip" target="_blank">🌊 B-04 Asia-Pacific →</a>
+    <a href="./cyber-asymmetric.html" class="xref-chip" target="_blank">💻 B-08 Cyber & Asymmetric →</a>
+    <a href="../index.html" class="xref-chip" target="_blank">🌐 Platform Home →</a>
+  </div>
+
+  <div class="sources-grid">
+    <div class="sources-col">
+      <h3>US Government & Military</h3>
+      <div class="source-item"><a href="https://armedservices.house.gov/uploadedfiles/uscentcom_posture_statement_2025.pdf" target="_blank" rel="noopener">USCENTCOM Posture Statement 2025</a><span>House Armed Services Committee // CENTCOM theater doctrine</span></div>
+      <div class="source-item"><a href="https://www.odni.gov/files/ODNI/documents/assessments/ATA-2025-Unclassified-Report.pdf" target="_blank" rel="noopener">ODNI Annual Threat Assessment 2025</a><span>Office of the Director of National Intelligence</span></div>
+      <div class="source-item"><a href="https://crsreports.congress.gov/product/pdf/R/R44017" target="_blank" rel="noopener">CRS: Iran's Nuclear Program</a><span>Congressional Research Service — Iran nuclear status</span></div>
+      <div class="source-item"><a href="https://crsreports.congress.gov/product/pdf/RL/RL33233" target="_blank" rel="noopener">CRS: US Military in the Gulf</a><span>Congressional Research Service — CENTCOM force posture</span></div>
+      <div class="source-item"><a href="https://www.centcom.mil/" target="_blank" rel="noopener">CENTCOM Official Website</a><span>US Central Command // Force disposition & press releases</span></div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Think Tanks & Research</h3>
+      <div class="source-item"><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS Military Balance 2025</a><span>International Institute for Strategic Studies // Gold standard force data</span></div>
+      <div class="source-item"><a href="https://missilethreat.csis.org/" target="_blank" rel="noopener">CSIS Missile Threat Database</a><span>Center for Strategic & International Studies // All missile systems</span></div>
+      <div class="source-item"><a href="https://www.rand.org/topics/iran.html" target="_blank" rel="noopener">RAND Iran Research Portal</a><span>RAND Corporation // Strategic analysis & wargame studies</span></div>
+      <div class="source-item"><a href="https://www.fdd.org/program/center-on-military-and-political-power/" target="_blank" rel="noopener">FDD Center on Military Power</a><span>Foundation for Defense of Democracies // Iran nuclear analysis</span></div>
+      <div class="source-item"><a href="https://www.winep.org/analysis" target="_blank" rel="noopener">WINEP Policy Analysis</a><span>Washington Institute for Near East Policy // Proxy warfare analysis</span></div>
+      <div class="source-item"><a href="https://isis-online.org/" target="_blank" rel="noopener">ISIS Nuclear Analysis</a><span>Institute for Science & International Security // IAEA report analysis</span></div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Nuclear & Arms Control</h3>
+      <div class="source-item"><a href="https://www.iaea.org/sites/default/files/gov2026-8.pdf" target="_blank" rel="noopener">IAEA GOV/2026/8 — Iran Report</a><span>IAEA Board of Governors // February 2026 Iran status</span></div>
+      <div class="source-item"><a href="https://www.armscontrol.org/factsheets/status-irans-nuclear-program-1" target="_blank" rel="noopener">Arms Control Association — Iran Nuclear</a><span>ACA // Iran nuclear program fact sheet (updated 2025)</span></div>
+      <div class="source-item"><a href="https://fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener">FAS Nuclear Notebook</a><span>Federation of American Scientists // Global warhead estimates</span></div>
+      <div class="source-item"><a href="https://sipri.org/research/armament-and-disarmament/nuclear-disarmament-arms-control-and-non-proliferation" target="_blank" rel="noopener">SIPRI Nuclear Database</a><span>Stockholm International Peace Research Institute // Arsenal data</span></div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Maritime & Naval</h3>
+      <div class="source-item"><a href="https://www.washingtoninstitute.org/policy-analysis/houthi-shipping-attacks-patterns-and-expectations-2025" target="_blank" rel="noopener">WINEP: Houthi Shipping Attacks</a><span>Washington Institute // Red Sea campaign analysis 2024–25</span></div>
+      <div class="source-item"><a href="https://acleddata.com/report/red-sea-hall-mirrors-us-and-houthi-statements-vs-actions" target="_blank" rel="noopener">ACLED: Red Sea Hall of Mirrors</a><span>Armed Conflict Location & Event Data // Attack data tracker</span></div>
+      <div class="source-item"><a href="https://www.naval-technology.com/projects/iran-navy/" target="_blank" rel="noopener">Naval Technology — Iran Fleet</a><span>Naval Technology // Ship specifications & fleet data</span></div>
+      <div class="source-item"><a href="https://globalfirepower.com/country-military-strength-detail.php?country_id=iran" target="_blank" rel="noopener">GlobalFirepower — Iran</a><span>GlobalFirepower // Equipment quantities & rankings</span></div>
+    </div>
+  </div>
+
+  <div class="classification-notice">
+    <div class="class-title">⚠ OPEN-SOURCE INTELLIGENCE NOTICE</div>
+    <p class="class-body">This dossier is compiled entirely from unclassified, publicly available open-source intelligence (OSINT). All data is sourced from official government publications, peer-reviewed think tank research, verified news reporting, and international monitoring organizations. No classified information is included or implied. Force estimates marked as "estimated" reflect best-available OSINT and may differ from classified assessments. Geopolitical Intelligence Platform v2 — Series B Theater Dossier B-03 // March 2026.</p>
+  </div>
+</div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+  <span id="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</span>
+  <img id="lightbox-img" src="" alt="Expanded view">
+  <div id="lightbox-cap"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-text">GEOPOLITICAL INTELLIGENCE PLATFORM v2 // THEATER DOSSIER B-03 MIDDLE EAST // MARCH 2026 // OPEN-SOURCE ANALYSIS</p>
+    <p class="footer-text" style="margin-top:var(--space-2);">Series B: Theater / Domain Analysis | Cross-ref: A-01 China · A-05 Russia · A-07 Iran · A-10 Israel · A-11 USA</p>
+  </div>
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.lucide) lucide.createIcons();
+});
+
+function openLightbox(src, cap) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-cap').textContent = cap || '';
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+function switchTab(e, id) {
+  const container = e.target.closest('.tabs-wrap') || document;
+  container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  const pane = document.getElementById(id);
+  if (pane) pane.classList.add('active');
+}
+
+function toggleCollapsible(head) {
+  const isOpen = head.classList.contains('open');
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+  const chev = head.querySelector('.chev');
+  if (chev) chev.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+
+// Scroll-active nav
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-60px 0px -40% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Animate stat bars + rating bars on scroll
+const fills = document.querySelectorAll('.stat-fill, .rating-fill');
+const fillObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const w = e.target.style.width;
+      e.target.style.width = '0%';
+      setTimeout(() => { e.target.style.width = w; }, 100);
+      fillObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+fills.forEach(f => {
+  f.style.transition = 'width 1.2s cubic-bezier(0.16,1,0.3,1)';
+  fillObserver.observe(f);
+});
+
+// Light/dark mode toggle
+(function(){
+  // Default to dark (military aesthetic)
+  document.documentElement.setAttribute('data-theme', 'dark');
+  // Inject toggle button into nav
+  const nav = document.querySelector('.nav-inner');
+  const btn = document.createElement('button');
+  btn.setAttribute('data-theme-toggle', '');
+  btn.setAttribute('aria-label', 'Switch to light mode');
+  btn.style.cssText = 'background:none;border:1px solid rgba(200,150,46,0.3);color:var(--color-accent);padding:4px 8px;cursor:pointer;font-size:14px;border-radius:3px;flex-shrink:0;margin-left:auto;';
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  nav.appendChild(btn);
+
+  let dark = true;
+  btn.addEventListener('click', () => {
+    dark = !dark;
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    btn.setAttribute('aria-label', 'Switch to ' + (dark ? 'light' : 'dark') + ' mode');
+    btn.innerHTML = dark
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  });
+})();
+
+// Light mode CSS variables (injected dynamically)
+const lightModeStyles = document.createElement('style');
+lightModeStyles.textContent = `
+[data-theme="light"] {
+  --color-bg: #f5f0e8;
+  --color-surface: #faf6ef;
+  --color-surface-2: #fffaf4;
+  --color-surface-3: #fff8ee;
+  --color-border: rgba(200,150,46,0.25);
+  --color-border-2: rgba(200,150,46,0.12);
+  --color-text: #1a1610;
+  --color-text-muted: #5a4e3a;
+  --color-text-faint: #9e8e70;
+  --color-accent: #8a5a0a;
+  --color-accent-bright: #a86e14;
+  --color-teal: #0d7a6e;
+  --color-blue: #1a5fa3;
+  --color-red: #c0392b;
+  --color-green: #1e7a40;
+}
+[data-theme="light"] .site-nav {
+  background: rgba(245,240,232,0.95);
+}
+[data-theme="light"] .hero-bg {
+  background: radial-gradient(ellipse 80% 60% at 60% 40%,rgba(200,150,46,.06) 0%,transparent 65%),
+              radial-gradient(ellipse 50% 40% at 20% 80%,rgba(96,165,250,.04) 0%,transparent 60%), #f5f0e8;
+}
+`;
+document.head.appendChild(lightModeStyles);
+</script>
+
+</body>
+</html>

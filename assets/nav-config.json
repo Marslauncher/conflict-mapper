@@ -1,0 +1,147 @@
+{
+  "siteName": "CONFLICT MAPPER",
+  "siteTagline": "GEOPOLITICAL INTELLIGENCE PLATFORM",
+  "password": "admin123",
+  "theme": "dark",
+  "nav": [
+    {
+      "label": "Map & Feed",
+      "type": "link",
+      "target": "pages/map-feed.html",
+      "icon": "map"
+    },
+    {
+      "label": "Global Analysis",
+      "type": "link",
+      "target": "reports/global/current/report.html",
+      "icon": "globe"
+    },
+    {
+      "label": "Country Dossiers",
+      "type": "dropdown-nested",
+      "icon": "flag",
+      "countries": [
+        {
+          "flag": "\ud83c\uddfa\ud83c\uddf8",
+          "label": "United States",
+          "slug": "usa"
+        },
+        {
+          "flag": "\ud83c\udde8\ud83c\uddf3",
+          "label": "China",
+          "slug": "china"
+        },
+        {
+          "flag": "\ud83c\uddf7\ud83c\uddfa",
+          "label": "Russia",
+          "slug": "russia"
+        },
+        {
+          "flag": "\ud83c\uddfa\ud83c\udde6",
+          "label": "Ukraine",
+          "slug": "ukraine"
+        },
+        {
+          "flag": "\ud83c\uddf9\ud83c\uddfc",
+          "label": "Taiwan",
+          "slug": "taiwan"
+        },
+        {
+          "flag": "\ud83c\uddee\ud83c\uddf7",
+          "label": "Iran",
+          "slug": "iran"
+        },
+        {
+          "flag": "\ud83c\uddee\ud83c\uddf1",
+          "label": "Israel",
+          "slug": "israel"
+        },
+        {
+          "flag": "\ud83c\uddee\ud83c\uddf3",
+          "label": "India",
+          "slug": "india"
+        },
+        {
+          "flag": "\ud83c\uddf5\ud83c\uddf0",
+          "label": "Pakistan",
+          "slug": "pakistan"
+        },
+        {
+          "flag": "\ud83c\uddf0\ud83c\uddf5",
+          "label": "North Korea",
+          "slug": "north-korea"
+        },
+        {
+          "flag": "\ud83c\uddea\ud83c\uddfa",
+          "label": "NATO",
+          "slug": "nato"
+        }
+      ]
+    },
+    {
+      "label": "Theater Analysis",
+      "type": "dropdown",
+      "icon": "crosshair",
+      "items": [
+        {
+          "label": "Eastern Europe",
+          "subtitle": "Theater B-01",
+          "target": "theaters/eastern-europe-theater.html"
+        },
+        {
+          "label": "Asia-Pacific",
+          "subtitle": "Theater B-02",
+          "target": "theaters/asia-pacific-theater.html"
+        },
+        {
+          "label": "Middle East",
+          "subtitle": "Theater B-03",
+          "target": "theaters/middle-east-theater.html"
+        },
+        {
+          "label": "Arctic",
+          "subtitle": "Theater B-04",
+          "target": "theaters/arctic-theater.html"
+        },
+        {
+          "label": "Africa",
+          "subtitle": "Theater B-05",
+          "target": "theaters/africa-theater.html"
+        },
+        {
+          "label": "Space Domain",
+          "subtitle": "Domain B-06",
+          "target": "theaters/space-domain.html"
+        },
+        {
+          "label": "Cyber & Asymmetric",
+          "subtitle": "Domain B-07",
+          "target": "theaters/cyber-asymmetric.html"
+        }
+      ]
+    },
+    {
+      "label": "China/Taiwan Watch",
+      "type": "link",
+      "target": "pages/taiwan-strait.html",
+      "icon": "eye"
+    },
+    {
+      "label": "Iran Conflict",
+      "type": "dropdown",
+      "icon": "flame",
+      "items": [
+        {
+          "label": "War Analysis",
+          "subtitle": "Comprehensive Coverage",
+          "target": "pages/iran-war-analysis.html"
+        },
+        {
+          "label": "Nuclear Deep Dive",
+          "subtitle": "Nuclear Program Assessment",
+          "target": "pages/nuclear-deep-dive.html"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DPRK — North Korea Military Dossier | Geopolitical Intelligence Platform v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+/* ============================
+   DESIGN TOKENS — NORTH KOREA
+   ============================ */
+:root {
+  --color-bg:#0a0c10;
+  --color-surface:#0f1117;
+  --color-surface-2:#141820;
+  --color-surface-3:#1a2030;
+  --color-border:rgba(170,17,17,0.25);
+  --color-border-2:rgba(255,200,50,0.18);
+  --color-text:#dde2ec;
+  --color-text-muted:#8a94a8;
+  --color-text-faint:#4a5168;
+  --color-red:#aa1111;
+  --color-red-bright:#dd2222;
+  --color-gold:#ffc832;
+  --color-teal:#2dd4bf;
+  --color-blue:#60a5fa;
+  --font-display:'Rajdhani',sans-serif;
+  --font-mono:'Share Tech Mono',monospace;
+  --font-body:'Inter',sans-serif;
+  --space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
+  --space-12:3rem;--space-16:4rem;
+  --radius-sm:0.375rem;--radius-md:0.5rem;--radius-lg:0.75rem;
+  --text-xs:clamp(0.75rem,0.7rem + 0.25vw,0.875rem);
+  --text-sm:clamp(0.875rem,0.8rem + 0.35vw,1rem);
+  --text-base:clamp(1rem,0.95rem + 0.25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem + 0.75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
+  --transition:180ms cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:68px;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);line-height:1.6;min-height:100dvh}
+img,picture,video,canvas,svg{display:block;max-width:100%;height:auto}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-display);text-wrap:balance;line-height:1.15;letter-spacing:0.02em}
+p,li{text-wrap:pretty;max-width:72ch}
+a{color:var(--color-blue);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--color-red-bright)}
+table{border-collapse:collapse;width:100%}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+::selection{background:rgba(170,17,17,0.3);color:var(--color-text)}
+:focus-visible{outline:2px solid var(--color-red);outline-offset:3px}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--color-bg)}
+::-webkit-scrollbar-thumb{background:var(--color-red);border-radius:3px}
+
+/* ===== STICKY NAV ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,12,16,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);height:60px;display:flex;align-items:center}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-6);width:100%;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-brand{font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;color:var(--color-red-bright);white-space:nowrap;letter-spacing:0.08em}
+.nav-links{display:flex;gap:var(--space-1);flex-shrink:0}
+.nav-link{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;letter-spacing:0.06em;padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);color:var(--color-text-muted);white-space:nowrap;border-bottom:2px solid transparent;transition:color var(--transition),border-color var(--transition)}
+.nav-link:hover{color:var(--color-text)}
+.nav-link.active{color:var(--color-red-bright);border-bottom-color:var(--color-red-bright)}
+
+/* ===== HERO ===== */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:var(--space-16) var(--space-6) var(--space-10)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(170,17,17,0.18) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 80% 50%,rgba(255,200,50,0.06) 0%,transparent 60%),linear-gradient(180deg,#0a0c10 0%,#0f1117 100%);z-index:0}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(170,17,17,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(170,17,17,0.07) 1px,transparent 1px);background-size:60px 60px;z-index:0;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 80%)}
+.hero-content{position:relative;z-index:1;max-width:900px;text-align:center}
+.hero-flag{font-size:4rem;margin-bottom:var(--space-4);filter:drop-shadow(0 0 20px rgba(170,17,17,0.5))}
+.hero-eyebrow{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-red);letter-spacing:0.12em;margin-bottom:var(--space-4);text-transform:uppercase}
+.hero-title{font-size:var(--text-2xl);font-weight:700;color:var(--color-text);margin-bottom:var(--space-3);letter-spacing:0.04em;line-height:1.1}
+.hero-title .native{display:block;font-size:clamp(1rem,3vw,1.5rem);color:var(--color-text-muted);font-weight:400;letter-spacing:0.06em;margin-bottom:var(--space-2)}
+.hero-subtitle{font-size:var(--text-base);color:var(--color-text-muted);margin-bottom:var(--space-6);max-width:65ch;margin-left:auto;margin-right:auto}
+.hero-stamp{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:0.08em;margin-bottom:var(--space-8);text-transform:uppercase}
+.hero-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-4);margin-top:var(--space-8)}
+.hero-stat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4) var(--space-3);text-align:center}
+.hero-stat-val{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-red-bright);display:block}
+.hero-stat-key{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:0.06em;text-transform:uppercase;display:block;margin-top:var(--space-1)}
+.scroll-cue{margin-top:var(--space-10);color:var(--color-text-faint);animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.threat-pill{display:inline-block;font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.1em;padding:var(--space-1) var(--space-3);border-radius:20px;text-transform:uppercase;margin-bottom:var(--space-4)}
+.threat-critical{background:rgba(170,17,17,0.2);border:1px solid var(--color-red-bright);color:var(--color-red-bright)}
+.threat-high{background:rgba(255,200,50,0.12);border:1px solid var(--color-gold);color:var(--color-gold)}
+.threat-medium{background:rgba(45,212,191,0.12);border:1px solid var(--color-teal);color:var(--color-teal)}
+
+/* ===== SECTION WRAPPER ===== */
+.section-wrap{max-width:1280px;margin:0 auto;padding:var(--space-16) var(--space-6)}
+.section-header{margin-bottom:var(--space-8)}
+.section-num{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-red);letter-spacing:0.1em;display:block;margin-bottom:var(--space-2)}
+.section-title{font-size:var(--text-xl);font-weight:700;color:var(--color-text);margin-bottom:var(--space-3)}
+.section-divider{height:1px;background:linear-gradient(90deg,var(--color-red) 0%,transparent 60%);margin-bottom:var(--space-6)}
+.section-lead{font-size:var(--text-base);color:var(--color-text-muted);max-width:72ch;line-height:1.7}
+section[id]{scroll-margin-top:68px}
+
+/* ===== GRID LAYOUTS ===== */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)}
+@media(max-width:900px){.grid-3,.grid-4{grid-template-columns:1fr 1fr}.hero-stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.hero-stats{grid-template-columns:1fr 1fr}}
+
+/* ===== CARDS ===== */
+.card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);transition:border-color var(--transition),transform var(--transition),box-shadow var(--transition)}
+.card:hover{border-color:rgba(170,17,17,0.5);transform:translateY(-2px);box-shadow:0 8px 24px rgba(170,17,17,0.1)}
+.card-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-text);margin-bottom:var(--space-3);letter-spacing:0.04em;text-transform:uppercase}
+.card-icon{color:var(--color-red);margin-bottom:var(--space-3)}
+.card-body{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7}
+
+/* ===== EQUIPMENT CARDS ===== */
+.equip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:var(--space-6)}
+.equip-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color var(--transition),transform var(--transition)}
+.equip-card:hover{border-color:rgba(170,17,17,0.5);transform:translateY(-2px)}
+.equip-img-wrap{position:relative;overflow:hidden;height:210px;background:var(--color-surface-2);cursor:pointer}
+.equip-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease}
+.equip-img-wrap:hover img{transform:scale(1.04)}
+.equip-badge{position:absolute;top:var(--space-3);left:var(--space-3);font-family:var(--font-mono);font-size:var(--text-xs);background:rgba(170,17,17,0.85);color:var(--color-text);padding:var(--space-1) var(--space-2);border-radius:var(--radius-sm);letter-spacing:0.06em;z-index:1}
+.equip-body{padding:var(--space-5)}
+.equip-name{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);letter-spacing:0.04em}
+.equip-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-4)}
+.equip-specs{display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:var(--space-4)}
+.equip-spec{display:flex;justify-content:space-between;font-size:var(--text-xs);border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:var(--space-2)}
+.equip-spec-key{color:var(--color-text-faint);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.05em}
+.equip-spec-val{color:var(--color-gold);font-family:var(--font-mono)}
+.equip-link{display:inline-flex;align-items:center;gap:var(--space-1);font-size:var(--text-xs);color:var(--color-red);font-family:var(--font-mono);letter-spacing:0.05em;transition:color var(--transition)}
+.equip-link:hover{color:var(--color-red-bright)}
+
+/* ===== DATA TABLE ===== */
+.data-table-wrap{overflow-x:auto;border-radius:var(--radius-lg);border:1px solid var(--color-border)}
+.data-table{font-size:var(--text-xs)}
+.data-table thead{background:var(--color-surface-2)}
+.data-table th{font-family:var(--font-display);font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:var(--space-3) var(--space-4);color:var(--color-text-muted);text-align:left;border-bottom:1px solid var(--color-border);white-space:nowrap}
+.data-table td{padding:var(--space-3) var(--space-4);border-bottom:1px solid rgba(255,255,255,0.04);color:var(--color-text-muted);vertical-align:top}
+.data-table tr:hover td{background:rgba(170,17,17,0.05);color:var(--color-text)}
+.data-table td:first-child{color:var(--color-text);font-family:var(--font-display);font-weight:600;letter-spacing:0.02em}
+.data-table a{color:var(--color-red);font-family:var(--font-mono)}
+.data-table a:hover{color:var(--color-red-bright)}
+.cell-qty{font-family:var(--font-mono);color:var(--color-gold)}
+
+/* ===== STAT BARS ===== */
+.stat-bars{display:flex;flex-direction:column;gap:var(--space-4)}
+.stat-bar-item{display:flex;flex-direction:column;gap:var(--space-2)}
+.stat-bar-label{display:flex;justify-content:space-between;align-items:center}
+.stat-bar-name{font-family:var(--font-display);font-size:var(--text-sm);font-weight:600;letter-spacing:0.04em;color:var(--color-text)}
+.stat-bar-val{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-gold)}
+.stat-bar-track{height:6px;background:var(--color-surface-2);border-radius:3px;overflow:hidden}
+.stat-fill{height:100%;background:linear-gradient(90deg,var(--color-red),var(--color-red-bright));border-radius:3px;transition:width 1.2s cubic-bezier(0.16,1,0.3,1)}
+
+/* ===== TIMELINE ===== */
+.timeline{position:relative;padding-left:var(--space-8)}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--color-red) 0%,transparent 100%)}
+.tl-item{position:relative;margin-bottom:var(--space-8)}
+.tl-dot{position:absolute;left:calc(-1 * var(--space-8) - 4px);top:4px;width:10px;height:10px;border-radius:50%;background:var(--color-red-bright);border:2px solid var(--color-bg)}
+.tl-year{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-red);letter-spacing:0.1em;margin-bottom:var(--space-1)}
+.tl-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);letter-spacing:0.02em}
+.tl-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6}
+.tl-desc a{color:var(--color-blue);font-size:var(--text-xs)}
+
+/* ===== INTEL ALERT ===== */
+.intel-alert{background:rgba(170,17,17,0.1);border:1px solid rgba(170,17,17,0.4);border-radius:var(--radius-md);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-6)}
+.intel-alert-head{font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;color:var(--color-red-bright);letter-spacing:0.08em;margin-bottom:var(--space-2);text-transform:uppercase}
+.intel-alert p{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7}
+.intel-alert strong.critical{color:var(--color-red-bright)}
+.intel-alert-gold{background:rgba(255,200,50,0.08);border-color:rgba(255,200,50,0.3)}
+.intel-alert-gold .intel-alert-head{color:var(--color-gold)}
+.intel-alert-teal{background:rgba(45,212,191,0.08);border-color:rgba(45,212,191,0.3)}
+.intel-alert-teal .intel-alert-head{color:var(--color-teal)}
+
+/* ===== MAP ===== */
+.map-container{position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border);cursor:pointer;margin-bottom:var(--space-4)}
+.map-img{width:100%;height:auto;object-fit:cover;transition:transform 0.4s ease}
+.map-container:hover .map-img{transform:scale(1.02)}
+.map-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,12,16,0.9));padding:var(--space-4) var(--space-5)}
+.map-caption{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-red);letter-spacing:0.1em;text-transform:uppercase}
+.map-stats-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:var(--space-4);margin-bottom:var(--space-8)}
+.map-stat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);text-align:center}
+.map-stat-val{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-gold);display:block}
+.map-stat-key{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:0.06em;display:block;margin-top:var(--space-1);text-transform:uppercase}
+
+/* ===== POLICY QUOTE ===== */
+.policy-quote{background:var(--color-surface-2);border-left:3px solid var(--color-red);border-radius:0 var(--radius-md) var(--radius-md) 0;padding:var(--space-6);margin-bottom:var(--space-6);font-size:var(--text-base);color:var(--color-text);line-height:1.8;font-style:italic}
+.policy-quote-attr{display:block;font-style:normal;font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-3);letter-spacing:0.05em}
+.policy-quote-attr a{color:var(--color-blue)}
+
+/* ===== TABS ===== */
+.tab-bar{display:flex;gap:var(--space-2);margin-bottom:var(--space-6);flex-wrap:wrap}
+.tab-btn{font-family:var(--font-display);font-size:var(--text-sm);font-weight:600;letter-spacing:0.04em;padding:var(--space-2) var(--space-5);border-radius:var(--radius-md);border:1px solid var(--color-border);color:var(--color-text-muted);transition:all var(--transition);cursor:pointer}
+.tab-btn.active{background:var(--color-red);border-color:var(--color-red-bright);color:var(--color-text)}
+.tab-btn:hover:not(.active){border-color:rgba(170,17,17,0.5);color:var(--color-text)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* ===== COLLAPSIBLE ===== */
+.collapsible{border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;margin-bottom:var(--space-3)}
+.collapsible-head{display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);font-family:var(--font-display);font-weight:600;letter-spacing:0.04em;cursor:pointer;background:var(--color-surface);transition:background var(--transition)}
+.collapsible-head:hover{background:var(--color-surface-2)}
+.collapsible-head.open{color:var(--color-red-bright)}
+.collapsible-body{display:none;padding:var(--space-5);background:var(--color-surface-2);font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7}
+.collapsible-body.open{display:block}
+.chev{transition:transform var(--transition);color:var(--color-text-faint)}
+.collapsible-head.open .chev{transform:rotate(180deg)}
+
+/* ===== INLINE FIGURE ===== */
+.inline-img{margin:var(--space-6) 0;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border);cursor:pointer}
+.inline-img img{width:100%;transition:transform 0.4s ease}
+.inline-img:hover img{transform:scale(1.02)}
+.inline-img figcaption{padding:var(--space-3) var(--space-5);background:var(--color-surface-2);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:0.05em}
+
+/* ===== DOCTRINE CARDS ===== */
+.doctrine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:var(--space-5)}
+.doctrine-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);position:relative;overflow:hidden;transition:border-color var(--transition)}
+.doctrine-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--color-red),transparent)}
+.doctrine-card:hover{border-color:rgba(170,17,17,0.4)}
+.doctrine-card-num{font-family:var(--font-mono);font-size:2rem;font-weight:700;color:rgba(170,17,17,0.15);position:absolute;top:var(--space-3);right:var(--space-4);line-height:1}
+.doctrine-card-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-red-bright);letter-spacing:0.04em;margin-bottom:var(--space-3);text-transform:uppercase}
+.doctrine-card-body{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7}
+
+/* ===== RISK SCENARIO ===== */
+.scenario-card{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6)}
+.scenario-head{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-text);margin-bottom:var(--space-4);letter-spacing:0.04em;text-transform:uppercase}
+.scenario-row{display:grid;grid-template-columns:auto 1fr;gap:var(--space-3) var(--space-4);margin-bottom:var(--space-3)}
+.scenario-key{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;padding-top:2px}
+.scenario-val{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6}
+.probability-bars{margin-top:var(--space-5)}
+.prob-label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:0.06em;margin-bottom:var(--space-2);text-transform:uppercase}
+.prob-track{height:8px;background:var(--color-surface-3);border-radius:4px;overflow:hidden;margin-bottom:var(--space-4)}
+.prob-fill{height:100%;border-radius:4px}
+.prob-fill.critical{background:linear-gradient(90deg,#7a0000,var(--color-red-bright))}
+.prob-fill.high{background:linear-gradient(90deg,#7a5500,var(--color-gold))}
+.prob-fill.medium{background:linear-gradient(90deg,#0a4444,var(--color-teal))}
+
+/* ===== SOURCES ===== */
+.source-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)}
+@media(max-width:768px){.source-grid{grid-template-columns:1fr}}
+.source-col-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-red-bright);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:var(--space-4);padding-bottom:var(--space-3);border-bottom:1px solid var(--color-border)}
+.source-list{list-style:none;display:flex;flex-direction:column;gap:var(--space-3)}
+.source-item{font-size:var(--text-xs)}
+.source-item a{color:var(--color-text-muted);transition:color var(--transition);display:block;padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);border:1px solid transparent;transition:all var(--transition)}
+.source-item a:hover{color:var(--color-text);background:var(--color-surface);border-color:var(--color-border)}
+.source-item .src-org{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:0.06em;display:block;text-transform:uppercase;margin-top:2px}
+
+/* ===== LIGHTBOX ===== */
+#lightbox{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;flex-direction:column;gap:var(--space-4);padding:var(--space-8)}
+#lightbox.active{display:flex}
+#lightbox-img{max-width:90vw;max-height:80vh;border-radius:var(--radius-lg);border:1px solid var(--color-border);object-fit:contain}
+#lightbox-cap{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:0.06em;text-align:center;max-width:600px}
+#lightbox-close{position:absolute;top:var(--space-6);right:var(--space-6);width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--color-text-muted);cursor:pointer;border:1px solid var(--color-border);border-radius:50%;transition:all var(--transition)}
+#lightbox-close:hover{color:var(--color-text);border-color:var(--color-red);background:rgba(170,17,17,0.1)}
+
+/* ===== FOOTER ===== */
+footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--space-6);text-align:center}
+.footer-inner{max-width:1280px;margin:0 auto}
+.footer-notice{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:0.06em;line-height:1.8}
+.classification-badge{display:inline-block;border:1px solid var(--color-red);border-radius:var(--radius-sm);padding:var(--space-1) var(--space-3);color:var(--color-red);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.1em;margin-bottom:var(--space-4)}
+
+/* ===== MISC ===== */
+.highlight{color:var(--color-red-bright)}
+.highlight-gold{color:var(--color-gold)}
+.highlight-teal{color:var(--color-teal)}
+.mono{font-family:var(--font-mono)}
+.section-bg-alt{background:var(--color-surface)}
+strong.danger{color:var(--color-red-bright)}
+strong.warning{color:var(--color-gold)}
+.mb-6{margin-bottom:var(--space-6)}
+.mt-6{margin-top:var(--space-6)}
+.triad-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5)}
+@media(max-width:700px){.triad-grid{grid-template-columns:1fr}}
+.triad-card{background:var(--color-surface-2);border:1px solid var(--color-border-2);border-radius:var(--radius-lg);padding:var(--space-5);text-align:center}
+.triad-icon{font-size:2.5rem;margin-bottom:var(--space-3)}
+.triad-title{font-family:var(--font-display);font-weight:700;color:var(--color-gold);letter-spacing:0.06em;margin-bottom:var(--space-2);text-transform:uppercase}
+.triad-status{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:0.06em;margin-bottom:var(--space-3);text-transform:uppercase}
+.triad-body{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6}
+.xref-wrap{margin-top:var(--space-6);padding:var(--space-4);background:var(--color-surface);border:1px solid var(--color-border-2);border-radius:var(--radius-md);display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3)}
+.xref-label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-gold);letter-spacing:0.08em;text-transform:uppercase}
+.xref-chip{font-family:var(--font-mono);font-size:var(--text-xs);padding:var(--space-1) var(--space-3);border:1px solid rgba(255,200,50,0.25);border-radius:var(--radius-full,9999px);color:var(--color-gold);transition:all var(--transition)}
+.xref-chip:hover{background:rgba(255,200,50,0.1);border-color:var(--color-gold)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:start}
+@media(max-width:768px){.two-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<!-- ===== STICKY NAV ===== -->
+<nav class="nav" role="navigation" aria-label="Dossier navigation">
+  <div class="nav-inner">
+    <span class="nav-brand">🇰🇵 DPRK // A-06</span>
+    <div class="nav-links">
+      <a href="#section-map" class="nav-link">MAP</a>
+      <a href="#section-overview" class="nav-link">OVERVIEW</a>
+      <a href="#section-ground" class="nav-link">GROUND</a>
+      <a href="#section-navy" class="nav-link">NAVY</a>
+      <a href="#section-airforce" class="nav-link">AIR FORCE</a>
+      <a href="#section-rocket" class="nav-link">MISSILES</a>
+      <a href="#section-nuclear" class="nav-link">NUCLEAR</a>
+      <a href="#section-special" class="nav-link">WMD/SOF</a>
+      <a href="#section-cyber" class="nav-link">CYBER</a>
+      <a href="#section-doctrine" class="nav-link">DOCTRINE</a>
+      <a href="#section-foreign" class="nav-link">FOREIGN</a>
+      <a href="#section-risk" class="nav-link">RISK</a>
+      <a href="#section-sources" class="nav-link">SOURCES</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-flag">🇰🇵</div>
+    <div class="hero-eyebrow">CLASSIFIED OPEN-SOURCE ANALYSIS // MARCH 2026 // A-06</div>
+    <h1 class="hero-title">
+      <span class="native">조선민주주의인민공화국</span>
+      DEMOCRATIC PEOPLE'S REPUBLIC OF KOREA
+    </h1>
+    <p class="hero-subtitle">A nuclear-armed totalitarian state with one of the world's largest conventional armies, operational ICBM capability, and increasingly sophisticated cyber warfare operations — presenting a multi-domain critical threat to regional and global stability.</p>
+    <div class="threat-pill threat-critical">⚠ THREAT LEVEL: CRITICAL</div>
+    <p class="hero-stamp">Korean People's Army · Strategic Rocket Force · Korean People's Navy · Korean People's Air Force · Special Operations Force · Reconnaissance General Bureau</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-val">~1.28M</span><span class="hero-stat-key">Active Personnel</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">~$4B</span><span class="hero-stat-key">Est. Defense Budget</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">40–50</span><span class="hero-stat-key">Nuclear Warheads</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">0</span><span class="hero-stat-key">Aircraft Carriers</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">70+</span><span class="hero-stat-key">Submarines (all types)</span></div>
+    </div>
+    <div class="scroll-cue"><i data-lucide="chevron-down" style="width:28px;height:28px;color:var(--color-red)"></i></div>
+  </div>
+</section>
+
+<!-- ===== SECTION 01: GEOGRAPHIC OVERVIEW ===== -->
+<section id="section-map">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">01 // GEOGRAPHIC OVERVIEW</span>
+    <h2 class="section-title">Korean Peninsula & Strategic Geography</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">North Korea occupies the northern half of the Korean Peninsula, a strategically critical landmass flanked by China, Russia, and South Korea. Its mountainous terrain and geography provide natural defensive depth while creating isolation that amplifies regime control.</p>
+  </div>
+
+  <div class="two-col mb-6">
+    <div>
+      <div class="map-container" onclick="openLightbox(this.querySelector('img').src,'Korean Peninsula satellite view — North Korea occupies the northern half. Note mountainous terrain providing natural defense depth.')">
+        <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/09fed731502c680df6ca3b424b9c180072f2fcb4.jpg" alt="Korean Peninsula satellite view" width="800" height="600" loading="lazy">
+        <div class="map-overlay"><div class="map-caption">SATELLITE OVERVIEW // KOREAN PENINSULA</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="map-container" onclick="openLightbox(this.querySelector('img').src,'Korean DMZ — the most heavily militarized border in the world, separating North from South Korea along the 38th parallel.')">
+        <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a27fa1dfa037120f486386d84537dce6d7ea690f.jpg" alt="Korean DMZ NASA satellite view" width="800" height="600" loading="lazy">
+        <div class="map-overlay"><div class="map-caption">DMZ // NASA SATELLITE // 38TH PARALLEL</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-stats-row">
+    <div class="map-stat"><span class="map-stat-val">120,538</span><span class="map-stat-key">Area km²</span></div>
+    <div class="map-stat"><span class="map-stat-val">~25.9M</span><span class="map-stat-key">Population</span></div>
+    <div class="map-stat"><span class="map-stat-val">1,420 km</span><span class="map-stat-key">China Border</span></div>
+    <div class="map-stat"><span class="map-stat-val">19 km</span><span class="map-stat-key">Russia Border</span></div>
+    <div class="map-stat"><span class="map-stat-val">250 km</span><span class="map-stat-key">DMZ Length</span></div>
+    <div class="map-stat"><span class="map-stat-val">2,495 km</span><span class="map-stat-key">Coastline</span></div>
+  </div>
+
+  <figure class="inline-img" onclick="openLightbox(this.querySelector('img').src,'US military bases in South Korea and North Korean artillery threat zones — 28,500 US troops forward deployed on the Korean Peninsula.')">
+    <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/853d00f5325153535d9d74d97656454467146f1f.jpg" alt="Map of US military bases and North Korean threat zones on Korean Peninsula" width="1120" height="1120" loading="lazy">
+    <figcaption>US MILITARY BASES (ORANGE) vs NORTH KOREAN ARTILLERY & MISSILE THREAT ZONES (RED) — KOREAN PENINSULA // Source: DoD USFK</figcaption>
+  </figure>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚠ STRATEGIC CONSTRAINT — GEOGRAPHIC CHOKEPOINT</div>
+    <p>North Korea's greatest strategic liability is also its primary offensive asset: proximity to Seoul. The South Korean capital — home to 25+ million in the metro area — lies within <strong class="critical">artillery range (40–60 km) of the DMZ</strong>. This creates a de facto hostage situation that constrains US-ROK military options and amplifies deterrence. Simultaneously, the Yalu and Tumen rivers on the northern border provide natural barriers but create dependence on Chinese and Russian goodwill. China controls the primary land corridor, 70%+ of North Korean trade, and energy supply — making DPRK geopolitically dependent on Beijing despite ideological friction.</p>
+  </div>
+
+  <div class="grid-3 mb-6">
+    <div class="card">
+      <div class="card-title">Terrain Advantage</div>
+      <div class="card-body">80% of DPRK territory is mountainous, providing excellent defensive terrain and hiding space for military installations, hardened tunnels, and underground facilities. The Nangnim, Hamgyong, and Rangrim ranges form natural barriers against ground invasion from the north.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Dual Coastlines</div>
+      <div class="card-body">North Korea maintains a West Sea Fleet (Yellow Sea) and East Sea Fleet (Sea of Japan) — strategically separated by the peninsula. Both coasts provide submarine access to target South Korea and Japan. The East Sea coast offers SLBM launch positions threatening Japan and the US Pacific.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">China Dependency</div>
+      <div class="card-body">The Sino-DPRK border along the Yalu and Tumen rivers is North Korea's economic lifeline. China accounts for ~92% of North Korean trade. The Rajin-Khasan rail corridor to Russia provides secondary access. Any land invasion from the south triggers Chinese strategic concern about a US-allied state on its border.</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);color:var(--color-text);margin-bottom:var(--space-4);font-size:var(--text-base);letter-spacing:0.04em;text-transform:uppercase">Territorial Claims & Strategic Disputes</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Dispute</th><th>Parties</th><th>Nature</th><th>Status</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>Korean DMZ</td><td class="cell-qty">DPRK / ROK / USA</td><td>Armistice line, not a peace treaty border</td><td>Active — frequent violations</td><td><a href="https://www.usfk.mil" target="_blank" rel="noopener">USFK →</a></td></tr>
+        <tr><td>Northern Limit Line (NLL)</td><td class="cell-qty">DPRK / ROK</td><td>Maritime boundary, DPRK rejects as illegal</td><td>Flashpoint — naval clashes (1999, 2002, 2009, 2010)</td><td><a href="https://www.rand.org" target="_blank" rel="noopener">RAND →</a></td></tr>
+        <tr><td>Kaesong Industrial Complex</td><td class="cell-qty">DPRK / ROK</td><td>Joint economic zone near DMZ, suspended 2016</td><td>Closed — diplomatic limbo</td><td><a href="https://www.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>DPRK–Russia Border</td><td class="cell-qty">DPRK / Russia</td><td>19 km Tumen River border — historically contested</td><td>Stable — deepening alliance 2023–2026</td><td><a href="https://www.armscontrol.org" target="_blank" rel="noopener">ACA →</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 02: MILITARY OVERVIEW ===== -->
+<section id="section-overview" class="section-bg-alt">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">02 // MILITARY OVERVIEW</span>
+    <h2 class="section-title">Korean People's Army — Force Assessment</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">The Korean People's Army is one of the world's largest military forces by personnel, with approximately 1.28 million active troops and 7.6 million reservists. Characterized by quantity over quality in conventional forces, the KPA compensates through nuclear deterrence, massive artillery, advanced asymmetric capabilities, and increasingly sophisticated cyber and missile programs.</p>
+  </div>
+
+  <figure class="inline-img mb-6" onclick="openLightbox(this.querySelector('img').src,'North Korean military parade featuring nuclear-capable missile systems — Pyongyang 2023. Kim Jong Un and daughter Kim Ju-ae observe from the reviewing stand.')">
+    <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/883069827a1764f195bc1b10974ba2b656b89039.jpg" alt="North Korean military parade with nuclear-capable missiles and leadership" width="1920" height="1440" loading="lazy">
+    <figcaption>KIM JONG UN PRESIDES OVER MILITARY PARADE FEATURING NUCLEAR-CAPABLE SYSTEMS // PYONGYANG // 2023</figcaption>
+  </figure>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">⚠ EXECUTIVE ASSESSMENT — MARCH 2026</div>
+    <p>The DPRK represents a <strong class="critical">Tier 1 nuclear threat</strong> with demonstrated ICBM capability reaching North America. While conventional forces are aging and logistically constrained, the combination of <strong class="critical">nuclear weapons, 13,500+ artillery pieces targeting Seoul, 200,000 special operations forces, and nation-state cyber capabilities</strong> makes North Korea one of the most complex deterrence challenges facing the United States and its allies. The 2024–2026 Russia-DPRK military alliance has significantly strengthened both states' capabilities and signaled a new axis of revisionist cooperation that complicates regional security.</p>
+  </div>
+
+  <div class="two-col">
+    <div class="stat-bars">
+      <h3 style="font-family:var(--font-display);color:var(--color-text-muted);font-size:var(--text-sm);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-5)">Service Branch Personnel</h3>
+      <div class="stat-bar-item">
+        <div class="stat-bar-label"><span class="stat-bar-name">Ground Forces (KPA)</span><span class="stat-bar-val">~1,000,000</span></div>
+        <div class="stat-bar-track"><div class="stat-fill" style="width:85%"></div></div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-label"><span class="stat-bar-name">Special Ops Force</span><span class="stat-bar-val">~200,000</span></div>
+        <div class="stat-bar-track"><div class="stat-fill" style="width:65%"></div></div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-label"><span class="stat-bar-name">Strategic Rocket Force</span><span class="stat-bar-val">~180,000</span></div>
+        <div class="stat-bar-track"><div class="stat-fill" style="width:58%"></div></div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-label"><span class="stat-bar-name">Air &amp; Anti-Air Force</span><span class="stat-bar-val">~110,000</span></div>
+        <div class="stat-bar-track"><div class="stat-fill" style="width:42%"></div></div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-label"><span class="stat-bar-name">Navy (KPN)</span><span class="stat-bar-val">~60,000</span></div>
+        <div class="stat-bar-track"><div class="stat-fill" style="width:28%"></div></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);color:var(--color-text-muted);font-size:var(--text-sm);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-5)">Modernization Timeline</h3>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2006 — NUCLEAR TEST 1</div>
+          <div class="tl-title">First Nuclear Test, Punggye-ri</div>
+          <div class="tl-desc">October 9, 2006: North Korea conducts first underground nuclear test. Estimated yield 0.7–2 kt. International condemnation, UNSC Resolution 1718 sanctions imposed. <a href="https://www.armscontrol.org/factsheets/dprkchron" target="_blank" rel="noopener">Arms Control Association →</a></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2009–2017 — ACCELERATED TESTS</div>
+          <div class="tl-title">Five Additional Nuclear Tests</div>
+          <div class="tl-desc">DPRK conducts Tests 2–6 (2009, 2013, two in 2016, 2017). Test 6 (September 2017) estimated at 250 kt — hydrogen bomb scale. Program advances from fission to thermonuclear. <a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS Missile Threat →</a></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2017 — ICBM CAPABILITY</div>
+          <div class="tl-title">Hwasong-14 & -15 Demonstrate ICBM Range</div>
+          <div class="tl-desc">Two Hwasong-14 tests (July 2017) and Hwasong-15 (November 2017) demonstrate range reaching continental US. North Korea declares nuclear deterrent force complete. <a href="https://missilethreat.csis.org/missile/hwasong-15-ks-17/" target="_blank" rel="noopener">CSIS →</a></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2022 — SURGE TESTING</div>
+          <div class="tl-title">Record Missile Test Year</div>
+          <div class="tl-desc">North Korea conducts 37 ballistic missile launches in 2022 — its most active test year. Hwasong-17 "monster missile" tested March 2022. Hypersonic glide vehicle tests conducted. <a href="https://www.38north.org" target="_blank" rel="noopener">38 North →</a></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2023–2024 — RUSSIA ALLIANCE</div>
+          <div class="tl-title">DPRK Troops Deploy to Russia for Ukraine War</div>
+          <div class="tl-desc">North Korea provides Russia with 13,000+ artillery shells, KN-23/KN-24 missiles, and deploys ~12,000 troops to Russian-occupied Ukraine (confirmed October 2024). Putin-Kim summit June 2024. <a href="https://www.defense.gov" target="_blank" rel="noopener">DoD →</a></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2024–2025 — SOLID FUEL ICBMs</div>
+          <div class="tl-title">Hwasong-18 Solid-Fuel ICBM Operational</div>
+          <div class="tl-desc">Hwasong-18 solid-fuel ICBM tested and declared operational. Solid fuel provides faster launch preparation and survivability against pre-emptive strike. Represents significant capability advancement. <a href="https://missilethreat.csis.org/missile/hwasong-18/" target="_blank" rel="noopener">CSIS Missile Threat →</a></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2025–2026 — NUCLEAR EXPANSION</div>
+          <div class="tl-title">Warhead Production Accelerated</div>
+          <div class="tl-desc">Intelligence assessments indicate Yongbyon complex operating at full capacity. SIPRI estimates 40–50 warheads as of 2025, with production rate suggesting 7–10 new warheads/year possible. <a href="https://fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener">FAS Nuclear Notebook →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 03: GROUND FORCE ===== -->
+<section id="section-ground">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">03 // GROUND FORCE</span>
+    <h2 class="section-title">Korean People's Army — Ground Forces</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">The KPA Ground Forces, with approximately 1 million active personnel, represent the world's fourth-largest army. Organized for offensive operations against South Korea, the force maintains 80+ infantry divisions, 8 armored brigades, and 25+ special operations brigades positioned primarily along the DMZ. Despite aging equipment, sheer mass and forward positioning make this force a critical regional threat.</p>
+  </div>
+
+  <div class="equip-grid mb-6">
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'Pokpung-ho (Chonma-216) Main Battle Tank — North Korea\'s most capable indigenous MBT. ~200+ in service.')">
+        <span class="equip-badge">MAIN BATTLE TANK</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/North_Korea_Victory_Day_122_%289465927866%29_%28cropped%29.jpg" alt="Pokpung-ho main battle tanks" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Pokpung-ho (M-2002) / Chonma-216</div>
+        <div class="equip-desc">North Korea's primary indigenous main battle tank. Incorporates features similar to Russian T-72/T-62 with local modifications including ERA armor and laser rangefinders. The latest Chonma-216 variant adds improved fire control and reportedly anti-tank guided missiles. Thousands of older T-54/55/62 variants also in inventory.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">~200+ Pokpung-ho; ~3,500+ total MBTs</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Main Gun</span><span class="equip-spec-val">125mm smoothbore</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Max Speed</span><span class="equip-spec-val">65 km/h (road)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Armor</span><span class="equip-spec-val">Composite + ERA (upgrades)</span></div>
+        </div>
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'Koksan M1978 170mm Self-Propelled Howitzer — capable of striking Seoul from north of the DMZ. Confirmed use in Ukraine.')">
+        <span class="equip-badge">SELF-PROPELLED ARTILLERY</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/8850c960f04c0ff1b048b48c1fcedd62fbe3d055.jpg" alt="Koksan 170mm self-propelled artillery" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">M1978 Koksan 170mm SPH</div>
+        <div class="equip-desc">The Koksan is North Korea's most feared conventional weapon vis-à-vis Seoul. With a 40–60 km effective range, it can engage targets throughout the Seoul metropolitan area from hardened positions north of the DMZ. Approximately 500 units are in service, with hundreds transferred to Russia for use in Ukraine. Slow rate of fire (~2 rounds/hour) is offset by sheer numbers and pre-emplacement.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">~500 systems</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Caliber</span><span class="equip-spec-val">170mm</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">40–60 km (standard) / 70 km (rocket-assisted)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">HE, HERA, possible CHEM</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'North Korean soldiers conducting infantry tactical training — KPA emphasizes mass infantry assault backed by artillery saturation.')">
+        <span class="equip-badge">INFANTRY / SOF</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b0ae08f848d25dee10c3730771d8c914bfa261cd.jpg" alt="North Korean infantry training" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">KPA Light Infantry / Storm Corps</div>
+        <div class="equip-desc">North Korea's conventional infantry is organized for mass assault tactics developed during the Korean War era, supplemented by extensive tunnel warfare doctrine. The elite Storm Corps (폭풍군단) comprises mechanized infantry with ATGM capability and is positioned for rapid exploitation following artillery preparation. Special emphasis on night operations, which offset DPRK's technological deficit.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Active Infantry</span><span class="equip-spec-val">~700,000 ground troops</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Reserve</span><span class="equip-spec-val">5.7M–7.6M (Worker-Peasant Militia)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Divisions</span><span class="equip-spec-val">80+ infantry, 8 armored brigades</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Tunnels</span><span class="equip-spec-val">4+ known DMZ tunnels; possibly 20+ undetected</span></div>
+        </div>
+        <a href="https://www.rand.org/topics/north-korea.html" target="_blank" rel="noopener" class="equip-link">RAND North Korea →  <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="intel-alert intel-alert-gold mb-6">
+    <div class="intel-alert-head">⚠ ARTILLERY THREAT ASSESSMENT — CRITICAL</div>
+    <p>North Korea maintains approximately <strong class="critical">13,500 artillery pieces</strong> capable of reaching Seoul and the surrounding metropolitan area (pop. 25+ million). In a worst-case scenario without successful counter-battery fire, sustained barrage could produce <strong class="critical">30,000–100,000+ civilian casualties in the first hours</strong>. ROK-US counter-battery radar, air defense, and pre-emptive strike plans (OPLAN 5015) aim to suppress this threat rapidly, but complete elimination is not achievable in early hours of conflict. This artillery capability is North Korea's most immediate asymmetric advantage.</p>
+  </div>
+
+  <h3 style="font-family:var(--font-display);color:var(--color-text);margin-bottom:var(--space-4);font-size:var(--text-base);letter-spacing:0.04em;text-transform:uppercase">Ground Force Order of Battle</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>System / Unit</th><th>Quantity</th><th>Role</th><th>Notes</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>Pokpung-ho MBT</td><td class="cell-qty">200+</td><td>Main battle tank</td><td>Best NK armor; limited to ~200 modern; 3,500+ older T-54/55/62/PT-76</td><td><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS →</a></td></tr>
+        <tr><td>BMP-1 / Ch'ŏnma IFV</td><td class="cell-qty">2,500+</td><td>Infantry fighting vehicle</td><td>Soviet-era IFV with local variants; significant attrition expected against modern ATGMs</td><td><a href="https://globalfirepower.com" target="_blank" rel="noopener">GFP →</a></td></tr>
+        <tr><td>Koksan M1978 170mm</td><td class="cell-qty">~500</td><td>Long-range SPH</td><td>Seoul range; 500+ transferred to Russia for Ukraine 2022–2024</td><td><a href="https://www.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>M-1985 240mm MLRS</td><td class="cell-qty">~200+</td><td>Multiple launch rocket</td><td>40–60 km range; saturation capability; potential chemical warhead</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>KN-09 300mm MLRS</td><td class="cell-qty">~100+</td><td>Long-range MLRS</td><td>200 km range; cluster munitions / thermobaric / unitary HE</td><td><a href="https://missilethreat.csis.org/missile/kn-09/" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>D-74 / D-30 Howitzer</td><td class="cell-qty">3,000+</td><td>Field artillery</td><td>122mm / 130mm; older but numerous; conventional and chemical warheads</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></td></tr>
+        <tr><td>AT-3/AT-5 ATGM</td><td class="cell-qty">Est. 10,000+</td><td>Anti-tank guided missile</td><td>Sagger/Spandrel variants; significant threat to older ROK armor</td><td><a href="https://www.rand.org" target="_blank" rel="noopener">RAND →</a></td></tr>
+        <tr><td>MANPADS (SA-7/16)</td><td class="cell-qty">Est. 10,000+</td><td>Man-portable air defense</td><td>Threat to low-flying helicopters and aircraft; widespread infantry distribution</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">Janes →</a></td></tr>
+        <tr><td>DMZ Tunnel Network</td><td class="cell-qty">4 confirmed (20+ est.)</td><td>Infiltration corridor</td><td>Large tunnels capable of passing thousands of troops/hour under DMZ</td><td><a href="https://beyondparallel.csis.org" target="_blank" rel="noopener">CSIS Beyond Parallel →</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 04: NAVY ===== -->
+<section id="section-navy" class="section-bg-alt">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">04 // KOREAN PEOPLE'S NAVY</span>
+    <h2 class="section-title">Naval Forces & Submarine Fleet</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">The Korean People's Navy (KPN) operates approximately 70+ submarines of varying types — one of the world's largest submarine fleets numerically — alongside frigates, fast attack craft, and amphibious vessels. Despite aging surface assets, the DPRK submarine force poses a significant asymmetric threat through torpedo attacks, SLBM launches, and special operations insertion.</p>
+  </div>
+
+  <div class="equip-grid mb-6">
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'North Korean ballistic missile submarine under construction at Sinpho South Shipyard — annotated satellite image showing missile tube hatches and launch infrastructure.')">
+        <span class="equip-badge">BALLISTIC MISSILE SUB</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/9dc82c65050615da7f202eb7976a3b63a9890d8d.jpg" alt="North Korean submarine at Sinpho shipyard satellite" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Hero Kim Kun Ok SSBN (Project 941)</div>
+        <div class="equip-desc">North Korea unveiled its first purpose-built ballistic missile submarine in September 2023. Designated "Hero Kim Kun Ok," this vessel reportedly carries 10 submarine-launched ballistic missile (SLBM) tubes. While Western analysts question initial operational readiness and survivability, the platform represents a second-strike capability development that could complicate US-ROK targeting in a conflict. Older Sinpo-C experimental SLBM submarine also in service.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Type</span><span class="equip-spec-val">SSBN (diesel-electric)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Missiles</span><span class="equip-spec-val">Est. 10 × Pukguksong-3/5 SLBM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Commissioned Sept 2023; questionable readiness</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Acoustic</span><span class="equip-spec-val">High noise signature; vulnerable to ASW</span></div>
+        </div>
+        <a href="https://www.38north.org/2023/09/north-koreas-first-tactical-nuclear-attack-submarine/" target="_blank" rel="noopener" class="equip-link">38 North Analysis <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'Comparison of North Korean submarine types including Sang-O, Yono, Romeo classes — KPN operates world\'s largest numerically small submarine fleet.')">
+        <span class="equip-badge">SUBMARINE FLEET</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/02a9915cda32e128880c60c48c3e0cd1d91171af.jpg" alt="Guide to North Korean submarine types" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Sang-O / Romeo / Yono Class Submarines</div>
+        <div class="equip-desc">The KPN's primary submarine force consists of 23–27 Romeo-class medium submarines (Soviet design), approximately 40 Sang-O coastal submarines, and a small number of the stealthy Yono-class midget submarine (responsible for sinking the ROK corvette Cheonan in 2010). These platforms specialize in coastal defense, special forces insertion, and anti-shipping in the shallow Yellow Sea and Sea of Japan.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Romeo Class</span><span class="equip-spec-val">23–27 medium submarines</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Sang-O Class</span><span class="equip-spec-val">~40 coastal submarines</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Yono Midget</span><span class="equip-spec-val">~10 (sank ROKS Cheonan 2010)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Armament</span><span class="equip-spec-val">Torpedoes, mines, commando insertion</span></div>
+        </div>
+        <a href="https://www.naval-technology.com" target="_blank" rel="noopener" class="equip-link">Naval Technology <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'North Korean new warship featuring phased array radar and vertical launch system — most capable KPN surface combatant, unveiled 2023.')">
+        <span class="equip-badge">NEW FRIGATE</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b66416eed4ef24c4406586a79116b794f98921ce.jpg" alt="North Korean new VLS frigate" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">New KPN Frigate (VLS / AESA Radar)</div>
+        <div class="equip-desc">In 2023–2024, North Korea unveiled a new surface combatant featuring what appears to be vertical launch system cells and phased array radar — a significant qualitative leap from the KPN's aging Soviet-era frigates. If VLS capability is confirmed operational, this would provide DPRK with its first credible area air defense ship. Intelligence community assesses Russian technical assistance in its development, consistent with the 2024 military cooperation treaty.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">Est. 2,000–3,000 tons</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Sensors</span><span class="equip-spec-val">AESA-type radar (unconfirmed)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">VLS</span><span class="equip-spec-val">Est. 16–32 cells (type unconfirmed)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Newly launched; operational readiness unknown</span></div>
+        </div>
+        <a href="https://thedrive.com/the-war-zone" target="_blank" rel="noopener" class="equip-link">The War Zone <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);color:var(--color-text);margin-bottom:var(--space-4);font-size:var(--text-base);letter-spacing:0.04em;text-transform:uppercase">Naval Order of Battle</h3>
+  <div class="data-table-wrap mb-6">
+    <table class="data-table">
+      <thead><tr><th>Class / Type</th><th>Qty</th><th>Fleet</th><th>Role</th><th>Notes</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>Hero Kim Kun Ok SSBN</td><td class="cell-qty">1</td><td>East Sea</td><td>SLBM strategic deterrent</td><td>Unveiled Sept 2023; questionable ASW survivability</td><td><a href="https://www.38north.org" target="_blank" rel="noopener">38N →</a></td></tr>
+        <tr><td>Romeo-class SS</td><td class="cell-qty">23–27</td><td>Both fleets</td><td>Anti-shipping, mine, SOF insert</td><td>Soviet 1950s design; noisy; likely high attrition in war</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></td></tr>
+        <tr><td>Sang-O class SS</td><td class="cell-qty">~40</td><td>Coastal</td><td>Coastal defense, SOF infiltration</td><td>Indigenously built; trapped Korean waters 1996 incident</td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">NT →</a></td></tr>
+        <tr><td>Yono midget sub</td><td class="cell-qty">~10</td><td>Both fleets</td><td>Covert operations, mine laying</td><td>Sank ROKS Cheonan March 2010 (46 killed)</td><td><a href="https://www.rand.org" target="_blank" rel="noopener">RAND →</a></td></tr>
+        <tr><td>Najin-class frigate</td><td class="cell-qty">2</td><td>Both fleets</td><td>Surface combatant (obsolete)</td><td>1970s-era; 1×100mm gun; minimal capability</td><td><a href="https://globalfirepower.com" target="_blank" rel="noopener">GFP →</a></td></tr>
+        <tr><td>New VLS Frigate</td><td class="cell-qty">1</td><td>East Sea (est.)</td><td>Area air defense / anti-ship</td><td>First AESA/VLS ship; 2023–2024 unveil; likely Russian-assisted</td><td><a href="https://thedrive.com/the-war-zone" target="_blank" rel="noopener">TWZ →</a></td></tr>
+        <tr><td>Soho-class fast attack</td><td class="cell-qty">~6</td><td>Both fleets</td><td>Fast attack missile boat</td><td>4× SSN-2 Styx anti-ship missiles; aging</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></td></tr>
+        <tr><td>Amphibious craft (LCVP/LCM)</td><td class="cell-qty">250+</td><td>Both fleets</td><td>Amphibious assault / SOF insert</td><td>Primary vehicle for commando insertion on ROK coasts</td><td><a href="https://crsreports.congress.gov" target="_blank" rel="noopener">CRS →</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="intel-alert intel-alert-teal">
+    <div class="intel-alert-head">🔵 NAVAL THREAT ASSESSMENT</div>
+    <p>The KPN is not a blue-water force. Its primary threat is asymmetric: <strong class="critical">submarine ambush</strong> of ROK/US surface ships in the shallow Yellow Sea and Sea of Japan, <strong class="critical">special operations insertion</strong> via midget submarines and hovercraft, and <strong class="critical">SLBM second-strike</strong> capability from the Hero Kim Kun Ok. The new VLS frigate, if operational, represents a qualitative shift worth monitoring. In an open conventional naval engagement against USS carrier strike groups, the KPN would be decimated within hours — but guerrilla submarine tactics in coastal waters remain a serious threat.</p>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 05: AIR FORCE ===== -->
+<section id="section-airforce">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">05 // KOREAN PEOPLE'S AIR &amp; ANTI-AIR FORCE</span>
+    <h2 class="section-title">Air Force & Air Defense</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">The Korean People's Air and Anti-Air Force (KPAAF) operates approximately 950–1,000 aircraft, making it numerically significant but technologically obsolete. Most combat aircraft are Cold War-era Soviet designs that are outmatched by modern ROK and US platforms. DPRK compensates through mass, dispersed basing, hardened underground hangars, and recently a growing UAV program.</p>
+  </div>
+
+  <div class="equip-grid mb-6">
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'MiG-29 Fulcrum — North Korea\'s most capable fighter aircraft. Russia reportedly transferring additional examples in 2024–2025 under the military cooperation agreement.')">
+        <span class="equip-badge">FRONTLINE FIGHTER</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/45aed91fc84f6a571221bb064ffe1176446cf4fb.jpg" alt="MiG-29 Fulcrum fighter jet" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">MiG-29A/B Fulcrum</div>
+        <div class="equip-desc">North Korea's most capable combat aircraft. Approximately 35–40 MiG-29s form the KPAAF's frontline interceptor force. Capable of beyond-visual-range engagements with R-27 AA missiles, it represents a credible threat to older ROK F-4s and A-10s but is outmatched by F-35As and F-15Ks. Russia-DPRK military cooperation agreement reportedly includes transfer of upgraded MiG-29s and Su-27s, potentially increasing capability significantly by 2026–2027.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">~35–40</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Max Speed</span><span class="equip-spec-val">Mach 2.25</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Armament</span><span class="equip-spec-val">R-27, R-60, R-73 AAM; GSh-30-1 cannon</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">BVR Radar</span><span class="equip-spec-val">RLPK-29 (Slot Back)</span></div>
+        </div>
+        <a href="https://www.airforce-technology.com/projects/mig-29-fulcrum/" target="_blank" rel="noopener" class="equip-link">Airforce Technology <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'Kim Jong Un inspects drone program — DPRK has significantly expanded UAV capabilities including a Global Hawk-type strategic reconnaissance drone and kamikaze loitering munitions.')">
+        <span class="equip-badge">STRATEGIC UAV</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/841389ff51ef4e3eefd0db56d3c1547dadcbe505.jpg" alt="Kim Jong Un inspects North Korean drone program" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">DPRK UAV Program (Saetbyol & RQ-4 Type)</div>
+        <div class="equip-desc">Kim Jong Un declared UAV development a "top priority" in 2023. North Korea has unveiled a large-wingspan strategic reconnaissance drone resembling the US RQ-4 Global Hawk, alongside tactical surveillance UAVs and KN-24-equivalent loitering munitions. In December 2022, five DPRK drones successfully penetrated South Korean airspace, including one reaching a no-fly zone 48 km from the presidential palace — exposing serious gaps in ROK/US air defenses against slow, low-flying UAS.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Strategic Recon</span><span class="equip-spec-val">1 RQ-4-type observed (est. few built)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Tactical UAV</span><span class="equip-spec-val">Hundreds of surveillance drones</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Kamikaze UAV</span><span class="equip-spec-val">Loitering munitions in development</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range (tactical)</span><span class="equip-spec-val">300–500 km (surveillance)</span></div>
+        </div>
+        <a href="https://www.38north.org" target="_blank" rel="noopener" class="equip-link">38 North UAV Analysis <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'KPAAF air bases map showing dispersed basing across North Korea — including hardened underground facilities designed to survive pre-emptive strikes.')">
+        <span class="equip-badge">AIR BASE NETWORK</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/c69e405f91de0afea7be45835f595c99019ef750.jpg" alt="North Korean Air Force bases map" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">KPAAF Dispersed Basing & Underground Hangars</div>
+        <div class="equip-desc">The KPAAF compensates for qualitative inferiority through mass and survivability. All major airbases feature hardened underground aircraft shelters (HAS) carved into mountainsides. Aircraft can emerge from tunnels directly onto runways. This "ant tunnel" doctrine, borrowed from Cold War Soviet strategy, is designed to survive pre-emptive US air strikes and preserve residual strike capability for second-echelon attacks on South Korea.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Active Airbases</span><span class="equip-spec-val">~20 primary + numerous dispersal fields</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Underground Hangars</span><span class="equip-spec-val">Documented at Sunchon, Hwangju, Wonsan</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Dispersal Strategy</span><span class="equip-spec-val">Forward-deployed near DMZ pre-war</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Air Defense</span><span class="equip-spec-val">KN-06 SAM, S-125, S-200 batteries</span></div>
+        </div>
+        <a href="https://theaviationist.com" target="_blank" rel="noopener" class="equip-link">The Aviationist <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);color:var(--color-text);margin-bottom:var(--space-4);font-size:var(--text-base);letter-spacing:0.04em;text-transform:uppercase">Aircraft Inventory</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Aircraft</th><th>Qty (est.)</th><th>Role</th><th>Primary Weapon</th><th>Assessment</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>MiG-29A/B Fulcrum</td><td class="cell-qty">35–40</td><td>Air superiority / Intercept</td><td>R-27, R-73 AAM</td><td>DPRK's best; capable BVR fighter</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></td></tr>
+        <tr><td>MiG-23ML Flogger</td><td class="cell-qty">50–60</td><td>Multi-role (obsolete)</td><td>R-23, guns</td><td>1970s design; marginal combat value</td><td><a href="https://globalfirepower.com" target="_blank" rel="noopener">GFP →</a></td></tr>
+        <tr><td>MiG-21bis Fishbed</td><td class="cell-qty">130–160</td><td>Intercept / attack (obsolete)</td><td>R-3S AAM, bombs</td><td>1950s design; high-volume threat via attrition</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></td></tr>
+        <tr><td>Su-25 Frogfoot</td><td class="cell-qty">30–36</td><td>Close air support</td><td>Unguided rockets, bombs</td><td>Best CAS aircraft; threat to US/ROK ground forces</td><td><a href="https://www.airforce-technology.com" target="_blank" rel="noopener">AFT →</a></td></tr>
+        <tr><td>Su-7/-17 Fitter</td><td class="cell-qty">~30</td><td>Ground attack</td><td>Bombs, rockets</td><td>Obsolete; primarily threat to undefended targets</td><td><a href="https://globalfirepower.com" target="_blank" rel="noopener">GFP →</a></td></tr>
+        <tr><td>H-5 (Il-28) Beagle</td><td class="cell-qty">~50</td><td>Light bomber</td><td>Bombs, possible chem/bio</td><td>Korean War era; potential WMD delivery platform</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">IISS →</a></td></tr>
+        <tr><td>Mi-24 Hind</td><td class="cell-qty">~20</td><td>Attack helicopter</td><td>AT-6 Spiral ATGM, rockets</td><td>Dated but lethal anti-armor helicopter</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">Janes →</a></td></tr>
+        <tr><td>UAVs (various)</td><td class="cell-qty">Hundreds</td><td>ISR / loitering munition</td><td>Surveillance, EO/IR sensors</td><td>Growing; penetrated ROK airspace Dec 2022</td><td><a href="https://www.38north.org" target="_blank" rel="noopener">38N →</a></td></tr>
+        <tr><td>KN-06 / S-300 SAM</td><td class="cell-qty">~90+ batteries</td><td>Area air defense</td><td>KN-06 (S-300 equivalent)</td><td>Indigenous development; credible threat to 4th-gen jets</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 06: MISSILE FORCE ===== -->
+<section id="section-rocket" class="section-bg-alt">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">06 // STRATEGIC ROCKET FORCE</span>
+    <h2 class="section-title">Ballistic & Cruise Missile Arsenal</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">North Korea's missile program represents its most sophisticated military achievement and primary strategic deterrent. Developed over four decades with assistance from Russia, China, Iran, and Pakistan, the program now spans short-range battlefield missiles to intercontinental ballistic missiles capable of reaching any point on Earth. The 2023–2024 introduction of solid-fuel ICBMs fundamentally changed the strategic calculus.</p>
+  </div>
+
+  <div class="equip-grid mb-6">
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'Hwasong-17 ICBM launch — North Korea\'s longest-range ICBM with estimated range of 15,000 km, capable of reaching any US city. First tested March 2022.')">
+        <span class="equip-badge">ICBM // THREAT: CRITICAL</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/6f45a61a908c360f627d0d36e33b6e80e90c704f.jpg" alt="Hwasong-17 ICBM launch" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Hwasong-17 (KN-22) ICBM</div>
+        <div class="equip-desc">North Korea's most powerful ICBM — dubbed the "monster missile" by Western analysts. The Hwasong-17 is a liquid-fuel, road-mobile ICBM launched from a massive 22-wheel TEL vehicle. With an estimated range of 15,000 km and potentially capable of carrying multiple independently targetable reentry vehicles (MIRVs), this missile can strike any city in North America. The November 2022 test demonstrated a 6,000+ km apogee and 69-minute flight time, confirming intercontinental capability.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">~15,000 km (est.) / Any US city</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fuel</span><span class="equip-spec-val">Liquid (UDMH/N2O4)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">Single large warhead / possible MIRV</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Launcher</span><span class="equip-spec-val">Road-mobile 22-axle TEL</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/hwasong-17-kn-22/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Database <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'Hwasong-18 solid-fuel ICBM launch — tested April 2023. Solid fuel eliminates pre-launch fueling requirement, dramatically reducing warning time for adversaries.')">
+        <span class="equip-badge">SOLID FUEL ICBM</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/537df596e6d4a25b98f56863767e79f06b418272.jpg" alt="Hwasong-18 solid-fuel ICBM" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Hwasong-18 Solid-Fuel ICBM</div>
+        <div class="equip-desc">The Hwasong-18 represents a strategic breakthrough: North Korea's first solid-fuel ICBM. Unlike liquid-fuel variants, solid-fuel missiles can be stored in launch-ready state indefinitely and launched with minimal preparation time — eliminating the pre-launch fueling window that intelligence agencies rely on for early warning. First tested April 2023, with multiple subsequent tests confirming progress toward operational readiness. Solid fuel also enables storage in hardened silos.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">~15,000 km (estimated, similar to HS-17)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fuel</span><span class="equip-spec-val">Solid-propellant (3-stage)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Key Advantage</span><span class="equip-spec-val">Near-zero pre-launch prep time</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Strategic Impact</span><span class="equip-spec-val">Eliminates pre-launch intelligence window</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/hwasong-18/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Database <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'KN-23 SRBM — North Korean Iskander-class quasi-ballistic missile. Hundreds transferred to Russia, confirmed used in Ukraine conflict. Range 690 km, low-trajectory, maneuvering reentry.')">
+        <span class="equip-badge">SRBM / THEATER</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3911d5fc14a26632a70a34c221649316cff0c816.jpg" alt="KN-23 SRBM ballistic missile" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">KN-23 Quasi-Ballistic Missile</div>
+        <div class="equip-desc">The KN-23 is North Korea's most advanced short-range ballistic missile, closely modeled on Russia's Iskander-M. Its quasi-ballistic trajectory and maneuvering reentry vehicle make it highly resistant to existing theater missile defenses including Patriot PAC-3. North Korea has transferred an estimated 148–200+ KN-23 rounds to Russia for use in Ukraine — combat data from which will directly inform DPRK missile doctrine. Range covers all of South Korea and Japan when fired from DPRK territory.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">690 km (normal) / 900 km (depressed)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Accuracy</span><span class="equip-spec-val">CEP ~50 m (estimated)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">HE / submunition / tactical nuclear capable</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Russia Transfer</span><span class="equip-spec-val">148–200+ confirmed (Ukraine 2023–2024)</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/kn-23/" target="_blank" rel="noopener" class="equip-link">CSIS — KN-23 Analysis <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);color:var(--color-text);margin-bottom:var(--space-4);font-size:var(--text-base);letter-spacing:0.04em;text-transform:uppercase">Missile Inventory — Complete Order of Battle</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Designation</th><th>NATO/Name</th><th>Type</th><th>Range</th><th>Warhead</th><th>Status</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>Hwasong-18</td><td class="cell-qty">—</td><td>ICBM (solid)</td><td>~15,000 km</td><td>Nuclear (single/MIRV?)</td><td>Tested 2023; entering service</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>Hwasong-17</td><td class="cell-qty">KN-22</td><td>ICBM (liquid)</td><td>~15,000 km</td><td>Nuclear (MIRV capable?)</td><td>Operational 2022</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>Hwasong-15</td><td class="cell-qty">KN-22</td><td>ICBM (liquid)</td><td>~13,000 km</td><td>Nuclear single warhead</td><td>Operational 2017</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>Hwasong-14</td><td class="cell-qty">—</td><td>ICBM (liquid)</td><td>~10,000 km</td><td>Nuclear</td><td>Tested 2017</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>Hwasong-12</td><td class="cell-qty">—</td><td>IRBM</td><td>~4,500 km</td><td>Nuclear/conventional</td><td>Operational; Guam range</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>Hwasong-8</td><td class="cell-qty">—</td><td>HGV / IRBM</td><td>~2,000 km (est.)</td><td>Nuclear (hypersonic glide)</td><td>Tested 2021; development</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>Pukguksong-2</td><td class="cell-qty">KN-15</td><td>MRBM (solid)</td><td>~1,200–2,000 km</td><td>Nuclear</td><td>Operational land-based SLBM derivative</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>KN-23</td><td class="cell-qty">—</td><td>SRBM (quasi-ballistic)</td><td>~690–900 km</td><td>Conventional/tactical nuclear</td><td>Operational; exported to Russia</td><td><a href="https://missilethreat.csis.org/missile/kn-23/" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>KN-24</td><td class="cell-qty">—</td><td>SRBM (ATACMS-like)</td><td>~450 km</td><td>Conventional/tactical nuclear</td><td>Operational; exported to Russia</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>KN-09 MLRS</td><td class="cell-qty">—</td><td>Long-range MLRS</td><td>200 km</td><td>HE/cluster/thermobaric</td><td>Operational; 100+ launchers</td><td><a href="https://missilethreat.csis.org/missile/kn-09/" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>Pukguksong-3/5</td><td class="cell-qty">KN-26</td><td>SLBM</td><td>~2,000 km (P-3)</td><td>Nuclear</td><td>Tested; on Hero Kim Kun Ok SSBN</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 07: NUCLEAR POSTURE ===== -->
+<section id="section-nuclear">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">07 // NUCLEAR POSTURE</span>
+    <h2 class="section-title">Nuclear Weapons Program</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">North Korea has conducted six nuclear tests (2006–2017), progressing from low-yield fission devices to what is assessed as a boosted fission or thermonuclear device in Test 6 (250 kt, 2017). The program is codified in law, not subject to negotiation, and actively expanding. As of March 2026, DPRK likely possesses 40–50 nuclear warheads with production continuing at Yongbyon.</p>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">⚠ NUCLEAR THREAT — CRITICAL ASSESSMENT</div>
+    <p>Intelligence community consensus as of 2025–2026: North Korea has <strong class="critical">miniaturized nuclear warheads</strong> suitable for ICBM delivery. The January 2022 law codifying nuclear first-use doctrine — including pre-emptive strikes in response to perceived threats — represents a <strong class="critical">fundamental escalation of declared nuclear policy</strong>. North Korea no longer treats nuclear weapons as a last resort; they are explicitly integrated into war plans at multiple escalation thresholds. The regime has stated it will <strong class="critical">never denuclearize</strong> regardless of diplomatic pressure or economic incentives.</p>
+  </div>
+
+  <div class="two-col mb-6">
+    <div>
+      <figure class="inline-img" onclick="openLightbox(this.querySelector('img').src,'Yongbyon Nuclear Scientific Research Center — February 2025 satellite imagery showing continued operations including reactor operations, reprocessing activity, and construction of new enrichment facilities.')">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b39745bef51b3df9b155c3f486b92ca1a7bc90f9.jpg" alt="Yongbyon nuclear facility satellite image 2025" width="800" height="600" loading="lazy">
+        <figcaption>YONGBYON NUCLEAR SCIENTIFIC RESEARCH CENTER // FEBRUARY 2025 SATELLITE // Active operations confirmed</figcaption>
+      </figure>
+    </div>
+    <div>
+      <figure class="inline-img" onclick="openLightbox(this.querySelector('img').src,'Punggye-ri Nuclear Test Site — annotated satellite image showing tunnel structures, test portals, and support facilities. Site assessed capable of resuming testing within weeks.')">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/151d22995c3bf89247ec59805f15b656e12983dd.jpg" alt="Punggye-ri nuclear test site satellite" width="800" height="600" loading="lazy">
+        <figcaption>PUNGGYE-RI NUCLEAR TEST SITE // ALL 6 DPRK NUCLEAR TESTS CONDUCTED HERE // Site MAINTAINED, not demolished</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="policy-quote">
+    "The nuclear forces of the DPRK can carry out the immediate nuclear counterattack procedures on their own initiative against the hostile forces in case the command and control system over the state nuclear forces is placed in danger owing to an attack by hostile forces."
+    <span class="policy-quote-attr">— DPRK Law on Nuclear Forces Policy, September 8, 2022 | <a href="https://www.armscontrol.org/factsheets/north-korea-nuclear-weapons" target="_blank" rel="noopener">Arms Control Association Analysis →</a></span>
+  </div>
+
+  <div class="triad-grid mb-6">
+    <div class="triad-card">
+      <div class="triad-icon">🚀</div>
+      <div class="triad-title">Land-Based (ICBM/IRBM)</div>
+      <div class="triad-status">STATUS: OPERATIONAL</div>
+      <div class="triad-body">Road-mobile ICBMs (Hwasong-17/18), IRBMs (Hwasong-12), and SRBMs (KN-23/24) form the primary delivery force. The shift to solid-fuel (HS-18) eliminates pre-launch detection window. Dispersal to tunnels and forests significantly complicates pre-emptive targeting. Nuclear artillery shells also reportedly in development.</div>
+    </div>
+    <div class="triad-card">
+      <div class="triad-icon">🌊</div>
+      <div class="triad-title">Sea-Based (SLBM)</div>
+      <div class="triad-status">STATUS: DEVELOPMENTAL</div>
+      <div class="triad-body">Pukguksong-3 and -5 SLBMs deployed on the Hero Kim Kun Ok SSBN (unveiled Sept 2023). While operational readiness is questioned due to DPRK's limited ASW countermeasure capability, even a limited at-sea deterrent complicates US-ROK targeting plans. Diesel-electric propulsion limits patrol duration but provides a second-strike option.</div>
+    </div>
+    <div class="triad-card">
+      <div class="triad-icon">✈️</div>
+      <div class="triad-title">Air-Delivered</div>
+      <div class="triad-status">STATUS: DEGRADED (likely)</div>
+      <div class="triad-body">H-5 (Il-28) and potential gravity bomb delivery from H-6 bombers represent the most vulnerable delivery mode given KPAAF's weak air-to-air capability against USAF/ROKAF assets. Tactical nuclear cruise missiles in development may restore airborne delivery relevance. Some H-5 aircraft likely nuclear-assigned but would face near-certain shoot-down penetrating modern air defense.</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);color:var(--color-text);margin-bottom:var(--space-4);font-size:var(--text-base);letter-spacing:0.04em;text-transform:uppercase">Key Nuclear Facilities</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Facility</th><th>Location</th><th>Function</th><th>Status (2026)</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>Yongbyon Complex</td><td class="cell-qty">North Pyongan Province</td><td>5 MWe reactor, IRT-2000 research reactor, centrifuge enrichment, reprocessing</td><td>Active — all major facilities operating</td><td><a href="https://www.38north.org" target="_blank" rel="noopener">38 North →</a></td></tr>
+        <tr><td>Punggye-ri Test Site</td><td class="cell-qty">Kilju County, North Hamgyong</td><td>Underground nuclear testing (6 tests 2006–2017)</td><td>Maintained — capable of restart within weeks</td><td><a href="https://beyondparallel.csis.org" target="_blank" rel="noopener">CSIS Beyond Parallel →</a></td></tr>
+        <tr><td>Kangson Enrichment</td><td class="cell-qty">Kangson (Chollima-1)</td><td>Suspected undisclosed uranium enrichment facility</td><td>Active — identified by US intel 2018+</td><td><a href="https://www.38north.org" target="_blank" rel="noopener">38 North →</a></td></tr>
+        <tr><td>Sunchon Uranium Mining</td><td class="cell-qty">South Pyongan Province</td><td>Uranium ore mining and milling</td><td>Active — feeds Yongbyon enrichment</td><td><a href="https://fas.org" target="_blank" rel="noopener">FAS →</a></td></tr>
+        <tr><td>Missile Research Institute</td><td class="cell-qty">Sanum-dong, Pyongyang</td><td>Ballistic missile R&D and assembly</td><td>Active — Hwasong development center</td><td><a href="https://www.odni.gov" target="_blank" rel="noopener">ODNI →</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="xref-wrap mt-6">
+    <span class="xref-label">SEE ALSO:</span>
+    <a href="https://fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener" class="xref-chip">FAS Nuclear Notebook →</a>
+    <a href="https://www.armscontrol.org/factsheets/north-korea-nuclear-weapons" target="_blank" rel="noopener" class="xref-chip">Arms Control Association →</a>
+    <a href="https://www.sipri.org/yearbook/2025/07" target="_blank" rel="noopener" class="xref-chip">SIPRI Yearbook 2025 →</a>
+    <a href="https://www.38north.org/category/nuclear/" target="_blank" rel="noopener" class="xref-chip">38 North Nuclear →</a>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 08: SPECIAL / ASYMMETRIC (WMD Delivery & Unconventional Forces) ===== -->
+<section id="section-special" class="section-bg-alt">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">08 // WMD DELIVERY &amp; UNCONVENTIONAL FORCES</span>
+    <h2 class="section-title">Special Operations, WMD Delivery & Hybrid Warfare</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">North Korea maintains an estimated 200,000 special operations forces — one of the world's largest SOF establishments — alongside extensive chemical and biological weapons programs. These asymmetric capabilities are designed to compensate for DPRK's conventional technological deficit through deception, infiltration, terror, and weapons of mass destruction employment.</p>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">⚠ CHEMICAL &amp; BIOLOGICAL WEAPONS — ACTIVE PROGRAMS</div>
+    <p>The US government assessed in 2022–2025 that North Korea <strong class="critical">possesses chemical weapons and maintains an offensive biological weapons program</strong>. DPRK is not a signatory to the Chemical Weapons Convention. Estimated chemical weapons stockpile: <strong class="critical">2,500–5,000 metric tons</strong> including mustard, sarin, VX, and tabun agents. Multiple delivery systems including artillery shells, aircraft bombs, and SRBM warheads are assessed capable of chemical payload. The 2017 assassination of Kim Jong-nam using VX nerve agent at Kuala Lumpur airport demonstrated both DPRK's WMD capability and willingness to use it for targeted operations outside its borders.</p>
+  </div>
+
+  <div class="equip-grid mb-6">
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'North Korean special operations forces — DPRK maintains ~200,000 SOF including Light Infantry Training Guidance Bureau, Reconnaissance General Bureau units, and Storm Corps.')">
+        <span class="equip-badge">SPECIAL OPS FORCE</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f998c77be8697dcd5cbe10abfa59e68385c9acf5.jpg" alt="North Korean special operations forces training" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Special Operations Force (SOF) — 11th Corps</div>
+        <div class="equip-desc">North Korea's Special Operations Force is organized under the 11th Corps (Reconnaissance General Bureau) and comprises storm trooper brigades, airborne brigades, amphibious assault brigades, and light infantry units trained for infiltration, sabotage, assassination, and disruption of ROK command-and-control infrastructure. Specialized units include the Sniper Brigade, the 907th Unit (WMD handling), and cyber-integrated special mission units. Recent combat exposure in Russia provides real-world training unavailable since the Korean War.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Total SOF</span><span class="equip-spec-val">~200,000 (11th Corps + subordinates)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Light Infantry Bde</span><span class="equip-spec-val">25+ brigades</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Amphibious Units</span><span class="equip-spec-val">Dedicated coastal insertion capability</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Insertion Methods</span><span class="equip-spec-val">Submarines, hovercraft, AN-2 biplane, tunnel</span></div>
+        </div>
+        <a href="https://www.rand.org/topics/north-korea.html" target="_blank" rel="noopener" class="equip-link">RAND SOF Analysis <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'North Korean troops deployed to Russia for Ukraine war — an estimated 12,000+ DPRK troops deployed to Kursk oblast 2024–2025, gaining modern combined arms combat experience.')">
+        <span class="equip-badge">COMBAT EXPERIENCE — UKRAINE</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3a89e8e0fc7a7de793b32a80107a1bff6e746d92.jpg" alt="North Korean troops in Russia" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">DPRK Expeditionary Force — Russia (2024–2026)</div>
+        <div class="equip-desc">Approximately 12,000–15,000 North Korean troops deployed to Russian-occupied territories starting late 2024 — the first large-scale combat deployment of DPRK forces since the Korean War. Deployed units include elements of DPRK's elite Storm Corps and special operations brigades, gaining experience in drone warfare, combined arms operations, electronic warfare, and modern logistics under fire. In exchange, DPRK receives weapons technology, fuel, food, and cash payments from Russia.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Troops Deployed</span><span class="equip-spec-val">12,000–15,000 (confirmed by DoD/ODNI)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Location</span><span class="equip-spec-val">Kursk oblast + other Russian-occupied areas</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Casualties</span><span class="equip-spec-val">Significant (est. 300–1,000+ KIA/WIA)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Lessons Learned</span><span class="equip-spec-val">Drone countermeasures, EW, urban combat</span></div>
+        </div>
+        <a href="https://www.defense.gov" target="_blank" rel="noopener" class="equip-link">DoD Statements <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap" onclick="openLightbox(this.querySelector('img').src,'North Korean hypersonic missiles displayed at military exhibition — DPRK is developing hypersonic glide vehicles and maneuvering ballistic missiles to defeat US missile defense systems.')">
+        <span class="equip-badge">HYPERSONIC / ADVANCED WMD</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/672aaf50e3bf6d0fbecd6462861bedd92cd6d118.jpg" alt="North Korean hypersonic missiles at exhibition" width="400" height="250" loading="lazy">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Hypersonic Glide Vehicle (Hwasong-8)</div>
+        <div class="equip-desc">North Korea has tested the Hwasong-8 hypersonic glide vehicle (HGV) at least twice (2021), and continues development of maneuvering reentry vehicles. HGV technology, if perfected, would significantly reduce warning time and defeat existing Ground-Based Interceptor (GBI) and THAAD systems due to low-altitude, high-maneuverability flight profiles. DPRK likely receives technical assistance from both Russia (Avangard HGV program) and China (DF-17 experience).</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 6–10+ (glide phase)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Altitude</span><span class="equip-spec-val">Low (60–80 km) — below THAAD engagement</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Maneuverability</span><span class="equip-spec-val">Lateral maneuver defeats GBI intercept</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">2 tests (2021); development ongoing</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);color:var(--color-text);margin-bottom:var(--space-4);font-size:var(--text-base);letter-spacing:0.04em;text-transform:uppercase">Sanctions Evasion Network</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Method</th><th>Mechanism</th><th>Scale</th><th>Primary Route</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>Cryptocurrency Theft</td><td class="cell-qty">Lazarus Group hacks of crypto exchanges/DeFi</td><td>~$3B+ total since 2017</td><td>Global (Bybit $1.5B hack Feb 2025)</td><td><a href="https://www.cisa.gov" target="_blank" rel="noopener">CISA →</a></td></tr>
+        <tr><td>Arms Sales</td><td class="cell-qty">Artillery shells, missiles, MLRS to Russia, Middle East</td><td>$Billions estimated</td><td>Russia primary buyer 2022–2026</td><td><a href="https://www.odni.gov" target="_blank" rel="noopener">ODNI →</a></td></tr>
+        <tr><td>Shell Companies</td><td class="cell-qty">Fake front companies in China, SE Asia, UAE</td><td>Billions in trade</td><td>Dalian/Dandong China border zone</td><td><a href="https://ofac.treasury.gov" target="_blank" rel="noopener">OFAC →</a></td></tr>
+        <tr><td>IT Worker Fraud</td><td class="cell-qty">DPRK IT workers posing as freelancers globally</td><td>~$300M–$600M/year</td><td>China, SE Asia placement</td><td><a href="https://www.justice.gov" target="_blank" rel="noopener">DOJ →</a></td></tr>
+        <tr><td>Ship-to-Ship Transfer</td><td class="cell-qty">Oil and coal loaded at sea to evade port inspections</td><td>Millions of barrels/year</td><td>Yellow Sea, East China Sea</td><td><a href="https://www.un.org/securitycouncil" target="_blank" rel="noopener">UNSC Panel →</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 09: CYBER ===== -->
+<section id="section-cyber">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">09 // CYBER OPERATIONS &amp; ELECTRONIC WARFARE</span>
+    <h2 class="section-title">Reconnaissance General Bureau & Cyber Units</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">North Korea's cyber capability is one of its most sophisticated and cost-effective tools of statecraft. Operated primarily through the Reconnaissance General Bureau (RGB), DPRK cyber units — particularly Bureau 121 and the Lazarus Group — conduct financial theft, espionage, sabotage, and ransomware attacks that generate hundreds of millions of dollars annually for the regime while operating below conventional military response thresholds.</p>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">⚠ CYBER THREAT — CRITICAL: BYBIT HACK FEBRUARY 2025</div>
+    <p>In February 2025, the Lazarus Group executed the <strong class="critical">largest cryptocurrency theft in history</strong> — stealing approximately <strong class="critical">$1.5 billion USD</strong> from the Bybit exchange via a sophisticated supply chain attack targeting the Safe multisig wallet infrastructure. This single operation likely generated more revenue for the DPRK than multiple years of legitimate trade. As of March 2026, analysis indicates the stolen ETH has been partially laundered through mixing services and DeFi protocols. This attack confirms DPRK has <strong class="critical">nation-state tier offensive cyber capability</strong> in financial system targeting.</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('cyber-units','cyber-tab')">CYBER UNITS</button>
+    <button class="tab-btn" onclick="switchTab('cyber-ops','cyber-tab')">MAJOR OPERATIONS</button>
+    <button class="tab-btn" onclick="switchTab('cyber-tech','cyber-tab')">TECHNIQUES</button>
+  </div>
+
+  <div id="cyber-units" class="tab-pane active">
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon"><i data-lucide="skull" style="width:24px;height:24px"></i></div>
+        <div class="card-title">Lazarus Group (Bureau 121)</div>
+        <div class="card-body">DPRK's premier APT group. Attributed to Sony Pictures (2014), Bangladesh Bank SWIFT ($81M, 2016), WannaCry ransomware (2017), Ronin/Axie Infinity ($625M, 2022), Horizon Bridge ($100M, 2022), Atomic Wallet ($100M, 2023), and Bybit ($1.5B, 2025). Estimated 7,000+ cyber operators. <a href="https://www.cisa.gov/topics/cyber-threats-and-advisories/advanced-persistent-threats/north-korea" target="_blank" rel="noopener">CISA Profile →</a></div>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i data-lucide="shield-alert" style="width:24px;height:24px"></i></div>
+        <div class="card-title">Kimsuky (APT43)</div>
+        <div class="card-body">Focused on intelligence collection against South Korean government, think tanks, academics, and nuclear sector. Primary espionage group targeting DPRK policy communities. Phishing and watering hole attacks against Korea-focused NGOs, US DoD contractors, and South Korean defense industries. <a href="https://mandiant.com" target="_blank" rel="noopener">Mandiant Analysis →</a></div>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i data-lucide="zap" style="width:24px;height:24px"></i></div>
+        <div class="card-title">Andariel (Unit 180)</div>
+        <div class="card-body">Primarily engaged in ransomware attacks against US healthcare, critical infrastructure, and defense contractors. July 2024 indictment by DoJ identified Andariel ransomware attacks on US hospitals. Also responsible for targeting South Korean defense contractors for technology espionage. <a href="https://www.justice.gov" target="_blank" rel="noopener">DoJ Indictments →</a></div>
+      </div>
+    </div>
+  </div>
+  <div id="cyber-ops" class="tab-pane">
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Year</th><th>Operation</th><th>Target</th><th>Impact</th><th>Attribution</th></tr></thead>
+        <tbody>
+          <tr><td>2025</td><td>Bybit Exchange Hack</td><td>Safe multisig infrastructure</td><td class="cell-qty">$1.5B USD stolen</td><td>Lazarus Group (FBI confirmed)</td></tr>
+          <tr><td>2023</td><td>Atomic Wallet / AlphaPo</td><td>Crypto platforms</td><td class="cell-qty">$300M+ stolen</td><td>Lazarus Group</td></tr>
+          <tr><td>2022</td><td>Ronin Network (Axie)</td><td>Ethereum sidechain</td><td class="cell-qty">$625M stolen</td><td>Lazarus Group (FBI confirmed)</td></tr>
+          <tr><td>2022</td><td>Harmony Horizon Bridge</td><td>Cross-chain bridge</td><td class="cell-qty">$100M stolen</td><td>Lazarus Group</td></tr>
+          <tr><td>2021</td><td>South Korean Vaccine Research</td><td>AstraZeneca, COVID labs</td><td class="cell-qty">IP theft</td><td>Lazarus Group / Kimsuky</td></tr>
+          <tr><td>2020</td><td>US Financial Sector</td><td>Banks and crypto exchanges</td><td class="cell-qty">$316M stolen</td><td>Lazarus Group (OFAC sanctioned)</td></tr>
+          <tr><td>2019</td><td>UN-Tracked Crypto Theft</td><td>Multiple exchanges</td><td class="cell-qty">$2B cumulative UNSC report</td><td>Lazarus Group</td></tr>
+          <tr><td>2017</td><td>WannaCry Ransomware</td><td>Global (150+ countries, NHS UK)</td><td class="cell-qty">$4–8B economic damage</td><td>Lazarus Group (Five Eyes attributed)</td></tr>
+          <tr><td>2016</td><td>Bangladesh Bank SWIFT</td><td>SWIFT interbank system</td><td class="cell-qty">$81M stolen ($951M attempted)</td><td>Lazarus Group</td></tr>
+          <tr><td>2014</td><td>Sony Pictures</td><td>Studio IT infrastructure</td><td class="cell-qty">Total destruction; films leaked</td><td>Bureau 121 (FBI attributed)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="cyber-tech" class="tab-pane">
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">Supply Chain Attacks</div>
+        <div class="card-body">Bybit (2025) exploited Safe{Wallet} infrastructure via compromised AWS credentials. 3CX (2023) compromised via upstream X_TRADER software supply chain. DPRK increasingly targets software suppliers to achieve downstream access at scale — demonstrating sophisticated operational security and patience.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Social Engineering / Spear Phishing</div>
+        <div class="card-body">Kimsuky creates fake LinkedIn profiles posing as think tank analysts, academics, or journalists to target DPRK policy experts. Fake job offer campaigns (TraderTraitor) target crypto developers. Fake PDF attachments disguised as policy briefs deliver custom malware implants.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">DeFi / Crypto Laundering</div>
+        <div class="card-body">DPRK systematically launders stolen crypto through chain-hopping (ETH→BTC→XMR), DeFi mixers, and P2P exchanges in jurisdictions without KYC. Chainalysis estimates DPRK stolen ~$3B+ since 2017. Some funds traced to weapons procurement via front companies in China and Singapore.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Electronic Warfare</div>
+        <div class="card-body">GPS spoofing targeting Seoul and surrounding areas (multiple incidents 2016, 2019, 2024) disrupts aircraft navigation and civilian positioning. DPRK maintains dedicated EW units targeting ROK communications infrastructure. Frequency jamming of ROK military communications along DMZ is routine.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">IT Worker Infiltration</div>
+        <div class="card-body">DOJ 2024 indictments revealed DPRK sends IT workers to pose as freelancers globally, earning $300–600M/year. Workers use stolen identities and are managed by handlers in China. Companies including major US tech firms have unknowingly employed DPRK nationals who provided insider access.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Critical Infrastructure Targeting</div>
+        <div class="card-body">Andariel targets US hospital systems with ransomware, demanding payments that fund WMD procurement. ROK government and financial systems targeted continuously. CISA and NSA issue regular joint advisories warning of specific DPRK TTPs targeting US defense contractors, nuclear labs, and DoD supply chains.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 10: DOCTRINE ===== -->
+<section id="section-doctrine" class="section-bg-alt">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">10 // MILITARY DOCTRINE &amp; STRATEGY</span>
+    <h2 class="section-title">Juche Military Doctrine</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">North Korean military doctrine is driven by the Juche ideology of national self-reliance, combined with Songun ("Military First") policy that places military needs above all other state priorities. Post-2013 doctrine explicitly incorporates nuclear weapons as usable instruments of war rather than weapons of last resort — a doctrinal stance formalized in law in 2022.</p>
+  </div>
+
+  <div class="doctrine-grid mb-6">
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">01</div>
+      <div class="doctrine-card-title">Juche / Self-Reliance</div>
+      <div class="doctrine-card-body">All military development pursues independence from foreign powers — even traditional patrons like China and Russia. Indigenous weapons development, from missiles to submarines, prioritized over procurement. Explains extreme investment in domestic R&D despite economic stagnation. Vulnerability: domestic production limits quality and quantity versus advanced adversaries.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">02</div>
+      <div class="doctrine-card-title">Songun (Military First)</div>
+      <div class="doctrine-card-body">The Korean People's Army is constitutionally the leading institution of the state, superseding the party in resource allocation. An estimated 20–25% of GDP is dedicated to defense — the highest proportion of any nation on Earth. The military-first posture ensures regime survival but imposes catastrophic costs on the civilian economy and population.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">03</div>
+      <div class="doctrine-card-title">Nuclear Pre-emption Doctrine</div>
+      <div class="doctrine-card-body">The 2022 nuclear law explicitly permits nuclear first use against perceived existential conventional threats — not just nuclear attacks. Kim Jong Un has declared nuclear weapons "irreversible" and the regime will "automatically" launch nuclear strikes if command systems are threatened. This lowers the threshold for nuclear use well below traditional deterrence theory norms.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">04</div>
+      <div class="doctrine-card-title">Asymmetric / Hybrid Warfare</div>
+      <div class="doctrine-card-body">North Korea exploits domains where technological inferiority is less decisive: cyber, SOF infiltration, chemical/biological weapons, and nuclear deterrence. The "All-People Defense" strategy incorporates the entire population into the military reserve system and relies on mass attrition against technologically superior adversaries. Drone warfare lessons from Ukraine are being rapidly integrated.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">05</div>
+      <div class="doctrine-card-title">Seoul Hostage Strategy</div>
+      <div class="doctrine-card-body">The proximity of Seoul to the DMZ is a deliberate strategic asset — 25+ million civilians within artillery range creates a deterrence firewall that constrains US-ROK military options. Any first strike against DPRK risks catastrophic retaliation against Seoul in the minutes before counter-battery fire can suppress artillery. This geographic trump card is DPRK's most effective conventional deterrent.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">06</div>
+      <div class="doctrine-card-title">Tunnel / Underground Warfare</div>
+      <div class="doctrine-card-body">Drawing from Chinese and Vietnamese experience, DPRK has invested decades in underground tunneling: nuclear test sites, missile storage, hardened command bunkers, air force shelters, and DMZ infiltration tunnels. The underground network ensures regime and military survival through a pre-emptive first strike and creates asymmetric resilience that cannot be easily destroyed from the air.</div>
+    </div>
+  </div>
+
+  <div class="policy-quote">
+    "Our policy on nuclear weapons will never change. As long as the United States and South Korea pursue hostile policies toward us, we will not abandon our nuclear deterrent — it is the foundation of our national sovereignty and the guarantee of our people's security."
+    <span class="policy-quote-attr">— Kim Jong Un, 2023 (paraphrased from KCNA) | <a href="https://www.kcna.kp" target="_blank" rel="noopener">KCNA Official →</a></span>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 11: FOREIGN RELATIONS & ALLIANCES ===== -->
+<section id="section-foreign">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">11 // FOREIGN RELATIONS &amp; MILITARY ALLIANCES</span>
+    <h2 class="section-title">Geopolitical Positioning & Alliance Networks</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">North Korea's foreign relations are defined by isolation from the Western-led international order, strategic dependency on China, a deepening military alliance with Russia (2024–present), and arms sales relationships with Iran, Syria, and various non-state actors. The Russia-DPRK military partnership represents the most significant geopolitical development in Northeast Asia since China's security guarantee.</p>
+  </div>
+
+  <div class="intel-alert intel-alert-gold mb-6">
+    <div class="intel-alert-head">⚠ RUSSIA-DPRK MILITARY ALLIANCE — JUNE 2024</div>
+    <p>The <strong class="critical">DPRK-Russia Comprehensive Strategic Partnership</strong> signed June 19, 2024 commits Russia to defend North Korea if attacked — resurrecting a Soviet-era mutual defense treaty not seen since 1961. In return, North Korea provides Russia with conventional munitions (13,000+ artillery shells delivered as of late 2024), missiles (KN-23/KN-24), and troops (~12,000–15,000 deployed). Russia provides energy, food, cash, and <strong class="critical">technology transfer for nuclear, missile, satellite, and submarine programs</strong>. This axis fundamentally complicates US deterrence planning and signals that China alone no longer controls DPRK's strategic options.</p>
+  </div>
+
+  <div class="data-table-wrap mb-6">
+    <table class="data-table">
+      <thead><tr><th>Relationship</th><th>Type</th><th>Key Elements</th><th>Risk Level</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>Russia</td><td class="cell-qty">Active military alliance (2024)</td><td>Mutual defense treaty; arms transfers; troop deployment; technology transfer; energy/food support</td><td>🔴 CRITICAL — new axis forming</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">DoD →</a></td></tr>
+        <tr><td>China</td><td class="cell-qty">Strategic patron (cold)</td><td>~92% of DPRK trade; energy supply; diplomatic shield at UNSC; limited military cooperation; no mutual defense treaty active</td><td>🟡 HIGH — stabilizing but brittle</td><td><a href="https://www.csis.org" target="_blank" rel="noopener">CSIS →</a></td></tr>
+        <tr><td>Iran</td><td class="cell-qty">Arms/technology cooperation</td><td>Ballistic missile technology exchange; DPRK assistance with Iranian Shahab/Qadr programs; mutual benefit in sanctions evasion</td><td>🟡 HIGH — proliferation conduit</td><td><a href="https://www.armscontrol.org" target="_blank" rel="noopener">ACA →</a></td></tr>
+        <tr><td>Syria</td><td class="cell-qty">Historical arms customer</td><td>Al-Kibar nuclear reactor (2007, bombed by Israel); chemical weapons precursor export history; current relationship unclear post-2024 Assad fall</td><td>🟠 MEDIUM — diminished</td><td><a href="https://www.iaea.org" target="_blank" rel="noopener">IAEA →</a></td></tr>
+        <tr><td>Myanmar</td><td class="cell-qty">Arms customer</td><td>Conventional weapons sales to Myanmar military; likely nuclear consultation since junta coup 2021</td><td>🟠 MEDIUM</td><td><a href="https://www.un.org" target="_blank" rel="noopener">UNSC →</a></td></tr>
+        <tr><td>USA</td><td class="cell-qty">Principal adversary</td><td>No formal relations; US designated DPRK as state sponsor of terrorism (2017, relisted 2025); DPRK ICBM explicitly targets continental US</td><td>🔴 CRITICAL — principal threat relationship</td><td><a href="https://www.state.gov" target="_blank" rel="noopener">State Dept →</a></td></tr>
+        <tr><td>South Korea (ROK)</td><td class="cell-qty">Active hostile</td><td>DPRK declared ROK a "hostile foreign state" in constitution amendment; 2024 balloon and trash incursions; 2022 DMZ violations; no dialogue</td><td>🔴 CRITICAL — active flashpoint</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">DoD →</a></td></tr>
+        <tr><td>Japan</td><td class="cell-qty">Adversarial</td><td>Missile overflights (2022–2023); abductee issue unresolved; DPRK missiles targeting Japan confirmed; minimal contact</td><td>🟡 HIGH — overflight flashpoint</td><td><a href="https://www.mod.go.jp/en/" target="_blank" rel="noopener">Japan MoD →</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 12: RISK SCENARIOS ===== -->
+<section id="section-risk" class="section-bg-alt">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">12 // RISK SCENARIOS &amp; ESCALATION PATHWAYS</span>
+    <h2 class="section-title">Conflict Scenarios & Probability Assessment</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">North Korea presents multiple escalation pathways, ranging from low-level provocations to full-scale nuclear exchange. The following scenarios are assessed by the analytical community as the most credible near-term (2026–2030) risk vectors, ranked by probability and impact.</p>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">⚠ BASELINE ASSESSMENT — MARCH 2026</div>
+    <p>The overall risk of major military escalation on the Korean Peninsula in 2026 is assessed as <strong class="critical">ELEVATED but below immediate crisis level</strong>. The Russia-DPRK alliance has reduced DPRK's strategic isolation, increasing Kim Jong Un's confidence and potentially lowering his deterrence threshold. However, nuclear deterrence remains fundamentally intact: both sides understand that escalation to conventional war creates catastrophic risk for all parties, including China, which would bear the costs of Korean reunification under US-allied terms or mass refugee flows. The most likely near-term scenario remains continued provocations, missile testing, and hybrid/cyber operations — not conventional war.</p>
+  </div>
+
+  <div class="grid-2 mb-6">
+    <div class="scenario-card">
+      <div class="scenario-head">🔴 SCENARIO A: Nuclear Coercion / Limited Strike</div>
+      <div class="scenario-row">
+        <span class="scenario-key">Trigger</span>
+        <span class="scenario-val">Major US-ROK military exercise, perceived regime threat, or political transition exploited by DPRK for coercive gains</span>
+      </div>
+      <div class="scenario-row">
+        <span class="scenario-key">DPRK Action</span>
+        <span class="scenario-val">Conduct nuclear test (Test 7) or detonate low-yield device at sea/in DMZ buffer zone as explicit coercive signal</span>
+      </div>
+      <div class="scenario-row">
+        <span class="scenario-key">US-ROK Response</span>
+        <span class="scenario-val">Extended Deterrence Statement activation; B-52/B-2 deployments; carrier strike group; UNSC emergency session</span>
+      </div>
+      <div class="scenario-row">
+        <span class="scenario-key">Escalation Risk</span>
+        <span class="scenario-val">Moderate — DPRK designed coercive use to avoid full response; depends on US administration resolve</span>
+      </div>
+      <div class="probability-bars">
+        <div class="prob-label">Probability 2026–2028</div>
+        <div class="prob-track"><div class="prob-fill high" style="width:45%"></div></div>
+        <small style="color:var(--color-gold);font-family:var(--font-mono);font-size:var(--text-xs)">MEDIUM–HIGH: 45%</small>
+      </div>
+    </div>
+
+    <div class="scenario-card">
+      <div class="scenario-head">🟡 SCENARIO B: Maritime Provocation / NLL Clash</div>
+      <div class="scenario-row">
+        <span class="scenario-key">Trigger</span>
+        <span class="scenario-val">DPRK naval provocation in contested Northern Limit Line (Yellow Sea); fishing disputes escalate to military clash</span>
+      </div>
+      <div class="scenario-row">
+        <span class="scenario-key">DPRK Action</span>
+        <span class="scenario-val">Warship incursion across NLL; underwater attack on ROK naval vessel (repeat of 2010 Cheonan); shelling of Yeonpyeong-type island</span>
+      </div>
+      <div class="scenario-row">
+        <span class="scenario-key">US-ROK Response</span>
+        <span class="scenario-val">Calibrated military response; UNSC action; possible limited counter-strike on DPRK naval installation</span>
+      </div>
+      <div class="scenario-row">
+        <span class="scenario-key">Escalation Risk</span>
+        <span class="scenario-val">Low-medium — both sides have demonstrated management capability after 2010 incidents; DPRK unlikely to escalate further</span>
+      </div>
+      <div class="probability-bars">
+        <div class="prob-label">Probability 2026–2028</div>
+        <div class="prob-track"><div class="prob-fill medium" style="width:38%"></div></div>
+        <small style="color:var(--color-teal);font-family:var(--font-mono);font-size:var(--text-xs)">MEDIUM: 38%</small>
+      </div>
+    </div>
+
+    <div class="scenario-card">
+      <div class="scenario-head">🔴 SCENARIO C: Conventional War / Limited Strike</div>
+      <div class="scenario-row">
+        <span class="scenario-key">Trigger</span>
+        <span class="scenario-val">US/ROK pre-emptive decapitation attempt; DPRK miscalculation of response to provocations; leadership crisis/coup creates unauthorized action</span>
+      </div>
+      <div class="scenario-row">
+        <span class="scenario-key">DPRK Action</span>
+        <span class="scenario-val">Artillery barrage on Seoul; SOF infiltration; missile strikes on US bases; North-first Korean War restart scenario</span>
+      </div>
+      <div class="scenario-row">
+        <span class="scenario-key">US-ROK Response</span>
+        <span class="scenario-val">Full OPLAN 5015 execution; air campaign against KPA; possible nuclear use threshold reached immediately</span>
+      </div>
+      <div class="scenario-row">
+        <span class="scenario-key">Escalation Risk</span>
+        <span class="scenario-val">EXTREME — conventional war almost certainly escalates to nuclear employment given DPRK's stated doctrinal pre-emption threshold</span>
+      </div>
+      <div class="probability-bars">
+        <div class="prob-label">Probability 2026–2028</div>
+        <div class="prob-track"><div class="prob-fill critical" style="width:12%"></div></div>
+        <small style="color:var(--color-red-bright);font-family:var(--font-mono);font-size:var(--text-xs)">LOW: 12% — but catastrophic if occurs</small>
+      </div>
+    </div>
+
+    <div class="scenario-card">
+      <div class="scenario-head">🟤 SCENARIO D: Regime Instability / Succession Crisis</div>
+      <div class="scenario-row">
+        <span class="scenario-key">Trigger</span>
+        <span class="scenario-val">Death or incapacitation of Kim Jong Un; succession dispute between military factions; spontaneous collapse of regime</span>
+      </div>
+      <div class="scenario-row">
+        <span class="scenario-key">DPRK Action</span>
+        <span class="scenario-val">Potentially unauthorized nuclear/missile use by factional commanders; massive refugee flows to China; risk of weapons dispersal to non-state actors</span>
+      </div>
+      <div class="scenario-row">
+        <span class="scenario-key">US-ROK Response</span>
+        <span class="scenario-val">OPLAN 5029 (Korean Contingency Plan) activation; rapid WMD seizure operations; Chinese intervention likely to prevent US-allied unification</span>
+      </div>
+      <div class="scenario-row">
+        <span class="scenario-key">Escalation Risk</span>
+        <span class="scenario-val">EXTREME — uncoordinated nuclear posture, Chinese military intervention, and Korean unification conflict could produce simultaneous US-China confrontation</span>
+      </div>
+      <div class="probability-bars">
+        <div class="prob-label">Probability 2026–2028</div>
+        <div class="prob-track"><div class="prob-fill high" style="width:18%"></div></div>
+        <small style="color:var(--color-gold);font-family:var(--font-mono);font-size:var(--text-xs)">LOW–MEDIUM: 18%</small>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 13: SOURCES ===== -->
+<section id="section-sources">
+<div class="section-wrap">
+  <div class="section-header">
+    <span class="section-num">13 // SOURCES &amp; REFERENCES</span>
+    <h2 class="section-title">Intelligence & Open Source Bibliography</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead">All information in this dossier is drawn from unclassified, open-source materials including US government assessments, allied intelligence releases, think tank analysis, and verified journalism. No classified sources are referenced. Links connect to primary or authoritative secondary sources for further research.</p>
+  </div>
+
+  <div class="source-grid">
+    <div>
+      <div class="source-col-title">Government & Official Sources</div>
+      <ul class="source-list">
+        <li class="source-item"><a href="https://www.odni.gov/files/ODNI/documents/assessments/ATA-2025-Unclassified-Report.pdf" target="_blank" rel="noopener">2025 Annual Threat Assessment — ODNI / IC<span class="src-org">Office of the Director of National Intelligence</span></a></li>
+        <li class="source-item"><a href="https://www.defense.gov/News/News-Stories/?category=North+Korea" target="_blank" rel="noopener">DoD North Korea Coverage<span class="src-org">US Department of Defense</span></a></li>
+        <li class="source-item"><a href="https://www.state.gov/countries-areas/democratic-peoples-republic-of-korea/" target="_blank" rel="noopener">DPRK Country Reports<span class="src-org">US State Department</span></a></li>
+        <li class="source-item"><a href="https://www.usfk.mil" target="_blank" rel="noopener">US Forces Korea — USFK<span class="src-org">US Indo-Pacific Command</span></a></li>
+        <li class="source-item"><a href="https://www.cisa.gov/topics/cyber-threats-and-advisories/advanced-persistent-threats/north-korea" target="_blank" rel="noopener">DPRK Cyber Threat Advisories<span class="src-org">CISA / NSA / FBI Joint</span></a></li>
+        <li class="source-item"><a href="https://www.iaea.org/newscenter/focus/dprk" target="_blank" rel="noopener">DPRK Nuclear Safeguards<span class="src-org">International Atomic Energy Agency</span></a></li>
+        <li class="source-item"><a href="https://documents.un.org/search?q=DPRK&so=Date+Descending" target="_blank" rel="noopener">UNSC Resolutions & Panel Reports<span class="src-org">United Nations Security Council</span></a></li>
+        <li class="source-item"><a href="https://ofac.treasury.gov/sanctions-programs-and-country-information/north-korea-sanctions" target="_blank" rel="noopener">DPRK Sanctions Program<span class="src-org">OFAC / US Treasury</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="source-col-title">Think Tanks & Research</div>
+      <ul class="source-list">
+        <li class="source-item"><a href="https://www.38north.org" target="_blank" rel="noopener">38 North — DPRK Monitoring<span class="src-org">Stimson Center</span></a></li>
+        <li class="source-item"><a href="https://beyondparallel.csis.org" target="_blank" rel="noopener">Beyond Parallel — Satellite Analysis<span class="src-org">CSIS</span></a></li>
+        <li class="source-item"><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">Missile Defense Project<span class="src-org">CSIS</span></a></li>
+        <li class="source-item"><a href="https://www.rand.org/topics/north-korea.html" target="_blank" rel="noopener">RAND North Korea Research<span class="src-org">RAND Corporation</span></a></li>
+        <li class="source-item"><a href="https://www.armscontrol.org/factsheets/dprkchron" target="_blank" rel="noopener">DPRK Nuclear Chronology<span class="src-org">Arms Control Association</span></a></li>
+        <li class="source-item"><a href="https://fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener">Nuclear Weapons Status Report<span class="src-org">Federation of American Scientists</span></a></li>
+        <li class="source-item"><a href="https://www.sipri.org/research/disarmament/nuclear-weapons" target="_blank" rel="noopener">Nuclear Forces Data<span class="src-org">SIPRI</span></a></li>
+        <li class="source-item"><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">The Military Balance<span class="src-org">IISS</span></a></li>
+        <li class="source-item"><a href="https://www.nti.org/countries/north-korea/" target="_blank" rel="noopener">WMD Country Profile<span class="src-org">Nuclear Threat Initiative</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="source-col-title">Open Source & Specialized</div>
+      <ul class="source-list">
+        <li class="source-item"><a href="https://www.janes.com" target="_blank" rel="noopener">Military Systems Database<span class="src-org">Janes Defence</span></a></li>
+        <li class="source-item"><a href="https://thedrive.com/the-war-zone" target="_blank" rel="noopener">Military Analysis<span class="src-org">The War Zone / The Drive</span></a></li>
+        <li class="source-item"><a href="https://theaviationist.com" target="_blank" rel="noopener">Aviation & Air Power<span class="src-org">The Aviationist</span></a></li>
+        <li class="source-item"><a href="https://www.navalnews.com" target="_blank" rel="noopener">Naval Analysis<span class="src-org">Naval News</span></a></li>
+        <li class="source-item"><a href="https://nautilus.org/napsnet/" target="_blank" rel="noopener">NAPSNet Policy Forum<span class="src-org">Nautilus Institute</span></a></li>
+        <li class="source-item"><a href="https://keia.org" target="_blank" rel="noopener">Korea Economic Institute<span class="src-org">KEI Washington</span></a></li>
+        <li class="source-item"><a href="https://www.chainalysis.com" target="_blank" rel="noopener">Crypto Crime Reports<span class="src-org">Chainalysis</span></a></li>
+        <li class="source-item"><a href="https://mandiant.com" target="_blank" rel="noopener">Threat Intelligence<span class="src-org">Mandiant / Google Cloud</span></a></li>
+        <li class="source-item"><a href="https://www.38north.org/category/satellite-imagery/" target="_blank" rel="noopener">Commercial Satellite Analysis<span class="src-org">Maxar / Planet Labs / 38N</span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="classification-badge">UNCLASSIFIED // OPEN SOURCE INTELLIGENCE</div>
+    <p class="footer-notice">
+      Geopolitical Intelligence Platform v2 — Country Dossier A-06 // DPRK<br>
+      Compiled March 28, 2026 • All sources unclassified open-source • No classified materials referenced<br>
+      Analysis provided for educational and situational awareness purposes only<br>
+      Cross-reference: A-01 (China) · A-02 (Russia) · A-03 (Iran) · A-04 (NATO) · A-05 (Taiwan Strait) · A-07 (India-Pakistan) · A-08 (Middle East)
+    </p>
+  </div>
+</footer>
+
+<!-- ===== LIGHTBOX ===== -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" onclick="closeLightbox(event)">
+  <button id="lightbox-close" onclick="closeLightbox()" aria-label="Close image viewer"><i data-lucide="x" style="width:20px;height:20px"></i></button>
+  <img id="lightbox-img" src="" alt="" loading="lazy">
+  <div id="lightbox-cap"></div>
+</div>
+
+<script>
+/* ===== LUCIDE ICONS ===== */
+lucide.createIcons();
+
+/* ===== NAV ACTIVE STATE ===== */
+(function(){
+  const links=document.querySelectorAll('.nav-link');
+  const secs=Array.from(document.querySelectorAll('section[id]'));
+  const activate=()=>{
+    const y=window.scrollY+80;
+    let cur=secs[0];
+    for(const s of secs){if(s.offsetTop<=y)cur=s;}
+    links.forEach(l=>{
+      l.classList.toggle('active',l.getAttribute('href')==='#'+cur.id);
+    });
+  };
+  window.addEventListener('scroll',activate,{passive:true});
+  activate();
+})();
+
+/* ===== COLLAPSIBLES ===== */
+function toggleCollapse(el){
+  const head=el;
+  const body=el.nextElementSibling;
+  head.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+/* ===== TABS ===== */
+function switchTab(id){
+  const pane=document.getElementById(id);
+  if(pane){
+    const par=pane.parentElement;
+    par.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+    pane.classList.add('active');
+  }
+}
+
+/* ===== LIGHTBOX ===== */
+function openLightbox(src,cap){
+  const lb=document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src=src;
+  document.getElementById('lightbox-cap').textContent=cap||'';
+  lb.classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(e){
+  if(e&&e.target!==document.getElementById('lightbox')&&!e.target.closest('#lightbox-close'))return;
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox({target:document.getElementById('lightbox')});});
+
+/* ===== STAT BAR ANIMATION ON SCROLL ===== */
+const barObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.stat-fill,.prob-fill').forEach(f=>{
+        const w=f.style.width;f.style.width='0';
+        requestAnimationFrame(()=>{requestAnimationFrame(()=>{f.style.width=w;});});
+      });
+      barObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.2});
+document.querySelectorAll('.stat-bars,.probability-bars').forEach(el=>barObs.observe(el));
+
+/* ===== SCROLL REVEAL ===== */
+const revealObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+      revealObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.card,.equip-card,.scenario-card,.doctrine-card,.triad-card,.tl-item').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition='opacity 0.5s ease, transform 0.5s ease';
+  revealObs.observe(el);
+});
+
+/* ===== CORRECT TAB SWITCH (fixed context) ===== */
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  const oStr=btn.getAttribute('onclick')||'';
+  const m=oStr.match(/'([^']+)'/);
+  if(m){
+    const paneId=m[1];
+    btn.removeAttribute('onclick');
+    btn.addEventListener('click',function(){
+      const wrap=this.closest('.section-wrap')||document;
+      wrap.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      this.classList.add('active');
+      const pane=document.getElementById(paneId);
+      if(pane){
+        const par=pane.parentElement;
+        par.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+        pane.classList.add('active');
+      }
+    });
+  }
+});
+</script>
+</body>
+</html>

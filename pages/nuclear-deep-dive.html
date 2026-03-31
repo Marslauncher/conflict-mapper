@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iran Nuclear Program — Deep Dive Intelligence Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root {
+  --bg: #0a0b0d;
+  --surface: #0f1114;
+  --surface-2: #141720;
+  --surface-3: #1a1f2e;
+  --border: rgba(255,255,255,0.07);
+  --border-accent: rgba(255,100,60,0.35);
+  --text: #d8dce8;
+  --text-muted: #7a8098;
+  --text-faint: #3a3f55;
+  --accent: #ff4a1c;
+  --accent-dim: rgba(255,74,28,0.15);
+  --accent-glow: rgba(255,74,28,0.4);
+  --amber: #ffb340;
+  --amber-dim: rgba(255,179,64,0.15);
+  --green: #3ddc84;
+  --green-dim: rgba(61,220,132,0.12);
+  --blue: #4a9eff;
+  --blue-dim: rgba(74,158,255,0.12);
+  --purple: #b76cff;
+  --font-display: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-12: 3rem; --space-16: 4rem;
+  --radius: 4px; --radius-md: 6px; --radius-lg: 10px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.6);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 15px; line-height: 1.65; min-height: 100dvh; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: #2a2f40; border-radius: 3px; }
+
+/* ── TOP NAV ── */
+.top-nav {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(10,11,13,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-accent);
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: 0 var(--space-6); height: 56px;
+}
+.nav-logo { display: flex; align-items: center; gap: var(--space-2); margin-right: auto; }
+.nav-logo svg { color: var(--accent); }
+.nav-logo span { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.08em; color: var(--text); }
+.nav-links { display: flex; gap: 2px; }
+.nav-links a {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em;
+  color: var(--text-muted); padding: 6px 10px; border-radius: var(--radius);
+  transition: all 0.2s; white-space: nowrap;
+}
+.nav-links a:hover { color: var(--accent); background: var(--accent-dim); text-decoration: none; }
+
+/* ── CLASSIFICATION BANNER ── */
+.class-banner {
+  background: var(--accent); color: #fff; text-align: center;
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: bold;
+  letter-spacing: 0.2em; padding: 5px; line-height: 1;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(160deg, #0d0f18 0%, #0a0b0d 60%);
+  border-bottom: 1px solid var(--border-accent);
+  padding: var(--space-12) var(--space-6);
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0; opacity: 0.04;
+  background: repeating-linear-gradient(0deg, transparent, transparent 39px, var(--accent) 39px, var(--accent) 40px),
+              repeating-linear-gradient(90deg, transparent, transparent 39px, var(--accent) 39px, var(--accent) 40px);
+}
+.hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+.hero-eyebrow { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.2em; margin-bottom: var(--space-3); }
+.hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.1; letter-spacing: 0.04em; color: #fff; margin-bottom: var(--space-4); }
+.hero h1 em { color: var(--accent); font-style: normal; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-bottom: var(--space-6); }
+.hero-badge { font-family: var(--font-mono); font-size: 0.68rem; padding: 4px 10px; border-radius: var(--radius); background: var(--surface-2); border: 1px solid var(--border); color: var(--text-muted); letter-spacing: 0.08em; }
+.hero-badge.critical { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+.hero-badge.amber { background: var(--amber-dim); border-color: var(--amber); color: var(--amber); }
+.hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--space-3); margin-top: var(--space-6); }
+.hero-stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); }
+.hero-stat .num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; color: var(--accent); line-height: 1; }
+.hero-stat .lbl { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); margin-top: 4px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ── MODULAR SECTION SYSTEM ── */
+.page-section { position: relative; }
+.page-section + .page-section { border-top: 1px solid var(--border); }
+.page-section.alt-bg { background: var(--surface); }
+
+/* Section info badge */
+.section-badge {
+  position: absolute; top: var(--space-4); right: var(--space-6);
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em;
+  color: var(--text-faint); z-index: 10;
+  background: var(--surface-2); border: 1px solid var(--border);
+  padding: 3px 8px; border-radius: var(--radius);
+  pointer-events: none;
+}
+.section-badge .sb-num { color: var(--accent); }
+.section-badge .sb-date { color: var(--text-faint); }
+
+/* ── SECTION WRAPPER ── */
+.section { max-width: 1200px; margin: 0 auto; padding: var(--space-12) var(--space-6); }
+.section-header { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-8); }
+.section-num { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent); padding: 3px 8px; border-radius: var(--radius); letter-spacing: 0.1em; }
+.section-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; letter-spacing: 0.05em; color: #fff; }
+.section-title em { color: var(--accent); font-style: normal; }
+.divider { border: none; border-top: 1px solid var(--border); margin: var(--space-12) 0; }
+
+/* ── MAP ── */
+#theater-map-main { height: 560px; width: 100%; border-radius: var(--radius-lg); border: 1px solid var(--border-accent); overflow: hidden; }
+#theater-map-main .leaflet-container { background: #0d0f18; }
+.map-legend { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
+.legend-item { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.06em; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── POPUP ENHANCEMENTS ── */
+.popup-img-thumb { width: 100%; max-height: 110px; object-fit: contain; background: #0a0b0d; border-radius: 3px; margin-bottom: 6px; display: block; }
+.popup-name { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 2px; }
+.popup-coords { font-family: 'Share Tech Mono', monospace; font-size: 0.62rem; color: #666; letter-spacing: 0.05em; margin-bottom: 6px; }
+.popup-status { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-bottom: 6px; }
+.popup-summary { font-size: 0.82rem; color: #aaa; margin-bottom: 6px; line-height: 1.4; }
+.popup-tags { font-size: 0.7rem; color: #555; font-family: 'Share Tech Mono', monospace; margin-bottom: 6px; }
+.popup-link { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: #ff4a1c; }
+.popup-link:hover { text-decoration: underline; }
+
+/* ── GBU SECTION ── */
+.gbu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+.gbu-image-panel { position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-accent); }
+.gbu-image-panel img { width: 100%; object-fit: contain; background: #0a0b0d; }
+.gbu-specs { background: var(--surface); border: 1px solid var(--border-accent); border-radius: var(--radius-lg); padding: var(--space-6); }
+.gbu-specs h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); margin-bottom: var(--space-4); }
+.spec-table { width: 100%; border-collapse: collapse; }
+.spec-table tr { border-bottom: 1px solid var(--border); }
+.spec-table tr:last-child { border-bottom: none; }
+.spec-table td { padding: 8px 4px; font-size: 0.85rem; }
+.spec-table td:first-child { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.06em; width: 45%; }
+.spec-table td:last-child { color: var(--text); font-weight: 500; }
+.penetration-diagram { margin-top: var(--space-4); background: var(--surface-2); border-radius: var(--radius-md); padding: var(--space-4); border-left: 3px solid var(--accent); }
+.penetration-diagram p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: var(--space-2); }
+.pen-bar { display: flex; align-items: center; gap: var(--space-2); margin-bottom: 8px; }
+.pen-bar .label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); width: 160px; flex-shrink: 0; }
+.pen-track { flex: 1; height: 8px; background: var(--surface-3); border-radius: 4px; overflow: hidden; }
+.pen-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent), var(--amber)); }
+.pen-val { font-family: var(--font-mono); font-size: 0.7rem; color: var(--amber); width: 40px; text-align: right; }
+
+/* ── OPERATION MIDNIGHT HAMMER ── */
+.op-box { background: var(--surface); border: 1px solid var(--border-accent); border-radius: var(--radius-lg); padding: var(--space-6); margin-bottom: var(--space-6); }
+.op-box h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); margin-bottom: var(--space-4); }
+.op-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); }
+.op-fact { background: var(--surface-2); border-radius: var(--radius-md); padding: var(--space-4); border-left: 3px solid var(--accent); }
+.op-fact .of-val { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: #fff; }
+.op-fact .of-lbl { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.08em; text-transform: uppercase; }
+.op-subsection { margin-bottom: var(--space-8); }
+.op-subsection-title { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: var(--space-4); border-bottom: 1px solid var(--border-accent); padding-bottom: var(--space-2); }
+
+/* ── FLIGHT PROFILE HERO IMAGE ── */
+.flight-profile-hero { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-accent); margin-bottom: var(--space-6); background: #0a0b0d; }
+.flight-profile-hero img { width: 100%; object-fit: contain; max-height: 520px; background: #0a0b0d; }
+.flight-profile-attribution { padding: var(--space-3) var(--space-4); background: var(--surface-2); font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-faint); letter-spacing: 0.04em; border-top: 1px solid var(--border); }
+
+/* ── TWZ SOURCE LINKS ── */
+.source-links { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+.source-link { font-family: var(--font-mono); font-size: 0.62rem; padding: 3px 9px; border-radius: var(--radius); background: var(--surface-2); border: 1px solid var(--border); color: var(--accent); letter-spacing: 0.05em; transition: all 0.2s; }
+.source-link:hover { border-color: var(--accent); background: var(--accent-dim); text-decoration: none; }
+
+/* ── FACILITY CARDS ── */
+.facility-grid { display: grid; gap: var(--space-8); }
+.facility-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: border-color 0.3s; }
+.facility-card:hover { border-color: var(--border-accent); }
+.facility-card.status-destroyed { border-left: 4px solid var(--accent); }
+.facility-card.status-damaged { border-left: 4px solid var(--amber); }
+.facility-card.status-active { border-left: 4px solid var(--green); }
+.facility-card.status-unknown { border-left: 4px solid var(--purple); }
+
+.fc-header { padding: var(--space-4) var(--space-6); display: flex; align-items: flex-start; gap: var(--space-4); border-bottom: 1px solid var(--border); background: var(--surface-2); }
+.fc-num { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent); padding: 4px 8px; border-radius: var(--radius); letter-spacing: 0.1em; flex-shrink: 0; }
+.fc-title-block { flex: 1; }
+.fc-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; letter-spacing: 0.05em; color: #fff; }
+.fc-subtitle { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); margin-top: 2px; letter-spacing: 0.06em; }
+.fc-status { flex-shrink: 0; font-family: var(--font-mono); font-size: 0.65rem; padding: 4px 10px; border-radius: 9999px; letter-spacing: 0.08em; font-weight: bold; }
+.fc-status.destroyed { background: rgba(255,74,28,0.2); color: var(--accent); border: 1px solid var(--accent); }
+.fc-status.damaged { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber); }
+.fc-status.active { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+.fc-status.hardening { background: rgba(183,108,255,0.15); color: var(--purple); border: 1px solid var(--purple); }
+
+.fc-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.fc-content { padding: var(--space-6); border-right: 1px solid var(--border); }
+.fc-imagery { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); }
+.fc-desc { font-size: 0.9rem; color: var(--text); margin-bottom: var(--space-4); }
+.fc-desc strong { color: var(--amber); }
+.fc-meta { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); margin-bottom: var(--space-4); }
+.fc-meta-item .mk { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.08em; }
+.fc-meta-item .mv { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
+
+/* Coordinates + map links row */
+.fc-coords-row { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-4); background: var(--surface-2); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); border: 1px solid var(--border); }
+.fc-coords { font-family: var(--font-mono); font-size: 0.7rem; color: var(--amber); letter-spacing: 0.05em; }
+.fc-map-links { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.fc-map-link { font-family: var(--font-mono); font-size: 0.6rem; padding: 2px 7px; border-radius: var(--radius); background: var(--surface-3); border: 1px solid var(--border); color: var(--blue); transition: all 0.2s; }
+.fc-map-link:hover { border-color: var(--blue); text-decoration: none; color: var(--blue); }
+
+.fc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.fc-tag { font-family: var(--font-mono); font-size: 0.62rem; padding: 3px 8px; border-radius: var(--radius); background: var(--surface-3); border: 1px solid var(--border); color: var(--text-muted); letter-spacing: 0.06em; }
+
+/* Dual mini-maps */
+.fc-dual-maps { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); margin-bottom: var(--space-3); }
+.fc-mini-map { height: 200px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); position: relative; }
+.fc-mini-map-wide { height: 260px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); flex-shrink: 0; position: relative; }
+.fc-map-label { position: absolute; bottom: 6px; left: 6px; z-index: 1000; font-family: 'Share Tech Mono', monospace; font-size: 0.58rem; background: rgba(10,11,13,0.85); color: #ff4a1c; padding: 2px 6px; border-radius: 3px; border: 1px solid rgba(255,74,28,0.4); letter-spacing: 0.08em; pointer-events: none; }
+.fc-sat-img { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); flex-shrink: 0; }
+.fc-sat-img img { width: 100%; max-height: 400px; object-fit: contain; background: #0a0b0d; }
+.fc-sat-img img.tall { max-height: 500px; }
+.fc-img-caption { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-faint); margin-top: 4px; padding: 0 2px; letter-spacing: 0.04em; }
+
+/* fc-source-links inside facility cards */
+.fc-sources { margin-top: var(--space-4); display: flex; flex-wrap: wrap; gap: 6px; }
+.fc-source-link { font-family: var(--font-mono); font-size: 0.58rem; padding: 2px 7px; border-radius: var(--radius); background: var(--surface-3); border: 1px solid var(--border); color: var(--text-faint); transition: all 0.2s; }
+.fc-source-link:hover { color: var(--accent); border-color: var(--border-accent); text-decoration: none; }
+
+/* ── ASSESSMENT BARS ── */
+.assessment { margin-top: var(--space-4); }
+.assessment-title { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-2); }
+.a-bar { margin-bottom: 10px; }
+.a-bar-label { display: flex; justify-content: space-between; margin-bottom: 3px; }
+.a-bar-label span:first-child { font-size: 0.78rem; color: var(--text); }
+.a-bar-label span:last-child { font-family: var(--font-mono); font-size: 0.68rem; color: var(--amber); }
+.a-track { height: 6px; background: var(--surface-3); border-radius: 3px; overflow: hidden; }
+.a-fill { height: 100%; border-radius: 3px; }
+.fill-red { background: linear-gradient(90deg, var(--accent), #ff8040); }
+.fill-amber { background: linear-gradient(90deg, var(--amber), #ffdd80); }
+.fill-green { background: linear-gradient(90deg, var(--green), #80ffc0); }
+.fill-purple { background: linear-gradient(90deg, var(--purple), #d4b0ff); }
+
+/* ── TIMELINE ── */
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+.tl-item { position: relative; margin-bottom: var(--space-6); }
+.tl-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent-glow); }
+.tl-item.amber::before { background: var(--amber); box-shadow: 0 0 8px rgba(255,179,64,0.5); }
+.tl-item.green::before { background: var(--green); box-shadow: 0 0 8px rgba(61,220,132,0.5); }
+.tl-item.purple::before { background: var(--purple); }
+.tl-date { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 4px; }
+.tl-item.amber .tl-date { color: var(--amber); }
+.tl-item.green .tl-date { color: var(--green); }
+.tl-item.purple .tl-date { color: var(--purple); }
+.tl-text { font-size: 0.88rem; color: var(--text-muted); }
+.tl-text strong { color: var(--text); }
+
+/* ── SCENARIOS ── */
+.scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.scenario-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-6); }
+.scenario-card.worst { border-color: var(--accent); }
+.scenario-card.likely { border-color: var(--amber); }
+.scenario-card.best { border-color: var(--green); }
+.sc-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; margin-bottom: var(--space-2); }
+.sc-label.worst { color: var(--accent); } .sc-label.likely { color: var(--amber); } .sc-label.best { color: var(--green); }
+.sc-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: var(--space-3); }
+.sc-prob { font-family: var(--font-display); font-size: 2.5rem; font-weight: 700; margin-bottom: var(--space-3); }
+.sc-prob.worst { color: var(--accent); } .sc-prob.likely { color: var(--amber); } .sc-prob.best { color: var(--green); }
+.sc-desc { font-size: 0.82rem; color: var(--text-muted); margin: 0.5rem 0; }
+
+/* ── INTEL BOX ── */
+.intel-box { background: var(--surface); border: 1px solid var(--border-accent); border-radius: var(--radius-lg); padding: var(--space-6); margin-bottom: var(--space-6); }
+.intel-box.amber { border-color: rgba(255,179,64,0.35); }
+.intel-box h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); margin-bottom: var(--space-4); text-transform: uppercase; }
+.intel-box.amber h3 { color: var(--amber); }
+.intel-box p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: var(--space-3); }
+.intel-box p:last-child { margin-bottom: 0; }
+.intel-box strong { color: var(--text); }
+
+/* ── CALLOUT ── */
+.callout { display: flex; gap: var(--space-3); background: var(--accent-dim); border: 1px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4); margin-top: var(--space-4); }
+.callout.amber { background: var(--amber-dim); border-color: var(--amber); }
+.callout.green { background: var(--green-dim); border-color: var(--green); }
+.callout-icon { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); flex-shrink: 0; padding-top: 2px; }
+.callout.amber .callout-icon { color: var(--amber); }
+.callout.green .callout-icon { color: var(--green); }
+.callout p { font-size: 0.85rem; color: var(--text); }
+.callout p strong { color: var(--accent); }
+.callout.amber p strong { color: var(--amber); }
+.callout.green p strong { color: var(--green); }
+
+/* ── IMAGE GALLERY STRIP ── */
+.img-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
+.img-card { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); background: var(--surface-2); }
+.img-card img { width: 100%; max-height: 500px; object-fit: contain; background: #0a0b0d; }
+.img-card .img-caption { padding: var(--space-3); font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.04em; }
+
+/* ── LEAFLET CUSTOM ── */
+.leaflet-popup-content-wrapper { background: var(--surface-3); border: 1px solid var(--border-accent); border-radius: var(--radius-md); color: var(--text); box-shadow: var(--shadow); }
+.leaflet-popup-tip { background: #1a1f2e; }
+.leaflet-popup-content { font-family: var(--font-body); font-size: 0.82rem; min-width: 220px; }
+
+/* ── MAP MARKER STYLES ── */
+.site-marker-inner { font-size: 18px; text-align: center; line-height: 1; }
+.site-marker-inner.destroyed { color: #ff4a1c; text-shadow: 0 0 8px rgba(255,74,28,0.6); }
+.site-marker-inner.damaged { color: #ffb340; text-shadow: 0 0 8px rgba(255,179,64,0.5); }
+.site-marker-inner.hardening { color: #b76cff; text-shadow: 0 0 8px rgba(183,108,255,0.5); }
+.site-marker-inner.active { color: #3ddc84; }
+.site-label { font-family: 'Share Tech Mono', monospace; font-size: 9px; text-align: center; color: #fff; letter-spacing: 0.1em; text-shadow: 0 0 3px #000, 0 0 6px #000; white-space: nowrap; margin-top: -2px; }
+.city-dot { font-size: 10px; color: rgba(255,255,255,0.5); text-align: center; line-height: 1; }
+.city-label { font-family: 'Inter', sans-serif; font-size: 10px; color: rgba(255,255,255,0.5); text-shadow: 0 0 3px #000; text-align: center; white-space: nowrap; }
+.mini-map-label { position: absolute; bottom: 6px; left: 6px; z-index: 1000; font-family: 'Share Tech Mono', monospace; font-size: 0.62rem; background: rgba(10,11,13,0.85); color: #ff4a1c; padding: 3px 7px; border-radius: 3px; border: 1px solid rgba(255,74,28,0.4); letter-spacing: 0.08em; pointer-events: none; }
+
+/* ── FOOTER ── */
+footer { border-top: 1px solid var(--border-accent); background: var(--surface); padding: var(--space-6) var(--space-6); text-align: center; }
+footer p { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-faint); letter-spacing: 0.08em; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .fc-body { grid-template-columns: 1fr; }
+  .fc-content { border-right: none; border-bottom: 1px solid var(--border); }
+  .gbu-grid { grid-template-columns: 1fr; }
+  .scenario-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .fc-dual-maps { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .fc-meta { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.8rem; }
+  .section-badge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="class-banner">⚠ ANALYTICAL INTELLIGENCE PRODUCT — OPEN SOURCE COMPILATION — NOT CLASSIFIED ⚠</div>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-logo">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+    <span>IRAN NUCLEAR BRIEF</span>
+  </div>
+  <div class="nav-links">
+    <a href="../index.html" style="color:var(--accent);opacity:0.7;">&#8592; CONFLICT MAPPER</a>
+    <a href="#section-01-map">MAP</a>
+    <a href="#section-02-weapons">GBU-57/MOP</a>
+    <a href="#section-03-hammer">MIDNIGHT HAMMER</a>
+    <a href="#section-04-facilities">FACILITIES</a>
+    <a href="#section-05-timeline">TIMELINE</a>
+    <a href="#section-06-scenarios">BREAKOUT</a>
+    <a href="#section-07-reconstitution">RECONSTITUTION</a>
+    <a href="#section-08-fallout">FALLOUT</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">// STRATEGIC INTELLIGENCE BRIEF — IRAN NUCLEAR PROGRAM</p>
+    <h1>IRAN NUCLEAR PROGRAM<br><em>DEEP DIVE ASSESSMENT</em></h1>
+    <div class="hero-meta">
+      <span class="hero-badge critical">CRITICAL</span>
+      <span class="hero-badge amber">POST-STRIKE ANALYSIS</span>
+      <span class="hero-badge">12-DAY WAR: JUNE 2025</span>
+      <span class="hero-badge">UPDATED: MARCH 31, 2026</span>
+      <span class="hero-badge">FIRST OPERATIONAL USE: GBU-57 MOP</span>
+    </div>
+    <p style="font-size:0.92rem; color:var(--text-muted); max-width: 750px; margin-bottom: var(--space-4);">
+      Comprehensive post-strike assessment of Iran's nuclear infrastructure following Operation Midnight Hammer (June 22, 2025) and subsequent Israeli operations. Covers 11 key facilities, per-site satellite imagery analysis, enrichment timeline, breakout scenarios, reconstitution assessment, and fallout considerations.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">11</div><div class="lbl">Facilities Analyzed</div></div>
+      <div class="hero-stat"><div class="num">14</div><div class="lbl">GBU-57 MOPs Dropped</div></div>
+      <div class="hero-stat"><div class="num">7</div><div class="lbl">B-2 Spirit Bombers</div></div>
+      <div class="hero-stat"><div class="num">125+</div><div class="lbl">Total Aircraft</div></div>
+      <div class="hero-stat"><div class="num">~25min</div><div class="lbl">Strike Duration</div></div>
+      <div class="hero-stat"><div class="num">300ft</div><div class="lbl">Fordow Burial Depth</div></div>
+      <div class="hero-stat"><div class="num">2–3yr</div><div class="lbl">DoD Breakout Estimate</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 01 — NUCLEAR FACILITIES THEATER MAP
+     ════════════════════════════════════════════════════════ -->
+<section id="section-01-map" class="page-section alt-bg" data-section="01" data-title="Nuclear Facilities Theater Map" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§ 01</span>
+    <span class="sb-date">UPDATED 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">01 // MAP</span>
+      <h2 class="section-title">NUCLEAR FACILITIES <em>THEATER MAP</em></h2>
+    </div>
+
+    <div id="theater-map-main"></div>
+
+    <div class="map-legend">
+      <div class="legend-item"><div style="color:#ff4a1c;font-size:14px;width:14px;text-align:center;">●</div> DESTROYED / SEVERELY DAMAGED</div>
+      <div class="legend-item"><div style="color:#ffb340;font-size:14px;width:14px;text-align:center;">●</div> DAMAGED / STATUS UNCERTAIN</div>
+      <div class="legend-item"><div style="color:#b76cff;font-size:14px;width:14px;text-align:center;">●</div> ACTIVE HARDENING / COVERT</div>
+      <div class="legend-item"><div style="color:#3ddc84;font-size:14px;width:14px;text-align:center;">●</div> INTACT / RECONSTITUTING</div>
+      <div class="legend-item"><div style="color:rgba(255,255,255,0.4);font-size:10px;width:14px;text-align:center;">●</div> REFERENCE CITY</div>
+    </div>
+
+    <div class="callout amber" style="margin-top:var(--space-6)">
+      <span class="callout-icon">⚠</span>
+      <p><strong>CLICK ANY MARKER</strong> for a facility popup with image, status, function summary, and a link to the detailed facility card below. The ISW (Institute for the Study of War) tracks ongoing US and Israeli strikes — as of late March 2026, strikes have expanded beyond nuclear facilities to include IRGC command infrastructure, air defense nodes, and SPND-affiliated research sites.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 02 — GBU-57 / MOP
+     ════════════════════════════════════════════════════════ -->
+<section id="section-02-weapons" class="page-section" data-section="02" data-title="GBU-57 / MOP" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§ 02</span>
+    <span class="sb-date">UPDATED 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">02 // WEAPON</span>
+      <h2 class="section-title">GBU-57 / MOP — <em>MASSIVE ORDNANCE PENETRATOR</em></h2>
+    </div>
+
+    <div class="gbu-grid">
+      <!-- Left: Infographic images -->
+      <div style="display:flex; flex-direction:column; gap:var(--space-4)">
+        <div class="gbu-image-panel">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e6b777dc1c16c6345500660f455a3dca3d48b407.jpg" alt="GBU-57 MOP infographic showing penetration depths and B-2 delivery" loading="lazy" width="600" height="620">
+          <div style="padding:var(--space-3); font-family:var(--font-mono); font-size:0.62rem; color:var(--text-faint); letter-spacing:0.04em; background:var(--surface-2);">GBU-57A/B MOP PENETRATION DIAGRAM — B-2 DELIVERY PROFILE / US AIR FORCE</div>
+        </div>
+        <div class="gbu-image-panel">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/14e49ddbed40fe4d2d50add7305d90bad0727c8f.jpg" alt="GBU-57 MOP AFP infographic penetration through rock and concrete" loading="lazy" width="600" height="780">
+          <div style="padding:var(--space-3); font-family:var(--font-mono); font-size:0.62rem; color:var(--text-faint); letter-spacing:0.04em; background:var(--surface-2);">PENETRATION CROSS-SECTION — 60M INTO HARDENED ROCK / AFP INFOGRAPHIC</div>
+        </div>
+      </div>
+
+      <!-- Right: Specs + B-2 on tarmac / bomb bay -->
+      <div style="display:flex; flex-direction:column; gap:var(--space-4)">
+        <div class="gbu-specs">
+          <h3>// TECHNICAL SPECIFICATIONS</h3>
+          <table class="spec-table">
+            <tr><td>DESIGNATION</td><td>GBU-57A/B Massive Ordnance Penetrator</td></tr>
+            <tr><td>MANUFACTURER</td><td>Boeing Defense, Space & Security</td></tr>
+            <tr><td>IOC</td><td>2011 (Operational Reserve); First Combat Use: June 22, 2025</td></tr>
+            <tr><td>LENGTH</td><td>6.2 metres (20.5 ft)</td></tr>
+            <tr><td>DIAMETER</td><td>0.8 metres (31.5 in)</td></tr>
+            <tr><td>TOTAL WEIGHT</td><td>13,608 kg (30,000 lbs)</td></tr>
+            <tr><td>WARHEAD</td><td>2,404 kg (5,300 lbs) high explosive</td></tr>
+            <tr><td>CASING</td><td>Hardened ferro-cobalt alloy — body &gt;80% of total weight</td></tr>
+            <tr><td>GUIDANCE</td><td>GPS + inertial, JDAM-class accuracy; supersonic at impact</td></tr>
+            <tr><td>DELIVERY PLATFORM</td><td>B-2 Spirit stealth bomber (2 per aircraft, one per bay)</td></tr>
+            <tr><td>FUZE</td><td>Delayed — detonates after reaching target depth</td></tr>
+          </table>
+
+          <div class="penetration-diagram">
+            <p style="color:var(--amber); font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.1em; margin-bottom:var(--space-3);">// PENETRATION CAPABILITY vs MATERIAL</p>
+            <div class="pen-bar"><span class="label">5,000 PSI CONCRETE</span><div class="pen-track"><div class="pen-fill" style="width:100%"></div></div><span class="pen-val">60m</span></div>
+            <div class="pen-bar"><span class="label">10,000 PSI CONCRETE</span><div class="pen-track"><div class="pen-fill" style="width:13%"></div></div><span class="pen-val">8m</span></div>
+            <div class="pen-bar"><span class="label">HARD ROCK</span><div class="pen-track"><div class="pen-fill" style="width:67%"></div></div><span class="pen-val">40m</span></div>
+            <div class="pen-bar"><span class="label">BLU-109 (1985)</span><div class="pen-track"><div class="pen-fill" style="width:3%"></div></div><span class="pen-val">1.8m</span></div>
+            <div class="pen-bar"><span class="label">GBU-28 (1990)</span><div class="pen-track"><div class="pen-fill" style="width:10%"></div></div><span class="pen-val">6m</span></div>
+          </div>
+        </div>
+
+        <!-- GBU-57 on tarmac (Jim Mumaw photo) — KEEP -->
+        <div class="gbu-image-panel">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/089abe7074e5e8e19b25d8ec57edca330b50e42d.jpg" alt="B-2 Spirit on tarmac with GBU-57 MOP attached — Jim Mumaw" loading="lazy" width="600" height="400">
+          <div style="padding:var(--space-3); font-family:var(--font-mono); font-size:0.62rem; color:var(--text-faint); letter-spacing:0.04em; background:var(--surface-2);">GBU-57 MOP LOADED ON B-2 SPIRIT ON TARMAC — WHITEMAN AFB / PHOTO: JIM MUMAW</div>
+        </div>
+
+        <!-- GBU-57 in B-2 bomb bay (Wikimedia/USAF) — KEEP -->
+        <div class="gbu-image-panel">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/MOP_in_the_B-2_bomb_bay.jpg" alt="GBU-57 MOP in B-2 Spirit bomb bay - Wikimedia Commons USAF" loading="lazy" width="600" height="900">
+          <div style="padding:var(--space-3); font-family:var(--font-mono); font-size:0.62rem; color:var(--text-faint); letter-spacing:0.04em; background:var(--surface-2);">GBU-57 MOP IN B-2 SPIRIT BOMB BAY — WEAPON LOAD TRAINER — USAF / WIKIMEDIA COMMONS</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:var(--space-6)">
+      <span class="callout-icon">⚡</span>
+      <p><strong>FORDOW CHALLENGE:</strong> The GBU-57 penetrates up to 60m of standard concrete or ~40m of hard rock — but Fordow's main enrichment hall is buried ~90m beneath solid mountain granite. This is why 14 MOPs were required and multiple bombs stacked on the same aim points, using sequential detonations to progressively drive deeper. Whether the combined effect reached the main hall remains the central post-strike intelligence debate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 03 — OPERATION MIDNIGHT HAMMER
+     ════════════════════════════════════════════════════════ -->
+<section id="section-03-hammer" class="page-section alt-bg" data-section="03" data-title="Operation Midnight Hammer" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§ 03</span>
+    <span class="sb-date">UPDATED 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">03 // OPERATION</span>
+      <h2 class="section-title">OPERATION <em>MIDNIGHT HAMMER</em></h2>
+    </div>
+
+    <!-- Top stats -->
+    <div class="op-box">
+      <h3>// STRIKE OVERVIEW — JUNE 22, 2025 / 0200 LOCAL</h3>
+      <div class="op-facts">
+        <div class="op-fact"><div class="of-val">125+</div><div class="of-lbl">Total US Aircraft</div></div>
+        <div class="op-fact"><div class="of-val">7</div><div class="of-lbl">B-2 Spirit Bombers</div></div>
+        <div class="op-fact"><div class="of-val">14</div><div class="of-lbl">GBU-57 MOPs Dropped (First Combat Use)</div></div>
+        <div class="op-fact"><div class="of-val">24+</div><div class="of-lbl">Tomahawk TLAMs (Ohio-class SSGN)</div></div>
+        <div class="op-fact"><div class="of-val">~25 min</div><div class="of-lbl">Total Strike Window (2:10–2:35 AM Iran)</div></div>
+        <div class="op-fact"><div class="of-val">75+</div><div class="of-lbl">Total Precision-Guided Weapons</div></div>
+      </div>
+    </div>
+
+    <!-- 3A. Background & Lead-up -->
+    <div class="op-subsection">
+      <div class="op-subsection-title">// 3A — BACKGROUND & LEAD-UP</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-6);">
+        <div class="intel-box">
+          <h3>// WHY IT HAPPENED: NUCLEAR BREAKOUT THREAT</h3>
+          <p>By mid-2025, Iran had accumulated <strong>approximately 440 kg of uranium enriched to 60%</strong> — well above the 90%+ weapons-grade threshold but only one further enrichment step away. The IAEA warned repeatedly that Iran possessed sufficient material, if further enriched, for several nuclear weapons.</p>
+          <p>JCPOA negotiations had collapsed. Iran was installing advanced IR-6 centrifuges at Fordow — a facility specifically designed to be invulnerable to Israeli air attack. Israeli intelligence assessed that <strong>Iran was within weeks of making a political decision to weaponize</strong>, not just enrich.</p>
+          <p>Intelligence accelerants: Iran had barred IAEA inspectors since 2021, creating a monitoring blackout. Fordow centrifuge installation rate was accelerating. The political window for conventional action was closing as Fordow hardened further and stockpiles dispersed to unknown locations.</p>
+        </div>
+        <div class="intel-box amber">
+          <h3>// DECISION FRAMEWORK: WHY B-2s WITH MOPs</h3>
+          <p><strong>Israel lacks the capability to strike Fordow.</strong> The Israeli Air Force has bunker-busting munitions (GBU-28, Rampage) but none that can penetrate 300 feet of mountain granite. Israeli planners reportedly considered ground raids ("doing it with humans") but the facility's hardening made this operationally untenable.</p>
+          <p>The B-2 Spirit carrying two GBU-57 MOPs per aircraft was the <strong>only conventional weapon system on Earth</strong> with any realistic probability of damaging Fordow's underground enrichment hall. This drove the presidential finding and the classified authorization for Operation Midnight Hammer.</p>
+          <p>Trump signed off. The operation was planned with extreme secrecy — Congress was notified after the B-2s were safely out of Iranian airspace, in compliance with War Powers Act notification requirements.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3B. Mission Profile -->
+    <div class="op-subsection">
+      <div class="op-subsection-title">// 3B — MISSION PROFILE &amp; FLIGHT PROFILE</div>
+
+      <!-- Flight profile infographic hero image -->
+      <div class="flight-profile-hero">
+        <img src="/assets/MidnightHammerFlightProfile-7.jpg"
+             alt="Operation Midnight Hammer B-2 strike flight profile map showing route from Whiteman AFB to Iran nuclear sites"
+             loading="lazy" width="1200" height="600">
+        <div class="flight-profile-attribution">
+          OPERATION MIDNIGHT HAMMER — STRIKE FLIGHT PROFILE / SOURCE: @IANELLISJONES / IEJMEDIA.COM · U.S. DOD · USCENTCOM · AIR &amp; SPACE FORCES MAGAZINE · USNI NEWS
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-6);">
+        <div>
+          <div class="intel-box">
+            <h3>// FORCE COMPOSITION — 125+ AIRCRAFT</h3>
+            <p><strong>B-2 Spirit (7 aircraft, 14 crew):</strong> Main strike package. Each B-2 carried two GBU-57 MOPs — one per bomb bay. Departed Whiteman AFB, Missouri. 18-hour flight to target area with multiple in-flight refueling operations.</p>
+            <p><strong>Escort &amp; Support:</strong> Dozens of 4th- and 5th-generation fighters (likely F-22A Raptors, F-35As, F-16s, F/A-18E/Fs). High-speed suppression weapons (likely AGM-88 HARM/AARGM family) for IADS neutralization. Full array of ISR aircraft.</p>
+            <p><strong>Air Refueling:</strong> Dozens of KC-135 Stratotankers and KC-46A Pegasus tankers providing multiple refuelings for the 18-hour one-way flight and return.</p>
+            <p><strong>Ohio-class SSGN:</strong> A single US Navy Ohio-class guided missile submarine in the CENTCOM AOR fired more than two dozen Tomahawk land attack cruise missiles (TLAMs) at Isfahan's key surface infrastructure targets. Ohio-class submarines are the only US platforms capable of volley-firing this many Tomahawks simultaneously (up to 154 VLS cells).</p>
+          </div>
+          <div class="intel-box amber">
+            <h3>// STRIKE TIMELINE — JUNE 21–22, 2025</h3>
+            <p><strong>Midnight (June 21→22):</strong> Large B-2 strike package departs Whiteman AFB eastbound. Minimal communications to maintain operational security.</p>
+            <p><strong>~5:00 PM EST (June 22) / Pre-strike:</strong> Ohio-class SSGN fires Tomahawk salvo at Isfahan. Tomahawks were sequenced to hit last — after aerial B-2 strikes — to retain element of surprise for the main package.</p>
+            <p><strong>6:40 PM EST / 2:10 AM Iran local:</strong> Lead B-2 drops first two GBU-57 MOPs on Fordow — the first combat employment of the Massive Ordnance Penetrator in history.</p>
+            <p><strong>6:40–7:05 PM EST / 2:10–2:35 AM Iran:</strong> 25-minute sustained strike window. All seven B-2s complete their attack runs across Fordow, Natanz, and coordinated Isfahan strike.</p>
+            <p><strong>Post-strike:</strong> Strike package exits Iranian airspace. No Iranian fighters scrambled. No SAM shots fired. Element of surprise fully retained. B-2s begin the return flight to Whiteman AFB.</p>
+          </div>
+        </div>
+        <div>
+          <div class="intel-box">
+            <h3>// DECEPTION OPERATIONS</h3>
+            <p><strong>Pacific Decoy Flight:</strong> Two B-2s flew westward over the Pacific Ocean from Whiteman AFB, creating a visible flight path for Iranian intelligence to track. The actual strike package proceeded east — opposite direction — with minimal communications throughout.</p>
+            <p><strong>Air Defense Pre-clearing:</strong> Per Axios, citing Israeli officials, the United States provided Israel with a list of Iranian air defense targets to neutralize prior to the B-2 strike package entering Iranian airspace. Israeli strikes on Iranian SAM batteries and radar sites in the days prior to June 22 degraded the IADS.</p>
+            <p><strong>Suppression Aircraft:</strong> Dedicated suppression aircraft pushed out ahead of the B-2 package at high altitude and high speed, further disrupting any surviving radar systems and providing preemptive fires against potential Iranian SAM threats.</p>
+            <p>SecDef Hegseth's post-strike statement: <em>"Our B-2s went in and out… and back without the world knowing at all."</em> Gen. Dan "Razin" Caine, CJCS, described the operation as the B-2's largest strike mission since operations shortly after 9/11 — the second-longest B-2 mission ever flown.</p>
+          </div>
+          <div class="intel-box">
+            <h3>// TARGET ALLOCATION</h3>
+            <p><strong>FORDOW:</strong> Multiple GBU-57 MOPs across several aim points — including the main enrichment hall ventilation shaft area, tunnel portal complex, and ridgeline directly above the underground complex. Largest concentration of MOP employment. Lead B-2 dropped the first two MOPs.</p>
+            <p><strong>NATANZ:</strong> Remaining MOPs targeting the underground Fuel Enrichment Plant (FEP). Israeli strikes on June 13 had destroyed surface infrastructure. US MOP strikes targeted the FEP hall entrance complex and the Pilot FEP, creating a confirmed 5.5-meter diameter penetration crater directly over the underground complex.</p>
+            <p><strong>ISFAHAN:</strong> 24+ Tomahawk cruise missiles from the Ohio-class SSGN targeting the Uranium Conversion Facility surface complex, above-ground buildings, and tunnel approach infrastructure. Not targeted with MOPs due to different underground architecture.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3C. Post-Strike Damage Assessment -->
+    <div class="op-subsection">
+      <div class="op-subsection-title">// 3C — POST-STRIKE DAMAGE ASSESSMENT</div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:var(--space-4); margin-bottom:var(--space-6);">
+        <div class="op-fact" style="border-left:3px solid var(--accent);">
+          <div class="of-val" style="font-size:1.1rem;">FORDOW</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:6px; line-height:1.5;">Multiple large-diameter MOP craters on ridgeline. Grey-blue ash layer across large swath. Tunnel entrances blocked — Iran pre-filled with earth using 16 dump trucks on June 19–20. Altered ridgeline. <em>NYT: severely damaged but not completely destroyed.</em></div>
+        </div>
+        <div class="op-fact" style="border-left:3px solid var(--amber);">
+          <div class="of-val" style="font-size:1.1rem;">NATANZ</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:6px; line-height:1.5;">5.5-meter diameter penetration crater confirmed by Maxar directly over underground complex. Surface infrastructure previously destroyed by Israel June 13. Additional damage to FEP entrance structures. Re-struck March 2026.</div>
+        </div>
+        <div class="op-fact" style="border-left:3px solid var(--amber);">
+          <div class="of-val" style="font-size:1.1rem;">ISFAHAN</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:6px; line-height:1.5;">Extensive new building damage confirmed by Maxar. 24+ Tomahawks struck the UCF surface complex and above-ground buildings. Tunnel entrances sealed by February 2026. Possible HEU stockpile sealed inside underground complex.</div>
+        </div>
+      </div>
+
+      <div class="callout green" style="margin-bottom:var(--space-6)">
+        <span class="callout-icon">✓</span>
+        <p><strong>OVERALL ASSESSMENT (US DoD / Gen. Caine):</strong> "All three sites sustained extremely severe damage/destruction. All precision munitions struck as intended. Desired effect achieved — especially at Fordow." <strong>"No Iranian fighters flew; no SAM shots fired; element of surprise retained."</strong> Total weapons: ~75 precision-guided munitions. All delivered as intended.</p>
+      </div>
+
+      <div class="callout amber" style="margin-bottom:var(--space-6)">
+        <span class="callout-icon">⚠</span>
+        <p><strong>FORDOW — PRE-STRIKE SEALING (TWZ / Maxar):</strong> Satellite imagery from June 19–20 shows Iran took deliberate action to seal Fordow's tunnel entrances <em>before</em> the US strikes — deploying 16 cargo dump trucks and bulldozers to backfill the main tunnel portal with earth. Post-strike imagery confirms the entrances were fully packed with dirt, with some ejected by the blast, confirming purposeful pre-filling. This was assessed as protection against a potential Israeli ground raid, but also complicates battle damage assessment and may indicate sensitive material or equipment was sealed inside.</p>
+      </div>
+
+      <div class="img-strip">
+        <div class="img-card">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/6a24d7a0018ea9231f73c72c4e576ee1ef1f08f7.jpg" alt="Fordow nuclear facility satellite with annotated MOP craters" loading="lazy">
+          <div class="img-caption">FORDOW STRIKE ASSESSMENT — ANNOTATED MOP PENETRATION CRATERS ON RIDGELINE / MAXAR VIA AL JAZEERA</div>
+        </div>
+        <div class="img-card">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/20c38f3466b25fe4a2db5f766155b7d51a7eeb61.jpg" alt="Natanz damage map showing destroyed PFEP and enrichment areas" loading="lazy">
+          <div class="img-caption">NATANZ — ANNOTATED DAMAGE: DESTROYED PFEP, SUBSTATION, UNDERGROUND FEP CRATER / MAXAR VIA AL JAZEERA</div>
+        </div>
+        <div class="img-card">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/391c06fd2cf3db53808669717d4e2e2e65fad99e.jpg" alt="Isfahan nuclear site destroyed buildings after US Tomahawk strikes" loading="lazy">
+          <div class="img-caption">ISFAHAN UCF — EXTENSIVE BUILDING DAMAGE FROM 24+ TOMAHAWK TLAMs / MAXAR VIA CBS NEWS</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TWZ source links -->
+    <div style="margin-top:var(--space-6);">
+      <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); letter-spacing:0.1em; margin-bottom:var(--space-2);">// PRIMARY SOURCES — THE WAR ZONE (TWZ)</div>
+      <div class="source-links">
+        <a href="https://www.twz.com/air/b-2-strikes-on-iran-what-we-know-about-operation-midnight-hammer" target="_blank" class="source-link">TWZ: Operation Midnight Hammer — Full Coverage</a>
+        <a href="https://www.twz.com/air/tunnel-entrances-to-irans-fordow-nuclear-site-likely-sealed-off-before-b-2-strikes" target="_blank" class="source-link">TWZ: Fordow Sealed Entrances Before B-2 Strikes</a>
+        <a href="https://www.twz.com/news-features/claims-swirl-over-extent-of-damage-from-attacks-on-iranian-nuclear-facilities" target="_blank" class="source-link">TWZ: Claims Swirl Over Damage Extent</a>
+        <a href="https://www.twz.com/air/did-b-2s-just-drop-gbu-57-massive-ordnance-penetrators-on-another-iranian-nuclear-site" target="_blank" class="source-link">TWZ: GBU-57 on Additional Iranian Site</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 04 — FACILITY CARDS
+     ════════════════════════════════════════════════════════ -->
+<section id="section-04-facilities" class="page-section" data-section="04" data-title="Per-Site Facility Analysis" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§ 04</span>
+    <span class="sb-date">UPDATED 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">04 // FACILITIES</span>
+      <h2 class="section-title">PER-SITE <em>FACILITY ANALYSIS</em></h2>
+    </div>
+
+    <div class="facility-grid">
+
+      <!-- ── NATANZ ── -->
+      <div class="facility-card status-destroyed" id="site-natanz">
+        <div class="fc-header">
+          <span class="fc-num">01</span>
+          <div class="fc-title-block">
+            <div class="fc-title">NATANZ ENRICHMENT COMPLEX</div>
+            <div class="fc-subtitle">ISFAHAN PROVINCE / PRIMARY ENRICHMENT FACILITY</div>
+          </div>
+          <span class="fc-status destroyed">SEVERELY DAMAGED</span>
+        </div>
+        <div class="fc-body">
+          <div class="fc-content">
+            <div class="fc-coords-row">
+              <span class="fc-coords">33.7243°N &nbsp;51.7272°E</span>
+              <div class="fc-map-links">
+                <a href="https://www.google.com/maps/@33.7243,51.7272,15z/data=!3m1!1e1!4m5" target="_blank" class="fc-map-link">Google Maps ↗</a>
+                <a href="https://wikimapia.org/#lang=en&lat=33.7243&lon=51.7272&z=15" target="_blank" class="fc-map-link">Wikimapia ↗</a>
+              </div>
+            </div>
+            <p class="fc-desc">Iran's primary uranium enrichment facility, housing the underground Fuel Enrichment Plant (FEP), the Pilot Fuel Enrichment Plant (PFEP), and associated infrastructure. Constructed from the late 1990s; undeclared to the IAEA until 2002 when US satellite imagery exposed it. The FEP hall sits approximately 8–10 meters underground beneath reinforced concrete, while the expanded tunnels (ISIS reported in 2021) reach significantly deeper.</p>
+            <p class="fc-desc"><strong>The PFEP was destroyed</strong> in the June 2025 12-Day War with at least three explosive impacts visible in satellite imagery. The underground FEP hall sustained damage to entrance buildings from Israeli strikes on June 13. On June 22, 2025, US B-2 bombers dropped GBU-57 MOPs creating a <strong>confirmed 5.5-meter diameter penetration crater directly over the buried FEP hall</strong>. Additional US and Israeli strikes in March 2026 caused further damage. Iran has been placing panels over damaged structures and dispersing industrial HVAC chillers — indicating salvage and possible reconstitution planning.</p>
+            <div class="fc-meta">
+              <div class="fc-meta-item"><div class="mk">STRUCK BY</div><div class="mv">Israel (Jun 13) + US MOP (Jun 22, 2025) + Mar 2026</div></div>
+              <div class="fc-meta-item"><div class="mk">PRIMARY MUNITION</div><div class="mv">GBU-57 MOP + Israeli SPICE/Rampage</div></div>
+              <div class="fc-meta-item"><div class="mk">IAEA STATUS</div><div class="mv">Declared safeguards site (2002–)</div></div>
+              <div class="fc-meta-item"><div class="mk">CURRENT STATUS</div><div class="mv">Limited salvage, no enrichment activity</div></div>
+              <div class="fc-meta-item"><div class="mk">CONSTRUCTION</div><div class="mv">Late 1990s; expanded tunnels 2015–2021</div></div>
+              <div class="fc-meta-item"><div class="mk">IAEA HISTORY</div><div class="mv">Declared 2003; NPT violations cited 2005</div></div>
+            </div>
+            <div class="fc-tags">
+              <span class="fc-tag">ENRICHMENT</span><span class="fc-tag">FEP UNDERGROUND</span><span class="fc-tag">PFEP DESTROYED</span><span class="fc-tag">MOP STRIKE</span><span class="fc-tag">DECLARED SITE</span>
+            </div>
+            <div class="assessment">
+              <div class="assessment-title">// DAMAGE ASSESSMENT</div>
+              <div class="a-bar"><div class="a-bar-label"><span>Surface Infrastructure</span><span>95%</span></div><div class="a-track"><div class="a-fill fill-red" style="width:95%"></div></div></div>
+              <div class="a-bar"><div class="a-bar-label"><span>Underground FEP Hall</span><span>55%</span></div><div class="a-track"><div class="a-fill fill-amber" style="width:55%"></div></div></div>
+              <div class="a-bar"><div class="a-bar-label"><span>Centrifuge Inventory</span><span>70%</span></div><div class="a-track"><div class="a-fill fill-red" style="width:70%"></div></div></div>
+            </div>
+            <div class="fc-sources">
+              <a href="https://isis-online.org" target="_blank" class="fc-source-link">ISIS-ONLINE</a>
+              <a href="https://www.iaea.org/newscenter/pressreleases" target="_blank" class="fc-source-link">IAEA</a>
+              <a href="https://www.maxar.com" target="_blank" class="fc-source-link">MAXAR</a>
+              <a href="https://www.twz.com/air/b-2-strikes-on-iran-what-we-know-about-operation-midnight-hammer" target="_blank" class="fc-source-link">TWZ</a>
+              <a href="/assets/Natanz-Report-March-3-2026-6.pdf" target="_blank" class="fc-source-link" style="background:var(--accent-dim);border-color:var(--accent);">📄 ISIS NATANZ REPORT (PDF)</a>
+            </div>
+          </div>
+          <div class="fc-imagery">
+            <div class="fc-dual-maps">
+              <div>
+                <div class="fc-mini-map" id="map-natanz-ctx"></div>
+                <div class="fc-img-caption" style="text-align:center;">CONTEXT (ZOOM 8)</div>
+              </div>
+              <div>
+                <div class="fc-mini-map" id="map-natanz-det"></div>
+                <div class="fc-img-caption" style="text-align:center;">FACILITY DETAIL (ZOOM 15)</div>
+              </div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f7d131a27b23c4bc0fc1324ff4df913103235e5c.jpg" alt="Natanz nuclear facility before and after strike satellite comparison" loading="lazy">
+              <div class="fc-img-caption">NATANZ BEFORE/AFTER — IAEA CONFIRMS ENRICHMENT PLANT ENTRANCES BOMBED / ARAB NEWS</div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1ade94f683b696601a744df3cde8fad906141c81.jpg" alt="Natanz site aerial construction before strikes NYT" loading="lazy">
+              <div class="fc-img-caption">NATANZ AERIAL — UNDERGROUND COMPLEX VISIBLE / NYT / MAXAR</div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://thehill.com/wp-content/uploads/sites/2/2025/06/68575bda1c0df2.89526589.jpeg" alt="Natanz nuclear site aerial view showing facility complex" loading="lazy">
+              <div class="fc-img-caption">NATANZ COMPLEX — SURFACE PERIMETER AND UCF / THE HILL</div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://isis-online.org/uploads/isis-reports/images/December_2021_Natanz_Tunnel_Figure_4.JPG" alt="Natanz tunnel complex deep expansion ISIS Institute report" loading="lazy">
+              <div class="fc-img-caption">NATANZ TUNNEL COMPLEX — DEEPER/LARGER THAN EXPECTED / ISIS-ONLINE DEC 2021</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── FORDOW ── -->
+      <div class="facility-card status-damaged" id="site-fordow">
+        <div class="fc-header">
+          <span class="fc-num">02</span>
+          <div class="fc-title-block">
+            <div class="fc-title">FORDOW FUEL ENRICHMENT PLANT (FFEP)</div>
+            <div class="fc-subtitle">QOM PROVINCE / MOST HARDENED NUCLEAR FACILITY IN IRAN</div>
+          </div>
+          <span class="fc-status damaged">STATUS UNCERTAIN</span>
+        </div>
+        <div class="fc-body">
+          <div class="fc-content">
+            <div class="fc-coords-row">
+              <span class="fc-coords">34.8842°N &nbsp;50.9940°E</span>
+              <div class="fc-map-links">
+                <a href="https://www.google.com/maps/@34.8842,50.9940,15z/data=!3m1!1e1!4m5" target="_blank" class="fc-map-link">Google Maps ↗</a>
+                <a href="https://wikimapia.org/#lang=en&lat=34.8842&lon=50.9940&z=15" target="_blank" class="fc-map-link">Wikimapia ↗</a>
+              </div>
+            </div>
+            <p class="fc-desc">Iran's most hardened enrichment facility, covertly built inside a mountain near Qom — buried approximately <strong>300 feet (90 metres) underground</strong> beneath solid granite with reinforced concrete. Exposed by Western intelligence in September 2009. Initially designated to enrich up to 20%; after JCPOA collapse, Iran installed advanced IR-1 and IR-6 centrifuges for 60% enrichment.</p>
+            <p class="fc-desc">American B-2 bombers dropped the majority of the 14 GBU-57 MOPs at Fordow on June 22, 2025. Post-strike Maxar imagery shows several large-diameter MOP impact craters across the ridgeline above the complex. A layer of <strong>grey-blue ash marks strike impacts</strong> across a large swath. Tunnel portals were pre-filled with earth by Iran using 16 dump trucks and bulldozers on June 19–20 (TWZ/Maxar) — before the strikes — assessed as protection against an Israeli ground raid. Cranes and personnel were observed working at the site within days. Whether the MOPs penetrated to the main enrichment hall at 90m depth remains the central post-strike intelligence dispute.</p>
+            <div class="fc-meta">
+              <div class="fc-meta-item"><div class="mk">STRUCK BY</div><div class="mv">US B-2 / 7+ GBU-57 MOPs (Jun 22, 2025)</div></div>
+              <div class="fc-meta-item"><div class="mk">BURIAL DEPTH</div><div class="mv">~90 metres (300 feet) in granite mountain</div></div>
+              <div class="fc-meta-item"><div class="mk">IAEA STATUS</div><div class="mv">Declared (JCPOA monitored); access denied 2021+</div></div>
+              <div class="fc-meta-item"><div class="mk">CURRENT STATUS</div><div class="mv">Active remediation; enrichment halted</div></div>
+              <div class="fc-meta-item"><div class="mk">EXPOSED</div><div class="mv">September 2009 (Obama/Brown/Sarkozy)</div></div>
+              <div class="fc-meta-item"><div class="mk">TUNNEL SEALING</div><div class="mv">Pre-filled Jun 19–20 with 16 dump trucks</div></div>
+            </div>
+            <div class="fc-tags">
+              <span class="fc-tag">MOUNTAIN BURIED</span><span class="fc-tag">MOP PRIMARY TARGET</span><span class="fc-tag">FIRST COMBAT MOP</span><span class="fc-tag">60% ENRICHMENT</span><span class="fc-tag">PRE-SEALED ENTRANCES</span>
+            </div>
+            <div class="assessment">
+              <div class="assessment-title">// DAMAGE ASSESSMENT</div>
+              <div class="a-bar"><div class="a-bar-label"><span>Surface / Access Roads</span><span>90%</span></div><div class="a-track"><div class="a-fill fill-red" style="width:90%"></div></div></div>
+              <div class="a-bar"><div class="a-bar-label"><span>Tunnel Portals (sealed)</span><span>80%</span></div><div class="a-track"><div class="a-fill fill-red" style="width:80%"></div></div></div>
+              <div class="a-bar"><div class="a-bar-label"><span>Main Enrichment Hall (DISPUTED)</span><span>30–70%</span></div><div class="a-track"><div class="a-fill fill-amber" style="width:50%"></div></div></div>
+            </div>
+            <div class="callout amber" style="margin-top:var(--space-4)">
+              <span class="callout-icon">⚠</span>
+              <p><strong>KEY INTELLIGENCE GAP:</strong> Whether the MOPs penetrated through ~90m of granite to reach the main enrichment hall remains disputed. DoD initial BDA cited "extremely severe damage." NYT: "severely damaged but not completely destroyed." Iran designed Fordow specifically to survive conventional bunker-busters — it may have succeeded.</p>
+            </div>
+            <div class="fc-sources">
+              <a href="https://www.twz.com/air/tunnel-entrances-to-irans-fordow-nuclear-site-likely-sealed-off-before-b-2-strikes" target="_blank" class="fc-source-link">TWZ: Fordow Sealed</a>
+              <a href="https://www.twz.com/air/b-2-strikes-on-iran-what-we-know-about-operation-midnight-hammer" target="_blank" class="fc-source-link">TWZ: Midnight Hammer</a>
+              <a href="https://isis-online.org" target="_blank" class="fc-source-link">ISIS-ONLINE</a>
+              <a href="https://www.maxar.com" target="_blank" class="fc-source-link">MAXAR</a>
+            </div>
+          </div>
+          <div class="fc-imagery">
+            <div class="fc-dual-maps">
+              <div>
+                <div class="fc-mini-map" id="map-fordow-ctx"></div>
+                <div class="fc-img-caption" style="text-align:center;">CONTEXT (ZOOM 8)</div>
+              </div>
+              <div>
+                <div class="fc-mini-map" id="map-fordow-det"></div>
+                <div class="fc-img-caption" style="text-align:center;">FACILITY DETAIL (ZOOM 15)</div>
+              </div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://ichef.bbci.co.uk/images/ic/raw/p0lk1crb.png?v=6" alt="BBC visual guide to Fordow underground enrichment facility" loading="lazy">
+              <div class="fc-img-caption">FORDOW VISUAL GUIDE — UNDERGROUND LAYOUT, MOUNTAIN DEPTH, TUNNEL STRUCTURE / BBC</div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://media.cnn.com/api/v1/images/stellar/prod/05-overview-of-fordo-facili-20250616192127673.JPG?c=original" alt="Fordow nuclear facility satellite overview CNN Maxar" loading="lazy">
+              <div class="fc-img-caption">FORDOW OVERVIEW — MOUNTAIN RIDGELINE WITH TUNNEL PORTALS / CNN / MAXAR</div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/6b1f894fb9161c270823f980a80b54dc05c57479.jpg" alt="Fordow after MOP strikes showing craters and damage" loading="lazy">
+              <div class="fc-img-caption">FORDOW POST-STRIKE — MOP CRATERS AND ASH LAYER / MAXAR VIA ABC NEWS</div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/bc7625b7885b87089d6eaa060825610b023315b1.jpg" alt="Fordow ongoing work with excavators after US strikes CNN Maxar" loading="lazy">
+              <div class="fc-img-caption">FORDOW — EXCAVATORS AND CRANES ACTIVE POST-STRIKE / CNN / MAXAR</div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e38fa85e1bfaf83733cba9016703e96ed300956f.jpg" alt="Fordow damage blue ash impact area Reuters satellite" loading="lazy">
+              <div class="fc-img-caption">FORDOW — BLUE ASH LAYER MARKING STRIKE IMPACT ZONE / REUTERS / MAXAR</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ISFAHAN ── -->
+      <div class="facility-card status-damaged" id="site-isfahan">
+        <div class="fc-header">
+          <span class="fc-num">03</span>
+          <div class="fc-title-block">
+            <div class="fc-title">ESFAHAN (ISFAHAN) NUCLEAR COMPLEX</div>
+            <div class="fc-subtitle">ISFAHAN PROVINCE / URANIUM CONVERSION + TUNNEL COMPLEX</div>
+          </div>
+          <span class="fc-status damaged">DAMAGED / CONCEALED</span>
+        </div>
+        <div class="fc-body">
+          <div class="fc-content">
+            <div class="fc-coords-row">
+              <span class="fc-coords">32.7295°N &nbsp;51.7249°E</span>
+              <div class="fc-map-links">
+                <a href="https://www.google.com/maps/@32.7295,51.7249,15z/data=!3m1!1e1!4m5" target="_blank" class="fc-map-link">Google Maps ↗</a>
+                <a href="https://wikimapia.org/#lang=en&lat=32.7295&lon=51.7249&z=15" target="_blank" class="fc-map-link">Wikimapia ↗</a>
+              </div>
+            </div>
+            <p class="fc-desc">Iran's largest atomic scientific center and hub of the nuclear fuel cycle. The Uranium Conversion Facility (UCF) converts yellowcake (U3O8) to uranium hexafluoride (UF6) for enrichment. The site also houses the Fuel Fabrication Laboratory, an Esfahan Nuclear Technology Center, research reactors, and an expanding underground tunnel complex where enriched uranium stockpiles are believed to be stored. The IAEA declared it an official safeguards site under the NPT.</p>
+            <p class="fc-desc">The site was first struck by Israel on June 20–21, 2025, then targeted by US Ohio-class SSGN Tomahawk missiles on June 22. Satellite imagery from February 9, 2026 shows <strong>all three tunnel entrances to the underground complex are completely buried with soil.</strong> The middle and southern entrances are unrecognizable; the northern entrance — which features additional "cruise missile chicane barriers" — has been fully backfilled. This concealment effort is consistent with either protecting sealed HEU stockpiles inside or preventing further aerial exploitation. The IAEA confirmed the tunnel entrances were struck.</p>
+            <div class="fc-meta">
+              <div class="fc-meta-item"><div class="mk">STRUCK BY</div><div class="mv">Israel (Jun 20–21) + US Tomahawks (Jun 22)</div></div>
+              <div class="fc-meta-item"><div class="mk">TUNNELS</div><div class="mv">3 entrances — all backfilled by Feb 2026</div></div>
+              <div class="fc-meta-item"><div class="mk">CONCERN</div><div class="mv">HEU stockpile possibly sealed inside tunnels</div></div>
+              <div class="fc-meta-item"><div class="mk">IAEA</div><div class="mv">Confirmed tunnel entrance strikes</div></div>
+              <div class="fc-meta-item"><div class="mk">SITE TYPE</div><div class="mv">UCF + Fuel Fab + Underground Storage</div></div>
+              <div class="fc-meta-item"><div class="mk">CONSTRUCTION</div><div class="mv">UCF operational 2005; tunnels expanded 2010s</div></div>
+            </div>
+            <div class="fc-tags">
+              <span class="fc-tag">UCF</span><span class="fc-tag">TUNNEL COMPLEX</span><span class="fc-tag">HEU STORAGE SUSPECTED</span><span class="fc-tag">TOMAHAWK STRIKE</span><span class="fc-tag">TUNNELS SEALED FEB 2026</span>
+            </div>
+            <div class="assessment">
+              <div class="assessment-title">// DAMAGE ASSESSMENT</div>
+              <div class="a-bar"><div class="a-bar-label"><span>UCF Surface Complex</span><span>85%</span></div><div class="a-track"><div class="a-fill fill-red" style="width:85%"></div></div></div>
+              <div class="a-bar"><div class="a-bar-label"><span>Tunnel Entrances</span><span>90%</span></div><div class="a-track"><div class="a-fill fill-red" style="width:90%"></div></div></div>
+              <div class="a-bar"><div class="a-bar-label"><span>Underground Storage (Unknown)</span><span>??%</span></div><div class="a-track"><div class="a-fill fill-purple" style="width:30%"></div></div></div>
+            </div>
+            <div class="fc-sources">
+              <a href="https://www.iaea.org" target="_blank" class="fc-source-link">IAEA</a>
+              <a href="https://isis-online.org" target="_blank" class="fc-source-link">ISIS-ONLINE</a>
+              <a href="https://www.twz.com/air/b-2-strikes-on-iran-what-we-know-about-operation-midnight-hammer" target="_blank" class="fc-source-link">TWZ</a>
+              <a href="https://www.maxar.com" target="_blank" class="fc-source-link">MAXAR</a>
+            </div>
+          </div>
+          <div class="fc-imagery">
+            <div class="fc-dual-maps">
+              <div>
+                <div class="fc-mini-map" id="map-isfahan-ctx"></div>
+                <div class="fc-img-caption" style="text-align:center;">CONTEXT (ZOOM 8)</div>
+              </div>
+              <div>
+                <div class="fc-mini-map" id="map-isfahan-det"></div>
+                <div class="fc-img-caption" style="text-align:center;">FACILITY DETAIL (ZOOM 15)</div>
+              </div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://static.dw.com/image/67191827_1006.webp" alt="Isfahan nuclear reactor new construction DW" loading="lazy">
+              <div class="fc-img-caption">ISFAHAN NUCLEAR COMPLEX — RESEARCH REACTOR AT ESFAHAN NUCLEAR CENTER / DW</div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/72e4a361010c509052760ece7426ef471544aabe.jpg" alt="Isfahan nuclear facility satellite aerial Maxar IAEA confirms tunnel entrances struck" loading="lazy">
+              <div class="fc-img-caption">ISFAHAN UCF — TUNNEL ENTRANCES CONFIRMED HIT BY IAEA / MAXAR</div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/391c06fd2cf3db53808669717d4e2e2e65fad99e.jpg" alt="Isfahan nuclear site destroyed buildings after US strikes" loading="lazy">
+              <div class="fc-img-caption">ISFAHAN POST-STRIKE — EXTENSIVE BUILDING DAMAGE, CRATERS / MAXAR VIA CBS NEWS</div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/bea13930f15da51c5f4a665f870fbce8218f226f.jpg" alt="Isfahan nuclear complex aerial view before strikes" loading="lazy">
+              <div class="fc-img-caption">ISFAHAN COMPLEX OVERVIEW — UCF AND TUNNEL APPROACH INFRASTRUCTURE / MAXAR</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── KARAJ TESA ── -->
+      <div class="facility-card status-destroyed" id="site-karaj">
+        <div class="fc-header">
+          <span class="fc-num">04</span>
+          <div class="fc-title-block">
+            <div class="fc-title">TABA / TESA KARAJ CENTRIFUGE FACILITY</div>
+            <div class="fc-subtitle">ALBORZ PROVINCE / CENTRIFUGE MANUFACTURING</div>
+          </div>
+          <span class="fc-status destroyed">DESTROYED 2021</span>
+        </div>
+        <div class="fc-body">
+          <div class="fc-content">
+            <div class="fc-coords-row">
+              <span class="fc-coords">35.8310°N &nbsp;50.9285°E</span>
+              <div class="fc-map-links">
+                <a href="https://www.google.com/maps/@35.8310,50.9285,15z/data=!3m1!1e1!4m5" target="_blank" class="fc-map-link">Google Maps ↗</a>
+                <a href="https://wikimapia.org/#lang=en&lat=35.831&lon=50.9285&z=15" target="_blank" class="fc-map-link">Wikimapia ↗</a>
+              </div>
+            </div>
+            <p class="fc-desc">Iran's primary centrifuge manufacturing facility (TESA — Tesa Centrifuge Company), comprising three main steel-frame warehouses covering ~47,977 m². The facility produced IR-2m and IR-6 advanced centrifuge components at an industrial scale. <strong>Destroyed in an Israeli drone strike on June 23, 2021</strong> — one of the most consequential covert operations against Iran's nuclear program.</p>
+            <p class="fc-desc">The IAEA confirmed in January 2022 that centrifuge manufacturing had been relocated to an unspecified location within the Esfahan nuclear complex. That relocated Esfahan workshop was subsequently destroyed by Israeli bombs on June 20–21, 2025 during the 12-Day War. The destruction of TESA and its relocated successor represents the single greatest blow to Iran's centrifuge production capacity. Reconstituting industrial advanced centrifuge manufacturing from scratch — requiring precision machining, composite materials, and specialized engineering teams — is assessed as the <strong>primary bottleneck to Iran's nuclear reconstitution program.</strong></p>
+            <div class="fc-meta">
+              <div class="fc-meta-item"><div class="mk">STRUCK BY</div><div class="mv">Israeli drone strike (Jun 23, 2021)</div></div>
+              <div class="fc-meta-item"><div class="mk">FOLLOW-ON</div><div class="mv">Relocated capability bombed Isfahan Jun 2025</div></div>
+              <div class="fc-meta-item"><div class="mk">IAEA IMPACT</div><div class="mv">Inspectors prevented from accessing post-strike</div></div>
+              <div class="fc-meta-item"><div class="mk">STRATEGIC NOTE</div><div class="mv">#1 reconstitution bottleneck</div></div>
+              <div class="fc-meta-item"><div class="mk">PRODUCTS</div><div class="mv">IR-2m, IR-4, IR-6 centrifuge components</div></div>
+              <div class="fc-meta-item"><div class="mk">COVERAGE</div><div class="mv">~47,977 m² three-warehouse complex</div></div>
+            </div>
+            <div class="fc-tags"><span class="fc-tag">CENTRIFUGE MFG</span><span class="fc-tag">DESTROYED 2021</span><span class="fc-tag">ISRAEL DRONE</span><span class="fc-tag">CRITICAL BOTTLENECK</span></div>
+            <div class="fc-sources">
+              <a href="https://isis-online.org" target="_blank" class="fc-source-link">ISIS-ONLINE REPORT</a>
+              <a href="https://www.iaea.org" target="_blank" class="fc-source-link">IAEA JAN 2022</a>
+            </div>
+          </div>
+          <div class="fc-imagery">
+            <div class="fc-dual-maps">
+              <div>
+                <div class="fc-mini-map" id="map-karaj-ctx"></div>
+                <div class="fc-img-caption" style="text-align:center;">CONTEXT (ZOOM 8)</div>
+              </div>
+              <div>
+                <div class="fc-mini-map" id="map-karaj-det"></div>
+                <div class="fc-img-caption" style="text-align:center;">FACILITY DETAIL (ZOOM 15)</div>
+              </div>
+            </div>
+            <p style="font-size:0.82rem; color:var(--text-muted); padding:var(--space-3) 0;">Facility destroyed June 2021 by Israeli drone. Reconnaissance photography available via ISIS-Online reports confirming full destruction of manufacturing warehouses. IAEA cameras disabled; Iran denied inspector access.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── KALAYE ELECTRIC ── -->
+      <div class="facility-card status-destroyed" id="site-kalaye">
+        <div class="fc-header">
+          <span class="fc-num">05</span>
+          <div class="fc-title-block">
+            <div class="fc-title">KALAYE ELECTRIC — CENTRIFUGE R&amp;D</div>
+            <div class="fc-subtitle">TEHRAN / CENTRIFUGE TESTING AND DEVELOPMENT</div>
+          </div>
+          <span class="fc-status destroyed">DESTROYED JUN 2025</span>
+        </div>
+        <div class="fc-body">
+          <div class="fc-content">
+            <div class="fc-coords-row">
+              <span class="fc-coords">35.7650°N &nbsp;51.3260°E</span>
+              <div class="fc-map-links">
+                <a href="https://www.google.com/maps/@35.765,51.326,15z/data=!3m1!1e1!4m5" target="_blank" class="fc-map-link">Google Maps ↗</a>
+                <a href="https://wikimapia.org/#lang=en&lat=35.765&lon=51.326&z=15" target="_blank" class="fc-map-link">Wikimapia ↗</a>
+              </div>
+            </div>
+            <p class="fc-desc">Iran's primary centrifuge research and development site since the late 1990s — the birthplace of Iran's enrichment program. Exposed by the IAEA in 2003 after Iran admitted to uranium enrichment activities there. Housed centrifuge design teams who developed new centrifuge types (IR-2m, IR-4, IR-6) and modified existing designs for greater efficiency and reliability. <strong>Israel attacked Kalaye Electric twice between June 16–18, 2025, effectively destroying the facility.</strong></p>
+            <p class="fc-desc">Vantor satellite imagery from October 18, 2025 confirms the site remains destroyed. The main operations hall was fully destroyed along with a smaller workshop and a newly completed three-story building. Only a small amount of debris has been cleared — enough to establish a narrow path — with a single car visible at the site.</p>
+            <div class="fc-meta">
+              <div class="fc-meta-item"><div class="mk">STRUCK BY</div><div class="mv">Israel (Jun 16–18, 2025) — 2 strikes</div></div>
+              <div class="fc-meta-item"><div class="mk">CONFIRMED VIA</div><div class="mv">Vantor SAR imagery Oct 18, 2025</div></div>
+              <div class="fc-meta-item"><div class="mk">STATUS</div><div class="mv">Destroyed; minimal cleanup activity</div></div>
+              <div class="fc-meta-item"><div class="mk">SIGNIFICANCE</div><div class="mv">Advanced centrifuge design capability — origins of IR-6</div></div>
+              <div class="fc-meta-item"><div class="mk">IAEA HISTORY</div><div class="mv">Declared 2003 after secret enrichment exposed</div></div>
+              <div class="fc-meta-item"><div class="mk">PRODUCTS</div><div class="mv">IR-2m / IR-6 design, modification, testing</div></div>
+            </div>
+            <div class="fc-tags"><span class="fc-tag">R&D HUB</span><span class="fc-tag">DESTROYED</span><span class="fc-tag">ISRAEL 2-STRIKE</span><span class="fc-tag">IR-2M / IR-6 DESIGN</span></div>
+            <div class="assessment">
+              <div class="assessment-title">// DAMAGE ASSESSMENT</div>
+              <div class="a-bar"><div class="a-bar-label"><span>Main Operations Hall</span><span>100%</span></div><div class="a-track"><div class="a-fill fill-red" style="width:100%"></div></div></div>
+              <div class="a-bar"><div class="a-bar-label"><span>Workshop / Annex</span><span>90%</span></div><div class="a-track"><div class="a-fill fill-red" style="width:90%"></div></div></div>
+            </div>
+            <div class="fc-sources">
+              <a href="https://isis-online.org" target="_blank" class="fc-source-link">ISIS-ONLINE JUL 2025</a>
+              <a href="https://www.vantorintelligence.com" target="_blank" class="fc-source-link">VANTOR SAR OCT 2025</a>
+            </div>
+          </div>
+          <div class="fc-imagery">
+            <div class="fc-dual-maps">
+              <div>
+                <div class="fc-mini-map" id="map-kalaye-ctx"></div>
+                <div class="fc-img-caption" style="text-align:center;">CONTEXT (ZOOM 8)</div>
+              </div>
+              <div>
+                <div class="fc-mini-map" id="map-kalaye-det"></div>
+                <div class="fc-img-caption" style="text-align:center;">FACILITY DETAIL (ZOOM 15)</div>
+              </div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/6846307311e0964d4a5c58c0a519f8c3f719994d.jpg" alt="Kalaye Electric post-strike satellite imagery ISIS report July 2025 Airbus DS" loading="lazy">
+              <div class="fc-img-caption">KALAYE ELECTRIC POST-STRIKE — MAIN OPS HALL DESTROYED / AIRBUS DS VIA ISIS-ONLINE, JUL 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SANJARIAN ── -->
+      <div class="facility-card status-destroyed" id="site-sanjarian">
+        <div class="fc-header">
+          <span class="fc-num">06</span>
+          <div class="fc-title-block">
+            <div class="fc-title">SANJARIAN</div>
+            <div class="fc-subtitle">TEHRAN PROVINCE / NUCLEAR WEAPONS COMPONENT MFG</div>
+          </div>
+          <span class="fc-status destroyed">DESTROYED JUN 2025</span>
+        </div>
+        <div class="fc-body">
+          <div class="fc-content">
+            <div class="fc-coords-row">
+              <span class="fc-coords">35.5820°N &nbsp;51.5110°E</span>
+              <div class="fc-map-links">
+                <a href="https://www.google.com/maps/@35.582,51.511,15z/data=!3m1!1e1!4m5" target="_blank" class="fc-map-link">Google Maps ↗</a>
+                <a href="https://wikimapia.org/#lang=en&lat=35.582&lon=51.511&z=15" target="_blank" class="fc-map-link">Wikimapia ↗</a>
+              </div>
+            </div>
+            <p class="fc-desc">Suspected manufacturing site for "shock wave generators" — key components in nuclear weapon miniaturization. Multi-point initiators (implosion lenses) use precisely shaped explosive charges to simultaneously detonate around a fissile core, creating the symmetrical implosion needed to achieve supercriticality. <strong>This site was exposed in the nuclear archive smuggled out by Israel's Mossad in 2018.</strong> The archive revealed that Sanjarian was designated under the AMAD Plan for explosives production for nuclear device testing.</p>
+            <p class="fc-desc">Satellite imagery from November 2, 2025 shows several buildings remain destroyed with rubble spread across the complex. Only two cars were visible inside the walls, indicating minimal activity. Previously, significant activity was observed in 2024 with many vehicles and a new security checkpoint, followed by concealment efforts including white sheeting over excavated areas before the strikes.</p>
+            <div class="fc-meta">
+              <div class="fc-meta-item"><div class="mk">FUNCTION</div><div class="mv">Shock wave generator / implosion lens mfg</div></div>
+              <div class="fc-meta-item"><div class="mk">EXPOSED BY</div><div class="mv">Mossad nuclear archive theft (2018)</div></div>
+              <div class="fc-meta-item"><div class="mk">CURRENT STATUS</div><div class="mv">Destroyed, minimal activity Nov 2025</div></div>
+              <div class="fc-meta-item"><div class="mk">IAEA STATUS</div><div class="mv">Undeclared weaponization site</div></div>
+              <div class="fc-meta-item"><div class="mk">AMAD LINK</div><div class="mv">Designated explosives production site</div></div>
+              <div class="fc-meta-item"><div class="mk">PRE-STRIKE</div><div class="mv">New activity 2024 with concealment sheeting</div></div>
+            </div>
+            <div class="fc-tags"><span class="fc-tag">WEAPONIZATION</span><span class="fc-tag">IMPLOSION LENS</span><span class="fc-tag">MOSSAD ARCHIVE</span><span class="fc-tag">UNDECLARED</span><span class="fc-tag">AMAD PLAN</span></div>
+            <div class="fc-sources">
+              <a href="https://isis-online.org" target="_blank" class="fc-source-link">ISIS-ONLINE</a>
+              <a href="https://www.maxar.com" target="_blank" class="fc-source-link">MAXAR</a>
+            </div>
+          </div>
+          <div class="fc-imagery">
+            <div class="fc-dual-maps">
+              <div>
+                <div class="fc-mini-map" id="map-sanjarian-ctx"></div>
+                <div class="fc-img-caption" style="text-align:center;">CONTEXT (ZOOM 8)</div>
+              </div>
+              <div>
+                <div class="fc-mini-map" id="map-sanjarian-det"></div>
+                <div class="fc-img-caption" style="text-align:center;">FACILITY DETAIL (ZOOM 15)</div>
+              </div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/ab6a3b31eb67ab70fd39b178cc9def4853d8b13d.jpg" alt="Sanjarian post-attack satellite imagery shockwave generator site ISIS MAXAR" loading="lazy">
+              <div class="fc-img-caption">SANJARIAN POST-STRIKE — SHOCKWAVE GENERATOR BUILDING RUBBLE / MAXAR VIA ISIS-ONLINE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LAVISAN 2 ── -->
+      <div class="facility-card status-destroyed" id="site-lavisan">
+        <div class="fc-header">
+          <span class="fc-num">07</span>
+          <div class="fc-title-block">
+            <div class="fc-title">LAVISAN 2 (MOJDEH SITE)</div>
+            <div class="fc-subtitle">TEHRAN / AMAD PLAN SUCCESSOR — SPND HQ</div>
+          </div>
+          <span class="fc-status destroyed">DESTROYED + SANITIZED</span>
+        </div>
+        <div class="fc-body">
+          <div class="fc-content">
+            <div class="fc-coords-row">
+              <span class="fc-coords">35.7690°N &nbsp;51.4880°E</span>
+              <div class="fc-map-links">
+                <a href="https://www.google.com/maps/@35.769,51.488,15z/data=!3m1!1e1!4m5" target="_blank" class="fc-map-link">Google Maps ↗</a>
+                <a href="https://wikimapia.org/#lang=en&lat=35.769&lon=51.488&z=15" target="_blank" class="fc-map-link">Wikimapia ↗</a>
+              </div>
+            </div>
+            <p class="fc-desc">Headquarters of the successor organization to Iran's AMAD Plan nuclear weapons program (initially SADAT, later absorbed into SPND — Organization of Defensive Innovation and Research, the body responsible for advancing Iran's weaponization science under military cover). Adjacent to Malek Ashtar University of Technology, providing scientific cover for weapons researchers. <strong>Bombed twice by Israel on June 18, 2025.</strong></p>
+            <p class="fc-desc">The Applied Physics building was destroyed, along with facilities linked to the Shahid Karimi Group. Satellite imagery from July 3 and August 19, 2025 shows a <strong>rapid sanitization effort</strong> — damaged buildings demolished, rubble cleared at unusual speed — assessed as destruction of physical evidence before potential IAEA inspectors could access. This pattern (accelerated sanitization, not repair) is a signature behavior of a nuclear weapons program attempting to eliminate forensic evidence.</p>
+            <div class="fc-meta">
+              <div class="fc-meta-item"><div class="mk">STRUCK BY</div><div class="mv">Israel — 2 strikes, Jun 18, 2025</div></div>
+              <div class="fc-meta-item"><div class="mk">KEY TARGETS</div><div class="mv">Applied Physics Bldg, Shahid Karimi Group</div></div>
+              <div class="fc-meta-item"><div class="mk">SANITIZATION</div><div class="mv">Rubble cleared Jul–Aug 2025 (evidence destruction)</div></div>
+              <div class="fc-meta-item"><div class="mk">SIGNIFICANCE</div><div class="mv">Brain trust of weapons program (SPND HQ)</div></div>
+              <div class="fc-meta-item"><div class="mk">ADJACENT TO</div><div class="mv">Malek Ashtar University of Technology</div></div>
+              <div class="fc-meta-item"><div class="mk">COVER FUNCTION</div><div class="mv">"Defensive innovation" dual-use research</div></div>
+            </div>
+            <div class="fc-tags"><span class="fc-tag">WEAPONS PROGRAM HQ</span><span class="fc-tag">AMAD SUCCESSOR</span><span class="fc-tag">SANITIZED</span><span class="fc-tag">EVIDENCE DESTRUCTION</span><span class="fc-tag">SPND</span></div>
+            <div class="fc-sources">
+              <a href="https://isis-online.org" target="_blank" class="fc-source-link">ISIS-ONLINE</a>
+              <a href="https://www.foundation-dv.org" target="_blank" class="fc-source-link">FDD ANALYSIS</a>
+            </div>
+          </div>
+          <div class="fc-imagery">
+            <div class="fc-dual-maps">
+              <div>
+                <div class="fc-mini-map" id="map-lavisan-ctx"></div>
+                <div class="fc-img-caption" style="text-align:center;">CONTEXT (ZOOM 8)</div>
+              </div>
+              <div>
+                <div class="fc-mini-map" id="map-lavisan-det"></div>
+                <div class="fc-img-caption" style="text-align:center;">FACILITY DETAIL (ZOOM 15)</div>
+              </div>
+            </div>
+            <p style="font-size:0.82rem; color:var(--text-muted); padding:var(--space-3) 0;">Rapid post-strike sanitization — rubble cleared, buildings demolished before IAEA access. Satellite imagery (July–August 2025) documented the accelerated cleanup. Site now largely cleared. The speed of evidence removal distinguishes this from normal post-strike recovery.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NOUR / SPND HQ ── -->
+      <div class="facility-card status-damaged" id="site-nour">
+        <div class="fc-header">
+          <span class="fc-num">08</span>
+          <div class="fc-title-block">
+            <div class="fc-title">NEW SPND HQ (NOUR SITE)</div>
+            <div class="fc-subtitle">TEHRAN / SPND HEADQUARTERS (POST-2013)</div>
+          </div>
+          <span class="fc-status destroyed">REBUILDING</span>
+        </div>
+        <div class="fc-body">
+          <div class="fc-content">
+            <div class="fc-coords-row">
+              <span class="fc-coords">35.7410°N &nbsp;51.3970°E</span>
+              <div class="fc-map-links">
+                <a href="https://www.google.com/maps/@35.741,51.397,15z/data=!3m1!1e1!4m5" target="_blank" class="fc-map-link">Google Maps ↗</a>
+                <a href="https://wikimapia.org/#lang=en&lat=35.741&lon=51.397&z=15" target="_blank" class="fc-map-link">Wikimapia ↗</a>
+              </div>
+            </div>
+            <p class="fc-desc">SPND (Organization of Defensive Innovation and Research) headquarters, relocated from Lavisan 2 in 2013. Also known as the Nour Site. SPND serves as the organizational successor to Iran's AMAD nuclear weapons program, conducting research under the guise of "defensive innovation." <strong>Directly struck during the 12-Day War, rendering the building unusable.</strong></p>
+            <p class="fc-desc">Satellite imagery from February 1, 2026 shows the HQ building and two adjacent buildings have been demolished. Excavation of a basement for a new building began in early January 2026. <strong>As of February 18, 2026, construction of the replacement building's basement has progressed significantly</strong> — Iran is actively reconstituting command infrastructure for its weapons research organization at a rapid pace.</p>
+            <div class="fc-meta">
+              <div class="fc-meta-item"><div class="mk">STRUCK DURING</div><div class="mv">12-Day War (Jun 2025)</div></div>
+              <div class="fc-meta-item"><div class="mk">STATUS FEB 2026</div><div class="mv">HQ demolished; new basement under construction</div></div>
+              <div class="fc-meta-item"><div class="mk">RECONSTITUTION</div><div class="mv">Active — new building basement laid Jan 2026</div></div>
+              <div class="fc-meta-item"><div class="mk">CONCERN</div><div class="mv">SPND command rapidly rebuilding physical HQ</div></div>
+            </div>
+            <div class="fc-tags"><span class="fc-tag">SPND HQ</span><span class="fc-tag">REBUILDING</span><span class="fc-tag">WEAPONS RESEARCH CMD</span></div>
+            <div class="fc-sources">
+              <a href="https://isis-online.org" target="_blank" class="fc-source-link">ISIS-ONLINE</a>
+              <a href="https://www.vantorintelligence.com" target="_blank" class="fc-source-link">VANTOR FEB 2026</a>
+            </div>
+          </div>
+          <div class="fc-imagery">
+            <div class="fc-dual-maps">
+              <div>
+                <div class="fc-mini-map" id="map-nour-ctx"></div>
+                <div class="fc-img-caption" style="text-align:center;">CONTEXT (ZOOM 8)</div>
+              </div>
+              <div>
+                <div class="fc-mini-map" id="map-nour-det"></div>
+                <div class="fc-img-caption" style="text-align:center;">FACILITY DETAIL (ZOOM 15)</div>
+              </div>
+            </div>
+            <p style="font-size:0.82rem; color:var(--text-muted); padding:var(--space-3) 0;">New basement construction confirmed by Vantor imagery as of February 18, 2026. Iran's weapons research command is actively reconstituting physical infrastructure. The pace of reconstruction suggests SPND continuity of operations even while the physical building was being rebuilt.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── MEYSAMI ── -->
+      <div class="facility-card status-destroyed" id="site-meysami">
+        <div class="fc-header">
+          <span class="fc-num">09</span>
+          <div class="fc-title-block">
+            <div class="fc-title">SHAHID MEYSAMI RESEARCH CENTER</div>
+            <div class="fc-subtitle">TEHRAN PROVINCE / SPND NUCLEAR MATERIALS LAB</div>
+          </div>
+          <span class="fc-status destroyed">DESTROYED</span>
+        </div>
+        <div class="fc-body">
+          <div class="fc-content">
+            <div class="fc-coords-row">
+              <span class="fc-coords">35.6180°N &nbsp;51.1920°E</span>
+              <div class="fc-map-links">
+                <a href="https://www.google.com/maps/@35.618,51.192,15z/data=!3m1!1e1!4m5" target="_blank" class="fc-map-link">Google Maps ↗</a>
+                <a href="https://wikimapia.org/#lang=en&lat=35.618&lon=51.192&z=15" target="_blank" class="fc-map-link">Wikimapia ↗</a>
+              </div>
+            </div>
+            <p class="fc-desc">Part of Iran's nuclear weaponization complex, subordinate to SPND. Used to produce raw materials for nuclear weapons development, including <strong>plastic explosives and advanced materials for nuclear detonation testing</strong> (multi-point initiators / shock wave generators). The site is distinct from Sanjarian in that it focused on material production rather than device assembly.</p>
+            <p class="fc-desc">Multiple buildings destroyed by Israeli airstrikes between June 15–16, 2025. A concrete pit measuring 7.5m × 4.5m was observed within a hangar built in 2022 — assessed as a test stand for explosive lens systems. Activity increased notably in spring 2020 with new buildings constructed before the site was struck. The test pit dimensions are consistent with explosive containment for multi-point initiator testing.</p>
+            <div class="fc-meta">
+              <div class="fc-meta-item"><div class="mk">STRUCK BY</div><div class="mv">Israel (Jun 15–16, 2025)</div></div>
+              <div class="fc-meta-item"><div class="mk">KEY FEATURE</div><div class="mv">7.5m × 4.5m concrete test pit (built 2022)</div></div>
+              <div class="fc-meta-item"><div class="mk">PRODUCTS</div><div class="mv">Plastic explosives, detonation initiation materials</div></div>
+              <div class="fc-meta-item"><div class="mk">IAEA STATUS</div><div class="mv">Undeclared weaponization site</div></div>
+            </div>
+            <div class="fc-tags"><span class="fc-tag">EXPLOSIVE LENS</span><span class="fc-tag">TEST PIT</span><span class="fc-tag">SPND SUBORDINATE</span><span class="fc-tag">DESTROYED</span></div>
+            <div class="fc-sources">
+              <a href="https://isis-online.org" target="_blank" class="fc-source-link">ISIS-ONLINE</a>
+            </div>
+          </div>
+          <div class="fc-imagery">
+            <div class="fc-dual-maps">
+              <div>
+                <div class="fc-mini-map" id="map-meysami-ctx"></div>
+                <div class="fc-img-caption" style="text-align:center;">CONTEXT (ZOOM 8)</div>
+              </div>
+              <div>
+                <div class="fc-mini-map" id="map-meysami-det"></div>
+                <div class="fc-img-caption" style="text-align:center;">FACILITY DETAIL (ZOOM 15)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PICKAXE MOUNTAIN ── -->
+      <div class="facility-card status-unknown" id="site-pickaxe">
+        <div class="fc-header">
+          <span class="fc-num">10</span>
+          <div class="fc-title-block">
+            <div class="fc-title">PICKAXE MOUNTAIN (KOLANG-GAZ LA)</div>
+            <div class="fc-subtitle">ISFAHAN PROVINCE / COVERT UNDERGROUND — POSSIBLY DEEPER THAN FORDOW</div>
+          </div>
+          <span class="fc-status hardening">ACTIVE HARDENING</span>
+        </div>
+        <div class="fc-body">
+          <div class="fc-content">
+            <div class="fc-coords-row">
+              <span class="fc-coords">32.4780°N &nbsp;51.2780°E</span>
+              <div class="fc-map-links">
+                <a href="https://www.google.com/maps/@32.478,51.278,15z/data=!3m1!1e1!4m5" target="_blank" class="fc-map-link">Google Maps ↗</a>
+                <a href="https://wikimapia.org/#lang=en&lat=32.478&lon=51.278&z=15" target="_blank" class="fc-map-link">Wikimapia ↗</a>
+              </div>
+            </div>
+            <p class="fc-desc">Underground facility built under a mountain in Isfahan Province, reportedly even deeper than Fordow. Iran claims it is for centrifuge assembly, but analysts suspect it could be used for uranium enrichment or storing near-weapons-grade uranium. Located approximately 50 km south of the Natanz complex. <strong>Not struck during the 12-Day War. As of February 2026, Iran is actively hardening the facility</strong> — suggesting it escaped strike targeting, possibly because its depth provides immunity to existing US conventional weapons.</p>
+            <p class="fc-desc">Two tunnel entrances have been covered with dirt and rock. Concrete is being poured on the western tunnel entrance extension. At eastern tunnel entrances, rock and soil has been pushed back and leveled on top of the tunnel portal. A multi-level security perimeter wall is under active construction. This is the <strong>single highest-risk unresolved site</strong> in Iran's nuclear infrastructure — the most likely location for transferred HEU stockpiles and covert enrichment activity.</p>
+            <div class="fc-meta">
+              <div class="fc-meta-item"><div class="mk">DEPTH</div><div class="mv">Potentially deeper than Fordow (~100m+)</div></div>
+              <div class="fc-meta-item"><div class="mk">STATUS FEB 2026</div><div class="mv">Active hardening — concrete poured, walls built</div></div>
+              <div class="fc-meta-item"><div class="mk">STRIKE HISTORY</div><div class="mv">Not targeted during 12-Day War</div></div>
+              <div class="fc-meta-item"><div class="mk">RISK LEVEL</div><div class="mv">CRITICAL — possible covert enrichment + HEU</div></div>
+              <div class="fc-meta-item"><div class="mk">LOCATION</div><div class="mv">~50 km south of Natanz, Isfahan Province</div></div>
+              <div class="fc-meta-item"><div class="mk">IAEA STATUS</div><div class="mv">Undeclared; no inspection access</div></div>
+            </div>
+            <div class="fc-tags"><span class="fc-tag">COVERT</span><span class="fc-tag">UNDECLARED</span><span class="fc-tag">HARDENING FEB 2026</span><span class="fc-tag">CRITICAL UNKNOWN</span><span class="fc-tag">NOT STRUCK</span></div>
+            <div class="callout" style="margin-top:var(--space-4)">
+              <span class="callout-icon">⚡</span>
+              <p><strong>CRITICAL GAP:</strong> Pickaxe Mountain represents the most significant unresolved node in Iran's nuclear program. If Iran transferred its 60% HEU stockpile here pre-strike, and if the depth exceeds GBU-57 penetration limits, breakout timelines compress dramatically. The active hardening post-strikes is the clearest signal of Iran's intent to preserve nuclear capabilities in a survivable location.</p>
+            </div>
+            <div class="fc-sources">
+              <a href="https://isis-online.org" target="_blank" class="fc-source-link">ISIS-ONLINE</a>
+              <a href="https://www.maxar.com" target="_blank" class="fc-source-link">MAXAR</a>
+            </div>
+          </div>
+          <div class="fc-imagery">
+            <div class="fc-dual-maps">
+              <div>
+                <div class="fc-mini-map" id="map-pickaxe-ctx"></div>
+                <div class="fc-img-caption" style="text-align:center;">CONTEXT (ZOOM 8)</div>
+              </div>
+              <div>
+                <div class="fc-mini-map" id="map-pickaxe-det"></div>
+                <div class="fc-img-caption" style="text-align:center;">FACILITY DETAIL (ZOOM 13)</div>
+              </div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/73ef2f39b78b39f7b52524cefccf03056252fa55.jpg" alt="Pickaxe Mountain Kolang-Gaz La underground nuclear facility satellite imagery" loading="lazy">
+              <div class="fc-img-caption">PICKAXE MOUNTAIN / KOLANG-GAZ LA — UNDERGROUND COMPLEX vs NEARBY NATANZ / MAXAR</div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3674296d495aa10c1c191afabceea46e10a5622a.jpg" alt="Pickaxe Mountain tunnel construction progress comparison June vs September" loading="lazy">
+              <div class="fc-img-caption">PICKAXE MTN TUNNEL PROGRESS — JUN 30 VS SEP 18, 2025 — SECURITY WALL EXPANSION / MAXAR</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TALEGHAN 2 ── -->
+      <div class="facility-card status-damaged" id="site-taleghan">
+        <div class="fc-header">
+          <span class="fc-num">11</span>
+          <div class="fc-title-block">
+            <div class="fc-title">TALEGHAN 2 — PARCHIN COMPLEX</div>
+            <div class="fc-subtitle">TEHRAN PROVINCE / AMAD PLAN WEAPONS TEST SITE</div>
+          </div>
+          <span class="fc-status damaged">STRUCK MAR 2026</span>
+        </div>
+        <div class="fc-body">
+          <div class="fc-content">
+            <div class="fc-coords-row">
+              <span class="fc-coords">35.5210°N &nbsp;51.7630°E</span>
+              <div class="fc-map-links">
+                <a href="https://www.google.com/maps/@35.521,51.763,15z/data=!3m1!1e1!4m5" target="_blank" class="fc-map-link">Google Maps ↗</a>
+                <a href="https://wikimapia.org/#lang=en&lat=35.521&lon=51.763&z=15" target="_blank" class="fc-map-link">Wikimapia ↗</a>
+              </div>
+            </div>
+            <p class="fc-desc">Former AMAD Plan nuclear weapons development site at the Parchin military complex. Located less than 200m from Taleghan 1, which contained a larger high-explosives containment vessel used for nuclear implosion testing. A large cylindrical metal object (36m long, ≥12m wide) consistent with a <strong>high-explosive test chamber</strong> (used for implosion weapon development testing) was observed inside a metal domed roof structure. The IAEA sought access to Taleghan 2 for years but was denied.</p>
+            <p class="fc-desc">Iran rebuilt the facility after an October 2024 Israeli strike, encased it in a concrete sarcophagus to provide additional protection against bunker-busters, and began burying it under soil in February 2026. Despite these hardening efforts, <strong>on March 11, 2026, Vantor satellite SAR imagery shows three large bunker-buster penetration holes struck directly into the area housing the suspected test chamber.</strong> This is the most recently struck site in this assessment. Battle damage assessment pending.</p>
+            <div class="fc-meta">
+              <div class="fc-meta-item"><div class="mk">INITIAL STRIKE</div><div class="mv">Israel — October 2024</div></div>
+              <div class="fc-meta-item"><div class="mk">REBUILT</div><div class="mv">Concrete sarcophagus + soil burial Feb 2026</div></div>
+              <div class="fc-meta-item"><div class="mk">LATEST STRIKE</div><div class="mv">Mar 11, 2026 — 3 penetration holes confirmed</div></div>
+              <div class="fc-meta-item"><div class="mk">FUNCTION</div><div class="mv">Implosion weapon HE test chamber (AMAD)</div></div>
+              <div class="fc-meta-item"><div class="mk">DIMENSIONS</div><div class="mv">Test chamber: 36m long, ≥12m wide</div></div>
+              <div class="fc-meta-item"><div class="mk">PARCHIN</div><div class="mv">Major IRGC military explosives complex</div></div>
+            </div>
+            <div class="fc-tags"><span class="fc-tag">AMAD PLAN</span><span class="fc-tag">IMPLOSION TEST</span><span class="fc-tag">MAR 2026 STRIKE</span><span class="fc-tag">CONCRETE SARCOPHAGUS</span><span class="fc-tag">REPEATED TARGET</span></div>
+            <div class="assessment">
+              <div class="assessment-title">// DAMAGE ASSESSMENT</div>
+              <div class="a-bar"><div class="a-bar-label"><span>Surface / Test Chamber Access</span><span>90%</span></div><div class="a-track"><div class="a-fill fill-red" style="width:90%"></div></div></div>
+              <div class="a-bar"><div class="a-bar-label"><span>Buried Sarcophagus Penetration</span><span>Pending BDA</span></div><div class="a-track"><div class="a-fill fill-purple" style="width:40%"></div></div></div>
+            </div>
+            <div class="fc-sources">
+              <a href="https://isis-online.org" target="_blank" class="fc-source-link">ISIS-ONLINE FEB 2026</a>
+              <a href="https://www.vantorintelligence.com" target="_blank" class="fc-source-link">VANTOR MAR 2026</a>
+              <a href="https://www.timesofisrael.com" target="_blank" class="fc-source-link">TOI</a>
+            </div>
+          </div>
+          <div class="fc-imagery">
+            <div class="fc-dual-maps">
+              <div>
+                <div class="fc-mini-map" id="map-taleghan-ctx"></div>
+                <div class="fc-img-caption" style="text-align:center;">CONTEXT (ZOOM 8)</div>
+              </div>
+              <div>
+                <div class="fc-mini-map" id="map-taleghan-det"></div>
+                <div class="fc-img-caption" style="text-align:center;">FACILITY DETAIL (ZOOM 15)</div>
+              </div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/02d835590a16e4f5c1ae550b37a2e7fc2fc3c163.jpg" alt="Taleghan 2 Parchin ISIS report satellite imagery concrete burial Feb 2026" loading="lazy">
+              <div class="fc-img-caption">TALEGHAN 2 — CONCRETE SARCOPHAGUS + SOIL BURIAL FEB 13, 2026 / ISIS-ONLINE / MAXAR</div>
+            </div>
+            <div class="fc-sat-img">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/fa3d1e6fd2e54ccaa16898e156348dc3362cd53d.jpg" alt="Parchin military complex satellite image after Israeli strike" loading="lazy">
+              <div class="fc-img-caption">PARCHIN COMPLEX — STRUCTURAL DAMAGE AFTER STRIKE / MAXAR</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /facility-grid -->
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 05 — ENRICHMENT TIMELINE
+     ════════════════════════════════════════════════════════ -->
+<section id="section-05-timeline" class="page-section alt-bg" data-section="05" data-title="Enrichment Progression Timeline" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§ 05</span>
+    <span class="sb-date">UPDATED 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">05 // TIMELINE</span>
+      <h2 class="section-title">ENRICHMENT <em>PROGRESSION TIMELINE</em></h2>
+    </div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:var(--space-8);">
+      <div class="timeline">
+        <div class="tl-item green"><div class="tl-date">JULY 2015</div><div class="tl-text"><strong>JCPOA SIGNED.</strong> Iran capped at 3.67% enrichment, 300kg UF6 stockpile, 5,060 IR-1 centrifuges at Natanz. Fordow converted to research. Comprehensive IAEA monitoring.</div></div>
+        <div class="tl-item amber"><div class="tl-date">MAY 2018</div><div class="tl-text"><strong>US EXITS JCPOA.</strong> Trump administration withdraws. Maximum pressure campaign begins. Iran initially maintains compliance.</div></div>
+        <div class="tl-item amber"><div class="tl-date">MAY 2019</div><div class="tl-text"><strong>IRAN BEGINS JCPOA VIOLATIONS.</strong> Stockpile caps exceeded. Enrichment creep begins. IR-2m centrifuges introduced.</div></div>
+        <div class="tl-item"><div class="tl-date">JUNE 2021</div><div class="tl-text"><strong>TESA KARAJ DRONE STRIKE (ISRAEL).</strong> Centrifuge manufacturing facility destroyed. Major blow to production capacity. Iran blames Israel; denies IAEA access to cameras.</div></div>
+        <div class="tl-item amber"><div class="tl-date">APR 2021</div><div class="tl-text"><strong>60% ENRICHMENT BEGINS AT NATANZ.</strong> Declared as "response to US/Israeli sabotage." First time Iran enriches above weapons-grade threshold in program history.</div></div>
+        <div class="tl-item amber"><div class="tl-date">2021–2023</div><div class="tl-text"><strong>STOCKPILE EXPANSION.</strong> Iran accumulates ~3,760kg UF6 at 60% enrichment — equivalent (after further enrichment) to sufficient HEU for several nuclear weapons. IAEA access restricted.</div></div>
+        <div class="tl-item"><div class="tl-date">OCT 2024</div><div class="tl-text"><strong>ISRAEL STRIKES PARCHIN.</strong> Taleghan 2 implosion test site targeted. Iran rebuilds using concrete sarcophagus by early 2026. IAEA access denied.</div></div>
+        <div class="tl-item"><div class="tl-date">JUN 13, 2025</div><div class="tl-text"><strong>ISRAEL OPENS 12-DAY WAR.</strong> Strikes on Natanz surface facilities, Isfahan, air defense, IRGC. US pre-positioned assets.</div></div>
+        <div class="tl-item"><div class="tl-date">JUN 15–21, 2025</div><div class="tl-text"><strong>SUSTAINED ISRAELI STRIKES.</strong> Kalaye Electric, Sanjarian, Lavisan 2, Meysami, Isfahan (2nd–3rd strikes), SPND Nour HQ all targeted. Majority of surface nuclear weaponization infrastructure destroyed.</div></div>
+        <div class="tl-item"><div class="tl-date">JUN 22, 2025 / 0200 LOCAL</div><div class="tl-text"><strong>OPERATION MIDNIGHT HAMMER.</strong> 7 × B-2 Spirits, 14 × GBU-57 MOPs on Fordow and Natanz. 24+ Tomahawks on Isfahan. First combat use of MOP. Gen. Caine: "all three sites sustained extremely severe damage."</div></div>
+        <div class="tl-item amber"><div class="tl-date">JUL–DEC 2025</div><div class="tl-text"><strong>POST-STRIKE PHASE.</strong> Iran conducts damage assessment, begins concealment (roofs over Natanz, backfilling Isfahan tunnels, SPND cleanup). Limited enrichment activity observed. IAEA access denied.</div></div>
+        <div class="tl-item purple"><div class="tl-date">JAN–FEB 2026</div><div class="tl-text"><strong>RECONSTITUTION SIGNALS.</strong> Pickaxe Mountain hardening confirmed. SPND HQ demolition and new basement at Nour Site. Taleghan 2 buried in concrete sarcophagus.</div></div>
+        <div class="tl-item"><div class="tl-date">MAR 11, 2026</div><div class="tl-text"><strong>TALEGHAN 2 RE-STRUCK.</strong> 3 bunker-buster penetration holes visible in Vantor SAR imagery targeting buried sarcophagus. BDA pending.</div></div>
+        <div class="tl-item amber"><div class="tl-date">MAR 27–28, 2026</div><div class="tl-text"><strong>ONGOING STRIKES (ISW TRACKS).</strong> US and Israeli strikes continue, expanding to IRGC command, air defense, SPND-affiliated infrastructure. ISW strike map updated daily.</div></div>
+      </div>
+
+      <div>
+        <div class="intel-box">
+          <h3>// IAEA SAFEGUARDS SITUATION</h3>
+          <p>Iran expelled IAEA inspectors and disabled monitoring cameras following the June 2021 TESA strike. <strong>The IAEA has had no continuous access to Iran's enrichment sites since mid-2021</strong>, representing the largest safeguards gap in the agency's history.</p>
+          <p>The IAEA confirmed post-strike that tunnel entrances at Natanz and Isfahan were damaged. The agency reported <strong>"no increase in off-site radiation levels"</strong> following Operation Midnight Hammer — suggesting HEU stockpiles may have been secured (or moved) prior to strikes.</p>
+        </div>
+        <div class="intel-box amber" style="margin-top:var(--space-4)">
+          <h3>// STOCKPILE DISPOSITION</h3>
+          <p>Pre-strike, Iran held approximately <strong>3,760 kg of UF6 enriched to 60%</strong> — enough, if further enriched to 90%+, for several weapons. The fate of this stockpile is the central unresolved question of the entire campaign.</p>
+          <p>The Isfahan tunnel backfilling (all 3 entrances sealed by Feb 2026) is assessed as either: (a) preservation of HEU stockpile inside the tunnels, or (b) sealing a strike-damaged access corridor. <strong>The Pickaxe Mountain hardening suggests option (a) — transfer and concealment of nuclear material in a survivable facility.</strong></p>
+        </div>
+
+        <div style="margin-top:var(--space-6)">
+          <div class="assessment-title" style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:var(--space-3);">// NUCLEAR PROGRAM ELEMENT STATUS — MARCH 2026</div>
+          <div class="a-bar"><div class="a-bar-label"><span>Centrifuge Manufacturing Capacity</span><span>5%</span></div><div class="a-track"><div class="a-fill fill-green" style="width:5%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>Centrifuge R&D Capability</span><span>10%</span></div><div class="a-track"><div class="a-fill fill-green" style="width:10%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>Uranium Conversion (UCF Isfahan)</span><span>15%</span></div><div class="a-track"><div class="a-fill fill-green" style="width:15%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>HEU Stockpile (UNCERTAIN)</span><span>50–90%</span></div><div class="a-track"><div class="a-fill fill-amber" style="width:70%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>Weaponization R&D Sites</span><span>20%</span></div><div class="a-track"><div class="a-fill fill-green" style="width:20%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>Command Infrastructure (SPND)</span><span>40%</span></div><div class="a-track"><div class="a-fill fill-amber" style="width:40%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>Scientific Knowledge Retention</span><span>80%</span></div><div class="a-track"><div class="a-fill fill-amber" style="width:80%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>Underground Survival Capacity</span><span>60%</span></div><div class="a-track"><div class="a-fill fill-amber" style="width:60%"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 06 — BREAKOUT SCENARIOS
+     ════════════════════════════════════════════════════════ -->
+<section id="section-06-scenarios" class="page-section" data-section="06" data-title="Nuclear Breakout Scenarios" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§ 06</span>
+    <span class="sb-date">UPDATED 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">06 // SCENARIOS</span>
+      <h2 class="section-title">NUCLEAR <em>BREAKOUT SCENARIOS</em></h2>
+    </div>
+    <div class="scenario-grid">
+      <div class="scenario-card worst">
+        <div class="sc-label worst">// WORST CASE</div>
+        <div class="sc-title">COVERT RECONSTITUTION</div>
+        <div class="sc-prob worst">Weeks–Months</div>
+        <p class="sc-desc">If Iran transferred its 60% HEU stockpile to Pickaxe Mountain or an unknown site, and retained enough IR-6 centrifuges to further enrich to 90%+, the pathway to a nuclear device exists. Requires: covert cascade + functional weaponization team + surviving HEU stock.</p>
+        <p class="sc-desc">Probability assessed as LOW — but existential if true. The Fordow pre-sealing and Pickaxe Mountain hardening are the most concerning indicators. Iran's foreign minister confirmed: "the technology cannot be bombed, and the determination also cannot be bombed."</p>
+      </div>
+      <div class="scenario-card likely">
+        <div class="sc-label likely">// DOD ASSESSMENT</div>
+        <div class="sc-title">REBUILD REQUIRED</div>
+        <div class="sc-prob likely">2–3 Years</div>
+        <p class="sc-desc">Pentagon's initial post-strike assessment. Assumes most centrifuge infrastructure destroyed, stockpile status uncertain, and scientific talent degraded but not eliminated. Requires reconstitution of manufacturing, new centrifuge procurement, and facility reconstruction.</p>
+        <p class="sc-desc"><strong>Most cited publicly.</strong> Key constraint: the TESA centrifuge manufacturing bottleneck. Without industrial-scale centrifuge production, even a surviving HEU stockpile cannot be rapidly weaponized without pre-existing cascades.</p>
+      </div>
+      <div class="scenario-card best">
+        <div class="sc-label best">// ADMINISTRATION CLAIM</div>
+        <div class="sc-title">DECADES SETBACK</div>
+        <div class="sc-prob best">5–10+ Years</div>
+        <p class="sc-desc">Trump administration's public claim — "obliterated," "set back basically decades." Requires: complete centrifuge inventory loss, HEU stockpile destroyed or dispersed, weaponization scientists killed or dispersed, and no covert parallel program.</p>
+        <p class="sc-desc">Independent analysts widely dispute this timeline. Iran's scientific knowledge is retained in people, not buildings. The 2018 Mossad nuclear archive — which documented Iran's entire weapons program in detail — was itself just information. Information survives strikes.</p>
+      </div>
+    </div>
+    <div class="callout amber" style="margin-top:var(--space-6)">
+      <span class="callout-icon">⚠</span>
+      <p><strong>THE CORE UNCERTAINTY:</strong> Iran's Foreign Minister Araghchi stated in January 2026: <em>"Yes, you destroyed the facilities, the machines, but the technology cannot be bombed, and the determination also cannot be bombed."</em> The scientific knowledge — detailed in the 2018 Mossad archive — resides in people, not buildings. <strong>The human capital of the weapons program is largely intact.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 07 — RECONSTITUTION
+     ════════════════════════════════════════════════════════ -->
+<section id="section-07-reconstitution" class="page-section alt-bg" data-section="07" data-title="Program Reconstitution Assessment" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§ 07</span>
+    <span class="sb-date">UPDATED 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">07 // RECONSTITUTION</span>
+      <h2 class="section-title">PROGRAM <em>RECONSTITUTION ASSESSMENT</em></h2>
+    </div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:var(--space-6);">
+      <div>
+        <p style="color:var(--text-muted); margin-bottom:var(--space-6); font-size:0.9rem;">Physical destruction of facilities is necessary but insufficient to permanently end a nuclear program. The key variables are centrifuge manufacturing capability, HEU stockpile disposition, and the technical workforce. Iran has already demonstrated reconstitution intent through active Pickaxe Mountain hardening and SPND HQ rebuilding.</p>
+        <div class="assessment">
+          <div class="assessment-title">// RECONSTITUTION CAPABILITY BY ELEMENT</div>
+          <div class="a-bar"><div class="a-bar-label"><span>Centrifuge Design (IR-2m/IR-6)</span><span style="color:var(--amber)">MEDIUM — 2–4yr</span></div><div class="a-track"><div class="a-fill fill-amber" style="width:45%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>Centrifuge Manufacturing</span><span style="color:var(--accent)">HARD — 3–5yr (TESA bottleneck)</span></div><div class="a-track"><div class="a-fill fill-red" style="width:20%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>Uranium Conversion (UCF)</span><span style="color:var(--amber)">MEDIUM — 2–3yr</span></div><div class="a-track"><div class="a-fill fill-amber" style="width:40%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>HEU Stockpile (if retained)</span><span style="color:var(--accent)">IMMEDIATE if intact</span></div><div class="a-track"><div class="a-fill fill-red" style="width:85%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>Weaponization R&D</span><span style="color:var(--amber)">MEDIUM — 2–4yr</span></div><div class="a-track"><div class="a-fill fill-amber" style="width:50%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>Weapons Scientists</span><span style="color:var(--green)">RETAINED — immediate</span></div><div class="a-track"><div class="a-fill fill-green" style="width:80%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>Delivery Vehicle (Shahab/Sejjil)</span><span style="color:var(--amber)">DEGRADED — 1–2yr</span></div><div class="a-track"><div class="a-fill fill-amber" style="width:55%"></div></div></div>
+          <div class="a-bar"><div class="a-bar-label"><span>Foreign Procurement Network</span><span style="color:var(--amber)">INTACT — active</span></div><div class="a-track"><div class="a-fill fill-amber" style="width:70%"></div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="intel-box">
+          <h3>// TESA CENTRIFUGE BOTTLENECK</h3>
+          <p>The single greatest constraint on Iran's reconstitution is <strong>centrifuge manufacturing capability</strong>. The 2021 TESA Karaj strike, followed by the 2025 strike on the relocated Isfahan workshop, has eliminated Iran's industrial capacity to produce advanced centrifuges (IR-2m, IR-6).</p>
+          <p>Iran can retain existing centrifuges from destroyed facilities (damaged but repairable units), acquire components through sanctions-busting procurement networks (Russia, China intermediaries), or attempt to rebuild domestic manufacturing at a covert location. <strong>None of these paths is fast or easy.</strong></p>
+        </div>
+        <div class="intel-box amber" style="margin-top:var(--space-4)">
+          <h3>// IAEA BLACKOUT — CRITICAL UNCERTAINTY</h3>
+          <p>Iran has blocked continuous IAEA access since mid-2021. Without inspectors and monitoring cameras, the international community cannot track centrifuge inventory, HEU stockpile disposition, or covert facility construction.</p>
+          <p><strong>The IAEA's inability to account for Iran's pre-strike HEU stockpile (~3,760 kg at 60%)</strong> is the single most dangerous intelligence gap in the post-strike environment. If even a fraction of this material survived and was transferred to Pickaxe Mountain, the breakout scenario changes fundamentally.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 08 — FALLOUT
+     ════════════════════════════════════════════════════════ -->
+<section id="section-08-fallout" class="page-section" data-section="08" data-title="Radiological & Fallout Considerations" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§ 08</span>
+    <span class="sb-date">UPDATED 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">08 // FALLOUT</span>
+      <h2 class="section-title">RADIOLOGICAL &amp; <em>FALLOUT CONSIDERATIONS</em></h2>
+    </div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:var(--space-6);">
+      <div>
+        <div class="intel-box">
+          <h3>// UF6 DISPERSAL RISK</h3>
+          <p>Uranium hexafluoride (UF6) at 60% enrichment is not weapons-grade but is radiologically hazardous. When a bunker-buster detonates inside or near a centrifuge cascade, UF6 gas can be dispersed as a fine powder (uranium oxide) above ground via ventilation shafts.</p>
+          <p><strong>The IAEA confirmed no increase in off-site radiation levels</strong> following Operation Midnight Hammer — a critical indicator that either: (a) the centrifuge cascades were largely empty at the time of strikes, (b) the UF6 did not breach to surface, or (c) detection thresholds were not exceeded. The CTBTO global monitoring network (IMS stations) also reported no anomalous readings.</p>
+        </div>
+        <div class="intel-box amber" style="margin-top:var(--space-4)">
+          <h3>// ISFAHAN TUNNEL COMPLEXITY</h3>
+          <p>The Isfahan site presents the most complex radiological scenario. The tunnels are assessed to have stored significant quantities of enriched uranium product (UF6 cylinders). <strong>Tomahawk strikes targeted tunnel entrances, not the tunnels themselves</strong> — the enriched material may be sealed inside.</p>
+          <p>The backfilling of all three tunnel entrances by February 2026 could represent Iran sealing in nuclear material to prevent atmospheric release — or preventing further strikes from reaching stored material. Long-term, sealed UF6 in a damaged tunnel poses a contamination risk to groundwater.</p>
+        </div>
+      </div>
+      <div>
+        <div class="intel-box">
+          <h3>// HEU CONTAMINATION CONSIDERATIONS</h3>
+          <p>Highly enriched uranium (90%+ U-235) is primarily a radiological hazard via inhalation — alpha particles. External exposure from HEU is low relative to plutonium. However, if a large MOP detonation occurred near stored HEU (powder/oxide form), localized contamination would persist for decades.</p>
+          <p>At Fordow, the MOP craters on the ridgeline are hundreds of feet above the main enrichment hall. The "blue ash" layer observed in satellite imagery is assessed as non-nuclear in origin — likely blast residue and particulate from impacted rock and surface structures, not HEU dispersal.</p>
+        </div>
+        <div class="intel-box amber" style="margin-top:var(--space-4)">
+          <h3>// CTBTO MONITORING STATUS</h3>
+          <p>The Comprehensive Nuclear-Test-Ban Treaty Organization's International Monitoring System (IMS) includes radionuclide monitoring stations across the Middle East. No anomalous readings consistent with nuclear material dispersal were reported following either the June 2025 strikes or subsequent operations.</p>
+          <p>This is broadly reassuring but not definitive — <strong>UF6 dispersal from a damaged enrichment facility would not necessarily trigger CTBTO thresholds</strong> unless the quantity released was substantial and the monitoring stations were favorably positioned relative to wind patterns.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>ANALYTICAL INTELLIGENCE PRODUCT — OPEN SOURCE COMPILATION — NOT FOR OFFICIAL USE</p>
+  <p style="margin-top:6px">SOURCES: ISIS-ONLINE · MAXAR TECHNOLOGIES · VANTOR · PLANET LABS · AIRBUS DS · CBS NEWS · CNN · REUTERS · ABC NEWS · AL JAZEERA · IAEA · ISW · USAF · THE WAR ZONE (TWZ) · NYT · BBC · DW</p>
+  <p style="margin-top:6px">LAST UPDATED: MARCH 31, 2026 // OPERATIONAL PERIOD: JUNE 2025 — PRESENT</p>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════
+// SECTION 01 — MAIN THEATER MAP
+// Tighter zoom (7), centered on nuclear sites cluster
+// ══════════════════════════════════════════════════
+const mainMap = L.map('theater-map-main', {
+  center: [33.5, 52.0],
+  zoom: 7,
+  zoomControl: true,
+  scrollWheelZoom: true
+});
+
+// CartoDB Voyager basemap
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy;<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy;<a href="https://carto.com/">CARTO</a>',
+  subdomains: 'abcd',
+  maxZoom: 18
+}).addTo(mainMap);
+
+// Reference cities
+const cities = [
+  { name: 'TEHRAN', lat: 35.69, lng: 51.39 },
+  { name: 'ISFAHAN', lat: 32.65, lng: 51.68 },
+  { name: 'SHIRAZ', lat: 29.59, lng: 52.58 },
+  { name: 'QOM', lat: 34.64, lng: 50.88 },
+  { name: 'ARAK', lat: 34.09, lng: 49.69 },
+  { name: 'BUSHEHR', lat: 28.97, lng: 50.83 },
+  { name: 'TABRIZ', lat: 38.08, lng: 46.29 },
+  { name: 'MASHHAD', lat: 36.30, lng: 59.60 }
+];
+
+cities.forEach(city => {
+  const cityIcon = L.divIcon({
+    className: '',
+    html: `<div class="city-dot">·</div><div class="city-label">${city.name}</div>`,
+    iconSize: [70, 28],
+    iconAnchor: [35, 8]
+  });
+  L.marker([city.lat, city.lng], { icon: cityIcon }).addTo(mainMap);
+});
+
+// Nuclear sites with thumbnail images for popups
+const sites = [
+  {
+    id: 'natanz', name: 'Natanz Enrichment Complex', label: 'NATANZ',
+    lat: 33.7243, lng: 51.7272, status: 'destroyed',
+    thumb: 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f7d131a27b23c4bc0fc1324ff4df913103235e5c.jpg',
+    summary: 'Primary enrichment facility. PFEP destroyed. US MOP strike created 5.5m crater over buried FEP hall. Re-struck March 2026.',
+    tags: 'FEP · PFEP DESTROYED · MOP STRIKE'
+  },
+  {
+    id: 'fordow', name: 'Fordow Fuel Enrichment Plant', label: 'FORDOW',
+    lat: 34.8842, lng: 50.9940, status: 'damaged',
+    thumb: 'https://ichef.bbci.co.uk/images/ic/raw/p0lk1crb.png?v=6',
+    summary: 'Most hardened facility — 300ft underground in granite mountain. 7+ MOPs dropped. Tunnel entrances pre-sealed by Iran. Status of main hall disputed.',
+    tags: 'UNDERGROUND · MOP PRIMARY TARGET · STATUS UNCERTAIN'
+  },
+  {
+    id: 'isfahan', name: 'Isfahan Nuclear Complex', label: 'ISFAHAN UCF',
+    lat: 32.7295, lng: 51.7249, status: 'damaged',
+    thumb: 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/391c06fd2cf3db53808669717d4e2e2e65fad99e.jpg',
+    summary: 'UCF + underground tunnel complex. 24+ Tomahawk strikes. All 3 tunnel entrances backfilled Feb 2026. Possible HEU stockpile sealed inside.',
+    tags: 'UCF · TUNNELS SEALED · TOMAHAWK STRIKE'
+  },
+  {
+    id: 'karaj', name: 'TESA Karaj (Centrifuge Mfg)', label: 'TESA KARAJ',
+    lat: 35.8310, lng: 50.9285, status: 'destroyed',
+    thumb: null,
+    summary: 'Centrifuge manufacturing — destroyed by Israeli drone June 2021. Greatest long-term blow to Iran reconstitution capability. Relocated capacity also destroyed 2025.',
+    tags: 'CENTRIFUGE MFG · ISRAEL 2021 · CRITICAL BOTTLENECK'
+  },
+  {
+    id: 'kalaye', name: 'Kalaye Electric (Centrifuge R&D)', label: 'KALAYE',
+    lat: 35.7650, lng: 51.3260, status: 'destroyed',
+    thumb: 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/6846307311e0964d4a5c58c0a519f8c3f719994d.jpg',
+    summary: 'Primary centrifuge R&D site. Two Israeli strikes June 16–18, 2025. Confirmed destroyed by Vantor SAR October 2025.',
+    tags: 'CENTRIFUGE R&D · DESTROYED JUN 2025'
+  },
+  {
+    id: 'sanjarian', name: 'Sanjarian (Shockwave Mfg)', label: 'SANJARIAN',
+    lat: 35.5820, lng: 51.5110, status: 'destroyed',
+    thumb: 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/ab6a3b31eb67ab70fd39b178cc9def4853d8b13d.jpg',
+    summary: 'Nuclear weapon implosion component manufacturing. Exposed by Mossad archive 2018. Destroyed during 12-Day War.',
+    tags: 'IMPLOSION LENS · MOSSAD ARCHIVE · UNDECLARED'
+  },
+  {
+    id: 'lavisan', name: 'Lavisan 2 / Mojdeh (SPND)', label: 'LAVISAN 2',
+    lat: 35.7690, lng: 51.4880, status: 'destroyed',
+    thumb: null,
+    summary: 'AMAD Plan successor HQ. Bombed twice June 18, 2025. Rapid forensic sanitization detected July–Aug 2025 — evidence destruction.',
+    tags: 'SPND · AMAD SUCCESSOR · SANITIZED'
+  },
+  {
+    id: 'nour', name: 'SPND HQ — Nour Site', label: 'SPND NOUR',
+    lat: 35.7410, lng: 51.3970, status: 'damaged',
+    thumb: null,
+    summary: 'SPND HQ struck during 12-Day War. Demolished Jan 2026. New basement construction underway as of Feb 2026.',
+    tags: 'SPND HQ · REBUILDING FEB 2026'
+  },
+  {
+    id: 'meysami', name: 'Shahid Meysami Research Center', label: 'MEYSAMI',
+    lat: 35.6180, lng: 51.1920, status: 'destroyed',
+    thumb: null,
+    summary: 'SPND weaponization materials lab. HE test pit (7.5×4.5m) discovered. Multiple buildings destroyed June 15–16, 2025.',
+    tags: 'SPND SUBORDINATE · EXPLOSIVE LENS · HE TEST PIT'
+  },
+  {
+    id: 'pickaxe', name: 'Pickaxe Mountain (Kolang-Gaz La)', label: 'PICKAXE MTN',
+    lat: 32.4780, lng: 51.2780, status: 'hardening',
+    thumb: 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/73ef2f39b78b39f7b52524cefccf03056252fa55.jpg',
+    summary: 'CRITICAL: Possibly deeper than Fordow. Not struck in 12-Day War. Active hardening Feb 2026. Most likely location for transferred HEU stockpile.',
+    tags: 'COVERT · NOT STRUCK · ACTIVE HARDENING · CRITICAL RISK'
+  },
+  {
+    id: 'taleghan', name: 'Taleghan 2 — Parchin', label: 'PARCHIN T2',
+    lat: 35.5210, lng: 51.7630, status: 'damaged',
+    thumb: 'https://pplx-res.cloudinary.com/image/upload/pplx_search_images/02d835590a16e4f5c1ae550b37a2e7fc2fc3c163.jpg',
+    summary: 'AMAD Plan implosion test site. Rebuilt after Oct 2024 strike with concrete sarcophagus. Re-struck March 11, 2026 — 3 penetration holes confirmed.',
+    tags: 'IMPLOSION TEST · SARCOPHAGUS · MAR 2026 STRIKE'
+  }
+];
+
+const statusColorMap = {
+  destroyed: '#ff4a1c',
+  damaged:   '#ffb340',
+  hardening: '#b76cff',
+  active:    '#3ddc84'
+};
+
+const statusLabelMap = {
+  destroyed: 'DESTROYED',
+  damaged:   'DAMAGED / UNCERTAIN',
+  hardening: 'ACTIVE HARDENING',
+  active:    'INTACT'
+};
+
+sites.forEach(site => {
+  const color = statusColorMap[site.status] || '#ff4a1c';
+  const statusClass = site.status;
+
+  const siteIcon = L.divIcon({
+    className: '',
+    html: `<div class="site-marker-inner ${statusClass}">●</div><div class="site-label">${site.label}</div>`,
+    iconSize: [100, 32],
+    iconAnchor: [50, 10]
+  });
+
+  const marker = L.marker([site.lat, site.lng], { icon: siteIcon }).addTo(mainMap);
+
+  const sStyle = `background:${color}22;color:${color};border:1px solid ${color};`;
+  const thumbHtml = site.thumb
+    ? `<img src="${site.thumb}" alt="${site.name}" class="popup-img-thumb" loading="lazy">`
+    : '';
+
+  marker.bindPopup(`
+    ${thumbHtml}
+    <div class="popup-name">${site.name}</div>
+    <div class="popup-coords">${site.lat.toFixed(4)}°N &nbsp; ${site.lng.toFixed(4)}°E</div>
+    <span class="popup-status" style="${sStyle}">${statusLabelMap[site.status] || site.status.toUpperCase()}</span>
+    <p class="popup-summary">${site.summary}</p>
+    <div class="popup-tags">${site.tags}</div>
+    <a href="#site-${site.id}" class="popup-link">VIEW FACILITY CARD →</a>
+  `, { maxWidth: 260 });
+});
+
+// ══════════════════════════════════════════════════
+// SECTION 04 — DUAL MINI MAPS FOR EACH FACILITY
+// Each facility gets: context (zoom 8) + detail (zoom 15)
+// Both use Esri World Imagery
+// ══════════════════════════════════════════════════
+
+const facilityMapConfigs = [
+  { base: 'natanz',    label: 'NATANZ FEP',      lat: 33.7243, lng: 51.7272, detailZoom: 15 },
+  { base: 'fordow',   label: 'FORDOW FFEP',     lat: 34.8842, lng: 50.9940, detailZoom: 15 },
+  { base: 'isfahan',  label: 'ISFAHAN UCF',     lat: 32.7295, lng: 51.7249, detailZoom: 15 },
+  { base: 'karaj',    label: 'TESA KARAJ',      lat: 35.8310, lng: 50.9285, detailZoom: 15 },
+  { base: 'kalaye',   label: 'KALAYE ELEC',     lat: 35.7650, lng: 51.3260, detailZoom: 15 },
+  { base: 'sanjarian',label: 'SANJARIAN',       lat: 35.5820, lng: 51.5110, detailZoom: 16 },
+  { base: 'lavisan',  label: 'LAVISAN 2',       lat: 35.7690, lng: 51.4880, detailZoom: 16 },
+  { base: 'nour',     label: 'SPND NOUR HQ',    lat: 35.7410, lng: 51.3970, detailZoom: 16 },
+  { base: 'meysami',  label: 'MEYSAMI CTR',     lat: 35.6180, lng: 51.1920, detailZoom: 15 },
+  { base: 'pickaxe',  label: 'PICKAXE MTN',     lat: 32.4780, lng: 51.2780, detailZoom: 13 },
+  { base: 'taleghan', label: 'PARCHIN T2',      lat: 35.5210, lng: 51.7630, detailZoom: 15 }
+];
+
+const esriImageryUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+
+facilityMapConfigs.forEach(cfg => {
+  // Context map (zoom 8 — shows surrounding towns/geography)
+  const ctxEl = document.getElementById(`map-${cfg.base}-ctx`);
+  if (ctxEl) {
+    const mCtx = L.map(`map-${cfg.base}-ctx`, {
+      center: [cfg.lat, cfg.lng],
+      zoom: 8,
+      zoomControl: false,
+      scrollWheelZoom: false,
+      dragging: false,
+      attributionControl: false
+    });
+    L.tileLayer(esriImageryUrl, { maxZoom: 19 }).addTo(mCtx);
+    L.circleMarker([cfg.lat, cfg.lng], {
+      radius: 5, fillColor: '#ff4a1c', color: '#fff', weight: 2, fillOpacity: 0.9
+    }).addTo(mCtx);
+    const lCtx = document.createElement('div');
+    lCtx.className = 'fc-map-label';
+    lCtx.textContent = cfg.label + ' CTX';
+    ctxEl.appendChild(lCtx);
+  }
+
+  // Detail map (zoom 15 — shows facility extent)
+  const detEl = document.getElementById(`map-${cfg.base}-det`);
+  if (detEl) {
+    const mDet = L.map(`map-${cfg.base}-det`, {
+      center: [cfg.lat, cfg.lng],
+      zoom: cfg.detailZoom,
+      zoomControl: false,
+      scrollWheelZoom: false,
+      dragging: false,
+      attributionControl: false
+    });
+    L.tileLayer(esriImageryUrl, { maxZoom: 19 }).addTo(mDet);
+    L.circleMarker([cfg.lat, cfg.lng], {
+      radius: 6, fillColor: '#ff4a1c', color: '#fff', weight: 2, fillOpacity: 0.95
+    }).addTo(mDet);
+    L.control.scale({ position: 'bottomright', imperial: true, metric: true, maxWidth: 70 }).addTo(mDet);
+    const lDet = document.createElement('div');
+    lDet.className = 'fc-map-label';
+    lDet.textContent = cfg.label + ' Z' + cfg.detailZoom;
+    detEl.appendChild(lDet);
+  }
+});
+</script>
+</body>
+</html>

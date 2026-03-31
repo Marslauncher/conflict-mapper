@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B-07 Cyber & Asymmetric Warfare // Geopolitical Intelligence Platform v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DESIGN SYSTEM — B-07 Cyber & Asymmetric Warfare
+   Accent: Cyber Teal #00A896 / Bright #00D4BD
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --color-bg:       #0a0c10;
+  --color-surface:  #0f1117;
+  --color-surface-2:#141820;
+  --color-surface-3:#1a2030;
+  --color-border:   rgba(0,168,150,0.22);
+  --color-border-2: rgba(0,168,150,0.10);
+  --color-text:     #dde2ec;
+  --color-text-muted:#8a94a8;
+  --color-text-faint:#4a5168;
+  --color-accent:   #00A896;
+  --color-accent-bright:#00D4BD;
+  --color-teal:     #2dd4bf;
+  --color-blue:     #60a5fa;
+  --color-red:      #f87171;
+  --color-green:    #4ade80;
+  --font-display:   'Rajdhani', sans-serif;
+  --font-mono:      'Share Tech Mono', monospace;
+  --font-body:      'Inter', sans-serif;
+  --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;  --space-10:2.5rem;
+  --space-12:3rem;  --space-16:4rem;
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;
+  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);
+  --text-sm:clamp(.875rem,.8rem + .35vw,1rem);
+  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
+  --text-hero:clamp(2.5rem,1rem + 5vw,5.5rem);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);line-height:1.65;}
+img,video{display:block;max-width:100%;height:auto;}
+a{color:var(--color-accent);text-decoration:none;}
+a:hover{color:var(--color-accent-bright);}
+.highlight{color:var(--color-accent);}
+strong.critical{color:var(--color-accent-bright);}
+
+/* ── STICKY NAV ─────────────────────────────────────────── */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,12,16,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);height:60px;display:flex;align-items:center;}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-4);width:100%;}
+.nav-logo{font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;letter-spacing:.08em;color:var(--color-accent);white-space:nowrap;flex-shrink:0;}
+.nav-badge{font-family:var(--font-mono);font-size:10px;background:color-mix(in oklch,var(--color-accent) 15%,transparent);color:var(--color-accent);border:1px solid var(--color-border);padding:2px 8px;border-radius:3px;}
+.nav-links{display:flex;align-items:center;gap:0;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;flex:1;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;letter-spacing:.06em;color:var(--color-text-muted);padding:var(--space-1) var(--space-3);white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;text-transform:uppercase;}
+.nav-link:hover,.nav-link.active{color:var(--color-accent);border-bottom-color:var(--color-accent);}
+
+/* ── HERO ───────────────────────────────────────────────── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:60px;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(0,168,150,.08) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(96,165,250,.05) 0%,transparent 60%),#0a0c10;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,168,150,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,168,150,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.hero-content{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:var(--space-16) var(--space-6);}
+.hero-eyebrow{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-4);display:flex;align-items:center;gap:var(--space-3);}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--color-accent);}
+.hero-icon{font-size:3rem;margin-bottom:var(--space-4);}
+.hero-title{font-family:var(--font-display);font-size:var(--text-hero);font-weight:700;line-height:1.0;letter-spacing:.02em;text-transform:uppercase;margin-bottom:var(--space-4);}
+.hero-title .sub-title{display:block;font-size:clamp(1rem,1rem + 2vw,2.2rem);color:var(--color-accent);font-weight:500;letter-spacing:.1em;}
+.hero-subtitle{font-size:var(--text-lg);color:var(--color-text-muted);max-width:700px;margin-bottom:var(--space-8);}
+.hero-stamp{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-8);}
+.hero-stats{display:flex;flex-wrap:wrap;gap:var(--space-4);}
+.h-stat{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-4) var(--space-6);min-width:130px;}
+.h-stat-val{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);display:block;}
+.h-stat-key{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.08em;}
+.scroll-cue{margin-top:var(--space-12);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text-faint);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.1em;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+
+/* ── SECTION SCAFFOLDING ────────────────────────────────── */
+.section-wrap{padding:clamp(var(--space-10),5vw,var(--space-16)) var(--space-6);max-width:1280px;margin:0 auto;}
+section{border-top:1px solid var(--color-border-2);}
+.section-header{display:flex;align-items:flex-end;gap:var(--space-4);margin-bottom:var(--space-8);}
+.section-num{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.15em;margin-bottom:var(--space-1);}
+.section-title{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;text-transform:uppercase;line-height:1.1;}
+.section-lead{color:var(--color-text-muted);font-size:var(--text-sm);max-width:36ch;}
+.section-divider{flex:1;height:1px;background:linear-gradient(90deg,var(--color-accent),transparent);opacity:.3;margin-bottom:8px;}
+
+/* ── CARD GRID ──────────────────────────────────────────── */
+.card-grid{display:grid;gap:var(--space-4);}
+.grid-2{grid-template-columns:repeat(auto-fill,minmax(min(480px,100%),1fr));}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));}
+.grid-4{grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));}
+
+/* ── EQUIPMENT CARD ─────────────────────────────────────── */
+.equip-card{background:var(--color-surface);border:1px solid var(--color-border);overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.equip-card:hover{border-color:var(--color-accent);box-shadow:0 0 20px rgba(0,168,150,.08);}
+.equip-img-wrap{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--color-surface-2);}
+.equip-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform .4s;}
+.equip-img-wrap img:hover{transform:scale(1.04);}
+.equip-badge{position:absolute;top:var(--space-2);left:var(--space-2);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;background:color-mix(in oklch,var(--color-accent) 18%,transparent);color:var(--color-accent);border:1px solid var(--color-border);padding:2px 7px;backdrop-filter:blur(4px);}
+.equip-country-badge{position:absolute;top:var(--space-2);right:var(--space-2);font-size:1.2rem;background:rgba(10,12,16,.7);padding:2px 6px;border-radius:3px;}
+.equip-body{padding:var(--space-4) var(--space-5);}
+.equip-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-2);}
+.equip-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3);}
+.equip-specs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-1) var(--space-4);margin-bottom:var(--space-3);}
+.equip-spec{display:flex;justify-content:space-between;gap:var(--space-2);padding:var(--space-1) 0;border-bottom:1px solid rgba(0,168,150,.08);}
+.equip-spec-key{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.06em;}
+.equip-spec-val{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-bright);font-weight:600;}
+.equip-link{display:inline-flex;align-items:center;gap:var(--space-1);font-family:var(--font-mono);font-size:10px;color:var(--color-blue);letter-spacing:.06em;text-transform:uppercase;}
+.equip-link:hover{color:var(--color-accent);}
+
+/* ── DATA TABLE ─────────────────────────────────────────── */
+.data-table-wrap{overflow-x:auto;border:1px solid var(--color-border);}
+.data-table{width:100%;border-collapse:collapse;font-size:var(--text-sm);}
+.data-table thead th{background:var(--color-surface-2);font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent);padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border);white-space:nowrap;}
+.data-table tbody tr{border-bottom:1px solid rgba(0,168,150,.06);transition:background .15s;}
+.data-table tbody tr:hover{background:rgba(0,168,150,.04);}
+.data-table tbody td{padding:var(--space-3) var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);vertical-align:middle;}
+.data-table tbody td:first-child{color:var(--color-text);font-weight:500;}
+.data-table td a{color:var(--color-blue);font-family:var(--font-mono);font-size:11px;}
+.data-table td a:hover{color:var(--color-accent);}
+
+/* ── INTEL ALERT ────────────────────────────────────────── */
+.intel-alert{background:color-mix(in oklch,var(--color-accent) 8%,var(--color-surface));border:1px solid var(--color-border);border-left:3px solid var(--color-accent);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-6);}
+.intel-alert-head{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-2);}
+.intel-alert p{font-size:var(--text-sm);line-height:1.7;}
+.intel-alert.red{border-left-color:var(--color-red);background:color-mix(in oklch,var(--color-red) 6%,var(--color-surface));}
+.intel-alert.red .intel-alert-head{color:var(--color-red);}
+
+/* ── POLICY QUOTE ───────────────────────────────────────── */
+.policy-quote{background:var(--color-surface-3);border:1px solid var(--color-border);border-left:3px solid var(--color-accent);padding:var(--space-6) var(--space-8);margin:var(--space-6) 0;font-size:var(--text-base);color:var(--color-text);font-style:italic;line-height:1.8;}
+.policy-quote-attr{display:block;margin-top:var(--space-3);font-style:normal;font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);letter-spacing:.06em;}
+
+/* ── MATRIX TABLE ───────────────────────────────────────── */
+.matrix-country{white-space:nowrap;}
+.flag-chip{display:inline-flex;align-items:center;gap:var(--space-2);}
+.flag-emoji{font-size:1.1rem;}
+.flag-name{font-family:var(--font-display);font-weight:600;font-size:var(--text-sm);color:var(--color-text);}
+.rating-bar{display:flex;align-items:center;gap:var(--space-2);min-width:120px;}
+.rating-fill-wrap{flex:1;background:rgba(255,255,255,.06);height:6px;border-radius:3px;overflow:hidden;}
+.rating-fill{height:100%;background:var(--color-accent);border-radius:3px;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+.rating-num{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);min-width:30px;}
+.nuclear-yes{color:var(--color-red);font-weight:700;font-family:var(--font-mono);}
+.nuclear-limited{color:var(--color-accent);font-family:var(--font-mono);}
+.nuclear-no{color:var(--color-text-faint);font-family:var(--font-mono);}
+
+/* ── TABS ───────────────────────────────────────────────── */
+.tabs-wrap{margin-bottom:var(--space-8);}
+.tab-buttons{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-4);border-bottom:1px solid var(--color-border);padding-bottom:0;}
+.tab-btn{font-family:var(--font-display);font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted);padding:var(--space-2) var(--space-4);border-bottom:2px solid transparent;cursor:pointer;transition:color .2s,border-color .2s;background:none;border-top:none;border-left:none;border-right:none;text-transform:uppercase;letter-spacing:.06em;margin-bottom:-1px;}
+.tab-btn:hover,.tab-btn.active{color:var(--color-accent);border-bottom-color:var(--color-accent);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* ── SCENARIO CARD ──────────────────────────────────────── */
+.scenario-card{background:var(--color-surface-2);border:1px solid var(--color-border);padding:var(--space-6);}
+.scenario-trigger{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.scenario-title{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-text);margin-bottom:var(--space-4);}
+.scenario-steps{display:flex;flex-direction:column;gap:var(--space-3);}
+.scenario-step{display:flex;gap:var(--space-4);padding:var(--space-3) var(--space-4);background:rgba(0,168,150,.04);border:1px solid rgba(0,168,150,.08);}
+.step-time{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);min-width:80px;padding-top:2px;}
+.step-text{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── COLLAPSIBLE ────────────────────────────────────────── */
+.collapsible{border:1px solid var(--color-border);margin-bottom:var(--space-3);}
+.collapsible-head{display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);cursor:pointer;font-family:var(--font-display);font-weight:600;font-size:var(--text-base);text-transform:uppercase;letter-spacing:.04em;transition:color .2s;background:var(--color-surface);}
+.collapsible-head:hover,.collapsible-head.open{color:var(--color-accent);}
+.collapsible-body{display:none;padding:var(--space-5);border-top:1px solid var(--color-border);background:var(--color-surface-2);}
+.collapsible-body.open{display:block;}
+
+/* ── STAT BAR ───────────────────────────────────────────── */
+.stat-row{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-3);}
+.stat-label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);min-width:160px;text-transform:uppercase;letter-spacing:.06em;}
+.stat-bar-wrap{flex:1;background:rgba(255,255,255,.06);height:8px;border-radius:4px;overflow:hidden;}
+.stat-fill{height:100%;background:var(--color-accent);border-radius:4px;}
+.stat-val{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);min-width:40px;text-align:right;}
+
+/* ── WILDCARD CARD ──────────────────────────────────────── */
+.wildcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-4);}
+.wildcard-card{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);transition:border-color .2s;}
+.wildcard-card:hover{border-color:var(--color-accent);}
+.wildcard-icon{font-size:1.8rem;margin-bottom:var(--space-3);}
+.wildcard-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:var(--space-2);}
+.wildcard-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── DOCTRINE CARD ──────────────────────────────────────── */
+.doctrine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:var(--space-4);}
+.doctrine-card{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);}
+.doctrine-icon{font-size:1.6rem;margin-bottom:var(--space-3);}
+.doctrine-label{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--space-1);}
+.doctrine-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-accent-bright);margin-bottom:var(--space-2);}
+.doctrine-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── XREF LINKS ─────────────────────────────────────────── */
+.xref-links{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);margin-bottom:var(--space-6);padding:var(--space-3) var(--space-4);background:var(--color-surface);border:1px solid var(--color-border);}
+.xref-label{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;}
+.xref-chip{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;background:color-mix(in oklch,var(--color-accent) 10%,var(--color-surface-2));color:var(--color-accent);border:1px solid var(--color-border);padding:var(--space-1) var(--space-3);}
+.xref-chip:hover{background:color-mix(in oklch,var(--color-accent) 18%,var(--color-surface-2));color:var(--color-accent-bright);}
+
+/* ── SOURCES GRID ───────────────────────────────────────── */
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-6);}
+.sources-col h3{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-4);padding-bottom:var(--space-2);border-bottom:1px solid var(--color-border);}
+.source-item{display:flex;flex-direction:column;gap:2px;margin-bottom:var(--space-4);}
+.source-item a{font-size:var(--text-sm);font-weight:500;color:var(--color-text);}
+.source-item a:hover{color:var(--color-accent);}
+.source-item span{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);}
+.classification-notice{background:var(--color-surface-2);border:1px solid var(--color-border);border-top:3px solid var(--color-accent);padding:var(--space-6);margin-top:var(--space-8);text-align:center;}
+.class-title{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.class-body{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;max-width:700px;margin:0 auto;}
+
+/* ── LIGHTBOX ───────────────────────────────────────────── */
+#lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;flex-direction:column;gap:var(--space-4);}
+#lightbox.active{display:flex;}
+#lightbox-img{max-width:90vw;max-height:80vh;object-fit:contain;border:1px solid var(--color-border);}
+#lightbox-cap{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);max-width:600px;text-align:center;}
+#lightbox-close{position:absolute;top:var(--space-4);right:var(--space-6);font-family:var(--font-mono);font-size:var(--text-xl);color:var(--color-text-muted);cursor:pointer;}
+#lightbox-close:hover{color:var(--color-accent);}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--space-6);text-align:center;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-text{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.06em;}
+
+/* ── CHOKEPOINT / INFRA CARD ────────────────────────────── */
+.chokepoint-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-5);}
+.chokepoint-card{background:var(--color-surface);border:1px solid var(--color-border);overflow:hidden;transition:border-color .2s;}
+.chokepoint-card:hover{border-color:var(--color-accent);}
+.chokepoint-img-wrap{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--color-surface-2);}
+.chokepoint-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform .4s;}
+.chokepoint-img-wrap img:hover{transform:scale(1.04);}
+.chokepoint-badge{position:absolute;top:var(--space-2);left:var(--space-2);font-family:var(--font-mono);font-size:10px;background:color-mix(in oklch,var(--color-accent) 18%,rgba(10,12,16,.8));color:var(--color-accent);border:1px solid var(--color-border);padding:2px 7px;backdrop-filter:blur(4px);}
+.chokepoint-body{padding:var(--space-4) var(--space-5);}
+.chokepoint-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:2px;}
+.chokepoint-width{font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);margin-bottom:var(--space-3);text-transform:uppercase;letter-spacing:.06em;}
+.chokepoint-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3);}
+.chokepoint-controllers{font-size:var(--text-xs);margin-bottom:var(--space-2);}
+.ctrl-label{font-family:var(--font-mono);color:var(--color-text-faint);letter-spacing:.06em;}
+.ctrl-val{color:var(--color-text);margin-left:var(--space-2);}
+.chokepoint-risk{font-size:var(--text-xs);}
+.risk-label{font-family:var(--font-mono);color:var(--color-text-faint);letter-spacing:.06em;}
+.risk-val{margin-left:var(--space-2);font-weight:700;font-family:var(--font-mono);}
+.risk-high{color:var(--color-red);}
+.risk-med{color:var(--color-accent);}
+.risk-low{color:var(--color-green);}
+
+/* ── MAP CONTAINER ──────────────────────────────────────── */
+.map-container{position:relative;overflow:hidden;border:1px solid var(--color-border);margin-bottom:var(--space-4);}
+.map-img{width:100%;cursor:pointer;transition:transform .4s;}
+.map-img:hover{transform:scale(1.02);}
+.map-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,12,16,.85));padding:var(--space-4) var(--space-5);}
+.map-caption{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;}
+.map-stats-row{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-6);}
+.map-stat{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-3) var(--space-5);flex:1;min-width:120px;}
+.map-stat-val{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);display:block;}
+.map-stat-key{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.06em;}
+
+/* ── ESCALATION LADDER ──────────────────────────────────── */
+.escalation-ladder{display:flex;flex-direction:column;gap:0;}
+.esc-rung{border:1px solid var(--color-border);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-2);position:relative;transition:border-color .2s;}
+.esc-rung:hover{border-color:var(--color-accent);}
+.esc-level-1{border-left:3px solid #4ade80;}
+.esc-level-2{border-left:3px solid #a3e635;}
+.esc-level-3{border-left:3px solid #00A896;}
+.esc-level-4{border-left:3px solid #f97316;}
+.esc-level-5{border-left:3px solid #ef4444;}
+.esc-level-6{border-left:3px solid #dc2626;background:rgba(220,38,38,.06);}
+.esc-level-num{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-1);}
+.esc-level-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);}
+.esc-level-desc{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-2);line-height:1.6;}
+.esc-level-actors{font-family:var(--font-mono);font-size:11px;color:var(--color-blue);margin-bottom:var(--space-1);}
+.esc-level-trigger{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);letter-spacing:.04em;}
+.esc-arrow{text-align:center;color:var(--color-text-faint);font-size:1.2rem;margin:var(--space-1) 0;}
+
+/* ── NETWORK DIAGRAM SVG SECTION ────────────────────────── */
+.network-diagram{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-6);margin-bottom:var(--space-6);overflow:hidden;}
+.network-diagram svg{width:100%;height:auto;}
+
+/* ── THREAT LEVEL BADGE ─────────────────────────────────── */
+.threat-badge{display:inline-flex;align-items:center;gap:var(--space-2);background:color-mix(in oklch,var(--color-red) 12%,var(--color-surface));border:1px solid rgba(248,113,113,.4);padding:var(--space-2) var(--space-4);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-red);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-4);}
+
+/* ── UTILITY ─────────────────────────────────────────────── */
+.mb-4{margin-bottom:var(--space-4);} .mb-6{margin-bottom:var(--space-6);} .mb-8{margin-bottom:var(--space-8);}
+.text-muted{color:var(--color-text-muted);} .text-accent{color:var(--color-accent);}
+.mono{font-family:var(--font-mono);font-size:var(--text-xs);}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:10px;padding:2px 8px;border:1px solid var(--color-border);color:var(--color-text-faint);letter-spacing:.06em;margin:2px;}
+.tag-red{border-color:rgba(248,113,113,.3);color:var(--color-red);}
+.tag-green{border-color:rgba(74,222,128,.3);color:var(--color-green);}
+.tag-teal{border-color:rgba(45,212,191,.3);color:var(--color-teal);}
+.gap-2{gap:var(--space-2);}
+.flex-wrap{display:flex;flex-wrap:wrap;gap:var(--space-2);}
+@media(max-width:768px){
+  .nav-logo{font-size:11px;}
+  .hero-stats{flex-direction:column;}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
+  .section-title{font-size:var(--text-xl);}
+  .equip-specs{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="site-nav" role="navigation" aria-label="Domain navigation">
+  <div class="nav-inner">
+    <div class="nav-logo">INTEL PLATFORM v2</div>
+    <div class="nav-badge">B-07</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#cyber-overview">Overview</a>
+      <a class="nav-link" href="#cyber-actors">State Actors</a>
+      <a class="nav-link" href="#cyber-matrix">Matrix</a>
+      <a class="nav-link" href="#cyber-apt">APT Groups</a>
+      <a class="nav-link" href="#cyber-infrastructure">Infrastructure</a>
+      <a class="nav-link" href="#cyber-financial">Financial</a>
+      <a class="nav-link" href="#cyber-information">Info Ops</a>
+      <a class="nav-link" href="#cyber-uav">Drones/UAS</a>
+      <a class="nav-link" href="#cyber-proxy">Proxies</a>
+      <a class="nav-link" href="#cyber-law">Legal</a>
+      <a class="nav-link" href="#cyber-scenarios">Scenarios</a>
+      <a class="nav-link" href="#cyber-sources">Sources</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">CLASSIFIED OPEN-SOURCE ANALYSIS // MARCH 2026 // SERIES B DOMAIN DOSSIER</div>
+    <div class="hero-icon">🔒</div>
+    <h1 class="hero-title">
+      CYBER &amp; ASYMMETRIC
+      <span class="sub-title">DOMAIN WARFARE ANALYSIS // B-07</span>
+    </h1>
+    <p class="hero-subtitle">State-actor APT operations, critical infrastructure vulnerabilities, influence warfare, and asymmetric force multiplication across the fifth domain of conflict</p>
+    <p class="hero-stamp">ACTORS: USA · CHINA · RUSSIA · IRAN · NORTH KOREA · ISRAEL · NON-STATE ACTORS</p>
+    <div class="hero-stats">
+      <div class="h-stat">
+        <span class="h-stat-val">2,000+</span>
+        <span class="h-stat-key">Tracked APT Campaigns</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">6</span>
+        <span class="h-stat-key">Major Cyber Powers</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">$10.5T</span>
+        <span class="h-stat-key">Projected Cybercrime Cost 2025</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">CONTESTED</span>
+        <span class="h-stat-key">Domain Status</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val highlight">9/10</span>
+        <span class="h-stat-key">Threat Level</span>
+      </div>
+    </div>
+    <div class="scroll-cue">▼ &nbsp; SCROLL TO ANALYZE</div>
+  </div>
+</section>
+
+<!-- SECTION 01: DOMAIN OVERVIEW -->
+<section id="cyber-overview">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">01 // DOMAIN OVERVIEW</div>
+      <h2 class="section-title">Cyber & Asymmetric Domain</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Critical infrastructure, MITRE ATT&CK & gray zone spectrum</div>
+  </div>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚡ DOMAIN STRATEGIC ASSESSMENT</div>
+    <p>Cyberspace is now recognized as the <strong class="critical">fifth domain of warfare</strong> alongside land, sea, air, and space. Unlike geographic theaters, cyber conflict has no physical boundary — a single threat actor can simultaneously target power grids in Ukraine, financial institutions in the United States, and telecommunications infrastructure in Taiwan. The convergence of cyber operations with information warfare, drone proliferation, and AI-enabled autonomous systems creates a new asymmetric paradigm where non-state actors and smaller powers can generate strategic effects previously requiring nation-state military force.</p>
+  </div>
+
+  <!-- Network Diagram SVG -->
+  <div class="network-diagram mb-6">
+    <svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" aria-label="Cyber domain network diagram">
+      <defs>
+        <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00A896" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#00A896" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- Background grid -->
+      <rect width="900" height="420" fill="#0f1117"/>
+      <g stroke="rgba(0,168,150,0.06)" stroke-width="1">
+        <line x1="0" y1="60" x2="900" y2="60"/><line x1="0" y1="120" x2="900" y2="120"/>
+        <line x1="0" y1="180" x2="900" y2="180"/><line x1="0" y1="240" x2="900" y2="240"/>
+        <line x1="0" y1="300" x2="900" y2="300"/><line x1="0" y1="360" x2="900" y2="360"/>
+        <line x1="90" y1="0" x2="90" y2="420"/><line x1="180" y1="0" x2="180" y2="420"/>
+        <line x1="270" y1="0" x2="270" y2="420"/><line x1="360" y1="0" x2="360" y2="420"/>
+        <line x1="450" y1="0" x2="450" y2="420"/><line x1="540" y1="0" x2="540" y2="420"/>
+        <line x1="630" y1="0" x2="630" y2="420"/><line x1="720" y1="0" x2="720" y2="420"/>
+        <line x1="810" y1="0" x2="810" y2="420"/>
+      </g>
+      <!-- Central Internet Core node -->
+      <circle cx="450" cy="210" r="40" fill="url(#nodeGlow)" filter="url(#glow)"/>
+      <circle cx="450" cy="210" r="28" fill="none" stroke="#00A896" stroke-width="1.5"/>
+      <circle cx="450" cy="210" r="14" fill="#00A896" fill-opacity="0.3"/>
+      <text x="450" y="214" text-anchor="middle" fill="#00D4BD" font-family="'Share Tech Mono',monospace" font-size="10" font-weight="bold">INTERNET</text>
+      <text x="450" y="265" text-anchor="middle" fill="#8a94a8" font-family="'Share Tech Mono',monospace" font-size="9">CORE ROUTING</text>
+      <!-- State Actor Nodes -->
+      <!-- USA -->
+      <circle cx="140" cy="100" r="22" fill="none" stroke="#00A896" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="140" y="96" text-anchor="middle" fill="#00A896" font-family="'Rajdhani',sans-serif" font-size="12" font-weight="700">🇺🇸</text>
+      <text x="140" y="112" text-anchor="middle" fill="#dde2ec" font-family="'Share Tech Mono',monospace" font-size="9">NSA TAO</text>
+      <text x="140" y="138" text-anchor="middle" fill="#8a94a8" font-family="'Share Tech Mono',monospace" font-size="8">CYBERCOM</text>
+      <!-- Russia -->
+      <circle cx="140" cy="320" r="22" fill="none" stroke="#f87171" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="140" y="316" text-anchor="middle" fill="#f87171" font-family="'Rajdhani',sans-serif" font-size="12" font-weight="700">🇷🇺</text>
+      <text x="140" y="332" text-anchor="middle" fill="#dde2ec" font-family="'Share Tech Mono',monospace" font-size="9">GRU/SVR</text>
+      <text x="140" y="348" text-anchor="middle" fill="#8a94a8" font-family="'Share Tech Mono',monospace" font-size="8">FANCY BEAR</text>
+      <!-- China -->
+      <circle cx="760" cy="100" r="22" fill="none" stroke="#f97316" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="760" y="96" text-anchor="middle" fill="#f97316" font-family="'Rajdhani',sans-serif" font-size="12" font-weight="700">🇨🇳</text>
+      <text x="760" y="112" text-anchor="middle" fill="#dde2ec" font-family="'Share Tech Mono',monospace" font-size="9">PLA SSF</text>
+      <text x="760" y="138" text-anchor="middle" fill="#8a94a8" font-family="'Share Tech Mono',monospace" font-size="8">VOLT TYPHOON</text>
+      <!-- Iran -->
+      <circle cx="760" cy="320" r="22" fill="none" stroke="#a3e635" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="760" y="316" text-anchor="middle" fill="#a3e635" font-family="'Rajdhani',sans-serif" font-size="12" font-weight="700">🇮🇷</text>
+      <text x="760" y="332" text-anchor="middle" fill="#dde2ec" font-family="'Share Tech Mono',monospace" font-size="9">IRGC CYBER</text>
+      <text x="760" y="348" text-anchor="middle" fill="#8a94a8" font-family="'Share Tech Mono',monospace" font-size="8">APT33/35</text>
+      <!-- DPRK -->
+      <circle cx="300" cy="60" r="20" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="300" y="56" text-anchor="middle" fill="#60a5fa" font-family="'Rajdhani',sans-serif" font-size="11" font-weight="700">🇰🇵</text>
+      <text x="300" y="70" text-anchor="middle" fill="#dde2ec" font-family="'Share Tech Mono',monospace" font-size="8">LAZARUS</text>
+      <!-- Israel -->
+      <circle cx="600" cy="60" r="20" fill="none" stroke="#2dd4bf" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="600" y="56" text-anchor="middle" fill="#2dd4bf" font-family="'Rajdhani',sans-serif" font-size="11" font-weight="700">🇮🇱</text>
+      <text x="600" y="70" text-anchor="middle" fill="#dde2ec" font-family="'Share Tech Mono',monospace" font-size="8">UNIT 8200</text>
+      <!-- Critical Infrastructure Targets -->
+      <rect x="350" y="340" width="90" height="40" fill="rgba(248,113,113,0.1)" stroke="#f87171" stroke-width="1"/>
+      <text x="395" y="357" text-anchor="middle" fill="#f87171" font-family="'Share Tech Mono',monospace" font-size="9">POWER GRID</text>
+      <text x="395" y="372" text-anchor="middle" fill="#8a94a8" font-family="'Share Tech Mono',monospace" font-size="8">ICS/SCADA</text>
+      <rect x="620" y="200" width="90" height="40" fill="rgba(248,113,113,0.1)" stroke="#f87171" stroke-width="1"/>
+      <text x="665" y="217" text-anchor="middle" fill="#f87171" font-family="'Share Tech Mono',monospace" font-size="9">SWIFT/FINANCE</text>
+      <text x="665" y="232" text-anchor="middle" fill="#8a94a8" font-family="'Share Tech Mono',monospace" font-size="8">BANKING SYSTEM</text>
+      <rect x="190" y="200" width="90" height="40" fill="rgba(248,113,113,0.1)" stroke="#f87171" stroke-width="1"/>
+      <text x="235" y="217" text-anchor="middle" fill="#f87171" font-family="'Share Tech Mono',monospace" font-size="9">DNS SERVERS</text>
+      <text x="235" y="232" text-anchor="middle" fill="#8a94a8" font-family="'Share Tech Mono',monospace" font-size="8">ROOT INFRA</text>
+      <!-- Connection Lines -->
+      <g stroke="rgba(0,168,150,0.25)" stroke-width="1" stroke-dasharray="5,3">
+        <line x1="162" y1="107" x2="422" y2="196"/>
+        <line x1="162" y1="313" x2="422" y2="224"/>
+        <line x1="738" y1="107" x2="478" y2="196"/>
+        <line x1="738" y1="313" x2="478" y2="224"/>
+        <line x1="315" y1="75" x2="422" y2="190"/>
+        <line x1="585" y1="75" x2="478" y2="190"/>
+        <line x1="395" y1="340" x2="450" y2="238"/>
+        <line x1="620" y1="220" x2="478" y2="218"/>
+        <line x1="280" y1="220" x2="422" y2="218"/>
+      </g>
+      <!-- Attack path indicators -->
+      <g stroke="#f87171" stroke-width="1.5" opacity="0.6">
+        <line x1="162" y1="313" x2="280" y2="220" marker-end="url(#arrowRed)"/>
+      </g>
+      <!-- MITRE ATT&CK label -->
+      <text x="450" y="30" text-anchor="middle" fill="#00A896" font-family="'Share Tech Mono',monospace" font-size="10" letter-spacing="3">MITRE ATT&amp;CK FRAMEWORK — CYBER THREAT TOPOLOGY</text>
+      <text x="450" y="48" text-anchor="middle" fill="#4a5168" font-family="'Share Tech Mono',monospace" font-size="8">RECONNAISSANCE → RESOURCE DEV → INITIAL ACCESS → EXECUTION → PERSISTENCE → EXFILTRATION</text>
+    </svg>
+  </div>
+
+  <div class="map-stats-row">
+    <div class="map-stat"><span class="map-stat-val">14</span><span class="map-stat-key">ATT&CK Tactics</span></div>
+    <div class="map-stat"><span class="map-stat-val">193</span><span class="map-stat-key">MITRE Techniques</span></div>
+    <div class="map-stat"><span class="map-stat-val">$4.88M</span><span class="map-stat-key">Avg Data Breach Cost (IBM 2024)</span></div>
+    <div class="map-stat"><span class="map-stat-val">66%</span><span class="map-stat-key">Critical Infra Hit Rate (2024)</span></div>
+    <div class="map-stat"><span class="map-stat-val">277 days</span><span class="map-stat-key">Avg Breach Detection Time</span></div>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Gray Zone Conflict Spectrum</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">Cyber operations occupy a deliberate gray zone between peacetime espionage and acts of war. State actors exploit this ambiguity to achieve strategic effects — degrading adversary infrastructure, stealing intellectual property, and shaping public opinion — while maintaining plausible deniability and staying below the threshold of armed conflict response. The spectrum runs from passive intelligence collection (SIGINT/HUMINT) through destructive attacks (NotPetya, Saudi Aramco), influence operations, and AI-enabled disinformation at scale.</p>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">The Tallinn Manual 2.0 — the most authoritative legal analysis of cyber conflict — has failed to produce consensus on when a cyber attack constitutes a use of force under Article 51 of the UN Charter, leaving major powers free to conduct operations that in kinetic form would trigger immediate military response. This legal vacuum is the central structural feature of the cyber domain.</p>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Critical Infrastructure Attack Surface</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Sector</th><th>Attack Vector</th><th>Threat Actor</th><th>Risk</th></tr></thead>
+          <tbody>
+            <tr><td>Power Grid</td><td>ICS/SCADA exploit</td><td>Russia, China</td><td class="tag-red" style="color:var(--color-red);font-family:var(--font-mono);font-size:11px;">CRITICAL</td></tr>
+            <tr><td>Financial (SWIFT)</td><td>Insider + malware</td><td>DPRK, Russia</td><td class="tag-red" style="color:var(--color-red);font-family:var(--font-mono);font-size:11px;">CRITICAL</td></tr>
+            <tr><td>Telecoms/5G</td><td>Supply chain / BGP</td><td>China, Iran</td><td class="tag-red" style="color:var(--color-red);font-family:var(--font-mono);font-size:11px;">CRITICAL</td></tr>
+            <tr><td>Undersea Cables</td><td>Physical + logical</td><td>Russia GU</td><td style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Water Treatment</td><td>OT network intrusion</td><td>Iran, All</td><td style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>GPS/PNT</td><td>Jamming / spoofing</td><td>Russia, China</td><td style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Hospitals/Health</td><td>Ransomware</td><td>Criminal groups</td><td style="color:var(--color-green);font-family:var(--font-mono);font-size:11px;">MED</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <blockquote class="policy-quote">
+    "Cyberspace is a warfighting domain. As a result, U.S. Cyber Command must be capable of conducting cyberspace operations that degrade, disrupt, and destroy adversary capabilities and provide freedom of action in and through cyberspace for our forces and our allies."
+    <span class="policy-quote-attr">— U.S. CYBERCOM COMMAND VISION, 2023 // DEFEND FORWARD DOCTRINE</span>
+  </blockquote>
+</div>
+</section>
+
+<!-- SECTION 02: KEY STATE ACTORS -->
+<section id="cyber-actors">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">02 // KEY STATE ACTORS</div>
+      <h2 class="section-title">Cyber Power Doctrine</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">National doctrine & institutional architecture</div>
+  </div>
+
+  <div class="xref-links mb-8">
+    <span class="xref-label">COUNTRY DOSSIERS:</span>
+    <a href="../countries/usa-dossier.html" class="xref-chip" target="_blank">🇺🇸 USA →</a>
+    <a href="../countries/china-dossier.html" class="xref-chip" target="_blank">🇨🇳 China →</a>
+    <a href="../countries/russia-dossier.html" class="xref-chip" target="_blank">🇷🇺 Russia →</a>
+    <a href="../countries/iran-dossier.html" class="xref-chip" target="_blank">🇮🇷 Iran →</a>
+    <a href="../countries/north-korea-dossier.html" class="xref-chip" target="_blank">🇰🇵 North Korea →</a>
+    <a href="../countries/israel-dossier.html" class="xref-chip" target="_blank">🇮🇱 Israel →</a>
+  </div>
+
+  <div class="doctrine-grid mb-8">
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🇺🇸</div>
+      <div class="doctrine-label">United States // NSA TAO + USCYBERCOM</div>
+      <div class="doctrine-title">Defend Forward / Persistent Engagement</div>
+      <div class="doctrine-desc">NSA's Tailored Access Operations (TAO) and USCYBERCOM execute a "Defend Forward" doctrine — conducting offensive operations in adversary networks before threats reach US soil. USCYBERCOM's Cyber National Mission Force conducts Hunt Forward operations in partner nations (Ukraine, Lithuania, Montenegro). Known capabilities: zero-day development, supply chain operations (SolarWinds response), EW integration, and CNO at all classification levels.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🇨🇳</div>
+      <div class="doctrine-label">China // PLA SSF Network Systems Department</div>
+      <div class="doctrine-title">Integrated Network-Electronic Warfare (INEW)</div>
+      <div class="doctrine-desc">PLA Strategic Support Force's Network Systems Department (formerly Technical Reconnaissance Bureaus) conducts large-scale intellectual property theft, pre-positioning in critical infrastructure, and supply chain compromise. China's doctrine emphasizes "system confrontation" — degrading adversary C4ISR before kinetic conflict. Volt Typhoon's 2023-24 pre-positioning in US critical infrastructure exemplifies this prepare-now-exploit-later strategy.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🇷🇺</div>
+      <div class="doctrine-label">Russia // GRU Unit 26165 + 74455, SVR, FSB</div>
+      <div class="doctrine-title">Information Confrontation (Informatsionnoye Protivoborstvo)</div>
+      <div class="doctrine-desc">Russia's cyber operations are subordinated to broader "information confrontation" doctrine. GRU conducts destructive operations (NotPetya, Ukraine power grid). SVR focuses on intelligence collection (SolarWinds). FSB handles domestic and foreign counterintelligence cyber. Russia uniquely integrates cyber with kinetic (Ukraine war: simultaneous missile strikes + Viasat hack). Deniable through criminal proxies (REvil, LockBit with implicit tolerance).</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🇮🇷</div>
+      <div class="doctrine-label">Iran // IRGC Electronic Warfare & Cyber Defense</div>
+      <div class="doctrine-title">Deterrence Through Disruption</div>
+      <div class="doctrine-desc">Iran's IRGC Cyber Defense Command and Ministry of Intelligence (MOIS) conduct retaliatory and deterrent cyber operations. Iranian doctrine emphasizes asymmetric leverage — Shamoon destroyed 35,000 Aramco computers, and the Albanian government attack used a Russian playbook. Iran's capabilities grew substantially post-Stuxnet as a direct response, now employing destructive wiper malware, ransomware as cover, and supply chain attacks against Israel and Gulf states.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🇰🇵</div>
+      <div class="doctrine-label">North Korea // RGB Bureau 121 / Lazarus Group</div>
+      <div class="doctrine-title">Cyber as Hard Currency / State Survival</div>
+      <div class="doctrine-desc">DPRK's Reconnaissance General Bureau controls Bureau 121 — a 6,000+ strong cyber force uniquely tasked with generating hard currency for the regime. North Korea has stolen over $3B in cryptocurrency since 2017 — financing WMD programs directly. DPRK actors combine espionage (Kimsuky) with financial crime (Lazarus SWIFT attacks, crypto exchange hacks) and destructive operations (WannaCry, Sony Pictures) in a single institutional framework.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🇮🇱</div>
+      <div class="doctrine-label">Israel // Unit 8200 / NSO Group (commercial)</div>
+      <div class="doctrine-title">Technological Superiority & Intelligence Dominance</div>
+      <div class="doctrine-desc">Israel's Unit 8200 (signals intelligence) is widely considered the most technically sophisticated intelligence unit per capita in the world. Co-developed Stuxnet and Duqu/Flame with NSA. NSO Group's Pegasus spyware — used by 50+ governments — represents Israel's dual-use commercial-intelligence ecosystem. Unit 8200 veterans form the backbone of Israel's commercial cybersecurity industry (Check Point, CyberArk, SentinelOne founding teams). Operates under strict need-to-know compartmentalization with few public attributions.</div>
+    </div>
+  </div>
+
+  <div class="intel-alert red">
+    <div class="intel-alert-head">🔴 ACTIVE OPERATIONS — MARCH 2026</div>
+    <p>Multiple ongoing campaigns active as of March 2026: Chinese Volt Typhoon pre-positioning in US water, energy, and transportation infrastructure (CISA Advisory 2025-AA-024) continues despite public attribution. Russian Sandworm conducted GPS jamming operations concurrent with Ukraine kinetic offensives. Iranian APT35 active against Israeli defense contractors post-October 2023. DPRK Lazarus pivot to AI company targeting and LLM model theft ongoing. Salt Typhoon telecom infiltration of US carriers (AT&T, Verizon, T-Mobile) revealed December 2024 — <strong class="critical">full scope still unquantified as of March 2026</strong>.</p>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 03: CAPABILITY MATRIX -->
+<section id="cyber-matrix">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">03 // CAPABILITY MATRIX</div>
+      <h2 class="section-title">All-Country Assessment</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Comparative cyber power across six major state actors</div>
+  </div>
+
+  <div class="data-table-wrap mb-8">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Primary APT Groups</th>
+          <th>Known Campaigns</th>
+          <th>ICS/SCADA Capability</th>
+          <th>Info Ops</th>
+          <th>Financial Theft</th>
+          <th>Offensive Rating</th>
+          <th>Defensive Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="matrix-country">
+            <span class="flag-chip"><span class="flag-emoji">🇺🇸</span>
+            <a href="../countries/usa-dossier.html" class="flag-name" target="_blank">USA</a></span>
+          </td>
+          <td><span class="mono">NSA TAO, CYBERCOM CNMF</span></td>
+          <td><span class="mono">Olympic Games, PRISM, Hunt Fwd</span></td>
+          <td class="nuclear-yes">CONFIRMED</td>
+          <td class="nuclear-limited">MODERATE</td>
+          <td class="nuclear-no">MINIMAL</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:95%"></div></div>
+              <span class="rating-num">9.5/10</span>
+            </div>
+          </td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:85%"></div></div>
+              <span class="rating-num">8.5/10</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="matrix-country">
+            <span class="flag-chip"><span class="flag-emoji">🇨🇳</span>
+            <a href="../countries/china-dossier.html" class="flag-name" target="_blank">China</a></span>
+          </td>
+          <td><span class="mono">APT40, APT41, Volt/Salt/Flax Typhoon</span></td>
+          <td><span class="mono">OPM Breach, Hafnium, TSMC espionage</span></td>
+          <td class="nuclear-yes">CONFIRMED</td>
+          <td class="nuclear-yes">EXTENSIVE</td>
+          <td class="nuclear-limited">LIMITED</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:90%"></div></div>
+              <span class="rating-num">9.0/10</span>
+            </div>
+          </td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:75%"></div></div>
+              <span class="rating-num">7.5/10</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="matrix-country">
+            <span class="flag-chip"><span class="flag-emoji">🇷🇺</span>
+            <a href="../countries/russia-dossier.html" class="flag-name" target="_blank">Russia</a></span>
+          </td>
+          <td><span class="mono">APT28, APT29, Sandworm, Turla</span></td>
+          <td><span class="mono">NotPetya, SolarWinds, Ukraine grid</span></td>
+          <td class="nuclear-yes">CONFIRMED</td>
+          <td class="nuclear-yes">EXTENSIVE</td>
+          <td class="nuclear-limited">MODERATE</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:88%"></div></div>
+              <span class="rating-num">8.8/10</span>
+            </div>
+          </td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:70%"></div></div>
+              <span class="rating-num">7.0/10</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="matrix-country">
+            <span class="flag-chip"><span class="flag-emoji">🇮🇷</span>
+            <a href="../countries/iran-dossier.html" class="flag-name" target="_blank">Iran</a></span>
+          </td>
+          <td><span class="mono">APT33, APT35, MuddyWater, Charming Kitten</span></td>
+          <td><span class="mono">Shamoon, Albania gov attack, Israel water</span></td>
+          <td class="nuclear-limited">DEVELOPING</td>
+          <td class="nuclear-yes">EXTENSIVE</td>
+          <td class="nuclear-limited">LIMITED</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:65%"></div></div>
+              <span class="rating-num">6.5/10</span>
+            </div>
+          </td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:55%"></div></div>
+              <span class="rating-num">5.5/10</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="matrix-country">
+            <span class="flag-chip"><span class="flag-emoji">🇰🇵</span>
+            <a href="../countries/north-korea-dossier.html" class="flag-name" target="_blank">DPRK</a></span>
+          </td>
+          <td><span class="mono">Lazarus Group, Kimsuky, Andariel</span></td>
+          <td><span class="mono">Bangladesh SWIFT, WannaCry, $3B crypto</span></td>
+          <td class="nuclear-limited">DEVELOPING</td>
+          <td class="nuclear-limited">MODERATE</td>
+          <td class="nuclear-yes">PRIMARY MISSION</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:72%"></div></div>
+              <span class="rating-num">7.2/10</span>
+            </div>
+          </td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:40%"></div></div>
+              <span class="rating-num">4.0/10</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="matrix-country">
+            <span class="flag-chip"><span class="flag-emoji">🇮🇱</span>
+            <a href="../countries/israel-dossier.html" class="flag-name" target="_blank">Israel</a></span>
+          </td>
+          <td><span class="mono">Unit 8200, NSO Group (Pegasus)</span></td>
+          <td><span class="mono">Stuxnet, Olympic Games, Duqu, Flame</span></td>
+          <td class="nuclear-yes">CONFIRMED</td>
+          <td class="nuclear-limited">TARGETED</td>
+          <td class="nuclear-no">MINIMAL</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:85%"></div></div>
+              <span class="rating-num">8.5/10</span>
+            </div>
+          </td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:88%"></div></div>
+              <span class="rating-num">8.8/10</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);margin-top:var(--space-3);">SOURCE: Mandiant M-Trends 2025 // CrowdStrike Global Threat Report 2025 // Microsoft DCRP 2024 // ODNI ATA 2025. Ratings are analytical estimates based on confirmed public attributions and open-source capability assessments.</p>
+</div>
+</section>
+
+<!-- SECTION 04: APT GROUPS & OPERATIONS -->
+<section id="cyber-apt">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">04 // APT GROUPS & OPERATIONS</div>
+      <h2 class="section-title">Known Threat Actors</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Attributed campaigns, tradecraft & known tools</div>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="switchTab(event,'apt-russia')">🇷🇺 Russia</button>
+      <button class="tab-btn" onclick="switchTab(event,'apt-china')">🇨🇳 China</button>
+      <button class="tab-btn" onclick="switchTab(event,'apt-iran')">🇮🇷 Iran</button>
+      <button class="tab-btn" onclick="switchTab(event,'apt-dprk')">🇰🇵 DPRK</button>
+      <button class="tab-btn" onclick="switchTab(event,'apt-israel')">🇮🇱 Israel</button>
+      <button class="tab-btn" onclick="switchTab(event,'apt-usa')">🇺🇸 USA</button>
+    </div>
+
+    <!-- RUSSIA TAB -->
+    <div class="tab-pane active" id="apt-russia">
+      <div class="card-grid grid-3 mb-6">
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">GRU UNIT 26165</div>
+            <div class="equip-name">APT28 / Fancy Bear</div>
+            <div class="equip-desc">GRU's primary cyber espionage unit. Responsible for DNC hack (2016), WADA data theft, French election interference (Macron campaign), Bundestag penetration, and Ukrainian military targeting. Uses X-Agent and Sofacy malware families. Characterized by spear-phishing and credential harvesting against government/military targets.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Sponsor</span><span class="equip-spec-val">GRU Unit 26165</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">First Seen</span><span class="equip-spec-val">2004</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Gov, Military, Aerospace</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Key Tools</span><span class="equip-spec-val">X-Agent, Sofacy, Zebrocy</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag tag-red">ELECTION INTERFERENCE</span>
+              <span class="tag tag-red">NATO TARGETING</span>
+            </div>
+          </div>
+        </div>
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">GRU UNIT 74455</div>
+            <div class="equip-name">Sandworm</div>
+            <div class="equip-desc">Russia's most destructive cyber unit. Responsible for Ukraine 2015/2016 power grid attacks (first confirmed ICS/SCADA attack causing blackouts), NotPetya ($10B+ global damage, 2017), Viasat satellite hack (Feb 24, 2022 — simultaneous with invasion), and Olympic Destroyer. Now targeting NATO industrial systems and Ukraine's wartime communications. Uses Industroyer/Crashoverride malware.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Sponsor</span><span class="equip-spec-val">GRU Unit 74455</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Speciality</span><span class="equip-spec-val">ICS/SCADA Destruction</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Key Op</span><span class="equip-spec-val">NotPetya (2017)</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Key Tools</span><span class="equip-spec-val">Industroyer2, Wiperware</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag tag-red">DESTRUCTIVE OPS</span>
+              <span class="tag tag-red">POWER GRID</span>
+            </div>
+          </div>
+        </div>
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">SVR // FOREIGN INTEL</div>
+            <div class="equip-name">APT29 / Cozy Bear</div>
+            <div class="equip-desc">Russia's SVR foreign intelligence cyber arm. Conducted SolarWinds supply chain compromise (2020) — infected 18,000 organizations including US Treasury, DHS, DoD contractors. Also compromised Microsoft senior leadership email accounts (2024). Characterized by extreme patience and operational security — SolarWinds dwell time was 14 months before discovery. Targets diplomats, think tanks, government contractors for long-term intelligence.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Sponsor</span><span class="equip-spec-val">SVR (Foreign Intel)</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Tradecraft</span><span class="equip-spec-val">Supply Chain / Patience</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Key Op</span><span class="equip-spec-val">SolarWinds (2020)</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Dwell Time</span><span class="equip-spec-val">14+ months avg</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag tag-red">SUPPLY CHAIN</span>
+              <span class="tag">ESPIONAGE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-4);text-transform:uppercase;">Russian Campaign Timeline</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Operation</th><th>Year</th><th>Unit</th><th>Target</th><th>Impact</th><th>Method</th></tr></thead>
+          <tbody>
+            <tr><td>Ukraine Power Grid #1</td><td>2015</td><td>Sandworm</td><td>Prykarpattya Oblenergo</td><td>230K customers without power</td><td>BlackEnergy ICS malware</td></tr>
+            <tr><td>Ukraine Power Grid #2</td><td>2016</td><td>Sandworm</td><td>Ukrenergo Kiev substation</td><td>1-hour blackout, Industroyer</td><td>Industroyer/Crashoverride</td></tr>
+            <tr><td>DNC Hack / Guccifer 2.0</td><td>2016</td><td>APT28 (GRU)</td><td>Democratic National Committee</td><td>2016 election interference</td><td>Spear-phish + X-Agent</td></tr>
+            <tr><td>NotPetya</td><td>2017</td><td>Sandworm</td><td>Ukraine (global collateral)</td><td>$10B+ global damage, MeDOC supply chain</td><td>EternalBlue + wiper</td></tr>
+            <tr><td>SolarWinds / Sunburst</td><td>2020</td><td>APT29 (SVR)</td><td>US gov + 18,000 orgs</td><td>Treasury, DHS, DoD compromised</td><td>Supply chain backdoor</td></tr>
+            <tr><td>Viasat KA-SAT Hack</td><td>2022</td><td>Sandworm</td><td>Ukrainian military satcom</td><td>Simultaneous with invasion D-Day</td><td>AcidRain modem wiper</td></tr>
+            <tr><td>Microsoft Email Breach</td><td>2024</td><td>APT29 (SVR)</td><td>Microsoft leadership + Gov clients</td><td>Senior exec email access</td><td>Password spray on legacy OAuth</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CHINA TAB -->
+    <div class="tab-pane" id="apt-china">
+      <div class="card-grid grid-3 mb-6">
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">PLA SSF // HAINAN</div>
+            <div class="equip-name">APT40 / TEMP.Periscope</div>
+            <div class="equip-desc">Linked to the Hainan State Security Department. Specializes in maritime and naval research targeting — stolen data from US Navy contractors including Sea Dragon submarine propulsion designs. Also targets COVID-19 vaccine research, Australian government, and Indo-Pacific regional governments. Exploits publicly known vulnerabilities rapidly after patch release, often faster than organizations can apply patches.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Sponsor</span><span class="equip-spec-val">Hainan SSB / PLA SSF</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Focus</span><span class="equip-spec-val">Maritime / Naval IP</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Notable</span><span class="equip-spec-val">Sea Dragon Plans Theft</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Region</span><span class="equip-spec-val">Indo-Pacific / ASEAN</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag">MARITIME IP THEFT</span>
+              <span class="tag">NAVAL ESPIONAGE</span>
+            </div>
+          </div>
+        </div>
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">PLA SSF // CHENGDU</div>
+            <div class="equip-name">APT41 / Winnti Group</div>
+            <div class="equip-desc">Unique dual-mission actor: state-sponsored espionage AND for-profit cybercrime. Linked to Chengdu 404 Network Technology. Targets pharmaceutical, healthcare, tech, telecom, and gaming industries. Notably hacked video game companies to steal virtual currency, while simultaneously stealing COVID-19 research and targeting political dissidents. DOJ indicted five members in 2020.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Sponsor</span><span class="equip-spec-val">MSS / Chengdu 404</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Unique</span><span class="equip-spec-val">Espionage + Profit</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Focus</span><span class="equip-spec-val">Tech, Pharma, Gaming</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Scale</span><span class="equip-spec-val">14+ countries targeted</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag">DUAL-USE</span>
+              <span class="tag">SUPPLY CHAIN</span>
+            </div>
+          </div>
+        </div>
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">PLA SSF // PRE-POSITIONING</div>
+            <div class="equip-name">Volt Typhoon</div>
+            <div class="equip-desc">The most alarming China-linked operation revealed in 2023-24. Not espionage — deliberate pre-positioning of "living off the land" malware in US critical infrastructure (water, power, transportation, comms) to enable disruption at time of conflict. CISA, NSA, and Five Eyes jointly attributed. Designed to survive network restarts and persist for years. Pentagon assessment: designed to disrupt US military mobilization in a Taiwan contingency.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Type</span><span class="equip-spec-val">Pre-positioning / Wartime</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Target</span><span class="equip-spec-val">US Critical Infrastructure</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Method</span><span class="equip-spec-val">Living off the Land (LOTL)</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Intent</span><span class="equip-spec-val">Taiwan contingency disruption</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag tag-red">PRE-POSITIONED ATTACK</span>
+              <span class="tag tag-red">CRITICAL INFRA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-4);text-transform:uppercase;">Chinese Campaign Timeline</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Operation</th><th>Year</th><th>Actor</th><th>Target</th><th>Impact</th><th>Method</th></tr></thead>
+          <tbody>
+            <tr><td>OPM Data Breach</td><td>2014-15</td><td>APT10 / MSS</td><td>US Office of Personnel Management</td><td>22M+ clearance holder records stolen</td><td>Spear-phish + lateral movement</td></tr>
+            <tr><td>Hafnium Exchange Attacks</td><td>2021</td><td>Hafnium (MSS)</td><td>Microsoft Exchange Servers</td><td>250,000 global servers compromised</td><td>Four zero-day exploits</td></tr>
+            <tr><td>TSMC / Semiconductor IP</td><td>2018-23</td><td>APT41/MSS</td><td>TSMC, Micron, semiconductor firms</td><td>Advanced chip design stolen</td><td>Insider recruitment + cyberintrusion</td></tr>
+            <tr><td>Volt Typhoon — US Infra</td><td>2021-24</td><td>Volt Typhoon</td><td>US water, power, transport, comms</td><td>Pre-positioned malware; extent unknown</td><td>LOTL, VPN exploits, edge devices</td></tr>
+            <tr><td>Salt Typhoon — Telecom</td><td>2023-24</td><td>Salt Typhoon</td><td>AT&T, Verizon, T-Mobile, Lumen</td><td>Wiretap infrastructure accessed; lawful intercept</td><td>Supply chain / carrier backbone</td></tr>
+            <tr><td>Flax Typhoon — Taiwan</td><td>2022-24</td><td>Flax Typhoon</td><td>Taiwanese government + industry</td><td>Persistent access across 200+ entities</td><td>VPN / publicly known vulns</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- IRAN TAB -->
+    <div class="tab-pane" id="apt-iran">
+      <div class="card-grid grid-3 mb-6">
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">IRGC AFFILIATED</div>
+            <div class="equip-name">APT33 / Elfin</div>
+            <div class="equip-desc">Active since 2013, targeting aerospace, energy, and petrochemical industries primarily in Saudi Arabia, US, and South Korea. Most famous for developing and deploying Shamoon2 wiper malware against Saudi Aramco and Gulf infrastructure. Uses spear-phishing with aviation job lures. Connected to destructive wiper attacks on organizations seen as opposing Iranian interests.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Sponsor</span><span class="equip-spec-val">IRGC / MOIS</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Focus</span><span class="equip-spec-val">Energy / Aerospace</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Region</span><span class="equip-spec-val">ME, Saudi Arabia, US</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Key Tool</span><span class="equip-spec-val">Shamoon Wiper</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag tag-red">DESTRUCTIVE WIPER</span>
+              <span class="tag">ENERGY SECTOR</span>
+            </div>
+          </div>
+        </div>
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">MOIS AFFILIATED</div>
+            <div class="equip-name">APT35 / Charming Kitten</div>
+            <div class="equip-desc">Iran's premier intelligence collection group, linked to the Ministry of Intelligence (MOIS). Targets Iranian dissidents, journalists, academics, think tanks, and government officials worldwide. Used sophisticated phishing impersonating think tank researchers and journalists. Actively targeted Israeli defense officials, US nuclear negotiators during JCPOA talks. Google TAG has tracked mobile malware campaigns targeting Android devices of regime opponents.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Sponsor</span><span class="equip-spec-val">MOIS</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Focus</span><span class="equip-spec-val">Dissidents / Diplomats</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Notable</span><span class="equip-spec-val">JCPOA negotiator targeting</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Platform</span><span class="equip-spec-val">Mobile + Web</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag">INTELLIGENCE COLLECTION</span>
+              <span class="tag">DISSIDENT TARGETING</span>
+            </div>
+          </div>
+        </div>
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">MOIS // IRGC</div>
+            <div class="equip-name">MuddyWater</div>
+            <div class="equip-desc">Active since 2017, linked to MOIS. Targets government, telecom, oil/gas, and defense in Middle East, Asia, Europe, and North America. Uses spear-phishing with macro-enabled documents. Part of the Iranian cyber ecosystem focused on intelligence collection and pre-positioning. Notably attacked Turkish government networks and exploited Log4Shell in coordinated campaigns. CISA/NCSC jointly attributed to MOIS in 2022.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Sponsor</span><span class="equip-spec-val">MOIS</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">First Seen</span><span class="equip-spec-val">2017</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Region</span><span class="equip-spec-val">ME, Turkey, SE Asia</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Tool</span><span class="equip-spec-val">POWERSTATS RAT</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag">ESPIONAGE</span>
+              <span class="tag">MACRO MALWARE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Operation</th><th>Year</th><th>Actor</th><th>Target</th><th>Impact</th></tr></thead>
+          <tbody>
+            <tr><td>Shamoon / Disttrack</td><td>2012</td><td>APT33</td><td>Saudi Aramco + RasGas</td><td>35,000 computers wiped; 75% of Aramco's fleet destroyed</td></tr>
+            <tr><td>Shamoon 2</td><td>2016-17</td><td>APT33</td><td>Saudi gov + energy sector</td><td>Targeted retaliation for JCPOA sanctions</td></tr>
+            <tr><td>Israel Water Treatment Hack</td><td>2020</td><td>IRGC cyber</td><td>Israeli water authority systems</td><td>Chlorine levels manipulation attempted; blocked</td></tr>
+            <tr><td>Albania Government Attack</td><td>2022</td><td>HomeLand Justice (MOIS)</td><td>Albania national systems</td><td>Government fully offline; NATO Article 4 consultation</td></tr>
+            <tr><td>Israeli Hospital Ransomware</td><td>2023</td><td>APT35 affiliated</td><td>Ziv Medical Center, Haifa</td><td>Patient data + operational systems encrypted</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DPRK TAB -->
+    <div class="tab-pane" id="apt-dprk">
+      <div class="card-grid grid-3 mb-6">
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">RGB BUREAU 121</div>
+            <div class="equip-name">Lazarus Group</div>
+            <div class="equip-desc">DPRK's primary offensive cyber unit, under Reconnaissance General Bureau Bureau 121. Responsible for the most financially damaging attacks in cyber history. Bangladesh Bank SWIFT heist ($81M, 2016), Sony Pictures destruction (2014), WannaCry (2017 — 150 countries, NHS crippled). Crypto focus: Ronin Network ($625M, 2022), Horizon Bridge ($100M), Atomic Wallet ($100M). Also conducts job-offer social engineering to target cryptocurrency developers and defense contractors.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Sponsor</span><span class="equip-spec-val">RGB Bureau 121</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Revenue</span><span class="equip-spec-val">$3B+ crypto stolen</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Key Op</span><span class="equip-spec-val">Ronin / Bangladesh SWIFT</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">WMD Link</span><span class="equip-spec-val">Direct WMD funding</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag tag-red">FINANCIAL CRIME</span>
+              <span class="tag tag-red">WMD FINANCING</span>
+            </div>
+          </div>
+        </div>
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">RGB // ESPIONAGE</div>
+            <div class="equip-name">Kimsuky</div>
+            <div class="equip-desc">DPRK's intelligence collection arm, targeting South Korean think tanks, government, academia, and nuclear research institutions worldwide. Named for original targeting of Korea Institute for Unification Studies. Conducts targeted phishing against UN Security Council members, IAEA officials, and North Korea policy experts. Also targets Japanese space agency (JAXA), UK Foreign Office, US-based North Korea watchers. Provides intelligence on sanctions enforcement and nuclear negotiations.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Sponsor</span><span class="equip-spec-val">RGB</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Focus</span><span class="equip-spec-val">NK Policy / Nuclear</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Method</span><span class="equip-spec-val">Persona phishing</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Key Target</span><span class="equip-spec-val">IAEA, UNSC, JAXA</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag">ESPIONAGE</span>
+              <span class="tag">NUCLEAR INTEL</span>
+            </div>
+          </div>
+        </div>
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">RGB // INDUSTRIAL</div>
+            <div class="equip-name">Andariel</div>
+            <div class="equip-desc">DPRK subgroup of Lazarus focused on ransomware deployment against healthcare and defense industrial base — dual purpose: revenue generation and intelligence. Targeted US hospitals during COVID-19 pandemic and South Korean defense contractors. Also conducts ATM cashout schemes and financial institution targeting. US DOJ unsealed indictment against Rim Jong Hyok (Andariel) for hospital ransomware enabling intelligence collection.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Sponsor</span><span class="equip-spec-val">RGB (Lazarus subset)</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Focus</span><span class="equip-spec-val">Healthcare / Defense</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Revenue</span><span class="equip-spec-val">Ransomware + ATM fraud</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Indicted</span><span class="equip-spec-val">DOJ 2024</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag tag-red">RANSOMWARE</span>
+              <span class="tag">HEALTHCARE TARGETING</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Operation</th><th>Year</th><th>Actor</th><th>Target</th><th>Stolen</th></tr></thead>
+          <tbody>
+            <tr><td>Sony Pictures Hack</td><td>2014</td><td>Lazarus</td><td>Sony Pictures Entertainment</td><td>Data destroyed; $35M damage; "The Interview" pressure</td></tr>
+            <tr><td>Bangladesh Bank SWIFT</td><td>2016</td><td>Lazarus</td><td>Bangladesh central bank / SWIFT</td><td>$81M (of attempted $951M)</td></tr>
+            <tr><td>WannaCry Ransomware</td><td>2017</td><td>Lazarus</td><td>150 countries, NHS UK</td><td>$4B+ global damage; 70k NHS devices</td></tr>
+            <tr><td>Ronin Network</td><td>2022</td><td>Lazarus</td><td>Axie Infinity Ronin Bridge</td><td>$625M crypto (largest crypto theft)</td></tr>
+            <tr><td>Harmony Horizon Bridge</td><td>2022</td><td>Lazarus</td><td>Harmony Protocol</td><td>$100M</td></tr>
+            <tr><td>Atomic Wallet</td><td>2023</td><td>Lazarus</td><td>Atomic Wallet users</td><td>$100M across 5,500 wallets</td></tr>
+            <tr><td>AI Company Targeting</td><td>2024-25</td><td>Kimsuky + Lazarus</td><td>US/EU AI research firms</td><td>LLM model weights, training data</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ISRAEL TAB -->
+    <div class="tab-pane" id="apt-israel">
+      <div class="card-grid grid-2 mb-6">
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">IDF SIGINT UNIT</div>
+            <div class="equip-name">Unit 8200</div>
+            <div class="equip-desc">Israel's signals intelligence and offensive cyber unit, often compared to NSA in technical capability but operating at far smaller scale. Responsible for Stuxnet (co-developed with NSA), Duqu (reconnaissance precursor to Stuxnet), and Flame (massive espionage tool covering Lebanon, Iran, Syria). Unit 8200 alumni founded Check Point (firewall), CyberArk (privileged access), SentinelOne (EDR), and dozens of leading cybersecurity firms — creating a virtuous intelligence-commercial cycle. Also responsible for alleged sabotage of Iranian nuclear centrifuges via Stuxnet, killing Iranian nuclear scientists, and deep penetration of Hezbollah communications.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Parent Unit</span><span class="equip-spec-val">IDF Intelligence Corps</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Personnel</span><span class="equip-spec-val">~5,000 (estimated)</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Key Ops</span><span class="equip-spec-val">Stuxnet, Duqu, Flame</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Legacy</span><span class="equip-spec-val">Israel cyber industry hub</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag tag-teal">ICS/SCADA</span>
+              <span class="tag tag-teal">SIGINT</span>
+              <span class="tag">PRECISION OPS</span>
+            </div>
+          </div>
+        </div>
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">COMMERCIAL // NSO GROUP</div>
+            <div class="equip-name">Pegasus Spyware</div>
+            <div class="equip-desc">NSO Group's Pegasus is the world's most sophisticated commercial spyware — zero-click iPhone and Android exploitation that installs full-device surveillance capability. Used by 50+ government clients against journalists (Jamal Khashoggi associates), dissidents, politicians, and foreign intelligence targets. The Pegasus Project (Forbidden Stories, 2021) identified 50,000 potential targets across 50 countries. EU Parliament launched inquiry; US placed NSO on Entity List (2021). Represents the dual-use commercial-intelligence model unique to Israel's tech ecosystem.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Developer</span><span class="equip-spec-val">NSO Group Technologies</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Capability</span><span class="equip-spec-val">Zero-click iOS/Android</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Clients</span><span class="equip-spec-val">50+ governments</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">US Entity List 2021</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag tag-red">DUAL-USE SURVEILLANCE</span>
+              <span class="tag">ZERO-CLICK</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Operation</th><th>Year</th><th>Attribution</th><th>Target</th><th>Impact</th></tr></thead>
+          <tbody>
+            <tr><td>Olympic Games / Stuxnet</td><td>2005-10</td><td>Unit 8200 + NSA TAO</td><td>Natanz nuclear facility, Iran</td><td>~1,000 centrifuges destroyed; 18-month setback</td></tr>
+            <tr><td>Duqu</td><td>2011</td><td>Unit 8200 (attributed)</td><td>Iranian nuclear suppliers</td><td>Reconnaissance for Stuxnet follow-on</td></tr>
+            <tr><td>Flame (Skywiper)</td><td>2012</td><td>Unit 8200 + NSA (attributed)</td><td>Iran, Lebanon, Syria</td><td>Largest cyber espionage tool at time; 20MB modular</td></tr>
+            <tr><td>Hezbollah Comms Penetration</td><td>2006-present</td><td>Unit 8200</td><td>Hezbollah command structure</td><td>Real-time intelligence on Hezbollah operations</td></tr>
+            <tr><td>Pager/Radio Sabotage</td><td>2024</td><td>Mossad / IDF</td><td>Hezbollah pager network</td><td>4,000 devices simultaneously detonated; supply chain op</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- USA TAB -->
+    <div class="tab-pane" id="apt-usa">
+      <div class="card-grid grid-2 mb-6">
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">NSA // TAILORED ACCESS OPS</div>
+            <div class="equip-name">NSA TAO / CNMF</div>
+            <div class="equip-desc">NSA's Tailored Access Operations group conducts the most technically sophisticated foreign intelligence collection in the world. Snowden revelations (2013) exposed PRISM (collection from tech companies), XKeyscore (real-time internet monitoring), BULLRUN (encryption standards weakening), and QUANTUM (packet injection). USCYBERCOM's Cyber National Mission Force conducts "Hunt Forward" operations — deploying teams to partner nations to hunt for adversary malware with host consent. Over 40 Hunt Forward missions conducted in Ukraine, Lithuania, Montenegro, North Macedonia, Croatia, and others.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Budget</span><span class="equip-spec-val">$11.6B (NIP FY2024)</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Personnel</span><span class="equip-spec-val">40,000+ NSA / 6,000+ CYBERCOM</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Hunt Fwd</span><span class="equip-spec-val">40+ missions, 20+ countries</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Doctrine</span><span class="equip-spec-val">Defend Forward (2018)</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag tag-teal">DUAL-HAT AUTHORITY</span>
+              <span class="tag tag-teal">HUNT FORWARD</span>
+            </div>
+          </div>
+        </div>
+        <div class="equip-card">
+          <div class="equip-body">
+            <div class="equip-badge">NSA TAO + UNIT 8200 JOINT</div>
+            <div class="equip-name">Olympic Games / Stuxnet</div>
+            <div class="equip-desc">The most consequential offensive cyber operation in history. Jointly developed by NSA TAO and Israeli Unit 8200 under Presidents Bush and Obama. Stuxnet targeted Siemens PLCs controlling Iranian centrifuges at Natanz — causing them to spin too fast while reporting normal status to operators. Destroyed ~1,000 centrifuges and delayed Iran's enrichment program by 18 months. First confirmed use of a cyberweapon to cause physical damage. Accidentally spread outside Natanz in 2010 when an engineer connected an infected laptop to the internet, leading to public discovery by Kaspersky/Symantec in 2010.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Period</span><span class="equip-spec-val">2005-2010</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Target</span><span class="equip-spec-val">Natanz centrifuges</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Effect</span><span class="equip-spec-val">~1,000 centrifuges destroyed</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Significance</span><span class="equip-spec-val">First ICS cyber weapon</span></div>
+            </div>
+            <div class="flex-wrap">
+              <span class="tag tag-red">FIRST ICS WEAPON</span>
+              <span class="tag">US-ISRAEL JOINT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Program/Operation</th><th>Period</th><th>Revealed By</th><th>Description</th><th>Legal Basis</th></tr></thead>
+          <tbody>
+            <tr><td>Olympic Games / Stuxnet</td><td>2005-10</td><td>NYT / Kim Zetter 2012</td><td>ICS cyberweapon against Iran centrifuges</td><td>AUMF / Title 10/50 covert action</td></tr>
+            <tr><td>PRISM / XKeyscore</td><td>2007-13</td><td>Snowden 2013</td><td>Mass internet surveillance, tech company collection</td><td>FISA Section 702</td></tr>
+            <tr><td>BULLRUN / Dual_EC</td><td>2006-13</td><td>Snowden 2013</td><td>Cryptographic standard weakening (NIST Dual_EC)</td><td>EO 12333</td></tr>
+            <tr><td>QUANTUM / FOXACID</td><td>2010-13</td><td>Snowden 2013</td><td>Packet injection, browser exploitation at scale</td><td>EO 12333 / Title 50</td></tr>
+            <tr><td>Hunt Forward — Ukraine</td><td>2021-present</td><td>USCYBERCOM Public Disclosure</td><td>Hunt for Russian malware in Ukrainian networks pre-invasion</td><td>Title 10 / NDAA authorization</td></tr>
+            <tr><td>Defend Forward — Russia</td><td>2018-present</td><td>USCYBERCOM press statements</td><td>Disruption of Russian IRA during 2018/2020 elections</td><td>NDAA 2019 §1642</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 05: CRITICAL INFRASTRUCTURE -->
+<section id="cyber-infrastructure">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">05 // CRITICAL INFRASTRUCTURE TARGETS</div>
+      <h2 class="section-title">Global Attack Surface</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Undersea cables, power grids, DNS, GPS — the backbone of civilization</div>
+  </div>
+
+  <div class="intel-alert red">
+    <div class="intel-alert-head">🔴 CRITICAL FINDING — INFRASTRUCTURE TARGETING</div>
+    <p>CISA's 2024 assessment identified <strong class="critical">critical infrastructure in all 16 CISA-defined sectors</strong> as actively targeted by state-sponsored threat actors. Volt Typhoon's pre-positioning in US water and power systems — combined with Salt Typhoon's penetration of US telecommunications wiretap infrastructure — represents the highest known risk to US homeland cyber security since the domain emerged. The convergence of physical infrastructure access (undersea cable patrol vessels) and cyber intrusion creates a multi-vector attack surface that defensive operations have not fully addressed.</p>
+  </div>
+
+  <div class="chokepoint-grid mb-8">
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f1117,#141820);font-size:4rem;">🌊</div>
+        <div class="chokepoint-badge">UNDERSEA CABLES</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Global Submarine Cable Network</div>
+        <div class="chokepoint-width">400+ CABLES // 1.3M KM // 95% OF INTERNET TRAFFIC</div>
+        <div class="chokepoint-desc">The global undersea cable network carries 95% of international internet traffic and $10 trillion in daily financial transactions. Key chokepoints: GIUK Gap (North Atlantic), Red Sea narrows (Yemen conflict zone), South China Sea (Chinese maritime patrol), and the Luzon Strait. Russia's GUGI naval intelligence unit operates vessels capable of both mapping and physically severing undersea cables. Baltic cable incidents (2023-24) — likely Russian sabotage — severed Finland-Germany and Sweden-Lithuania links.</div>
+        <div class="chokepoint-controllers">
+          <span class="ctrl-label">PRIMARY THREAT:</span>
+          <span class="ctrl-val">Russia GUGI, China surface vessels</span>
+        </div>
+        <div class="chokepoint-risk">
+          <span class="risk-label">INTERDICTION RISK:</span>
+          <span class="risk-val risk-high">CRITICAL</span>
+        </div>
+      </div>
+    </div>
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f1117,#141820);font-size:4rem;">⚡</div>
+        <div class="chokepoint-badge">POWER GRID / ICS</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">National Power Grid SCADA Systems</div>
+        <div class="chokepoint-width">SCADA / ICS / OT NETWORKS — LEGACY PROTOCOLS</div>
+        <div class="chokepoint-desc">Industrial Control Systems managing power generation, water treatment, and gas pipelines are increasingly networked but designed before modern cybersecurity. Sandworm's Industroyer2 (2022 Ukraine) demonstrated IEC 104 protocol exploitation causing substation shutdowns. CISA's 2023 Volt Typhoon advisory confirmed pre-positioned access in US energy infrastructure specifically designed for wartime disruption. Colonial Pipeline ransomware (2021, DarkSide) demonstrated cascading effects: 100M gallon/day pipeline shutdown for 6 days, fuel shortages across US East Coast.</div>
+        <div class="chokepoint-controllers">
+          <span class="ctrl-label">KEY THREAT ACTORS:</span>
+          <span class="ctrl-val">Russia Sandworm, China Volt Typhoon</span>
+        </div>
+        <div class="chokepoint-risk">
+          <span class="risk-label">ATTACK PROBABILITY:</span>
+          <span class="risk-val risk-high">HIGH IN CONFLICT</span>
+        </div>
+      </div>
+    </div>
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f1117,#141820);font-size:4rem;">🌐</div>
+        <div class="chokepoint-badge">DNS ROOT SERVERS</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">DNS Root Server Infrastructure</div>
+        <div class="chokepoint-width">13 ROOT SERVER CLUSTERS // ANYCAST DISTRIBUTED</div>
+        <div class="chokepoint-desc">The 13 DNS root server logical addresses (distributed to 1,700+ physical instances via anycast) are the authoritative source of internet domain name resolution. Successful attack could render most of the internet non-navigable. BGP hijacking — demonstrated by China Telecom (accidental 2010, suspected deliberate 2019) — can redirect traffic through adversary infrastructure. Anycast distribution limits attack impact but concentrated operators (Verisign, ICANN, US military) present geopolitical chokepoints.</div>
+        <div class="chokepoint-controllers">
+          <span class="ctrl-label">OPERATORS:</span>
+          <span class="ctrl-val">Verisign, ICANN, RIPE, ARIN</span>
+        </div>
+        <div class="chokepoint-risk">
+          <span class="risk-label">BGP HIJACK RISK:</span>
+          <span class="risk-val risk-med">MODERATE</span>
+        </div>
+      </div>
+    </div>
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f1117,#141820);font-size:4rem;">🛰️</div>
+        <div class="chokepoint-badge">GPS / PNT SYSTEMS</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">GPS / Position-Navigation-Timing</div>
+        <div class="chokepoint-width">GPS L1/L2 // GLONASS // GALILEO // BEIDOU</div>
+        <div class="chokepoint-desc">GPS underpins financial transaction timestamping, air traffic control, maritime navigation, precision agriculture, and military operations. Russia conducts systematic GPS jamming across Eastern Europe, the Baltic, and Black Sea — affecting civilian aviation (Finland, Estonia complaints to ICAO). GPS spoofing has been confirmed in the Strait of Hormuz and South China Sea. Russia's 2022 Ukraine invasion included Starlink jamming attempts. DPRK jams GPS signals periodically over South Korea causing flight disruptions.</div>
+        <div class="chokepoint-controllers">
+          <span class="ctrl-label">THREAT ACTORS:</span>
+          <span class="ctrl-val">Russia (primary), DPRK, Iran</span>
+        </div>
+        <div class="chokepoint-risk">
+          <span class="risk-label">ACTIVE JAMMING:</span>
+          <span class="risk-val risk-high">ONGOING</span>
+        </div>
+      </div>
+    </div>
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f1117,#141820);font-size:4rem;">📱</div>
+        <div class="chokepoint-badge">TELECOM / 5G SUPPLY CHAIN</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Telecommunications Infrastructure</div>
+        <div class="chokepoint-width">5G NETWORKS // CARRIER BACKBONE // SS7 PROTOCOL</div>
+        <div class="chokepoint-desc">Salt Typhoon's 2023-24 penetration of AT&T, Verizon, T-Mobile, and Lumen is described by CISA Director Jen Easterly as "the worst telecommunications hack in US history." Chinese actors accessed lawful intercept systems (CALEA wiretap infrastructure), potentially compromising ongoing FBI investigations and national security investigations. Separately, SS7 protocol vulnerabilities allow nation-states to intercept calls/SMS globally. Huawei/ZTE supply chain concerns drove multi-year US "rip and replace" program costing $5B+.</div>
+        <div class="chokepoint-controllers">
+          <span class="ctrl-label">THREAT ACTORS:</span>
+          <span class="ctrl-val">China Salt Typhoon (primary)</span>
+        </div>
+        <div class="chokepoint-risk">
+          <span class="risk-label">INFILTRATION STATUS:</span>
+          <span class="risk-val risk-high">CONFIRMED — ONGOING</span>
+        </div>
+      </div>
+    </div>
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f1117,#141820);font-size:4rem;">🏭</div>
+        <div class="chokepoint-badge">WATER / INDUSTRIAL OT</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Water Treatment & Industrial OT</div>
+        <div class="chokepoint-width">SCADA / MODBUS / DNAP3 // LEGACY OT PROTOCOLS</div>
+        <div class="chokepoint-desc">Water treatment facilities represent an asymmetric threat vector — small, often underfunded utilities with internet-connected SCADA systems and minimal cybersecurity staff. Oldsmar, Florida (2021): attacker gained TeamViewer access and attempted to raise sodium hydroxide 100x to lethal levels (operator noticed, blocked). Iran attempted manipulation of Israeli water treatment chlorine levels (2020). EPA found 70% of utilities inspected had critical cybersecurity deficiencies. EPA/CISA 2024 enforcement action addresses ongoing vulnerabilities in 150,000 US water systems.</div>
+        <div class="chokepoint-controllers">
+          <span class="ctrl-label">THREAT ACTORS:</span>
+          <span class="ctrl-val">Iran, Hacktivist groups, Criminal</span>
+        </div>
+        <div class="chokepoint-risk">
+          <span class="risk-label">SECTOR DEFENSE:</span>
+          <span class="risk-val risk-high">CRITICALLY WEAK</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 06: FINANCIAL SYSTEM VULNERABILITIES -->
+<section id="cyber-financial">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">06 // FINANCIAL SYSTEM VULNERABILITIES</div>
+      <h2 class="section-title">Money as a Weapon</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">SWIFT, crypto exchanges & the ransomware economy</div>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">SWIFT Network Attack Surface</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">The Society for Worldwide Interbank Financial Telecommunication (SWIFT) processes $5 trillion+ in daily transactions across 11,000 financial institutions in 200 countries. North Korea's Lazarus Group pioneered systematic SWIFT fraud: Bangladesh Bank (2016, $81M), Vietnam Tien Phong Bank (2016, blocked), Taiwan Far Eastern International Bank (2017, $60M attempted), Cosmos Bank India (2018, $13.5M). SWIFT responded with Customer Security Programme (CSP) mandatory controls but DPRK adapted tradecraft to compromise bank endpoints rather than SWIFT infrastructure itself.</p>
+      <div class="stat-row">
+        <span class="stat-label">DPRK Crypto Stolen Total</span>
+        <div class="stat-bar-wrap"><div class="stat-fill" style="width:85%"></div></div>
+        <span class="stat-val">$3B+</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">2024 Crypto Theft Volume</span>
+        <div class="stat-bar-wrap"><div class="stat-fill" style="width:72%"></div></div>
+        <span class="stat-val">$1.34B</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Ransomware Payments 2024</span>
+        <div class="stat-bar-wrap"><div class="stat-fill" style="width:60%"></div></div>
+        <span class="stat-val">$1.1B</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Financial Sector Breach Cost</span>
+        <div class="stat-bar-wrap"><div class="stat-fill" style="width:78%"></div></div>
+        <span class="stat-val">$6.08M avg</span>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Ransomware Economy</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Group</th><th>Affiliation</th><th>2024 Revenue</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>LockBit 3.0</td><td>Russia-based, independent</td><td>~$500M+ (lifetime)</td><td class="nuclear-limited">DISRUPTED (Op. Cronos)</td></tr>
+            <tr><td>BlackCat/ALPHV</td><td>Russia-affiliated RaaS</td><td>$22M Change Healthcare</td><td class="nuclear-limited">EXIT SCAMMED</td></tr>
+            <tr><td>Cl0p</td><td>Russia-aligned (TA505)</td><td>MOVEit: $100M+ extorted</td><td class="nuclear-yes">ACTIVE</td></tr>
+            <tr><td>RansomHub</td><td>Post-LockBit affiliates</td><td>Growing (200+ victims)</td><td class="nuclear-yes">ACTIVE 2024-25</td></tr>
+            <tr><td>Scattered Spider</td><td>Western (US/UK youth)</td><td>MGM: $100M damage</td><td class="nuclear-limited">PARTIAL ARREST</td></tr>
+            <tr><td>Medusa</td><td>Russia-based RaaS</td><td>Healthcare focus</td><td class="nuclear-yes">ACTIVE</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">💰 CRYPTOCURRENCY AS SANCTIONS EVASION</div>
+    <p>North Korea's cryptocurrency theft program directly finances weapons of mass destruction development. UN Panel of Experts (2024) confirmed DPRK used <strong class="critical">$3 billion in stolen crypto to fund 40% of its WMD program</strong>. Lazarus Group employs sophisticated laundering through: chain-hopping (converting across 8+ blockchains), privacy coins (Monero), over-the-counter brokers in China, and Tornado Cash-style mixers (despite OFAC sanctions). The UN Security Council is deadlocked on enforcement due to Russian and Chinese vetoes on DPRK sanctions enforcement resolutions.</p>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 07: INFORMATION WARFARE -->
+<section id="cyber-information">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">07 // INFORMATION WARFARE & INFLUENCE OPS</div>
+      <h2 class="section-title">Cognitive Battlespace</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Deepfakes, social media manipulation & election interference</div>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Russian Information Operations Model</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">The Prigozhin/IRA model — Internet Research Agency, Saint Petersburg — industrialized influence operations. IRA operated at $35M/year budget, 1,000+ employees, and reached 126 million Americans before 2016 election (US Senate Intelligence Committee estimate). Core tradecraft: authentic-seeming fake personas, cross-platform amplification (Facebook, Twitter, Instagram, YouTube), divisive content amplification across racial, immigration, and political lines — not to persuade but to amplify existing divisions and suppress Democratic voter participation.</p>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">Post-Prigozhin (Wagner mutiny, 2023), operations appear to have shifted to Kremlin-controlled Structura National Technology and Social Design Center (SDC). Operation Doppelganger (EU DISINFO Lab, 2022-24) created 1,000+ fake news websites impersonating Le Monde, Der Spiegel, Spiegel Online with anti-Ukraine content — EU identified as the largest foreign information operation against EU member states in history.</p>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">China's United Front Work</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">China's United Front Work Department (UFWD) conducts influence operations through diaspora communities, Confucius Institutes, media influence (buying advertising in foreign newspapers, owning local media), and political financing. Operation "Spamouflage" (Meta/Google TAG, 2022-24): China's largest known influence network — pro-CCP content on 50+ platforms in 50+ languages, originally targeting Uyghur activists, expanded to US election content in 2024.</p>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">TikTok algorithm concerns: US government alleges ByteDance retained ability to promote/suppress content by key; ByteDance denied. Montana TikTok ban and federal divestiture law (April 2024, PAFACA) reflect growing concern about Chinese state influence over 170M US users. ODNI 2024 assessment: China conducted influence operations targeting House members who challenged China on Taiwan and Uyghur issues.</p>
+    </div>
+  </div>
+
+  <div class="wildcard-grid mb-8">
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🎭</div>
+      <div class="wildcard-title">Deepfake Capabilities — 2025 State of Play</div>
+      <div class="wildcard-desc">Consumer-grade deepfake generation (voice cloning, face-swap video) is now accessible for $0 to $100/month. In 2024: fake audio of US President Biden voter suppression robocall (New Hampshire primary); deepfake of Hong Kong CFO instructing $25M wire transfer (successful fraud); Slovak election deepfake of opposition leader allegedly accepting Russian funding. Nation-states now have access to capabilities that were classified-only 5 years ago. AI-generated synthetic media is the primary near-term information warfare escalation vector.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">📲</div>
+      <div class="wildcard-title">Social Media Manipulation at Scale</div>
+      <div class="wildcard-desc">Platform-level amplification algorithms reward outrage and controversy — making adversary influence operations self-sustaining once seeded. GEC (Global Engagement Center) identified Russian operations seeding content via fringe sites, which then gets amplified by authentic users outraged by the content, before reaching mainstream media. The "firehose of falsehood" doctrine: don't persuade — overwhelm. Volume > coherence. Seed 10 contradictory narratives and let the confusion itself be the weapon.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🗳️</div>
+      <div class="wildcard-title">Election Infrastructure Targeting</div>
+      <div class="wildcard-desc">Russian GRU targeted election infrastructure in all 50 US states before 2016 (Senate Intel Vol. 1). Illinois voter database: 200,000 records stolen. Direct voting machine attempts in Florida. 2020: Iranian actors sent threatening emails to Florida voters posing as Proud Boys. 2024: Microsoft Threat Intelligence identified Iranian operation targeting campaign officials via phishing, successful against Roger Stone associate providing access to Trump campaign. European elections similarly targeted: France (Macron Leaks), Germany (Bundestag persistence), Spain (Catalonia referendum period).</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🤖</div>
+      <div class="wildcard-title">AI-Enabled Influence Operations</div>
+      <div class="wildcard-desc">OpenAI (2024) identified and terminated accounts from Russia (Doppelganger), China (Spamouflage), Iran, and Israel using GPT-4 to generate influence operation content at scale — articles, social media posts, translated content, and persona backstories. None had achieved significant organic amplification at time of disruption. However, AI lowers the cost floor dramatically: operations that required 1,000-person teams now require 10-person teams. The trajectory is toward near-zero cost influence operations indistinguishable from authentic human content.</div>
+    </div>
+  </div>
+
+  <blockquote class="policy-quote">
+    "The Russian government interfered in the 2016 presidential election in sweeping and systematic fashion."
+    <span class="policy-quote-attr">— MUELLER REPORT, MARCH 2019 // VOL. 1, P. 1 // CONFIRMED ACROSS ALL US INTELLIGENCE COMMUNITY ASSESSMENTS</span>
+  </blockquote>
+</div>
+</section>
+
+<!-- SECTION 08: DRONE / AUTONOMOUS SYSTEMS -->
+<section id="cyber-uav">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">08 // DRONE / AUTONOMOUS SYSTEMS</div>
+      <h2 class="section-title">Asymmetric Air Domain</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">FPV drones, Shahed proliferation & AI-enabled autonomous targeting</div>
+  </div>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚡ STRATEGIC PARADIGM SHIFT — DRONE WARFARE</div>
+    <p>Ukraine has demonstrated that <strong class="critical">$500 FPV drones can disable $5M main battle tanks</strong>, fundamentally validating asymmetric force multiplication theory. The drone domain is the clearest cyber-asymmetric convergence point: RF jamming, GPS spoofing, AI target recognition, swarm coordination, and autonomous engagement all merge in this evolving capability. Iran's Shahed-136 design — exported to Russia, Yemen (Houthis), Lebanon (Hezbollah), and available to any IRGC proxy — represents the proliferation of precision strike capability to non-state actors at commodity prices.</p>
+  </div>
+
+  <div class="doctrine-grid mb-8">
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🇺🇦</div>
+      <div class="doctrine-label">Ukraine // FPV Drone Revolution</div>
+      <div class="doctrine-title">First-Person View Combat Drones</div>
+      <div class="doctrine-desc">Ukraine has deployed 1M+ FPV drones in 2024 alone. Commercial DJI-derived platforms modified with explosives (typically RPG warhead or 1kg shaped charge) guided by fiber-optic cable or encrypted RF. Cost: $400-800 per unit. Destroyed hundreds of T-72/T-80 tanks, BMPs, supply trucks, and Lancet-type loitering munitions. Russian electronic warfare countermeasures forced switch to fiber optic guidance (immune to jamming). Ukraine producing 2M FPV/year; Russia ~1.5M/year. Drone factories targeted by long-range strikes on both sides.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🇮🇷</div>
+      <div class="doctrine-label">Iran // Shahed Proliferation</div>
+      <div class="doctrine-title">Shahed-136 / Geran-2 Platform</div>
+      <div class="doctrine-desc">Iran's Shahed-136 "kamikaze drone" — $20,000-50,000 unit, 2,500km range, GPS+INS guidance, 50kg warhead — has been exported to Russia (Geran-2 designation, 3,800+ used in Ukraine), Houthis (Yemen strikes on Saudi Aramco, UAE, Red Sea shipping), Hezbollah (Lebanon), and Iraqi PMF. The platform is reverse-engineered from commercially available components, allowing local production. Iran opened drone factory in Russia (Alabuga special economic zone). Ukraine documented 700+ Shahed variants including AI-guided seeker upgrades.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🤖</div>
+      <div class="doctrine-label">AI Targeting // Autonomous Systems</div>
+      <div class="doctrine-title">Machine Vision Target Recognition</div>
+      <div class="doctrine-desc">Ukraine's "Saker Scout" AI system: machine vision identifies Russian vehicles from drone footage, classifies them by type, and recommends targeting decisions. Ukraine AI startup Palianytsia integrated machine learning into Mavic-derived reconnaissance drones. DARPA's Autonomous Multi-Domain Adaptive Swarms-of-Swarms (AMASS) program. Turkish Bayraktar TB2 uses AI-assisted target tracking. The legal and ethical threshold: when does autonomous target engagement constitute unlawful killing under IHL? International community has failed to agree on Lethal Autonomous Weapons Systems (LAWS) regulations (CCW discussions stalled).</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🌊</div>
+      <div class="doctrine-label">Maritime // USV Warfare</div>
+      <div class="doctrine-title">Uncrewed Surface Vehicle (USV)</div>
+      <div class="doctrine-desc">Ukraine's MAGURA V5 USV — semi-autonomous sea drone — struck Russian Black Sea Fleet frigate Admiral Makarov and damaged submarine Rostov-on-Don in Sevastopol harbor. Houthis deployed USV suicide boats against Red Sea shipping. Iran tested armed USVs in Persian Gulf exercises. Cost: $250,000-500,000 vs $2B+ warship targets. ISR integration allows real-time teleoperation from 1,000km+. US Navy's Ghost Fleet Overlord program developing large autonomous surface vessels. This capability represents a direct challenge to naval power projection by major state actors.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🔌</div>
+      <div class="doctrine-label">EW / Cyber vs. Drones</div>
+      <div class="doctrine-title">Electronic Warfare Countermeasures</div>
+      <div class="doctrine-desc">Russian Krasukha-4 and RB-341V Leer-3 EW systems jam commercial drone frequencies. Russian EW reportedly jamming JDAM-ER glide bombs and AIM-9X Sidewinder in Ukraine theater. GPS spoofing redirected Iranian drones during April 2024 Iran-Israel exchange. Israel used cyber operations to shut down Iranian drone swarm radar during April 2024 exchange. Ukrainian fiber-optic FPV development is specifically EW-immunity response. The drone-EW-cyber triangle is now the defining tactical technology competition in conventional conflict.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🔬</div>
+      <div class="doctrine-label">Loitering Munitions // Asymmetric</div>
+      <div class="doctrine-title">Equalizer Weapons</div>
+      <div class="doctrine-desc">Loitering munitions — "suicide drones" that orbit a target area before striking — represent the ultimate asymmetric equalizer. Israeli Harop (anti-radiation), US Switchblade-300/600, Russian Lancet-3 (responsible for hundreds of destroyed Ukrainian vehicles), Turkish Kargu-2 (alleged first autonomous lethal engagement, Libya 2020 — UN Panel of Experts). DPRK's KN-24 short-range ballistic missile with loitering submunitions. Price range: $6,000 (Switchblade-300) to $500,000 (Harop). Accessible to non-state actors through black market and state patronage.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 09: PROXY FORCES & NON-STATE ACTORS -->
+<section id="cyber-proxy">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">09 // PROXY FORCES & NON-STATE ACTORS</div>
+      <h2 class="section-title">The Gray Network</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Ransomware groups, hacktivists & state-affiliated criminals</div>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Ransomware-as-a-Service Ecosystem</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">Ransomware-as-a-Service (RaaS) has industrialized cybercrime. Operators (developers) build and maintain ransomware tooling; affiliates (criminals) conduct intrusions and pay 10-30% to operators. The ecosystem has created a multi-billion dollar criminal enterprise with sophisticated structures: customer support for victims negotiating payment, bug bounty programs for researchers identifying flaws, and affiliate recruitment on dark web forums. Russia's FSB has demonstrated implicit tolerance of ransomware groups operating from Russian territory as long as they avoid Russian/CIS targets — providing plausible deniability while benefiting from financial pressure on Western economies.</p>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">Notable disruptions: Operation Cronos (2024) seized LockBit infrastructure across 10 countries, arrested LockBitSupp affiliates, and unmasked LockBit administrator as Dmitry Khoroshev. Operation Endgame (2024) disrupted IcedID, SystemBC, Pikabot droppers. Despite disruptions, affiliates reconstitute quickly — RansomHub absorbed former LockBit and ALPHV affiliates within weeks. The RaaS model ensures operational resilience regardless of individual group disruption.</p>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Hacktivist & Patriotic Hackers</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">Ukraine war created the largest hacktivist mobilization in history. IT Army of Ukraine (300,000+ volunteers) conducted DDoS attacks against Russian government, banking, and media targets. Anonymous (decentralized, Western) attacked Russian state TV, leaked FSB data. Pro-Russian Killnet conducted DDoS campaigns against hospitals (Netherlands), airports (US), and government sites across NATO countries. NoName057(16) (pro-Russia) runs coordinated DDoS via volunteer botnet.</p>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">Middle East conflict: Cyber Av3ngers (IRGC-affiliated) targeted Israeli water authority and US industrial control systems. SiegedSec (Western hacktivist) leaked data from Israeli and US government systems claiming anti-war motivation. Sudan Anonymous targeted hospitals in Israel and Gaza solidarity actions. The hacktivist layer provides additional gray-zone deniability and amplification to state actor campaigns while genuinely complicating attribution.</p>
+    </div>
+  </div>
+
+  <div class="data-table-wrap mb-8">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Actor</th>
+          <th>Category</th>
+          <th>State Patron</th>
+          <th>Primary Method</th>
+          <th>Notable Targets</th>
+          <th>Revenue / Impact</th>
+          <th>Status 2025</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>LockBit 3.0</td><td>RaaS Operator</td><td>Russia (implicit)</td><td>Ransomware / Exfiltration</td><td>Boeing, Royal Mail, ICBC, US courts</td><td>$500M+ lifetime</td><td class="nuclear-limited">DISRUPTED — Op. Cronos</td></tr>
+        <tr><td>BlackCat / ALPHV</td><td>RaaS Operator</td><td>Russia-aligned</td><td>Ransomware / Data leak</td><td>Change Healthcare ($22M), MGM, Caesars</td><td>$22M+ 2024</td><td class="nuclear-no">EXIT SCAMMED (self-dissolved)</td></tr>
+        <tr><td>RansomHub</td><td>RaaS (successor)</td><td>Russia-affiliated</td><td>Ransomware / Triple extortion</td><td>200+ victims (2024), Christie's, Frontier</td><td>Growing</td><td class="nuclear-yes">ACTIVE</td></tr>
+        <tr><td>Cl0p / TA505</td><td>RaaS + Criminal</td><td>Russia-aligned</td><td>Mass exfiltration (zero-day)</td><td>MOVEit: 2,000 orgs, 62M people</td><td>$100M+ 2023</td><td class="nuclear-yes">ACTIVE</td></tr>
+        <tr><td>Killnet</td><td>Pro-Russia hacktivist</td><td>Russia (implicit)</td><td>DDoS, propaganda</td><td>NATO countries, hospitals, airports</td><td>Limited disruption</td><td class="nuclear-limited">REDUCED ACTIVITY</td></tr>
+        <tr><td>NoName057(16)</td><td>Pro-Russia hacktivist</td><td>Russia (implicit)</td><td>DDoS (DDoSia botnet)</td><td>European gov sites, NATO infrastructure</td><td>Nuisance level</td><td class="nuclear-yes">ACTIVE</td></tr>
+        <tr><td>Cyber Av3ngers</td><td>Pro-Iran hacktivist</td><td>IRGC</td><td>ICS/SCADA attacks, DDoS</td><td>US water utilities, Israeli infrastructure</td><td>Physical disruption risk</td><td class="nuclear-yes">ACTIVE</td></tr>
+        <tr><td>IT Army of Ukraine</td><td>Pro-Ukraine hacktivist</td><td>Ukraine (semi-official)</td><td>DDoS, data leak</td><td>Russian banks, media, government</td><td>Disruption + propaganda</td><td class="nuclear-yes">ACTIVE</td></tr>
+        <tr><td>Scattered Spider</td><td>Criminal (English-speaking)</td><td>None (Western)</td><td>Social engineering, vishing, SIM swap</td><td>MGM ($100M), Caesars ($15M ransom), Okta</td><td>$115M+ extracted</td><td class="nuclear-limited">ARRESTS (2024)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 10: LEGAL / ATTRIBUTION -->
+<section id="cyber-law">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">10 // LEGAL / ATTRIBUTION & RULES OF ENGAGEMENT</div>
+      <h2 class="section-title">Ungoverned Domain</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Tallinn Manual, NATO Article 5 threshold & attribution challenges</div>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Tallinn Manual & International Law</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">The Tallinn Manual (2013, updated 2017 as Tallinn Manual 2.0) is the most authoritative analysis of how international law applies to cyber operations. Produced by a NATO CCDCOE-convened group of international law experts (non-binding). Key Rule 30: a cyber operation constitutes a use of force if its "scale and effects" are comparable to a kinetic use of force — but no consensus exists on where that threshold lies.</p>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">NotPetya — which caused $10B+ damage globally — was NOT treated as an act of war requiring Article 51 response despite being clearly state-sponsored destruction. The legal vacuum is intentional from Russian and Chinese perspectives: it preserves maximum operational freedom below the response threshold. NATO Cyber Defence Pledge (2016) affirms cyber attack can trigger Article 5 but provides no threshold definition.</p>
+
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">NATO Article 5 — Cyber Threshold Debate</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">At NATO Vilnius Summit (2023), allies agreed cyber attacks can trigger Article 5 collective defense. But specific threshold remains deliberately vague. Key questions: Does SolarWinds-scale espionage trigger Article 5? (US answer: no). Does destructive attack on a member's power grid trigger Article 5? (Answer: depends on attribution certainty and scale). Does ICS attack causing deaths trigger Article 5? (Probably yes). The deliberate ambiguity is intended to deter while maintaining escalation control — but adversaries exploit it for maximum gray-zone operations.</p>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Attribution Challenges</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">Technical attribution identifies who conducted an attack; legal/political attribution determines who is held responsible. Technical attribution has improved dramatically — five-country intelligence alliances (Five Eyes) enable corroborating signals intelligence with forensic analysis. Mandiant (Google) and CrowdStrike regularly publish high-confidence technical attribution. Political attribution remains restrained: governments declassify only what won't reveal collection methods.</p>
+      <div class="data-table-wrap mb-4">
+        <table class="data-table">
+          <thead><tr><th>Attribution Method</th><th>Reliability</th><th>Time Required</th></tr></thead>
+          <tbody>
+            <tr><td>SIGINT corroboration (NSA/GCHQ)</td><td class="nuclear-yes">HIGHEST</td><td>Weeks-months</td></tr>
+            <tr><td>TTP cluster analysis (Mandiant/CrowdStrike)</td><td class="nuclear-limited">HIGH (circumstantial)</td><td>Days-weeks</td></tr>
+            <tr><td>Malware code similarity</td><td class="nuclear-limited">MEDIUM (reuse/false flag)</td><td>Days</td></tr>
+            <tr><td>Infrastructure overlap (IPs, domains)</td><td class="nuclear-limited">MEDIUM</td><td>Hours-days</td></tr>
+            <tr><td>Language artifacts in code</td><td class="nuclear-no">LOW (planted)</td><td>Hours</td></tr>
+            <tr><td>False flag operations</td><td class="nuclear-no">UNRELIABLE</td><td>N/A</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Proportional Response Doctrine</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">US Cyber Command's "Defend Forward" doctrine authorizes operations in adversary networks before attacks reach US infrastructure — a de facto first-use posture. The 2018 US National Cyber Strategy and Presidential Policy Directive 20 revision lowered the threshold for offensive cyber operations. EU's Cyber Diplomacy Toolbox enables coordinated diplomatic responses (sanctions, expulsions) but no kinetic response option. The Geneva Convention Additional Protocols and Laws of Armed Conflict (LOAC) apply to cyber operations in armed conflict — but their application in peacetime gray-zone operations remains deeply contested.</p>
+    </div>
+  </div>
+
+  <div class="escalation-ladder">
+    <div class="esc-rung esc-level-1">
+      <div class="esc-level-num">LEVEL 1 // GRAY ZONE</div>
+      <div class="esc-level-name">Persistent Espionage & Influence Operations</div>
+      <div class="esc-level-desc">Continuous intelligence collection, pre-positioning in critical infrastructure, influence operations, intellectual property theft. Ongoing from all major state actors without interruption. No kinetic response threshold reached.</div>
+      <div class="esc-level-actors">ACTORS: All six major cyber powers + criminal proxies</div>
+      <div class="esc-level-trigger">TRIGGER TO LEVEL 2: Espionage becomes destructive, or public exposure + domestic political pressure</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-2">
+      <div class="esc-level-num">LEVEL 2 // LIMITED DISRUPTION</div>
+      <div class="esc-level-name">Targeted Destructive Operations</div>
+      <div class="esc-level-desc">Wiper attacks on specific sectors, targeted ransomware against government/military, DDoS of critical services, GPS jamming of military systems. Causes economic damage and degraded capability without physical casualties.</div>
+      <div class="esc-level-actors">ACTORS: Russia (primary), Iran, DPRK; China preparing</div>
+      <div class="esc-level-trigger">TRIGGER TO LEVEL 3: Attack causes civilian casualties or is judged as equivalent to armed attack</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-3">
+      <div class="esc-level-num">LEVEL 3 // MAJOR INFRASTRUCTURE ATTACK</div>
+      <div class="esc-level-name">Coordinated Critical Infrastructure Strike</div>
+      <div class="esc-level-desc">Simultaneous attacks on power grid, financial system, and telecommunications. Causes widespread civilian harm, economic paralysis, and degraded military response capability. NotPetya × 10 — designed to precede or accompany kinetic military action. NATO Article 5 debate triggered.</div>
+      <div class="esc-level-actors">ACTORS: Russia/China in conflict context; Iran as spoiler</div>
+      <div class="esc-level-trigger">TRIGGER TO LEVEL 4: Physical casualties caused by cyber attack; attributed state aggression; NATO Article 5 invoked</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-4">
+      <div class="esc-level-num">LEVEL 4 // CYBER + KINETIC INTEGRATION</div>
+      <div class="esc-level-name">Full-Spectrum Hybrid Warfare</div>
+      <div class="esc-level-desc">Cyber operations fully integrated with kinetic military action — as demonstrated in Ukraine (Viasat hack simultaneous with February 24, 2022 invasion). Cyber degrades adversary C2, air defense, and communications. Drone swarms guided by cyber-compromised GPS and communications networks. Financial system attacks disrupt wartime logistics.</div>
+      <div class="esc-level-actors">ACTORS: Russia (demonstrated), China (capability), USA</div>
+      <div class="esc-level-trigger">TRIGGER TO LEVEL 5: Cyber attack causes mass casualties; AI autonomous weapons misidentify targets; nuclear command/control compromised</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-5">
+      <div class="esc-level-num">LEVEL 5 // CATASTROPHIC CYBER</div>
+      <div class="esc-level-name">AI-Enabled Autonomous Escalation</div>
+      <div class="esc-level-desc">AI systems make autonomous targeting decisions that escalate conflict beyond human decision timelines. Deepfake of nuclear launch order believed authentic triggers response. Cyber attack on nuclear command-control systems misinterpreted as first strike. The "AI fog of war" scenario — multiple simultaneous cyber operations create cascading misperceptions with nuclear actors.</div>
+      <div class="esc-level-actors">ACTORS: All nuclear states — accidental trigger potential</div>
+      <div class="esc-level-trigger">THRESHOLD: Nuclear weapons employment; civilizational catastrophe</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 11: CRISIS SCENARIOS -->
+<section id="cyber-scenarios">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">11 // CRISIS SCENARIOS</div>
+      <h2 class="section-title">Cyber Conflict Playbooks</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Wargamed conflict trajectories in the cyber domain</div>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="switchTab(event,'scenario-infra')">⚡ Infra Attack</button>
+      <button class="tab-btn" onclick="switchTab(event,'scenario-election')">🗳️ Election Manipulation</button>
+      <button class="tab-btn" onclick="switchTab(event,'scenario-cable')">🌊 Cable Disruption</button>
+      <button class="tab-btn" onclick="switchTab(event,'scenario-deepfake')">🎭 Deepfake Crisis</button>
+    </div>
+
+    <!-- SCENARIO 1: COORDINATED INFRA ATTACK -->
+    <div class="tab-pane active" id="scenario-infra">
+      <div class="scenario-card">
+        <div class="scenario-trigger">⚡ SCENARIO ALPHA — SIMULTANEOUS INFRASTRUCTURE ATTACK</div>
+        <div class="scenario-title">Coordinated Power + Financial + Communications Strike</div>
+        <div class="scenario-steps">
+          <div class="scenario-step">
+            <span class="step-time">D-90</span>
+            <span class="step-text">Pre-positioned malware activated in three target sectors simultaneously. Power grid SCADA systems receive corrupted firmware updates disabling protective relays in 23 substations across northeastern US. Volt Typhoon-style malware, pre-positioned for 18 months, executes.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">H+00:00</span>
+            <span class="step-text">Power outages cascade across northeastern US affecting 15 million people. SWIFT message flooding attack generates $50B in fraudulent transactions. Emergency financial circuit breakers activate. Major US carrier backbone BGP routes hijacked, redirecting traffic through adversary proxy servers.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">H+02:00</span>
+            <span class="step-text">Attribution unclear — technical forensics indicate Russian, Chinese, and Iranian TTPs simultaneously. (Deliberate false flag layering.) CISA and FBI activate National Cyber Emergency Response Plan. NSC convenes. USCYBERCOM on DEFCON equivalent.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">H+12:00</span>
+            <span class="step-text">NSA SIGINT provides high-confidence attribution to single state actor. President briefed. Diplomatic back-channel demands for cessation. USCYBERCOM activates pre-planned offensive response options under Presidential authority. Five Eyes allies activated for coordinated response.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">H+36:00</span>
+            <span class="step-text">Power restored 60% through manual overrides and backup systems. Financial system partially operational. USCYBERCOM conducts counter-cyber operations. Attribution publicly announced. NATO Article 5 consultations initiated. Crisis: Does a cyber attack with no physical casualties trigger collective defense obligation?</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">D+7</span>
+            <span class="step-text">GDP impact estimated $200-400B. Hospitals lost 3 days of electronic records. RAND assessment: scenario causes 1,500-3,000 civilian deaths from delayed medical care, HVAC failure in extreme weather, industrial accidents. First time cyber attack produces mass casualty event without direct kinetic action. Legal threshold definitively crossed.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENARIO 2: ELECTION MANIPULATION -->
+    <div class="tab-pane" id="scenario-election">
+      <div class="scenario-card">
+        <div class="scenario-trigger">🗳️ SCENARIO BRAVO — ELECTION MANIPULATION AT SCALE</div>
+        <div class="scenario-title">AI-Augmented Election Interference — US Presidential 2028</div>
+        <div class="scenario-steps">
+          <div class="scenario-step">
+            <span class="step-time">M-18</span>
+            <span class="step-text">Combined Russian-Iranian influence operation begins. 10,000 AI-generated synthetic personas seeded across social media platforms. Cost: $2M (down from $35M in 2016). Each persona has 18 months of authentic-seeming history, consistent posting patterns, and platform engagement metrics indistinguishable from real accounts.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">M-6</span>
+            <span class="step-text">GRU APT28 compromises campaign email servers of both major party candidates. Dumps strategically timed and selectively edited emails to maximize damage at critical campaign moments. Iranian actors distribute same content on Persian-language platforms targeting diaspora communities in swing states.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">M-1</span>
+            <span class="step-text">Deepfake video of candidate making compromising statement released 72 hours before election — insufficient time for definitive debunking. Video reaches 40M views before platform takedown. Contradicting authentic video exists but both spreading simultaneously. Public information environment saturated with uncertainty.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">ELECTION DAY</span>
+            <span class="step-text">DDoS attacks on election result reporting websites cause delays. Voter registration databases in three swing states experience outages (previously penetrated). State voter rolls show anomalous deletions in urban precincts. All disruptions quickly countered but create 4-hour reporting gaps amplified by synthetic media.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">POST-ELECTION</span>
+            <span class="step-text">Election outcome challenged based on documented cyberattacks regardless of actual vote integrity. Intelligence community publicly attributes operations to Russia and Iran. Losing candidate cites cyberattacks as justification for non-concession. Constitutional crisis triggered not by vote manipulation but by uncertainty manipulation.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENARIO 3: UNDERSEA CABLE -->
+    <div class="tab-pane" id="scenario-cable">
+      <div class="scenario-card">
+        <div class="scenario-trigger">🌊 SCENARIO CHARLIE — UNDERSEA CABLE NETWORK DISRUPTION</div>
+        <div class="scenario-title">North Atlantic Cable Severance — Pre-Conflict Operation</div>
+        <div class="scenario-steps">
+          <div class="scenario-step">
+            <span class="step-time">D-30</span>
+            <span class="step-text">Russian naval intelligence vessel (Yantar-class, GUGI) conducts extended survey operations in North Atlantic. UK Royal Navy surveillance indicates deep-sea mapping near multiple cable routes. GCHQ raises cable vulnerability assessment. Political decision: insufficient cause for confrontation without additional provocation.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">H+00:00</span>
+            <span class="step-text">Seven North Atlantic submarine cables severed simultaneously using specialized cutting equipment at depths of 1,000-3,000m. Affected: TAT-14, AC-1, FLAG Atlantic-1 and four additional cables. Combined capacity: 40% of transatlantic data flow. Financial market data latency increases 40-fold. HFT algorithms malfunction; $180B in phantom transactions generated in first 90 minutes.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">H+06:00</span>
+            <span class="step-text">NATO MARCOM activates. Remaining cable routes overloaded — internet speeds across Europe degrade 60%. Satellite backup (Starlink, Inmarsat, SES) partially compensates but insufficient for financial traffic volume. NYSE implements extended circuit breakers. London markets suspended pending data integrity verification.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">D+30</span>
+            <span class="step-text">Cable repair vessels (industry has only 60 worldwide, most contracted to repair natural breaks) mobilized. Repair timeline: 3-6 months per cable at depth. NATO considers Article 5 — Russian submarine vessel in international waters; no legal violation of territorial sovereignty. Crisis reveals gap: infrastructure attack in international space with no legal response framework.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">D+90</span>
+            <span class="step-text">Economic impact: $10B+ daily GDP loss sustained for 60+ days before full restoration. Financial clearing disrupted in EU for 3 weeks. Military communications shifted to encrypted satellite (resilient but higher latency). Post-crisis: cable protection treaty negotiations stalled at UN. US/UK deploy submarine patrol mission near remaining cable routes. Russia denies involvement.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENARIO 4: DEEPFAKE -->
+    <div class="tab-pane" id="scenario-deepfake">
+      <div class="scenario-card">
+        <div class="scenario-trigger">🎭 SCENARIO DELTA — AI DEEPFAKE TRIGGERING MILITARY RESPONSE</div>
+        <div class="scenario-title">Synthetic Media Crisis — Nuclear Adjacent</div>
+        <div class="scenario-steps">
+          <div class="scenario-step">
+            <span class="step-time">H+00:00</span>
+            <span class="step-text">Deepfake video of Pakistani Prime Minister announcing nuclear alert and condemning India for "unprovoked cross-border attack" broadcasts on compromised Pakistani state TV. Video indistinguishable from authentic; consistent with PM's known speech patterns, voice, facial expressions. Created by advanced AI system with 40 hours of training footage.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">H+00:15</span>
+            <span class="step-text">Indian intelligence detects Pakistani military communications indicating heightened alert status (authentic — Pakistan military reacting to fake broadcast). India's nuclear command authority convenes emergency session. Indian PM notified. Indian strike aircraft placed on alert. Both sides now in genuine alert state based on a fiction.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">H+01:00</span>
+            <span class="step-text">Pakistani government confirms video is fabricated — but message degraded by own military's genuine alert state. Indian intelligence cannot immediately verify authenticity of "denial." The military alert itself has become a data point suggesting real Pakistani action. Hotline activated between Pakistan PM and Indian PM — but communications latency and mutual suspicion slow de-escalation.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">H+04:00</span>
+            <span class="step-text">US NCA (Nuclear Consulting Authority) and UK provide forensic analysis confirming deepfake within 4 hours. Attribution unclear — technically points to third-country state actor (China? non-state? false flag?). Indian and Pakistani forces stand down. Crisis resolved. Lesson: 4 hours is sufficient time for nuclear exchange decision cycles to activate — the margin between deepfake and catastrophe was this narrow.</span>
+          </div>
+          <div class="scenario-step">
+            <span class="step-time">D+30</span>
+            <span class="step-text">Post-crisis analysis: UN Security Council emergency session on synthetic media and strategic communications security. US proposes "Nuclear Deepfake Hotline" — authenticated channels for verifying statements by nuclear leaders. China and Russia delay ratification, concerned about sovereignty implications. The incident permanently changes nuclear C2 protocols: no automated response to video/audio evidence without multi-source physical authentication.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 12: SOURCES -->
+<section id="cyber-sources">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">12 // SOURCES & REFERENCES</div>
+      <h2 class="section-title">Intelligence Bibliography</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="xref-links mb-8" style="flex-wrap:wrap;gap:var(--space-2) var(--space-3);">
+    <span class="xref-label">RELATED DOSSIERS:</span>
+    <a href="../countries/usa-dossier.html" class="xref-chip" target="_blank">🇺🇸 USA A-11 →</a>
+    <a href="../countries/china-dossier.html" class="xref-chip" target="_blank">🇨🇳 China A-01 →</a>
+    <a href="../countries/russia-dossier.html" class="xref-chip" target="_blank">🇷🇺 Russia A-05 →</a>
+    <a href="../countries/iran-dossier.html" class="xref-chip" target="_blank">🇮🇷 Iran A-07 →</a>
+    <a href="../countries/north-korea-dossier.html" class="xref-chip" target="_blank">🇰🇵 North Korea A-06 →</a>
+    <a href="../countries/israel-dossier.html" class="xref-chip" target="_blank">🇮🇱 Israel A-10 →</a>
+    <a href="./middle-east-theater.html" class="xref-chip" target="_blank">⚔️ B-03 Middle East →</a>
+    <a href="./eastern-europe-theater.html" class="xref-chip" target="_blank">🛡️ B-02 Eastern Europe →</a>
+    <a href="./asia-pacific-theater.html" class="xref-chip" target="_blank">🌊 B-04 Asia-Pacific →</a>
+    <a href="../index.html" class="xref-chip" target="_blank">🌐 Platform Home →</a>
+  </div>
+
+  <div class="sources-grid">
+    <div class="sources-col">
+      <h3>US Government & CISA</h3>
+      <div class="source-item">
+        <a href="https://www.cisa.gov/news-events/cybersecurity-advisories" target="_blank" rel="noopener">CISA Cybersecurity Advisories</a>
+        <span>Cybersecurity & Infrastructure Security Agency // Official threat advisories including Volt Typhoon (AA24-038A), Salt Typhoon, Sandworm</span>
+      </div>
+      <div class="source-item">
+        <a href="https://www.odni.gov/files/ODNI/documents/assessments/ATA-2025-Unclassified-Report.pdf" target="_blank" rel="noopener">ODNI Annual Threat Assessment 2025</a>
+        <span>Office of the Director of National Intelligence // Cyber section // Nation-state actor assessments</span>
+      </div>
+      <div class="source-item">
+        <a href="https://www.nsa.gov/Cybersecurity/" target="_blank" rel="noopener">NSA Cybersecurity Directorate</a>
+        <span>National Security Agency // Advisories, best practices, joint advisories with CISA/FBI/partners</span>
+      </div>
+      <div class="source-item">
+        <a href="https://www.cybercom.mil/" target="_blank" rel="noopener">US Cyber Command Official Website</a>
+        <span>USCYBERCOM // Defend Forward doctrine, Hunt Forward operations, public statements</span>
+      </div>
+      <div class="source-item">
+        <a href="https://crsreports.congress.gov/product/pdf/R/R43955" target="_blank" rel="noopener">CRS: Cybersecurity: Selected Issues</a>
+        <span>Congressional Research Service // Legislative and policy context for US cyber posture</span>
+      </div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Industry Threat Intelligence</h3>
+      <div class="source-item">
+        <a href="https://www.mandiant.com/m-trends" target="_blank" rel="noopener">Mandiant M-Trends 2025</a>
+        <span>Google Mandiant // Annual threat intelligence report // APT attribution, dwell time, attack vectors</span>
+      </div>
+      <div class="source-item">
+        <a href="https://www.crowdstrike.com/global-threat-report/" target="_blank" rel="noopener">CrowdStrike Global Threat Report 2025</a>
+        <span>CrowdStrike // Adversary naming conventions, campaign tracking, FANCY BEAR, COZY BEAR, VOODOO BEAR analysis</span>
+      </div>
+      <div class="source-item">
+        <a href="https://www.microsoft.com/en-us/security/blog/threat-intelligence/" target="_blank" rel="noopener">Microsoft Threat Intelligence Blog</a>
+        <span>Microsoft MSTIC // Volt Typhoon, Salt Typhoon, Flax Typhoon, Midnight Blizzard primary reporting</span>
+      </div>
+      <div class="source-item">
+        <a href="https://www.recordedfuture.com/research" target="_blank" rel="noopener">Recorded Future Research</a>
+        <span>Insikt Group // Nation-state cyber operations, dark web monitoring, threat actor profiling</span>
+      </div>
+      <div class="source-item">
+        <a href="https://attack.mitre.org/" target="_blank" rel="noopener">MITRE ATT&CK Framework</a>
+        <span>MITRE Corporation // Adversary tactics, techniques, procedures (TTPs) — global standard</span>
+      </div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Academic & Think Tank</h3>
+      <div class="source-item">
+        <a href="https://www.rand.org/topics/cybersecurity.html" target="_blank" rel="noopener">RAND Cybersecurity Research</a>
+        <span>RAND Corporation // Cyber deterrence, escalation dynamics, wargame studies on cyber conflict</span>
+      </div>
+      <div class="source-item">
+        <a href="https://csis.org/programs/strategic-technologies-program" target="_blank" rel="noopener">CSIS Strategic Technologies Program</a>
+        <span>Center for Strategic & International Studies // Significant Cyber Incidents tracker, policy analysis</span>
+      </div>
+      <div class="source-item">
+        <a href="https://ccdcoe.org/research/" target="_blank" rel="noopener">NATO CCDCOE Research</a>
+        <span>NATO Cooperative Cyber Defence Centre of Excellence // Tallinn Manual, legal frameworks, doctrine</span>
+      </div>
+      <div class="source-item">
+        <a href="https://www.cfr.org/cyber-operations" target="_blank" rel="noopener">CFR Cyber Operations Tracker</a>
+        <span>Council on Foreign Relations // Historical database of state-sponsored cyber operations since 2005</span>
+      </div>
+      <div class="source-item">
+        <a href="https://securityaffairs.com/" target="_blank" rel="noopener">Security Affairs</a>
+        <span>Pierluigi Paganini // Breaking cyber threat intelligence, APT campaign reporting</span>
+      </div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Specialized / Domain-Specific</h3>
+      <div class="source-item">
+        <a href="https://www.weforum.org/reports/global-cybersecurity-outlook-2025" target="_blank" rel="noopener">WEF Global Cybersecurity Outlook 2025</a>
+        <span>World Economic Forum // $10.5T cybercrime projection, systemic risk, resilience gaps</span>
+      </div>
+      <div class="source-item">
+        <a href="https://www.interpol.int/en/Crimes/Cybercrime" target="_blank" rel="noopener">INTERPOL Cybercrime Division</a>
+        <span>INTERPOL // Ransomware economy, LockBit/BlackCat takedowns, DPRK crypto theft tracking</span>
+      </div>
+      <div class="source-item">
+        <a href="https://www.rferl.org/p/ukraine-russia-cyber-war/31988.html" target="_blank" rel="noopener">RFE/RL: Ukraine Cyber War Coverage</a>
+        <span>Radio Free Europe / Radio Liberty // Sandworm operations, Ukraine power grid attacks, GRU cyber ops</span>
+      </div>
+      <div class="source-item">
+        <a href="https://therecord.media/" target="_blank" rel="noopener">The Record by Recorded Future</a>
+        <span>The Record // Breaking cybersecurity news, incident reporting, policy developments</span>
+      </div>
+      <div class="source-item">
+        <a href="https://www.bellingcat.com/tag/cybersecurity/" target="_blank" rel="noopener">Bellingcat Cyber Investigations</a>
+        <span>Bellingcat // OSINT-based attribution, influence operation mapping, GRU identity verification</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="classification-notice">
+    <div class="class-title">⚠ OPEN-SOURCE INTELLIGENCE NOTICE</div>
+    <p class="class-body">This dossier is compiled entirely from unclassified, publicly available open-source intelligence (OSINT). All APT attributions, capability assessments, and operational details are sourced from official government advisories (CISA, NSA, FBI), peer-reviewed think tank research, commercial threat intelligence firms, and verified cybersecurity reporting. No classified information is included or implied. Capability ratings reflect best-available OSINT consensus across multiple sources and may differ from classified assessments. Geopolitical Intelligence Platform v2 — Series B Domain Dossier B-07 // Cyber & Asymmetric Warfare // March 2026.</p>
+  </div>
+</div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+  <span id="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</span>
+  <img id="lightbox-img" src="" alt="Expanded view">
+  <div id="lightbox-cap"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-text">GEOPOLITICAL INTELLIGENCE PLATFORM v2 // DOMAIN DOSSIER B-07 CYBER & ASYMMETRIC WARFARE // MARCH 2026 // OPEN-SOURCE ANALYSIS</p>
+    <p class="footer-text" style="margin-top:var(--space-2);">Series B: Theater / Domain Analysis | Cross-ref: A-01 China · A-05 Russia · A-07 Iran · A-06 North Korea · A-10 Israel · A-11 USA</p>
+  </div>
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.lucide) lucide.createIcons();
+});
+
+function openLightbox(src, cap) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-cap').textContent = cap || '';
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+function switchTab(e, id) {
+  const container = e.target.closest('.tabs-wrap') || document;
+  container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  const pane = document.getElementById(id);
+  if (pane) pane.classList.add('active');
+}
+
+function toggleCollapsible(head) {
+  const isOpen = head.classList.contains('open');
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+  const chev = head.querySelector('.chev');
+  if (chev) chev.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+
+// Scroll-active nav
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-60px 0px -40% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Animate stat bars + rating bars on scroll
+const fills = document.querySelectorAll('.stat-fill, .rating-fill');
+const fillObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const w = e.target.style.width;
+      e.target.style.width = '0%';
+      setTimeout(() => { e.target.style.width = w; }, 100);
+      fillObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+fills.forEach(f => {
+  f.style.transition = 'width 1.2s cubic-bezier(0.16,1,0.3,1)';
+  fillObserver.observe(f);
+});
+
+// Light/dark mode toggle
+(function(){
+  document.documentElement.setAttribute('data-theme', 'dark');
+  const nav = document.querySelector('.nav-inner');
+  const btn = document.createElement('button');
+  btn.setAttribute('data-theme-toggle', '');
+  btn.setAttribute('aria-label', 'Switch to light mode');
+  btn.style.cssText = 'background:none;border:1px solid rgba(0,168,150,0.3);color:var(--color-accent);padding:4px 8px;cursor:pointer;font-size:14px;border-radius:3px;flex-shrink:0;margin-left:auto;';
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  nav.appendChild(btn);
+
+  let dark = true;
+  btn.addEventListener('click', () => {
+    dark = !dark;
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    btn.setAttribute('aria-label', 'Switch to ' + (dark ? 'light' : 'dark') + ' mode');
+    btn.innerHTML = dark
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  });
+})();
+
+// Light mode CSS variables (injected dynamically)
+const lightModeStyles = document.createElement('style');
+lightModeStyles.textContent = `
+[data-theme="light"] {
+  --color-bg: #f0f4f4;
+  --color-surface: #f7fbfb;
+  --color-surface-2: #eef8f7;
+  --color-surface-3: #e6f5f4;
+  --color-border: rgba(0,168,150,0.25);
+  --color-border-2: rgba(0,168,150,0.12);
+  --color-text: #0a1514;
+  --color-text-muted: #2a4a47;
+  --color-text-faint: #5a8a85;
+  --color-accent: #006b5e;
+  --color-accent-bright: #008a7a;
+  --color-teal: #00a896;
+  --color-blue: #1a5fa3;
+  --color-red: #c0392b;
+  --color-green: #1e7a40;
+}
+[data-theme="light"] .site-nav {
+  background: rgba(240,244,244,0.95);
+}
+[data-theme="light"] .hero-bg {
+  background: radial-gradient(ellipse 80% 60% at 60% 40%,rgba(0,168,150,.06) 0%,transparent 65%),
+              radial-gradient(ellipse 50% 40% at 20% 80%,rgba(96,165,250,.04) 0%,transparent 60%), #f0f4f4;
+}
+`;
+document.head.appendChild(lightModeStyles);
+</script>
+
+</body>
+</html>

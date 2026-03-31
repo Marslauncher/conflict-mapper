@@ -1,0 +1,91 @@
+{
+  "countries": [
+    {
+      "name": "United States",
+      "slug": "usa",
+      "flag": "🇺🇸",
+      "accent": "#002868",
+      "topics": ["geopolitics", "breaking", "military", "political", "economic", "science", "ai", "robotics"]
+    },
+    {
+      "name": "China",
+      "slug": "china",
+      "flag": "🇨🇳",
+      "accent": "#c41e3a",
+      "topics": ["geopolitics", "breaking", "military", "political", "economic", "science", "ai", "robotics"]
+    },
+    {
+      "name": "Russia",
+      "slug": "russia",
+      "flag": "🇷🇺",
+      "accent": "#003580",
+      "topics": ["geopolitics", "breaking", "military", "political", "economic"]
+    },
+    {
+      "name": "Ukraine",
+      "slug": "ukraine",
+      "flag": "🇺🇦",
+      "accent": "#005BBB",
+      "topics": ["geopolitics", "breaking", "military", "political", "economic"]
+    },
+    {
+      "name": "Taiwan",
+      "slug": "taiwan",
+      "flag": "🇹🇼",
+      "accent": "#003F87",
+      "topics": ["geopolitics", "breaking", "military", "political", "economic", "science", "ai"]
+    },
+    {
+      "name": "Iran",
+      "slug": "iran",
+      "flag": "🇮🇷",
+      "accent": "#239F40",
+      "topics": ["geopolitics", "breaking", "military", "political", "economic"]
+    },
+    {
+      "name": "Israel",
+      "slug": "israel",
+      "flag": "🇮🇱",
+      "accent": "#0038b8",
+      "topics": ["geopolitics", "breaking", "military", "political", "economic"]
+    },
+    {
+      "name": "India",
+      "slug": "india",
+      "flag": "🇮🇳",
+      "accent": "#FF9933",
+      "topics": ["geopolitics", "breaking", "military", "political", "economic", "science"]
+    },
+    {
+      "name": "Pakistan",
+      "slug": "pakistan",
+      "flag": "🇵🇰",
+      "accent": "#01411C",
+      "topics": ["geopolitics", "breaking", "military", "political"]
+    },
+    {
+      "name": "North Korea",
+      "slug": "north-korea",
+      "flag": "🇰🇵",
+      "accent": "#024FA2",
+      "topics": ["geopolitics", "breaking", "military", "political"]
+    },
+    {
+      "name": "NATO",
+      "slug": "nato",
+      "flag": "🌐",
+      "accent": "#003189",
+      "topics": ["geopolitics", "breaking", "military", "political"]
+    }
+  ],
+  "topics": [
+    { "id": "geopolitics", "name": "Geopolitics" },
+    { "id": "breaking", "name": "Breaking News" },
+    { "id": "military", "name": "Military" },
+    { "id": "political", "name": "Political" },
+    { "id": "economic", "name": "Economic" },
+    { "id": "science", "name": "Science" },
+    { "id": "ai", "name": "Artificial Intelligence" },
+    { "id": "robotics", "name": "Robotics" }
+  ]
+}

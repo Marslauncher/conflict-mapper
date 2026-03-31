@@ -1,0 +1,8 @@
+node_modules
+screenshots
+data/articles.json
+data/flagged-articles.json
+data/server.log
+reports/*/current/*
+reports/*/historical/*
+*.zip

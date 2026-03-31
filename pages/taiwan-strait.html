@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>China / Taiwan Strait Watch — Conflict Mapper</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #0a0c10;
+  --surface:    #12151c;
+  --surface-2:  #1a1e28;
+  --surface-3:  #222736;
+  --navy:       #1A3A5C;
+  --navy-dim:   rgba(26,58,92,0.35);
+  --border:     rgba(255,255,255,0.1);
+  --border-dim: rgba(255,255,255,0.06);
+  --accent:     #c41e3a;
+  --accent-dim: rgba(196,30,58,0.08);
+  --amber:      #f59e0b;
+  --amber-dim:  rgba(245,158,11,0.12);
+  --green:      #22c55e;
+  --green-dim:  rgba(34,197,94,0.12);
+  --blue:       #3b82f6;
+  --blue-dim:   rgba(59,130,246,0.12);
+  --orange:     #f97316;
+  --text:       #e8eaf0;
+  --text-muted: rgba(232,234,240,0.55);
+  --text-faint: rgba(232,234,240,0.3);
+  --font-display: 'Rajdhani', sans-serif;
+  --font-mono:    'Share Tech Mono', monospace;
+  --font-body:    'Inter', sans-serif;
+  --transition:   0.15s ease;
+  --radius:       6px;
+  --radius-md:    8px;
+}
+
+html, body { min-height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; }
+
+/* ── Page layout ── */
+.page { max-width: 1400px; margin: 0 auto; padding: 0 0 60px; }
+
+/* ── Top nav bar ── */
+.topbar {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(10,12,16,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-dim);
+  padding: 0 24px;
+  height: 48px;
+  display: flex; align-items: center; gap: 16px;
+}
+.topbar-logo {
+  font-family: var(--font-display); font-size: 0.9rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--text);
+  text-decoration: none;
+}
+.topbar-logo span { color: var(--accent); }
+.topbar-sep { width: 1px; height: 20px; background: var(--border-dim); }
+.topbar-crumb { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-faint); }
+.topbar-links { display: flex; gap: 4px; margin-left: auto; }
+.topbar-link {
+  font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted);
+  text-decoration: none; padding: 4px 10px; border-radius: var(--radius);
+  transition: var(--transition); white-space: nowrap;
+}
+.topbar-link:hover { color: var(--text); background: var(--surface-2); }
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, #0a0c10 0%, #0d1520 40%, #100d18 100%);
+  border-bottom: 1px solid var(--border-dim);
+  padding: 32px 28px 24px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(196,30,58,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 50%, rgba(59,130,246,0.07) 0%, transparent 55%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 1340px; margin: 0 auto; position: relative; z-index: 1; }
+.hero-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+.hero-eyebrow {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.22em; color: var(--accent);
+  text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+.hero-title {
+  font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700;
+  line-height: 1.05; letter-spacing: 0.04em; color: var(--text);
+  text-transform: uppercase;
+}
+.hero-title .flags { font-size: 1.4em; letter-spacing: 0; }
+.hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+.threat-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 3px;
+  font-family: var(--font-mono); font-size: 0.62rem;
+  font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.threat-badge.elevated { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+.threat-badge.high     { background: rgba(196,30,58,0.15);  color: #f87171;    border: 1px solid rgba(248,113,113,0.3); }
+.threat-badge.critical { background: rgba(196,30,58,0.25);  color: #f87171;    border: 1px solid rgba(248,113,113,0.5); }
+.threat-badge.active   { background: rgba(34,197,94,0.12);  color: var(--green);border: 1px solid rgba(34,197,94,0.3); }
+.threat-badge.guarded  { background: rgba(59,130,246,0.12); color: #93c5fd;    border: 1px solid rgba(59,130,246,0.3); }
+.threat-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse-dot 2s infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
+
+/* ── Metrics bar ── */
+.metrics-bar {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  border: 1px solid var(--border-dim); border-radius: var(--radius-md); overflow: hidden;
+  margin-top: 20px;
+}
+.metric-cell {
+  background: var(--surface); padding: 14px 20px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.metric-label {
+  font-family: var(--font-mono); font-size: 0.57rem; letter-spacing: 0.14em;
+  color: var(--text-faint); text-transform: uppercase;
+}
+.metric-value {
+  font-family: var(--font-display); font-size: 1.9rem; font-weight: 700;
+  color: var(--text); line-height: 1;
+}
+.metric-value.red   { color: #f87171; }
+.metric-value.amber { color: var(--amber); }
+.metric-value.blue  { color: #60a5fa; }
+.metric-value.green { color: var(--green); }
+.metric-sub { font-family: var(--font-mono); font-size: 0.58rem; color: var(--text-faint); }
+
+/* ── Main grid ── */
+.main-grid {
+  display: grid; grid-template-columns: 1fr 380px; gap: 20px;
+  padding: 20px 20px 0; max-width: 1400px; margin: 0 auto;
+}
+.main-col-left {}
+.main-col-right {}
+
+/* ── Section title ── */
+.section-title {
+  font-family: var(--font-display); font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+}
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border-dim); }
+
+/* ── Card ── */
+.card {
+  background: var(--surface); border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md); overflow: hidden; margin-bottom: 16px;
+}
+.card-header {
+  padding: 14px 18px; border-bottom: 1px solid var(--border-dim);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.card-title {
+  font-family: var(--font-display); font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+}
+.card-body { padding: 16px 18px; }
+.card-icon { width: 28px; height: 28px; border-radius: var(--radius); background: var(--surface-2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* ── Map ── */
+#strait-map { height: 600px; width: 100%; }
+.map-legend {
+  background: rgba(10,12,16,0.9); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 10px 12px; font-family: var(--font-mono); font-size: 0.6rem;
+  color: var(--text-muted); pointer-events: none; max-width: 180px;
+}
+.map-legend .legend-title { font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.08em; text-transform: uppercase; }
+.legend-row { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-tri { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 9px solid; flex-shrink: 0; }
+.legend-diamond { width: 9px; height: 9px; transform: rotate(45deg); flex-shrink: 0; }
+
+/* ── Weather embed ── */
+.weather-iframe-wrap {
+  width: 100%; border-radius: var(--radius-md); overflow: hidden;
+  border: 1px solid var(--border-dim); position: relative; margin-bottom: 16px;
+}
+.weather-iframe-wrap iframe { display: block; }
+
+/* ── Conditions grid ── */
+.conditions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+.condition-cell {
+  background: var(--surface); border: 1px solid var(--border-dim); border-radius: var(--radius);
+  padding: 12px 14px;
+}
+.cond-label { font-family: var(--font-mono); font-size: 0.58rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+.cond-value { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--text); }
+.cond-sub { font-family: var(--font-mono); font-size: 0.58rem; color: var(--text-muted); margin-top: 2px; }
+
+/* ── Forecast table ── */
+.forecast-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.65rem; }
+.forecast-table th { color: var(--text-faint); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 10px; border-bottom: 1px solid var(--border-dim); text-align: left; }
+.forecast-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-dim); color: var(--text-muted); vertical-align: middle; }
+.forecast-table tr:last-child td { border-bottom: none; }
+.forecast-table tr:hover td { background: var(--surface-2); }
+.wx-icon { display: inline-block; width: 18px; text-align: center; margin-right: 4px; }
+
+/* ── Tide chart ── */
+#tide-svg-wrap { background: var(--surface-2); border-radius: var(--radius); overflow: hidden; }
+
+/* ── Force comparison ── */
+.force-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.force-card {
+  background: var(--surface-2); border: 1px solid var(--border-dim); border-radius: var(--radius-md); overflow: hidden;
+}
+.force-header {
+  padding: 12px 16px; font-family: var(--font-display); font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid var(--border-dim);
+}
+.force-header.pla  { color: #f87171; background: rgba(196,30,58,0.08); }
+.force-header.roc  { color: #60a5fa; background: rgba(59,130,246,0.08); }
+.force-header.us   { color: var(--green); background: rgba(34,197,94,0.08); }
+.force-body { padding: 14px 16px; }
+.force-row { margin-bottom: 10px; }
+.force-cat { font-family: var(--font-mono); font-size: 0.58rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.force-stat { display: flex; align-items: center; gap: 10px; }
+.force-num { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; min-width: 60px; }
+.force-num.red   { color: #f87171; }
+.force-num.blue  { color: #60a5fa; }
+.force-num.green { color: var(--green); }
+.force-bar-bg { flex: 1; height: 4px; background: var(--surface-3); border-radius: 2px; overflow: hidden; }
+.force-bar-fill { height: 100%; border-radius: 2px; }
+.force-bar-fill.red   { background: #f87171; }
+.force-bar-fill.blue  { background: #60a5fa; }
+.force-bar-fill.green { background: var(--green); }
+
+/* ── Situational status ── */
+.status-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.status-item {
+  background: var(--surface-2); border: 1px solid var(--border-dim);
+  border-radius: var(--radius); padding: 12px 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.status-item-label { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted); }
+.status-badge {
+  font-family: var(--font-mono); font-size: 0.58rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px;
+  white-space: nowrap;
+}
+.badge-elevated { background: rgba(245,158,11,0.15); color: var(--amber); }
+.badge-high     { background: rgba(248,113,113,0.15); color: #f87171; }
+.badge-critical { background: rgba(196,30,58,0.2);   color: #f87171; border: 1px solid rgba(248,113,113,0.3); }
+.badge-ongoing  { background: rgba(245,158,11,0.12); color: var(--amber); }
+.badge-active   { background: rgba(34,197,94,0.12);  color: var(--green); }
+.badge-guarded  { background: rgba(59,130,246,0.12); color: #93c5fd; }
+.badge-strained { background: rgba(248,113,113,0.12);color: #f87171; }
+
+/* ── Activity feed ── */
+.activity-list { display: flex; flex-direction: column; gap: 2px; max-height: 520px; overflow-y: auto; }
+.activity-item {
+  display: block; padding: 10px 14px; text-decoration: none;
+  border-radius: var(--radius); transition: var(--transition);
+  border: 1px solid transparent;
+}
+.activity-item:hover { background: var(--surface-2); border-color: var(--border-dim); }
+.activity-title { font-family: var(--font-body); font-size: 0.75rem; color: var(--text); line-height: 1.45; margin-bottom: 4px; }
+.activity-meta { font-family: var(--font-mono); font-size: 0.58rem; color: var(--text-faint); display: flex; gap: 8px; align-items: center; }
+.activity-cat { padding: 1px 5px; border-radius: 2px; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.cat-military  { background: rgba(248,113,113,0.12); color: #f87171; }
+.cat-diplomatic{ background: rgba(59,130,246,0.12);  color: #60a5fa; }
+.cat-economic  { background: rgba(245,158,11,0.12);  color: var(--amber); }
+.cat-analysis  { background: rgba(214,188,250,0.12); color: #c4b5fd; }
+
+/* ── Window cards ── */
+.window-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.window-card {
+  background: var(--surface-2); border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md); padding: 16px; text-decoration: none;
+  transition: var(--transition); display: block;
+}
+.window-card:hover { background: var(--surface-3); border-color: var(--border); }
+.window-card.nearest { border-color: rgba(245,158,11,0.4); }
+.window-month {
+  font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); margin-bottom: 4px;
+}
+.window-sub { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-faint); margin-bottom: 10px; }
+.window-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.window-days { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted); }
+.window-prob { font-family: var(--font-display); font-size: 1rem; font-weight: 700; }
+.window-prob.elevated { color: var(--amber); }
+.window-prob.moderate { color: #60a5fa; }
+.prob-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--text-faint); font-weight: 400; }
+
+/* ── Assessment cards ── */
+.assessment-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.assessment-card {
+  background: var(--surface); border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md); overflow: hidden;
+}
+.assessment-header {
+  padding: 12px 16px; display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--border-dim);
+}
+.assessment-icon { width: 26px; height: 26px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.assessment-title { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.assessment-body { padding: 14px 16px; }
+.assessment-item {
+  display: flex; align-items: flex-start; gap: 8px; padding: 6px 0;
+  border-bottom: 1px solid var(--border-dim); font-size: 0.72rem; line-height: 1.4;
+}
+.assessment-item:last-child { border-bottom: none; }
+.assessment-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 5px; }
+.assessment-dot.amber  { background: var(--amber); }
+.assessment-dot.blue   { background: #60a5fa; }
+.assessment-dot.green  { background: var(--green); }
+.assessment-dot.purple { background: #c4b5fd; }
+
+/* ── Cross-reference links ── */
+.crossref-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.crossref-link {
+  background: var(--surface-2); border: 1px solid var(--border-dim); border-radius: var(--radius-md);
+  padding: 14px 16px; text-decoration: none; transition: var(--transition); display: flex; gap: 12px; align-items: flex-start;
+}
+.crossref-link:hover { background: var(--surface-3); border-color: var(--border); }
+.crossref-flag { font-size: 1.5rem; line-height: 1; }
+.crossref-info {}
+.crossref-title { font-family: var(--font-display); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); margin-bottom: 2px; }
+.crossref-sub { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-faint); }
+
+/* ── Sidebar ── */
+.sidebar-sticky { position: sticky; top: 68px; }
+.sidebar-inner { display: flex; flex-direction: column; gap: 14px; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .main-grid { grid-template-columns: 1fr; }
+  .sidebar-sticky { position: static; }
+  .force-grid { grid-template-columns: repeat(3, 1fr); }
+  .metrics-bar { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 700px) {
+  .force-grid { grid-template-columns: 1fr; }
+  .assessment-grid, .window-grid, .crossref-grid { grid-template-columns: 1fr; }
+  .conditions-grid { grid-template-columns: repeat(2, 1fr); }
+  .status-grid { grid-template-columns: 1fr; }
+  .metrics-bar { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Leaflet custom ── */
+.leaflet-container { background: #0a0d12 !important; }
+.leaflet-popup-content-wrapper {
+  background: rgba(18,21,28,0.97) !important; border: 1px solid rgba(255,255,255,0.15) !important;
+  border-radius: 6px !important; box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
+  color: #e8eaf0 !important; font-family: 'Inter', sans-serif !important;
+}
+.leaflet-popup-tip { background: rgba(18,21,28,0.97) !important; }
+.leaflet-popup-content { margin: 10px 14px !important; font-size: 0.72rem !important; line-height: 1.5 !important; }
+.pop-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+.pop-cat { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; color: rgba(232,234,240,0.5); }
+.pop-detail { margin-top: 6px; font-size: 0.68rem; color: rgba(232,234,240,0.7); }
+.leaflet-control-zoom a { background: rgba(18,21,28,0.95) !important; color: #e8eaf0 !important; border-color: rgba(255,255,255,0.15) !important; }
+.leaflet-control-attribution { background: rgba(10,12,16,0.7) !important; color: rgba(232,234,240,0.3) !important; font-size: 0.55rem !important; }
+</style>
+</head>
+<body>
+
+<!-- ── Top navigation ── -->
+<nav class="topbar">
+  <a href="../index.html" class="topbar-logo">CONFLICT<span>MAPPER</span></a>
+  <div class="topbar-sep"></div>
+  <span class="topbar-crumb">ASIA-PACIFIC / TAIWAN STRAIT</span>
+  <div class="topbar-links">
+    <a href="../index.html" class="topbar-link">← Home</a>
+    <a href="china-dossier.html" class="topbar-link">🇨🇳 China</a>
+    <a href="taiwan-dossier.html" class="topbar-link">🇹🇼 Taiwan</a>
+    <a href="../theaters/asia-pacific-theater.html" class="topbar-link">Asia-Pacific</a>
+    <a href="usa-dossier.html" class="topbar-link">🇺🇸 USA</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO BANNER
+  ═══════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <div>
+          <div class="hero-eyebrow">
+            Asia-Pacific Theater &mdash; Strategic Watch File
+          </div>
+          <h1 class="hero-title">
+            <span class="flags">🇨🇳 🇹🇼</span> China / Taiwan<br>Strait Watch
+          </h1>
+          <div class="hero-badges">
+            <span class="threat-badge elevated"><span class="threat-dot"></span> Tension Level: Elevated</span>
+            <span class="threat-badge high"><span class="threat-dot"></span> PLA Activity: High</span>
+            <span class="threat-badge guarded"><span class="threat-dot"></span> Taiwan Alert: Guarded</span>
+            <span class="threat-badge active"><span class="threat-dot"></span> US Naval: Active</span>
+          </div>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-faint);text-align:right;line-height:2">
+          <div>LAST UPDATED: <span style="color:var(--text-muted)" id="hero-ts">--</span></div>
+          <div>SOURCE: OSINT / OPEN-SOURCE FEEDS</div>
+          <div>CLASSIFICATION: UNCLASSIFIED</div>
+          <div>FILE: TW-WATCH-2026</div>
+        </div>
+      </div>
+
+      <div class="metrics-bar">
+        <div class="metric-cell">
+          <div class="metric-label">PLA Sorties (30d)</div>
+          <div class="metric-value red">47</div>
+          <div class="metric-sub">aircraft into ADIZ</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-label">ADIZ Incursions (30d)</div>
+          <div class="metric-value amber">23</div>
+          <div class="metric-sub">median line crossings</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-label">PLAN Vessels Active</div>
+          <div class="metric-value blue">14</div>
+          <div class="metric-sub">tracked in strait region</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-label">Alert Events (24h)</div>
+          <div class="metric-value amber">3</div>
+          <div class="metric-sub">ROCAF scrambles today</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MAIN CONTENT GRID
+  ═══════════════════════════════════════════════════════ -->
+  <div class="main-grid">
+
+    <!-- ── Left column ── -->
+    <div class="main-col-left">
+
+      <!-- 1. OPERATIONAL MAP -->
+      <div class="section-title">Operational Map</div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon" style="background:rgba(59,130,246,0.12)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            </div>
+            Taiwan Strait — Real-Time Theater
+          </div>
+          <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-faint)">Leaflet OSM · Interactive</span>
+        </div>
+        <div id="strait-map"></div>
+      </div>
+
+      <!-- 2. WEATHER MAP -->
+      <div class="section-title">Weather &amp; Sea State</div>
+      <div class="conditions-grid">
+        <div class="condition-cell">
+          <div class="cond-label">Wind Speed</div>
+          <div class="cond-value">18 kt</div>
+          <div class="cond-sub">NE, Beaufort 4</div>
+        </div>
+        <div class="condition-cell">
+          <div class="cond-label">Wave Height</div>
+          <div class="cond-value">1.8 m</div>
+          <div class="cond-sub">Moderate swell</div>
+        </div>
+        <div class="condition-cell">
+          <div class="cond-label">Visibility</div>
+          <div class="cond-value">12 km</div>
+          <div class="cond-sub">Partly cloudy</div>
+        </div>
+        <div class="condition-cell">
+          <div class="cond-label">Sea State</div>
+          <div class="cond-value amber">Rough</div>
+          <div class="cond-sub">Beaufort 4–5</div>
+        </div>
+      </div>
+
+      <div class="weather-iframe-wrap">
+        <iframe
+          src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=6&overlay=wind&product=ecmwf&level=surface&lat=24&lon=121&detailLat=24&detailLon=121&marker=true"
+          width="100%" height="400" frameborder="0"
+          title="Taiwan Strait Wind Map (Windy.com)"
+          loading="lazy"
+        ></iframe>
+      </div>
+
+      <!-- 7-Day Forecast -->
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header">
+          <div class="card-title">7-Day Forecast — Taiwan Strait</div>
+          <span style="font-family:var(--font-mono);font-size:0.58rem;color:var(--text-faint)">ECMWF model</span>
+        </div>
+        <div class="card-body" style="padding:0">
+          <table class="forecast-table">
+            <thead>
+              <tr>
+                <th>Day</th><th>Condition</th><th>Wind</th><th>Wave Ht</th><th>Vis</th><th>Sea State</th>
+              </tr>
+            </thead>
+            <tbody id="forecast-tbody">
+              <!-- Generated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3. TIDE CHARTS -->
+      <div class="section-title">Tide Charts &amp; Landing Windows</div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon" style="background:rgba(59,130,246,0.12)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M2 12h20M2 18h20M8 6h8M5 9h14"/></svg>
+            </div>
+            Spring/Neap Tide Cycle — March/April 2026
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span id="moon-phase-badge" style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-muted)"></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div id="tide-svg-wrap"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+            <div>
+              <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-faint);text-transform:uppercase;margin-bottom:6px">Taoyuan Beach (Primary LZ)</div>
+              <div id="taoyuan-windows"></div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-faint);text-transform:uppercase;margin-bottom:6px">Hsinchu Beach</div>
+              <div id="hsinchu-windows"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. FORCE COMPARISON -->
+      <div class="section-title">Force Comparison</div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header">
+          <div class="card-title">Order of Battle — Taiwan Strait Scenario</div>
+          <span style="font-family:var(--font-mono);font-size:0.58rem;color:var(--text-faint)">OSINT estimates · unclassified</span>
+        </div>
+        <div class="card-body">
+          <div class="force-grid">
+            <!-- PLA -->
+            <div class="force-card">
+              <div class="force-header pla">🇨🇳 PLA Forces</div>
+              <div class="force-body">
+                <div class="force-row">
+                  <div class="force-cat">Ground / Amphibious</div>
+                  <div class="force-stat">
+                    <span class="force-num red">400K+</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill red" style="width:95%"></div></div>
+                  </div>
+                </div>
+                <div class="force-row">
+                  <div class="force-cat">Naval (PLAN vessels)</div>
+                  <div class="force-stat">
+                    <span class="force-num red">355</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill red" style="width:90%"></div></div>
+                  </div>
+                </div>
+                <div class="force-row">
+                  <div class="force-cat">Combat Aircraft (PLAAF)</div>
+                  <div class="force-stat">
+                    <span class="force-num red">1,900</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill red" style="width:88%"></div></div>
+                  </div>
+                </div>
+                <div class="force-row">
+                  <div class="force-cat">Ballistic Missiles (PLA Rocket)</div>
+                  <div class="force-stat">
+                    <span class="force-num red">1,250+</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill red" style="width:100%"></div></div>
+                  </div>
+                </div>
+                <div class="force-row">
+                  <div class="force-cat">Amphibious Lift (division equiv)</div>
+                  <div class="force-stat">
+                    <span class="force-num red">~2</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill red" style="width:40%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ROC Taiwan -->
+            <div class="force-card">
+              <div class="force-header roc">🇹🇼 ROC Taiwan</div>
+              <div class="force-body">
+                <div class="force-row">
+                  <div class="force-cat">Active Military</div>
+                  <div class="force-stat">
+                    <span class="force-num blue">169K</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill blue" style="width:38%"></div></div>
+                  </div>
+                </div>
+                <div class="force-row">
+                  <div class="force-cat">Reserve + Territorial</div>
+                  <div class="force-stat">
+                    <span class="force-num blue">2.3M</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill blue" style="width:60%"></div></div>
+                  </div>
+                </div>
+                <div class="force-row">
+                  <div class="force-cat">Combat Aircraft (ROCAF)</div>
+                  <div class="force-stat">
+                    <span class="force-num blue">288</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill blue" style="width:32%"></div></div>
+                  </div>
+                </div>
+                <div class="force-row">
+                  <div class="force-cat">Patriot PAC-3 Batteries</div>
+                  <div class="force-stat">
+                    <span class="force-num blue">7</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill blue" style="width:25%"></div></div>
+                  </div>
+                </div>
+                <div class="force-row">
+                  <div class="force-cat">Anti-Ship Missiles (Hsiung Feng)</div>
+                  <div class="force-stat">
+                    <span class="force-num blue">400+</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill blue" style="width:55%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- US/Allied -->
+            <div class="force-card">
+              <div class="force-header us">🇺🇸 US / Allied</div>
+              <div class="force-body">
+                <div class="force-row">
+                  <div class="force-cat">CSG (72h response)</div>
+                  <div class="force-stat">
+                    <span class="force-num green">2</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill green" style="width:50%"></div></div>
+                  </div>
+                </div>
+                <div class="force-row">
+                  <div class="force-cat">F-35 / F-22 (Kadena, Guam)</div>
+                  <div class="force-stat">
+                    <span class="force-num green">120+</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill green" style="width:50%"></div></div>
+                  </div>
+                </div>
+                <div class="force-row">
+                  <div class="force-cat">Attack Submarines (Pacific)</div>
+                  <div class="force-stat">
+                    <span class="force-num green">18</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill green" style="width:60%"></div></div>
+                  </div>
+                </div>
+                <div class="force-row">
+                  <div class="force-cat">JMSDF Destroyers (Japan)</div>
+                  <div class="force-stat">
+                    <span class="force-num green">38</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill green" style="width:45%"></div></div>
+                  </div>
+                </div>
+                <div class="force-row">
+                  <div class="force-cat">THAAD / SM-3 Batteries</div>
+                  <div class="force-stat">
+                    <span class="force-num green">4</span>
+                    <div class="force-bar-bg"><div class="force-bar-fill green" style="width:30%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. STRATEGIC ASSESSMENT -->
+      <div class="section-title">Strategic Assessment</div>
+      <div class="assessment-grid" style="margin-bottom:16px">
+        <div class="assessment-card">
+          <div class="assessment-header">
+            <div class="assessment-icon" style="background:rgba(248,113,113,0.12)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="assessment-title" style="color:#f87171">Military Activity</div>
+          </div>
+          <div class="assessment-body">
+            <div class="assessment-item"><div class="assessment-dot"></div><div>PLA Eastern Theater Command conducting large-scale joint exercises near Fujian province with combined arms elements.</div></div>
+            <div class="assessment-item"><div class="assessment-dot"></div><div>H-6K strategic bombers performed simulated strikes on "island" targets during recent exercises; Y-20 aerial refueling observed.</div></div>
+            <div class="assessment-item"><div class="assessment-dot amber"></div><div>PLAN Type 055 destroyer <em>Nanchang</em> and two Type 052D escorts tracked in Philippine Sea conducting carrier battle group exercises.</div></div>
+            <div class="assessment-item"><div class="assessment-dot"></div><div>DF-21D and DF-26 anti-ship ballistic missile units elevated readiness posture following US arms sale to Taiwan ($75M radar package).</div></div>
+          </div>
+        </div>
+
+        <div class="assessment-card">
+          <div class="assessment-header">
+            <div class="assessment-icon" style="background:rgba(59,130,246,0.12)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="assessment-title" style="color:#60a5fa">Taiwan Defense</div>
+          </div>
+          <div class="assessment-body">
+            <div class="assessment-item"><div class="assessment-dot blue"></div><div>ROCAF F-16V Block 70 upgrades accelerating; 64 aircraft in updated configuration now operational at Hualien and Tainan.</div></div>
+            <div class="assessment-item"><div class="assessment-dot blue"></div><div>Asymmetric defense posture: acquisition of 100 additional Harpoon coastal defense batteries confirmed in FY2026 budget.</div></div>
+            <div class="assessment-item"><div class="assessment-dot amber"></div><div>Extended conscription from 4 months to 1 year now in effect; first cohorts completing training as of Q1 2026.</div></div>
+            <div class="assessment-item"><div class="assessment-dot blue"></div><div>Mobile Patriot PAC-3 MSE batteries redeployed to western coastal approach corridors following PLA exercise pattern.</div></div>
+          </div>
+        </div>
+
+        <div class="assessment-card">
+          <div class="assessment-header">
+            <div class="assessment-icon" style="background:rgba(34,197,94,0.12)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="assessment-title" style="color:#22c55e">US / Allied Posture</div>
+          </div>
+          <div class="assessment-body">
+            <div class="assessment-item"><div class="assessment-dot green"></div><div>USS Carl Vinson (CVN-70) CSG operating in Philippine Sea; F-35C sorties over South China Sea increased 30% vs Q4 2025.</div></div>
+            <div class="assessment-item"><div class="assessment-dot green"></div><div>Japan rearmament: JSDF acquiring Tomahawk cruise missiles and standoff strike capacity; defense spending reaches 2% GDP in FY2026.</div></div>
+            <div class="assessment-item"><div class="assessment-dot amber"></div><div>AUKUS Pillar II: Virginia-class SSN transit through Australian waters completed; submarine squadron home-porting discussions accelerating.</div></div>
+            <div class="assessment-item"><div class="assessment-dot green"></div><div>Bilateral US-Taiwan military exercises now conducted semi-annually at undisclosed Pacific locations; National Guard exchange program expanded.</div></div>
+          </div>
+        </div>
+
+        <div class="assessment-card">
+          <div class="assessment-header">
+            <div class="assessment-icon" style="background:rgba(214,188,250,0.12)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="assessment-title" style="color:#c4b5fd">Diplomatic / Economic</div>
+          </div>
+          <div class="assessment-body">
+            <div class="assessment-item"><div class="assessment-dot purple"></div><div>PRC-US high-level diplomatic contacts remain limited; last senior bilateral meeting was November 2025 at APEC margins.</div></div>
+            <div class="assessment-item"><div class="assessment-dot purple"></div><div>PRC continues economic coercion campaign against Taiwan: pineapple and fisheries import bans extended; semiconductor rivalry intensifying.</div></div>
+            <div class="assessment-item"><div class="assessment-dot amber"></div><div>Taiwan election outcome (January 2026): pro-sovereignty government returned; Beijing condemned result as "provocative." Cross-strait hotline suspended.</div></div>
+            <div class="assessment-item"><div class="assessment-dot purple"></div><div>TSMC geopolitical significance rising: US, Japan, and EU fab buildouts accelerate; Taiwan's leverage tied directly to semiconductor supply chain.</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.main-col-left -->
+
+    <!-- ── Right sidebar ── -->
+    <div class="main-col-right">
+      <div class="sidebar-sticky">
+        <div class="sidebar-inner">
+
+          <!-- SITUATIONAL STATUS -->
+          <div class="section-title">Situational Status</div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Current Threat Picture</div>
+              <span id="status-ts" style="font-family:var(--font-mono);font-size:0.58rem;color:var(--text-faint)">Live</span>
+            </div>
+            <div class="card-body">
+              <div class="status-grid">
+                <div class="status-item">
+                  <span class="status-item-label">PLA Exercise Activity</span>
+                  <span class="status-badge badge-elevated">Elevated</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-item-label">ADIZ Violations</span>
+                  <span class="status-badge badge-ongoing">Ongoing</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-item-label">US Naval Presence</span>
+                  <span class="status-badge badge-active">Active</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-item-label">Diplomatic Channels</span>
+                  <span class="status-badge badge-strained">Strained</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-item-label">Taiwan Alert Level</span>
+                  <span class="status-badge badge-guarded">Guarded</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-item-label">Allied Coordination</span>
+                  <span class="status-badge badge-active">Active</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-item-label">Cyber Activity</span>
+                  <span class="status-badge badge-elevated">Elevated</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-item-label">Economic Coercion</span>
+                  <span class="status-badge badge-ongoing">Ongoing</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- INVASION WINDOW NAVIGATOR -->
+          <div class="section-title">Invasion Window Navigator</div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="card-icon" style="background:rgba(245,158,11,0.12)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                Optimal Windows Analysis
+              </div>
+            </div>
+            <div class="card-body" style="padding:12px">
+              <div class="window-grid">
+                <a href="taiwan-window-apr-2026.html" class="window-card nearest">
+                  <div class="window-month">April 2026</div>
+                  <div class="window-sub">Spring window · High tide mornings</div>
+                  <div class="window-meta">
+                    <span class="window-days" id="days-apr-2026"></span>
+                    <div>
+                      <div class="window-prob elevated">8.2%<span class="prob-label"> prob.</span></div>
+                    </div>
+                  </div>
+                  <span class="threat-badge elevated" style="margin-top:8px;font-size:0.55rem">Nearest</span>
+                </a>
+                <a href="taiwan-window-oct-2026.html" class="window-card">
+                  <div class="window-month">Oct 2026</div>
+                  <div class="window-sub">Autumn window · NE monsoon onset</div>
+                  <div class="window-meta">
+                    <span class="window-days" id="days-oct-2026"></span>
+                    <div>
+                      <div class="window-prob moderate">5.1%<span class="prob-label"> prob.</span></div>
+                    </div>
+                  </div>
+                </a>
+                <a href="taiwan-window-apr-2027.html" class="window-card">
+                  <div class="window-month">April 2027</div>
+                  <div class="window-sub">Spring window · PLA modernization complete</div>
+                  <div class="window-meta">
+                    <span class="window-days" id="days-apr-2027"></span>
+                    <div>
+                      <div class="window-prob elevated">11.4%<span class="prob-label"> prob.</span></div>
+                    </div>
+                  </div>
+                </a>
+                <a href="taiwan-window-oct-2027.html" class="window-card">
+                  <div class="window-month">Oct 2027</div>
+                  <div class="window-sub">Autumn window · Xi Jinping deadline</div>
+                  <div class="window-meta">
+                    <span class="window-days" id="days-oct-2027"></span>
+                    <div>
+                      <div class="window-prob elevated">14.7%<span class="prob-label"> prob.</span></div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ACTIVITY FEED -->
+          <div class="section-title">Intelligence Feed</div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Latest Reporting</div>
+              <button onclick="refreshFeed()" style="background:none;border:none;color:var(--text-faint);cursor:pointer;padding:4px" title="Refresh feed">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              </button>
+            </div>
+            <div class="card-body" style="padding:8px">
+              <div id="activity-feed" class="activity-list">
+                <div style="padding:20px;text-align:center;font-family:var(--font-mono);font-size:0.65rem;color:var(--text-faint)">Loading feed...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CROSS-REFERENCE -->
+          <div class="section-title">Cross-Reference</div>
+          <div class="crossref-grid">
+            <a href="china-dossier.html" class="crossref-link">
+              <span class="crossref-flag">🇨🇳</span>
+              <div class="crossref-info">
+                <div class="crossref-title">China Dossier</div>
+                <div class="crossref-sub">PLA order of battle, leadership, economy</div>
+              </div>
+            </a>
+            <a href="taiwan-dossier.html" class="crossref-link">
+              <span class="crossref-flag">🇹🇼</span>
+              <div class="crossref-info">
+                <div class="crossref-title">Taiwan Dossier</div>
+                <div class="crossref-sub">ROC defense, politics, TSMC</div>
+              </div>
+            </a>
+            <a href="../theaters/asia-pacific-theater.html" class="crossref-link">
+              <span class="crossref-flag">🌏</span>
+              <div class="crossref-info">
+                <div class="crossref-title">Asia-Pacific Theater</div>
+                <div class="crossref-sub">Theater-B02 · full regional analysis</div>
+              </div>
+            </a>
+            <a href="usa-dossier.html" class="crossref-link">
+              <span class="crossref-flag">🇺🇸</span>
+              <div class="crossref-info">
+                <div class="crossref-title">USA Dossier</div>
+                <div class="crossref-sub">INDOPACOM posture, Taiwan Relations Act</div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /.main-col-right -->
+
+  </div><!-- /.main-grid -->
+
+</div><!-- /.page -->
+
+<!-- ══════════════════════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════════════════════ -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+'use strict';
+
+/* ── Timestamp ── */
+document.getElementById('hero-ts').textContent = new Date().toLocaleString('en-US', {
+  month: 'short', day: 'numeric', year: 'numeric',
+  hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+});
+document.getElementById('status-ts').textContent = new Date().toLocaleTimeString('en-US', {
+  hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+});
+
+/* ── Days until windows ── */
+function daysUntil(dateStr) {
+  const target = new Date(dateStr);
+  const now = new Date();
+  const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+  return diff > 0 ? diff + 'd away' : 'ACTIVE';
+}
+const wdays = {
+  'days-apr-2026': '2026-04-01',
+  'days-oct-2026': '2026-10-01',
+  'days-apr-2027': '2027-04-01',
+  'days-oct-2027': '2027-10-01'
+};
+Object.entries(wdays).forEach(([id, date]) => {
+  const el = document.getElementById(id);
+  if (el) el.textContent = daysUntil(date);
+});
+
+/* ── 7-Day forecast (generated) ── */
+const FORECAST_DATA = [
+  { day: 'Mon', cond: '⛅ Partly Cloudy', wind: '18 kt NE', wave: '1.8 m', vis: '12 km', sea: 'Moderate' },
+  { day: 'Tue', cond: '🌧️ Rain Showers',  wind: '22 kt NE', wave: '2.4 m', vis: '6 km',  sea: 'Rough' },
+  { day: 'Wed', cond: '⛈️ Thunderstorms', wind: '28 kt NE', wave: '3.1 m', vis: '3 km',  sea: 'Very Rough' },
+  { day: 'Thu', cond: '🌥️ Overcast',       wind: '20 kt N',  wave: '2.2 m', vis: '8 km',  sea: 'Rough' },
+  { day: 'Fri', cond: '🌤️ Mostly Clear',   wind: '14 kt N',  wave: '1.4 m', vis: '18 km', sea: 'Moderate' },
+  { day: 'Sat', cond: '☀️ Clear',           wind: '10 kt NW', wave: '0.9 m', vis: '25 km', sea: 'Slight' },
+  { day: 'Sun', cond: '🌤️ Mostly Clear',   wind: '12 kt W',  wave: '1.1 m', vis: '20 km', sea: 'Slight' }
+];
+const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const today = new Date();
+const tbody = document.getElementById('forecast-tbody');
+if (tbody) {
+  tbody.innerHTML = FORECAST_DATA.map((row, i) => {
+    const d = new Date(today); d.setDate(d.getDate() + i);
+    const dayName = i === 0 ? 'Today' : days[d.getDay()];
+    return `<tr>
+      <td style="color:var(--text)">${dayName}</td>
+      <td>${row.cond}</td>
+      <td>${row.wind}</td>
+      <td>${row.wave}</td>
+      <td>${row.vis}</td>
+      <td style="color:${['Very Rough','Rough'].includes(row.sea)?'#f87171':row.sea==='Moderate'?'#fbbf24':'#4ade80'}">${row.sea}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ── Moon phase ── */
+function getMoonPhase(date) {
+  const known = new Date('2000-01-06'); // New moon
+  const diff = (date - known) / (1000*60*60*24);
+  const cycle = diff % 29.53;
+  if (cycle < 1.85) return { emoji: '🌑', name: 'New Moon' };
+  if (cycle < 7.38) return { emoji: '🌒', name: 'Waxing Crescent' };
+  if (cycle < 9.22) return { emoji: '🌓', name: 'First Quarter' };
+  if (cycle < 14.77) return { emoji: '🌔', name: 'Waxing Gibbous' };
+  if (cycle < 16.61) return { emoji: '🌕', name: 'Full Moon' };
+  if (cycle < 22.14) return { emoji: '🌖', name: 'Waning Gibbous' };
+  if (cycle < 23.99) return { emoji: '🌗', name: 'Last Quarter' };
+  return { emoji: '🌘', name: 'Waning Crescent' };
+}
+const moon = getMoonPhase(new Date());
+const moonBadge = document.getElementById('moon-phase-badge');
+if (moonBadge) moonBadge.textContent = `${moon.emoji} ${moon.name}`;
+
+/* ── Tide SVG ── */
+function buildTideSVG() {
+  const w = 800, h = 160, pad = 40;
+  const days = 30;
+  const pts = [];
+  for (let i = 0; i <= days * 4; i++) {
+    const t = i / (days * 4);
+    // Spring-neap cycle ~14.77 days, plus diurnal
+    const spring = Math.sin(t * Math.PI * 2 * (days / 14.77));
+    const diurnal = Math.sin(t * Math.PI * 2 * days * 2);
+    const semi = Math.sin(t * Math.PI * 2 * days * 2.05);
+    const tide = 0.5 + 0.3 * spring + 0.15 * diurnal + 0.12 * semi;
+    const x = pad + (t * (w - pad * 2));
+    const y = h - pad - (tide * (h - pad * 2));
+    pts.push(`${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`);
+  }
+  // Landing windows (high tide, near spring, gradual beach)
+  const windows = [];
+  for (let i = 0; i <= days * 4; i++) {
+    const t = i / (days * 4);
+    const spring = Math.sin(t * Math.PI * 2 * (days / 14.77));
+    const diurnal = Math.sin(t * Math.PI * 2 * days * 2);
+    const semi = Math.sin(t * Math.PI * 2 * days * 2.05);
+    const tide = 0.5 + 0.3 * spring + 0.15 * diurnal + 0.12 * semi;
+    if (tide > 0.82 && spring > 0.5) {
+      const x = pad + (t * (w - pad * 2));
+      windows.push(x);
+    }
+  }
+  // Group consecutive windows
+  let wGroups = []; let grp = null;
+  windows.forEach(x => {
+    if (!grp || x - grp.end > 10) { grp = {start:x, end:x}; wGroups.push(grp); }
+    else { grp.end = x; }
+  });
+  const winRects = wGroups.map(g => `<rect x="${g.start.toFixed(1)}" y="${pad}" width="${Math.max(4, (g.end-g.start).toFixed(1))}" height="${h - pad * 2}" fill="rgba(245,158,11,0.18)" rx="2"/>`).join('');
+
+  // X-axis labels
+  const labels = [];
+  for (let d = 0; d <= days; d += 5) {
+    const x = pad + (d / days) * (w - pad * 2);
+    const date = new Date(); date.setDate(date.getDate() + d);
+    labels.push(`<text x="${x.toFixed(1)}" y="${h - 6}" fill="rgba(232,234,240,0.25)" font-family="Share Tech Mono,monospace" font-size="9" text-anchor="middle">${date.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</text>`);
+  }
+  // Y-axis labels
+  const yLabels = [
+    `<text x="${pad - 6}" y="${h - pad}" fill="rgba(232,234,240,0.3)" font-family="Share Tech Mono,monospace" font-size="9" text-anchor="end">0m</text>`,
+    `<text x="${pad - 6}" y="${pad + (h - pad*2)*0.5}" fill="rgba(232,234,240,0.3)" font-family="Share Tech Mono,monospace" font-size="9" text-anchor="end">2m</text>`,
+    `<text x="${pad - 6}" y="${pad}" fill="rgba(232,234,240,0.3)" font-family="Share Tech Mono,monospace" font-size="9" text-anchor="end">4m</text>`
+  ].join('');
+
+  return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+    <rect width="${w}" height="${h}" fill="#0d1117"/>
+    <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${h-pad}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <line x1="${pad}" y1="${h-pad}" x2="${w-pad}" y2="${h-pad}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    ${yLabels}
+    ${labels.join('')}
+    ${winRects}
+    <path d="${pts.join(' ')}" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+    <text x="${w-pad-4}" y="${pad+12}" fill="rgba(245,158,11,0.7)" font-family="Share Tech Mono,monospace" font-size="9" text-anchor="end">▪ Optimal landing windows</text>
+  </svg>`;
+}
+
+const tideSvgWrap = document.getElementById('tide-svg-wrap');
+if (tideSvgWrap) tideSvgWrap.innerHTML = buildTideSVG();
+
+/* ── Landing window badges ── */
+function renderWindowBadges(containerId, beachName) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  // Simple upcoming window calculation
+  const now = new Date();
+  const upcoming = [];
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(now); d.setDate(now.getDate() + i);
+    const t = i / 29.53;
+    const spring = Math.sin(t * Math.PI * 4);
+    const diurnal = Math.sin(t * Math.PI * 4 * 2);
+    const tide = 0.5 + 0.3 * spring + 0.2 * diurnal;
+    if (tide > 0.75) {
+      upcoming.push(d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+    }
+  }
+  el.innerHTML = upcoming.slice(0, 4).map(d =>
+    `<span style="display:inline-block;font-family:var(--font-mono);font-size:0.58rem;background:rgba(245,158,11,0.12);color:var(--amber);border:1px solid rgba(245,158,11,0.2);padding:2px 8px;border-radius:3px;margin:2px 2px 2px 0">${d}</span>`
+  ).join('') || '<span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-faint)">No optimal windows in 14d</span>';
+}
+renderWindowBadges('taoyuan-windows', 'Taoyuan');
+renderWindowBadges('hsinchu-windows', 'Hsinchu');
+
+/* ══════════════════════════════════════════════════════════
+   LEAFLET MAP
+══════════════════════════════════════════════════════════ */
+const map = L.map('strait-map', {
+  center: [24.0, 120.5],
+  zoom: 7,
+  zoomControl: true,
+  attributionControl: true
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap contributors, © CARTO',
+  subdomains: 'abcd',
+  maxZoom: 18
+}).addTo(map);
+
+/* ── Custom marker creators ── */
+function redCircleIcon(radius) {
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:${radius*2}px;height:${radius*2}px;border-radius:50%;background:rgba(196,30,58,0.5);border:1.5px solid #f87171;box-shadow:0 0 6px rgba(248,113,113,0.5)"></div>`,
+    iconSize: [radius*2, radius*2], iconAnchor: [radius, radius]
+  });
+}
+function blueTriIcon() {
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #60a5fa;filter:drop-shadow(0 0 4px rgba(96,165,250,0.6))"></div>`,
+    iconSize: [14, 12], iconAnchor: [7, 12]
+  });
+}
+function greenDiamondIcon() {
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:11px;height:11px;transform:rotate(45deg);background:rgba(34,197,94,0.5);border:1.5px solid #22c55e;box-shadow:0 0 4px rgba(34,197,94,0.4)"></div>`,
+    iconSize: [11, 11], iconAnchor: [5, 5]
+  });
+}
+function orangeTriIcon() {
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid #f97316;filter:drop-shadow(0 0 3px rgba(249,115,22,0.5))"></div>`,
+    iconSize: [12, 10], iconAnchor: [6, 10]
+  });
+}
+
+function popup(title, cat, detail, color) {
+  return `<div class="pop-title" style="color:${color}">${title}</div><div class="pop-cat">${cat}</div><div class="pop-detail">${detail}</div>`;
+}
+
+/* ── PLA Installations (red circles) ── */
+const plaInstallations = [
+  { latlng: [26.07, 119.30], name: 'Fuzhou Air Base', detail: 'J-20, Su-35 operations · Eastern Theater Air Force' },
+  { latlng: [25.67, 119.65], name: 'Longtian Air Base', detail: 'PLA Air Force · J-16 multirole fighters' },
+  { latlng: [23.35, 116.68], name: 'Shantou Naval Base', detail: 'PLAN South Sea Fleet · destroyer/frigate element' },
+  { latlng: [24.45, 118.08], name: 'Xiamen Naval Facility', detail: 'Fast attack craft · amphibious landing support' },
+  { latlng: [25.05, 118.80], name: 'Huian Missile Base', detail: 'DF-16 / DF-21D anti-ship ballistic missiles' },
+  { latlng: [29.87, 122.25], name: 'Ningbo/Zhoushan Naval', detail: 'PLAN East Sea Fleet HQ · carrier support' },
+  { latlng: [23.55, 116.50], name: 'Jieyang Chaoshan Air Base', detail: 'J-16, J-10C strike fighters' },
+  { latlng: [22.63, 108.17], name: 'Nanning Air Base', detail: 'H-6K strategic bombers · standoff strike' }
+];
+plaInstallations.forEach(inst => {
+  L.marker(inst.latlng, { icon: redCircleIcon(8) })
+    .bindPopup(popup(inst.name, 'PLA Military Installation', inst.detail, '#f87171'))
+    .addTo(map);
+});
+
+/* ── Taiwan defense (blue triangles) ── */
+const rocDefense = [
+  { latlng: [24.82, 120.94], name: 'Hsinchu Air Base', detail: 'F-16V Block 70, Mirage 2000 · Western intercept' },
+  { latlng: [24.26, 120.62], name: 'Taichung CCK Air Base', detail: 'F-CK-1 Ching-kuo IDF fighter · central Taiwan' },
+  { latlng: [22.95, 120.21], name: 'Tainan Air Base', detail: 'F-16V · primary southern intercept base' },
+  { latlng: [22.67, 120.27], name: 'Zuoying Naval Base', detail: 'ROC Navy HQ · destroyers, submarines' },
+  { latlng: [25.15, 121.74], name: 'Keelung Naval Base', detail: 'Northern fleet · mine warfare capability' },
+  { latlng: [24.02, 121.62], name: 'Hualien Air Base', detail: 'F-16V · hardened underground hangars, eastern coast' },
+  { latlng: [25.00, 121.20], name: 'Taoyuan Coastal Defense', detail: 'Beach defenses · Harpoon coastal batteries' },
+  { latlng: [24.15, 120.67], name: 'Patriot PAC-3 Battery', detail: 'Mobile Patriot PAC-3 MSE · central Taiwan air defense' }
+];
+rocDefense.forEach(pos => {
+  L.marker(pos.latlng, { icon: blueTriIcon() })
+    .bindPopup(popup(pos.name, 'ROC Taiwan Defense', pos.detail, '#60a5fa'))
+    .addTo(map);
+});
+
+/* ── US/Allied bases (green diamonds) ── */
+const alliedBases = [
+  { latlng: [26.35, 127.77], name: 'Kadena AB, Okinawa', detail: 'USAF · F-22 Raptors, F-15C/D, KC-135 · 1st response' },
+  { latlng: [13.58, 144.92], name: 'Andersen AFB, Guam', detail: 'USAF · B-52, B-1B, B-2 rotation · strategic range' },
+  { latlng: [35.28, 139.67], name: 'Yokosuka Naval Base', detail: 'US 7th Fleet HQ · USS Ronald Reagan CSG' },
+  { latlng: [33.16, 129.72], name: 'Sasebo Naval Base', detail: 'US amphibious ready group · USS America' },
+  { latlng: [36.96, 127.03], name: 'Camp Humphreys, S. Korea', detail: 'USFK HQ · Army · repositionable strike aircraft' }
+];
+alliedBases.forEach(base => {
+  L.marker(base.latlng, { icon: greenDiamondIcon() })
+    .bindPopup(popup(base.name, 'US / Allied Base', base.detail, '#22c55e'))
+    .addTo(map);
+});
+
+/* ── Landing beaches (orange triangles) ── */
+const landingBeaches = [
+  { latlng: [25.05, 121.15], name: 'Taoyuan Beach', detail: 'Primary LZ · Gradual gradient · 8km frontage' },
+  { latlng: [24.80, 120.85], name: 'Hsinchu Beach', detail: 'Secondary LZ · Exposed flats at low tide' },
+  { latlng: [24.35, 120.55], name: 'Taichung/Dajia Beach', detail: 'Central LZ · Tidal mudflats restrict timing window' },
+  { latlng: [22.60, 120.25], name: 'Kaohsiung Beach', detail: 'Southern LZ · Industrial port access · heavily defended' }
+];
+landingBeaches.forEach(beach => {
+  L.marker(beach.latlng, { icon: orangeTriIcon() })
+    .bindPopup(popup(beach.name, 'Potential Landing Zone', beach.detail, '#f97316'))
+    .addTo(map);
+});
+
+/* ── ADIZ Boundary (dashed yellow) ── */
+const adizCoords = [
+  [26.0, 121.0], [26.3, 122.5], [25.5, 124.0], [24.0, 124.5],
+  [22.5, 123.5], [21.0, 121.5], [20.5, 119.0], [21.5, 117.0],
+  [23.0, 116.0], [24.5, 116.5], [25.5, 118.0], [26.5, 119.5], [26.0, 121.0]
+];
+L.polygon(adizCoords, {
+  color: '#fbbf24', weight: 1.5, dashArray: '6 4',
+  fillColor: '#fbbf24', fillOpacity: 0.04
+}).bindPopup('<div class="pop-title" style="color:#fbbf24">Taiwan ADIZ</div><div class="pop-detail">Air Defense Identification Zone · All aircraft must identify to ROC ATC</div>').addTo(map);
+
+/* ── Strait median line (blue dashed) ── */
+const medianLine = [
+  [26.5, 120.6], [25.5, 120.5], [24.5, 120.3], [23.5, 120.1], [22.5, 120.0]
+];
+L.polyline(medianLine, {
+  color: '#60a5fa', weight: 1.5, dashArray: '8 5', opacity: 0.7
+}).bindPopup('<div class="pop-title" style="color:#60a5fa">Taiwan Strait Median Line</div><div class="pop-detail">Unofficial demarcation · PLA crossings have increased 400% since 2020</div>').addTo(map);
+
+/* ── First Island Chain (orange polyline) ── */
+const firstIslandChain = [
+  [34.0, 129.0], [31.5, 129.8], [28.0, 128.5], [26.35, 127.77],
+  [24.0, 124.0], [22.0, 121.5], [19.0, 121.0], [15.0, 120.0],
+  [12.0, 121.5], [9.0, 126.0]
+];
+L.polyline(firstIslandChain, {
+  color: '#f97316', weight: 2, dashArray: '5 3', opacity: 0.6
+}).bindPopup('<div class="pop-title" style="color:#f97316">First Island Chain</div><div class="pop-detail">Strategic barrier from Japan through Okinawa, Taiwan, Philippines · Key US strategic concept</div>').addTo(map);
+
+/* ── Maritime exclusion zone (red semi-transparent) ── */
+const exclusionZone = [
+  [26.0, 122.0], [26.0, 124.5], [23.5, 125.5], [21.5, 124.0], [21.5, 121.5], [24.0, 121.0], [26.0, 122.0]
+];
+L.polygon(exclusionZone, {
+  color: '#f87171', weight: 1.5, dashArray: '4 3',
+  fillColor: '#f87171', fillOpacity: 0.06
+}).bindPopup('<div class="pop-title" style="color:#f87171">PLA Exercise Exclusion Zone</div><div class="pop-detail">Maritime exclusion area used during August 2022 and subsequent exercises · Encircles Taiwan</div>').addTo(map);
+
+/* ── Custom legend ── */
+const legend = L.control({ position: 'bottomleft' });
+legend.onAdd = function() {
+  const div = L.DomUtil.create('div', 'map-legend');
+  div.innerHTML = `
+    <div class="legend-title">Legend</div>
+    <div class="legend-row"><div class="legend-dot" style="background:#f87171;box-shadow:0 0 4px rgba(248,113,113,0.5)"></div><span>PLA Installation</span></div>
+    <div class="legend-row"><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:9px solid #60a5fa;flex-shrink:0"></div><span>ROC Taiwan Defense</span></div>
+    <div class="legend-row"><div class="legend-diamond" style="background:#22c55e"></div><span>US / Allied Base</span></div>
+    <div class="legend-row"><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:9px solid #f97316;flex-shrink:0"></div><span>Landing Zone</span></div>
+    <div class="legend-row"><div style="width:12px;height:1px;border-top:2px dashed #fbbf24;flex-shrink:0"></div><span>ADIZ Boundary</span></div>
+    <div class="legend-row"><div style="width:12px;height:1px;border-top:2px dashed #60a5fa;flex-shrink:0"></div><span>Median Line</span></div>
+    <div class="legend-row"><div style="width:12px;height:1px;border-top:2px dashed #f97316;flex-shrink:0"></div><span>1st Island Chain</span></div>
+  `;
+  return div;
+};
+legend.addTo(map);
+
+/* ══════════════════════════════════════════════════════════
+   ACTIVITY FEED
+══════════════════════════════════════════════════════════ */
+function searchLink(title) {
+  return 'https://www.google.com/search?q=' + encodeURIComponent(title);
+}
+
+const PLACEHOLDER_ARTICLES = [
+  { title: 'PLA conducts joint strike exercises near Fujian, ROCAF scrambles 4 fighters', source: 'Reuters', pub: '1h ago', cat: 'military' },
+  { title: 'Taiwan approves additional Harpoon Block II purchase in FY2026 defense budget', source: 'Defense News', pub: '3h ago', cat: 'military' },
+  { title: 'US carrier group USS Carl Vinson transits Luzon Strait in show of resolve', source: 'Navy Times', pub: '5h ago', cat: 'military' },
+  { title: 'Beijing issues warning over US arms sale to Taiwan: "We oppose any form of military ties"', source: 'SCMP', pub: '7h ago', cat: 'diplomatic' },
+  { title: 'Japan JSDF successfully tests SM-6 interceptor against ballistic missile target over Pacific', source: 'Japan Times', pub: '9h ago', cat: 'military' },
+  { title: 'TSMC Arizona fab begins volume production of 3nm chips, reducing Taiwan dependency', source: 'Financial Times', pub: '12h ago', cat: 'economic' },
+  { title: 'China imposes fresh trade restrictions on Taiwanese agricultural imports ahead of talks', source: 'Reuters', pub: '14h ago', cat: 'economic' },
+  { title: 'Australia, Japan, US sign new trilateral intelligence-sharing framework for Indo-Pacific', source: 'ABC Australia', pub: '18h ago', cat: 'diplomatic' },
+  { title: 'ROCAF conducts largest-ever live-fire Han Kuang exercise, simulates PLA saturation attack', source: 'Focus Taiwan', pub: '1d ago', cat: 'military' },
+  { title: 'Analysis: PLA amphibious lift capacity still 12-18 months from full Taiwan invasion threshold', source: 'War on the Rocks', pub: '1d ago', cat: 'analysis' },
+  { title: 'Taiwan extends mandatory military training to all males under 35 born after 2005', source: 'Focus Taiwan', pub: '2d ago', cat: 'military' },
+  { title: 'PRC cyber units escalate attacks on Taiwan power grid infrastructure — CISA warning', source: 'Reuters', pub: '2d ago', cat: 'military' },
+  { title: 'South Korea, Japan resume bilateral military exercises after historic reconciliation agreement', source: 'Korea Times', pub: '2d ago', cat: 'diplomatic' },
+  { title: 'Guam fortification: US invests $11B in base hardening, fuel reserves, and missile defense', source: 'Defense News', pub: '3d ago', cat: 'military' },
+  { title: 'Xi Jinping reiterates "reunification" as core national objective at Politburo Standing Committee session', source: 'SCMP', pub: '3d ago', cat: 'diplomatic' },
+  { title: 'Philippines grants US access to 4 additional military bases under EDCA expansion', source: 'Reuters', pub: '4d ago', cat: 'diplomatic' },
+  { title: 'Taiwan ground forces complete first battalion-level Stinger MANPADS qualification exercise', source: 'Focus Taiwan', pub: '4d ago', cat: 'military' },
+  { title: 'PLA Navy launches Type 076 amphibious assault ship — second of class — at Shanghai', source: 'Global Security', pub: '5d ago', cat: 'military' },
+  { title: 'IMF: Taiwan semiconductor exports underpin $890B annual global tech supply chain dependency', source: 'IMF', pub: '5d ago', cat: 'economic' },
+  { title: 'Opinion: Taiwan Strait — deterrence is holding, but the window of stability is narrowing', source: 'War on the Rocks', pub: '6d ago', cat: 'analysis' }
+].map(a => ({ ...a, link: searchLink(a.title) }));
+
+const CAT_LABELS = {
+  military: { label: 'Military', cls: 'cat-military' },
+  diplomatic: { label: 'Diplomatic', cls: 'cat-diplomatic' },
+  economic: { label: 'Economic', cls: 'cat-economic' },
+  analysis: { label: 'Analysis', cls: 'cat-analysis' }
+};
+
+function renderFeed(articles) {
+  const feed = document.getElementById('activity-feed');
+  if (!feed) return;
+  if (!articles || articles.length === 0) {
+    feed.innerHTML = '<div style="padding:20px;text-align:center;font-family:var(--font-mono);font-size:0.65rem;color:var(--text-faint)">No articles found.</div>';
+    return;
+  }
+  feed.innerHTML = articles.map(a => {
+    const catInfo = CAT_LABELS[a.cat || a.category] || CAT_LABELS.analysis;
+    const realLink = a.link || a.url;
+    const link = realLink || 'https://www.google.com/search?q=' + encodeURIComponent(a.title || '');
+    const source = a.source || 'Unknown';
+    const pub = a.pub || a.publishedAt ? (a.pub || timeAgoStr(new Date(a.publishedAt))) : '';
+    return `<a href="${link}" target="_blank" rel="noopener noreferrer" class="activity-item">
+      <div class="activity-title">${escHtml(a.title || 'Untitled')}</div>
+      <div class="activity-meta">
+        <span class="activity-cat ${catInfo.cls}">${catInfo.label}</span>
+        <span>${escHtml(source)}</span>
+        ${pub ? `<span>·</span><span>${escHtml(pub)}</span>` : ''}
+      </div>
+    </a>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function timeAgoStr(date) {
+  const diff = Math.floor((new Date() - date) / 1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+  return Math.floor(diff/86400) + 'd ago';
+}
+
+async function refreshFeed() {
+  const feed = document.getElementById('activity-feed');
+  if (feed) feed.innerHTML = '<div style="padding:20px;text-align:center;font-family:var(--font-mono);font-size:0.65rem;color:var(--text-faint)">Loading...</div>';
+
+  let loaded = false;
+  // Try taiwan articles
+  for (const country of ['taiwan', 'china']) {
+    try {
+      const res = await fetch(`/api/articles?country=${country}&limit=30`, { signal: AbortSignal.timeout(4000) });
+      if (res.ok) {
+        const data = await res.json();
+        const articles = data.data?.articles || data.articles || (Array.isArray(data) ? data : []);
+        if (articles.length > 0) {
+          renderFeed(articles.map(a => ({ ...a, cat: a.category || 'analysis' })));
+          loaded = true;
+          break;
+        }
+      }
+    } catch(e) { /* API not available */ }
+  }
+
+  if (!loaded) {
+    renderFeed(PLACEHOLDER_ARTICLES);
+  }
+}
+
+// Initial load
+refreshFeed();
+</script>
+</body>
+</html>

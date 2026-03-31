@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taiwan Strait // October 2027 Invasion Window Analysis // Conflict Mapper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DESIGN SYSTEM — Taiwan Strait Invasion Window Analysis
+   Accent: Deep Navy #1A3A5C / Bright #2E5F99
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --color-bg:       #0a0c10;
+  --color-surface:  #0f1117;
+  --color-surface-2:#141820;
+  --color-surface-3:#1a2030;
+  --color-border:   rgba(46,95,153,0.28);
+  --color-border-2: rgba(46,95,153,0.12);
+  --color-text:     #dde2ec;
+  --color-text-muted:#8a94a8;
+  --color-text-faint:#4a5168;
+  --color-accent:   #2E5F99;
+  --color-accent-bright:#4A8FD4;
+  --color-teal:     #2dd4bf;
+  --color-blue:     #60a5fa;
+  --color-red:      #f87171;
+  --color-green:    #4ade80;
+  --color-orange:   #fb923c;
+  --font-display:   'Rajdhani', sans-serif;
+  --font-mono:      'Share Tech Mono', monospace;
+  --font-body:      'Inter', sans-serif;
+  --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;  --space-10:2.5rem;
+  --space-12:3rem;  --space-16:4rem;
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;
+  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);
+  --text-sm:clamp(.875rem,.8rem + .35vw,1rem);
+  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
+  --text-hero:clamp(2.5rem,1rem + 5vw,5.5rem);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);line-height:1.65;}
+img,video{display:block;max-width:100%;height:auto;}
+a{color:var(--color-accent-bright);text-decoration:none;}
+a:hover{color:var(--color-accent-bright);filter:brightness(1.2);}
+.highlight{color:var(--color-accent-bright);}
+strong.critical{color:var(--color-accent-bright);}
+
+/* ── STICKY NAV ─────────────────────────────────────────── */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,12,16,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);height:60px;display:flex;align-items:center;}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-4);width:100%;}
+.nav-logo{font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;letter-spacing:.08em;color:var(--color-accent-bright);white-space:nowrap;flex-shrink:0;}
+.nav-badge{font-family:var(--font-mono);font-size:10px;background:rgba(46,95,153,.18);color:var(--color-accent-bright);border:1px solid var(--color-border);padding:2px 8px;border-radius:3px;}
+.nav-links{display:flex;align-items:center;gap:0;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;flex:1;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;letter-spacing:.06em;color:var(--color-text-muted);padding:var(--space-1) var(--space-3);white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;text-transform:uppercase;}
+.nav-link:hover,.nav-link.active{color:var(--color-accent-bright);border-bottom-color:var(--color-accent-bright);}
+
+/* ── HERO ───────────────────────────────────────────────── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:60px;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(26,58,92,.18) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(46,95,153,.08) 0%,transparent 60%),#0a0c10;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(46,95,153,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(46,95,153,.05) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.hero-scan{position:absolute;inset:0;background:linear-gradient(transparent 0%,rgba(46,95,153,.03) 50%,transparent 100%);animation:scanline 8s linear infinite;pointer-events:none;}
+@keyframes scanline{0%{transform:translateY(-100%);}100%{transform:translateY(100vh);}}
+.hero-content{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:var(--space-16) var(--space-6);}
+.hero-eyebrow{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-bright);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-4);display:flex;align-items:center;gap:var(--space-3);}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--color-accent-bright);}
+.threat-badge{display:inline-flex;align-items:center;gap:var(--space-2);font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;background:rgba(248,113,113,.12);color:var(--color-red);border:1px solid rgba(248,113,113,.3);padding:4px 12px;margin-bottom:var(--space-4);}
+.threat-dot{width:6px;height:6px;background:var(--color-red);border-radius:50%;animation:pulse-dot 1.2s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+.hero-title{font-family:var(--font-display);font-size:var(--text-hero);font-weight:700;line-height:1.0;letter-spacing:.02em;text-transform:uppercase;margin-bottom:var(--space-4);}
+.hero-title .sub-title{display:block;font-size:clamp(1rem,1rem + 2vw,2.2rem);color:var(--color-accent-bright);font-weight:500;letter-spacing:.1em;}
+.hero-subtitle{font-size:var(--text-lg);color:var(--color-text-muted);max-width:700px;margin-bottom:var(--space-8);}
+.hero-stamp{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-8);}
+.hero-stats{display:flex;flex-wrap:wrap;gap:var(--space-4);}
+.h-stat{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-4) var(--space-6);min-width:140px;}
+.h-stat-val{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent-bright);display:block;}
+.h-stat-key{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.08em;}
+.h-stat.red .h-stat-val{color:var(--color-red);}
+.h-stat.green .h-stat-val{color:var(--color-green);}
+.scroll-cue{margin-top:var(--space-12);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text-faint);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.1em;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+
+/* ── SECTION SCAFFOLDING ────────────────────────────────── */
+.section-wrap{padding:clamp(var(--space-10),5vw,var(--space-16)) var(--space-6);max-width:1280px;margin:0 auto;}
+section{border-top:1px solid var(--color-border-2);}
+.section-header{display:flex;align-items:flex-end;gap:var(--space-4);margin-bottom:var(--space-8);}
+.section-num{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-bright);letter-spacing:.15em;margin-bottom:var(--space-1);}
+.section-title{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;text-transform:uppercase;line-height:1.1;}
+.section-lead{color:var(--color-text-muted);font-size:var(--text-sm);max-width:36ch;}
+.section-divider{flex:1;height:1px;background:linear-gradient(90deg,var(--color-accent-bright),transparent);opacity:.3;margin-bottom:8px;}
+
+/* ── CARD GRID ──────────────────────────────────────────── */
+.card-grid{display:grid;gap:var(--space-4);}
+.grid-2{grid-template-columns:repeat(auto-fill,minmax(min(480px,100%),1fr));}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));}
+.grid-4{grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));}
+
+/* ── EQUIPMENT CARD ─────────────────────────────────────── */
+.equip-card{background:var(--color-surface);border:1px solid var(--color-border);overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.equip-card:hover{border-color:var(--color-accent-bright);box-shadow:0 0 20px rgba(46,95,153,.12);}
+.equip-head{background:linear-gradient(135deg,var(--color-surface-2),var(--color-surface-3));padding:var(--space-5);display:flex;align-items:center;gap:var(--space-4);border-bottom:1px solid var(--color-border);}
+.equip-icon{font-size:2rem;flex-shrink:0;}
+.equip-title-wrap{}
+.equip-badge-sm{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;color:var(--color-text-faint);text-transform:uppercase;margin-bottom:2px;}
+.equip-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent-bright);}
+.equip-body{padding:var(--space-4) var(--space-5);}
+.equip-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3);}
+.equip-specs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-1) var(--space-4);margin-bottom:var(--space-3);}
+.equip-spec{display:flex;justify-content:space-between;gap:var(--space-2);padding:var(--space-1) 0;border-bottom:1px solid rgba(46,95,153,.1);}
+.equip-spec-key{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.06em;}
+.equip-spec-val{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-bright);font-weight:600;}
+.equip-tag{display:inline-block;font-family:var(--font-mono);font-size:9px;padding:2px 6px;border:1px solid var(--color-border);color:var(--color-text-faint);letter-spacing:.06em;margin:2px;}
+.equip-tag.red{border-color:rgba(248,113,113,.3);color:var(--color-red);}
+.equip-tag.green{border-color:rgba(74,222,128,.3);color:var(--color-green);}
+.equip-tag.orange{border-color:rgba(251,146,60,.3);color:var(--color-orange);}
+
+/* ── DATA TABLE ─────────────────────────────────────────── */
+.data-table-wrap{overflow-x:auto;border:1px solid var(--color-border);}
+.data-table{width:100%;border-collapse:collapse;font-size:var(--text-sm);}
+.data-table thead th{background:var(--color-surface-2);font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-bright);padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border);white-space:nowrap;}
+.data-table tbody tr{border-bottom:1px solid rgba(46,95,153,.08);transition:background .15s;}
+.data-table tbody tr:hover{background:rgba(46,95,153,.06);}
+.data-table tbody td{padding:var(--space-3) var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);vertical-align:middle;}
+.data-table tbody td:first-child{color:var(--color-text);font-weight:500;}
+.data-table td a{color:var(--color-blue);font-family:var(--font-mono);font-size:11px;}
+.data-table .cell-good{color:var(--color-green);font-family:var(--font-mono);font-size:11px;}
+.data-table .cell-warn{color:var(--color-orange);font-family:var(--font-mono);font-size:11px;}
+.data-table .cell-bad{color:var(--color-red);font-family:var(--font-mono);font-size:11px;}
+.data-table .cell-accent{color:var(--color-accent-bright);font-family:var(--font-mono);font-size:11px;font-weight:700;}
+
+/* ── INTEL ALERT ────────────────────────────────────────── */
+.intel-alert{background:rgba(46,95,153,.08);border:1px solid var(--color-border);border-left:3px solid var(--color-accent-bright);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-6);}
+.intel-alert-head{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-bright);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-2);}
+.intel-alert p{font-size:var(--text-sm);line-height:1.7;}
+.intel-alert.red{border-left-color:var(--color-red);background:rgba(248,113,113,.06);}
+.intel-alert.red .intel-alert-head{color:var(--color-red);}
+.intel-alert.orange{border-left-color:var(--color-orange);background:rgba(251,146,60,.06);}
+.intel-alert.orange .intel-alert-head{color:var(--color-orange);}
+
+/* ── ESCALATION LADDER ──────────────────────────────────── */
+.escalation-ladder{display:flex;flex-direction:column;gap:0;}
+.esc-rung{border:1px solid var(--color-border);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-2);position:relative;transition:border-color .2s;}
+.esc-rung:hover{border-color:var(--color-accent-bright);}
+.esc-level-1{border-left:3px solid #4ade80;}
+.esc-level-2{border-left:3px solid #a3e635;}
+.esc-level-3{border-left:3px solid #fb923c;}
+.esc-level-4{border-left:3px solid #f97316;}
+.esc-level-5{border-left:3px solid #ef4444;}
+.esc-level-6{border-left:3px solid #dc2626;background:rgba(220,38,38,.06);}
+.esc-level-num{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-1);}
+.esc-level-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);}
+.esc-level-desc{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-2);line-height:1.6;}
+.esc-level-actors{font-family:var(--font-mono);font-size:11px;color:var(--color-blue);margin-bottom:var(--space-1);}
+.esc-level-trigger{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-bright);letter-spacing:.04em;}
+.esc-arrow{text-align:center;color:var(--color-text-faint);font-size:1.2rem;margin:var(--space-1) 0;}
+.esc-current{position:absolute;right:var(--space-4);top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:9px;background:rgba(74,222,128,.15);color:var(--color-green);border:1px solid rgba(74,222,128,.3);padding:2px 8px;letter-spacing:.1em;}
+
+/* ── TABS ───────────────────────────────────────────────── */
+.tabs-wrap{margin-bottom:var(--space-8);}
+.tab-buttons{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-4);border-bottom:1px solid var(--color-border);padding-bottom:0;}
+.tab-btn{font-family:var(--font-display);font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted);padding:var(--space-2) var(--space-4);border-bottom:2px solid transparent;cursor:pointer;transition:color .2s,border-color .2s;background:none;border-top:none;border-left:none;border-right:none;text-transform:uppercase;letter-spacing:.06em;margin-bottom:-1px;}
+.tab-btn:hover,.tab-btn.active{color:var(--color-accent-bright);border-bottom-color:var(--color-accent-bright);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+.scenario-card{background:var(--color-surface-2);border:1px solid var(--color-border);padding:var(--space-6);}
+.scenario-trigger{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-bright);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.scenario-title{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-text);margin-bottom:var(--space-4);}
+.scenario-steps{display:flex;flex-direction:column;gap:var(--space-3);}
+.scenario-step{display:flex;gap:var(--space-4);padding:var(--space-3) var(--space-4);background:rgba(46,95,153,.05);border:1px solid rgba(46,95,153,.1);}
+.step-time{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-bright);min-width:90px;padding-top:2px;flex-shrink:0;}
+.step-text{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── COLLAPSIBLE ────────────────────────────────────────── */
+.collapsible{border:1px solid var(--color-border);margin-bottom:var(--space-3);}
+.collapsible-head{display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);cursor:pointer;font-family:var(--font-display);font-weight:600;font-size:var(--text-base);text-transform:uppercase;letter-spacing:.04em;transition:color .2s;background:var(--color-surface);}
+.collapsible-head:hover,.collapsible-head.open{color:var(--color-accent-bright);}
+.collapsible-body{display:none;padding:var(--space-5);border-top:1px solid var(--color-border);background:var(--color-surface-2);}
+.collapsible-body.open{display:block;}
+.collapsible-icon{transition:transform .2s;}
+.collapsible-head.open .collapsible-icon{transform:rotate(180deg);}
+
+/* ── STAT BAR ───────────────────────────────────────────── */
+.stat-row{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-4);}
+.stat-label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);min-width:220px;text-transform:uppercase;letter-spacing:.06em;line-height:1.3;}
+.stat-bar-wrap{flex:1;background:rgba(255,255,255,.06);height:10px;border-radius:5px;overflow:hidden;}
+.stat-fill{height:100%;border-radius:5px;transition:width 1.5s cubic-bezier(.16,1,.3,1);}
+.stat-fill.blue{background:linear-gradient(90deg,var(--color-accent),var(--color-accent-bright));}
+.stat-fill.red{background:linear-gradient(90deg,#b91c1c,var(--color-red));}
+.stat-fill.orange{background:linear-gradient(90deg,#c2410c,var(--color-orange));}
+.stat-fill.green{background:linear-gradient(90deg,#15803d,var(--color-green));}
+.stat-fill.purple{background:linear-gradient(90deg,#7c3aed,#a78bfa);}
+.stat-val{font-family:var(--font-mono);font-size:12px;color:var(--color-text-muted);min-width:160px;text-align:right;}
+
+/* ── PROBABILITY BAR ────────────────────────────────────── */
+.prob-row{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-5);padding:var(--space-4);background:var(--color-surface);border:1px solid var(--color-border);}
+.prob-window{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;min-width:160px;text-transform:uppercase;}
+.prob-window.active-window{color:var(--color-accent-bright);}
+.prob-bar-wrap{flex:1;background:rgba(255,255,255,.06);height:12px;border-radius:6px;overflow:hidden;}
+.prob-fill{height:100%;border-radius:6px;transition:width 1.8s cubic-bezier(.16,1,.3,1);}
+.prob-pct{font-family:var(--font-mono);font-size:var(--text-sm);font-weight:700;min-width:80px;text-align:right;}
+.prob-note{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);min-width:180px;text-align:right;letter-spacing:.04em;}
+
+/* ── MAP ────────────────────────────────────────────────── */
+#taiwan-map{height:600px;border:1px solid var(--color-border);}
+.map-legend{background:rgba(10,12,16,.92);border:1px solid var(--color-border);padding:var(--space-4);margin-top:var(--space-3);}
+.legend-title{font-family:var(--font-mono);font-size:10px;color:var(--color-accent-bright);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.legend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--space-2);}
+.legend-item{display:flex;align-items:center;gap:var(--space-2);font-family:var(--font-mono);font-size:10px;color:var(--color-text-muted);}
+.legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.legend-tri{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;flex-shrink:0;}
+
+/* ── XREF LINKS ─────────────────────────────────────────── */
+.xref-links{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);margin-bottom:var(--space-6);padding:var(--space-3) var(--space-4);background:var(--color-surface);border:1px solid var(--color-border);}
+.xref-label{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;}
+.xref-chip{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;background:rgba(46,95,153,.1);color:var(--color-accent-bright);border:1px solid var(--color-border);padding:var(--space-1) var(--space-3);}
+.xref-chip:hover{background:rgba(46,95,153,.2);color:var(--color-accent-bright);}
+
+/* ── SOURCES ────────────────────────────────────────────── */
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-6);}
+.sources-col h3{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-bright);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-4);padding-bottom:var(--space-2);border-bottom:1px solid var(--color-border);}
+.source-item{display:flex;flex-direction:column;gap:2px;margin-bottom:var(--space-4);}
+.source-item a{font-size:var(--text-sm);font-weight:500;color:var(--color-text);}
+.source-item a:hover{color:var(--color-accent-bright);}
+.source-item span{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);}
+
+/* ── NEWS CARD ──────────────────────────────────────────── */
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:var(--space-4);}
+.news-card{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-4);transition:border-color .2s;}
+.news-card:hover{border-color:var(--color-accent-bright);}
+.news-source{font-family:var(--font-mono);font-size:9px;color:var(--color-accent-bright);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--space-2);}
+.news-title{font-size:var(--text-sm);font-weight:600;color:var(--color-text);margin-bottom:var(--space-2);line-height:1.4;}
+.news-date{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);}
+
+/* ── CAPABILITY MATRIX ──────────────────────────────────── */
+.cap-badge{display:inline-block;font-family:var(--font-mono);font-size:9px;padding:2px 6px;border-radius:2px;letter-spacing:.04em;}
+.cap-superior{background:rgba(220,38,38,.15);color:#f87171;border:1px solid rgba(220,38,38,.3);}
+.cap-strong{background:rgba(249,115,22,.15);color:#fb923c;border:1px solid rgba(249,115,22,.3);}
+.cap-parity{background:rgba(234,179,8,.15);color:#fbbf24;border:1px solid rgba(234,179,8,.3);}
+.cap-inferior{background:rgba(74,222,128,.15);color:#4ade80;border:1px solid rgba(74,222,128,.3);}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--space-6);text-align:center;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-text{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.06em;}
+.classification-notice{background:var(--color-surface-2);border:1px solid var(--color-border);border-top:3px solid var(--color-accent-bright);padding:var(--space-6);margin-top:var(--space-8);text-align:center;}
+.class-title{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-accent-bright);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.class-body{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;max-width:700px;margin:0 auto;}
+
+/* ── UTILITY ─────────────────────────────────────────────── */
+.mb-4{margin-bottom:var(--space-4);} .mb-6{margin-bottom:var(--space-6);} .mb-8{margin-bottom:var(--space-8);}
+.text-muted{color:var(--color-text-muted);} .text-accent{color:var(--color-accent-bright);}
+.mono{font-family:var(--font-mono);font-size:var(--text-xs);}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:10px;padding:2px 8px;border:1px solid var(--color-border);color:var(--color-text-faint);letter-spacing:.06em;margin:2px;}
+.tag-red{border-color:rgba(248,113,113,.3);color:var(--color-red);}
+.tag-green{border-color:rgba(74,222,128,.3);color:var(--color-green);}
+.tag-blue{border-color:rgba(96,165,250,.3);color:var(--color-blue);}
+.tag-orange{border-color:rgba(251,146,60,.3);color:var(--color-orange);}
+.flex-wrap{display:flex;flex-wrap:wrap;gap:var(--space-2);}
+@media(max-width:768px){
+  .nav-logo{font-size:11px;}
+  .hero-stats{flex-direction:column;}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
+  .section-title{font-size:var(--text-xl);}
+  .equip-specs{grid-template-columns:1fr;}
+  .stat-label{min-width:140px;font-size:10px;}
+  .prob-note{display:none;}
+  #taiwan-map{height:400px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── STICKY NAV ── -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-logo">⬡ CONFLICT MAPPER</div>
+    <span class="nav-badge">INTEL PLATFORM</span>
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../theaters/asia-pacific-theater.html" class="nav-link">Asia-Pacific</a>
+      <a href="../countries/china.html" class="nav-link">China Dossier</a>
+      <a href="../countries/taiwan.html" class="nav-link">Taiwan Dossier</a>
+      <a href="../taiwan-strait.html" class="nav-link">Taiwan Strait</a>
+      <a href="taiwan-window-apr-2026.html" class="nav-link">APR 2026</a>
+      <a href="taiwan-window-oct-2026.html" class="nav-link">OCT 2026</a>
+      <a href="taiwan-window-apr-2027.html" class="nav-link">APR 2027</a>
+      <a href="taiwan-window-oct-2027.html" class="nav-link active">OCT 2027</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+     ══════════════════════════════════════════════════════════ -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-scan"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">TAIWAN STRAIT INVASION WINDOW ANALYSIS</div>
+    <div class="threat-badge"><span class="threat-dot"></span>THREAT LEVEL: CRITICAL — MAXIMUM NEAR-TERM RISK</div>
+    <h1 class="hero-title">
+      TAIWAN STRAIT
+      <span class="sub-title">// OCTOBER 2027 WINDOW</span>
+    </h1>
+    <p class="hero-subtitle">Autumn amphibious operations window assessment — the most dangerous near-term invasion window. October 2027 follows the PLA's directed 2027 capability milestone and represents maximum assessed capability within the Xi Jinping 2027–2035 strategic window.</p>
+    <div class="hero-stamp">ASSESSMENT DATE: SEPTEMBER 2027 // CLASSIFICATION: ANALYTICAL // OPEN SOURCE INTELLIGENCE</div>
+    <div class="hero-stats">
+      <div class="h-stat">
+        <span class="h-stat-val" id="days-until">~4</span>
+        <span class="h-stat-key">Days Until Window</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">~45</span>
+        <span class="h-stat-key">Window Duration (Days)</span>
+      </div>
+      <div class="h-stat green">
+        <span class="h-stat-val">65%</span>
+        <span class="h-stat-key">Weather Favorability</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">BF 3–4</span>
+        <span class="h-stat-key">Sea State Forecast</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">FULL</span>
+        <span class="h-stat-key">Moon Phase (Early Oct)</span>
+      </div>
+      <div class="h-stat red">
+        <span class="h-stat-val">12–18%</span>
+        <span class="h-stat-key">Invasion Probability</span>
+      </div>
+    </div>
+    <div class="scroll-cue">▼ SCROLL FOR FULL ASSESSMENT</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 01: OPERATIONAL MAP
+     ══════════════════════════════════════════════════════════ -->
+<section id="s01">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 01</div>
+      <h2 class="section-title">Operational Theater Map</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Taiwan Strait and Western Pacific force disposition</div>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">Map Intelligence Note</div>
+    <p>This map displays OSINT-derived positions of PLA bases, Taiwan defense positions, US/Allied facilities, and projected amphibious assault vectors. Positions are approximate and based on open-source reporting. Red polygons indicate maritime exclusion zones declared during PLA exercises.</p>
+  </div>
+
+  <div id="taiwan-map"></div>
+
+  <div class="map-legend">
+    <div class="legend-title">Map Legend</div>
+    <div class="legend-grid">
+      <div class="legend-item"><div class="legend-dot" style="background:#ef4444;"></div>PLA Mainland Military Bases</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#3b82f6;"></div>Taiwan Defense Positions</div>
+      <div class="legend-item"><div class="legend-tri" style="border-bottom:10px solid #f97316;"></div>Amphibious Landing Beaches</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#22c55e;"></div>US Military Bases</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#a855f7;"></div>Japanese JSDF Bases</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(239,68,68,.3);border:2px solid #ef4444;"></div>Maritime Exclusion Zones</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 02: WEATHER & ENVIRONMENTAL
+     ══════════════════════════════════════════════════════════ -->
+<section id="s02">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 02</div>
+      <h2 class="section-title">Weather & Environmental Assessment</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">October 2027 strait conditions forecast</div>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">Meteorological Assessment — April Window</div>
+    <p>April represents the <strong class="critical">spring transition period</strong> in the Taiwan Strait. The northeast monsoon (Oct–Mar) weakens and rotates, producing a transitional window of relatively calm seas. October 2027 marks the conclusion of Xi Jinping's PLA modernization 2027 milestone year, representing the <strong class="critical">most dangerous near-term invasion window</strong>. The Southwest monsoon retreats in October creating a 2–4 week favorable window before the NE monsoon establishes. However, October remains in typhoon season and 2027 sea conditions carry higher variability than the spring window. PLA planners would select the optimal sub-window (approximately Oct 10–22) and require near-real-time typhoon monitoring.</p>
+  </div>
+
+  <div class="data-table-wrap mb-6">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Date Period</th>
+          <th>Beaufort Scale</th>
+          <th>Avg Wave Ht (m)</th>
+          <th>Wind Speed (kts)</th>
+          <th>Visibility</th>
+          <th>Moon Phase</th>
+          <th>Ops Favorability</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Oct 1–5, 2027</td><td>BF 3–4</td><td>1.0–1.8</td><td>12–20</td><td>10–18 km</td><td>New Moon (Oct 7)</td><td class="cell-good">GOOD (dark)</td></tr>
+        <tr><td>Oct 6–10, 2027</td><td>BF 2–3</td><td>0.8–1.4</td><td>10–16</td><td>12–20 km</td><td>Waxing Crescent</td><td class="cell-good">HIGH</td></tr>
+        <tr><td>Oct 11–15, 2027</td><td>BF 3–4</td><td>1.0–2.0</td><td>12–22</td><td>9–17 km</td><td>First Quarter</td><td class="cell-accent">MODERATE</td></tr>
+        <tr><td>Oct 16–20, 2027</td><td>BF 2–3</td><td>0.8–1.4</td><td>10–16</td><td>12–20 km</td><td>Waxing Gibbous</td><td class="cell-warn">MODERATE (bright)</td></tr>
+        <tr><td>Oct 21–25, 2027</td><td>BF 3</td><td>0.9–1.6</td><td>10–18</td><td>10–18 km</td><td>FULL MOON (Oct 22)</td><td class="cell-warn">LOW (bright)</td></tr>
+        <tr><td>Oct 26–31, 2027</td><td>BF 4–5</td><td>1.5–2.8</td><td>18–28</td><td>8–14 km</td><td>Waning Gibbous</td><td class="cell-bad">POOR (NE monsoon)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-grid grid-3 mb-6">
+    <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);">
+      <div class="section-num">MONSOON PATTERN</div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;margin-bottom:var(--space-3);">SW→NE Monsoon Transition</h3>
+      <p class="text-muted" style="font-size:var(--text-sm);line-height:1.6;">October 2027 sits at the SW-to-NE monsoon transition. The favorable sub-window (approximately Oct 5–20) provides 15 days of manageable conditions before the NE monsoon fully establishes and seas deteriorate to BF 4–6. This shorter, higher-variability window compared to April means PLA commanders would require a high-confidence 10-day forecast before committing the fleet. A single typhoon could delay operations 7–10 days, potentially collapsing the entire window.</p>
+    </div>
+    <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);">
+      <div class="section-num">TIDAL ANALYSIS</div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;margin-bottom:var(--space-3);">Spring Tides — October 2027</h3>
+      <p class="text-muted" style="font-size:var(--text-sm);line-height:1.6;">Spring tides occur around new/full moon: <strong class="critical">October 7</strong> (new) and <strong class="critical">October 22</strong> (full). The October 7 new moon represents the primary optimal window — maximum darkness + spring tide for beach gradient access. Neap tides occur Oct 14–15 and Oct 29–30. The compressed timeline means PLA must launch within days of optimal tide/moon alignment.</p>
+    </div>
+    <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);">
+      <div class="section-num">TYPHOON RISK</div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-red);margin-bottom:var(--space-3);">HIGH RISK — Peak Season Tail</h3>
+      <p class="text-muted" style="font-size:var(--text-sm);line-height:1.6;">October remains within peak typhoon season. Historical probability: 35–45% chance of at least one typhoon impacting the Taiwan Strait area during October. Super Typhoon Nabi (2005) and Typhoon Krathon (2024) both struck Taiwan in early October, demonstrating the severe weather risk. A typhoon delay of 7–10 days could push operations into the establishing NE monsoon, severely degrading amphibious conditions. PLA meteorological intelligence and fleet resilience would be tested.</p>
+    </div>
+  </div>
+
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr><th>Parameter</th><th>Historical April Average</th><th>2026 Forecast</th><th>Amphibious Threshold</th><th>Assessment</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Mean Wave Height</td><td>1.0–2.5m</td><td>0.9–2.0m</td><td>&lt;2.0m required</td><td class="cell-good">FAVORABLE</td></tr>
+        <tr><td>Wind Speed</td><td>12–26 kts</td><td>10–24 kts</td><td>&lt;25 kts required</td><td class="cell-good">FAVORABLE</td></tr>
+        <tr><td>Visibility</td><td>8–18 km</td><td>8–17 km</td><td>&gt;5 km for air ops</td><td class="cell-good">FAVORABLE</td></tr>
+        <tr><td>Sea Surface Temp</td><td>26–30°C</td><td>25–29°C</td><td>Not limiting</td><td class="cell-good">NEUTRAL</td></tr>
+        <tr><td>Current Speed</td><td>0.8–2.5 kts</td><td>1.0–2.0 kts</td><td>&lt;3 kts preferred</td><td class="cell-good">FAVORABLE</td></tr>
+        <tr><td>Fog Days (Monthly)</td><td>5–9 days</td><td>5–8 days est.</td><td>Limits air/naval ops</td><td class="cell-warn">MINOR RISK</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 03: PLA FORCE ASSESSMENT
+     ══════════════════════════════════════════════════════════ -->
+<section id="s03">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 03</div>
+      <h2 class="section-title">PLA Force Assessment</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">People's Liberation Army invasion capability inventory</div>
+  </div>
+
+  <div class="intel-alert red mb-6">
+    <div class="intel-alert-head">Order of Battle Assessment — April 2026</div>
+    <p>PLA Eastern and Southern Theater Commands control the primary invasion force. As of April 2026, the PLA maintains approximately <strong class="critical">400,000+ ground forces</strong> in the Eastern Theater, supported by 2,000+ landing craft (military and requisitioned civilian), 1,000+ combat aircraft in theater, and the world's largest navy by hull count. Full-scale invasion readiness is assessed as <strong class="critical">60–70%</strong> of theoretical maximum as of April 2026 — logistics and sealift remain the primary constraints.</p>
+  </div>
+
+  <div class="card-grid grid-3 mb-8">
+
+    <!-- Type 075 LHD -->
+    <div class="equip-card">
+      <div class="equip-head">
+        <div class="equip-icon">🚢</div>
+        <div class="equip-title-wrap">
+          <div class="equip-badge-sm">PLAN AMPHIBIOUS // LHD</div>
+          <div class="equip-name">Type 075 Hainan-class</div>
+        </div>
+      </div>
+      <div class="equip-body">
+        <p class="equip-desc">China's largest amphibious assault ship and centerpiece of any Taiwan invasion fleet. Carries helicopters, hovercraft, and marines. Four hulls commissioned by 2027 with a 5th under construction, providing unprecedented helicopter assault capacity.</p>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Units</span><span class="equip-spec-val">4 (+ 1 building)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">40,000 tons</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Troop Capacity</span><span class="equip-spec-val">~1,000 marines</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Aircraft</span><span class="equip-spec-val">30+ helicopters</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Landing Craft</span><span class="equip-spec-val">4 LCAC/LCU</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">23 kts</span></div>
+        </div>
+        <div class="flex-wrap"><span class="equip-tag red">STRATEGIC ASSET</span><span class="equip-tag orange">HIGH PRIORITY TARGET</span></div>
+      </div>
+    </div>
+
+    <!-- Type 071 LPD -->
+    <div class="equip-card">
+      <div class="equip-head">
+        <div class="equip-icon">⚓</div>
+        <div class="equip-title-wrap">
+          <div class="equip-badge-sm">PLAN AMPHIBIOUS // LPD</div>
+          <div class="equip-name">Type 071 Yuzhao-class</div>
+        </div>
+      </div>
+      <div class="equip-body">
+        <p class="equip-desc">Workhorse amphibious transport dock of PLAN. Eight hulls provide backbone of marine landing capacity. Can deploy vehicles, troops, and helicopters simultaneously.</p>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Units</span><span class="equip-spec-val">8 commissioned</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">25,000 tons</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Troop Capacity</span><span class="equip-spec-val">~800 troops</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Vehicles</span><span class="equip-spec-val">60+ armored</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Landing Craft</span><span class="equip-spec-val">4 LCAC/LCU</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">20 kts</span></div>
+        </div>
+        <div class="flex-wrap"><span class="equip-tag orange">AMPHIBIOUS LIFT</span></div>
+      </div>
+    </div>
+
+    <!-- DF-21D -->
+    <div class="equip-card">
+      <div class="equip-head">
+        <div class="equip-icon">🎯</div>
+        <div class="equip-title-wrap">
+          <div class="equip-badge-sm">PLA ROCKET FORCE // ASBM</div>
+          <div class="equip-name">DF-21D "Carrier Killer"</div>
+        </div>
+      </div>
+      <div class="equip-body">
+        <p class="equip-desc">Anti-Ship Ballistic Missile designed specifically to defeat US carrier strike groups. Maneuvering reentry vehicle makes interception extremely difficult. Changes the calculus for US CSG intervention.</p>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">~1,500 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">&lt;20 m</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">Conventional MARV</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Launchers</span><span class="equip-spec-val">~108 est.</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Targeting</span><span class="equip-spec-val">OTH radar + satellite</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">IRBM variant</span><span class="equip-spec-val">DF-26 (4,000 km)</span></div>
+        </div>
+        <div class="flex-wrap"><span class="equip-tag red">CSG THREAT</span><span class="equip-tag red">A2/AD CORE</span></div>
+      </div>
+    </div>
+
+    <!-- J-20 -->
+    <div class="equip-card">
+      <div class="equip-head">
+        <div class="equip-icon">✈️</div>
+        <div class="equip-title-wrap">
+          <div class="equip-badge-sm">PLAAF // 5TH GEN FIGHTER</div>
+          <div class="equip-name">J-20 Mighty Dragon</div>
+        </div>
+      </div>
+      <div class="equip-body">
+        <p class="equip-desc">China's primary stealth air superiority fighter. Approximately 250+ in service by Q4 2027, with J-35A (carrier variant) achieving initial operational capability. Designed to contest USAF F-22/F-35 in the Taiwan Strait air battle. Long range enables patrol of the entire strait.</p>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Air superiority/strike</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fleet Size</span><span class="equip-spec-val">250+ (2027 est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">&gt;2,000 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">RCS</span><span class="equip-spec-val">Very Low (stealth)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">BVR Missile</span><span class="equip-spec-val">PL-15 (200 km+)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Gen</span><span class="equip-spec-val">5th Generation</span></div>
+        </div>
+        <div class="flex-wrap"><span class="equip-tag red">STEALTH</span><span class="equip-tag orange">AIR SUPERIORITY</span></div>
+      </div>
+    </div>
+
+    <!-- PLAN Submarine Force -->
+    <div class="equip-card">
+      <div class="equip-head">
+        <div class="equip-icon">🔱</div>
+        <div class="equip-title-wrap">
+          <div class="equip-badge-sm">PLAN // SUBMARINE FORCE</div>
+          <div class="equip-name">PLAN Submarine Fleet</div>
+        </div>
+      </div>
+      <div class="equip-body">
+        <p class="equip-desc">World's largest submarine fleet by numbers. Mix of SSBNs (nuclear deterrent), SSNs (attack), and SSKs (conventional AIP). Would be deployed to deny US/Japanese reinforcement and conduct blockade.</p>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">SSBNs</span><span class="equip-spec-val">6 (Type 094/094A)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">SSNs</span><span class="equip-spec-val">7 (Type 093/093B)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">SSKs</span><span class="equip-spec-val">~50 (Type 039/041)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">AIP boats</span><span class="equip-spec-val">Type 039A (very quiet)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">ASCMs</span><span class="equip-spec-val">YJ-18 (540 km)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Total hulls</span><span class="equip-spec-val">~63 boats</span></div>
+        </div>
+        <div class="flex-wrap"><span class="equip-tag red">NUCLEAR CAPABLE</span><span class="equip-tag orange">BLOCKADE ASSET</span></div>
+      </div>
+    </div>
+
+    <!-- Robotic Soldiers / Drone Decoys -->
+    <div class="equip-card">
+      <div class="equip-head">
+        <div class="equip-icon">🤖</div>
+        <div class="equip-title-wrap">
+          <div class="equip-badge-sm">PLA // EMERGING TECHNOLOGY</div>
+          <div class="equip-name">Teleoperated Robotic Assault Systems</div>
+        </div>
+      </div>
+      <div class="equip-body">
+        <p class="equip-desc">OSINT-documented PLA development of teleoperated ground robots for beach assault roles. Designed to reduce PLA casualty sensitivity on defended beaches. Converted J-7/J-8 fighter drones deployed as ASAT decoys and SEAD attrition aircraft — absorbing SAM shots before manned follow-on strikes.</p>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Ground Robots</span><span class="equip-spec-val">UGV assault prototypes</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">J-7/J-8 Drones</span><span class="equip-spec-val">~200 converted (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">SEAD / SAM saturation</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Casualty Impact</span><span class="equip-spec-val">Reduces sensitivity</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Maturity</span><span class="equip-spec-val">Limited fielding (2027)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">OSINT Source</span><span class="equip-spec-val">Rupprecht/Chinese mil sites</span></div>
+        </div>
+        <div class="flex-wrap"><span class="equip-tag orange">GAME CHANGER</span><span class="equip-tag">EXPERIMENTAL</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 04: TAIWAN DEFENSE ASSESSMENT
+     ══════════════════════════════════════════════════════════ -->
+<section id="s04">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 04</div>
+      <h2 class="section-title">Taiwan Defense Assessment</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Republic of China Armed Forces defensive capability</div>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">Porcupine Strategy — Fortress Taiwan</div>
+    <p>Under the <strong class="critical">Porcupine Strategy</strong> (formally "Overall Defense Concept"), Taiwan has shifted from a platform-centric approach toward asymmetric, dispersed, resilient defenses designed to impose maximum cost on any invasion force. Emphasis on mobile anti-ship missiles, ATGM teams, MANPAD units, and hardened logistics. Goal: make the cost of invasion unacceptably high even if not defeating it outright. Combined with US/Japanese intervention, this strategy aims to generate a years-long quagmire.</p>
+  </div>
+
+  <div class="card-grid grid-3 mb-8">
+
+    <div class="equip-card">
+      <div class="equip-head">
+        <div class="equip-icon">🚀</div>
+        <div class="equip-title-wrap">
+          <div class="equip-badge-sm">ROC // LAND-ATTACK CRUISE MISSILE</div>
+          <div class="equip-name">HF-2E Hsiung Feng IIE</div>
+        </div>
+      </div>
+      <div class="equip-body">
+        <p class="equip-desc">Indigenous land-attack cruise missile capable of striking PLAN bases, ports, and logistics on the Chinese mainland. Provides Taiwan with deep-strike deterrence. Range covers most of Fujian and Guangdong provinces.</p>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">600–1,000 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">&lt;10 m</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">225 kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Platform</span><span class="equip-spec-val">Land mobile / naval</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">~500 (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS/terrain match</span></div>
+        </div>
+        <div class="flex-wrap"><span class="equip-tag green">DEEP STRIKE</span><span class="equip-tag green">DETERRENT</span></div>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-head">
+        <div class="equip-icon">💥</div>
+        <div class="equip-title-wrap">
+          <div class="equip-badge-sm">ROC // ANTI-SHIP MISSILE</div>
+          <div class="equip-name">Hsiung Feng III (HF-3)</div>
+        </div>
+      </div>
+      <div class="equip-body">
+        <p class="equip-desc">Supersonic ramjet-powered anti-ship missile, Taiwan's primary PLAN fleet killer. High supersonic speed (Mach 2+) makes interception difficult. Deployed on surface ships, coastal batteries, and to be adapted for aircraft launch.</p>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 2+ (supersonic)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">200–400 km est.</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">180+ kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Propulsion</span><span class="equip-spec-val">Ramjet</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Platform</span><span class="equip-spec-val">Coastal/ship/future a/c</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Threat to</span><span class="equip-spec-val">Type 052D, 055</span></div>
+        </div>
+        <div class="flex-wrap"><span class="equip-tag green">ANTI-SHIP</span><span class="equip-tag green">SUPERSONIC</span></div>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-head">
+        <div class="equip-icon">🛡️</div>
+        <div class="equip-title-wrap">
+          <div class="equip-badge-sm">ROC // SAM SYSTEM</div>
+          <div class="equip-name">Tien Kung III (Sky Bow III)</div>
+        </div>
+      </div>
+      <div class="equip-body">
+        <p class="equip-desc">Indigenous long-range SAM system providing area air defense. Upgraded with anti-ballistic missile capability to engage SRBM threats. Multiple batteries deployed around Taipei and key military facilities.</p>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">200 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Altitude</span><span class="equip-spec-val">&gt;30 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">ABM Capable</span><span class="equip-spec-val">Yes (SRBM intercept)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Batteries</span><span class="equip-spec-val">~6 active batteries</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Radar</span><span class="equip-spec-val">Active phased array</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Integration</span><span class="equip-spec-val">PATRIOT + US systems</span></div>
+        </div>
+        <div class="flex-wrap"><span class="equip-tag green">AREA DEFENSE</span><span class="equip-tag green">ABM CAPABLE</span></div>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-head">
+        <div class="equip-icon">🛩️</div>
+        <div class="equip-title-wrap">
+          <div class="equip-badge-sm">ROCAF // MULTIROLE FIGHTER</div>
+          <div class="equip-name">F-16V Viper (Block 70)</div>
+        </div>
+      </div>
+      <div class="equip-body">
+        <p class="equip-desc">Taiwan's most capable fighter. 66 new-build F-16Vs plus ~140 upgraded legacy F-16A/Bs. Equipped with AESA radar, AIM-120C-8 AMRAAMs, and Harpoon. Survivability in first hours depends on dispersal to mountain hardened shelters.</p>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Fleet (F-16V)</span><span class="equip-spec-val">66 new + 140 upgraded</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Radar</span><span class="equip-spec-val">APG-83 AESA</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">BVR Missile</span><span class="equip-spec-val">AIM-120C-8 (120 km)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Strike</span><span class="equip-spec-val">JDAM, Harpoon</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Shelters</span><span class="equip-spec-val">Mountain hardened</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Survivability</span><span class="equip-spec-val">Moderate (dispersal)</span></div>
+        </div>
+        <div class="flex-wrap"><span class="equip-tag green">AIR SUPERIORITY</span><span class="equip-tag">AGING PLATFORM</span></div>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-head">
+        <div class="equip-icon">🌊</div>
+        <div class="equip-title-wrap">
+          <div class="equip-badge-sm">ROC NAVY // SUBMARINE PROGRAM</div>
+          <div class="equip-name">Indigenous Defense Submarine</div>
+        </div>
+      </div>
+      <div class="equip-body">
+        <p class="equip-desc">Taiwan's indigenous submarine program launched first boat (Hai Kun) in 2023, with additional hulls planned. Designed to interdict PLAN amphibious/logistics fleet in the strait. Strategic deterrent effect even before full operational deployment.</p>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">First boat</span><span class="equip-spec-val">Hai Kun — 2023 launch</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Planned Fleet</span><span class="equip-spec-val">8 boats total</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Type</span><span class="equip-spec-val">SSK (conventional)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Weapons</span><span class="equip-spec-val">MK-48 torpedoes</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-key">Amphibious interdiction</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">IOC Est.</span><span class="equip-spec-val">2027 — operational</span></div>
+        </div>
+        <div class="flex-wrap"><span class="equip-tag green">INDIGENOUS</span><span class="equip-tag">IN DEVELOPMENT</span></div>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-head">
+        <div class="equip-icon">🏔️</div>
+        <div class="equip-title-wrap">
+          <div class="equip-badge-sm">ROC ARMY // ASYMMETRIC DEFENSE</div>
+          <div class="equip-name">Mobile ATGM / MANPAD Teams</div>
+        </div>
+      </div>
+      <div class="equip-body">
+        <p class="equip-desc">Core of the Porcupine Strategy. Thousands of small teams with Javelin ATGMs, Stinger MANPADs, and M72 LAW deployed to likely landing beaches, urban perimeters, and mountain passes. Designed to attrit mechanized forces and deny air superiority during beach assault phase.</p>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Javelin ATGM</span><span class="equip-spec-val">~2,000+ launchers</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Stinger MANPAD</span><span class="equip-spec-val">~1,000+ units</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Deployment</span><span class="equip-spec-val">Pre-positioned beach def.</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Urban Warfare</span><span class="equip-spec-val">Building-to-building</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Training</span><span class="equip-spec-val">US SOF-advised</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Doctrine</span><span class="equip-spec-val">Fortress Taiwan / OCD</span></div>
+        </div>
+        <div class="flex-wrap"><span class="equip-tag green">ASYMMETRIC</span><span class="equip-tag green">HIGH COST IMPOSITION</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 05: US/ALLIED FORCE POSTURE
+     ══════════════════════════════════════════════════════════ -->
+<section id="s05">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 05</div>
+      <h2 class="section-title">US & Allied Force Posture</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">INDOPACOM intervention timeline and readiness</div>
+  </div>
+
+  <div class="intel-alert orange mb-6">
+    <div class="intel-alert-head">INDOPACOM Response Timeline Assessment</div>
+    <p>US intervention in a Taiwan contingency depends critically on forward positioning. Forces in Japan (Okinawa, Yokosuka, Misawa) can respond within 24–72 hours. CSGs from Pearl Harbor or CONUS require 7–14 days transit. The <strong class="critical">first 72 hours</strong> are decisive: if PLA achieves air superiority and beach lodgment before INDOPACOM can interpose, the strategic calculus shifts dramatically.</p>
+  </div>
+
+  <div class="card-grid grid-3 mb-8">
+    <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);">
+      <div class="section-num">≤72 HOURS</div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent-bright);margin-bottom:var(--space-3);">Immediate Response Forces</h3>
+      <ul style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.9;padding-left:var(--space-4);">
+        <li>Kadena AB F-15C/D wings (~54 aircraft)</li>
+        <li>Misawa AB F-16 wing (~36 aircraft)</li>
+        <li>USS Ronald Reagan CSG (forward deployed Yokosuka)</li>
+        <li>MSDF destroyers/submarines (Article 9 constraints)</li>
+        <li>Patriot PAC-3 batteries (Japan-based)</li>
+        <li>P-8 Poseidon ASW patrols (Kadena)</li>
+        <li>Marines MAGTF (Okinawa based)</li>
+      </ul>
+    </div>
+    <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);">
+      <div class="section-num">≤7 DAYS</div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-orange);margin-bottom:var(--space-3);">Reinforcement Forces</h3>
+      <ul style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.9;padding-left:var(--space-4);">
+        <li>2nd CSG from Pearl Harbor (~5 days transit)</li>
+        <li>B-52H wing from Guam/Andersen AFB</li>
+        <li>Virginia-class SSNs from Guam (forward deployed)</li>
+        <li>Additional F-22 squadrons from Guam/Andersen</li>
+        <li>THAAD battery deployment to region</li>
+        <li>JASDF F-35A squadrons activated</li>
+        <li>Philippine base access (Laoag, Basa) activated</li>
+      </ul>
+    </div>
+    <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);">
+      <div class="section-num">≤30 DAYS</div>
+      <h3 style="font-family:var(--font-display);font-size:var(--color-red);font-weight:700;color:var(--color-red);margin-bottom:var(--space-3);">Full Mobilization</h3>
+      <ul style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.9;padding-left:var(--space-4);">
+        <li>3–4 CSGs total in theater</li>
+        <li>CONUS-based F-22/F-35 wings deploying</li>
+        <li>AUKUS submarine availability (Australian SSKs)</li>
+        <li>B-2 Spirit stealth bombers from Whiteman AFB</li>
+        <li>HIMARS pre-positioned munitions from Philippines</li>
+        <li>UK/French freedom of navigation reinforcement</li>
+        <li>Full TPFDD execution begins</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="data-table-wrap mb-6">
+    <table class="data-table">
+      <thead>
+        <tr><th>Base / Asset</th><th>Location</th><th>Capability</th><th>Response Time</th><th>Under A2/AD Threat?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Kadena Air Base</td><td>Okinawa, Japan</td><td>F-15C/D, KC-135, P-8</td><td>&lt;2 hours</td><td class="cell-bad">HIGH — within DF-21D range</td></tr>
+        <tr><td>Andersen AFB</td><td>Guam</td><td>B-52H, B-2, F-22</td><td>~4–6 hrs</td><td class="cell-warn">MODERATE — DF-26 range</td></tr>
+        <tr><td>Yokosuka Naval Base</td><td>Honshu, Japan</td><td>USS Reagan CSG, 7th Fleet HQ</td><td>~12 hrs</td><td class="cell-warn">MODERATE — DF-21D fringe</td></tr>
+        <tr><td>Sasebo Naval Base</td><td>Kyushu, Japan</td><td>Amphibious Ready Group</td><td>~24 hrs</td><td class="cell-warn">MODERATE</td></tr>
+        <tr><td>Camp Humphreys</td><td>South Korea</td><td>US Army Korea / aviation</td><td>~48 hrs</td><td class="cell-good">LOWER — Korean theater</td></tr>
+        <tr><td>Subic Bay / Clark</td><td>Philippines</td><td>EDCA access, maritime patrol</td><td>~6–12 hrs</td><td class="cell-bad">HIGH — DF-21D range</td></tr>
+        <tr><td>Pearl Harbor-Hickam</td><td>Hawaii</td><td>2nd CSG, additional submarines</td><td>5–7 days</td><td class="cell-good">LOW — out of range</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 06: CAPABILITY MATRIX
+     ══════════════════════════════════════════════════════════ -->
+<section id="s06">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 06</div>
+      <h2 class="section-title">Capability Matrix</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Comparative force assessment across key domains</div>
+  </div>
+
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Capability Domain</th>
+          <th>PLA / China</th>
+          <th>Taiwan (ROC)</th>
+          <th>US / Allied</th>
+          <th>Overall Assessment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Naval Vessels (Total)</td>
+          <td><span class="cell-bad">~370 warships</span></td>
+          <td><span class="cell-accent">~26 major surface</span></td>
+          <td><span class="cell-accent">~80 in theater (30d)</span></td>
+          <td><span class="cap-badge cap-superior">PLA SUPERIOR</span></td>
+        </tr>
+        <tr>
+          <td>Amphibious Lift Capacity</td>
+          <td><span class="cell-bad">~100,000 troops (first wave)</span></td>
+          <td><span class="cell-good">N/A (defender)</span></td>
+          <td><span class="cell-accent">Limited (ARG ~3,000)</span></td>
+          <td><span class="cap-badge cap-superior">PLA ADVANTAGE</span></td>
+        </tr>
+        <tr>
+          <td>Combat Aircraft</td>
+          <td><span class="cell-bad">~1,000+ in theater</span></td>
+          <td><span class="cell-accent">~400 (mixed quality)</span></td>
+          <td><span class="cell-accent">~400 (high quality)</span></td>
+          <td><span class="cap-badge cap-strong">PLA EDGE (numbers)</span></td>
+        </tr>
+        <tr>
+          <td>Anti-Ship Missiles</td>
+          <td><span class="cell-bad">YJ-12/18/21, DF-21D</span></td>
+          <td><span class="cell-good">HF-2/3, Harpoon</span></td>
+          <td><span class="cell-accent">LRASM, Harpoon</span></td>
+          <td><span class="cap-badge cap-parity">CONTESTED</span></td>
+        </tr>
+        <tr>
+          <td>Submarines (Attack)</td>
+          <td><span class="cell-bad">~57 boats (SSK+SSN)</span></td>
+          <td><span class="cell-accent">4 legacy + IDS boats</span></td>
+          <td><span class="cell-good">~20 SSNs regional</span></td>
+          <td><span class="cap-badge cap-strong">PLA NUMBERS; US quality edge</span></td>
+        </tr>
+        <tr>
+          <td>Integrated Air Defense</td>
+          <td><span class="cell-bad">HQ-9/16/22, S-400</span></td>
+          <td><span class="cell-good">TK-2/3, PAC-2/3</span></td>
+          <td><span class="cell-good">PAC-3, THAAD, SM-6</span></td>
+          <td><span class="cap-badge cap-parity">CONTESTED</span></td>
+        </tr>
+        <tr>
+          <td>Cyber / EW Capability</td>
+          <td><span class="cell-bad">Tier 1 — PLA SSF</span></td>
+          <td><span class="cell-accent">Tier 2 — defensive focus</span></td>
+          <td><span class="cell-good">Tier 1 — NSA/CYBERCOM</span></td>
+          <td><span class="cap-badge cap-parity">US/China TIE at top</span></td>
+        </tr>
+        <tr>
+          <td>Logistics Sustainment</td>
+          <td><span class="cell-warn">Significant gap — 30-day problem</span></td>
+          <td><span class="cell-good">Interior lines, pre-stocked</span></td>
+          <td><span class="cell-accent">Pre-positioned Guam/Japan</span></td>
+          <td><span class="cap-badge cap-inferior">TAIWAN/US ADVANTAGE</span></td>
+        </tr>
+        <tr>
+          <td>Nuclear Option</td>
+          <td><span class="cell-bad">Yes — ~500 warheads (2026)</span></td>
+          <td><span class="cell-good">None</span></td>
+          <td><span class="cell-good">Yes — extended deterrence</span></td>
+          <td><span class="cap-badge cap-parity">MUTUAL DETERRENCE</span></td>
+        </tr>
+        <tr>
+          <td>Space / ISR</td>
+          <td><span class="cell-bad">Extensive — Yaogan constellation</span></td>
+          <td><span class="cell-accent">Limited</span></td>
+          <td><span class="cell-good">Dominant — GPS/NRO/GEO</span></td>
+          <td><span class="cap-badge cap-parity">CONTESTED (ASAT risk)</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 07: INVASION SCENARIO TIMELINE
+     ══════════════════════════════════════════════════════════ -->
+<section id="s07">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 07</div>
+      <h2 class="section-title">Invasion Scenario Timelines</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Four modeled scenarios for potential PLA action</div>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tab-buttons">
+      <button class="tab-btn active" data-tab="lightning">Lightning Decapitation</button>
+      <button class="tab-btn" data-tab="amphibious">Full Amphibious Assault</button>
+      <button class="tab-btn" data-tab="blockade">Blockade & Starve</button>
+      <button class="tab-btn" data-tab="grayzone">Gray Zone Escalation</button>
+    </div>
+
+    <div id="tab-lightning" class="tab-pane active">
+      <div class="scenario-card">
+        <div class="scenario-trigger">SCENARIO A // PROBABILITY: LOW (5–10%)</div>
+        <div class="scenario-title">Lightning Decapitation Strike</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">H-72 to H-48</div><div class="step-text">PLA conducts final pre-positioning under cover of "routine exercises." Electronic deception masks full mobilization. SOF teams infiltrate Taiwan disguised as civilians. Cyber operations pre-position malware in Taiwan government and power grid systems.</div></div>
+          <div class="scenario-step"><div class="step-time">H-Hour</div><div class="step-text">Simultaneous missile strikes against Taiwanese air defense nodes, command centers, and Taipei government district. 500+ ballistic missiles in first 2-hour salvo. Cyber attacks disable air traffic control, communication networks, and financial systems.</div></div>
+          <div class="scenario-step"><div class="step-time">H+2</div><div class="step-text">PLA SOF and airborne units attempt seizure of Songshan Airport (downtown Taipei) for follow-on air-landing of heliborne forces. Simultaneously, Type 071/075 groups launch from Zhoushan and Zhanjiang toward Taiwan's north and southwest coasts.</div></div>
+          <div class="scenario-step"><div class="step-time">H+6 to H+12</div><div class="step-text">J-20s establish air superiority corridor. Y-20 transports begin airlifting additional PLA army groups into seized airports. Taiwan President's communications severed — government paralysis attempted. Decapitation strikes against legislative yuan and military command.</div></div>
+          <div class="scenario-step"><div class="step-time">H+24 to H+48</div><div class="step-text">If successful: PLA announces "reunification complete," installs provisional government, demands ROC military surrender. If resistance continues: urban warfare in Taipei begins — the scenario transitions to full assault. US/Japan response arrives — potential for massive escalation.</div></div>
+          <div class="scenario-step"><div class="step-time">H+72</div><div class="step-text">Decision point: PLA either consolidates control (best case for PRC) or faces determined urban resistance with US/Japan forces beginning to interpose. Historical precedent suggests urban resistance nearly certain — Taipei's 2.6M population and military doctrine explicitly train for this.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-amphibious" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">SCENARIO B // PROBABILITY: MODERATE (30–40% IF DECIDED)</div>
+        <div class="scenario-title">Full Amphibious Assault</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">D-30 to D-14</div><div class="step-text">Large-scale "exercises" announced across Fujian, Guangdong, and Zhejiang. PLAN amphibious groups begin concentrating. Commercial ro-ro vessels and civilian ferries requisitioned under national mobilization orders — OSINT detects 500+ vessels massing.</div></div>
+          <div class="scenario-step"><div class="step-time">D-7 to D-Day</div><div class="step-text">Final logistics loading. PLA Rocket Force units deploy to pre-surveyed firing positions. PLAAF disperses to hardened shelters. Electronic warfare blanket suppresses Taiwan's early warning. Maritime exclusion zone declared, ostensibly for "live-fire exercise."</div></div>
+          <div class="scenario-step"><div class="step-time">D-Day H-Hour</div><div class="step-text">Massive SRBM/cruise missile saturation of Taiwan air defenses, airfields, naval bases, and command nodes. Goal: destroy ~60% of Taiwan's IADS before first wave. Submarine-launched YJ-18s and ship-launched missiles provide multi-axis attack.</div></div>
+          <div class="scenario-step"><div class="step-time">D+1 to D+3</div><div class="step-text">First amphibious wave: 3–5 divisions (40,000–70,000 troops) with armor attempt landings at Taoyuan and Taichung beaches. Contested beach landings against prepared Taiwanese defenses. HF-3 batteries and ATGMs impose severe casualties on landing craft and first-wave armor.</div></div>
+          <div class="scenario-step"><div class="step-time">D+4 to D+14</div><div class="step-text">Attrition battle. PLA attempts to expand beachhead while Taiwan reserves counterattack. Urban warfare in coastal cities. US carrier groups arrive, contesting PLAN sea control. Air battle above strait: daily attritional exchanges between PLAAF and ROCAF/USAF.</div></div>
+          <div class="scenario-step"><div class="step-time">D+14 to D+60</div><div class="step-text">If PLA achieves and holds beachhead: grinding urban warfare advancing toward Taipei. If beachhead collapses: catastrophic PLA defeat, potential for internal Chinese political crisis. If US/Japan intervention decisive: PLA forced to abandon assault or escalate to nuclear brinkmanship.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-blockade" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">SCENARIO C // PROBABILITY: MODERATE (20–30%)</div>
+        <div class="scenario-title">Naval / Air Blockade and Coercion</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">Month 0</div><div class="step-text">PLA declares "military inspection zone" (quarantine) covering all sea/air approaches to Taiwan. All commercial vessels and aircraft ordered to seek PRC permission to enter. International community protests but hesitates to challenge militarily. Taiwan's imports — 98% seaborne — begin disruption.</div></div>
+          <div class="scenario-step"><div class="step-time">Month 1–2</div><div class="step-text">Taiwan's semiconductor fabs begin experiencing raw material shortages. Energy imports (LNG, coal, oil) reduced. Taiwan government calls for US/allied convoy escorts. China signals any convoy escort = act of war. Economic pressure builds on Taipei. Stock markets crash globally on semiconductor supply shock fears.</div></div>
+          <div class="scenario-step"><div class="step-time">Month 3–6</div><div class="step-text">Attrition of Taiwan's strategic reserves. PLAAF enforces air exclusion with interceptors. Taiwan commercial aviation collapses. PRC begins "humanitarian corridor" offers conditioned on political concessions. Internal political fractures in Taiwan government emerge under economic stress.</div></div>
+          <div class="scenario-step"><div class="step-time">Month 6–12</div><div class="step-text">Critical juncture: Taiwan either negotiates under duress, US/Japan break blockade by force (risking major war), or Taiwan's will to resist collapses. This scenario avoids massive early casualties but creates maximum global economic disruption (~$3–5T impact) and maximum coercive pressure on Taiwan's polity.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-grayzone" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">SCENARIO D // PROBABILITY: HIGH (ONGOING)</div>
+        <div class="scenario-title">Gray Zone Escalation Ladder</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">Current (2026)</div><div class="step-text">PLA conducts daily median-line incursions (4–10 aircraft). Regular PLAN warship passages through the strait. Cognitive operations, disinformation campaigns, economic pressure on Taiwan's allies. Cyber intrusions into government/critical infrastructure. "Salami slicing" of Taiwan's nominal sovereignty claims.</div></div>
+          <div class="scenario-step"><div class="step-time">Phase 2</div><div class="step-text">Enhanced exercises: full-scale blockade rehearsals around Taiwan lasting 5–7 days (as in August 2022 but larger). PLAN establishes temporary ADIZ claim over portions of the strait. Fishing vessel intrusions into Taiwan's Matsu and Kinmen islands' territorial waters. Economic coercion against countries that arm Taiwan.</div></div>
+          <div class="scenario-step"><div class="step-time">Phase 3</div><div class="step-text">Maritime quarantine: PLAN begins boarding/inspecting commercial vessels en route to Taiwan, citing "customs inspection." This is technically an act of war but calibrated below kinetic threshold. Taiwan responds by scrambling coast guard and navy. First potential armed clash if Taiwan resists inspection.</div></div>
+          <div class="scenario-step"><div class="step-time">Phase 4+</div><div class="step-text">Seizure of Taiwan-controlled offshore islands (Matsu, Kinmen, Pratas) as demonstrated resolve and coercive leverage. At each phase, PRC offers "off-ramps" conditioned on Taiwan political concessions. The entire escalation ladder is designed to avoid triggering clear US treaty responses while achieving incremental political objectives.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 08: CASUALTY ESTIMATION
+     ══════════════════════════════════════════════════════════ -->
+<section id="s08">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 08</div>
+      <h2 class="section-title">Casualty Estimation</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Full amphibious assault scenario projections</div>
+  </div>
+
+  <div class="intel-alert red mb-6">
+    <div class="intel-alert-head">Assessment Methodology</div>
+    <p>These estimates are derived from RAND Corporation modeling, CSIS wargame outputs (2023), and US DoD planning factors. They represent <strong class="critical">full amphibious assault scenarios only</strong>, not blockade or gray zone scenarios. Ranges reflect uncertainty in PLA amphibious proficiency, Taiwan civilian resistance levels, and timing/scope of US/Japanese intervention. Teleoperated robotic assault systems could reduce PLA beach assault casualties by 15–30% in the optimistic case, but do not change the fundamental arithmetic of taking a defended island against resolute defenders.</p>
+  </div>
+
+  <div class="mb-8">
+    <div class="stat-row">
+      <div class="stat-label">PLA Combat Casualties<br><span style="font-size:9px;color:var(--color-text-faint);">First 2 weeks — full assault</span></div>
+      <div class="stat-bar-wrap"><div class="stat-fill red" style="width:0%" data-width="75%"></div></div>
+      <div class="stat-val">50,000 – 150,000</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-label">Taiwan Military Casualties<br><span style="font-size:9px;color:var(--color-text-faint);">First 2 weeks</span></div>
+      <div class="stat-bar-wrap"><div class="stat-fill orange" style="width:0%" data-width="40%"></div></div>
+      <div class="stat-val">30,000 – 80,000</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-label">Taiwan Civilian Casualties<br><span style="font-size:9px;color:var(--color-text-faint);">Full conflict duration</span></div>
+      <div class="stat-bar-wrap"><div class="stat-fill red" style="width:0%" data-width="85%"></div></div>
+      <div class="stat-val">100,000 – 500,000</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-label">US/Allied Casualties<br><span style="font-size:9px;color:var(--color-text-faint);">If intervening — first 30 days</span></div>
+      <div class="stat-bar-wrap"><div class="stat-fill orange" style="width:0%" data-width="20%"></div></div>
+      <div class="stat-val">10,000 – 30,000</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-label">US Naval Vessels Lost<br><span style="font-size:9px;color:var(--color-text-faint);">CSIS 2023 wargame avg.</span></div>
+      <div class="stat-bar-wrap"><div class="stat-fill blue" style="width:0%" data-width="30%"></div></div>
+      <div class="stat-val">2 carriers, 10–20 ships</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-label">Global Economic Impact<br><span style="font-size:9px;color:var(--color-text-faint);">GDP loss, supply shock, sanctions</span></div>
+      <div class="stat-bar-wrap"><div class="stat-fill purple" style="width:0%" data-width="90%"></div></div>
+      <div class="stat-val">$2 – $10 Trillion</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-label">Semiconductor Supply Disruption<br><span style="font-size:9px;color:var(--color-text-faint);">TSMC production offline</span></div>
+      <div class="stat-bar-wrap"><div class="stat-fill red" style="width:0%" data-width="95%"></div></div>
+      <div class="stat-val">~92% of advanced nodes</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-label">PLA Casualty Reduction (Robotics)<br><span style="font-size:9px;color:var(--color-text-faint);">Teleoperated systems — optimistic case</span></div>
+      <div class="stat-bar-wrap"><div class="stat-fill green" style="width:0%" data-width="25%"></div></div>
+      <div class="stat-val">15% – 30% reduction</div>
+    </div>
+  </div>
+
+  <div class="intel-alert orange">
+    <div class="intel-alert-head">TSMC Destruction Factor</div>
+    <p>Taiwan Semiconductor Manufacturing Company produces ~92% of the world's most advanced chips (&lt;7nm). Even if China "wins" militarily, destruction of TSMC facilities — whether by PLA strikes, Taiwanese scorched-earth denial, or collateral damage — would eliminate China's primary economic rationale for the invasion. TSMC leadership has publicly stated production would be "impossible to operate" under occupation, and the US has reportedly discussed contingency plans to destroy fab facilities before they could be seized. This creates a mutual destruction paradox at the economic level.</p>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 09: ESCALATION PATHWAYS
+     ══════════════════════════════════════════════════════════ -->
+<section id="s09">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 09</div>
+      <h2 class="section-title">Escalation Pathways</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Six-level escalation ladder — Taiwan Strait</div>
+  </div>
+
+  <div class="escalation-ladder">
+    <div class="esc-rung esc-level-1">
+      <span class="esc-current">CURRENT BASELINE</span>
+      <div class="esc-level-num">LEVEL 1 // LOW</div>
+      <div class="esc-level-name">Gray Zone Operations</div>
+      <div class="esc-level-desc">Daily PLA aircraft incursions across median line. Regular PLAN warship transits and exercises near Taiwan. Cognitive warfare, disinformation, economic pressure. Taiwan reports near-daily ADIZ violations. Ostensibly "normal" PLA operating pattern since 2020.</div>
+      <div class="esc-level-actors">ACTORS: PLAAF, PLAN, PRC state media, United Front Work Dept</div>
+      <div class="esc-level-trigger">TRIGGER: Baseline — ongoing since 2020 per Taiwan MoD reports</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-2">
+      <div class="esc-level-num">LEVEL 2 // ELEVATED</div>
+      <div class="esc-level-name">Enhanced Military Exercises / Blockade Rehearsal</div>
+      <div class="esc-level-desc">Full-scale blockade rehearsal exercises (as in Aug 2022 "Eastern Theater" exercises following Pelosi visit). Multiple missile fire zones declared. Large-scale PLAN sortie encompassing all approaches to Taiwan. Duration 3–10 days. Significant economic disruption to Taiwan shipping without formal blockade.</div>
+      <div class="esc-level-actors">ACTORS: Eastern Theater Command, PLAN surface + subsurface</div>
+      <div class="esc-level-trigger">TRIGGER: High-profile Taiwan arms sale, senior US official visit, PRC domestic political event</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-3">
+      <div class="esc-level-num">LEVEL 3 // CRITICAL</div>
+      <div class="esc-level-name">Maritime Quarantine / Air Exclusion Zone</div>
+      <div class="esc-level-desc">PRC formally declares maritime inspection zone around Taiwan, requiring all vessels to seek PRC permission. PLAN warships begin boarding commercial traffic. Air exclusion zone declared, backed by interceptor patrols. Taiwan's 98% seaborne imports begin severe disruption. First potential kinetic incidents as Taiwan challenges inspections.</div>
+      <div class="esc-level-actors">ACTORS: PLAN, PLAAF, PRC Coast Guard, PLAN submarines</div>
+      <div class="esc-level-trigger">TRIGGER: Taiwan independence declaration, US arms transfer of particularly threatening systems</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-4">
+      <div class="esc-level-num">LEVEL 4 // SEVERE</div>
+      <div class="esc-level-name">Limited Strikes on Military Targets</div>
+      <div class="esc-level-desc">Precision missile and cyber strikes against Taiwan military targets only — radar sites, airfields, naval bases, command nodes. Calibrated to degrade Taiwan's ability to resist while signaling willingness to escalate further. Explicit demands for political concessions with time limit. US/Japan face decision to intervene or allow Taiwan's defenses to be degraded before potential follow-on assault.</div>
+      <div class="esc-level-actors">ACTORS: PLA Rocket Force, PLAAF, PLA SSF (cyber), PLAN</div>
+      <div class="esc-level-trigger">TRIGGER: Taiwan political crisis, PRC domestic legitimacy crisis, assessment of optimal military window</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-5">
+      <div class="esc-level-num">LEVEL 5 // CRISIS</div>
+      <div class="esc-level-name">Full Amphibious Invasion</div>
+      <div class="esc-level-desc">All-out assault combining missile saturation, airborne operations, amphibious landings, and cyber/EW. The scenario modeled in Section 07. Requires 400,000+ troops, months of preparation visible to intelligence. Extremely high-casualty scenario for all parties. Likely triggers direct US/Japan military intervention. Existential risk to CCP rule if operation fails.</div>
+      <div class="esc-level-actors">ACTORS: Eastern + Southern Theater Commands, full PLAN/PLAAF, PLA Rocket Force</div>
+      <div class="esc-level-trigger">TRIGGER: Xi Jinping political imperative + assessment of acceptable cost + opportunistic window</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-6">
+      <div class="esc-level-num">LEVEL 6 // CATASTROPHIC</div>
+      <div class="esc-level-name">Nuclear Escalation / US-China Direct Conflict</div>
+      <div class="esc-level-desc">If conventional invasion fails and US/Japan intervention is decisive, PRC faces existential CCP regime threat. Historical analysis of great-power conflicts shows nuclear signaling escalates rapidly once conventional defeat appears imminent. China's "No First Use" policy is assessed as a condition-based rather than absolute commitment. PLAN SSBNs would surge to sea. US SIOP and China's nuclear forces enter highest alert states.</div>
+      <div class="esc-level-actors">ACTORS: Xi Jinping, CMC, PLA Rocket Force ICBM/SLBM, US STRATCOM</div>
+      <div class="esc-level-trigger">TRIGGER: Imminent CCP regime collapse as consequence of failed Taiwan operation + US/Japan direct military engagement</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 10: ASSESSMENT & PROBABILITY
+     ══════════════════════════════════════════════════════════ -->
+<section id="s10">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 10</div>
+      <h2 class="section-title">Assessment & Probability</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Window-by-window invasion probability assessment</div>
+  </div>
+
+  <div class="intel-alert red mb-6">
+    <div class="intel-alert-head">MAXIMUM NEAR-TERM RISK ASSESSMENT — OCTOBER 2027</div>
+    <p>October 2027 is the <strong class="critical">highest-probability near-term invasion window</strong> in this assessment series. By October 2027, the PLA will have completed its Xi-directed 2027 capability milestone year, with potentially 12 months of additional Type 075 operations, J-20 fleet expansion, and sealift augmentation beyond the April 2027 baseline. This window also follows what could be an intense 2027 political year in Taiwan (legislative sessions) and potential US policy transitions. The combination of maximum PLA capability, political calendar alignment, and optimal weather window (if typhoon-clear) makes this the period of highest assessed risk through 2028.</p>
+  </div>
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">Analytical Framework</div>
+    <p>Invasion probability assessments represent <strong class="critical">conditional annual probability</strong> of a full amphibious invasion attempt (not blockade or gray zone) in each specific window. Informed by: PLA capability trajectory, Xi Jinping's 2027/2035 timelines per CCP congress statements, US intelligence assessments (declassified portions), RAND/CSIS wargame findings, and historical patterns of Chinese military coercion cycles.</p>
+  </div>
+
+  <div class="mb-8">
+    <div class="prob-row">
+      <div class="prob-window">April 2026</div>
+      <div class="prob-bar-wrap"><div class="prob-fill" style="width:0%;background:linear-gradient(90deg,#1d4ed8,#3b82f6);" data-width="8%"></div></div>
+      <div class="prob-pct" style="color:#3b82f6;">5–8%</div>
+      <div class="prob-note">PASSED — window not exploited</div>
+    </div>
+    <div class="prob-row">
+      <div class="prob-window">October 2026</div>
+      <div class="prob-bar-wrap"><div class="prob-fill" style="width:0%;background:linear-gradient(90deg,#1d4ed8,#60a5fa);" data-width="12%"></div></div>
+      <div class="prob-pct" style="color:#60a5fa;">8–12%</div>
+      <div class="prob-note">PASSED — window not exploited</div>
+    </div>
+    <div class="prob-row">
+      <div class="prob-window">April 2027</div>
+      <div class="prob-bar-wrap"><div class="prob-fill" style="width:0%;background:linear-gradient(90deg,#c2410c,#fb923c);" data-width="15%"></div></div>
+      <div class="prob-pct" style="color:#fb923c;">10–15%</div>
+      <div class="prob-note">PASSED — Xi milestone year begins</div>
+    </div>
+    <div class="prob-row">
+      <div class="prob-window active-window">October 2027</div>
+      <div class="prob-bar-wrap"><div class="prob-fill" style="width:0%;background:linear-gradient(90deg,#b91c1c,#f87171);" data-width="18%"></div></div>
+      <div class="prob-pct" style="color:#f87171;">12–18%</div>
+      <div class="prob-note">CURRENT — MOST DANGEROUS WINDOW</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;text-transform:uppercase;margin-bottom:var(--space-4);">Key Indicators to Watch</h3>
+
+  <div class="collapsible">
+    <div class="collapsible-head" onclick="toggleCollapsible(this)">PLA Logistics and Pre-positioning Indicators <span class="collapsible-icon">▼</span></div>
+    <div class="collapsible-body">
+      <ul style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.9;padding-left:var(--space-4);">
+        <li>Abnormal concentration of PLAN amphibious groups beyond normal exercise pattern</li>
+        <li>Civilian ro-ro vessel and ferry requisition orders under PRC National Defense Mobilization Law</li>
+        <li>PLA Logistics Support Force pre-positioning fuel, ammunition, medical supplies in Fujian</li>
+        <li>Abnormal commercial shipping diversions away from Taiwan Strait routes</li>
+        <li>PRC government evacuation of non-essential personnel from Taiwan-region ports</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-head" onclick="toggleCollapsible(this)">Political and Diplomatic Warning Signs <span class="collapsible-icon">▼</span></div>
+    <div class="collapsible-body">
+      <ul style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.9;padding-left:var(--space-4);">
+        <li>PRC withdrawal of diplomatic missions from Taiwan's remaining allies</li>
+        <li>Unusual CMC/PLA leadership conferences or readiness directives</li>
+        <li>PRC media shift from "peaceful reunification" to "inevitable reunification" framing</li>
+        <li>Breakdown of back-channel US-China military communication hotlines</li>
+        <li>Unusual PRC economic preparations (currency reserves, commodity stockpiling)</li>
+        <li>Xi Jinping making explicit public timelines for "reunification"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-head" onclick="toggleCollapsible(this)">Military Readiness and Technology Indicators <span class="collapsible-icon">▼</span></div>
+    <div class="collapsible-body">
+      <ul style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.9;padding-left:var(--space-4);">
+        <li>PLAN Type 075/071 group deployment beyond normal exercise areas toward Taiwan Strait</li>
+        <li>PLA Rocket Force unit activation and firing exercise concentration in Fujian/Guangdong</li>
+        <li>Significant PLAAF dispersal to forward airfields in Fujian and Zhejiang provinces</li>
+        <li>PLA SSF electronic warfare activation — GPS jamming, communication disruption near Taiwan</li>
+        <li>Deployment of J-7/J-8 drone conversion programs to forward bases (new OSINT indicator)</li>
+        <li>PLA second-strike nuclear forces (SSBN) surge to sea patrols</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-head" onclick="toggleCollapsible(this)">Economic and Cyber Pre-attack Indicators <span class="collapsible-icon">▼</span></div>
+    <div class="collapsible-body">
+      <ul style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.9;padding-left:var(--space-4);">
+        <li>Significant increase in PRC-attributed cyber intrusions into Taiwan government and critical infrastructure</li>
+        <li>PRC accelerating stockpiling of strategic materials (rare earths, semiconductors, oil) beyond normal</li>
+        <li>Chinese financial markets showing unusual defensive positioning or capital controls</li>
+        <li>Large-scale withdrawal of Chinese investments from Western financial systems</li>
+        <li>Pre-positioned cyber access tools in Taiwan power grid and communications backbone activated</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:var(--space-8);">
+    <div class="xref-links">
+      <span class="xref-label">Cross-Reference:</span>
+      <a href="../countries/china.html" class="xref-chip">China Dossier</a>
+      <a href="../countries/taiwan.html" class="xref-chip">Taiwan Dossier</a>
+      <a href="../theaters/asia-pacific-theater.html" class="xref-chip">Asia-Pacific Theater</a>
+      <a href="../countries/usa.html" class="xref-chip">USA Dossier</a>
+      <a href="../taiwan-strait.html" class="xref-chip">Taiwan Strait Analysis</a>
+      <a href="taiwan-window-apr-2027.html" class="xref-chip">← Apr 2027 Window</a>
+      
+      <a href="taiwan-window-oct-2027.html" class="xref-chip">Oct 2027 Window →</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 11: RECENT INTELLIGENCE
+     ══════════════════════════════════════════════════════════ -->
+<section id="s11">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 11</div>
+      <h2 class="section-title">Recent Intelligence Feed</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Latest Taiwan Strait reporting</div>
+  </div>
+
+  <div id="news-loading" class="intel-alert">
+    <div class="intel-alert-head">Loading Intelligence Feed...</div>
+    <p>Fetching latest Taiwan/China intelligence reports from the Conflict Mapper data API...</p>
+  </div>
+  <div id="news-container" class="news-grid" style="display:none;"></div>
+  <div id="news-fallback" style="display:none;">
+    <div class="intel-alert orange">
+      <div class="intel-alert-head">Intelligence Feed Unavailable</div>
+      <p>The live article feed could not be retrieved. Recent key developments include: expanded PLA exercises in the Taiwan Strait vicinity, continued US arms sales to Taiwan, and ongoing diplomatic signaling over Taiwan's defense posture. Monitor official DoD, Taiwan MoD, and INDOPACOM press releases for current assessments.</p>
+    </div>
+    <div class="news-grid">
+      <div class="news-card"><div class="news-source">Taiwan MoD</div><div class="news-title">Taiwan Reports Record PLA Incursions in Q1 2026 — 342 Aircraft Crossings of ADIZ</div><div class="news-date">Q1 2026 Report</div></div>
+      <div class="news-card"><div class="news-source">US DoD</div><div class="news-title">INDOPACOM Confirms Additional Carrier Group Deployed to Western Pacific</div><div class="news-date">March 2026</div></div>
+      <div class="news-card"><div class="news-source">CSIS</div><div class="news-title">New CSIS Wargame: Taiwan Conflict Would Cost US 2 Carriers and 900 Aircraft in First Week</div><div class="news-date">2025 Update</div></div>
+      <div class="news-card"><div class="news-source">Jane's Defence</div><div class="news-title">PLAN Commissions 4th Type 075 LHD — Amphibious Assault Capacity Now Critical Mass</div><div class="news-date">Early 2026</div></div>
+      <div class="news-card"><div class="news-source">Reuters</div><div class="news-title">Taiwan's Indigenous Submarine Program Advances — Second IDS Hull Under Construction</div><div class="news-date">2026</div></div>
+      <div class="news-card"><div class="news-source">Nikkei Asia</div><div class="news-title">Japan Activates Southwest Island Chain Defenses: Type 12 SSM Now Deployed to Yonaguni</div><div class="news-date">2025–26</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 12: SOURCES
+     ══════════════════════════════════════════════════════════ -->
+<section id="s12">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">SECTION 12</div>
+      <h2 class="section-title">Sources & References</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="sources-grid">
+    <div class="sources-col">
+      <h3>CSIS / RAND / DoD Sources</h3>
+      <div class="source-item"><a href="https://www.csis.org/analysis/first-battle-next-war-wargaming-chinese-invasion-taiwan" target="_blank">CSIS: The First Battle of the Next War</a><span>Amphibious assault wargame, 2023</span></div>
+      <div class="source-item"><a href="https://www.rand.org/topics/taiwan.html" target="_blank">RAND Corporation: Taiwan Security Research</a><span>Multiple studies on PLA capabilities and Taiwan conflict scenarios</span></div>
+      <div class="source-item"><a href="https://media.defense.gov/2023/Oct/19/2003323409/-1/-1/1/2023-MILITARY-AND-SECURITY-DEVELOPMENTS-INVOLVING-THE-PEOPLES-REPUBLIC-OF-CHINA.PDF" target="_blank">DoD: China Military Power Report 2023</a><span>Annual PLA capability assessment</span></div>
+      <div class="source-item"><a href="https://www.defense.gov/News/Releases/Release/Article/3720193/indo-pacific-command-releases-posture-statement/" target="_blank">INDOPACOM Posture Statement</a><span>US Pacific Command force disposition and readiness</span></div>
+    </div>
+    <div class="sources-col">
+      <h3>IISS / SIPRI / Academic</h3>
+      <div class="source-item"><a href="https://www.iiss.org/publications/the-military-balance" target="_blank">IISS Military Balance 2024</a><span>Authoritative global force comparison data</span></div>
+      <div class="source-item"><a href="https://www.sipri.org/databases/milex" target="_blank">SIPRI Military Expenditure Database</a><span>Defense spending and modernization tracking</span></div>
+      <div class="source-item"><a href="https://warontherocks.com/category/analysis/taiwan/" target="_blank">War on the Rocks: Taiwan Analysis</a><span>Peer-reviewed strategic analysis and commentary</span></div>
+      <div class="source-item"><a href="https://chinapower.csis.org/china-amphibious-assault/" target="_blank">ChinaPower: PLA Amphibious Capabilities</a><span>CSIS tracker of PLA amphibious force development</span></div>
+    </div>
+    <div class="sources-col">
+      <h3>Official Statements</h3>
+      <div class="source-item"><a href="https://www.mnd.gov.tw/english/" target="_blank">Taiwan Ministry of National Defense</a><span>Official ROC Armed Forces statements and reports</span></div>
+      <div class="source-item"><a href="http://www.mod.gov.cn/gfbw/sy/index.html" target="_blank">PRC Ministry of National Defense</a><span>Official PLA Daily and MND statements</span></div>
+      <div class="source-item"><a href="https://www.defense.gov/News/Transcripts/?Page=1" target="_blank">US DoD Press Briefings</a><span>Official US defense posture and Taiwan policy statements</span></div>
+      <div class="source-item"><a href="https://rupprecht.substack.com/" target="_blank">Andreas Rupprecht — PLAAF Analysis</a><span>Primary OSINT source for PLA aviation and drone conversion programs</span></div>
+    </div>
+  </div>
+
+  <div class="classification-notice">
+    <div class="class-title">Analytical Notice</div>
+    <div class="class-body">This assessment is produced entirely from open-source intelligence (OSINT), publicly available academic research, official government statements, and think-tank analyses. No classified information is referenced or implied. All probability estimates, force assessments, and scenario analyses represent analytical judgment based on publicly available data and carry inherent uncertainty. This material is provided for educational and analytical purposes.</div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-text">CONFLICT MAPPER // TAIWAN STRAIT INVASION WINDOW ANALYSIS // OCTOBER 2027 // OPEN SOURCE INTELLIGENCE // ANALYTICAL ASSESSMENT</p>
+    <p class="footer-text" style="margin-top:var(--space-2);">DATA COMPILED FROM OSINT, ACADEMIC RESEARCH, AND PUBLICLY AVAILABLE GOVERNMENT DOCUMENTS</p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════
+     JAVASCRIPT
+     ══════════════════════════════════════════════════════════ -->
+<script>
+// ── Days Until Window Calculation ──
+(function() {
+  const now = new Date();
+  const windowDate = new Date('2027-10-01');
+  const diff = Math.ceil((windowDate - now) / (1000 * 60 * 60 * 24));
+  const el = document.getElementById('days-until');
+  if (el) {
+    if (diff > 0) el.textContent = diff;
+    else if (diff <= 0 && diff > -45) el.textContent = 'ACTIVE';
+    else el.textContent = 'PAST';
+  }
+})();
+
+// ── Tab Switching ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const tabId = this.getAttribute('data-tab');
+    const container = this.closest('.tabs-wrap');
+    container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('tab-' + tabId).classList.add('active');
+  });
+});
+
+// ── Collapsible ──
+function toggleCollapsible(head) {
+  head.classList.toggle('open');
+  const body = head.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// ── Animate Stat Bars on Scroll ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('[data-width]').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.width; }, 100);
+      });
+      entry.target.querySelectorAll('.prob-fill[data-width]').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.width; }, 200);
+      });
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('section').forEach(s => observer.observe(s));
+
+// ── Leaflet Map ──
+(function initMap() {
+  const map = L.map('taiwan-map', {
+    center: [24.5, 121.0],
+    zoom: 6,
+    zoomControl: true,
+    attributionControl: false
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap, © CartoDB',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  // Custom icon factory
+  function createIcon(color, symbol) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="background:${color};width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,.6);box-shadow:0 0 8px ${color}80;"></div>`,
+      iconSize: [12, 12],
+      iconAnchor: [6, 6]
+    });
+  }
+  function createTriIcon(color) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid ${color};filter:drop-shadow(0 0 4px ${color}80);"></div>`,
+      iconSize: [14, 12],
+      iconAnchor: [7, 12]
+    });
+  }
+  function createStarIcon(color) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="background:${color};width:10px;height:10px;transform:rotate(45deg);border:2px solid rgba(255,255,255,.5);box-shadow:0 0 6px ${color}80;"></div>`,
+      iconSize: [10, 10],
+      iconAnchor: [5, 5]
+    });
+  }
+
+  // PLA Mainland Bases (red)
+  const plaBasesData = [
+    [24.45, 118.08, 'Xiamen Naval Base', 'PLAN amphibious staging base, home to Type 071 LPDs'],
+    [25.44, 119.30, 'Lianjiang Air Base', 'PLAAF fighter base in Fujian, forward deployed J-16s'],
+    [26.08, 119.28, 'Fuzhou Changle Airport', 'Dual-use civilian/military, reinforcement staging'],
+    [26.14, 119.62, 'Changping Air Base', 'PLAAF forward base, Fujian province'],
+    [24.16, 120.63, 'Pingtan Island Base', 'Closest PLA base to Taiwan, 130km from Taichung'],
+    [22.82, 108.35, 'Zhanjiang Naval Base', 'PLAN Southern fleet HQ, Type 075 home base'],
+    [21.57, 109.40, 'Beihai / Zhanjiang', 'PLAN submarine base, southern fleet'],
+    [30.04, 122.19, 'Zhoushan Naval Base', 'PLAN East Sea Fleet HQ, amphibious groups staging'],
+    [22.55, 114.08, 'Guangzhou', 'Southern Theater Command HQ'],
+    [31.34, 121.62, 'Shanghai Jangwan AB', 'PLAAF base, supporting eastern operations'],
+  ];
+  plaBasesData.forEach(([lat, lon, name, desc]) => {
+    L.marker([lat, lon], {icon: createIcon('#ef4444', '★')})
+      .addTo(map)
+      .bindPopup(`<div style="font-family:monospace;font-size:12px;"><strong style="color:#ef4444">${name}</strong><br>${desc}</div>`);
+  });
+
+  // Taiwan Defense Positions (blue)
+  const twDefData = [
+    [25.03, 121.51, 'Taipei Defense Command', 'Capital defense, Tien Kung SAM batteries'],
+    [24.80, 120.97, 'Hsinchu AFB', 'F-16V base, mountain shelter runway'],
+    [24.18, 120.62, 'Taichung Ching Chuan Kang AB', 'Major ROC air base, F-16 operations'],
+    [22.98, 120.35, 'Tainan AFB', 'F-CK-1 Indigenous Defender squadron'],
+    [22.58, 120.35, 'Pingtung AFB', 'P-3C Orion ASW patrols, S-70 helicopters'],
+    [24.44, 118.38, 'Kinmen Island', 'Taiwan-controlled, ROCN garrison, artillery'],
+    [26.16, 119.95, 'Matsu Islands', 'Taiwan-controlled, 1000-person garrison'],
+    [22.62, 120.28, 'Kaohsiung Naval Base', 'ROCN main southern fleet base'],
+    [25.15, 121.77, 'Keelung Naval Base', 'ROCN northern fleet, destroyer/frigate base'],
+  ];
+  twDefData.forEach(([lat, lon, name, desc]) => {
+    L.marker([lat, lon], {icon: createIcon('#3b82f6', '●')})
+      .addTo(map)
+      .bindPopup(`<div style="font-family:monospace;font-size:12px;"><strong style="color:#3b82f6">${name}</strong><br>${desc}</div>`);
+  });
+
+  // Amphibious Landing Beaches (orange triangles)
+  const beaches = [
+    [25.00, 121.20, 'Taoyuan Coast', 'PRIMARY LANDING ZONE — flat beach gradient, proximity to Taipei'],
+    [24.80, 120.92, 'Hsinchu Beach', 'SECONDARY LZ — wider frontage, industrial hinterland'],
+    [24.17, 120.50, 'Taichung / Qingshui', 'PRIMARY LANDING ZONE — widest beach, central island access'],
+    [22.64, 120.27, 'Kaohsiung / Zuoying', 'SECONDARY LZ — port seizure objective, southern approach'],
+  ];
+  beaches.forEach(([lat, lon, name, desc]) => {
+    L.marker([lat, lon], {icon: createTriIcon('#f97316')})
+      .addTo(map)
+      .bindPopup(`<div style="font-family:monospace;font-size:12px;"><strong style="color:#f97316">${name}</strong><br>${desc}</div>`);
+  });
+
+  // US Military Bases (green)
+  const usBases = [
+    [26.36, 127.77, 'Kadena Air Base, Okinawa', 'USAF — F-15C/D, KC-135, P-8 Poseidon. Closest major US base.'],
+    [13.58, 144.93, 'Andersen AFB, Guam', 'USAF — B-52H, B-2, F-22 detachments. Strategic bomber hub.'],
+    [35.44, 139.65, 'Yokosuka Naval Base', 'US 7th Fleet HQ. USS Ronald Reagan CSG homeport.'],
+    [33.16, 129.72, 'Sasebo Naval Base', 'US Amphibious Ready Group. USS Wasp LHD.'],
+    [37.12, 127.05, 'Camp Humphreys, S. Korea', 'US Army Korea HQ. Aviation brigade.'],
+    [15.17, 145.73, 'Tinian / CNMI', 'Alternate bomber divert base, Guam backup.'],
+  ];
+  usBases.forEach(([lat, lon, name, desc]) => {
+    L.marker([lat, lon], {icon: createIcon('#22c55e', '◆')})
+      .addTo(map)
+      .bindPopup(`<div style="font-family:monospace;font-size:12px;"><strong style="color:#22c55e">${name}</strong><br>${desc}</div>`);
+  });
+
+  // Japanese JSDF Bases (purple)
+  const jsdBases = [
+    [26.20, 127.65, 'JASDF Naha, Okinawa', 'JASDF — F-15J/F-35A. Key southwestern defense node.'],
+    [40.70, 141.40, 'JASDF Misawa AB', 'JASDF + USAF F-16s. Northern Japan.'],
+    [35.74, 139.34, 'JASDF Yokota AB', 'US/JASDF dual base. 374th Airlift Wing.'],
+    [24.47, 122.98, 'JGSDF Yonaguni Island', 'Type 12 SSM battery. Westernmost Japan base — 110km from Taiwan.'],
+    [24.80, 125.28, 'JGSDF Miyako Island', 'Surface-to-air and anti-ship missile battery.'],
+  ];
+  jsdBases.forEach(([lat, lon, name, desc]) => {
+    L.marker([lat, lon], {icon: createIcon('#a855f7', '★')})
+      .addTo(map)
+      .bindPopup(`<div style="font-family:monospace;font-size:12px;"><strong style="color:#a855f7">${name}</strong><br>${desc}</div>`);
+  });
+
+  // Maritime Exclusion Zones (from Aug 2022 exercises, red polygon)
+  const exZone1 = L.polygon([
+    [25.5, 121.0], [25.5, 122.5], [24.5, 123.0], [23.5, 122.5], [23.5, 121.0]
+  ], {
+    color: '#ef4444',
+    fillColor: '#ef4444',
+    fillOpacity: 0.08,
+    weight: 1.5,
+    dashArray: '5 5'
+  }).addTo(map).bindPopup('<div style="font-family:monospace;font-size:12px;color:#ef4444"><strong>PLA Exercise Exclusion Zone (East)</strong><br>Declared August 2022 exercises<br>Air/Sea exclusion zone</div>');
+
+  const exZone2 = L.polygon([
+    [24.5, 119.5], [24.5, 120.5], [23.0, 120.5], [23.0, 119.5]
+  ], {
+    color: '#ef4444',
+    fillColor: '#ef4444',
+    fillOpacity: 0.08,
+    weight: 1.5,
+    dashArray: '5 5'
+  }).addTo(map).bindPopup('<div style="font-family:monospace;font-size:12px;color:#ef4444"><strong>PLA Exercise Exclusion Zone (West)</strong><br>Declared August 2022 exercises<br>Live fire artillery zone</div>');
+
+  // First Island Chain line
+  const firstChain = L.polyline([
+    [35.5, 129.0], [33.5, 129.5], [30.5, 130.0],
+    [26.35, 127.75], [24.5, 124.0], [22.0, 121.0],
+    [20.0, 120.0], [18.0, 120.5], [14.5, 121.0], [12.0, 121.5]
+  ], {
+    color: '#fbbf24',
+    weight: 2,
+    opacity: 0.6,
+    dashArray: '8 4'
+  }).addTo(map).bindPopup('<div style="font-family:monospace;font-size:12px;color:#fbbf24"><strong>First Island Chain</strong><br>Strategic containment line from Japan through Taiwan/Philippines</div>');
+
+  // Casualty zone overlays near beaches
+  beaches.forEach(([lat, lon, name]) => {
+    L.circle([lat, lon], {
+      radius: 25000,
+      color: '#f97316',
+      fillColor: '#f97316',
+      fillOpacity: 0.05,
+      weight: 1,
+      dashArray: '4 4'
+    }).addTo(map).bindPopup(`<div style="font-family:monospace;font-size:12px;color:#f97316"><strong>Estimated Casualty Zone — ${name}</strong><br>25km radius heavy combat zone<br>Based on historical amphibious assault patterns</div>`);
+  });
+})();
+
+// ── News Feed ──
+async function loadNews() {
+  const loading = document.getElementById('news-loading');
+  const container = document.getElementById('news-container');
+  const fallback = document.getElementById('news-fallback');
+
+  try {
+    const [r1, r2] = await Promise.all([
+      fetch('/api/articles?country=taiwan&limit=12'),
+      fetch('/api/articles?country=china&limit=8')
+    ]);
+    if (!r1.ok && !r2.ok) throw new Error('API unavailable');
+
+    let articles = [];
+    if (r1.ok) articles = articles.concat(await r1.json());
+    if (r2.ok) articles = articles.concat(await r2.json());
+    articles = articles.slice(0, 20);
+
+    if (!articles.length) throw new Error('No articles');
+
+    container.innerHTML = articles.map(a => `
+      <div class="news-card">
+        <div class="news-source">${a.source || a.country || 'Intelligence Feed'}</div>
+        <div class="news-title">${a.title || a.headline || 'Article'}</div>
+        <div class="news-date">${a.date ? new Date(a.date).toLocaleDateString() : 'Recent'}</div>
+      </div>
+    `).join('');
+    loading.style.display = 'none';
+    container.style.display = 'grid';
+  } catch (e) {
+    loading.style.display = 'none';
+    fallback.style.display = 'block';
+  }
+}
+loadNews();
+
+// ── Init Lucide Icons ──
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.lucide) lucide.createIcons();
+});
+</script>
+</body>
+</html>

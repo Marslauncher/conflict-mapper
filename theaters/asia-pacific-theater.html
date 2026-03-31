@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B-02 Asia-Pacific Theater // Geopolitical Intelligence Platform v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DESIGN SYSTEM — B-02 Asia-Pacific Theater
+   Accent: Deep Navy Blue #1A3A5C / Bright #2E5F99
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --color-bg:       #0a0c10;
+  --color-surface:  #0f1117;
+  --color-surface-2:#141820;
+  --color-surface-3:#1a2030;
+  --color-border:   rgba(26,58,92,0.22);
+  --color-border-2: rgba(26,58,92,0.10);
+  --color-text:     #dde2ec;
+  --color-text-muted:#8a94a8;
+  --color-text-faint:#4a5168;
+  --color-accent:   #1A3A5C;
+  --color-accent-bright:#2E5F99;
+  --color-teal:     #2dd4bf;
+  --color-blue:     #60a5fa;
+  --color-red:      #f87171;
+  --color-green:    #4ade80;
+  --font-display:   'Rajdhani', sans-serif;
+  --font-mono:      'Share Tech Mono', monospace;
+  --font-body:      'Inter', sans-serif;
+  --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;  --space-10:2.5rem;
+  --space-12:3rem;  --space-16:4rem;
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;
+  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);
+  --text-sm:clamp(.875rem,.8rem + .35vw,1rem);
+  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
+  --text-hero:clamp(2.5rem,1rem + 5vw,5.5rem);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);line-height:1.65;}
+img,video{display:block;max-width:100%;height:auto;}
+a{color:var(--color-accent-bright);text-decoration:none;}
+a:hover{color:var(--color-teal);}
+.highlight{color:var(--color-accent-bright);}
+strong.critical{color:var(--color-accent-bright);}
+
+/* ── STICKY NAV ─────────────────────────────────────────── */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,12,16,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);height:60px;display:flex;align-items:center;}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-4);width:100%;}
+.nav-logo{font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;letter-spacing:.08em;color:var(--color-accent-bright);white-space:nowrap;flex-shrink:0;}
+.nav-badge{font-family:var(--font-mono);font-size:10px;background:color-mix(in oklch,var(--color-accent-bright) 15%,transparent);color:var(--color-accent-bright);border:1px solid var(--color-border);padding:2px 8px;border-radius:3px;}
+.nav-links{display:flex;align-items:center;gap:0;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;flex:1;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;letter-spacing:.06em;color:var(--color-text-muted);padding:var(--space-1) var(--space-3);white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;text-transform:uppercase;}
+.nav-link:hover,.nav-link.active{color:var(--color-accent-bright);border-bottom-color:var(--color-accent-bright);}
+
+/* ── HERO ───────────────────────────────────────────────── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:60px;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(26,58,92,.08) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(96,165,250,.05) 0%,transparent 60%),#0a0c10;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(26,58,92,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(26,58,92,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.hero-content{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:var(--space-16) var(--space-6);}
+.hero-eyebrow{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-bright);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-4);display:flex;align-items:center;gap:var(--space-3);}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--color-accent-bright);}
+.hero-icon{font-size:3rem;margin-bottom:var(--space-4);}
+.hero-title{font-family:var(--font-display);font-size:var(--text-hero);font-weight:700;line-height:1.0;letter-spacing:.02em;text-transform:uppercase;margin-bottom:var(--space-4);}
+.hero-title .sub-title{display:block;font-size:clamp(1rem,1rem + 2vw,2.2rem);color:var(--color-accent-bright);font-weight:500;letter-spacing:.1em;}
+.hero-subtitle{font-size:var(--text-lg);color:var(--color-text-muted);max-width:700px;margin-bottom:var(--space-8);}
+.hero-stamp{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-8);}
+.hero-stats{display:flex;flex-wrap:wrap;gap:var(--space-4);}
+.h-stat{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-4) var(--space-6);min-width:130px;}
+.h-stat-val{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent-bright);display:block;}
+.h-stat-key{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.08em;}
+.scroll-cue{margin-top:var(--space-12);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text-faint);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.1em;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+
+/* ── SECTION SCAFFOLDING ────────────────────────────────── */
+.section-wrap{padding:clamp(var(--space-10),5vw,var(--space-16)) var(--space-6);max-width:1280px;margin:0 auto;}
+section{border-top:1px solid var(--color-border-2);}
+.section-header{display:flex;align-items:flex-end;gap:var(--space-4);margin-bottom:var(--space-8);}
+.section-num{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-bright);letter-spacing:.15em;margin-bottom:var(--space-1);}
+.section-title{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;text-transform:uppercase;line-height:1.1;}
+.section-lead{color:var(--color-text-muted);font-size:var(--text-sm);max-width:36ch;}
+.section-divider{flex:1;height:1px;background:linear-gradient(90deg,var(--color-accent-bright),transparent);opacity:.3;margin-bottom:8px;}
+
+/* ── CARD GRID ──────────────────────────────────────────── */
+.card-grid{display:grid;gap:var(--space-4);}
+.grid-2{grid-template-columns:repeat(auto-fill,minmax(min(480px,100%),1fr));}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));}
+.grid-4{grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));}
+
+/* ── EQUIPMENT CARD ─────────────────────────────────────── */
+.equip-card{background:var(--color-surface);border:1px solid var(--color-border);overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.equip-card:hover{border-color:var(--color-accent-bright);box-shadow:0 0 20px rgba(26,58,92,.15);}
+.equip-img-wrap{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--color-surface-2);}
+.equip-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform .4s;}
+.equip-img-wrap img:hover{transform:scale(1.04);}
+.equip-badge{position:absolute;top:var(--space-2);left:var(--space-2);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;background:color-mix(in oklch,var(--color-accent-bright) 18%,transparent);color:var(--color-accent-bright);border:1px solid var(--color-border);padding:2px 7px;backdrop-filter:blur(4px);}
+.equip-country-badge{position:absolute;top:var(--space-2);right:var(--space-2);font-size:1.2rem;background:rgba(10,12,16,.7);padding:2px 6px;border-radius:3px;}
+.equip-body{padding:var(--space-4) var(--space-5);}
+.equip-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent-bright);margin-bottom:var(--space-2);}
+.equip-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3);}
+.equip-specs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-1) var(--space-4);margin-bottom:var(--space-3);}
+.equip-spec{display:flex;justify-content:space-between;gap:var(--space-2);padding:var(--space-1) 0;border-bottom:1px solid rgba(26,58,92,.12);}
+.equip-spec-key{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.06em;}
+.equip-spec-val{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-bright);font-weight:600;}
+.equip-link{display:inline-flex;align-items:center;gap:var(--space-1);font-family:var(--font-mono);font-size:10px;color:var(--color-blue);letter-spacing:.06em;text-transform:uppercase;}
+.equip-link:hover{color:var(--color-accent-bright);}
+
+/* ── DATA TABLE ─────────────────────────────────────────── */
+.data-table-wrap{overflow-x:auto;border:1px solid var(--color-border);}
+.data-table{width:100%;border-collapse:collapse;font-size:var(--text-sm);}
+.data-table thead th{background:var(--color-surface-2);font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-bright);padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border);white-space:nowrap;}
+.data-table tbody tr{border-bottom:1px solid rgba(26,58,92,.08);transition:background .15s;}
+.data-table tbody tr:hover{background:rgba(26,58,92,.06);}
+.data-table tbody td{padding:var(--space-3) var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);vertical-align:middle;}
+.data-table tbody td:first-child{color:var(--color-text);font-weight:500;}
+.data-table td a{color:var(--color-blue);font-family:var(--font-mono);font-size:11px;}
+.data-table td a:hover{color:var(--color-accent-bright);}
+
+/* ── INTEL ALERT ────────────────────────────────────────── */
+.intel-alert{background:color-mix(in oklch,var(--color-accent-bright) 8%,var(--color-surface));border:1px solid var(--color-border);border-left:3px solid var(--color-accent-bright);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-6);}
+.intel-alert-head{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-bright);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-2);}
+.intel-alert p{font-size:var(--text-sm);line-height:1.7;}
+.intel-alert.red{border-left-color:var(--color-red);background:color-mix(in oklch,var(--color-red) 6%,var(--color-surface));}
+.intel-alert.red .intel-alert-head{color:var(--color-red);}
+
+/* ── POLICY QUOTE ───────────────────────────────────────── */
+.policy-quote{background:var(--color-surface-3);border:1px solid var(--color-border);border-left:3px solid var(--color-accent-bright);padding:var(--space-6) var(--space-8);margin:var(--space-6) 0;font-size:var(--text-base);color:var(--color-text);font-style:italic;line-height:1.8;}
+.policy-quote-attr{display:block;margin-top:var(--space-3);font-style:normal;font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);letter-spacing:.06em;}
+
+/* ── CHOKEPOINT CARD ────────────────────────────────────── */
+.chokepoint-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-5);}
+.chokepoint-card{background:var(--color-surface);border:1px solid var(--color-border);overflow:hidden;transition:border-color .2s;}
+.chokepoint-card:hover{border-color:var(--color-accent-bright);}
+.chokepoint-img-wrap{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--color-surface-2);}
+.chokepoint-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform .4s;}
+.chokepoint-img-wrap img:hover{transform:scale(1.04);}
+.chokepoint-badge{position:absolute;top:var(--space-2);left:var(--space-2);font-family:var(--font-mono);font-size:10px;background:color-mix(in oklch,var(--color-accent-bright) 18%,rgba(10,12,16,.8));color:var(--color-accent-bright);border:1px solid var(--color-border);padding:2px 7px;backdrop-filter:blur(4px);}
+.chokepoint-body{padding:var(--space-4) var(--space-5);}
+.chokepoint-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent-bright);margin-bottom:2px;}
+.chokepoint-width{font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);margin-bottom:var(--space-3);text-transform:uppercase;letter-spacing:.06em;}
+.chokepoint-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3);}
+.chokepoint-controllers{font-size:var(--text-xs);margin-bottom:var(--space-2);}
+.ctrl-label{font-family:var(--font-mono);color:var(--color-text-faint);letter-spacing:.06em;}
+.ctrl-val{color:var(--color-text);margin-left:var(--space-2);}
+.chokepoint-risk{font-size:var(--text-xs);}
+.risk-label{font-family:var(--font-mono);color:var(--color-text-faint);letter-spacing:.06em;}
+.risk-val{margin-left:var(--space-2);font-weight:700;font-family:var(--font-mono);}
+.risk-high{color:var(--color-red);}
+.risk-med{color:var(--color-accent-bright);}
+.risk-low{color:var(--color-green);}
+
+/* ── MATRIX TABLE ───────────────────────────────────────── */
+.matrix-country{white-space:nowrap;}
+.flag-chip{display:inline-flex;align-items:center;gap:var(--space-2);}
+.flag-emoji{font-size:1.1rem;}
+.flag-name{font-family:var(--font-display);font-weight:600;font-size:var(--text-sm);color:var(--color-text);}
+.rating-bar{display:flex;align-items:center;gap:var(--space-2);min-width:120px;}
+.rating-fill-wrap{flex:1;background:rgba(255,255,255,.06);height:6px;border-radius:3px;overflow:hidden;}
+.rating-fill{height:100%;background:var(--color-accent-bright);border-radius:3px;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+.rating-num{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-bright);min-width:30px;}
+.nuclear-yes{color:var(--color-red);font-weight:700;font-family:var(--font-mono);}
+.nuclear-limited{color:var(--color-accent-bright);font-family:var(--font-mono);}
+.nuclear-no{color:var(--color-text-faint);font-family:var(--font-mono);}
+
+/* ── ESCALATION LADDER ──────────────────────────────────── */
+.escalation-ladder{display:flex;flex-direction:column;gap:0;}
+.esc-rung{border:1px solid var(--color-border);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-2);position:relative;transition:border-color .2s;}
+.esc-rung:hover{border-color:var(--color-accent-bright);}
+.esc-level-1{border-left:3px solid #4ade80;}
+.esc-level-2{border-left:3px solid #a3e635;}
+.esc-level-3{border-left:3px solid #2E5F99;}
+.esc-level-4{border-left:3px solid #f97316;}
+.esc-level-5{border-left:3px solid #ef4444;}
+.esc-level-6{border-left:3px solid #dc2626;background:rgba(220,38,38,.06);}
+.esc-level-num{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-1);}
+.esc-level-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);}
+.esc-level-desc{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-2);line-height:1.6;}
+.esc-level-actors{font-family:var(--font-mono);font-size:11px;color:var(--color-blue);margin-bottom:var(--space-1);}
+.esc-level-trigger{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-bright);letter-spacing:.04em;}
+.esc-arrow{text-align:center;color:var(--color-text-faint);font-size:1.2rem;margin:var(--space-1) 0;}
+
+/* ── TABS ───────────────────────────────────────────────── */
+.tabs-wrap{margin-bottom:var(--space-8);}
+.tab-buttons{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-4);border-bottom:1px solid var(--color-border);padding-bottom:0;}
+.tab-btn{font-family:var(--font-display);font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted);padding:var(--space-2) var(--space-4);border-bottom:2px solid transparent;cursor:pointer;transition:color .2s,border-color .2s;background:none;border-top:none;border-left:none;border-right:none;text-transform:uppercase;letter-spacing:.06em;margin-bottom:-1px;}
+.tab-btn:hover,.tab-btn.active{color:var(--color-accent-bright);border-bottom-color:var(--color-accent-bright);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* ── SCENARIO TAB CONTENT ───────────────────────────────── */
+.scenario-card{background:var(--color-surface-2);border:1px solid var(--color-border);padding:var(--space-6);}
+.scenario-trigger{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-bright);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.scenario-title{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-text);margin-bottom:var(--space-4);}
+.scenario-steps{display:flex;flex-direction:column;gap:var(--space-3);}
+.scenario-step{display:flex;gap:var(--space-4);padding:var(--space-3) var(--space-4);background:rgba(26,58,92,.06);border:1px solid rgba(26,58,92,.10);}
+.step-time{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-bright);min-width:80px;padding-top:2px;}
+.step-text{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── COLLAPSIBLE ────────────────────────────────────────── */
+.collapsible{border:1px solid var(--color-border);margin-bottom:var(--space-3);}
+.collapsible-head{display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);cursor:pointer;font-family:var(--font-display);font-weight:600;font-size:var(--text-base);text-transform:uppercase;letter-spacing:.04em;transition:color .2s;background:var(--color-surface);}
+.collapsible-head:hover,.collapsible-head.open{color:var(--color-accent-bright);}
+.collapsible-body{display:none;padding:var(--space-5);border-top:1px solid var(--color-border);background:var(--color-surface-2);}
+.collapsible-body.open{display:block;}
+
+/* ── STAT BAR ───────────────────────────────────────────── */
+.stat-row{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-3);}
+.stat-label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);min-width:160px;text-transform:uppercase;letter-spacing:.06em;}
+.stat-bar-wrap{flex:1;background:rgba(255,255,255,.06);height:8px;border-radius:4px;overflow:hidden;}
+.stat-fill{height:100%;background:var(--color-accent-bright);border-radius:4px;}
+.stat-val{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-bright);min-width:40px;text-align:right;}
+
+/* ── WILDCARD CARD ──────────────────────────────────────── */
+.wildcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-4);}
+.wildcard-card{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);transition:border-color .2s;}
+.wildcard-card:hover{border-color:var(--color-accent-bright);}
+.wildcard-icon{font-size:1.8rem;margin-bottom:var(--space-3);}
+.wildcard-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-accent-bright);text-transform:uppercase;letter-spacing:.04em;margin-bottom:var(--space-2);}
+.wildcard-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── DOCTRINE CARD ──────────────────────────────────────── */
+.doctrine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:var(--space-4);}
+.doctrine-card{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);}
+.doctrine-icon{font-size:1.6rem;margin-bottom:var(--space-3);}
+.doctrine-label{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--space-1);}
+.doctrine-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-accent-bright);margin-bottom:var(--space-2);}
+.doctrine-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── MAP / INLINE IMAGE ─────────────────────────────────── */
+.map-container{position:relative;overflow:hidden;border:1px solid var(--color-border);margin-bottom:var(--space-4);}
+.map-img{width:100%;cursor:pointer;transition:transform .4s;}
+.map-img:hover{transform:scale(1.02);}
+.map-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,12,16,.85));padding:var(--space-4) var(--space-5);}
+.map-caption{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-bright);letter-spacing:.1em;text-transform:uppercase;}
+.map-stats-row{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-6);}
+.map-stat{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-3) var(--space-5);flex:1;min-width:120px;}
+.map-stat-val{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent-bright);display:block;}
+.map-stat-key{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.06em;}
+figure.inline-img{border:1px solid var(--color-border);overflow:hidden;margin:var(--space-6) 0;}
+figure.inline-img img{width:100%;cursor:pointer;transition:transform .3s;}
+figure.inline-img img:hover{transform:scale(1.02);}
+figure.inline-img figcaption{padding:var(--space-3) var(--space-4);font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);background:var(--color-surface);letter-spacing:.04em;}
+
+/* ── XREF LINKS ─────────────────────────────────────────── */
+.xref-links{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);margin-bottom:var(--space-6);padding:var(--space-3) var(--space-4);background:var(--color-surface);border:1px solid var(--color-border);}
+.xref-label{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;}
+.xref-chip{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;background:color-mix(in oklch,var(--color-accent-bright) 10%,var(--color-surface-2));color:var(--color-accent-bright);border:1px solid var(--color-border);padding:var(--space-1) var(--space-3);}
+.xref-chip:hover{background:color-mix(in oklch,var(--color-accent-bright) 18%,var(--color-surface-2));color:var(--color-teal);}
+
+/* ── SOURCES GRID ───────────────────────────────────────── */
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-6);}
+.sources-col h3{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent-bright);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-4);padding-bottom:var(--space-2);border-bottom:1px solid var(--color-border);}
+.source-item{display:flex;flex-direction:column;gap:2px;margin-bottom:var(--space-4);}
+.source-item a{font-size:var(--text-sm);font-weight:500;color:var(--color-text);}
+.source-item a:hover{color:var(--color-accent-bright);}
+.source-item span{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);}
+.classification-notice{background:var(--color-surface-2);border:1px solid var(--color-border);border-top:3px solid var(--color-accent-bright);padding:var(--space-6);margin-top:var(--space-8);text-align:center;}
+.class-title{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-accent-bright);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.class-body{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;max-width:700px;margin:0 auto;}
+
+/* ── LIGHTBOX ───────────────────────────────────────────── */
+#lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;flex-direction:column;gap:var(--space-4);}
+#lightbox.active{display:flex;}
+#lightbox-img{max-width:90vw;max-height:80vh;object-fit:contain;border:1px solid var(--color-border);}
+#lightbox-cap{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);max-width:600px;text-align:center;}
+#lightbox-close{position:absolute;top:var(--space-4);right:var(--space-6);font-family:var(--font-mono);font-size:var(--text-xl);color:var(--color-text-muted);cursor:pointer;}
+#lightbox-close:hover{color:var(--color-accent-bright);}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--space-6);text-align:center;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-text{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.06em;}
+
+/* ── UTILITY ─────────────────────────────────────────────── */
+.mb-4{margin-bottom:var(--space-4);} .mb-6{margin-bottom:var(--space-6);} .mb-8{margin-bottom:var(--space-8);}
+.text-muted{color:var(--color-text-muted);} .text-accent{color:var(--color-accent-bright);}
+.mono{font-family:var(--font-mono);font-size:var(--text-xs);}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:10px;padding:2px 8px;border:1px solid var(--color-border);color:var(--color-text-faint);letter-spacing:.06em;margin:2px;}
+.tag-red{border-color:rgba(248,113,113,.3);color:var(--color-red);}
+.tag-green{border-color:rgba(74,222,128,.3);color:var(--color-green);}
+.tag-teal{border-color:rgba(45,212,191,.3);color:var(--color-teal);}
+.gap-2{gap:var(--space-2);}
+.flex-wrap{display:flex;flex-wrap:wrap;gap:var(--space-2);}
+@media(max-width:768px){
+  .nav-logo{font-size:11px;}
+  .hero-stats{flex-direction:column;}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
+  .section-title{font-size:var(--text-xl);}
+  .equip-specs{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="site-nav" role="navigation" aria-label="Theater navigation">
+  <div class="nav-inner">
+    <div class="nav-logo">INTEL PLATFORM v2</div>
+    <div class="nav-badge">B-02</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#theater-map">Geography</a>
+      <a class="nav-link" href="#theater-context">Context</a>
+      <a class="nav-link" href="#theater-history">History</a>
+      <a class="nav-link" href="#theater-forces">Forces</a>
+      <a class="nav-link" href="#theater-matrix">Matrix</a>
+      <a class="nav-link" href="#theater-chokepoints">Chokepoints</a>
+      <a class="nav-link" href="#theater-flashpoints">Flashpoints</a>
+      <a class="nav-link" href="#theater-logistics">Logistics</a>
+      <a class="nav-link" href="#theater-escalation">Escalation</a>
+      <a class="nav-link" href="#theater-wildcards">Wild Cards</a>
+      <a class="nav-link" href="#theater-assessment">Assessment</a>
+      <a class="nav-link" href="#theater-sources">Sources</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">CLASSIFIED OPEN-SOURCE ANALYSIS // MARCH 2026 // SERIES B THEATER DOSSIER</div>
+    <div class="hero-icon">🌊</div>
+    <h1 class="hero-title">
+      ASIA-PACIFIC
+      <span class="sub-title">OPERATIONAL THEATER ANALYSIS // B-02</span>
+    </h1>
+    <p class="hero-subtitle">Multi-actor capability assessment, first island chain analysis & Taiwan contingency scenario modeling across the defining great-power competition theater of the 21st century</p>
+    <p class="hero-stamp">ACTORS: CHINA (PLA) · TAIWAN (ROC) · USA (INDOPACOM) · JAPAN · SOUTH KOREA · NORTH KOREA · AUSTRALIA · PHILIPPINES</p>
+    <div class="hero-stats">
+      <div class="h-stat">
+        <span class="h-stat-val">35M km²</span>
+        <span class="h-stat-key">Theater Area</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">8</span>
+        <span class="h-stat-key">Major Actors</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">4</span>
+        <span class="h-stat-key">Nuclear States</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">ELEVATED</span>
+        <span class="h-stat-key">Conflict Status</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val highlight">8.5/10</span>
+        <span class="h-stat-key">Threat Level</span>
+      </div>
+    </div>
+    <div class="scroll-cue">▼ &nbsp; SCROLL TO ANALYZE</div>
+  </div>
+</section>
+
+<!-- SECTION 01: GEOGRAPHIC OVERVIEW -->
+<section id="theater-map">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">01 // GEOGRAPHIC OVERVIEW</div>
+      <h2 class="section-title">Strategic Geography</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Island chains, chokepoints & strategic nodes</div>
+  </div>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚠ STRATEGIC OVERVIEW</div>
+    <p>The Asia-Pacific theater encompasses the world's largest ocean and the most consequential strategic contest of the 21st century. The <strong class="critical">Taiwan Strait (180km)</strong> is the single most dangerous flashpoint — a Chinese amphibious invasion would trigger the largest conventional conflict since World War II. China's island-building campaign in the South China Sea has created unsinkable aircraft carriers 1,000km from the Chinese coast, fundamentally altering the first island chain balance. Four nuclear states (USA, China, North Korea, India) converge in a theater spanning from the Indian Ocean to the Pacific, from the Arctic approaches to the Malacca Strait.</p>
+  </div>
+
+  <div class="map-container mb-6">
+    <img class="map-img" src="https://smallwarsjournal.com/wp-content/uploads/2026/03/First-Island-Chain-China-Perspective.png"
+      alt="First island chain strategy map showing China's A2/AD zone and US forward basing" width="1280" height="720" loading="lazy"
+      onclick="openLightbox(this.src,'First Island Chain — the arc from Japan through Ryukyu Islands, Taiwan, Philippines to Borneo. China\'s A2/AD zone targets this chain to deny US naval access in a Taiwan contingency.')">
+    <div class="map-overlay">
+      <div class="map-caption">FIRST ISLAND CHAIN // A2/AD ZONE // STRATEGIC CONTAINMENT GEOMETRY</div>
+    </div>
+  </div>
+  <div class="map-stats-row">
+    <div class="map-stat"><span class="map-stat-val">35M km²</span><span class="map-stat-key">Theater Area</span></div>
+    <div class="map-stat"><span class="map-stat-val">180km</span><span class="map-stat-key">Taiwan Strait Width</span></div>
+    <div class="map-stat"><span class="map-stat-val">4</span><span class="map-stat-key">Nuclear States</span></div>
+    <div class="map-stat"><span class="map-stat-val">7</span><span class="map-stat-key">SCS Artificial Islands (PLAN)</span></div>
+    <div class="map-stat"><span class="map-stat-val">375K+</span><span class="map-stat-key">US Troops INDOPACOM AOR</span></div>
+  </div>
+
+  <div class="map-container mb-6">
+    <img class="map-img" src="https://media.npr.org/assets/img/2016/12/15/mischief-large_custom-ef35d69da5719bdf107c8578515c89cbc4b0b5a3.jpg"
+      alt="Mischief Reef satellite image showing Chinese military construction in South China Sea" width="1280" height="720" loading="lazy"
+      onclick="openLightbox(this.src,'Mischief Reef — one of seven Chinese-militarized artificial islands in the South China Sea. Runway, hangars, radar installations, and anti-ship missile batteries have been installed. Philippines EEZ, 250km from Palawan.')">
+    <div class="map-overlay">
+      <div class="map-caption">MISCHIEF REEF // SCS ARTIFICIAL ISLAND // PLAN MILITARY INSTALLATION</div>
+    </div>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent-bright);margin-bottom:var(--space-3);text-transform:uppercase;">Strategic Terrain Analysis</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">The Asia-Pacific theater's defining geographic feature is the first island chain — an arc of islands from Japan's Ryukyus through Taiwan, the Philippines, and Borneo that historically constrained Chinese naval access to the open Pacific. China's DF-21D anti-ship ballistic missiles, DF-26 IRBMs, and land-based anti-ship cruise missiles create an A2/AD (Anti-Access/Area Denial) envelope covering the entire first island chain, threatening US carrier strike groups 1,500km from the Chinese coast.</p>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">The South China Sea is a critical energy transit corridor — 40% of global trade and one-third of global shipping passes through it annually. China's militarized island outposts at Fiery Cross Reef, Subi Reef, and Mischief Reef effectively push Chinese air and naval power to the second island chain perimeter, 1,000km from Hainan. The Malacca Strait (2.8km navigable lane) is China's critical vulnerability — 80% of China's oil imports transit through this single chokepoint.</p>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent-bright);margin-bottom:var(--space-3);text-transform:uppercase;">Key Strategic Nodes</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Node</th><th>Significance</th><th>Controller</th><th>Risk</th></tr></thead>
+          <tbody>
+            <tr><td>Taiwan Strait</td><td>180km crossing; global semiconductor hub</td><td>China + Taiwan (disputed)</td><td class="tag-red" style="color:var(--color-red);font-family:var(--font-mono);font-size:11px;">CRITICAL</td></tr>
+            <tr><td>Malacca Strait</td><td>80% China oil; 40% global trade</td><td>Malaysia/Singapore/Indonesia</td><td class="tag-red" style="color:var(--color-red);font-family:var(--font-mono);font-size:11px;">CRITICAL</td></tr>
+            <tr><td>Senkaku/Diaoyu Islands</td><td>Japan-China territorial dispute; gas fields</td><td>Japan (admin.) / China (claims)</td><td style="color:var(--color-accent-bright);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Guam (Anderson AFB)</td><td>US strategic bomber & submarine base</td><td>USA (USAF/USN)</td><td style="color:var(--color-accent-bright);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Fiery Cross Reef</td><td>3km runway; PLAN air base in SCS</td><td>China (PLA)</td><td style="color:var(--color-accent-bright);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Korean Peninsula DMZ</td><td>DPRK nuclear + conventional threat</td><td>USA/ROK / DPRK</td><td style="color:var(--color-accent-bright);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 02: STRATEGIC CONTEXT -->
+<section id="theater-context">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">02 // STRATEGIC CONTEXT</div>
+      <h2 class="section-title">Why This Theater Matters</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert red">
+    <div class="intel-alert-head">🔴 STRATEGIC COMPETITION — MARCH 2026</div>
+    <p>The Asia-Pacific theater is defined by an accelerating <strong class="critical">great power competition between the United States and China</strong> — the most consequential strategic rivalry since the Cold War. China's military modernization has produced a force designed specifically to defeat US intervention in a Taiwan contingency. Xi Jinping has explicitly stated Taiwan reunification as a core Chinese Communist Party objective for the current generation, creating a compressing timeline as PLA capabilities approach parity with INDOPACOM. The window for credible US deterrence is narrowing. RAND wargames suggest China will achieve cross-strait amphibious capacity <strong class="critical">sufficient to overwhelm Taiwan's unilateral defenses by 2027</strong>, before AUKUS submarines or additional US forward basing materially shifts the balance.</p>
+  </div>
+
+  <div class="doctrine-grid mb-8">
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🏝️</div>
+      <div class="doctrine-label">Primary Flashpoint</div>
+      <div class="doctrine-title">Taiwan Contingency</div>
+      <div class="doctrine-desc">A Chinese amphibious invasion of Taiwan — 180km crossing of the world's most-analyzed potential battlespace — would constitute the defining military event of the 21st century. Taiwan produces 92% of the world's most advanced semiconductors (TSMC 3nm/5nm). Its loss would hand China decisive economic leverage over global technology supply chains.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🚫</div>
+      <div class="doctrine-label">Chinese Doctrine</div>
+      <div class="doctrine-title">A2/AD Strategy</div>
+      <div class="doctrine-desc">China's Anti-Access/Area Denial strategy uses DF-21D/DF-26 ASBMs, land-based anti-ship cruise missiles, submarines, and cyber/EW to create a "no-go zone" for US carrier strike groups within the first island chain. The goal: deny the US the ability to intervene before a Taiwan fait accompli is achieved.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">⛓️</div>
+      <div class="doctrine-label">Geographic Concept</div>
+      <div class="doctrine-title">First Island Chain</div>
+      <div class="doctrine-desc">The first island chain (Japan–Ryukyus–Taiwan–Philippines–Borneo) is both a Chinese strategic objective and a US defensive perimeter. Control of Taiwan breaks the chain, giving PLAN unrestricted Pacific access. US strategy focuses on denying this by strengthening allies along the arc.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🤝</div>
+      <div class="doctrine-label">Alliance Framework</div>
+      <div class="doctrine-title">AUKUS + Quad</div>
+      <div class="doctrine-desc">AUKUS (Australia-UK-USA) provides Australia with nuclear-powered attack submarines by early 2030s — Virginia-class SSNs under "Optimal Pathway." The Quad (USA-Japan-Australia-India) coordinates on technology, ISR, and deterrence. Japan's historic 2022 rearmament doubled defense spending to 2% GDP and authorized long-range strike capability.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">💻</div>
+      <div class="doctrine-label">Economic Warfare</div>
+      <div class="doctrine-title">Semiconductor Dependencies</div>
+      <div class="doctrine-desc">Taiwan's TSMC produces ~90% of all chips at 7nm or below. A Chinese blockade or invasion that disrupted TSMC would remove $1 trillion/year from global technology supply chains. The US CHIPS Act is accelerating domestic fab capacity but cannot substitute for Taiwanese production before 2030.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">☢️</div>
+      <div class="doctrine-label">Nuclear Dimension</div>
+      <div class="doctrine-title">Multi-Polar Nuclear Theater</div>
+      <div class="doctrine-desc">Four nuclear states converge in this theater: USA (~5,550 warheads), China (~500+ warheads, accelerating), North Korea (~50 warheads, growing), and India (~172 warheads). China's silo construction (400+ new ICBM silos) and sea-based deterrent expansion signal a move toward nuclear parity with the US.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 03: HISTORICAL CONTEXT -->
+<section id="theater-history">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">03 // HISTORICAL PRECEDENT</div>
+      <h2 class="section-title">Conflict Lineage</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="card-grid grid-2">
+    <div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Year</th><th>Event</th><th>Strategic Significance</th></tr></thead>
+          <tbody>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent-bright);">1950–53</td><td>Korean War; armistice (no peace treaty)</td><td>Established divided Korean Peninsula; US–ROK alliance; DPRK militarism; still technically at war</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent-bright);">1954–55</td><td>First Taiwan Strait Crisis</td><td>PRC shelled Quemoy/Matsu; US deployed carriers; Congressional authorization for Taiwan defense (Formosa Resolution)</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent-bright);">1958</td><td>Second Taiwan Strait Crisis</td><td>PRC artillery campaign; US Seventh Fleet intervention; cemented Taiwan Strait as flashpoint</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent-bright);">1995–96</td><td>Third Taiwan Strait Crisis</td><td>China fired missiles near Taiwan; US deployed 2 carrier groups; largest US Pacific show of force since Vietnam; accelerated China's ASBM development</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent-bright);">2012</td><td>Scarborough Shoal standoff</td><td>China seized Philippines-controlled shoal; ASEAN solidarity failed; established Chinese gray zone modus operandi</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent-bright);">2013</td><td>China declares ADIZ over East China Sea</td><td>First Chinese Air Defense Identification Zone; covered Senkaku/Diaoyu; Japan and US non-compliance set precedent</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent-bright);">2013–16</td><td>South China Sea island-building campaign</td><td>China constructed 3,200+ acres of artificial islands at 7 reefs; installed military infrastructure; Arbitral Tribunal ruled against China (ignored)</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent-bright);">2022</td><td>Nancy Pelosi Taiwan visit; PLAN exercises</td><td>Fourth Taiwan Strait Crisis; China conducted largest exercises surrounding Taiwan; simulated blockade; PLAN fired ballistic missiles over Taiwan into Japanese EEZ</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent-bright);">2022–23</td><td>AUKUS Optimal Pathway announced</td><td>Australia to receive 3–5 Virginia-class SSNs by early 2030s; UK AUKUS SSN by 2040s; transformative for undersea balance</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent-bright);">2022–23</td><td>Japan's defense revolution</td><td>Japan authorized 2% GDP defense spending, long-range strike (Tomahawk), and renamed SDF "Defense Forces"; most significant Japanese remilitarization since WWII</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent-bright);">2024–25</td><td>Philippines-China water cannon confrontations</td><td>Repeated PLAN Coast Guard / maritime militia clashes in Spratly Islands; BRP Sierra Madre resupply missions; rising risk of Philippines Article V invocation</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent-bright);">2025–26</td><td>PLAN military exercises surge around Taiwan</td><td>Joint Sword exercises increase in frequency and scale; PLA rehearsing joint island seizure operations; INDOPACOM increases forward presence</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="intel-alert mb-4">
+        <div class="intel-alert-head">📌 KEY LESSON: 1995-96 CRISIS CHANGED EVERYTHING</div>
+        <p>The Third Taiwan Strait Crisis (1995–96) was a turning point that accelerated the entire PLA modernization program. China's inability to contest the USS Nimitz and USS Independence carrier battle groups led directly to: the DF-21D ASBM program, expansion of the PLAN submarine fleet, development of anti-satellite weapons, and the current A2/AD architecture. <strong class="critical">Every Chinese military investment since 1996 has been calibrated to defeat carrier-based US intervention in a Taiwan contingency.</strong></p>
+      </div>
+      <div class="intel-alert">
+        <div class="intel-alert-head">📌 KEY LESSON: GRAY ZONE PRECEDENT</div>
+        <p>China's Scarborough Shoal seizure in 2012 established the gray zone playbook: use maritime militia and coast guard — not naval vessels — to assert control below the threshold of armed conflict. This approach was replicated at Second Thomas Shoal (Philippines), Senkaku/Diaoyu (Japan), and across the SCS. <strong class="critical">The lesson: US treaty commitments do not deter gray zone operations, only conventional and nuclear deterrence credibly constrains full escalation.</strong></p>
+      </div>
+      <div class="policy-quote">
+        "The reunification of the motherland must be realized, and will definitely be realized."
+        <span class="policy-quote-attr">— Xi Jinping, CCP National Congress 2022 | <a href="https://chinapower.csis.org/tracking-the-fourth-taiwan-strait-crisis/" target="_blank" rel="noopener">CSIS ChinaPower — Taiwan Strait Crisis Analysis →</a></span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 04: FORCE DISPOSITION -->
+<section id="theater-forces">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">04 // FORCE DISPOSITION</div>
+      <h2 class="section-title">Key Systems & Order of Battle</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="xref-links mb-8">
+    <span class="xref-label">COUNTRY DOSSIERS:</span>
+    <a href="../countries/china-dossier.html" class="xref-chip" target="_blank">🇨🇳 China →</a>
+    <a href="../countries/taiwan-dossier.html" class="xref-chip" target="_blank">🇹🇼 Taiwan →</a>
+    <a href="../countries/usa-dossier.html" class="xref-chip" target="_blank">🇺🇸 USA →</a>
+    <a href="../countries/north-korea-dossier.html" class="xref-chip" target="_blank">🇰🇵 North Korea →</a>
+    <a href="../countries/india-dossier.html" class="xref-chip" target="_blank">🇮🇳 India →</a>
+  </div>
+
+  <!-- CHINA SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇨🇳 <span>China — People's Liberation Army</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">ANTI-SHIP BALLISTIC MISSILE</span>
+        <span class="equip-country-badge">🇨🇳</span>
+        <img src="https://news.usni.org/wp-content/uploads/2014/06/Df-21d-on-the-highway.jpg"
+          alt="DF-21D anti-ship ballistic missile on transporter-erector-launcher" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'DF-21D — China\'s \'carrier killer\' anti-ship ballistic missile. Range ~1,500km, maneuvering reentry vehicle. Designed to strike carrier strike groups at sea, denying US naval intervention in the first island chain. No Western navy has a proven defense against a mass DF-21D salvo.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">DF-21D ASBM — "Carrier Killer"</div>
+        <div class="equip-desc">China's anti-ship ballistic missile (ASBM) — the first of its kind deployed operationally by any nation. Targets carrier strike groups at sea using over-the-horizon radar, OTH-SW satellite targeting, and a maneuvering reentry vehicle (MaRV) to defeat ship-based interceptors. Range covers the entire first island chain. Paired with DF-26 (4,000km) that reaches Guam. The DF-21D is the primary driver behind RAND's assessment that US carrier survivability in the Taiwan Strait is "extremely low" in a high-end conflict.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">~1,500km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">~600kg HE (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">~20m (MaRV)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Propulsion</span><span class="equip-spec-val">Solid-fuel, 2-stage</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">Hundreds (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Basing</span><span class="equip-spec-val">Mobile TEL</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/df-21/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat Database <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">LARGE SURFACE COMBATANT</span>
+        <span class="equip-country-badge">🇨🇳</span>
+        <img src="https://www.navalnews.com/wp-content/uploads/2022/01/Chinese-Navy-Type-055-Renai-Class-Cruiser.jpg"
+          alt="PLAN Type 055 Renhai-class destroyer in formation" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Type 055 Renhai-class destroyer (China classifies as destroyer; US Navy compares to cruiser). 12,000+ tons, 112 VLS cells, YJ-18 anti-ship missiles, HHQ-9 long-range SAMs. PLAN operates 8 units with more under construction. Surpasses Ticonderoga-class cruiser in displacement and firepower.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Type 055 Renhai Destroyer</div>
+        <div class="equip-desc">China's most advanced surface combatant — a 12,000+ ton destroyer/cruiser hybrid exceeding the USS Ticonderoga in displacement and matching it in firepower. 112 vertical launch system (VLS) cells carry YJ-18 anti-ship cruise missiles (540km), HHQ-9B long-range SAMs, and anti-submarine warfare weapons. PLAN has commissioned 8 Type 055s, with more building at Jiangnan and Dalian shipyards. It forms the core of Chinese carrier escort groups and blue-water task forces now operating as far as the North Atlantic and Indian Ocean.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">~12,000t</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">VLS Cells</span><span class="equip-spec-val">112</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">AShM</span><span class="equip-spec-val">YJ-18 (540km)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">SAM</span><span class="equip-spec-val">HHQ-9B (200km)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">In service</span><span class="equip-spec-val">8 units (2026)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">30+ knots</span></div>
+        </div>
+        <a href="https://www.usni.org/magazines/proceedings/2023/march/type-055-renhai-class-cruiser-chinas-premier-surface-combatant" target="_blank" rel="noopener" class="equip-link">USNI Proceedings — Type 055 Analysis <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">5TH GEN FIGHTER</span>
+        <span class="equip-country-badge">🇨🇳</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/J-20_at_CCAS2022_%2820220827103424%29.jpg"
+          alt="J-20 Mighty Dragon stealth fighter at China Airshow" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'J-20 Mighty Dragon (威龙) — China\'s 5th-generation stealth multirole fighter. Entered service 2017, 200+ now operational. Designed for air superiority and standoff strike with internal weapons bays. Supercruise-capable. Ws-15 engine upgrade improves supercruise and supermaneuverability. PLAAF target: 1,000+ units.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">J-20 Mighty Dragon (威龙)</div>
+        <div class="equip-desc">China's operational 5th-generation stealth fighter — the only VLO (very low observable) aircraft outside the US to achieve large-scale operational deployment. Over 200 J-20s are in PLAAF service as of 2026, with production accelerating at Chengdu Aircraft Corporation. Features large internal weapons bays for PL-15 beyond-visual-range missiles (range 200km+), low radar cross-section canard-delta design, and is being upgraded with domestic WS-15 engines. China's goal of 1,000 units would give the PLAAF world-class 5th-gen mass.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">200+ (2026)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Air Superiority / Strike</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">BVR Missile</span><span class="equip-spec-val">PL-15 (200km)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Engine</span><span class="equip-spec-val">WS-10C / WS-15</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Stealth</span><span class="equip-spec-val">VLO (front aspect)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 2.0+</span></div>
+        </div>
+        <a href="https://chinapower.csis.org/china-fifth-generation-fighters/" target="_blank" rel="noopener" class="equip-link">CSIS ChinaPower — J-20 Analysis <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">HYPERSONIC ANTI-SHIP MISSILE</span>
+        <span class="equip-country-badge">🇨🇳</span>
+        <img src="https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/61A4/production/_92969942_hughes-large.jpg"
+          alt="Chinese military hardware displayed at Beijing parade" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'YJ-21 hypersonic anti-ship ballistic missile — debuted at PLA 95th anniversary parade 2022. Launched from H-6N bomber, range 1,000km+, Mach 10+ terminal velocity. Designed specifically to defeat Aegis BMD and threaten carrier strike groups beyond the first island chain.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">YJ-21 Hypersonic Anti-Ship Missile</div>
+        <div class="equip-desc">China's air-launched hypersonic anti-ship ballistic missile (AShBM), first publicly revealed in 2022. Carried by the H-6N bomber modified with an aerial refueling probe, the YJ-21 is designed to threaten US carrier strike groups beyond the range of ship-based interceptors. Terminal velocity exceeds Mach 10, defeating SM-3 and SM-6 Aegis interceptors through kinetic energy alone even without maneuvering. One H-6N with YJ-21 represents a carrier-killing capability from 1,000km standoff distance.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">>1,000km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Terminal Speed</span><span class="equip-spec-val">Mach 10+</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Platform</span><span class="equip-spec-val">H-6N bomber</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Target</span><span class="equip-spec-val">Carrier / Large surface</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">Inertial + terminal seeker</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Operational 2022+</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/yj-21/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat — YJ-21 <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAIWAN SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇹🇼 <span>Taiwan — Republic of China Armed Forces</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">LAND-ATTACK CRUISE MISSILE</span>
+        <span class="equip-country-badge">🇹🇼</span>
+        <img src="https://cdn-iladncp.nitrocdn.com/HqlEixensysOTCVgzDQPqXypWdYAZutW/assets/images/optimized/wp-content/uploads/2017/07/0442b0f1d39546a17a25a8f0f24fcb5a.HF-2E_NCSIST.jpg"
+          alt="Hsiung Feng IIE cruise missile on launcher" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'HF-2E (Hsiung Feng IIE) — Taiwan\'s primary land-attack cruise missile. Range ~1,200km, can strike Shanghai, Beijing approaches, and PLAN naval bases. Taiwan\'s asymmetric deterrent: massive counter-strike capability against PRC coastal infrastructure.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">HF-2E Hsiung Feng IIE</div>
+        <div class="equip-desc">Taiwan's indigenous land-attack cruise missile, developed by NCSIST. With a range of approximately 1,200km, the HF-2E can strike targets throughout much of coastal China including Shanghai, major PLAN naval bases at Qingdao and Ningbo, and the Three Gorges Dam. Taiwan has invested heavily in expanding production capacity as part of its "porcupine strategy" — making invasion too costly by threatening deep strikes on Chinese civilian and military infrastructure. Hundreds reportedly in service with ongoing production surge.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">~1,200km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">~225kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Subsonic</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS + terrain-following</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">Hundreds (expanding)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Basing</span><span class="equip-spec-val">Mobile / hardened sites</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/hsiung-feng-iie/" target="_blank" rel="noopener" class="equip-link">CSIS HF-2E Profile <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">BALLISTIC MISSILE DEFENSE</span>
+        <span class="equip-country-badge">🇹🇼</span>
+        <img src="https://www.navalnews.com/wp-content/uploads/2022/01/Hsiung-Feng-II-anti-ship-missiles.jpg"
+          alt="Taiwan Patriot PAC-3 and Hsiung Feng missiles on launchers" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Taiwan Patriot PAC-3 MSE and Brave Wind III SAM batteries defending against PLAN ballistic missile salvos. Taiwan operates 6 Patriot PAC-3 batteries (US-supplied) and the indigenous Tien Kung (Sky Bow) III system covering high-altitude ballistic threats.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Patriot PAC-3 MSE + Tien Kung III</div>
+        <div class="equip-desc">Taiwan's layered ballistic missile defense relies on US-supplied Patriot PAC-3 MSE batteries (6 batteries) and the indigenous Tien Kung III (Sky Bow) system for high-altitude threats. Taiwan faces a potential salvo of hundreds or thousands of Chinese ballistic and cruise missiles in an invasion scenario — a saturation attack designed to suppress air defenses, command infrastructure, and airfields before amphibious forces cross the strait. Intercept capacity is critically limited relative to PLA missile inventory. The US has approved additional PAC-3 batteries to address this gap.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Patriot Batteries</span><span class="equip-spec-val">6 (PAC-3 MSE)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Intercept Range</span><span class="equip-spec-val">~35km (PAC-3)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Tien Kung III</span><span class="equip-spec-val">~150km range</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Threat</span><span class="equip-spec-val">DF-11/DF-15/DF-16</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Saturation Risk</span><span class="equip-spec-val">CRITICAL</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Active; expanding</span></div>
+        </div>
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">INDIGENOUS SUBMARINE</span>
+        <span class="equip-country-badge">🇹🇼</span>
+        <img src="https://images01.military.com/sites/default/files/media/equipment/ships-and-submarines/virginia-class-attack-submarine-ssn/2014/02/virginia-class-attack-submarine-010.jpg"
+          alt="Attack submarine surfacing — Taiwan's indigenous submarine program" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Taiwan\'s Indigenous Defense Submarine (IDS) program — first boat launched September 2023. Based on Dutch Zwaardvis design modernized with US sonar and combat systems. IDS Hai Kun (SS-711) provides asymmetric undersea capability to threaten PLAN amphibious shipping. Taiwan plans 8 total submarines.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">IDS Hai Kun — Indigenous Submarine</div>
+        <div class="equip-desc">Taiwan's first indigenously built submarine, launched September 28, 2023 — a major milestone in Taiwan's asymmetric defense buildup. The IDS is based on a modernized conventional submarine design with US-origin combat systems, torpedoes, and likely Harpoon anti-ship missile compatibility. Taiwan's strategy: submarines are the most survivable asset in a Chinese blockade scenario, capable of threatening PLAN amphibious shipping from dispersed positions. Target fleet of 8 submarines would substantially complicate PLAN naval supremacy in the strait.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Class</span><span class="equip-spec-val">Indigenous Defense Sub</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">~2,500t (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Propulsion</span><span class="equip-spec-val">Diesel-electric (AIP)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Armament</span><span class="equip-spec-val">Torpedoes + AShM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Launched</span><span class="equip-spec-val">Sep 2023</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fleet goal</span><span class="equip-spec-val">8 total</span></div>
+        </div>
+        <a href="https://www.rand.org/pubs/research_reports/RRA1078-1.html" target="_blank" rel="noopener" class="equip-link">RAND Taiwan Defense Analysis <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- USA SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇺🇸 <span>United States — INDOPACOM</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">FORD-CLASS CARRIER</span>
+        <span class="equip-country-badge">🇺🇸</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/USS_Gerald_R._Ford_%28CVN-78%29_underway_in_the_Atlantic_Ocean_on_9_October_2022_%28221009-N-TL968-1248%29.JPG"
+          alt="USS Gerald R. Ford CVN-78 underway in the Atlantic" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'USS Gerald R. Ford (CVN-78) — lead ship of the Ford class, 100,000+ ton nuclear-powered carrier. Carries 75+ aircraft including F-35C, F/A-18E/F, EA-18G Growler, and E-2D Hawkeye. Electromagnetic Aircraft Launch System (EALS) replaces steam catapults. INDOPACOM maintains 2-3 CSGs in the Western Pacific at elevated readiness.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Ford-Class Carrier Strike Group</div>
+        <div class="equip-desc">The Ford class (CVN-78, -79, -80) represents the apex of US power projection. Each carrier deploys 75+ aircraft and leads a strike group of 3–4 Arleigh Burke destroyers (VLS Tomahawk), 1–2 cruisers, 1–2 Virginia-class SSNs, and a support ship. INDOPACOM's three carrier strike groups (Ronald Reagan forward-deployed in Yokosuka, Japan) represent the primary US deterrent against Chinese aggression. However, RAND wargames consistently show that in a Taiwan Strait scenario, carriers must operate 1,000+ km from Taiwan to survive DF-21D/DF-26 ASBM threats — significantly limiting their strike contribution in the critical early hours.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">~100,000t</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Air Wing</span><span class="equip-spec-val">75+ aircraft</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Escort</span><span class="equip-spec-val">3–4 Burke DDGs</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Strike Range</span><span class="equip-spec-val">~2,000km (F-35C)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">INDOPACOM</span><span class="equip-spec-val">3 CSGs assigned</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fwd-deployed</span><span class="equip-spec-val">USS Reagan (Yokosuka)</span></div>
+        </div>
+        <a href="https://www.indopacom.mil/" target="_blank" rel="noopener" class="equip-link">INDOPACOM Official <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">FAST ATTACK SUBMARINE</span>
+        <span class="equip-country-badge">🇺🇸</span>
+        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/archetype/UMPIU3K5ZZE63G6FBCYXL4SGYQ.jpg"
+          alt="Virginia-class fast attack submarine commissioning" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Virginia-class fast attack submarine (SSN) — the US Navy\'s primary undersea asset in INDOPACOM. Block V submarines carry 40 Tomahawk cruise missiles in the Virginia Payload Module (VPM). Quiet enough to penetrate Chinese A2/AD zones undetected, capable of launching standoff strikes, mining, intelligence gathering, and special operations. Guam submarine base (Apra Harbor) is critical to Western Pacific SSN operations.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Virginia-Class SSN — Block V/VPM</div>
+        <div class="equip-desc">The Virginia-class fast attack submarine is the US Navy's primary Pacific undersea asset and the platform most survivable within China's A2/AD envelope. Block V submarines incorporate the Virginia Payload Module (VPM), adding 4 large-diameter payload tubes carrying 28 additional Tomahawk land-attack cruise missiles — 40 total per submarine. In a Taiwan contingency, Virginia-class SSNs would conduct early strikes against PLAN amphibious shipping, Chinese air defense radar nodes, and command infrastructure using standoff Tomahawks. Critical constraint: US attack submarine production is running below replacement rate, limiting fleet size to ~50 SSNs.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Tomahawks</span><span class="equip-spec-val">40 (Block V)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">>25 knots (sub.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Depth</span><span class="equip-spec-val">>240m (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Torpedoes</span><span class="equip-spec-val">Mk-48 ADCAP</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fleet size</span><span class="equip-spec-val">~22 in INDOPACOM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fwd base</span><span class="equip-spec-val">Guam / Japan</span></div>
+        </div>
+        <a href="https://crsreports.congress.gov/product/pdf/RL/RL32418" target="_blank" rel="noopener" class="equip-link">CRS Virginia-Class Report <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">NEXT-GEN STEALTH BOMBER</span>
+        <span class="equip-country-badge">🇺🇸</span>
+        <img src="https://media.defense.gov/2022/Dec/02/2003125067/-1/-1/0/221128-F-ZZ000-001.JPG"
+          alt="B-21 Raider stealth bomber at Palmdale California" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'B-21 Raider — Northrop Grumman\'s next-generation stealth bomber, entering service 2025-2026. Designed to penetrate integrated air defense systems more capable than any previous threat, including Chinese HQ-9/HHQ-9 and Russian S-400 networks. B-21 can deliver both conventional and nuclear munitions from Guam or CONUS. USAF plans to acquire 100+ Raiders, replacing B-1B and B-2 fleets. First operational wing at Ellsworth AFB, forward deployable to Guam/Diego Garcia.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">B-21 Raider — Stealth Strike Bomber</div>
+        <div class="equip-desc">The B-21 Raider is the US Air Force's defining platform for penetrating Chinese integrated air defense systems and conducting standoff or direct-attack strikes against high-value targets in a Taiwan contingency. Designed with lower radar cross-section than the B-2, the B-21 can carry the GBU-57 Massive Ordnance Penetrator, long-range standoff missiles (JASSM-ER, LRASM), and nuclear gravity bombs. USAF plans 100+ Raiders to replace both B-1B and B-2 fleets. First operational wing at Ellsworth AFB, SD, with Guam deployments planned. The B-21 gives INDOPACOM deep-strike capability that survives China's HQ-9/HHQ-9 SAM network.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">IOC 2025–26</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">30,000+ lbs</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Stealth</span><span class="equip-spec-val">Next-gen VLO</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Weapons</span><span class="equip-spec-val">GBU-57, JASSM-ER, nuclear</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fleet goal</span><span class="equip-spec-val">100+</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fwd base</span><span class="equip-spec-val">Guam / Diego Garcia</span></div>
+        </div>
+        <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/3219698/b-21-raider/" target="_blank" rel="noopener" class="equip-link">USAF B-21 Fact Sheet <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAPAN SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇯🇵 <span>Japan — Japan Self-Defense Forces</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">CONVERTED LIGHT CARRIER</span>
+        <span class="equip-country-badge">🇯🇵</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/JS_Izumo%EF%BC%88DDH-183%EF%BC%89seen_from_the_sky_10-03-2021.jpg"
+          alt="JS Izumo helicopter destroyer aerial view showing flat deck" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'JS Izumo (DDH-183) — Japan\'s largest warship since WWII, converting to F-35B carrier. The Izumo-class flat-deck \'helicopter destroyer\' is being modified to operate F-35B short take-off/vertical landing fighters, representing the first Japanese aircraft carrier capability since 1945. Two ships (Izumo and Kaga) in class. F-35B deployments planned by 2025-26.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Izumo-class DDH — Converted F-35B Carrier</div>
+        <div class="equip-desc">Japan's Izumo-class "helicopter destroyers" are undergoing modification to operate F-35B Short Take-Off/Vertical Landing (STOVL) fighters, giving Japan offensive carrier aviation for the first time since World War II. Japan is procuring 42 F-35Bs specifically for Izumo-class operations. This conversion, combined with Japan's authorization of long-range strike capability (Tomahawk acquisition: 400 missiles), represents the most significant Japanese remilitarization since 1945. Two ships in class: JS Izumo (DDH-183) and JS Kaga (DDH-184). Combined with Japan's F-35A land-based fleet, gives JSDF substantial Pacific deterrence depth.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">~26,000t (full)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Aircraft</span><span class="equip-spec-val">F-35B (12–14 ea.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Ships</span><span class="equip-spec-val">2 (Izumo + Kaga)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">F-35B order</span><span class="equip-spec-val">42 total (Japan)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">30 knots</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Modification</span><span class="equip-spec-val">IOC 2025–26</span></div>
+        </div>
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance — JSDF <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">5TH GEN FIGHTER (JAPAN)</span>
+        <span class="equip-country-badge">🇯🇵</span>
+        <img src="https://theaviationist.com/wp-content/uploads/2016/11/J-20A-LRIP-grey-splinter-camo-17.10.16-9.jpg"
+          alt="F-35A stealth fighters at airbase" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Japan ASDF F-35A — Japan is procuring 147 F-35As and 42 F-35Bs, the largest F-35 fleet outside the United States. Japan\'s F-35A fleet based at Misawa and Komatsu provides the JASDF with first-rate stealth strike capability. Combined with Tomahawk acquisition and Izumo carrier conversion, positions Japan as a full peer military partner in Pacific deterrence.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">F-35A/B — Japan ASDF / F-35B Carrier</div>
+        <div class="equip-desc">Japan is acquiring 147 F-35As and 42 F-35Bs — the largest F-35 order outside the United States — as the centerpiece of Japan's historic defense expansion. The F-35A provides the Japan Air Self-Defense Force with stealth 5th-generation capability to penetrate PLAAF air defenses and conduct standoff strikes. Misawa and Komatsu air bases are primary F-35A operating locations; Yokosuka and Sasebo are planned F-35B ship bases. Japan's F-35 combined with Tomahawk acquisition (400 missiles) means JSDF can now conduct long-range strike operations reaching the Chinese coast — a fundamental doctrinal shift authorized by the 2022 National Security Strategy.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">F-35A order</span><span class="equip-spec-val">147 total</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">F-35B order</span><span class="equip-spec-val">42 total (carrier)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">2,220km (A-variant)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Tomahawk</span><span class="equip-spec-val">400 ordered (2023)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Budget</span><span class="equip-spec-val">2% GDP (2027)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Bases</span><span class="equip-spec-val">Misawa / Komatsu / Naha</span></div>
+        </div>
+        <a href="https://www.mod.go.jp/en/publ/w_paper/index.html" target="_blank" rel="noopener" class="equip-link">Japan MoD Defense White Paper <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">MULTI-ROLE FRIGATE</span>
+        <span class="equip-country-badge">🇯🇵</span>
+        <img src="https://www.navalnews.com/wp-content/uploads/2022/01/Hsiung-Feng-II-anti-ship-missile.jpg"
+          alt="Modern frigate at sea representing JMSDF Mogami-class" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Mogami-class frigate (FFM) — Japan\'s new 3,900-ton multi-mission frigate designed for distributed lethality operations. Armed with Mk 41 VLS (Standard Missile), Type 17 anti-ship missiles (200km), and ASW systems. 12 planned. Designed for island-chain defense and distributed operations — perfect for the Ryukyu island chain corridor between Japan and Taiwan.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Mogami-Class FFM Frigate</div>
+        <div class="equip-desc">Japan's Mogami-class multi-mission frigate (FFM) is designed for distributed operations along the Ryukyu island chain — the critical defensive arc between mainland Japan and Taiwan. Armed with Mk 41 Vertical Launch System (Standard Missile), Type 17 anti-ship missiles (range 200km, speed Mach 3), and advanced ASW systems, each Mogami can operate semi-independently to contest PLAN surface movements. Japan plans 12 Mogami-class frigates. Their small crew (90 personnel vs. 300+ for destroyer) uses high automation, enabling higher operational tempo.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">~3,900t</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">AShM</span><span class="equip-spec-val">Type 17 (200km, Mach 3)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">VLS</span><span class="equip-spec-val">16-cell Mk 41</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Fleet goal</span><span class="equip-spec-val">12 ships</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">ASW</span><span class="equip-spec-val">Advanced (towed array)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Island chain defense</span></div>
+        </div>
+        <a href="https://www.mod.go.jp/en/publ/w_paper/index.html" target="_blank" rel="noopener" class="equip-link">Japan MoD Defense White Paper <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 05: COUNTRY CAPABILITY MATRIX -->
+<section id="theater-matrix">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">05 // CAPABILITY MATRIX</div>
+      <h2 class="section-title">Country Capability Matrix</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Naval · Air · Missile/A2AD · Basing · Nuclear · Rating</div>
+  </div>
+
+  <div class="data-table-wrap mb-8">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Country / Actor</th>
+          <th>Naval</th>
+          <th>Air</th>
+          <th>Missile / A2AD</th>
+          <th>Basing</th>
+          <th>Nuclear</th>
+          <th>Theater Rating</th>
+          <th>Ref</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇨🇳</span>
+              <a href="../countries/china-dossier.html" class="flag-name" target="_blank">China (PLA)</a>
+            </span>
+          </td>
+          <td>3 carriers (Fujian CVN), 8 Type 055, 52 Type 052D, 65+ SSK/SSN; largest navy by hull count</td>
+          <td>200+ J-20 5th-gen; 600+ J-16/J-10C; H-6N with YJ-21 hypersonic AShM; 2,800+ combat aircraft total</td>
+          <td>DF-21D (1,500km ASBM), DF-26 (4,000km "Guam killer"), DF-100 LACM, HQ-9B integrated SAM; 7 militarized SCS islands</td>
+          <td>Hainan naval base, 7 SCS artificial islands, Zhanjiang PLAN HQ; 3 carrier groups homeported</td>
+          <td class="nuclear-yes">YES ~500</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:92%"></div></div>
+              <span class="rating-num">9.2/10</span>
+            </div>
+          </td>
+          <td><a href="https://chinapower.csis.org/" target="_blank" rel="noopener">CSIS →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇹🇼</span>
+              <a href="../countries/taiwan-dossier.html" class="flag-name" target="_blank">Taiwan (ROC)</a>
+            </span>
+          </td>
+          <td>4 Keelung-class (ex-Perry FFGs), 2 Cheng Kung-class, 2 old submarines + IDS program; constrained surface fleet</td>
+          <td>140 F-16A/B/V (Block 70 upgrade), 56 Mirage 2000-5; 66 F-16C/D on order; no 5th-gen yet</td>
+          <td>HF-2E LACM (~1,200km); HF-3 supersonic AShM; Tien Kung III SAM; Patriot PAC-3 (6 batteries); asymmetric porcupine strategy</td>
+          <td>Taiwan island; fortified mountain bases; Itu Aba (Taiping Island) in SCS; distributed underground network</td>
+          <td class="nuclear-no">NO</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:58%"></div></div>
+              <span class="rating-num">5.8/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.rand.org/pubs/research_reports/RRA1078-1.html" target="_blank" rel="noopener">RAND →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇺🇸</span>
+              <a href="../countries/usa-dossier.html" class="flag-name" target="_blank">USA (INDOPACOM)</a>
+            </span>
+          </td>
+          <td>3 CSGs (USS Reagan fwd), 22 SSNs, Arleigh Burke DDGs (Aegis BMD), Expeditionary Strike Groups; globally unmatched undersea fleet</td>
+          <td>F-35A/B/C (450+ Pacific), F-22 Raptor, F-15EX, B-21 Raider (IOC), B-52H, EA-18G Growler (EW); 375K+ personnel</td>
+          <td>Tomahawk TLAM (2,500km); SM-3/SM-6 Aegis BMD; LRASM anti-ship; HIMARS (ATACMS/PrSM to 500km); THAAD at Guam</td>
+          <td>7 major Japan bases, Guam (Andersen AFB, Apra Harbor), Okinawa (Kadena), Korea (8 bases), Philippines (EDCA sites); Pearl Harbor</td>
+          <td class="nuclear-yes">STRATEGIC FULL</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:95%"></div></div>
+              <span class="rating-num">9.5/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.indopacom.mil/Portals/11/Documents/USINDOPACOM%20POSTURE%20STATEMENT%202025.pdf" target="_blank" rel="noopener">INDOPACOM →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇯🇵</span>
+              <a href="../countries/japan-dossier.html" class="flag-name" target="_blank">Japan (JSDF)</a>
+            </span>
+          </td>
+          <td>2 Izumo F-35B carriers (converting), 4 Atago-class Aegis destroyers, 8 Kongo-class Aegis DDG, 20 SSK; world-class Aegis BMD fleet</td>
+          <td>147 F-35A + 42 F-35B (on order); 98 F-15J; 13 Mogami FFM; JASDF Komatsu/Misawa/Naha forward bases in Ryukyus</td>
+          <td>400 Tomahawk (ordered 2023); Type 12 AShM (extends to 1,200km); Type 17 AShM (Mach 3, 200km); SM-3 Block IIA; PAC-3 MSE</td>
+          <td>Okinawa (F-15J, F-35A); Misawa (F-35A); Komatsu (F-35A); Yokosuka (Aegis DDH); Sasebo (Izumo conversion)</td>
+          <td class="nuclear-no">NO (US extended deterrence)</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:80%"></div></div>
+              <span class="rating-num">8.0/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.mod.go.jp/en/publ/w_paper/index.html" target="_blank" rel="noopener">Japan MoD →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇰🇷</span>
+              <span class="flag-name">South Korea (ROK)</span>
+            </span>
+          </td>
+          <td>3 Sejong Daewang Aegis DDG, 9 KDX-II DDG, 9 SSK (208-class); Dokdo LHD; substantial conventional naval force</td>
+          <td>40 F-35A (more on order), 60 F-15K, 100+ KF-16; KF-21 Boramae 4.5-gen now in production</td>
+          <td>Hyunmoo-5 ballistic missile (3,000km+); Hyunmoo-4 bunker buster (vs. DPRK); THAAD (contested by China), Patriot PAC-3</td>
+          <td>8 US bases incl. Camp Humphreys (largest US overseas base); Osan AFB; Kunsan AFB; Seoul-centric defense posture</td>
+          <td class="nuclear-no">NO (USFK deterrence)</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:75%"></div></div>
+              <span class="rating-num">7.5/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇰🇵</span>
+              <a href="../countries/north-korea-dossier.html" class="flag-name" target="_blank">North Korea (KPA)</a>
+            </span>
+          </td>
+          <td>Approximately 70 submarines (mostly obsolete Romeo/Whiskey-class); limited surface combatants; primarily a land/missile power</td>
+          <td>700+ combat aircraft but mostly obsolete (MiG-21/MiG-29); limited 4th-gen capability; primarily used for threat escalation not air superiority</td>
+          <td>Hwasong-18 ICBM (15,000km, solid fuel), Hwasong-17 ICBM (15,000+km), KN-23 SRBM (600km, maneuvering), Haeil nuclear underwater drone</td>
+          <td>Hardened underground command network; 8,000+ artillery tubes on Seoul axis; missile launcher dispersal across ~1,000 sites</td>
+          <td class="nuclear-yes">YES ~50+ WARHEADS</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:65%"></div></div>
+              <span class="rating-num">6.5/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.38north.org/" target="_blank" rel="noopener">38 North →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇦🇺</span>
+              <span class="flag-name">Australia (ADF)</span>
+            </span>
+          </td>
+          <td>6 Collins-class SSK (life extension); 3 Hobart-class Aegis DDG; 12 Arafura OPV; AUKUS SSN by early 2030s (Virginia-class rotation from 2027)</td>
+          <td>72 F-35A (41 delivered); EA-18G Growler (12 aircraft — only AUKUS partner with this EW platform); long-range ISR</td>
+          <td>AGM-158 JASSM-ER (1,000km); Long Range Anti-Ship Missile (LRASM); Tomahawk acquisition planned post-AUKUS; HIMARS purchased</td>
+          <td>Pine Gap (critical US ISR/SIGINT); RAAF Darwin/Tindal; HMAS Stirling (SSN hub plan); rotational US Marine/USAF presence Darwin</td>
+          <td class="nuclear-no">NO (US extended deterrence)</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:62%"></div></div>
+              <span class="rating-num">6.2/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.defence.gov.au/about/publications/2023-defence-strategic-review" target="_blank" rel="noopener">AUS DSR →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇵🇭</span>
+              <span class="flag-name">Philippines (AFP)</span>
+            </span>
+          </td>
+          <td>Modest frigates (Jose Rizal-class); limited patrol vessels; no submarine capability; most at-risk navy in SCS</td>
+          <td>12 FA-50 light combat aircraft; F-16 procurement under discussion 2025–26; primarily COIN-focused air force</td>
+          <td>BrahMos supersonic AShM (India-supplied, 290km); US HIMARS deployed under EDCA (rotational); limited indigenous missile capability</td>
+          <td>9 EDCA sites for US forces (expanded 2023); Subic Bay / Clark developing; Cagayan Valley (Luzon) — key for Taiwan strait access</td>
+          <td class="nuclear-no">NO (US MDT)</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:35%"></div></div>
+              <span class="rating-num">3.5/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS →</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NUCLEAR SECTION -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-4);">☢️ Asia-Pacific Nuclear Dynamics — March 2026</h3>
+  <div class="card-grid grid-2 mb-6">
+    <div>
+      <div class="intel-alert red">
+        <div class="intel-alert-head">☢️ MULTI-POLAR NUCLEAR THEATER</div>
+        <p>The Asia-Pacific is the world's only theater where <strong class="critical">four nuclear-armed states</strong> face each other across contested boundaries: USA (~5,550 warheads), China (~500+ warheads, rapidly growing), North Korea (~50+ warheads), and India (~172 warheads, India-Pakistan-China triangle). China is constructing 400+ new ICBM silos in Gansu/Xinjiang, potentially moving toward a nuclear triad at Cold War-scale numbers. North Korea's Hwasong-18 solid-fuel ICBM can strike the US mainland within 30 minutes of a decision. No arms control framework covers this theater — the INF Treaty was US-Russia only.</p>
+      </div>
+    </div>
+    <div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>State</th><th>Warheads</th><th>Doctrine</th><th>Delivery</th><th>Growth</th></tr></thead>
+          <tbody>
+            <tr><td>USA</td><td>~5,550 (1,700 deployed)</td><td>Second strike / flexible response</td><td>Triad: ICBM, SSBN, bomber</td><td>Stable / modernizing</td></tr>
+            <tr><td>China</td><td>~500+ (est.)</td><td>No First Use (declared) / minimum deterrence evolving</td><td>DF-5/DF-41 ICBM, Jin-class SSBN, H-20 bomber (dev.)</td><td>Rapid expansion +400 silos</td></tr>
+            <tr><td>North Korea</td><td>~50 (est.)</td><td>First use possible; regime survival</td><td>Hwasong-17/18 ICBM, KN-23 SRBM, submarine (dev.)</td><td>Expanding; advancing</td></tr>
+            <tr><td>India</td><td>~172</td><td>No First Use; massive retaliation</td><td>Agni-V ICBM, Arihant SSBN, Jaguar/Rafale bomber</td><td>Moderate; triad building</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 06: CHOKEPOINTS -->
+<section id="theater-chokepoints">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">06 // KEY TERRAIN & CHOKEPOINTS</div>
+      <h2 class="section-title">Strategic Chokepoints</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="chokepoint-grid mb-8">
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://cdnph.upi.com/svc/sv/i/9691728876945/2024/1/17288789809892/China-conducts-large-scale-drill-around-Taiwan-US-condemns-as-unwarranted.jpg"
+          alt="China PLA military drill map surrounding Taiwan with naval exercises" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Taiwan Strait — 180km wide between mainland China and Taiwan. PLA exercises in August 2022 and 2024 simulated a full blockade of the island. Five major amphibious assault corridors identified by RAND. Chinese crossing would involve 25,000+ PLA troops in first wave, 1,000+ landing craft, under a ballistic missile barrage of 1,000–2,000 weapons in the first 24 hours.')">
+        <div class="chokepoint-badge">STRAIT</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Taiwan Strait</div>
+        <div class="chokepoint-width">180km TOTAL WIDTH // ~130km NAVIGABLE CHANNEL</div>
+        <div class="chokepoint-desc">The world's most dangerous body of water. The 180km strait between mainland China and Taiwan is the primary geographic constraint on a PLA amphibious invasion — weather windows open only ~30 days/year due to seasonal storms. The strait is also a major commercial shipping lane, with 100+ ships transiting daily. Any closure or conflict would halt global semiconductor supply chains. RAND studies assess a cross-strait amphibious assault would be the most complex military operation in history.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">PRC (mainland), ROC Taiwan (island), PLAN (patrols)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">CRITICAL — PRIMARY FLASHPOINT</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://static.independent.co.uk/2025/07/31/8/19/13_overview-of-fiery-cross-reef_south-china-sea_1april2022_maxar-wv2.jpeg"
+          alt="Fiery Cross Reef South China Sea aerial satellite view of military installation" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Fiery Cross Reef — one of China\'s seven militarized artificial islands. 3,000m runway, hardened aircraft shelters, radar installations, HQ-9B SAM batteries, anti-ship missile launchers. Located 1,000km from Hainan, the SCS islands project Chinese air and naval power deep into Southeast Asian waters, threatening every ship on the Asia-Europe shipping route.')">
+        <div class="chokepoint-badge">SCS ISLAND COMPLEX</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">South China Sea</div>
+        <div class="chokepoint-width">3.5M km² // $3.4 TRILLION TRADE ANNUALLY</div>
+        <div class="chokepoint-desc">The South China Sea carries 40% of global trade and one-third of all shipping. China's nine-dash line claim covers 90% of the SCS, rejected by a 2016 UN tribunal ruling China ignores. Seven Chinese artificial islands — Fiery Cross, Subi, Mischief, Cuarteron, Gaven, Hughes, Johnson reefs — are fully militarized with airstrips, hangars, SAMs, and AShM batteries. These islands threaten every commercial and military vessel transiting the region.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">China (islands), Vietnam/Philippines/Malaysia (coastal), USA (FONOPS)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">CRITICAL</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2023-08/230817-triton-island-mb-0801-63d6d3.jpg"
+          alt="Satellite image of South China Sea military island construction" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Malacca Strait — 2.8km navigable width at its narrowest. 80% of China\'s oil imports and 25% of global trade transit through this 900km passage between Malaysia/Singapore and Indonesia. China\'s \'Malacca Dilemma\': in a conflict, US/allied interdiction of this chokepoint could cut Chinese energy imports within weeks. China\'s BRI investment in Myanmar and Pakistan pipelines partially addresses this vulnerability.')">
+        <div class="chokepoint-badge">STRAIT</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Malacca Strait</div>
+        <div class="chokepoint-width">2.8km NAVIGABLE WIDTH // CHINA'S STRATEGIC VULNERABILITY</div>
+        <div class="chokepoint-desc">China's critical energy chokepoint — the "Malacca Dilemma." Over 80% of China's oil imports transit through this 900km narrow passage between the Malay Peninsula and Sumatra. US or allied interdiction of Malacca in a war scenario would cut Chinese energy supply within weeks, creating enormous pressure to terminate hostilities. China has invested in alternative pipelines (Myanmar-Yunnan oil pipeline, CPEC to Gwadar) but none approaches Malacca capacity. 83,000 vessels/year transit.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Malaysia, Singapore, Indonesia (trilateral patrol)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">CRITICAL (China vulnerability)</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://media.defense.gov/2020/Nov/04/2002529804/-1/-1/0/201104-D-BD104-023.JPG"
+          alt="Map showing Miyako Strait and Luzon Strait in Western Pacific" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Miyako Strait — 250km wide passage between Japan\'s Miyako Island and Taiwan. Primary PLAN naval transit corridor from East China Sea to Western Pacific. China regularly transits warships through this strait to contest the first island chain. Japan monitors all transits with destroyers and P-1 maritime patrol aircraft from Naha Air Base, Okinawa.')">
+        <div class="chokepoint-badge">STRAIT</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Miyako Strait</div>
+        <div class="chokepoint-width">250km WIDE // JAPAN–TAIWAN GAP</div>
+        <div class="chokepoint-desc">The Miyako Strait between Japan's Miyako Island and the northeastern tip of Taiwan is the primary passage for PLAN warships transiting from the East China Sea to the Western Pacific. China regularly conducts carrier group transits through this strait as part of blue-water navy power projection. Japanese ASDF Naha AB and JMSDF Ishigaki base monitor all Chinese naval movements. In a Taiwan blockade scenario, this strait would be a critical PLAN ingress and egress point for forces operating around Taiwan.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Japan (Ryukyu Islands arc), international waters</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">HIGH</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/First_island_chain_perimeter_%28marked_in_red%29.jpg"
+          alt="Map of first and second island chain with Luzon Strait and Bashi Channel marked" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Luzon Strait / Bashi Channel — 350km wide passage between Taiwan and the Philippines. Critical PLAN access route to the Pacific and Indian Ocean. In a Taiwan invasion scenario, USN submarines operating through the Bashi Channel could intercept PLAN amphibious shipping. Philippines\' EDCA base at Cagayan Valley provides US forces proximity to this corridor.')">
+        <div class="chokepoint-badge">STRAIT</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Luzon Strait / Bashi Channel</div>
+        <div class="chokepoint-width">350km WIDE // TAIWAN–PHILIPPINES GAP</div>
+        <div class="chokepoint-desc">The Luzon Strait (including Bashi Channel) separates Taiwan from the Philippines and is the southernmost chokepoint in the Taiwan theater. US submarines operating from Guam transit through this passage to intercept PLAN shipping. The Philippines' expanded EDCA basing agreements (9 sites, 3 facing Taiwan) give the US operational presence near this corridor. China has protested US deployments to northern Philippine bases (Cagayan Valley) as a direct threat to its Taiwan military planning timelines.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Philippines (Luzon), USA (EDCA presence), international waters</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">HIGH</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://img.taipeitimes.com/images/2025/02/18/p03-250218-3%20island.jpg"
+          alt="Map showing Tsushima Strait between Japan and Korea" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Tsushima Strait — 180km between Japan and Korea. Main PLAN exit from Yellow Sea to Pacific if Korean scenario unfolds. Historically important: Battle of Tsushima 1905 (Japan defeated Russia). Japan and US monitor all PLAN/KPAN transits. In a Korean Peninsula conflict, this strait becomes critical for US/Japan naval reinforcement of ROK forces.')">
+        <div class="chokepoint-badge">STRAIT</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Tsushima Strait</div>
+        <div class="chokepoint-width">180km BETWEEN JAPAN AND KOREA</div>
+        <div class="chokepoint-desc">The Korea Strait / Tsushima Strait connects the Yellow Sea to the Sea of Japan and is critical in both a Korean Peninsula conflict and for Chinese naval access from Yellow Sea ports. In a DPRK conflict scenario, the Tsushima Strait is the primary naval corridor for US/Japan reinforcement of South Korean forces. China's Northern Fleet must transit this strait to reach Pacific operating areas from Qingdao. Japan monitors with JMSDF destroyers and P-1 maritime patrol aircraft from Sasebo Naval Base.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Japan (east), South Korea (west), US/JMSDF (monitoring)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-med">MEDIUM</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 07: FLASHPOINTS -->
+<section id="theater-flashpoints">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">07 // FLASHPOINTS & TRIGGERS</div>
+      <h2 class="section-title">Conflict Scenarios</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Gray Zone → Full Spectrum Conflict Pathways</div>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="switchTab(event,'flash-1')">Taiwan Invasion</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-2')">Korean Peninsula</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-3')">SCS Island Clash</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-4')">Senkaku/Diaoyu</button>
+    </div>
+
+    <div id="flash-1" class="tab-pane active">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // HIGHEST CONSEQUENCE SCENARIO</div>
+        <div class="scenario-title">Scenario A: China Full Amphibious Invasion of Taiwan</div>
+        <div class="card-grid grid-2 mb-6">
+          <div>
+            <div class="scenario-steps">
+              <div class="scenario-step"><div class="step-time">T-72h</div><div class="step-text">PLAN mobilizes amphibious fleet at Fujian, Zhejiang, and Guangdong ports. DF-21D/DF-26 missile units dispersed to launch positions. H-6N bombers with YJ-21 hypersonic ASHMs positioned at Hainan and Leizhou. US NRO satellites detect mobilization; Taiwan DEFCON raised. INDOPACOM orders USS Ronald Reagan CSG to sea from Yokosuka.</div></div>
+              <div class="scenario-step"><div class="step-time">T-6h</div><div class="step-text">PLAN begins massive cyber and EW offensive: Taiwan power grid, communications, air defense radar networks degraded. Ballistic missile barrage begins — estimated 1,000–2,000 PLA missiles in first salvo targeting Taiwan's 9 air bases, Patriot batteries, and command nodes. Taiwan activates reserve forces (160,000 personnel). J-20 fighters establish air superiority corridor.</div></div>
+              <div class="scenario-step"><div class="step-time">T+0</div><div class="step-text">25,000+ PLAN marines and army amphibious forces cross in 1,200+ landing craft toward 5 identified invasion beaches (Hsinchu, Taoyuan, Tainan beaches). PLAN carrier groups establish battle space management 200km off Taiwan east coast. Minefields attempt to block US submarine approach routes.</div></div>
+              <div class="scenario-step"><div class="step-time">T+24–72h</div><div class="step-text">US response decision: commit carriers and risk DF-21D strikes, or operate from 1,000km+ standoff with submarines and bombers. Virginia-class SSNs launch Tomahawk strikes against PLAN amphibious shipping. B-21 Raiders from Guam execute strikes against PLAN command nodes. F-35Cs from carrier at 1,500km range strike with standoff weapons. Japan activates Izumo group and scrambles F-35As from Okinawa.</div></div>
+              <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">Outcome fork: (A) PLAN establishes beachhead but faces determined ROC army resistance in mountainous terrain — attritional urban warfare begins; (B) ROC military resistance collapses faster than US reinforcement — fait accompli before decisive US intervention. RAND 2023 wargame: US wins but at extreme cost — multiple carriers damaged/sunk, 900+ aircraft lost in 3-week scenario.</div></div>
+              <div class="scenario-step"><div class="step-time">T+1mo</div><div class="step-text">Global economic cascade: Taiwan Strait closed, TSMC fabs offline. Global semiconductor supply collapse. China threatens nuclear escalation if US ground forces enter Taiwan. US faces decision: DEFCON 2 nuclear posture or negotiate. China seeks "declaration of victory" short of full conquest to avoid nuclear threshold. Most likely outcome: ceasefire with partial Chinese control.</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="intel-alert red mb-4">
+              <div class="intel-alert-head">⚠ RAND 2023 WARGAME FINDINGS</div>
+              <p>RAND Corporation's 2023 unclassified wargame "The First Battle of the Next War" found: <strong class="critical">The United States and Japan successfully defeated a Chinese invasion of Taiwan, but at shocking cost</strong> — 900 US aircraft, 2 carriers, 10–20 major surface ships, and ~3,200 US personnel in 3 weeks. China lost 138 ships and suffered complete amphibious failure. The study found US victory probability depended critically on <strong class="critical">Japan allowing Ryukyu basing</strong> — without it, US likely loses. Source: <a href="https://www.rand.org/pubs/research_reports/RRA2849-1.html" target="_blank" rel="noopener">RAND RRA2849-1</a></p>
+            </div>
+            <div class="intel-alert mb-4">
+              <div class="intel-alert-head">📊 PROBABILITY ASSESSMENT</div>
+              <p>Chinese amphibious invasion of Taiwan: <strong class="critical">Probability: 15–25% before 2030</strong>. More likely scenarios: blockade/coercive pressure (40%), gray zone escalation (60%). Xi's 2049 "complete national rejuvenation" target and accelerating PLA capability curve compress the deterrence window. Taiwan's porcupine strategy and US forward presence remain the primary deterrents.</p>
+            </div>
+            <h4 style="font-family:var(--font-display);font-weight:700;color:var(--color-text);margin-bottom:var(--space-3);text-transform:uppercase;font-size:var(--text-sm);">Escalation Probability Bars</h4>
+            <div class="stat-row"><span class="stat-label">Gray Zone Only</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:60%"></div></div><span class="stat-val">60%</span></div>
+            <div class="stat-row"><span class="stat-label">Taiwan Blockade</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:35%"></div></div><span class="stat-val">35%</span></div>
+            <div class="stat-row"><span class="stat-label">Full Amphibious Invasion</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:20%"></div></div><span class="stat-val">20%</span></div>
+            <div class="stat-row"><span class="stat-label">Nuclear Threshold Crossed</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:8%"></div></div><span class="stat-val">8%</span></div>
+          </div>
+        </div>
+        <div class="policy-quote">
+          "A conflict over Taiwan involving the United States and China would be catastrophic for both countries, and likely for the world... but the United States has a strong interest in ensuring peace and stability across the Taiwan Strait."
+          <span class="policy-quote-attr">— INDOPACOM Commander Admiral John Aquilino, Posture Statement 2024 | <a href="https://www.indopacom.mil/" target="_blank" rel="noopener">INDOPACOM Official →</a></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-2" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // KOREAN PENINSULA ESCALATION</div>
+        <div class="scenario-title">Scenario B: North Korea Nuclear Coercion / Artillery Strike</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">DPRK conducts 7th nuclear test or launches Hwasong-18 ICBM on lofted trajectory crossing Japanese airspace. Kim Jong-un issues ultimatum: US withdraw all forces from Korean Peninsula within 30 days or face nuclear strike on a US ally. US and Japan activate J-Alert missile warning systems; Patriot PAC-3 batteries at Osan and Kadena placed on standby.</div></div>
+          <div class="scenario-step"><div class="step-time">T+24h</div><div class="step-text">UNSC emergency session blocked by China and Russia veto. US DEFCON raised to 3. USS Ronald Reagan CSG repositions toward Sea of Japan. B-52H bombers conduct highly visible flights over Korean Peninsula with F-22 escort. ROK-US Combined Forces Command activates elevated readiness. Japan ASDF scrambles F-35As from Misawa.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">DPRK activates KN-25 multiple-rocket launchers and artillery batteries (8,000+ tubes targeting Seoul metro area, 25M population). Fires 200+ artillery shells at ROK islands in Yellow Sea. ROK forces respond with counter-battery fire. KN-23 maneuvering ballistic missiles strike US Camp Humphreys. 3 Americans KIA — triggers USFK Article V response.</div></div>
+          <div class="scenario-step"><div class="step-time">T+72h</div><div class="step-text">US-ROK Combined Forces conduct massive air strikes against DPRK nuclear facilities (Yongbyon, Kangson), missile launch sites, and military command nodes. DPRK retaliates with Hwasong-12 MRBM strike on Guam. SM-3 intercepts but 1 warhead reaches Anderson AFB area. US Congress authorizes AUMF for Korean conflict. Japan activates strike capability under new doctrine.</div></div>
+          <div class="scenario-step"><div class="step-time">T+2wk</div><div class="step-text">China mobilizes PLA forces on Yalu River border — stated purpose "stability maintenance" but real concern is preventing US forces reaching China's border. US must manage two-front crisis: Korea strikes + Taiwan strait opportunism warning to Beijing. DPRK regime survival threshold reached. Kim Jong-un considers tactical nuclear use on Seoul. US makes explicit nuclear retaliation threat.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1mo</div><div class="step-text">Most likely outcome: China brokers ceasefire that preserves Kim regime in exchange for nuclear freeze and withdrawal of some US forces from ROK. China's strategic calculation: DPRK regime collapse creates unified US-allied Korea at Chinese border — existential Chinese red line. Conflict ends with elevated tensions, US force posture remains, DPRK retains nuclear capability.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-3" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // SOUTH CHINA SEA KINETIC INCIDENT</div>
+        <div class="scenario-title">Scenario C: Philippines-China Kinetic Clash at Second Thomas Shoal</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">PLAN warship fires on Philippines Navy vessel resupplying BRP Sierra Madre garrison at Second Thomas Shoal — either deliberately or in an escalated water cannon incident. Philippine sailors killed. Manila invokes Mutual Defense Treaty with United States. First time in history Article IV MDT (US-Philippines) is invoked over a maritime incident.</div></div>
+          <div class="scenario-step"><div class="step-time">T+6h</div><div class="step-text">US State Department confirms MDT obligation. USS Carl Vinson CSG ordered to South China Sea. USAF F-35As from Clark AB (EDCA) placed on alert. BrahMos anti-ship missiles at Ilocos Norte EDCA base activated. China warns of "consequences" if US military enters contested area. ASEAN emergency session called — produces no consensus.</div></div>
+          <div class="scenario-step"><div class="step-time">T+24–48h</div><div class="step-text">US and Philippines conduct joint naval patrol escorting resupply mission under air cover. PLAN intercepts with 4 warships. Standoff at sea — neither side fires but PLAN fires surface-to-air missiles as warning. US destroyer activates fire-control radar (EMCON Alpha lifted) — act of war by naval convention. China mobilizes Hainan-based J-11/J-16 fighters to SCS island runways.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">Negotiated de-escalation most likely — Philippines and US extract from close standoff under face-saving formula. Resupply mission completed under armed escort. China declares "victory" by limiting escalation. US and Philippines announce new joint patrol schedule. Chinese domestic narrative: US backed down from crossing Chinese red lines. SCS status quo resumes with elevated tension baseline.</div></div>
+          <div class="scenario-step"><div class="step-time">Alternative:</div><div class="step-text">Worst case — shots fired: Within 72 hours, full US-China naval engagement in SCS. F-35Cs vs. J-20s. Submarine contest. PLAN SCS island A2/AD batteries engage US surface ships. China threatens Taiwan blockade as strategic leverage. US must decide: limited war in SCS or escalation managed ceasefire before nuclear threshold.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-4" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // SENKAKU/DIAOYU INCURSION</div>
+        <div class="scenario-title">Scenario D: China Seizes Senkaku / Diaoyu Islands</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">After weeks of PLAN Coast Guard and maritime militia presence, China lands special forces on Uotsuri Island (Senkaku / Diaoyu Islands), claiming "law enforcement exercise" on Chinese sovereign territory. Japanese Coast Guard vessel attempting to intercept is disabled by water cannon and electronic jamming. Japan Scrambles F-35As from Naha AB.</div></div>
+          <div class="scenario-step"><div class="step-time">T+6h</div><div class="step-text">Japan activates US-Japan mutual defense treaty (Article V of the Treaty of Mutual Cooperation and Security). US Secretary of State confirms: "The Senkaku Islands fall within the scope of Article V." US-Japan joint military response options activated. JGSDF Western Army begins amphibious force preparation at Sasebo. USS Ronald Reagan CSG ordered toward East China Sea.</div></div>
+          <div class="scenario-step"><div class="step-time">T+24–48h</div><div class="step-text">Japan conducts air and maritime strikes against PLAN ships and the Chinese landing force. F-35As with Type 17 anti-ship missiles strike PLAN surface combatants providing cover for the landing. PLAN retaliates with DF-21D launch targeting JS Izumo group — SM-3 intercepts but forces immediate dispersal. Japan activates Tomahawk capability for first time in combat.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">US-Japan combined amphibious retaking operation. US Marine Raiders and JGSDF Western Army Amphibious Rapid Deployment Brigade conduct joint island seizure — the operation JGSDF was created for. Fierce resistance from dug-in PLA special forces. US and Japan suffer casualties. China threatens wider strikes on Japanese mainland JSDF bases.</div></div>
+          <div class="scenario-step"><div class="step-time">T+2–4wk</div><div class="step-text">US-China backchannel diplomacy: China offers to withdraw in exchange for "face-saving" commitment Japan will not station military forces on Senkakus. US and Japan refuse — any Chinese withdrawal under force sets unacceptable precedent for Taiwan. Islands recaptured. Long-term: China establishes regular patrol presence within 12nm. Risk of repeat incident elevated permanently.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 08: LOGISTICS -->
+<section id="theater-logistics">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">08 // LOGISTICS & SUSTAINMENT</div>
+      <h2 class="section-title">Supply Lines, Basing & Force Projection</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-4);">US INDOPACOM Basing Network</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Base / Host</th><th>Role</th><th>Key Assets</th><th>Distance to Taiwan</th></tr></thead>
+          <tbody>
+            <tr><td>Yokosuka, Japan</td><td>7th Fleet HQ / Carrier homeport</td><td>USS Ronald Reagan (CVN-76), Aegis destroyers</td><td>~2,000km</td></tr>
+            <tr><td>Kadena AB, Okinawa</td><td>Primary USAF Pacific hub</td><td>F-15C/D, RC-135, E-3 AWACS; F-35A planned</td><td>~700km</td></tr>
+            <tr><td>Andersen AFB, Guam</td><td>Strategic bomber base / B-21 fwd</td><td>B-21 Raider (fwd), B-52H, KC-135 tankers</td><td>~2,800km</td></tr>
+            <tr><td>Apra Harbor, Guam</td><td>Submarine base (expanding)</td><td>Virginia-class SSN rotational; AUKUS SSN future</td><td>~2,800km</td></tr>
+            <tr><td>Camp Humphreys, Korea</td><td>Largest US overseas base</td><td>2nd Infantry Division, THAAD, Patriot</td><td>~1,500km</td></tr>
+            <tr><td>EDCA Sites, Philippines</td><td>Emerging rotational presence</td><td>HIMARS, F-35, ISR — 9 sites (3 face Taiwan)</td><td>~350km</td></tr>
+            <tr><td>Pine Gap, Australia</td><td>Critical ISR / SIGINT hub</td><td>Satellite ground station; NSA/ASD partnership</td><td>~5,000km</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-4);">Key Logistics Assessments</h3>
+      <div class="doctrine-grid" style="grid-template-columns:1fr;">
+        <div class="doctrine-card">
+          <div class="doctrine-label">PLAN Blue-Water Sustainment</div>
+          <div class="doctrine-title">Critical Constraint: Replenishment at Sea</div>
+          <div class="doctrine-desc">China's primary logistics vulnerability is its limited replenishment at sea (RAS) capability. PLAN operates ~10 Type 903/903A replenishment ships — insufficient to sustain a Pacific-wide naval campaign. A 3-week high-intensity Taiwan scenario would exhaust PLAN ammunition and fuel reserves without equivalent US pre-positioned stock depth. PLAN logistics reform is ongoing, but the gap remains.</div>
+        </div>
+        <div class="doctrine-card">
+          <div class="doctrine-label">US Force Projection Distance</div>
+          <div class="doctrine-title">7,000km from Hawaii to Taiwan Strait</div>
+          <div class="doctrine-desc">The US must project force 7,000km+ from Hawaii to the Taiwan Strait. INDOPACOM's solution: forward basing in Japan, Guam, and Philippines; pre-positioned stocks; and heavy reliance on Japan's basing network. Loss of Kadena AB (Okinawa) in a PLA strike scenario would critically degrade US air sortie generation within 700km of Taiwan. RAND identifies Kadena as the single most important US asset in a Taiwan contingency.</div>
+        </div>
+        <div class="doctrine-card">
+          <div class="doctrine-label">Japan GSDF/ASDF/MSDF Rearmament</div>
+          <div class="doctrine-title">2022–2027 Defense Revolution</div>
+          <div class="doctrine-desc">Japan's 2022 National Security Strategy authorized 2% GDP defense spending, acquisition of standoff strike (Tomahawk 400 missiles, extended Type-12 AShM 1,200km), Izumo carrier conversion, expanded Ryukyu island garrisons, and dedicated cyber and electronic warfare units. This is the largest Japanese defense expansion since 1947. By 2027, JSDF will have 320 F-35A/Bs, 400 Tomahawks, and a full carrier aviation capability.</div>
+        </div>
+        <div class="doctrine-card">
+          <div class="doctrine-label">AUKUS Submarine Timeline</div>
+          <div class="doctrine-title">Virginia-Class Rotation from 2027</div>
+          <div class="doctrine-desc">AUKUS Optimal Pathway: Up to 3 Virginia-class SSNs will rotate through HMAS Stirling (Perth) from 2027, building Australian crew capability. Australia receives 3–5 Virginia-class SSNs for purchase by early 2030s, followed by the AUKUS SSN (UK/Australia joint design) from the late 2030s. This adds 3–5 highly capable nuclear-powered attack submarines to the Pacific undersea balance — a transformative capability that gives AUKUS unrestricted range from the Indian Ocean to the Western Pacific.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 09: ESCALATION PATHWAYS -->
+<section id="theater-escalation">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">09 // ESCALATION PATHWAYS</div>
+      <h2 class="section-title">Gray Zone → Nuclear Threshold</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">🎯 ESCALATION FRAMEWORK NOTE</div>
+    <p>The Asia-Pacific's unique escalation dynamic is the <strong class="critical">speed-to-fait-accompli problem</strong>. China's A2/AD strategy is specifically designed to achieve decisive military facts (Taiwan capture, island seizure) before the US can effectively intervene. Unlike the Middle East where escalation has historically been slow, the Taiwan scenario could reach Level 3 (Conventional Major) within 96 hours of the first Chinese missile launch — compressing the crisis management timeline to near-zero. The critical deterrence question: does US response speed and Japan basing access allow effective intervention before PLAN establishes irreversible control?</p>
+  </div>
+
+  <div class="escalation-ladder mb-8">
+    <div class="esc-rung esc-level-1">
+      <div class="esc-level-num">LEVEL 1 // ONGOING BASELINE</div>
+      <div class="esc-level-name">Gray Zone / Sub-Threshold Operations</div>
+      <div class="esc-level-desc">PLAN Coast Guard and maritime militia harassment of Philippines at Second Thomas Shoal; PLAN air incursions into Taiwan ADIZ (1,000+ per year); Chinese cyber attacks on Taiwan government and infrastructure; PLA exercises simulating Taiwan blockade; DPRK missile tests; Chinese fishing fleet (maritime militia) pressure in disputed zones.</div>
+      <div class="esc-level-actors">ACTORS: PLAN Coast Guard, PLA Maritime Militia, PLAAF (ADIZ incursions), DPRK (missile tests)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 2: PLAN fires on Philippines vessel (MDT invoked), PLA shoots down ROC aircraft, DPRK nuclear test</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-2">
+      <div class="esc-level-num">LEVEL 2</div>
+      <div class="esc-level-name">Conventional Limited — State Response</div>
+      <div class="esc-level-desc">US-Philippines joint naval patrol in SCS; Japan-PLAN standoff at Senkakus; US carrier group deployment to Taiwan Strait; US-Japan joint military exercise surge; sanctions escalation; THAAD deployment in Philippines; cyber counter-operations against PLAN command networks. All remain below armed conflict threshold.</div>
+      <div class="esc-level-actors">ACTORS: USA (INDOPACOM), Japan (JSDF), Philippines (AFP), Taiwan (ROC), PLA deterrence posture</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 3: PLA launches ballistic missiles at Taiwan, PLAN blockades Taiwan, kinetic attack on US asset</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-3">
+      <div class="esc-level-num">LEVEL 3</div>
+      <div class="esc-level-name">Conventional Major — Active Theater War</div>
+      <div class="esc-level-desc">Chinese amphibious invasion of Taiwan or blockade; US-Japan military intervention; PLA missile strikes on Kadena/Andersen AFB; Virginia-class SSN attacks on PLAN amphibious shipping; B-21 Raider strikes on PLAN command nodes; JSDF uses long-range strike (Tomahawk) against PLAN naval bases. Most destructive naval/air war since WWII.</div>
+      <div class="esc-level-actors">ACTORS: USA, Japan, China (PLA), Taiwan (ROC), possibly Philippines, South Korea (Korea-dependent)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 4: PLA or US loses a carrier; PLA conventional defeat threatens regime survival; China threatens "crossing certain red lines"</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-4">
+      <div class="esc-level-num">LEVEL 4</div>
+      <div class="esc-level-name">Theater Nuclear — Escalation Threshold</div>
+      <div class="esc-level-desc">China demonstrates nuclear capability (low-altitude atmospheric test) or signals nuclear first use against US bases (Guam, Japan). North Korea exploits distraction for Korean escalation. China's "No First Use" doctrine abandoned under regime survival conditions. US places strategic forces on DEFCON 2. Extended deterrence obligations to Japan and South Korea demand US response.</div>
+      <div class="esc-level-actors">ACTORS: China (PLA Rocket Force), USA (strategic forces), DPRK (opportunistic escalation)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 5: Nuclear weapon detonated in combat zone, multiple state actors cross nuclear threshold</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-5">
+      <div class="esc-level-num">LEVEL 5</div>
+      <div class="esc-level-name">Strategic Nuclear — Regional Catastrophe</div>
+      <div class="esc-level-desc">US nuclear response to Chinese nuclear first use. Targeting of PLAN Rocket Force DF-41 ICBM silos, PLA command nodes, and PLAN SSBN bases. China retaliates against US Pacific bases, Guam, and potentially CONUS. DPRK launches Hwasong-18 ICBMs. India-China nuclear exchange possible in separate Himalayan theater. Global economic collapse within days.</div>
+      <div class="esc-level-actors">ACTORS: USA, China, DPRK (all strategic forces), India (potential separate chain)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 6: Multiple nuclear exchanges; global targeting initiated</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-6">
+      <div class="esc-level-num">LEVEL 6</div>
+      <div class="esc-level-name">Civilization-Ending Exchange</div>
+      <div class="esc-level-desc">Full US-China-Russia-DPRK nuclear exchange. Multiple simultaneous nuclear detonations over major population and industrial centers. Nuclear winter modeling: 2–5 billion deaths from blast, radiation, agricultural collapse, and famine within 10 years. Pacific nuclear states combined hold 6,000+ strategic warheads. This scenario is constrained by mutual deterrence but cannot be zero-probability given the four-state nuclear environment of the Asia-Pacific.</div>
+      <div class="esc-level-actors">ACTORS: USA, China, DPRK, India, Russia (potential), Pakistan (potential)</div>
+      <div class="esc-level-trigger">TERMINAL: No de-escalation pathway at this level</div>
+    </div>
+  </div>
+
+  <div class="policy-quote">
+    "The People's Liberation Army is the largest, most capable, and most well-funded competitor the United States has faced in our history... The PLA's growth in sophistication and capabilities presents a genuine pacing challenge for the United States."
+    <span class="policy-quote-attr">— US Secretary of Defense Lloyd Austin, 2024 China Military Power Report Transmittal | <a href="https://media.defense.gov/2024/Oct/18/2003572742/-1/-1/0/2024-MILITARY-AND-SECURITY-DEVELOPMENTS-INVOLVING-THE-PEOPLES-REPUBLIC-OF-CHINA.PDF" target="_blank" rel="noopener">DoD China Military Power Report 2024 →</a></span>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 10: WILD CARDS -->
+<section id="theater-wildcards">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">10 // WILD CARDS & X-FACTORS</div>
+      <h2 class="section-title">Black Swans & Inflection Points</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="wildcard-grid mb-8">
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🇰🇵</div>
+      <div class="wildcard-title">DPRK Regime Collapse</div>
+      <div class="wildcard-desc">Sudden collapse of the Kim Jong-un regime would trigger the most complex nuclear custody crisis in history — 50+ warheads in an anarchic state, with China, US, South Korea, and Russia all competing for control. China's primary interest: prevent a unified US-allied Korea at the Yalu River. The US would face a forced choice between nuclear disablement operations and allowing Chinese forces to secure DPRK weapons. Either path risks direct US-China conflict.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🇵🇭</div>
+      <div class="wildcard-title">Philippines MDT Invocation</div>
+      <div class="wildcard-desc">A Philippine invocation of the US Mutual Defense Treaty over a Chinese kinetic attack would be the first-ever Article IV activation — forcing US into direct military confrontation with China in the South China Sea. The Marcos administration has dramatically upgraded US access via EDCA, but the treaty's Article IV language ("armed attack") remains deliberately ambiguous for gray zone provocations. Resolve of both US and Philippines will face an acute test if China escalates beyond water cannons.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🏔️</div>
+      <div class="wildcard-title">India-China Himalayan Escalation</div>
+      <div class="wildcard-desc">A new border crisis in the Himalayas (Arunachal Pradesh, Aksai Chin) simultaneous with a Taiwan crisis would force China to fight a two-front war — potentially deterring or delaying a Taiwan invasion. India's Agni-V ICBM (5,000km, covering all Chinese cities) and Rafale fighters from Indian bases create a second theater of nuclear deterrence overlapping the Asia-Pacific. India-US defense deepening (Major Defense Partner status, GSOMIA) partially integrates India into Pacific deterrence.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🗽</div>
+      <div class="wildcard-title">Taiwan Independence Declaration</div>
+      <div class="wildcard-desc">A formal Taiwanese declaration of independence — rather than maintaining the current ambiguous status quo — would trigger Chinese military action with near-certainty under Xi Jinping's stated red lines. The DPP government under President Lai Ching-te has maintained strategic ambiguity, but domestic political pressure and generational identity shifts within Taiwan (70%+ identify as Taiwanese, not Chinese) create long-term political dynamics pushing toward formal independence declaration.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🛰️</div>
+      <div class="wildcard-title">Space-Based ASAT First Strike</div>
+      <div class="wildcard-desc">China's SC-19 kinetic-kill ASAT missile and co-orbital satellite interceptors could destroy US GPS, reconnaissance, and communications satellites as the opening move of a Taiwan conflict — blinding US forces in the theater before a single shot is fired on Earth. The Space Force Resilient GPS program and SpaceX Starlink backup network partially address this vulnerability, but military dependence on a handful of high-value satellites remains the most acute US asymmetric vulnerability.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🤝</div>
+      <div class="wildcard-title">US Domestic Political Abandonment</div>
+      <div class="wildcard-desc">A US political decision not to defend Taiwan — whether through Congressional constraint, presidential retrenchment, or public war fatigue — would constitute the single most consequential strategic event since 1945. RAND wargames show the loss of Japanese basing is nearly equivalent in impact. The health of the US-Japan alliance and the political credibility of the Taiwan Relations Act are the ultimate wild cards in the Pacific deterrence equation. Neither is guaranteed.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">💻</div>
+      <div class="wildcard-title">Cyber Warfare Opening Strike</div>
+      <div class="wildcard-desc">China's PLA Unit 61398 and Strategic Support Force have pre-positioned cyber capabilities in US critical infrastructure (power grid, water systems, financial system) for years. A Taiwan contingency could begin with simultaneous cyber strikes on US civilian infrastructure — not military targets — creating domestic paralysis and political pressure against intervention before INDOPACOM forces can respond. The Volt Typhoon infiltration of US infrastructure (revealed 2024) demonstrated this threat's maturity.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">⛽</div>
+      <div class="wildcard-title">Malacca Interdiction Counter-Move</div>
+      <div class="wildcard-desc">US interdiction of the Malacca Strait — cutting 80% of China's oil imports — is the nuclear option in non-nuclear escalation: devastating to China, but also devastating to global trade. A decision to interdict Malacca would require Singapore and Malaysia's cooperation or acquiescence, risk triggering Chinese nuclear first use, and cause $10+ trillion in global economic damage. As a potential US escalation tool, the Malacca threat may provide more deterrence leverage when held in reserve than when used.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-head" onclick="toggleCollapsible(this)">
+      <span>China's Taiwan Fait Accompli Strategy — Detailed Assessment</span>
+      <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px;transition:transform .3s;"></i>
+    </div>
+    <div class="collapsible-body">
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">China's optimal Taiwan strategy is the <strong style="color:var(--color-accent-bright);">fait accompli</strong>: present the US and allies with a completed military occupation of Taiwan before effective countervailing intervention is possible. The DF-21D/DF-26 A2/AD envelope is designed not to defeat the US military in a sustained war — which China cannot yet win — but to delay US carrier intervention for 7–10 days while PLAN marines consolidate control of Taiwan's northern plain and key cities. If China can control Taipei within 5–7 days, the political calculus of US "liberation" becomes prohibitively costly.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">The critical counterstrategy is <strong style="color:var(--color-accent-bright);">distributed forward presence</strong>: US forces (SSNs, B-21 bombers from Guam, HIMARS on Ryukyu islands, F-35s from Philippines) that can engage PLAN amphibious shipping within hours of crossing — without requiring carrier aviation in the strait. Japan's Tomahawk acquisition and Ryukyu island garrisons directly support this distributed strike concept. RAND's 2023 wargame validates this approach: the combination of submarine attrition, island-based HIMARS strikes, and B-21 bombing of PLAN LSTs is sufficient to defeat the invasion if Japan participates fully.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;">The deepest risk: <strong style="color:var(--color-red);">Taiwan's own will to resist</strong>. All war-gaming assumes determined Taiwanese defense. Taiwan's historically short conscription (recently extended to 1 year), limited reserve training quality, and political divisions about whether to provoke China through resistance are wild cards that no amount of US military presence can fully mitigate. The "porcupine strategy" depends on Taiwanese civilians and soldiers willing to make occupation too costly — a political variable as much as a military one.</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-head" onclick="toggleCollapsible(this)">
+      <span>AUKUS — Transformative Undersea Balance Shift</span>
+      <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px;transition:transform .3s;"></i>
+    </div>
+    <div class="collapsible-body">
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">AUKUS Optimal Pathway represents the most significant shift in Pacific undersea balance since the Cold War. Australia will operate nuclear-powered (not nuclear-armed) attack submarines for the first time — vessels with virtually unlimited range and endurance, capable of operating undetected within China's A2/AD zones for months. Three to five Virginia-class SSNs operated by the Royal Australian Navy by the early 2030s would extend the effective Pacific submarine fleet by a strategic increment at a time when US SSN production is constrained.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">Key risks: <strong style="color:var(--color-accent-bright);">(1) Timeline slippage</strong> — Virginia-class production at Newport News and Groton is behind schedule; delivering 3–5 hulls to Australia without reducing US fleet size requires congressional authorization of production surge. (2) <strong style="color:var(--color-accent-bright);">Chinese countermeasures</strong> — PRC has protested AUKUS as destabilizing and may accelerate its own submarine fleet expansion. (3) <strong style="color:var(--color-accent-bright);">Political continuity</strong> — a change in Australian government hostile to AUKUS or US domestic opposition to transferring sensitive nuclear propulsion technology could delay or kill the program. Source: <a href="https://www.defence.gov.au/about/publications/2023-defence-strategic-review" style="color:var(--color-blue);" target="_blank" rel="noopener">Australia DSR 2023</a></p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 11: ASSESSMENT -->
+<section id="theater-assessment">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">11 // ASSESSMENT & PROBABILITY</div>
+      <h2 class="section-title">Theater Assessment</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert red mb-6">
+    <div class="intel-alert-head">🔴 OVERALL ASSESSMENT — MARCH 2026</div>
+    <p>The Asia-Pacific theater represents the <strong class="critical">defining strategic competition of the 21st century</strong>. China's military modernization has created the first peer competitor to US military power since the Soviet Union — and the first adversary specifically designed to defeat US force projection in its near-seas. The Taiwan contingency remains the most dangerous potential military conflict on Earth: a conventional war that could kill tens of thousands of US and Japanese service members, cause trillions in global economic damage, and risk nuclear escalation involving four states. The US-China competition is now <strong class="critical">structural and generational</strong> — it will not be resolved by diplomacy alone. The decade from 2026–2035 is the critical window during which US forward deterrence, Japan rearmament, AUKUS submarine delivery, and Taiwan's asymmetric defense investments must close the capability gap before China achieves the confidence to act.</p>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-4);">Probability Assessment</h3>
+      <div class="stat-row"><span class="stat-label">Gray Zone SCS/Taiwan (ongoing)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:95%"></div></div><span class="stat-val">95%</span></div>
+      <div class="stat-row"><span class="stat-label">Taiwan Blockade Attempt (5yr)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:40%"></div></div><span class="stat-val">40%</span></div>
+      <div class="stat-row"><span class="stat-label">Taiwan Invasion (before 2030)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:20%"></div></div><span class="stat-val">20%</span></div>
+      <div class="stat-row"><span class="stat-label">Philippines MDT Invocation (5yr)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:25%"></div></div><span class="stat-val">25%</span></div>
+      <div class="stat-row"><span class="stat-label">Senkaku/Diaoyu Incident</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:30%"></div></div><span class="stat-val">30%</span></div>
+      <div class="stat-row"><span class="stat-label">Korean Peninsula Escalation</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:22%"></div></div><span class="stat-val">22%</span></div>
+      <div class="stat-row"><span class="stat-label">DPRK Nuclear Use (5yr)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:8%"></div></div><span class="stat-val">8%</span></div>
+      <div class="stat-row"><span class="stat-label">AUKUS Sub Delivery (2032)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:60%"></div></div><span class="stat-val">60%</span></div>
+      <div class="stat-row"><span class="stat-label">Theater Nuclear Exchange</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:4%"></div></div><span class="stat-val">4%</span></div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-4);">Force Projection Trajectory</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Actor</th><th>2026 (Current)</th><th>2028 (Projected)</th><th>2031 (Long-term)</th></tr></thead>
+          <tbody>
+            <tr><td>China (PLA)</td><td>J-20 squadron expansion; Type 055 fleet growth; DF-17 hypersonic deployed; 3rd carrier operational</td><td>4th carrier (Type 004); J-35 carrier aviation IOC; DF-41 MIRV deployment; 6 Type 055s</td><td>Blue-water power projection; potential Taiwan action window; rival US conventional power in Western Pacific</td></tr>
+            <tr><td>Taiwan (ROC)</td><td>Indigenous submarine launch; Patriot PAC-3 upgrades; HIMARS delivery; HF-2E production surge</td><td>First indigenous submarine operational; F-16V full fleet upgrade; coastal defense missile networks complete</td><td>Porcupine strategy fully implemented or negotiated accommodation with China</td></tr>
+            <tr><td>USA (INDOPACOM)</td><td>B-21 forward deployment begins; Marine Corps Force Design 2030 implementation; Guam fortress concept</td><td>B-21 Pacific wing operational; HIMARS island chain basing; Typhon mid-range missile system deployed Japan</td><td>Distributed Agile Combat Employment architecture complete; 2nd Pacific fleet reestablished</td></tr>
+            <tr><td>Japan (JSDF)</td><td>Tomahawk acquisition; Izumo F-35B conversion; defense budget 2% GDP; Aegis Ashore replacement</td><td>Counterstrike capability operational; F-35B carrier operations; Long-range standoff missiles deployed Ryukyus</td><td>Full peer military capability; potential constitutional revision enabling collective defense</td></tr>
+            <tr><td>South Korea (ROK)</td><td>KF-21 Boramae production; 3 Dosan Ahn Changho SSNs; Hyunmoo-5 bunker buster deployed</td><td>KF-21 squadron; potential nuclear consultation agreement with US; Aegis destroyer fleet expansion</td><td>Indigenous defense industry regional exporter; potential nuclear-sharing debate if DPRK escalates</td></tr>
+            <tr><td>Australia (ADF)</td><td>AUKUS Pillar I submarine pathway approved; AUKUS Pillar II advanced capabilities accelerated</td><td>US/UK submarines rotating through HMAS Stirling; AUKUS cyber/AI capabilities active</td><td>First Australian nuclear-powered submarine ordered or delivered; trilateral Pacific strike capability</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 12: SOURCES -->
+<section id="theater-sources">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">12 // PRIMARY SOURCES</div>
+      <h2 class="section-title">Authoritative References</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <!-- CROSS-REFERENCE COUNTRY DOSSIERS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-3);">Cross-Reference: Series A Country Dossiers</h3>
+  <div class="xref-links mb-8" style="flex-wrap:wrap;gap:var(--space-2) var(--space-3);">
+    <span class="xref-label">RELATED DOSSIERS:</span>
+    <a href="../countries/china-dossier.html" class="xref-chip" target="_blank">🇨🇳 China A-01 →</a>
+    <a href="../countries/taiwan-dossier.html" class="xref-chip" target="_blank">🇹🇼 Taiwan →</a>
+    <a href="../countries/usa-dossier.html" class="xref-chip" target="_blank">🇺🇸 USA A-11 →</a>
+    <a href="../countries/north-korea-dossier.html" class="xref-chip" target="_blank">🇰🇵 North Korea A-06 →</a>
+    <a href="../countries/india-dossier.html" class="xref-chip" target="_blank">🇮🇳 India →</a>
+    <a href="../countries/japan-dossier.html" class="xref-chip" target="_blank">🇯🇵 Japan →</a>
+    <a href="../countries/south-korea-dossier.html" class="xref-chip" target="_blank">🇰🇷 South Korea →</a>
+    <a href="./middle-east-theater.html" class="xref-chip" target="_blank">⚔️ B-03 Middle East →</a>
+    <a href="./eastern-europe-theater.html" class="xref-chip" target="_blank">🛡️ B-01 Eastern Europe →</a>
+    <a href="./cyber-asymmetric.html" class="xref-chip" target="_blank">💻 B-08 Cyber &amp; Asymmetric →</a>
+    <a href="../index.html" class="xref-chip" target="_blank">🌐 Platform Home →</a>
+  </div>
+
+  <div class="sources-grid">
+    <div class="sources-col">
+      <h3>US Government &amp; Military</h3>
+      <div class="source-item"><a href="https://www.pacom.mil/About-USINDOPACOM/USPACOM-Area-of-Responsibility/" target="_blank" rel="noopener">INDOPACOM Official</a><span>US Indo-Pacific Command // Theater doctrine &amp; force posture</span></div>
+      <div class="source-item"><a href="https://media.defense.gov/2023/Oct/19/2003323409/-1/-1/1/2023-MILITARY-AND-SECURITY-DEVELOPMENTS-INVOLVING-THE-PEOPLES-REPUBLIC-OF-CHINA.PDF" target="_blank" rel="noopener">DoD China Military Power Report 2023</a><span>Office of the Secretary of Defense // Annual PLA assessment</span></div>
+      <div class="source-item"><a href="https://www.odni.gov/files/ODNI/documents/assessments/ATA-2025-Unclassified-Report.pdf" target="_blank" rel="noopener">ODNI Annual Threat Assessment 2025</a><span>Office of the Director of National Intelligence</span></div>
+      <div class="source-item"><a href="https://crsreports.congress.gov/product/pdf/R/R48314" target="_blank" rel="noopener">CRS: US Force Posture in the Indo-Pacific</a><span>Congressional Research Service — INDOPACOM basing &amp; posture</span></div>
+      <div class="source-item"><a href="https://www.defense.gov/News/Releases/Release/Article/3311218/dod-releases-national-defense-strategy/" target="_blank" rel="noopener">National Defense Strategy 2022</a><span>DoD // China pacing challenge designation</span></div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Think Tanks &amp; Research</h3>
+      <div class="source-item"><a href="https://chinapower.csis.org/" target="_blank" rel="noopener">CSIS ChinaPower Project</a><span>Center for Strategic &amp; International Studies // PLA capability tracking</span></div>
+      <div class="source-item"><a href="https://www.rand.org/topics/taiwan.html" target="_blank" rel="noopener">RAND Taiwan Research Portal</a><span>RAND Corporation // Taiwan wargaming &amp; defense analysis</span></div>
+      <div class="source-item"><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS Military Balance 2025</a><span>International Institute for Strategic Studies // Gold standard force data</span></div>
+      <div class="source-item"><a href="https://sipri.org/research/armament-and-disarmament/nuclear-disarmament-arms-control-and-non-proliferation" target="_blank" rel="noopener">SIPRI Nuclear Database</a><span>Stockholm International Peace Research Institute // Arsenal data</span></div>
+      <div class="source-item"><a href="https://missilethreat.csis.org/country/china/" target="_blank" rel="noopener">CSIS Missile Threat — China</a><span>CSIS // PLA missile systems database</span></div>
+      <div class="source-item"><a href="https://www.usni.org/magazines/proceedings" target="_blank" rel="noopener">USNI Proceedings</a><span>US Naval Institute // Naval strategy &amp; Pacific fleet analysis</span></div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Regional &amp; Allied Sources</h3>
+      <div class="source-item"><a href="https://www.mod.go.jp/en/publ/w_paper/index.html" target="_blank" rel="noopener">Japan MoD Defense White Paper 2024</a><span>Japan Ministry of Defense // JSDF capability &amp; threat assessment</span></div>
+      <div class="source-item"><a href="https://www.defence.gov.au/about/publications/2023-defence-strategic-review" target="_blank" rel="noopener">Australia Defence Strategic Review 2023</a><span>Australia DoD // AUKUS context &amp; ADF posture</span></div>
+      <div class="source-item"><a href="https://fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener">FAS Nuclear Notebook</a><span>Federation of American Scientists // China/DPRK/India/Pakistan warhead estimates</span></div>
+      <div class="source-item"><a href="https://www.sipri.org/databases/armstransfers" target="_blank" rel="noopener">SIPRI Arms Transfers Database</a><span>Arms transfers to Taiwan, Philippines, Japan 2020–2025</span></div>
+      <div class="source-item"><a href="https://dod.defense.gov/OIR/INDOPACOM/" target="_blank" rel="noopener">INDOPACOM OIR Updates</a><span>DoD // Operational updates &amp; deployments</span></div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Maritime &amp; Naval</h3>
+      <div class="source-item"><a href="https://news.usni.org/category/fleet-tracker" target="_blank" rel="noopener">USNI News Fleet Tracker</a><span>US Naval Institute // Real-time carrier strike group positions</span></div>
+      <div class="source-item"><a href="https://www.globalsecurity.org/military/world/china/plan-order-of-battle.htm" target="_blank" rel="noopener">GlobalSecurity PLAN Order of Battle</a><span>GlobalSecurity.org // PLAN fleet composition</span></div>
+      <div class="source-item"><a href="https://www.cna.org/our-work/centers/china-studies" target="_blank" rel="noopener">CNA China Studies</a><span>Center for Naval Analyses // PLA doctrine &amp; logistics</span></div>
+      <div class="source-item"><a href="https://www.brookings.edu/research/taiwan-strait/" target="_blank" rel="noopener">Brookings Taiwan Strait Analysis</a><span>Brookings Institution // Taiwan cross-strait scenarios</span></div>
+    </div>
+  </div>
+
+  <div class="classification-notice">
+    <div class="class-title">⚠ OPEN-SOURCE INTELLIGENCE NOTICE</div>
+    <p class="class-body">This dossier is compiled entirely from unclassified, publicly available open-source intelligence (OSINT). All data is sourced from official government publications, peer-reviewed think tank research, verified news reporting, and international monitoring organizations. No classified information is included or implied. Force estimates marked as "estimated" reflect best-available OSINT and may differ from classified assessments. Geopolitical Intelligence Platform v2 — Series B Theater Dossier B-02 // March 2026.</p>
+  </div>
+</div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+  <span id="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</span>
+  <img id="lightbox-img" src="" alt="Expanded view">
+  <div id="lightbox-cap"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-text">GEOPOLITICAL INTELLIGENCE PLATFORM v2 // THEATER DOSSIER B-02 ASIA-PACIFIC // MARCH 2026 // OPEN-SOURCE ANALYSIS</p>
+    <p class="footer-text" style="margin-top:var(--space-2);">Series B: Theater / Domain Analysis | Cross-ref: A-01 China · A-06 North Korea · A-11 USA · Japan · Taiwan · South Korea</p>
+  </div>
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.lucide) lucide.createIcons();
+});
+
+function openLightbox(src, cap) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-cap').textContent = cap || '';
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+function switchTab(e, id) {
+  const container = e.target.closest('.tabs-wrap') || document;
+  container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  const pane = document.getElementById(id);
+  if (pane) pane.classList.add('active');
+}
+
+function toggleCollapsible(head) {
+  const isOpen = head.classList.contains('open');
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+  const chev = head.querySelector('.chev');
+  if (chev) chev.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+
+// Scroll-active nav
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-60px 0px -40% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Animate stat bars + rating bars on scroll
+const fills = document.querySelectorAll('.stat-fill, .rating-fill');
+const fillObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const w = e.target.style.width;
+      e.target.style.width = '0%';
+      setTimeout(() => { e.target.style.width = w; }, 100);
+      fillObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+fills.forEach(f => {
+  f.style.transition = 'width 1.2s cubic-bezier(0.16,1,0.3,1)';
+  fillObserver.observe(f);
+});
+
+// Light/dark mode toggle
+(function(){
+  document.documentElement.setAttribute('data-theme', 'dark');
+  const nav = document.querySelector('.nav-inner');
+  const btn = document.createElement('button');
+  btn.setAttribute('data-theme-toggle', '');
+  btn.setAttribute('aria-label', 'Switch to light mode');
+  btn.style.cssText = 'background:none;border:1px solid rgba(26,58,92,0.3);color:var(--color-accent-bright);padding:4px 8px;cursor:pointer;font-size:14px;border-radius:3px;flex-shrink:0;margin-left:auto;';
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  nav.appendChild(btn);
+
+  let dark = true;
+  btn.addEventListener('click', () => {
+    dark = !dark;
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    btn.setAttribute('aria-label', 'Switch to ' + (dark ? 'light' : 'dark') + ' mode');
+    btn.innerHTML = dark
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  });
+})();
+
+// Light mode CSS variables (injected dynamically)
+const lightModeStyles = document.createElement('style');
+lightModeStyles.textContent = `
+[data-theme="light"] {
+  --color-bg: #edf2f7;
+  --color-surface: #f5f8fc;
+  --color-surface-2: #e8eef5;
+  --color-surface-3: #dce6f0;
+  --color-border: rgba(26,58,92,0.25);
+  --color-border-2: rgba(26,58,92,0.12);
+  --color-text: #0d1b2a;
+  --color-text-muted: #2c4a6b;
+  --color-text-faint: #6b8fa8;
+  --color-accent: #1A3A5C;
+  --color-accent-bright: #2E5F99;
+  --color-teal: #0d7a6e;
+  --color-blue: #1a5fa3;
+  --color-red: #c0392b;
+  --color-green: #1e7a40;
+}
+[data-theme="light"] .site-nav {
+  background: rgba(237,242,247,0.95);
+}
+[data-theme="light"] .hero-bg {
+  background: radial-gradient(ellipse 80% 60% at 60% 40%,rgba(26,58,92,.06) 0%,transparent 65%),
+              radial-gradient(ellipse 50% 40% at 20% 80%,rgba(46,95,153,.04) 0%,transparent 60%), #edf2f7;
+}
+`;
+document.head.appendChild(lightModeStyles);
+</script>
+
+</body>
+</html>

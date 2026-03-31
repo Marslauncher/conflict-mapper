@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>China PRC — Comprehensive Military & Geopolitical Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+/* ===== DESIGN TOKENS ===== */
+:root {
+  --color-bg: #0a0c10;
+  --color-surface: #0f1117;
+  --color-surface-2: #141820;
+  --color-surface-3: #1a2030;
+  --color-border: rgba(196,30,58,0.25);
+  --color-border-2: rgba(255,200,50,0.18);
+  --color-text: #dde2ec;
+  --color-text-muted: #8a94a8;
+  --color-text-faint: #4a5168;
+  --color-red: #c41e3a;
+  --color-red-bright: #ff4466;
+  --color-red-glow: rgba(196,30,58,0.35);
+  --color-gold: #ffc832;
+  --color-gold-dim: #c89020;
+  --color-gold-glow: rgba(255,200,50,0.2);
+  --color-teal: #2dd4bf;
+  --color-blue: #60a5fa;
+  --font-display: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+  --text-xs: clamp(0.7rem,0.65rem+0.25vw,0.8rem);
+  --text-sm: clamp(0.85rem,0.8rem+0.25vw,0.95rem);
+  --text-base: clamp(0.95rem,0.9rem+0.25vw,1.05rem);
+  --text-lg: clamp(1.1rem,1rem+0.5vw,1.35rem);
+  --text-xl: clamp(1.4rem,1.2rem+1vw,1.9rem);
+  --text-2xl: clamp(1.8rem,1.4rem+2vw,3rem);
+  --text-3xl: clamp(2.5rem,1.5rem+4vw,5rem);
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+  --space-12: 3rem; --space-16: 4rem;
+  --radius-sm: 3px; --radius-md: 6px; --radius-lg: 10px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
+  --shadow-red: 0 0 20px rgba(196,30,58,0.3);
+}
+
+/* ===== BASE ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);font-size:var(--text-base);background:var(--color-bg);color:var(--color-text);line-height:1.7;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--color-gold);text-decoration:none;transition:color .2s}
+a:hover{color:var(--color-red-bright)}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.2;text-wrap:balance}
+p,li{max-width:78ch;text-wrap:pretty}
+::selection{background:rgba(196,30,58,0.3);color:#fff}
+:focus-visible{outline:2px solid var(--color-gold);outline-offset:3px}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--color-bg)}
+::-webkit-scrollbar-thumb{background:var(--color-red);border-radius:3px}
+
+/* ===== TOP NAV ===== */
+.top-nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(10,12,16,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--color-border);
+  display:flex;align-items:center;gap:var(--space-2);
+  padding:0 var(--space-6);height:56px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.top-nav::-webkit-scrollbar{display:none}
+.nav-brand{
+  font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;
+  color:var(--color-red-bright);letter-spacing:2px;white-space:nowrap;
+  margin-right:var(--space-4);flex-shrink:0;
+}
+.nav-brand span{color:var(--color-gold)}
+.nav-links{display:flex;gap:var(--space-1);flex-shrink:0}
+.nav-link{
+  font-family:var(--font-display);font-size:var(--text-sm);font-weight:600;
+  color:var(--color-text-muted);padding:var(--space-2) var(--space-3);
+  border:1px solid transparent;border-radius:var(--radius-sm);
+  white-space:nowrap;transition:all .2s;letter-spacing:0.5px;
+}
+.nav-link:hover,.nav-link.active{color:var(--color-gold);border-color:var(--color-border-2);background:rgba(255,200,50,0.06)}
+.nav-spacer{flex:1}
+
+/* ===== HERO ===== */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;
+  padding:calc(56px + var(--space-16)) var(--space-6) var(--space-16);
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(196,30,58,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 100%, rgba(255,200,50,0.06) 0%, transparent 60%),
+    var(--color-bg);
+}
+.hero-grid{
+  position:absolute;inset:0;z-index:0;opacity:0.07;
+  background-image:
+    linear-gradient(rgba(196,30,58,0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(196,30,58,0.5) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+.hero-content{position:relative;z-index:1;max-width:900px}
+.hero-flag{font-size:4rem;margin-bottom:var(--space-4);line-height:1}
+.hero-eyebrow{
+  font-family:var(--font-mono);font-size:var(--text-sm);
+  color:var(--color-red-bright);letter-spacing:4px;text-transform:uppercase;
+  margin-bottom:var(--space-4);
+}
+.hero-title{
+  font-family:var(--font-display);font-size:var(--text-3xl);
+  font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:#fff;margin-bottom:var(--space-3);
+  text-shadow:0 0 40px rgba(196,30,58,0.6);
+}
+.hero-title .cn{color:var(--color-red-bright)}
+.hero-subtitle{
+  font-size:var(--text-lg);color:var(--color-text-muted);
+  margin-bottom:var(--space-8);font-weight:300;
+}
+.hero-stamp{
+  font-family:var(--font-mono);font-size:var(--text-xs);
+  color:var(--color-text-faint);letter-spacing:2px;
+  margin-bottom:var(--space-10);
+}
+.hero-stats{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-4);
+  margin-bottom:var(--space-10);
+}
+.hero-stat{
+  background:rgba(196,30,58,0.1);
+  border:1px solid var(--color-border);
+  padding:var(--space-4) var(--space-6);
+  border-radius:var(--radius-sm);
+  min-width:140px;
+}
+.hero-stat-val{
+  font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;
+  color:var(--color-red-bright);display:block;margin-bottom:4px;
+}
+.hero-stat-lbl{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);letter-spacing:1px;text-transform:uppercase}
+.scroll-cue{
+  display:flex;flex-direction:column;align-items:center;gap:var(--space-2);
+  color:var(--color-text-faint);font-size:var(--text-sm);font-family:var(--font-mono);
+  animation:bob 2s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ===== MAIN LAYOUT ===== */
+.main{padding-top:56px}
+.container{max-width:1280px;margin:0 auto;padding:0 var(--space-6)}
+
+/* ===== SECTION HEADERS ===== */
+.section-wrap{padding:var(--space-16) 0}
+.section-header{
+  display:flex;align-items:center;gap:var(--space-4);
+  margin-bottom:var(--space-10);
+  padding-bottom:var(--space-4);
+  border-bottom:2px solid var(--color-border);
+}
+.section-number{
+  font-family:var(--font-mono);font-size:var(--text-sm);
+  color:var(--color-red);letter-spacing:2px;
+  border:1px solid var(--color-border);
+  padding:var(--space-1) var(--space-2);border-radius:var(--radius-sm);
+  flex-shrink:0;
+}
+.section-title{
+  font-family:var(--font-display);font-size:var(--text-2xl);
+  font-weight:700;color:#fff;letter-spacing:2px;text-transform:uppercase;
+}
+.section-title span{color:var(--color-red-bright)}
+.section-icon{color:var(--color-red);flex-shrink:0;width:28px;height:28px}
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--color-surface);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-md);
+  padding:var(--space-6);
+  box-shadow:var(--shadow-sm);
+}
+.card-elevated{
+  background:var(--color-surface-2);
+  border:1px solid rgba(196,30,58,0.2);
+}
+
+/* ===== MAP OVERVIEW ===== */
+.map-section{background:linear-gradient(180deg,rgba(196,30,58,0.05) 0%,transparent 100%);padding:var(--space-16) 0}
+.map-container{
+  position:relative;border:1px solid var(--color-border);
+  border-radius:var(--radius-lg);overflow:hidden;
+  background:var(--color-surface);
+}
+.map-img{width:100%;height:auto;display:block;opacity:0.9;transition:opacity .3s}
+.map-img:hover{opacity:1}
+.map-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(0deg,rgba(10,12,16,0.95) 0%,transparent 100%);
+  padding:var(--space-8) var(--space-6) var(--space-6);
+}
+.map-caption{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-text-muted);letter-spacing:1px}
+.map-stats-row{
+  display:flex;flex-wrap:wrap;gap:var(--space-6);
+  padding:var(--space-6);
+  background:var(--color-surface-2);
+  border-top:1px solid var(--color-border);
+}
+.map-stat{display:flex;flex-direction:column;gap:2px}
+.map-stat-val{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-gold)}
+.map-stat-key{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);text-transform:uppercase;letter-spacing:1px}
+.map-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-top:var(--space-6)}
+@media(max-width:768px){.map-grid{grid-template-columns:1fr}}
+
+/* ===== INTEL ALERT BOX ===== */
+.intel-alert{
+  background:rgba(196,30,58,0.08);
+  border:1px solid rgba(196,30,58,0.4);
+  border-left:4px solid var(--color-red-bright);
+  border-radius:var(--radius-md);
+  padding:var(--space-5) var(--space-6);
+  margin:var(--space-6) 0;
+}
+.intel-alert-head{
+  font-family:var(--font-mono);font-size:var(--text-xs);
+  color:var(--color-red-bright);letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:var(--space-2);
+}
+.intel-alert p{color:var(--color-text);max-width:none}
+
+/* ===== EQUIPMENT GALLERY ===== */
+.equip-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:var(--space-5);
+  margin:var(--space-6) 0;
+}
+.equip-card{
+  background:var(--color-surface);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  transition:all .25s cubic-bezier(0.16,1,0.3,1);
+  position:relative;
+}
+.equip-card:hover{
+  border-color:rgba(196,30,58,0.5);
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(0,0,0,0.5),var(--shadow-red);
+}
+.equip-img-wrap{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0a0c10}
+.equip-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;loading:lazy}
+.equip-card:hover .equip-img-wrap img{transform:scale(1.06)}
+.equip-badge{
+  position:absolute;top:var(--space-2);left:var(--space-2);
+  background:rgba(196,30,58,0.9);color:#fff;
+  font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:1px;
+  padding:2px var(--space-2);border-radius:var(--radius-sm);
+  backdrop-filter:blur(4px);
+}
+.equip-body{padding:var(--space-4)}
+.equip-name{
+  font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;
+  color:var(--color-gold);margin-bottom:var(--space-2);line-height:1.3;
+}
+.equip-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3)}
+.equip-specs{display:flex;flex-direction:column;gap:4px;margin-bottom:var(--space-3)}
+.equip-spec{display:flex;gap:var(--space-2);font-size:var(--text-xs);align-items:baseline}
+.equip-spec-key{color:var(--color-text-faint);font-family:var(--font-mono);min-width:72px;flex-shrink:0;letter-spacing:.5px}
+.equip-spec-val{color:var(--color-text);font-weight:500}
+.equip-link{
+  display:inline-flex;align-items:center;gap:var(--space-1);
+  font-size:var(--text-xs);color:var(--color-red-bright);
+  font-family:var(--font-mono);letter-spacing:1px;
+  border-top:1px solid var(--color-border);
+  padding-top:var(--space-3);width:100%;
+  transition:gap .2s;
+}
+.equip-link:hover{gap:var(--space-3);color:var(--color-gold)}
+.equip-link svg{flex-shrink:0}
+
+/* ===== TABS ===== */
+.tab-bar{display:flex;gap:var(--space-1);flex-wrap:wrap;border-bottom:2px solid var(--color-border);margin-bottom:var(--space-6)}
+.tab-btn{
+  font-family:var(--font-display);font-size:var(--text-sm);font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;
+  padding:var(--space-3) var(--space-5);
+  border-radius:var(--radius-sm) var(--radius-sm) 0 0;
+  border:1px solid transparent;border-bottom:none;
+  color:var(--color-text-muted);
+  transition:all .2s;
+}
+.tab-btn.active{color:#fff;background:var(--color-surface-2);border-color:var(--color-border);border-bottom-color:var(--color-surface-2);margin-bottom:-2px}
+.tab-btn:hover:not(.active){color:var(--color-gold);background:rgba(255,200,50,0.04)}
+.tab-pane{display:none}.tab-pane.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0}to{opacity:1}}
+
+/* ===== DATA TABLE ===== */
+.data-table-wrap{overflow-x:auto;margin:var(--space-4) 0;border-radius:var(--radius-md)}
+.data-table{width:100%;border-collapse:collapse;font-size:var(--text-sm)}
+.data-table thead{background:linear-gradient(90deg,rgba(196,30,58,0.5),rgba(139,0,0,0.4))}
+.data-table th{padding:var(--space-3) var(--space-4);text-align:left;font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:1.5px;text-transform:uppercase;color:#fff;border-right:1px solid rgba(196,30,58,0.2);white-space:nowrap}
+.data-table th:last-child{border-right:none}
+.data-table td{padding:var(--space-3) var(--space-4);border-bottom:1px solid rgba(255,255,255,0.04);color:var(--color-text);border-right:1px solid rgba(255,255,255,0.03)}
+.data-table td:last-child{border-right:none}
+.data-table td a{color:var(--color-gold);font-size:var(--text-xs)}
+.data-table td a:hover{color:var(--color-red-bright)}
+.data-table tbody tr{transition:background .15s}
+.data-table tbody tr:hover{background:rgba(196,30,58,0.06)}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:var(--text-xs);padding:2px 6px;border-radius:var(--radius-sm);border:1px solid;margin:1px}
+.tag-red{color:var(--color-red-bright);border-color:rgba(196,30,58,0.4);background:rgba(196,30,58,0.1)}
+.tag-gold{color:var(--color-gold);border-color:rgba(255,200,50,0.3);background:rgba(255,200,50,0.06)}
+.tag-teal{color:var(--color-teal);border-color:rgba(45,212,191,0.3);background:rgba(45,212,191,0.06)}
+.tag-blue{color:var(--color-blue);border-color:rgba(96,165,250,0.3);background:rgba(96,165,250,0.06)}
+
+/* ===== STAT BARS ===== */
+.stat-bars{display:flex;flex-direction:column;gap:var(--space-4)}
+.stat-row{background:var(--color-surface-2);padding:var(--space-4) var(--space-5);border-radius:var(--radius-md);border:1px solid var(--color-border)}
+.stat-row-head{display:flex;justify-content:space-between;margin-bottom:var(--space-2);font-size:var(--text-sm)}
+.stat-row-head span:first-child{color:var(--color-gold);font-family:var(--font-display);font-weight:600}
+.stat-row-head span:last-child{color:var(--color-red-bright);font-family:var(--font-mono);font-size:var(--text-xs)}
+.stat-track{height:8px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden}
+.stat-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--color-red),var(--color-red-bright));position:relative}
+.stat-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);animation:shimmer 2s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+
+/* ===== TIMELINE ===== */
+.timeline{padding-left:var(--space-6);position:relative}
+.timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--color-red),transparent)}
+.tl-item{position:relative;margin-bottom:var(--space-8)}
+.tl-dot{position:absolute;left:calc(-1*var(--space-6) - 6px);top:4px;width:12px;height:12px;border-radius:50%;background:var(--color-red-bright);border:2px solid var(--color-bg);box-shadow:0 0 8px rgba(196,30,58,0.6)}
+.tl-year{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-red-bright);margin-bottom:var(--space-1);letter-spacing:2px}
+.tl-title{font-family:var(--font-display);font-size:var(--text-lg);font-weight:600;color:#fff;margin-bottom:var(--space-2)}
+.tl-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7}
+
+/* ===== DOCTRINE CARD ===== */
+.doctrine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--space-5);margin:var(--space-6) 0}
+.doctrine-card{
+  background:var(--color-surface-2);
+  border:1px solid var(--color-border);
+  border-top:3px solid var(--color-red);
+  border-radius:0 0 var(--radius-md) var(--radius-md);
+  padding:var(--space-5);
+  transition:border-color .2s;
+}
+.doctrine-card:hover{border-top-color:var(--color-gold)}
+.doctrine-label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-red-bright);letter-spacing:2px;text-transform:uppercase;margin-bottom:var(--space-2)}
+.doctrine-title{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-gold);margin-bottom:var(--space-3);line-height:1.3}
+.doctrine-body{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7}
+
+/* ===== GRID LAYOUTS ===== */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-5)}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}.three-col{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.two-col,.three-col{grid-template-columns:1fr}}
+
+/* ===== COLLAPSIBLE ===== */
+.collapsible{border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;margin:var(--space-4) 0}
+.collapsible-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:var(--space-4) var(--space-5);
+  background:var(--color-surface-2);cursor:pointer;
+  font-family:var(--font-display);font-size:var(--text-lg);font-weight:600;color:var(--color-gold);
+  transition:background .2s;
+}
+.collapsible-head:hover{background:var(--color-surface-3)}
+.collapsible-head .chev{transition:transform .3s;color:var(--color-red-bright)}
+.collapsible-head.open .chev{transform:rotate(180deg)}
+.collapsible-body{display:none;padding:var(--space-5);background:var(--color-surface)}
+.collapsible-body.open{display:block;animation:fadeUp .25s ease}
+.collapsible-body p,.collapsible-body li{max-width:none}
+
+/* ===== QUOTE/POLICY BLOCK ===== */
+.policy-quote{
+  border-left:4px solid var(--color-gold);
+  padding:var(--space-5) var(--space-6);
+  background:rgba(255,200,50,0.04);
+  border-radius:0 var(--radius-md) var(--radius-md) 0;
+  margin:var(--space-6) 0;
+  font-style:italic;font-size:var(--text-lg);color:var(--color-text);
+  line-height:1.8;
+}
+.policy-quote-attr{
+  display:block;margin-top:var(--space-3);
+  font-style:normal;font-size:var(--text-sm);color:var(--color-text-muted);font-family:var(--font-mono)
+}
+
+/* ===== SOUTH CHINA SEA MAP ===== */
+.scs-img-wrap{position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border)}
+.scs-img-wrap img{width:100%;height:auto}
+.scs-legend{padding:var(--space-4) var(--space-5);background:var(--color-surface-2);display:flex;flex-wrap:wrap;gap:var(--space-4)}
+.legend-item{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-xs);font-family:var(--font-mono);color:var(--color-text-muted)}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--color-surface);border-top:1px solid var(--color-border);
+  padding:var(--space-10) 0;margin-top:var(--space-16);
+}
+.footer-inner{display:flex;flex-wrap:wrap;gap:var(--space-8);justify-content:space-between;align-items:flex-start}
+.footer-brand{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-text-faint)}
+.footer-links{display:flex;flex-wrap:wrap;gap:var(--space-4)}
+.footer-link{font-size:var(--text-sm);color:var(--color-text-muted)}
+.footer-link:hover{color:var(--color-gold)}
+
+/* ===== LIGHTBOX ===== */
+.lightbox-overlay{
+  display:none;position:fixed;inset:0;z-index:9000;
+  background:rgba(0,0,0,0.92);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;
+}
+.lightbox-overlay.active{display:flex;animation:fadeUp .2s ease}
+.lightbox-img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:var(--radius-md);border:1px solid var(--color-border)}
+.lightbox-close{
+  position:absolute;top:var(--space-5);right:var(--space-5);
+  background:rgba(196,30,58,0.8);color:#fff;width:40px;height:40px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;transition:background .2s;
+}
+.lightbox-close:hover{background:var(--color-red)}
+.lightbox-cap{position:absolute;bottom:var(--space-5);left:50%;transform:translateX(-50%);text-align:center;max-width:600px;color:var(--color-text-muted);font-size:var(--text-sm);font-family:var(--font-mono);background:rgba(10,12,16,0.85);padding:var(--space-3) var(--space-5);border-radius:var(--radius-md)}
+
+/* ===== MISC ===== */
+.divider{border:none;border-top:1px solid var(--color-border);margin:var(--space-8) 0}
+.label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:2px;text-transform:uppercase;margin-bottom:var(--space-3)}
+.highlight{color:var(--color-gold);font-weight:600}
+.critical{color:var(--color-red-bright);font-weight:600}
+.sub-head{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:#fff;margin:var(--space-8) 0 var(--space-4);letter-spacing:1px}
+.sub-head span{color:var(--color-red-bright)}
+ul.spec-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:var(--space-2)}
+ul.spec-list li{font-size:var(--text-sm);color:var(--color-text-muted);padding-left:var(--space-4);position:relative;max-width:none}
+ul.spec-list li::before{content:'▸';position:absolute;left:0;color:var(--color-red);font-size:.9em}
+ul.spec-list li strong{color:var(--color-gold)}
+.bri-img-wrap{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border);margin:var(--space-6) 0}
+.bri-img-wrap img{width:100%;height:auto}
+.inline-img{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--color-border);margin:var(--space-6) 0}
+.inline-img img{width:100%;height:auto;max-height:400px;object-fit:cover}
+.inline-img figcaption{padding:var(--space-3) var(--space-4);background:var(--color-surface-2);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:1px}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav" aria-label="Main navigation">
+  <div class="nav-brand">PRC<span> // DOSSIER</span></div>
+  <div class="nav-links">
+    <a href="#section-map" class="nav-link">Map</a>
+    <a href="#section-overview" class="nav-link">Overview</a>
+    <a href="#section-ground" class="nav-link">Ground</a>
+    <a href="#section-navy" class="nav-link">Navy</a>
+    <a href="#section-airforce" class="nav-link">Air Force</a>
+    <a href="#section-rocket" class="nav-link">Rocket Force</a>
+    <a href="#section-nuclear" class="nav-link">Nuclear</a>
+    <a href="#section-amphibious" class="nav-link">Amphibious</a>
+    <a href="#section-scs" class="nav-link">South China Sea</a>
+    <a href="#section-doctrine" class="nav-link">Doctrine</a>
+    <a href="#section-foreign-policy" class="nav-link">Foreign Policy</a>
+    <a href="#section-risk" class="nav-link">Risk</a>
+  </div>
+</nav>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox" role="dialog" aria-label="Image viewer">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <div class="lightbox-cap" id="lightbox-cap"></div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-flag">🇨🇳</div>
+    <div class="hero-eyebrow">CLASSIFIED OPEN-SOURCE ANALYSIS // MARCH 2026</div>
+    <h1 class="hero-title"><span class="cn">中华人民共和国</span><br>PEOPLE'S REPUBLIC OF CHINA</h1>
+    <p class="hero-subtitle">Comprehensive Military Doctrine · Equipment Capabilities · Geopolitical Strategy</p>
+    <p class="hero-stamp">PLA · PLAAF · PLAN · PLARF · CYBERSPACE · AEROSPACE · INFORMATION SUPPORT</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-val">2.185M</span><span class="hero-stat-lbl">Active Personnel</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">$281B+</span><span class="hero-stat-lbl">Defense Budget</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">500+</span><span class="hero-stat-lbl">Nuclear Warheads</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">3</span><span class="hero-stat-lbl">Aircraft Carriers</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">70+</span><span class="hero-stat-lbl">Submarines</span></div>
+    </div>
+    <div class="scroll-cue">
+      <i data-lucide="chevrons-down" style="width:22px;height:22px"></i>
+      SCROLL TO EXPLORE
+    </div>
+  </div>
+</section>
+
+<main class="main">
+
+<!-- ===== MAP OVERVIEW ===== -->
+<section class="map-section" id="section-map">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <i data-lucide="map" class="section-icon"></i>
+      <h2 class="section-title">Geographic <span>Overview</span></h2>
+    </div>
+
+    <div class="two-col" style="gap:var(--space-8);margin-bottom:var(--space-6)">
+      <div>
+        <div class="map-container">
+          <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/33a446622a56557b2dcfa685f5eb6d56e31e7981.jpg"
+            alt="Satellite map of China" width="800" height="600" loading="lazy"
+            onclick="openLightbox(this.src,'Satellite overview of the People\'s Republic of China — the world\'s fourth-largest country by area at 9.6 million km²')">
+          <div class="map-overlay">
+            <div class="map-caption">SATELLITE OVERVIEW // PEOPLE'S REPUBLIC OF CHINA</div>
+          </div>
+        </div>
+        <div class="map-stats-row">
+          <div class="map-stat"><span class="map-stat-val">9.6M km²</span><span class="map-stat-key">Land Area</span></div>
+          <div class="map-stat"><span class="map-stat-val">1.41B</span><span class="map-stat-key">Population</span></div>
+          <div class="map-stat"><span class="map-stat-val">14</span><span class="map-stat-key">Land Borders</span></div>
+          <div class="map-stat"><span class="map-stat-val">32</span><span class="map-stat-key">Provinces/Regions</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="label">Strategic Geography</p>
+        <p style="margin-bottom:var(--space-4)">China occupies the eastern portion of the Eurasian landmass, bordering 14 nations — the most of any country in the world. Its coastline spans 14,500 km along the Yellow Sea, East China Sea, and South China Sea, providing critical maritime access. The nation's interior geography — including the Tibetan Plateau, Taklamakan Desert, and Mongolian steppe — provides natural barriers on multiple flanks.</p>
+        <div class="intel-alert">
+          <div class="intel-alert-head">⚠ Strategic Analysis</div>
+          <p>China's geography creates what strategists call a "maritime dilemma" — a vast continental interior that buffers against land invasion while the island chains to the east constrain naval access to the Pacific. PLA military doctrine is organized around breaking this constraint.</p>
+        </div>
+        <div class="card" style="margin-top:var(--space-4)">
+          <p class="label">Key Geographic Claims</p>
+          <ul class="spec-list">
+            <li><strong>South China Sea:</strong> Nine-dash line claims ~2.3M km² encompassing Paracel & Spratly Islands. <a href="https://www.cfr.org/global-conflict-tracker/conflict/territorial-disputes-south-china-sea" target="_blank" rel="noopener">Learn more →</a></li>
+            <li><strong>Taiwan:</strong> PRC maintains Taiwan is a province of China; primary military planning contingency. <a href="https://www.rand.org/topics/taiwan.html" target="_blank" rel="noopener">RAND analysis →</a></li>
+            <li><strong>East China Sea:</strong> Disputed Senkaku/Diaoyu Islands with Japan, declared ADIZ in 2013.</li>
+            <li><strong>Himalayan Borders:</strong> Ongoing boundary disputes with India (LAC), including 2020 Galwan clash.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-head">South China Sea — <span>Military Positioning</span></div>
+    <div class="two-col">
+      <div class="scs-img-wrap">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f71516b6fd48d61655ed513631f296a2ac1248ef.jpg"
+          alt="South China Sea claims and Chinese military installations map" width="800" height="600" loading="lazy"
+          onclick="openLightbox(this.src,'Chinese territorial claims in the South China Sea showing the nine-dash line, Paracel Islands, Spratly Islands, and Scarborough Shoal overlapping with Philippines, Vietnam, Malaysia, Brunei, and Indonesia claims.')">
+        <div class="scs-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--color-red)"></div>Nine-Dash Line</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--color-gold)"></div>Military Bases</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--color-teal)"></div>Disputed Waters</div>
+        </div>
+      </div>
+      <div>
+        <p class="label">SCS Military Installations (2026)</p>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Location</th><th>Key Features</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Woody Island (Paracel)</td><td>3,000m airstrip, HQ-9 SAMs, radar</td><td><span class="tag tag-red">OPERATIONAL</span></td></tr>
+              <tr><td>Fiery Cross Reef</td><td>3,250m airstrip, VLS missile silos</td><td><span class="tag tag-red">OPERATIONAL</span></td></tr>
+              <tr><td>Mischief Reef</td><td>3,500m airstrip, radar dome, barracks</td><td><span class="tag tag-red">OPERATIONAL</span></td></tr>
+              <tr><td>Subi Reef</td><td>3,000m airstrip, port facilities</td><td><span class="tag tag-red">OPERATIONAL</span></td></tr>
+              <tr><td>Paracel Islands (full)</td><td>20+ positions, HQ-9, YJ-12 ASMs</td><td><span class="tag tag-gold">EXPANDING</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="label" style="margin-top:var(--space-5)">Belt & Road Initiative</p>
+        <div class="bri-img-wrap">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/0cf1b1005da8cb7d88fec3da9170226a83ba451b.jpg"
+            alt="Belt and Road Initiative map showing China's global trade and infrastructure network" width="800" height="600" loading="lazy"
+            onclick="openLightbox(this.src,'Belt & Road Initiative — China\'s global infrastructure investment network spanning 140+ countries across Asia, Europe, Africa, and Latin America.')">
+          <div style="padding:var(--space-3) var(--space-4);background:var(--color-surface-2);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint)">Belt & Road Initiative infrastructure projects — 140+ partner nations | <a href="https://www.csis.org/programs/chinapower/projects/belt-and-road-initiative" target="_blank" rel="noopener">CSIS Analysis →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OVERVIEW ===== -->
+<section class="section-wrap" id="section-overview">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <i data-lucide="shield" class="section-icon"></i>
+      <h2 class="section-title">Military <span>Overview</span></h2>
+    </div>
+
+    <div class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5c57efd34a1cf7aa938b60deaf55cdfb7701187a.jpg"
+        alt="PLA military parade at Tiananmen Square" width="1200" height="800" loading="lazy"
+        onclick="openLightbox(this.src,'PLA Military Parade, Beijing — China regularly stages mass military parades showcasing the PLA\'s capabilities to domestic and international audiences.')">
+      <figcaption>PLA MILITARY PARADE — BEIJING | China stages major military reviews to project strength domestically and internationally</figcaption>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">📋 EXECUTIVE SUMMARY</div>
+      <p>The PRC operates the world's largest active military (2.185M personnel) and second-largest defense budget ($281B official / $500B+ estimated). Military modernization follows 2027/2035/2049 milestones; the <strong class="critical">2027 target represents capability for "decisive victory" over Taiwan</strong>. The PLA has systematically developed Anti-Access/Area Denial (A2/AD) capabilities across all domains while expanding global power projection through the Belt and Road Initiative, overseas logistics support bases, and a rapidly growing blue-water navy.</p>
+    </div>
+
+    <div class="sub-head">Force <span>Composition</span></div>
+    <div class="stat-bars">
+      <div class="stat-row"><div class="stat-row-head"><span>PLA Ground Force</span><span>975,000 personnel</span></div><div class="stat-track"><div class="stat-fill" style="width:45%"></div></div></div>
+      <div class="stat-row"><div class="stat-row-head"><span>PLA Air Force</span><span>398,000 personnel</span></div><div class="stat-track"><div class="stat-fill" style="width:18%"></div></div></div>
+      <div class="stat-row"><div class="stat-row-head"><span>PLA Navy</span><span>355,000 personnel</span></div><div class="stat-track"><div class="stat-fill" style="width:16%"></div></div></div>
+      <div class="stat-row"><div class="stat-row-head"><span>Cyber / Aerospace / Info Support</span><span>237,000 personnel</span></div><div class="stat-track"><div class="stat-fill" style="width:11%"></div></div></div>
+      <div class="stat-row"><div class="stat-row-head"><span>PLA Rocket Force</span><span>120,000 personnel</span></div><div class="stat-track"><div class="stat-fill" style="width:6%"></div></div></div>
+    </div>
+
+    <div class="sub-head" style="margin-top:var(--space-10)">Modernization <span>Timeline</span></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2015</div><div class="tl-title">PLA Reorganization</div><div class="tl-desc">Xi Jinping restructures from 7 Military Region Commands to 5 Theater Commands. Joint command structure established to enable multi-domain integrated operations. <a href="https://www.iiss.org/publications/strategic-comments/2016/china-military-reform" target="_blank" rel="noopener">IISS Analysis →</a></div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2017</div><div class="tl-title">PLA Rocket Force Established</div><div class="tl-desc">Second Artillery Corps elevated to full service branch — PLA Rocket Force (PLARF) — signaling increased emphasis on missile-based deterrence and conventional strike. <a href="https://missilethreat.csis.org/" target="_blank" rel="noopener">Missile Threat →</a></div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2019</div><div class="tl-title">DF-17 Hypersonic Debut</div><div class="tl-desc">China publicly reveals the DF-17 hypersonic glide vehicle at the 70th anniversary parade — first nation to operationally deploy a hypersonic system. <a href="https://missilethreat.csis.org/missile/df-17/" target="_blank" rel="noopener">CSIS Missile Threat →</a></div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2022</div><div class="tl-title">CV-18 Fujian Launched</div><div class="tl-desc">Type 003 Fujian — China's first catapult-equipped supercarrier with EMALS — launched, demonstrating strategic intent for true blue-water power projection. <a href="https://www.cna.org/reports/2022/06/china-type-003-carrier" target="_blank" rel="noopener">CNA Report →</a></div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2024</div><div class="tl-title">Strategic Support Force Dissolved</div><div class="tl-desc">SSF split into three independent forces: Cyberspace Force, Aerospace Force, Information Support Force — reorganizing around "intelligentized warfare" concepts. <a href="https://www.rand.org/research/projects/strategic-support-force.html" target="_blank" rel="noopener">RAND →</a></div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2025</div><div class="tl-title">Shuiqiao Bridge Barges Confirmed</div><div class="tl-desc">Amphibious bridge-barge system publicly confirmed in reporting; satellite imagery shows sea trials off China's southern coast — fundamentally altering Taiwan invasion calculus. <a href="https://www.twz.com/sea/china-confirms-shuiqiao-amphibious-barges" target="_blank" rel="noopener">The War Zone →</a></div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2026</div><div class="tl-title">Defense Budget: 1.94T Yuan</div><div class="tl-desc">Official 2026 defense budget of $281B USD — 7.2% increase — with actual expenditure estimated by U.S. intelligence at $500B+ including cyber, space, and paramilitary. <a href="https://www.sipri.org/research/armament-and-disarmament/arms-and-military-expenditure/military-expenditure" target="_blank" rel="noopener">SIPRI Data →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLA GROUND FORCE ===== -->
+<section class="section-wrap" id="section-ground" style="background:rgba(196,30,58,0.03)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <i data-lucide="sword" class="section-icon"></i>
+      <h2 class="section-title">PLA Ground Force — <span>PLAGF</span></h2>
+    </div>
+
+    <p style="margin-bottom:var(--space-6)">The <span class="highlight">PLA Ground Force</span> (People's Liberation Army Ground Force) is the world's largest standing army with approximately <span class="critical">975,000 active personnel</span> organized into 13 Group Armies across five Theater Commands. The PLAGF has undergone sweeping modernization since 2015, replacing older Soviet-era platforms with indigenous Chinese designs emphasizing combined arms, network-centricity, and rapid force projection. <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS Military Balance →</a></p>
+
+    <div class="sub-head">Armored <span>Equipment</span></div>
+    <div class="equip-grid">
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">MAIN BATTLE TANK</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3d06903b55db07358d0905e765ee9286b6549c63.jpg" alt="Type 99A Main Battle Tank" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Type 99A (ZTZ-99A) Main Battle Tank — China\'s most advanced 3rd-generation MBT with composite armor, autoloader, and active protection systems.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Type 99A (ZTZ-99A)</div>
+          <div class="equip-desc">China's premier main battle tank. Third-generation design with advanced composite/reactive armor, 125mm autoloading smoothbore gun, thermal imaging, and active protection system (APS).</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Qty. (2026)</span><span class="equip-spec-val">~600 in service</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Gun</span><span class="equip-spec-val">125mm ZPT-98 smoothbore</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Weight</span><span class="equip-spec-val">58 tonnes</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">80 km/h road</span></div>
+          </div>
+          <a href="https://www.globalfirepower.com/military-tank-modern-main-battle-tanks.php" target="_blank" rel="noopener" class="equip-link">View specifications <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">MBT</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/c3627b417beaad41a6280913e5f87f684c352845.jpg" alt="Type 99 MBT" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Type 99 MBTs — China operates approximately 3,000 Type 96/99 series main battle tanks across its seven Theater Command Group Armies.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Type 96A/B (ZTZ-96A)</div>
+          <div class="equip-desc">Numerically dominant Chinese MBT. Modernized variants (96B) compete internationally and represent the backbone of PLAGF armored forces. Over 2,000 units in service.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Qty. (2026)</span><span class="equip-spec-val">2,000+ in service</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Gun</span><span class="equip-spec-val">125mm ZPT-83</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Weight</span><span class="equip-spec-val">43-46 tonnes</span></div>
+          </div>
+          <a href="https://www.armedforces.co.uk/army/listings/l0039.html" target="_blank" rel="noopener" class="equip-link">Learn more <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">ATTACK HELICOPTER</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/0007f46af2197c1779da62b0b691c666c5f11904.jpg" alt="Z-10 Attack Helicopter" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Z-10 (WZ-10) Attack Helicopter — China\'s primary armed rotary-wing platform, featuring chin-mounted 23mm cannon, 8x HJ-10 anti-tank missiles, and compatibility with TY-90 air-to-air missiles.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Z-10 (WZ-10) Attack Helicopter</div>
+          <div class="equip-desc">China's dedicated attack helicopter. Tandem cockpit design, chin gun turret, stub wings for weapons. Carries HJ-10 anti-tank missiles and TY-90 air-to-air missiles for SHORAD defense.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Anti-armor / CAS</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Armament</span><span class="equip-spec-val">23mm gun, HJ-10 ATGM</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">270 km/h</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Qty.</span><span class="equip-spec-val">~200+ in service</span></div>
+          </div>
+          <a href="https://www.airforce-technology.com/projects/z-10-helicopter/" target="_blank" rel="noopener" class="equip-link">Details <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sub-head">Ground Force — <span>Capabilities Summary</span></div>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>System</th><th>Quantity (est.)</th><th>Role</th><th>Notes</th><th>Reference</th></tr></thead>
+        <tbody>
+          <tr><td>Type 99A MBT</td><td>~600</td><td>Main Battle Tank</td><td>APS-equipped, premium tier</td><td><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS →</a></td></tr>
+          <tr><td>Type 96A/B MBT</td><td>2,000+</td><td>Main Battle Tank</td><td>Backbone of armored force</td><td><a href="https://www.globalfirepower.com/" target="_blank" rel="noopener">GFP →</a></td></tr>
+          <tr><td>Type 04A IFV</td><td>1,500+</td><td>Infantry Fighting Vehicle</td><td>30mm auto-cannon, ATGM</td><td><a href="https://www.janes.com/" target="_blank" rel="noopener">Janes →</a></td></tr>
+          <tr><td>ZBD-05</td><td>800+</td><td>Amphibious IFV</td><td>Swim-capable, 30mm</td><td></td></tr>
+          <tr><td>PCL-181 / PLZ-52</td><td>1,200+</td><td>Self-Propelled Howitzer</td><td>155mm, wheeled/tracked</td><td></td></tr>
+          <tr><td>PHL-03 MLRS</td><td>1,000+</td><td>Multiple Rocket Launcher</td><td>300mm, 150km range</td><td></td></tr>
+          <tr><td>WZ-10 Attack Helo</td><td>200+</td><td>Attack Helicopter</td><td>HJ-10 ATGM, TY-90 AAM</td><td><a href="https://www.airforce-technology.com/projects/z-10-helicopter/" target="_blank" rel="noopener">AFT →</a></td></tr>
+          <tr><td>WZ-19 Scout Helo</td><td>200+</td><td>Scout / Light Attack</td><td>Operates alongside WZ-10</td><td></td></tr>
+          <tr><td>HQ-7 / HQ-16 SAM</td><td>Many hundreds</td><td>Short-Medium Range AD</td><td>Organic air defense</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLAN NAVY ===== -->
+<section class="section-wrap" id="section-navy">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <i data-lucide="anchor" class="section-icon"></i>
+      <h2 class="section-title">PLA Navy — <span>PLAN</span></h2>
+    </div>
+
+    <p style="margin-bottom:var(--space-6)">The <span class="highlight">People's Liberation Army Navy</span> is the world's largest naval force by hull count, with approximately <span class="critical">355 ships and 355,000 personnel</span>. Under Xi Jinping's direction, the PLAN has undergone the most rapid naval expansion since World War II — building more warships in the past decade than the entire Royal Navy. The strategic objective is a "world-class navy" capable of contesting the Second Island Chain and projecting power globally. <a href="https://www.cna.org/our-research/2024/china-naval-power" target="_blank" rel="noopener">CNA Naval Power Report →</a></p>
+
+    <div class="sub-head">Carrier <span>Strike Force</span></div>
+    <div class="equip-grid">
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">AIRCRAFT CARRIER</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/26bbe967841cc6025f76a4eca76b68a22bb48cbb.jpg" alt="CV-18 Fujian Type 003 Aircraft Carrier" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'CV-18 Fujian (Type 003) during sea trials — China\'s first catapult carrier with EMALS, displacing 80,000+ tonnes, capable of embarking J-35 stealth fighters and a full fixed-wing aircraft wing.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">CV-18 Fujian (Type 003)</div>
+          <div class="equip-desc">China's most advanced carrier and first equipped with EMALS catapults (like USS Gerald R. Ford). Can launch heavier, fully-fueled aircraft, enabling a true fixed-wing power projection role distinct from ski-jump carriers.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Class</span><span class="equip-spec-val">Type 003 Fujian</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">80,000+ tonnes</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Catapult</span><span class="equip-spec-val">EMALS (3 tracks)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Air Wing</span><span class="equip-spec-val">~60 aircraft</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Length</span><span class="equip-spec-val">315 m</span></div>
+          </div>
+          <a href="https://www.navalpost.com/type-003-to-be-the-most-powerful-aircraft-carrier-of-china/" target="_blank" rel="noopener" class="equip-link">Full analysis <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">DESTROYER</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/4c21d8451277e4a93658e42fa9d03fe195af7d53.jpg" alt="Type 055 Renhai Destroyer" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Type 055 Renhai-class destroyer — at 12,000-13,000 tonnes displacement and 112 VLS cells, these are among the most capable surface combatants afloat. 8 operational, 2 building as of 2026.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Type 055 Renhai Destroyer</div>
+          <div class="equip-desc">Arguably the world's most capable surface combatant. This cruiser-equivalent displaces more than a US Navy Ticonderoga cruiser and carries 112 VLS cells for a mix of HHQ-9B SAMs, YJ-18A ASCMs, CJ-10 land-attack, and Yu-8 ASW missiles.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">VLS Cells</span><span class="equip-spec-val">112 cells</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">12,000–13,000 tonnes</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">8 + 2 building</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Fleet Air Defense / Strike</span></div>
+          </div>
+          <a href="https://www.naval-technology.com/projects/type-055-destroyer/" target="_blank" rel="noopener" class="equip-link">Naval Technology →</a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">CARRIER AIRCRAFT</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/54cc11a2c5fb7cd07d43d51c2fddbce7efd1dc58.jpg" alt="J-35A Stealth Fighter" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'J-35A stealth carrier fighter — China\'s naval 5th-generation aircraft, designed for the Fujian\'s EMALS catapults. Comparable in concept to the F-35C but with twin-engine configuration.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">J-35A Stealth Carrier Fighter</div>
+          <div class="equip-desc">China's 5th-generation carrier aircraft designed for EMALS catapult launch from CV-18 Fujian. Features stealth shaping, internal weapons bays, twin-engine reliability. Comparable mission set to F-35C.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Generation</span><span class="equip-spec-val">5th (Stealth)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Engines</span><span class="equip-spec-val">2× WS-19</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Naval air superiority / strike</span></div>
+          </div>
+          <a href="https://www.thedrive.com/the-war-zone/china-j-35-carrier-fighter" target="_blank" rel="noopener" class="equip-link">The War Zone →</a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">NUCLEAR SUBMARINE</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/2b2b3098e3e4c5598237402750f79158660fda9b.jpg" alt="Type 094 Jin-class SSBN" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Type 094 Jin-class ballistic missile submarine (SSBN) — China\'s sea-based nuclear deterrent, carrying 12 JL-2/JL-3 SLBMs. 5-6 boats in service provide continuous at-sea deterrence patrol.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Type 094 Jin-class SSBN</div>
+          <div class="equip-desc">China's operational ballistic missile submarine force. Each boat carries 12 JL-2 (MIRV-capable) or JL-3 SLBMs with range exceeding 8,000 km. Provides China's sea-based second-strike nuclear deterrent.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Missiles</span><span class="equip-spec-val">12× JL-2/JL-3 SLBM</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">5-6 boats</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">8,000–10,000+ km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Class</span><span class="equip-spec-val">094A enhanced variant</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/missile/jl-2/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat →</a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">AMPHIBIOUS ASSAULT</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/4b8388dbd45e68f59ecd160fa1354e521a62f5d9.jpg" alt="Type 075 LHD Amphibious Assault Ship" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Type 075 Yushen-class Landing Helicopter Dock (LHD) — China\'s amphibious flagship. 35,000 tonnes, 6+ helicopter spots, well deck, transports 800-1,600 marines. Three ships planned.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Type 075 Yushen-class LHD</div>
+          <div class="equip-desc">Landing Helicopter Dock designed as the centerpiece of amphibious task groups. Features full-length flight deck, well deck, and capacity for entire marine battalion with organic helicopter and LCAC support.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">35,000 tonnes</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Marines</span><span class="equip-spec-val">800–1,600</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Aircraft</span><span class="equip-spec-val">30+ helicopters</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">3 ships</span></div>
+          </div>
+          <a href="https://www.scmp.com/news/china/military/article/3188034/" target="_blank" rel="noopener" class="equip-link">SCMP Analysis →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sub-head">Fleet Strength — <span>2026 Order of Battle</span></div>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Ship Type</th><th>Class</th><th>Count</th><th>VLS / Key System</th><th>Status</th><th>More Info</th></tr></thead>
+        <tbody>
+          <tr><td>Aircraft Carriers</td><td>Liaoning / Shandong / Fujian</td><td>3</td><td>STOBAR×2 / EMALS×1</td><td><span class="tag tag-red">OPERATIONAL</span></td><td><a href="https://www.naval-technology.com/projects/type-003-fujian/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Type 055 Destroyer</td><td>Renhai</td><td>8 (+2)</td><td>112 VLS</td><td><span class="tag tag-red">OPERATIONAL</span></td><td><a href="https://www.naval-technology.com/projects/type-055-destroyer/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Type 052D Destroyer</td><td>Luyang III</td><td>20+</td><td>64 VLS</td><td><span class="tag tag-red">OPERATIONAL</span></td><td><a href="https://www.janes.com/navy/surface-ships/type-052d" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Type 054A Frigate</td><td>Jiangkai II</td><td>32+</td><td>32 VLS + ASW</td><td><span class="tag tag-red">OPERATIONAL</span></td><td></td></tr>
+          <tr><td>Type 094 SSBN</td><td>Jin-class</td><td>5–6</td><td>12× JL-3 SLBM</td><td><span class="tag tag-gold">ACTIVE PATROL</span></td><td><a href="https://missilethreat.csis.org/missile/jl-2/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Type 093/095 SSN</td><td>Shang-class</td><td>8+</td><td>YJ-18 ASCM, torpedoes</td><td><span class="tag tag-red">OPERATIONAL</span></td><td></td></tr>
+          <tr><td>Type 039A SSK</td><td>Yuan-class AIP</td><td>13+</td><td>AIP, 6× 533mm tubes</td><td><span class="tag tag-red">OPERATIONAL</span></td><td></td></tr>
+          <tr><td>Type 075 LHD</td><td>Yushen</td><td>3</td><td>30+ helos, well deck</td><td><span class="tag tag-red">OPERATIONAL</span></td><td></td></tr>
+          <tr><td>Type 071 LPD</td><td>Yuzhao</td><td>8</td><td>2–3 LCAC, 800+ troops</td><td><span class="tag tag-red">OPERATIONAL</span></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLAAF ===== -->
+<section class="section-wrap" id="section-airforce" style="background:rgba(96,165,250,0.02)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <i data-lucide="wind" class="section-icon"></i>
+      <h2 class="section-title">PLA Air Force — <span>PLAAF</span></h2>
+    </div>
+
+    <p style="margin-bottom:var(--space-6)">The PLAAF operates <span class="critical">1,800+ combat aircraft</span> and has rapidly transitioned from a primarily defensive force to one capable of multi-role offensive operations. With more than 200 fifth-generation J-20 stealth fighters operational and the J-35 entering service, China now operates the world's only operational fifth-generation aircraft outside the United States. <a href="https://www.af.mil/News/Article-Display/Article/2839802/" target="_blank" rel="noopener">USAF China Air Power →</a></p>
+
+    <div class="equip-grid">
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">5TH GEN STEALTH</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e12ce611a55ef4ee5627e0ca626d1244e93d0771.jpg" alt="J-20 Mighty Dragon with open weapons bays" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'J-20 Mighty Dragon (Chengdu) — China\'s operational 5th-generation stealth fighter with open weapons bays showing PL-15 BVR and PL-10 WVR missiles. 400+ ordered; China\'s primary air superiority platform.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">J-20 Mighty Dragon (Chengdu)</div>
+          <div class="equip-desc">China's operational 5th-generation stealth air superiority fighter. Canard-delta twin-engine design with internal weapons bays. Carries PL-15E BVR (up to 200km) and PL-10 WVR missiles. Operational since 2018. <span class="highlight">400+ ordered.</span></div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Generation</span><span class="equip-spec-val">5th (Low Observable)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Engines</span><span class="equip-spec-val">2× WS-15 (Emei)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Primary AAM</span><span class="equip-spec-val">PL-15E (200km+)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">200+ operational</span></div>
+          </div>
+          <a href="https://www.c4isrnet.com/air/2023/china-j20-stealth-fighter/" target="_blank" rel="noopener" class="equip-link">C4ISRNET Analysis →</a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">5TH GEN STEALTH</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/648f6e78112490254e7660071d5a0ebaac08ac3a.jpg" alt="J-20 formation" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'J-20 Mighty Dragon formation — China has rapidly expanded J-20 production, making it the world\'s largest operator of 5th-generation stealth aircraft outside the US F-35 program.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">J-20 Formation — <span class="highlight">Fleet Expansion</span></div>
+          <div class="equip-desc">China's J-20 fleet has grown to become the world's second-largest 5th-gen force. Each J-20 regiment pairs with J-16 strike aircraft in combined packages — stealth providing penetration while J-16s deliver stand-off PGMs.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Tactic</span><span class="equip-spec-val">J-20 + J-16 mixed packages</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Target</span><span class="equip-spec-val">AWACS, tankers, ISR</span></div>
+          </div>
+          <a href="https://www.defensenews.com/air/2023/j20-china-stealth/" target="_blank" rel="noopener" class="equip-link">Defense News →</a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">4.5TH GEN STRIKE</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b84c5b3974a666da5c705c039d6fbb7c6eef69da.jpg" alt="J-35 carrier stealth fighter" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'J-35 Stealth Carrier Fighter — entering PLAN service for deployment aboard CV-18 Fujian. China\'s second operational 5th-generation design gives the PLA unprecedented carrier-based stealth strike capacity.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">J-35 Naval Stealth Fighter</div>
+          <div class="equip-desc">Fifth-generation carrier aircraft with stealth shaping, internal weapons bays, and twin-engine reliability. Entering PLAN service aboard CV-18 Fujian. Represents the completion of China's dual 5th-gen aircraft program.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Platform</span><span class="equip-spec-val">Carrier-based (EMALS)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Generation</span><span class="equip-spec-val">5th (stealth)</span></div>
+          </div>
+          <a href="https://www.thedrive.com/the-war-zone/china-j-35" target="_blank" rel="noopener" class="equip-link">The War Zone →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sub-head">Air Force — <span>Order of Battle</span></div>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Aircraft</th><th>Type</th><th>Qty.</th><th>Primary Role</th><th>Key Weapon</th><th>Info</th></tr></thead>
+        <tbody>
+          <tr><td>J-20</td><td>5th Gen Stealth Fighter</td><td>200+</td><td>Air Superiority / Stealth Strike</td><td>PL-15E BVR</td><td><a href="https://missilethreat.csis.org/missile/pl-15/" target="_blank" rel="noopener">PL-15 →</a></td></tr>
+          <tr><td>J-16</td><td>4.5 Gen Multirole</td><td>200+</td><td>Strike / Electronic Warfare (J-16D)</td><td>YJ-12, PL-15</td><td></td></tr>
+          <tr><td>J-10C</td><td>4.5 Gen Fighter</td><td>200+</td><td>Multi-role</td><td>PL-15, PL-10</td><td></td></tr>
+          <tr><td>J-11B/D</td><td>4.5 Gen Fighter</td><td>400+</td><td>Air Superiority</td><td>PL-12, PL-15</td><td></td></tr>
+          <tr><td>Su-35</td><td>4++ Gen Fighter</td><td>24</td><td>Flanker-E (Russian)</td><td>R-77-1</td><td></td></tr>
+          <tr><td>H-6K/N</td><td>Strategic Bomber</td><td>100+</td><td>Stand-off Nuclear / CJ-10 Strike</td><td>CJ-10A ALCM</td><td><a href="https://www.airforce-technology.com/projects/h-6k/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>H-20</td><td>Stealth Bomber</td><td>In Development</td><td>Strategic Stealth Strike</td><td>Nuclear / PGM</td><td><a href="https://www.thedrive.com/the-war-zone/h-20-stealth-bomber" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>KJ-500</td><td>AWACS</td><td>10+</td><td>Airborne C2 / Radar</td><td>AESA radar</td><td></td></tr>
+          <tr><td>J-35</td><td>5th Gen Naval</td><td>Entering service</td><td>Carrier-based stealth</td><td>PL-15E</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLARF ===== -->
+<section class="section-wrap" id="section-rocket">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <i data-lucide="zap" class="section-icon"></i>
+      <h2 class="section-title">PLA Rocket Force — <span>PLARF</span></h2>
+    </div>
+
+    <p style="margin-bottom:var(--space-6)">The <span class="highlight">PLARF</span> controls China's most asymmetric capabilities — a vast, diverse missile arsenal that represents the centerpiece of China's <span class="critical">A2/AD (Anti-Access / Area Denial)</span> strategy. With approximately <span class="critical">120,000 personnel</span>, the PLARF operates the world's largest and most diverse ballistic and cruise missile force outside the United States, including the world's only operationally deployed hypersonic glide vehicles. <a href="https://missilethreat.csis.org/country/china/" target="_blank" rel="noopener">CSIS Missile Threat Database →</a></p>
+
+    <div class="equip-grid">
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">ANTI-SHIP BM</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/030103d0b4d1330867954ac9e5baf875fa3a512c.jpg" alt="DF-21D Anti-Ship Ballistic Missile" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'DF-21D (CSS-5 Mod 5) on TEL convoy — the world\'s first operational anti-ship ballistic missile (ASBM), targeting aircraft carrier groups at ranges beyond 1,500 km. Maneuvering warhead defeats ship defenses.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">DF-21D — "Carrier Killer"</div>
+          <div class="equip-desc">World's first operational anti-ship ballistic missile. Designed specifically to defeat U.S. Navy Carrier Strike Groups. Terminal maneuvering warhead combined with over-the-horizon targeting defeats AEGIS missile defense layers.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">~1,500–2,150 km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Target</span><span class="equip-spec-val">Carrier Strike Groups</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">Maneuvering RV, ~500kg HE</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Launch</span><span class="equip-spec-val">Road-mobile TEL</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/missile/df-21d/" target="_blank" rel="noopener" class="equip-link">CSIS DF-21D Profile →</a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">HYPERSONIC</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/abc94cc574b1ebb6914388c13bb9fd884914fb5e.jpg" alt="DF-17 Hypersonic Glide Vehicle" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'DF-17 Hypersonic Glide Vehicle — the world\'s first operationally deployed HGV system. The DF-17 uses a hypersonic glide vehicle (HGV) warhead flying at Mach 5–10, maneuvering at high altitude to defeat ballistic missile defenses.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">DF-17 Hypersonic Glide Vehicle</div>
+          <div class="equip-desc">World's first operationally deployed HGV weapon system. The DF-ZF glide vehicle detaches from the ballistic missile and maneuvers at Mach 5–10 in the hypersonic regime, flying at intermediate altitudes that defeat existing ballistic missile defense architecture.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 5–10 (HGV)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,800–2,500+ km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Defense Defeat</span><span class="equip-spec-val">THAAD / SM-3 ineffective</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/missile/df-17/" target="_blank" rel="noopener" class="equip-link">CSIS DF-17 Profile →</a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">ICBM</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/8fc8aec888ee83ec5a1af4b743dc8d45e1b9294f.jpg" alt="DF-41 ICBM on TEL" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'DF-41 (CSS-X-20) ICBM — China\'s most advanced ICBM, road-mobile on TEL and silo-based. Estimated range 12,000–15,000 km with MIRV capability (up to 10 warheads). Can reach anywhere in the continental United States.')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">DF-41 ICBM (CSS-X-20)</div>
+          <div class="equip-desc">China's most advanced ICBM and primary strategic deterrent. Road-mobile TEL and silo-based variants provide redundant second-strike capability. MIRV-capable, global range. China is silo-expanding rapidly — 300+ new silos under construction.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">12,000–15,000 km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Warheads</span><span class="equip-spec-val">Up to 10 MIRVs</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Launch</span><span class="equip-spec-val">Road-mobile + Silo</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">~100 m (estimated)</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/missile/df-41/" target="_blank" rel="noopener" class="equip-link">CSIS DF-41 Profile →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sub-head">PLARF — <span>Full Missile Inventory</span></div>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>System</th><th>NATO Desig.</th><th>Type</th><th>Range</th><th>Role / Target</th><th>Notes</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>DF-11A</td><td>CSS-7 Mod 2</td><td>SRBM</td><td>300–500 km</td><td>Taiwan, bases, ports</td><td>Conventional warhead</td><td></td></tr>
+          <tr><td>DF-15B</td><td>CSS-6 Mod 3</td><td>SRBM</td><td>700–900 km</td><td>Taiwan, Guam approaches</td><td>HE/sub-munition/EMP</td><td></td></tr>
+          <tr><td>DF-21A/C</td><td>CSS-5</td><td>MRBM</td><td>1,750–2,150 km</td><td>Land targets, airbases</td><td>Nuclear/conventional</td><td><a href="https://missilethreat.csis.org/missile/df-21/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td><strong class="critical">DF-21D</strong></td><td>CSS-5 Mod 5</td><td>ASBM</td><td>1,500–2,150 km</td><td><strong class="critical">Carrier Strike Groups</strong></td><td>Terminal maneuvering RV</td><td><a href="https://missilethreat.csis.org/missile/df-21d/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>DF-26</td><td>CSS-18</td><td>IRBM</td><td>3,000–5,500 km</td><td>Guam, carriers, land</td><td>Dual nuclear/conventional</td><td><a href="https://missilethreat.csis.org/missile/df-26/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td><strong class="critical">DF-17</strong></td><td>—</td><td>HGV</td><td>1,800–2,500 km</td><td>Precision strike</td><td><strong class="critical">World's first operational HGV</strong></td><td><a href="https://missilethreat.csis.org/missile/df-17/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>DF-31AG</td><td>CSS-10 Mod 2</td><td>ICBM</td><td>11,200 km</td><td>Strategic nuclear</td><td>Road-mobile, single RV</td><td></td></tr>
+          <tr><td><strong class="highlight">DF-41</strong></td><td>CSS-X-20</td><td>ICBM</td><td>12,000–15,000 km</td><td>Global strategic</td><td><strong class="highlight">MIRV, up to 10 warheads</strong></td><td><a href="https://missilethreat.csis.org/missile/df-41/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>DF-5B</td><td>CSS-4 Mod 3</td><td>ICBM (Silo)</td><td>13,000 km</td><td>Strategic nuclear</td><td>Silo-based, MIRV</td><td></td></tr>
+          <tr><td>CJ-10/CJ-20</td><td>DH-10 / DH-20</td><td>LACM</td><td>1,500–2,000+ km</td><td>Precision land attack</td><td>Subsonic stealth cruise missile</td><td></td></tr>
+          <tr><td>YJ-18A</td><td>—</td><td>ASCM</td><td>500–600 km</td><td>Naval vessels</td><td>Supersonic terminal phase</td><td></td></tr>
+          <tr><td>YJ-12</td><td>—</td><td>ASCM</td><td>400 km</td><td>Surface ships</td><td>Mach 2+, sea-skimming</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NUCLEAR ===== -->
+<section class="section-wrap" id="section-nuclear" style="background:rgba(196,30,58,0.04)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <i data-lucide="radiation" class="section-icon"></i>
+      <h2 class="section-title">Nuclear <span>Posture</span></h2>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">☢ CRITICAL ASSESSMENT</div>
+      <p>The Pentagon's 2024 China Military Power Report estimates China's nuclear arsenal at <strong class="critical">500+ warheads</strong> as of 2024, projected to reach <strong class="critical">1,000+ by 2030</strong> — a doubling rate unprecedented since the Cold War buildup. Satellite imagery in 2021 revealed 350+ new ICBM silo fields under construction in Yumen, Hami, and Ordos. China is transitioning from a minimal deterrence posture to a robust, survivable triad. <a href="https://www.defense.gov/News/Releases/Release/Article/china-military-power-report-2024/" target="_blank" rel="noopener">DoD Report 2024 →</a></p>
+    </div>
+
+    <div class="two-col" style="margin-top:var(--space-8)">
+      <div>
+        <p class="label">Nuclear Triad Components</p>
+        <div class="doctrine-grid" style="grid-template-columns:1fr">
+          <div class="doctrine-card">
+            <div class="doctrine-label">LAND-BASED LEG</div>
+            <div class="doctrine-title">DF-31AG / DF-41 ICBMs</div>
+            <div class="doctrine-body">Road-mobile and expanding silo-based force. DF-41 (MIRV, 10 warheads) represents strategic core. 300+ new silos under construction in western China provide second-strike survivability. <a href="https://www.armscontrol.org/factsheets/chinesenuclears" target="_blank" rel="noopener">Arms Control Association →</a></div>
+          </div>
+          <div class="doctrine-card">
+            <div class="doctrine-label">SEA-BASED LEG</div>
+            <div class="doctrine-title">Type 094 SSBN / JL-3 SLBM</div>
+            <div class="doctrine-body">5-6 Jin-class SSBNs carrying JL-3 SLBMs (10,000+ km range). Continuous At-Sea Deterrence (CASD) patrols established since 2016. JL-3 covers CONUS from waters near China. <a href="https://missilethreat.csis.org/missile/jl-2/" target="_blank" rel="noopener">CSIS →</a></div>
+          </div>
+          <div class="doctrine-card">
+            <div class="doctrine-label">AIR-BASED LEG</div>
+            <div class="doctrine-title">H-6N with CJ-20 ALCM</div>
+            <div class="doctrine-body">Air-launched nuclear leg using H-6N bombers with extended range (refueling probe) and CJ-20 air-launched cruise missiles. H-20 stealth bomber under development. <a href="https://www.airforce-technology.com/projects/h-6k/" target="_blank" rel="noopener">AFT →</a></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="equip-card" style="margin-bottom:var(--space-4)">
+          <div class="equip-img-wrap">
+            <span class="equip-badge">ICBM PARADE</span>
+            <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e63bbbbc6e0acae494e49dd51d2cd9ee6c82daee.jpg" alt="DF-41 ICBM parade formation" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'DF-41 ICBMs on TELs during national parade — China\'s publicly displayed nuclear deterrent force. Each DF-41 can carry up to 10 independently targetable MIRVed warheads and reach any point on Earth.')">
+          </div>
+          <div class="equip-body">
+            <div class="equip-name">DF-41 ICBM Formation</div>
+            <div class="equip-desc">Aerial view of DF-41 TEL convoy during national parade. China's most capable ICBM — global range, MIRV-capable, road-mobile for survivability. Over 300 new silos under construction increase first/second strike capacity dramatically.</div>
+            <a href="https://missilethreat.csis.org/missile/df-41/" target="_blank" rel="noopener" class="equip-link">CSIS Full Profile →</a>
+          </div>
+        </div>
+        <p class="label">No-First-Use Policy — Credibility Debate</p>
+        <div class="policy-quote">
+          "China has always adhered to a policy of no-first-use of nuclear weapons at any time and under any circumstances, and unconditionally undertakes not to use or threaten to use nuclear weapons against non-nuclear-weapon states."
+          <span class="policy-quote-attr">— China's National Defense White Paper | <a href="http://english.www.gov.cn/archive/whitepaper/2019/07/24/content_281476696660640.htm" target="_blank" rel="noopener">Official Text →</a></span>
+        </div>
+        <div class="intel-alert">
+          <div class="intel-alert-head">ANALYST NOTE</div>
+          <p>China's stated No-First-Use policy is increasingly questioned by Western analysts given the pace of expansion, development of low-yield tactical weapons, and language in internal military documents suggesting "launch on warning" discussions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AMPHIBIOUS ===== -->
+<section class="section-wrap" id="section-amphibious">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">08</span>
+      <i data-lucide="waves" class="section-icon"></i>
+      <h2 class="section-title">Amphibious Capabilities — <span>Shuiqiao System</span></h2>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚠ GAME-CHANGING CAPABILITY — CONFIRMED 2025</div>
+      <p>The Shuiqiao (水桥 — "Water Bridge") bridge barge system represents a <strong class="critical">fundamental shift in amphibious assault capability</strong> that directly challenges Taiwan's coastal defense strategy. These self-propelled bridge barges enable heavy mechanized forces (tanks, APCs) to cross from transport ships to previously unsuitable coastlines without traditional landing beaches — potentially bypassing the defensive investments Taiwan has made at natural landing zones. <a href="https://www.twz.com/sea/chinas-shuiqiao-barges" target="_blank" rel="noopener">The War Zone Analysis →</a></p>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="equip-card">
+          <div class="equip-img-wrap">
+            <span class="equip-badge">BRIDGE BARGE</span>
+            <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f78a49552d18d7e662322031acec3e90eae7203c.jpg" alt="Shuiqiao bridge barge amphibious system" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Shuiqiao (水桥) amphibious bridge barge — China\'s revolutionary self-propelled pontoon system designed to connect transport ships to shore, enabling continuous flow of heavy armor across previously unsuitable coastlines. Inspired by WWII Mulberry Harbor concept but mobile and rapidly deployable.')">
+          </div>
+          <div class="equip-body">
+            <div class="equip-name">Shuiqiao (水桥) Bridge-Barge System</div>
+            <div class="equip-desc">Self-propelled pontoon bridge-barge platform that connects ships to shore, allowing continuous mechanized vehicle flow. Three variants (185m/135m/110m) deployed in modular configurations. First confirmed in satellite imagery August 2024; sea trials by March 2025.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Variants</span><span class="equip-spec-val">185m / 135m / 110m</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Throughput</span><span class="equip-spec-val">Continuous heavy vehicle flow</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Capacity</span><span class="equip-spec-val">MBTs, APCs, artillery</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Builder</span><span class="equip-spec-val">COMEC / COSCO</span></div>
+            </div>
+            <a href="https://www.twz.com/sea/chinas-shuiqiao-barges" target="_blank" rel="noopener" class="equip-link">Full War Zone Report →</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="equip-card">
+          <div class="equip-img-wrap">
+            <span class="equip-badge">DOCTRINE DIAGRAM</span>
+            <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5d36d5b038d568e343af7bf25d43d2ead10d215e.jpg" alt="Amphibious operation concept diagram" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Conceptual diagram of Shuiqiao-enabled amphibious operation — showing multiple bridge barges connecting transport ships to shore, enabling parallel continuous flow of armored vehicles and supplies across a wide coastline.')">
+          </div>
+          <div class="equip-body">
+            <div class="equip-name">Operational Concept: Multi-Point Assault</div>
+            <div class="equip-desc">The Shuiqiao doctrine enables simultaneous bridgeheads across 100+ km of coastline, overwhelming point defenses. Rather than concentrate on 2-3 defended beaches, the PLA disperses force flow to multiple bridging points simultaneously.</div>
+            <div class="equip-specs">
+              <div class="equip-spec"><span class="equip-spec-key">Historical Analog</span><span class="equip-spec-val">WWII Mulberry Harbor</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Advantage</span><span class="equip-spec-val">Bypasses defended beaches</span></div>
+              <div class="equip-spec"><span class="equip-spec-key">Countermeasure</span><span class="equip-spec-val">Pre-landing strikes, sea control</span></div>
+            </div>
+            <a href="https://www.19fortyfive.com/shuiqiao-china-amphibious" target="_blank" rel="noopener" class="equip-link">19FortyFive Analysis →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-head">Amphibious Fleet — <span>Full System Integration</span></div>
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <div class="doctrine-label">HELICOPTER ASSAULT</div>
+        <div class="doctrine-title">Type 075 LHD Yushen</div>
+        <div class="doctrine-body">800–1,600 marines, 30+ helicopters. Delivers assault forces to bridge-equipped zones. Organic helicopter transport for rapid force insertion at multiple points. <a href="https://www.scmp.com/news/china/military/type-075" target="_blank" rel="noopener">SCMP →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">MECHANIZED TRANSPORT</div>
+        <div class="doctrine-title">Type 071 LPD Yuzhao</div>
+        <div class="doctrine-body">20,000+ tonnes. 2–3 LCACs in well deck. Delivers tanks, APCs, and artillery to the bridge approach zones for continuous inland flow. <a href="https://www.naval-technology.com/projects/type-071/" target="_blank" rel="noopener">Naval Tech →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">FORCE MULTIPLIER</div>
+        <div class="doctrine-title">Shuiqiao Bridge Barges</div>
+        <div class="doctrine-body">Vehicle-passable pier from ship to shore. Enables continuous heavy armor flow, bypasses contested beaches, accelerates inland advance from multiple simultaneous bridgeheads. <a href="https://www.twz.com/sea/chinas-shuiqiao-barges" target="_blank" rel="noopener">The War Zone →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">GROUND EXPLOITATION</div>
+        <div class="doctrine-title">Type 99A MBT + ZBD-05 IFV</div>
+        <div class="doctrine-body">Crosses Shuiqiao bridges maintaining unit cohesion. Achieves rapid territorial control, prevents counterattack consolidation. ZBD-05 swim-capable for water approaches. <a href="https://www.globalsecurity.org/military/world/china/zbd-05.htm" target="_blank" rel="noopener">GlobalSecurity →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CYBER / SPACE / INFO ===== -->
+<section class="section-wrap" id="section-cyber" style="background:rgba(45,212,191,0.02)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">09</span>
+      <i data-lucide="cpu" class="section-icon"></i>
+      <h2 class="section-title">Cyber, Space & <span>Information Warfare</span></h2>
+    </div>
+
+    <p style="margin-bottom:var(--space-6)">In 2024, China dissolved the Strategic Support Force and created three independent commands: the <span class="highlight">Cyberspace Force</span>, <span class="highlight">Aerospace Force</span>, and <span class="highlight">Information Support Force</span>. This reorganization elevates "intelligentized warfare" — AI-driven operations, satellite networks, and cyber operations — to strategic prominence equal to kinetic forces. <a href="https://www.rand.org/research/projects/china-military.html" target="_blank" rel="noopener">RAND China Military →</a></p>
+
+    <div class="three-col">
+      <div class="doctrine-card">
+        <div class="doctrine-label">CYBERSPACE FORCE</div>
+        <div class="doctrine-title">PLA Cyberspace Force</div>
+        <div class="doctrine-body">Network intrusion, offensive cyber operations, critical infrastructure targeting, and electronic warfare. Estimated 50,000–100,000 personnel. Responsible for documented intrusions into U.S. defense contractors, utilities, and government networks (Volt Typhoon). <a href="https://www.cisa.gov/volt-typhoon" target="_blank" rel="noopener">CISA Advisory →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">AEROSPACE FORCE</div>
+        <div class="doctrine-title">PLA Aerospace Force</div>
+        <div class="doctrine-body">Counterspace operations including ASAT weapons (kinetic and directed energy), GPS jamming, satellite surveillance, and space-based ISR. China tested kinetic ASAT in 2007 and has non-kinetic ASAT capabilities operational. <a href="https://aerospace.csis.org/data/chinese-anti-satellite-capabilities/" target="_blank" rel="noopener">CSIS Space →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">INFORMATION SUPPORT</div>
+        <div class="doctrine-title">PLA Information Support Force</div>
+        <div class="doctrine-body">Joint C4ISR (Command, Control, Communications, Computers, Intelligence, Surveillance, Reconnaissance). Integrates sensor-to-shooter targeting chains across all domains. Supports A2/AD targeting through networked satellite, AEW, and ground-based radar fusion. <a href="https://www.defense.gov/News/Releases/Release/Article/china-mil-power-report/" target="_blank" rel="noopener">DoD Assessment →</a></div>
+      </div>
+    </div>
+
+    <div class="data-table-wrap" style="margin-top:var(--space-6)">
+      <table class="data-table">
+        <thead><tr><th>Domain</th><th>Capability</th><th>Assessment</th><th>US Equivalent</th></tr></thead>
+        <tbody>
+          <tr><td>Offensive Cyber</td><td>State-sponsored APT groups (APT40, APT41, Volt Typhoon)</td><td><span class="tag tag-red">HIGH</span></td><td>NSA/Cyber Command</td></tr>
+          <tr><td>ASAT (Kinetic)</td><td>DN-3 direct-ascent ASAT tested</td><td><span class="tag tag-red">OPERATIONAL</span></td><td>SM-3 ASAT</td></tr>
+          <tr><td>GPS Jamming</td><td>Regional GPS denial during exercises</td><td><span class="tag tag-gold">DEMONSTRATED</span></td><td>—</td></tr>
+          <tr><td>Electronic Warfare</td><td>Jamming pods (J-16D), ground-based EW arrays</td><td><span class="tag tag-red">HIGH</span></td><td>EA-18G Growler</td></tr>
+          <tr><td>Satellite ISR</td><td>100+ surveillance sats, SAR, ELINT</td><td><span class="tag tag-red">COMPREHENSIVE</span></td><td>NRO constellation</td></tr>
+          <tr><td>AI/Autonomous</td><td>Drone swarms, autonomous weapons R&D</td><td><span class="tag tag-teal">DEVELOPING</span></td><td>DoD JAIC</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DOCTRINE ===== -->
+<section class="section-wrap" id="section-doctrine" style="background:rgba(196,30,58,0.03)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">10</span>
+      <i data-lucide="book-open" class="section-icon"></i>
+      <h2 class="section-title">Military <span>Doctrine</span></h2>
+    </div>
+
+    <div class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/da392ba48799c8ffe880979d8ef348b34d8a98ce.jpg"
+        alt="Xi Jinping reviewing troops" width="1200" height="800" loading="lazy"
+        onclick="openLightbox(this.src,'Xi Jinping reviewing PLA troops — as Chairman of the CMC, Xi Jinping has consolidated unprecedented personal control over military doctrine, promotions, and operational planning since 2012.')">
+      <figcaption>XI JINPING — CHAIRMAN OF CENTRAL MILITARY COMMISSION | Supreme command authority over all PLA branches</figcaption>
+    </div>
+
+    <div class="sub-head">Core <span>Doctrinal Concepts</span></div>
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <div class="doctrine-label">CORE DOCTRINE</div>
+        <div class="doctrine-title">Active Defense (积极防御)</div>
+        <div class="doctrine-body">China's overarching military strategy since Mao. "Defensive in nature, but offensive in execution" — China claims defensive posture while reserving right to preemptive strikes to prevent defeat. Operationally, this justifies A2/AD systems, missile barrages, and cyber/space pre-emption. <a href="https://www.rand.org/pubs/research_reports/RRA2195-1.html" target="_blank" rel="noopener">RAND Active Defense →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">WARFIGHTING CONCEPT</div>
+        <div class="doctrine-title">Integrated Joint Operations (联合作战)</div>
+        <div class="doctrine-body">Five theater commands (East, West, South, North, Central) each tasked with joint operations across all domains. Dissolves traditional service boundaries — PLAAF, PLAN, PLAGF, PLARF operate under single theater commander. Created after 2015 reform.<a href="https://www.iiss.org/publications/strategic-comments/2016/china-military-reform" target="_blank" rel="noopener"> IISS →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">STRATEGIC CONCEPT</div>
+        <div class="doctrine-title">A2/AD — Anti-Access / Area Denial</div>
+        <div class="doctrine-body">Using layered missile, submarine, and air defense systems to deny freedom of movement to adversary naval and air forces within the First Island Chain (and increasingly Second Island Chain). DF-21D, DF-26, YJ-18A, HQ-9, and submarine forces form the A2/AD perimeter. <a href="https://www.csis.org/programs/chinapower/projects/a2ad" target="_blank" rel="noopener">CSIS A2/AD →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">INFORMATION AGE DOCTRINE</div>
+        <div class="doctrine-title">Intelligentized Warfare (智能化战争)</div>
+        <div class="doctrine-body">Xi Jinping's 2017+ doctrine framework emphasizing AI-enabled command, autonomous systems, cognitive warfare, and accelerated decision cycles. Designed to achieve decision superiority over adversaries who rely on traditional information networks. Underpins 2024 SSF reorganization. <a href="https://warontherocks.com/intelligentized-warfare-china/" target="_blank" rel="noopener">War on the Rocks →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">POLITICAL WARFARE</div>
+        <div class="doctrine-title">Three Warfares (三战)</div>
+        <div class="doctrine-body">Legal warfare (lawfare), media/public opinion warfare, and psychological warfare. Systematically employed in South China Sea disputes, Taiwan Strait, and global influence operations. China's United Front Work Department coordinates political warfare globally. <a href="https://www.hoover.org/research/three-warfares" target="_blank" rel="noopener">Hoover Institution →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">SPACE STRATEGY</div>
+        <div class="doctrine-title">Space as Combat Domain</div>
+        <div class="doctrine-body">PLA doctrine explicitly treats space as a warfighting domain. Counterspace operations include kinetic ASAT, directed energy, satellite jamming, co-orbital inspection/attack satellites. The Aerospace Force (2024) operationalizes these capabilities. <a href="https://aerospace.csis.org/data/space-threat-assessment-2024/" target="_blank" rel="noopener">CSIS Space Threat →</a></div>
+      </div>
+    </div>
+
+    <div class="sub-head">Strategic Goals — <span>2027 / 2035 / 2049</span></div>
+    <div class="timeline" style="margin-top:var(--space-6)">
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--color-red-bright)"></div>
+        <div class="tl-year">2027 — CENTENARY OF PLA FOUNDING</div>
+        <div class="tl-title">"Capability for Strategic Decisive Victory"</div>
+        <div class="tl-desc">Achieve ability to conduct a successful Taiwan Strait contingency if directed. Complete structural military reforms and achieve "mechanization, informatization, and intelligentization." This goal explicitly drives near-term capability investments. <a href="https://www.defense.gov/News/Releases/Release/Article/china-military-power-2024/" target="_blank" rel="noopener">DoD Assessment →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--color-gold)"></div>
+        <div class="tl-year">2035 — MODERNIZATION MILESTONE</div>
+        <div class="tl-title">Fully Modern Military, Regional Dominance</div>
+        <div class="tl-desc">Complete military modernization; achieve superiority in First and Second Island Chains; field 4-5 carrier groups; complete nuclear triad consolidation with 1,000+ warheads. China expected to achieve military superiority in Western Pacific by this date. <a href="https://www.rand.org/pubs/research_reports/RRA2195-1.html" target="_blank" rel="noopener">RAND Projection →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--color-teal)"></div>
+        <div class="tl-year">2049 — CENTENARY OF PRC FOUNDING</div>
+        <div class="tl-title">"World-Class Military" — Global Peer Competitor</div>
+        <div class="tl-desc">Achieve full global peer status with the United States across all domains. Includes global power projection capability, dominant nuclear arsenal, and ability to operate freely in any maritime or space domain. <a href="https://www.cfr.org/backgrounder/chinas-modernizing-military" target="_blank" rel="noopener">CFR Analysis →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOREIGN POLICY ===== -->
+<section class="section-wrap" id="section-foreign-policy">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">11</span>
+      <i data-lucide="globe" class="section-icon"></i>
+      <h2 class="section-title">Foreign Policy & <span>Geopolitical Goals</span></h2>
+    </div>
+
+    <div class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b29a78c1400920eb9ba35096ca4e5543044d01f9.jpg"
+        alt="Xi Jinping waving from Tiananmen" width="1200" height="600" loading="lazy"
+        onclick="openLightbox(this.src,'Xi Jinping at Tiananmen — at the 70th anniversary of the PRC founding. Xi declared China stands at a new historical starting point for national rejuvenation.')">
+      <figcaption>XI JINPING — TIANANMEN | "China stands at a new historical starting point" — October 2019</figcaption>
+    </div>
+
+    <div class="policy-quote">
+      "The Chinese people have stood up. No force can stop the Chinese people and the Chinese nation forging ahead... We are getting closer, more confident, and more capable of achieving the goal of the great rejuvenation of the Chinese nation."
+      <span class="policy-quote-attr">— Xi Jinping, 100th Anniversary of the CCP, July 2021 | <a href="https://www.xinhuanet.com/english/special/2021-07/01/c_1310038244.htm" target="_blank" rel="noopener">Xinhua Full Text →</a></span>
+    </div>
+
+    <div class="sub-head">Core Foreign Policy <span>Pillars</span></div>
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <div class="doctrine-label">PRIMARY OBJECTIVE</div>
+        <div class="doctrine-title">Taiwan Reunification</div>
+        <div class="doctrine-body">Taiwan is described as China's "core interest" — non-negotiable. Xi has increased urgency, stating reunification "cannot be passed from generation to generation." The 2027 military goal is explicitly linked to Taiwan capability. "Justice Mission-2025" exercises practiced blockade/isolation. <a href="https://www.rand.org/topics/taiwan.html" target="_blank" rel="noopener">RAND Taiwan →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">GLOBAL DEVELOPMENT</div>
+        <div class="doctrine-title">Belt & Road Initiative (BRI)</div>
+        <div class="doctrine-body">$1 trillion+ infrastructure investment program across 140+ countries. Creates economic dependency, access for Chinese companies, and potential dual-use military logistics access (Hambantota Port, Djibouti base). Expanding into Digital Silk Road and Health Silk Road. <a href="https://www.csis.org/programs/chinapower/projects/belt-and-road-initiative" target="_blank" rel="noopener">CSIS BRI Tracker →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">GLOBAL GOVERNANCE</div>
+        <div class="doctrine-title">Multilateral Leadership</div>
+        <div class="doctrine-body">China pursues leadership of international institutions — top contributor to UN peacekeeping, dominates ITU, WHO influence. Advancing "community of common destiny" framework as alternative to liberal international order. SCO, BRICS expansion part of this strategy. <a href="https://www.cfr.org/backgrounder/china-united-nations" target="_blank" rel="noopener">CFR →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">STRATEGIC PARTNERSHIP</div>
+        <div class="doctrine-title">Russia-China Axis</div>
+        <div class="doctrine-body">"No limits" partnership announced February 2022, days before Russia's Ukraine invasion. China provides economic lifeline to Russia-under-sanctions, reportedly supplying dual-use materials and advanced semiconductors. Joint naval patrols in Pacific, Arctic, and near Alaska. <a href="https://www.cfr.org/backgrounder/china-russia-relations" target="_blank" rel="noopener">CFR Analysis →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">REGIONAL DOMINANCE</div>
+        <div class="doctrine-title">South China Sea Control</div>
+        <div class="doctrine-body">Militarization of artificial islands creating A2/AD perimeter; illegal per UNCLOS (2016 Hague ruling China rejects). PLAN exercises increasing frequency and area of operations. Coast Guard operations enforce Chinese claims through "gray zone" tactics. <a href="https://www.cfr.org/global-conflict-tracker/conflict/territorial-disputes-south-china-sea" target="_blank" rel="noopener">CFR SCS →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-label">TECHNOLOGY COMPETITION</div>
+        <div class="doctrine-title">Technology Self-Reliance (科技自强)</div>
+        <div class="doctrine-body">China's "Made in China 2025" and subsequent plans target semiconductor dominance, AI leadership, advanced manufacturing. Military-Civil Fusion (MCF) policy systematically transfers commercial technology to defense. SMIC advancing toward 5nm+ despite US export controls. <a href="https://www.csis.org/programs/strategic-technologies-program/made-china-2025" target="_blank" rel="noopener">CSIS →</a></div>
+      </div>
+    </div>
+
+    <div class="sub-head">Key Official <span>Policy Statements</span></div>
+
+    <div class="collapsible">
+      <div class="collapsible-head" onclick="toggleCollapsible(this)">
+        <span>Xi Jinping — Major Foreign & Security Policy Statements</span>
+        <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px"></i>
+      </div>
+      <div class="collapsible-body">
+        <div class="policy-quote" style="margin-top:var(--space-4)">
+          "We will not commit to abandoning the use of force... We reserve the option to take all necessary measures."
+          <span class="policy-quote-attr">— Xi Jinping on Taiwan, 19th Party Congress Address | <a href="https://www.xinhuanet.com/english/2022-08/16/c_1310647388.htm" target="_blank" rel="noopener">Xinhua →</a></span>
+        </div>
+        <div class="policy-quote">
+          "The Asia-Pacific is not and will not become the backyard of any country. International rules must not be written by one country or a small clique of countries."
+          <span class="policy-quote-attr">— Xi Jinping, Boao Forum 2022 | <a href="https://www.fmprc.gov.cn/mfa_eng/zxxx_662805/202204/t20220421_10670428.html" target="_blank" rel="noopener">MFA →</a></span>
+        </div>
+        <div class="policy-quote">
+          "China's national defense expenditure is entirely for defending national sovereignty, security and development interests, and is aimed at maintaining regional peace and stability."
+          <span class="policy-quote-attr">— China MND White Paper 2019 | <a href="http://www.xinhuanet.com/english/2019-07/24/c_138253389.htm" target="_blank" rel="noopener">Xinhua →</a></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="collapsible" style="margin-top:var(--space-4)">
+      <div class="collapsible-head" onclick="toggleCollapsible(this)">
+        <span>China's Global Security Initiative (GSI) — 2022 Framework</span>
+        <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px"></i>
+      </div>
+      <div class="collapsible-body">
+        <p style="margin-bottom:var(--space-4)">Launched by Xi at Boao Forum 2022, the GSI is China's alternative security architecture proposal. It advocates:</p>
+        <ul class="spec-list">
+          <li><strong>Indivisible security:</strong> No country's security should come at the expense of others — intended to delegitimize NATO's eastern expansion</li>
+          <li><strong>Non-interference:</strong> Sovereignty principle as shield against human rights criticism and regime-change interventions</li>
+          <li><strong>Dialogue not confrontation:</strong> Negotiated solutions as alternative to sanctions-based coercion</li>
+          <li><strong>Anti-unilateral coercion:</strong> Direct challenge to US-led sanctions regimes and alliances</li>
+        </ul>
+        <a href="https://www.fmprc.gov.cn/mfa_eng/wjdt_665385/2649_665393/202204/t20220421_10671089.html" target="_blank" rel="noopener" style="font-size:var(--text-sm);color:var(--color-gold)">Official GSI Text →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RISK ASSESSMENT ===== -->
+<section class="section-wrap" id="section-risk" style="background:rgba(196,30,58,0.04)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">12</span>
+      <i data-lucide="alert-triangle" class="section-icon"></i>
+      <h2 class="section-title">Risk Assessment & <span>Destabilization Scenarios</span></h2>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚠ STRATEGIC ASSESSMENT — CURRENT TO MARCH 2026</div>
+      <p>By 2030, the conventional military balance in the Western Pacific approaches parity. By 2035, China is projected to hold military superiority within the First Island Chain. <strong class="critical">The 2025–2030 window represents the highest-risk period</strong> for Taiwan Strait conflict as China approaches capability thresholds while U.S. deterrence architecture adapts. <a href="https://www.rand.org/research/projects/western-pacific-balance.html" target="_blank" rel="noopener">RAND Balance Study →</a></p>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(event,'risk-taiwan')">Taiwan Scenario</button>
+      <button class="tab-btn" onclick="switchTab(event,'risk-scs')">South China Sea</button>
+      <button class="tab-btn" onclick="switchTab(event,'risk-cyber')">Cyber / Space</button>
+      <button class="tab-btn" onclick="switchTab(event,'risk-projection')">Force Projection</button>
+    </div>
+
+    <div id="risk-taiwan" class="tab-pane active">
+      <p class="label">Highest Probability Scenario</p>
+      <h3 class="sub-head" style="margin-top:0">Taiwan Strait <span>Contingency</span></h3>
+      <div class="two-col">
+        <div>
+          <ul class="spec-list">
+            <li><strong>Trigger factors:</strong> Taiwan political crisis, formal independence declaration, leadership election outcome, perceived weakening of US resolve</li>
+            <li><strong>PLA options:</strong> Blockade/quarantine, gray-zone coercion, limited strikes, full-scale amphibious invasion</li>
+            <li><strong>Shuiqiao factor:</strong> Bridge-barge system fundamentally expands viable invasion beaches from ~3 to 50+ locations — overwhelming point defense strategy</li>
+            <li><strong>PLA air timeline:</strong> 400+ fighters + cruise missiles within 1 hour of Taiwan; complete air superiority possible within days without US intervention</li>
+            <li><strong>US response:</strong> Depends on positioning; carrier groups require 4-7 days from Guam. Forward-deployed in Japan is the deterrent case.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="card card-elevated">
+            <p class="label">PROBABILITY INDICATORS (2026–2030)</p>
+            <div class="stat-bars">
+              <div class="stat-row"><div class="stat-row-head"><span>Blockade / Coercion</span><span>ELEVATED</span></div><div class="stat-track"><div class="stat-fill" style="width:65%"></div></div></div>
+              <div class="stat-row"><div class="stat-row-head"><span>Limited Strike Campaign</span><span>MEDIUM</span></div><div class="stat-track"><div class="stat-fill" style="width:35%"></div></div></div>
+              <div class="stat-row"><div class="stat-row-head"><span>Full Invasion</span><span>LOWER NEAR-TERM</span></div><div class="stat-track"><div class="stat-fill" style="width:15%"></div></div></div>
+            </div>
+            <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-3)">Source: DoD/CSIS composite assessment | <a href="https://www.csis.org/analysis/first-battle-next-war-wargaming-chinese-invasion-taiwan" target="_blank" rel="noopener">CSIS Taiwan Wargame →</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="risk-scs" class="tab-pane">
+      <p class="label">Medium Probability — Ongoing Escalation</p>
+      <h3 class="sub-head" style="margin-top:0">South China Sea <span>Escalation</span></h3>
+      <ul class="spec-list">
+        <li><strong>Philippines confrontation:</strong> Continued PLA Coast Guard water cannons and ramming of Philippine resupply missions to Second Thomas Shoal. US mutual defense treaty trigger risk. <a href="https://www.cfr.org/global-conflict-tracker/conflict/territorial-disputes-south-china-sea" target="_blank" rel="noopener">CFR →</a></li>
+        <li><strong>Vietnam fishing confrontations:</strong> Regular seizure of Vietnamese fishing vessels in disputed waters, escalating into boat destruction events</li>
+        <li><strong>ASEAN legal challenges:</strong> Philippines pursuing international arbitration — China refuses to recognize jurisdiction, creating enforcement crisis</li>
+        <li><strong>PLAN exercises:</strong> Increasingly large naval exercises around Paracel and Spratly islands designed to normalize PLA operational control of disputed waters</li>
+      </ul>
+    </div>
+
+    <div id="risk-cyber" class="tab-pane">
+      <p class="label">Lower Probability Kinetic — High Strategic Impact</p>
+      <h3 class="sub-head" style="margin-top:0">Cyber & Space <span>Conflict</span></h3>
+      <ul class="spec-list">
+        <li><strong>Volt Typhoon pre-positioning:</strong> CISA/FBI confirmed PLA-linked actors have pre-positioned malware in US critical infrastructure (power grids, water systems, ports) to enable disruption in Taiwan contingency. <a href="https://www.cisa.gov/volt-typhoon" target="_blank" rel="noopener">CISA Alert →</a></li>
+        <li><strong>ASAT escalation:</strong> Space-based assets (GPS, ISR satellites) are primary US military advantage. China's demonstrated ASAT capability could trigger rapid space domain degradation in any conflict</li>
+        <li><strong>GPS denial:</strong> China has demonstrated regional GPS jamming capability that could degrade precision-guided munition effectiveness across the First Island Chain</li>
+        <li><strong>Undersea cable cutting:</strong> China has demonstrated capability and apparent interest in critical undersea communications infrastructure as potential leverage</li>
+      </ul>
+    </div>
+
+    <div id="risk-projection" class="tab-pane">
+      <p class="label">Long-Term Trend</p>
+      <h3 class="sub-head" style="margin-top:0">Global Force <span>Projection Trajectory</span></h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th>2026 (Current)</th><th>2030 (Projected)</th><th>2035 (Projected)</th></tr></thead>
+          <tbody>
+            <tr><td>Aircraft Carriers</td><td>3</td><td>4</td><td>4–5</td></tr>
+            <tr><td>Destroyers/Frigates</td><td>320+</td><td>350+</td><td>400+</td></tr>
+            <tr><td>Submarines</td><td>70+</td><td>80–100</td><td>100+</td></tr>
+            <tr><td>Combat Aircraft</td><td>2,000+</td><td>2,500+</td><td>3,000+</td></tr>
+            <tr><td>Nuclear Warheads</td><td>500+</td><td>~1,000</td><td>~1,500</td></tr>
+            <tr><td>Active Personnel</td><td>2.185M</td><td>~2.2M</td><td>~2.2M</td></tr>
+            <tr><td>Overseas Bases</td><td>Djibouti + Access rights</td><td>2–3 bases</td><td>5–8 bases</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-3)">Sources: DoD China Military Power Report 2024, IISS Military Balance 2025, Congressional Research Service | <a href="https://www.defense.gov/News/Releases/Release/Article/china-military-power-report-2024/" target="_blank" rel="noopener">DoD Report →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOURCES ===== -->
+<section class="section-wrap" id="section-sources">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">13</span>
+      <i data-lucide="file-text" class="section-icon"></i>
+      <h2 class="section-title">Primary <span>Sources</span></h2>
+    </div>
+    <div class="three-col">
+      <div class="card">
+        <p class="label">U.S. Government</p>
+        <ul class="spec-list">
+          <li><a href="https://www.defense.gov/News/Releases/Release/Article/china-military-power-report-2024/" target="_blank" rel="noopener"><strong>DoD China Military Power Report 2024</strong></a></li>
+          <li><a href="https://www.odni.gov/files/ODNI/documents/assessments/ATA-2024-Unclassified-Report.pdf" target="_blank" rel="noopener"><strong>ODNI Annual Threat Assessment 2024</strong></a></li>
+          <li><a href="https://www.crsreports.congress.gov/search/#/?terms=china+military&r=1" target="_blank" rel="noopener"><strong>Congressional Research Service — China Military</strong></a></li>
+          <li><a href="https://www.cisa.gov/volt-typhoon" target="_blank" rel="noopener"><strong>CISA — Volt Typhoon Advisory</strong></a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="label">Think Tanks & Analysis</p>
+        <ul class="spec-list">
+          <li><a href="https://missilethreat.csis.org/country/china/" target="_blank" rel="noopener"><strong>CSIS Missile Threat Database</strong></a></li>
+          <li><a href="https://www.rand.org/research/projects/china-military.html" target="_blank" rel="noopener"><strong>RAND China Military Research</strong></a></li>
+          <li><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener"><strong>IISS Military Balance (Annual)</strong></a></li>
+          <li><a href="https://aerospace.csis.org/data/space-threat-assessment-2024/" target="_blank" rel="noopener"><strong>CSIS Space Threat Assessment</strong></a></li>
+          <li><a href="https://www.cfr.org/backgrounder/chinas-modernizing-military" target="_blank" rel="noopener"><strong>CFR — China's Modernizing Military</strong></a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="label">Official Chinese Sources</p>
+        <ul class="spec-list">
+          <li><a href="http://english.www.gov.cn/archive/whitepaper/2019/07/24/content_281476696660640.htm" target="_blank" rel="noopener"><strong>China National Defense White Paper</strong></a></li>
+          <li><a href="https://www.xinhuanet.com/english/" target="_blank" rel="noopener"><strong>Xinhua News (Official PRC)</strong></a></li>
+          <li><a href="https://www.fmprc.gov.cn/mfa_eng/" target="_blank" rel="noopener"><strong>Ministry of Foreign Affairs</strong></a></li>
+          <li><a href="http://eng.mod.gov.cn/" target="_blank" rel="noopener"><strong>Ministry of National Defense</strong></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="margin-top:var(--space-6);background:rgba(196,30,58,0.06)">
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);max-width:none">
+        <strong class="highlight">Classification Notice:</strong> This dossier is compiled exclusively from open-source, publicly available information. All sources are cited with direct links above. Assessments represent analytical judgments based on available evidence and should be cross-referenced with primary sources. Strategic projections are inherently subject to uncertainty. Analysis current to <strong>March 2026</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">PRC MILITARY DOSSIER // OPEN-SOURCE ANALYSIS // MARCH 2026<br>Compiled by AI-assisted research | All sources publicly available</div>
+      <div class="footer-links">
+        <a href="#section-map" class="footer-link">Map Overview</a>
+        <a href="#section-overview" class="footer-link">Military Overview</a>
+        <a href="#section-navy" class="footer-link">
+PLAN</a>
+        <a href="#section-rocket" class="footer-link">Rocket Force</a>
+        <a href="#section-nuclear" class="footer-link">Nuclear</a>
+        <a href="#section-doctrine" class="footer-link">Doctrine</a>
+        <a href="#section-risk" class="footer-link">Risk Assessment</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Init icons
+document.addEventListener('DOMContentLoaded',()=>{
+  if(window.lucide) lucide.createIcons();
+});
+
+// Lightbox
+function openLightbox(src,cap){
+  document.getElementById('lightbox-img').src=src;
+  document.getElementById('lightbox-cap').textContent=cap||'';
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow='';
+}
+document.getElementById('lightbox').addEventListener('click',function(e){
+  if(e.target===this) closeLightbox();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeLightbox()});
+
+// Tabs
+function switchTab(e,id){
+  const container=e.target.closest('.section-wrap')||e.target.closest('.container')||document;
+  container.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  container.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  e.target.classList.add('active');
+  const pane=document.getElementById(id);
+  if(pane) pane.classList.add('active');
+}
+
+// Collapsible
+function toggleCollapsible(head){
+  head.classList.toggle('open');
+  const body=head.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// Active nav on scroll
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-link');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id=e.target.id;
+      navLinks.forEach(l=>{
+        l.classList.toggle('active',l.getAttribute('href')==='#'+id);
+      });
+    }
+  });
+},{threshold:0.3,rootMargin:'-60px 0px -40% 0px'});
+sections.forEach(s=>observer.observe(s));
+
+// Animate stat bars on scroll
+const bars=document.querySelectorAll('.stat-fill');
+const barObserver=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.transition='width 1.2s cubic-bezier(0.16,1,0.3,1)';
+      barObserver.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+bars.forEach(b=>{
+  const w=b.style.width;
+  b.style.width='0%';
+  barObserver.observe(b);
+  setTimeout(()=>{b.style.width=w;},100);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A-08 INDIA — Military Intelligence Dossier | Geopolitical Intelligence Platform v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+:root{
+  --color-bg:#0a0c10;
+  --color-surface:#0f1117;
+  --color-surface-2:#141820;
+  --color-surface-3:#1a2030;
+  --color-border:rgba(255,153,51,0.25);
+  --color-border-2:rgba(255,200,50,0.18);
+  --color-text:#dde2ec;
+  --color-text-muted:#8a94a8;
+  --color-text-faint:#4a5168;
+  --color-red:#FF9933;
+  --color-red-bright:#ffb347;
+  --color-gold:#ffc832;
+  --color-teal:#2dd4bf;
+  --color-blue:#60a5fa;
+  --color-green:#4ade80;
+  --font-display:'Rajdhani',sans-serif;
+  --font-mono:'Share Tech Mono',monospace;
+  --font-body:'Inter',sans-serif;
+  --space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
+  --space-12:3rem;--space-16:4rem;
+  --radius-sm:4px;--radius-md:8px;--radius-lg:12px;
+  --transition:180ms cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:var(--font-body);background:var(--color-bg);color:var(--color-text);line-height:1.6;font-size:16px;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--color-blue);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--color-red-bright)}
+table{border-collapse:collapse;width:100%}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,12,16,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);height:56px;display:flex;align-items:center}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 var(--space-6);width:100%;display:flex;align-items:center;gap:var(--space-4)}
+.nav-brand{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--color-red);letter-spacing:2px;white-space:nowrap;flex-shrink:0}
+.nav-links{display:flex;gap:var(--space-1);flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-link{font-family:var(--font-mono);font-size:11px;color:var(--color-text-muted);padding:var(--space-1) var(--space-2);border-radius:var(--radius-sm);transition:all var(--transition);white-space:nowrap;flex-shrink:0}
+.nav-link:hover,.nav-link.active{color:var(--color-red);background:rgba(255,153,51,0.1)}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding-top:56px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(255,153,51,0.08) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 80% 80%,rgba(19,136,8,0.05) 0%,transparent 50%),#0a0c10}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,153,51,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,153,51,0.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black,transparent)}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:900px;padding:var(--space-8) var(--space-6)}
+.hero-flag{font-size:80px;line-height:1;margin-bottom:var(--space-4);filter:drop-shadow(0 0 30px rgba(255,153,51,0.4))}
+.hero-eyebrow{font-family:var(--font-mono);font-size:11px;color:var(--color-red);letter-spacing:4px;text-transform:uppercase;margin-bottom:var(--space-3);opacity:0.8}
+.hero-title{font-family:var(--font-display);font-size:clamp(2.5rem,8vw,6rem);font-weight:700;line-height:1.05;color:#fff;margin-bottom:var(--space-4);letter-spacing:-1px}
+.hero-title .native{font-size:0.55em;display:block;color:var(--color-red);opacity:0.9;font-weight:400;letter-spacing:2px;margin-bottom:var(--space-2)}
+.hero-subtitle{font-size:clamp(0.9rem,2vw,1.1rem);color:var(--color-text-muted);max-width:600px;margin:0 auto var(--space-6);line-height:1.7}
+.hero-stamp{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:2px;margin-bottom:var(--space-8);text-transform:uppercase}
+.hero-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-3);margin-bottom:var(--space-8)}
+.hero-stat{background:rgba(255,255,255,0.03);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4) var(--space-3);text-align:center}
+.hero-stat-val{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--color-red);line-height:1;margin-bottom:var(--space-1)}
+.hero-stat-key{font-family:var(--font-mono);font-size:9px;color:var(--color-text-faint);letter-spacing:1.5px;text-transform:uppercase}
+.scroll-cue{display:flex;flex-direction:column;align-items:center;gap:var(--space-2);color:var(--color-text-faint);font-family:var(--font-mono);font-size:10px;letter-spacing:2px}
+.scroll-cue-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--color-red),transparent)}
+
+/* SECTIONS */
+.section-wrap{padding:var(--space-16) 0}
+.container{max-width:1200px;margin:0 auto;padding:0 var(--space-6)}
+.section-header{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-10);padding-bottom:var(--space-4);border-bottom:1px solid var(--color-border)}
+.section-num{font-family:var(--font-mono);font-size:11px;color:var(--color-red);opacity:0.6;letter-spacing:2px}
+.section-title{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;color:#fff;letter-spacing:1px}
+.section-badge{margin-left:auto;font-family:var(--font-mono);font-size:9px;color:var(--color-text-faint);background:var(--color-surface-2);border:1px solid var(--color-border);padding:var(--space-1) var(--space-3);border-radius:var(--radius-sm);letter-spacing:2px}
+
+/* MAP */
+.map-container{position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border);cursor:zoom-in;margin-bottom:var(--space-6)}
+.map-img{width:100%;height:auto;display:block}
+.map-overlay{position:absolute;bottom:0;left:0;right:0;padding:var(--space-4) var(--space-6);background:linear-gradient(transparent,rgba(10,12,16,0.9))}
+.map-caption{font-family:var(--font-mono);font-size:10px;color:var(--color-text-muted);letter-spacing:2px;text-transform:uppercase}
+.map-stats-row{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--space-4);margin-bottom:var(--space-8)}
+.map-stat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);text-align:center}
+.map-stat-val{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--color-red);margin-bottom:var(--space-1)}
+.map-stat-key{font-family:var(--font-mono);font-size:9px;color:var(--color-text-faint);letter-spacing:1.5px;text-transform:uppercase}
+
+/* INTEL ALERT */
+.intel-alert{background:rgba(255,153,51,0.06);border:1px solid rgba(255,153,51,0.3);border-radius:var(--radius-md);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-6)}
+.intel-alert-head{font-family:var(--font-mono);font-size:11px;color:var(--color-red);letter-spacing:2px;text-transform:uppercase;margin-bottom:var(--space-2)}
+.intel-alert p{color:var(--color-text-muted);font-size:14px;line-height:1.7}
+.intel-alert strong.critical{color:var(--color-red-bright)}
+.intel-alert-red{border-color:rgba(255,50,50,0.4);background:rgba(255,50,50,0.06)}
+.intel-alert-red .intel-alert-head{color:#ff6666}
+
+/* TABLES */
+.data-table-wrap{overflow-x:auto;border-radius:var(--radius-md);border:1px solid var(--color-border);margin-bottom:var(--space-6)}
+.data-table{width:100%;border-collapse:collapse}
+.data-table thead th{background:var(--color-surface-3);font-family:var(--font-mono);font-size:10px;color:var(--color-red);letter-spacing:2px;text-transform:uppercase;padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border)}
+.data-table tbody tr{border-bottom:1px solid rgba(255,153,51,0.08);transition:background var(--transition)}
+.data-table tbody tr:last-child{border-bottom:none}
+.data-table tbody tr:hover{background:rgba(255,153,51,0.03)}
+.data-table td{padding:var(--space-3) var(--space-4);font-size:13px;color:var(--color-text-muted);vertical-align:top}
+.data-table td:first-child{color:var(--color-text);font-weight:500}
+.data-table td a{color:var(--color-blue);font-size:16px}
+
+/* EQUIPMENT CARDS */
+.equip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--space-6);margin-bottom:var(--space-8)}
+.equip-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color var(--transition),box-shadow var(--transition)}
+.equip-card:hover{border-color:var(--color-red);box-shadow:0 0 30px rgba(255,153,51,0.1)}
+.equip-img-wrap{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--color-surface-2);cursor:zoom-in}
+.equip-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease}
+.equip-card:hover .equip-img-wrap img{transform:scale(1.04)}
+.equip-badge{position:absolute;top:var(--space-3);left:var(--space-3);background:rgba(255,153,51,0.9);color:#000;font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:var(--radius-sm);z-index:2}
+.equip-body{padding:var(--space-5)}
+.equip-name{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:var(--space-2)}
+.equip-desc{font-size:13px;color:var(--color-text-muted);line-height:1.65;margin-bottom:var(--space-4)}
+.equip-specs{display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:var(--space-4);padding:var(--space-3);background:var(--color-surface-2);border-radius:var(--radius-sm)}
+.equip-spec{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.equip-spec-key{color:var(--color-text-faint);font-family:var(--font-mono);font-size:10px;letter-spacing:1px}
+.equip-spec-val{color:var(--color-text);font-family:var(--font-mono);font-size:11px}
+.equip-link{display:inline-flex;align-items:center;gap:var(--space-1);font-family:var(--font-mono);font-size:10px;color:var(--color-blue);letter-spacing:1px;transition:color var(--transition)}
+.equip-link:hover{color:var(--color-red)}
+
+/* STAT BARS */
+.stat-bars{margin-bottom:var(--space-8)}
+.stat-bar-row{display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:var(--space-4)}
+.stat-bar-label{display:flex;justify-content:space-between;align-items:center}
+.stat-bar-name{font-family:var(--font-display);font-size:14px;color:var(--color-text)}
+.stat-bar-val{font-family:var(--font-mono);font-size:12px;color:var(--color-red)}
+.stat-bar-track{background:var(--color-surface-2);height:8px;border-radius:4px;overflow:hidden;position:relative}
+.stat-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--color-red),var(--color-red-bright))}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:var(--space-10);margin-bottom:var(--space-8)}
+.timeline::before{content:'';position:absolute;left:var(--space-3);top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--color-red),transparent)}
+.tl-item{position:relative;margin-bottom:var(--space-8)}
+.tl-dot{position:absolute;left:calc(-1 * var(--space-10) + var(--space-3) - 4px);top:4px;width:8px;height:8px;border-radius:50%;background:var(--color-red);box-shadow:0 0 10px var(--color-red)}
+.tl-year{font-family:var(--font-mono);font-size:11px;color:var(--color-red);letter-spacing:2px;margin-bottom:var(--space-1)}
+.tl-title{font-family:var(--font-display);font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:var(--space-2)}
+.tl-desc{font-size:13px;color:var(--color-text-muted);line-height:1.65}
+.tl-desc a{color:var(--color-blue);font-size:12px}
+
+/* DOCTRINE CARDS */
+.doctrine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-5);margin-bottom:var(--space-8)}
+.doctrine-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-6)}
+.doctrine-card-icon{font-size:28px;margin-bottom:var(--space-3)}
+.doctrine-card-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--color-red);letter-spacing:1px;text-transform:uppercase;margin-bottom:var(--space-3)}
+.doctrine-card-body{font-size:13px;color:var(--color-text-muted);line-height:1.65}
+
+/* POLICY QUOTE */
+.policy-quote{background:var(--color-surface-2);border-left:3px solid var(--color-red);border-radius:0 var(--radius-md) var(--radius-md) 0;padding:var(--space-6) var(--space-8);margin-bottom:var(--space-6);font-size:1.05rem;color:var(--color-text);font-style:italic;line-height:1.8}
+.policy-quote-attr{display:block;margin-top:var(--space-3);font-style:normal;font-family:var(--font-mono);font-size:11px;color:var(--color-text-muted)}
+.policy-quote-attr a{color:var(--color-blue)}
+
+/* TABS */
+.tab-nav{display:flex;gap:var(--space-2);margin-bottom:var(--space-5);flex-wrap:wrap}
+.tab-btn{font-family:var(--font-mono);font-size:11px;padding:var(--space-2) var(--space-4);border-radius:var(--radius-sm);background:var(--color-surface);border:1px solid var(--color-border);color:var(--color-text-muted);cursor:pointer;transition:all var(--transition);letter-spacing:1px;text-transform:uppercase}
+.tab-btn.active,.tab-btn:hover{background:rgba(255,153,51,0.1);border-color:var(--color-red);color:var(--color-red)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* COLLAPSIBLE */
+.collapsible{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);margin-bottom:var(--space-3);overflow:hidden}
+.collapsible-head{display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);cursor:pointer;font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--color-text);transition:background var(--transition)}
+.collapsible-head:hover{background:rgba(255,153,51,0.05)}
+.collapsible-head.open .chev{transform:rotate(180deg)}
+.chev{transition:transform 0.3s ease;flex-shrink:0}
+.collapsible-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.collapsible-body.open{max-height:2000px}
+.collapsible-body-inner{padding:var(--space-5);border-top:1px solid var(--color-border)}
+.collapsible-body-inner p,.collapsible-body-inner li{font-size:13px;color:var(--color-text-muted);line-height:1.7}
+.collapsible-body-inner ul{padding-left:var(--space-5);list-style:disc}
+
+/* INLINE IMG */
+figure.inline-img{margin-bottom:var(--space-8);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border)}
+figure.inline-img img{width:100%;cursor:zoom-in}
+figure.inline-img figcaption{background:var(--color-surface);padding:var(--space-3) var(--space-4);font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:1px}
+
+/* TRIAD CARDS */
+.triad-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5);margin-bottom:var(--space-8)}
+.triad-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-6);text-align:center}
+.triad-icon{font-size:36px;margin-bottom:var(--space-3)}
+.triad-label{font-family:var(--font-mono);font-size:9px;color:var(--color-red);letter-spacing:2px;text-transform:uppercase;margin-bottom:var(--space-2)}
+.triad-title{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:var(--space-3)}
+.triad-body{font-size:12px;color:var(--color-text-muted);line-height:1.6}
+.triad-status{display:inline-block;margin-top:var(--space-3);font-family:var(--font-mono);font-size:10px;padding:3px 10px;border-radius:var(--radius-sm);background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);color:var(--color-green)}
+
+/* SOURCES */
+.sources-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)}
+.source-col-title{font-family:var(--font-mono);font-size:10px;color:var(--color-red);letter-spacing:2px;text-transform:uppercase;margin-bottom:var(--space-4);padding-bottom:var(--space-2);border-bottom:1px solid var(--color-border)}
+.source-list{list-style:none;display:flex;flex-direction:column;gap:var(--space-3)}
+.source-list li a{font-size:13px;color:var(--color-blue);line-height:1.5}
+.source-list li a:hover{color:var(--color-red)}
+.source-list li .src-desc{display:block;font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);margin-top:2px}
+.classification-notice{margin-top:var(--space-10);background:var(--color-surface-3);border:1px solid var(--color-border-2);border-radius:var(--radius-md);padding:var(--space-6);text-align:center}
+.classification-notice p{font-family:var(--font-mono);font-size:11px;color:var(--color-text-muted);line-height:1.8}
+
+/* PROBABILITY BARS */
+.prob-row{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-3)}
+.prob-label{font-size:13px;color:var(--color-text-muted);flex:1;min-width:160px}
+.prob-track{flex:2;background:var(--color-surface-2);height:10px;border-radius:5px;overflow:hidden}
+.prob-fill{height:100%;border-radius:5px}
+.prob-fill-high{background:linear-gradient(90deg,#ff4444,#ff6666)}
+.prob-fill-med{background:linear-gradient(90deg,var(--color-gold),#ffe066)}
+.prob-fill-low{background:linear-gradient(90deg,var(--color-green),#86efac)}
+.prob-pct{font-family:var(--font-mono);font-size:12px;color:var(--color-text);min-width:40px;text-align:right}
+
+/* FORCE COMPARISON */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);margin-bottom:var(--space-8)}
+.compare-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-6)}
+.compare-country{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--color-red);margin-bottom:var(--space-4);display:flex;align-items:center;gap:var(--space-2)}
+
+/* PROJECTION TABLE */
+.projection-table-wrap{overflow-x:auto;border-radius:var(--radius-md);border:1px solid var(--color-border);margin-bottom:var(--space-6)}
+.projection-table{width:100%;border-collapse:collapse}
+.projection-table thead th{background:var(--color-surface-3);font-family:var(--font-mono);font-size:10px;color:var(--color-red);letter-spacing:2px;text-transform:uppercase;padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border)}
+.projection-table tbody tr:nth-child(even){background:rgba(255,153,51,0.02)}
+.projection-table tbody tr:hover{background:rgba(255,153,51,0.04)}
+.projection-table td{padding:var(--space-3) var(--space-4);font-size:13px;color:var(--color-text-muted);border-bottom:1px solid rgba(255,153,51,0.06)}
+.projection-table td:first-child{color:var(--color-text);font-weight:500;font-family:var(--font-display);font-size:15px}
+
+/* LIGHTBOX */
+#lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;flex-direction:column;gap:var(--space-4)}
+#lightbox.active{display:flex}
+#lightbox-img{max-width:90vw;max-height:80vh;object-fit:contain;border-radius:var(--radius-md);border:1px solid var(--color-border)}
+#lightbox-cap{font-family:var(--font-mono);font-size:11px;color:var(--color-text-muted);letter-spacing:1px;text-align:center;max-width:600px}
+#lightbox-close{position:fixed;top:var(--space-4);right:var(--space-6);font-size:28px;color:var(--color-text-muted);cursor:pointer;background:none;border:none;font-family:sans-serif;line-height:1;transition:color var(--transition)}
+#lightbox-close:hover{color:#fff}
+
+/* DOMAIN TABLE */
+.domain-table tbody td:nth-child(3){font-family:var(--font-mono);font-size:11px}
+
+/* FOOTER */
+footer{background:var(--color-surface);border-top:1px solid var(--color-border);padding:var(--space-8) 0;text-align:center}
+footer p{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:2px}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-stats{grid-template-columns:repeat(3,1fr)}
+  .map-stats-row{grid-template-columns:repeat(3,1fr)}
+  .triad-grid,.compare-grid,.sources-grid{grid-template-columns:1fr}
+  .equip-grid{grid-template-columns:1fr}
+  .doctrine-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .map-stats-row{grid-template-columns:repeat(2,1fr)}
+  .nav-links{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">A-08 // INDIA</div>
+    <div class="nav-links">
+      <a href="#section-map" class="nav-link">01 GEO</a>
+      <a href="#section-overview" class="nav-link">02 OVERVIEW</a>
+      <a href="#section-ground" class="nav-link">03 GROUND</a>
+      <a href="#section-navy" class="nav-link">04 NAVY</a>
+      <a href="#section-airforce" class="nav-link">05 AIR</a>
+      <a href="#section-rocket" class="nav-link">06 MISSILES</a>
+      <a href="#section-nuclear" class="nav-link">07 NUCLEAR</a>
+      <a href="#section-special" class="nav-link">08 BMD/SPACE</a>
+      <a href="#section-cyber" class="nav-link">09 CYBER</a>
+      <a href="#section-doctrine" class="nav-link">10 DOCTRINE</a>
+      <a href="#section-foreign" class="nav-link">11 FOREIGN</a>
+      <a href="#section-risk" class="nav-link">12 RISK</a>
+      <a href="#section-sources" class="nav-link">13 SOURCES</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-flag">🇮🇳</div>
+    <div class="hero-eyebrow">CLASSIFIED OPEN-SOURCE ANALYSIS // MARCH 2026</div>
+    <h1 class="hero-title">
+      <span class="native">भारत गणराज्य</span>
+      REPUBLIC OF INDIA
+    </h1>
+    <p class="hero-subtitle">Strategic Assessment of Military Capabilities, Nuclear Doctrine, and Regional Positioning in the Indo-Pacific — 2025/2026</p>
+    <p class="hero-stamp">ARMY · NAVY · AIR FORCE · STRATEGIC FORCES COMMAND · DEFENCE SPACE AGENCY · DEFENCE CYBER AGENCY</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">1.45M</div>
+        <div class="hero-stat-key">Active Personnel</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">$87B</div>
+        <div class="hero-stat-key">Defence Budget 2026-27</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">~180</div>
+        <div class="hero-stat-key">Nuclear Warheads</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">2</div>
+        <div class="hero-stat-key">Aircraft Carriers</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">18</div>
+        <div class="hero-stat-key">Submarines (3 SSBN)</div>
+      </div>
+    </div>
+    <div class="scroll-cue">
+      <div class="scroll-cue-line"></div>
+      SCROLL TO ASSESS
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 01: GEOGRAPHIC OVERVIEW -->
+<section class="section-wrap" id="section-map">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Geographic Overview</h2>
+      <span class="section-badge">GEO · TERRAIN · BORDERS</span>
+    </div>
+
+    <div class="map-container">
+      <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f4bd31f69fa5ff8c8d34b25a961d5bd7c3252580.jpg" alt="India and surrounding regions from space — satellite view" width="1200" height="800" loading="lazy" onclick="openLightbox(this.src,'Satellite View: Indian Subcontinent, South Asia')">
+      <div class="map-overlay">
+        <div class="map-caption">SATELLITE OVERVIEW // INDIAN SUBCONTINENT — SOUTH ASIA</div>
+      </div>
+    </div>
+
+    <div class="map-stats-row">
+      <div class="map-stat"><div class="map-stat-val">3.29M km²</div><div class="map-stat-key">Total Area</div></div>
+      <div class="map-stat"><div class="map-stat-val">1.45B</div><div class="map-stat-key">Population</div></div>
+      <div class="map-stat"><div class="map-stat-val">7,516 km</div><div class="map-stat-key">Coastline</div></div>
+      <div class="map-stat"><div class="map-stat-val">15,106 km</div><div class="map-stat-key">Land Borders</div></div>
+      <div class="map-stat"><div class="map-stat-val">2.3M km²</div><div class="map-stat-key">Exclusive EEZ</div></div>
+      <div class="map-stat"><div class="map-stat-val">9</div><div class="map-stat-key">Border Nations</div></div>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚠ STRATEGIC GEOGRAPHIC POSITION</div>
+      <p>India occupies the central position in the <strong class="critical">Indian Ocean Region (IOR)</strong>, controlling sea lanes connecting the Persian Gulf oil exports to East Asian markets. India's geographic centrality — flanked by the Arabian Sea to the west and Bay of Bengal to the east — provides unmatched maritime surveillance and interdiction capability for any nation seeking to project power across the Indo-Pacific. However, the Himalayan frontier with China and 3,323 km Line of Actual Control (LAC) creates a major strategic liability requiring permanent defensive commitment of forces at altitude.</p>
+    </div>
+
+    <div class="map-container" style="margin-top:var(--space-6)">
+      <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/48ce9e8baa097c2182a6bb6473c3394c393d2cf2.jpg" alt="India-Pakistan Kashmir Line of Control dispute map" width="1200" height="700" loading="lazy" onclick="openLightbox(this.src,'India-Pakistan Line of Control: Kashmir Territorial Dispute')">
+      <div class="map-overlay">
+        <div class="map-caption">LINE OF CONTROL (LOC) // KASHMIR TERRITORIAL DISPUTE</div>
+      </div>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Disputed Territory</th><th>Adversary</th><th>Km of Border</th><th>Indian Position</th><th>Status 2026</th></tr></thead>
+        <tbody>
+          <tr><td>Aksai Chin (Ladakh)</td><td>China</td><td>~1,597 km (W Sector LAC)</td><td>Administered by China; India claims sovereignty</td><td>Partial disengagement per Oct 2024 agreement; Chinese gains 2020-22 retained</td></tr>
+          <tr><td>Arunachal Pradesh</td><td>China</td><td>~1,140 km (E Sector LAC)</td><td>India controls; China claims as "South Tibet" (Zangnan)</td><td>Ongoing Chinese renaming campaign; periodic patrols in border areas</td></tr>
+          <tr><td>Jammu & Kashmir (PoK)</td><td>Pakistan</td><td>740 km (LOC)</td><td>Pakistan-administered; India claims under J&K accession 1947</td><td>Post-Sindoor (May 2025): ceasefire holding; terrorism low but persistent</td></tr>
+          <tr><td>Siachen Glacier</td><td>Pakistan</td><td>~110 km (AGPL)</td><td>India controls highest battlefield on earth (6,400m)</td><td>India maintains ~3,000 troops; high logistical cost</td></tr>
+          <tr><td>Sir Creek</td><td>Pakistan</td><td>~96 km (Rann of Kutch)</td><td>Dispute over maritime boundary demarcation</td><td>Diplomatic discussions stalled; low tension</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">🗺 STRATEGIC CHOKEPOINTS CONTROLLED</div>
+      <p>India's Andaman and Nicobar Islands form a <strong class="critical">natural barrier across the Malacca Strait entrance</strong>, giving India chokepoint leverage over 40% of global maritime trade. India's position also grants surveillance over the Nine Degree Channel and Ten Degree Channel — key shipping routes. The INS Kohassa airfield expansion on North Andaman Island (2024) extended Indian Air Force maritime patrol range to encompass the entire eastern Indian Ocean.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 02: MILITARY OVERVIEW -->
+<section class="section-wrap" id="section-overview" style="background:var(--color-surface)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Military Overview</h2>
+      <span class="section-badge">PERSONNEL · BUDGET · TIMELINE</span>
+    </div>
+
+    <figure class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/c6362ed3939d637355f024c92dfac41161dedd7c.jpg" alt="Indian Armed Forces Republic Day parade with missiles, tanks and troops on Kartavya Path, New Delhi" width="1200" height="680" loading="lazy" onclick="openLightbox(this.src,'Indian Armed Forces — Republic Day Parade, New Delhi. Kartavya Path showing combined arms capability.')">
+      <figcaption>INDIAN ARMED FORCES // REPUBLIC DAY PARADE — NEW DELHI, KARTAVYA PATH</figcaption>
+    </figure>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚡ EXECUTIVE SUMMARY</div>
+      <p>India is the world's <strong class="critical">fourth-largest military spender</strong> with a $87B defense budget for 2026-27 — a 15% year-on-year increase representing the largest allocation in Indian history. With 1.45 million active personnel, ~180 nuclear warheads, 2 aircraft carriers, and demonstrated nuclear second-strike capability via Arihant-class SSBNs, India has transitioned from regional to emerging great power. The <strong class="critical">two-front threat scenario</strong> — simultaneous Chinese pressure on the LAC and Pakistani cross-border terrorism — drives all major procurement and doctrine decisions. Operation Sindoor (May 2025) validated India's conventional warfighting superiority over Pakistan. The primary strategic constraint remains conventional military inferiority versus China's $292B military budget.</p>
+    </div>
+
+    <div class="stat-bars">
+      <div class="stat-bar-row">
+        <div class="stat-bar-label"><span class="stat-bar-name">🪖 Indian Army</span><span class="stat-bar-val">1,200,000 active</span></div>
+        <div class="stat-bar-track"><div class="stat-fill" style="width:82%"></div></div>
+      </div>
+      <div class="stat-bar-row">
+        <div class="stat-bar-label"><span class="stat-bar-name">✈ Indian Air Force</span><span class="stat-bar-val">130,000 active</span></div>
+        <div class="stat-bar-track"><div class="stat-fill" style="width:22%"></div></div>
+      </div>
+      <div class="stat-bar-row">
+        <div class="stat-bar-label"><span class="stat-bar-name">⚓ Indian Navy</span><span class="stat-bar-val">67,000 active</span></div>
+        <div class="stat-bar-track"><div class="stat-fill" style="width:11%"></div></div>
+      </div>
+      <div class="stat-bar-row">
+        <div class="stat-bar-label"><span class="stat-bar-name">🛡 Central Armed Police Forces (CAPF)</span><span class="stat-bar-val">~3,000,000</span></div>
+        <div class="stat-bar-track"><div class="stat-fill" style="width:95%; background:linear-gradient(90deg,#4a5168,#6a7188)"></div></div>
+      </div>
+      <div class="stat-bar-row">
+        <div class="stat-bar-label"><span class="stat-bar-name">🔴 Paramilitary & Reserve Forces</span><span class="stat-bar-val">2,100,000 reserve</span></div>
+        <div class="stat-bar-track"><div class="stat-fill" style="width:70%; background:linear-gradient(90deg,#3a4158,#5a6178)"></div></div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1947 — INDEPENDENCE</div>
+        <div class="tl-title">Formation of Indian Armed Forces</div>
+        <div class="tl-desc">Post-partition, India inherited bulk of British Indian Army. First war with Pakistan over Kashmir. Establishment of three service branches under civilian Ministry of Defence. <a href="https://www.bharat-rakshak.com/IAF/History/1947War/" target="_blank" rel="noopener">Source →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1998 — OPERATION SHAKTI</div>
+        <div class="tl-title">Nuclear Tests — Pokhran-II</div>
+        <div class="tl-desc">India conducted five nuclear tests, declaring itself a nuclear weapons state. Pakistan responded with its own tests. India announced No-First-Use (NFU) policy. <a href="https://armscontrol.org/factsheets/indiaprofile" target="_blank" rel="noopener">Arms Control Association →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2004 — COLD START DOCTRINE</div>
+        <div class="tl-title">Limited War Under Nuclear Umbrella</div>
+        <div class="tl-desc">Army formulated rapid Integrated Battle Group (IBG) strategy to conduct sub-nuclear offensive operations against Pakistan. Replaced Operation Parakram's slow mobilization failure. <a href="https://csis.org/analysis/cold-start-doctrine" target="_blank" rel="noopener">CSIS Analysis →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2019 — BALAKOT AIRSTRIKES</div>
+        <div class="tl-title">First Cross-LOC Air Strike Since 1971</div>
+        <div class="tl-desc">IAF Mirage 2000s struck Jaish-e-Mohammed training camp in Balakot, Pakistan. First Indian air strikes on Pakistani soil since 1971. PAF retaliation followed; India lost MiG-21, Pakistan lost F-16. <a href="https://www.rand.org/pubs/perspectives/PEA223-1.html" target="_blank" rel="noopener">RAND Analysis →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2020 — GALWAN CLASH</div>
+        <div class="tl-title">Deadliest India-China Border Clash Since 1967</div>
+        <div class="tl-desc">20 Indian soldiers and an estimated 35-45 Chinese soldiers killed in hand-to-hand combat in Galwan Valley. Led to massive Indian military buildup along LAC, accelerated procurement, and disengagement negotiations. <a href="https://www.iiss.org/publications/strategic-comments/2020/galwan-valley" target="_blank" rel="noopener">IISS →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2022 — INS VIKRANT</div>
+        <div class="tl-title">India's First Indigenous Aircraft Carrier Commissioned</div>
+        <div class="tl-desc">INS Vikrant (42,000 tons) commissioned September 2, 2022 — India's first domestically built aircraft carrier. Marks milestone in naval self-reliance. <a href="https://www.naval-technology.com/projects/ins-vikrant/" target="_blank" rel="noopener">Naval Technology →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">MAY 2025 — OPERATION SINDOOR</div>
+        <div class="tl-title">Precision Strikes on Pakistan — Largest Since 1971</div>
+        <div class="tl-desc">Following Pahalgam terrorist attack (26 killed, April 22), India launched multi-domain strikes on terrorist infrastructure and Pakistan military positions. 10-day conflict ended May 10 ceasefire. Validated Rafale performance, SCALP cruise missiles, and Brahmos. <a href="https://www.aljazeera.com/news/2025/5/7/india-launches-operation-sindoor" target="_blank" rel="noopener">Al Jazeera →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">SEP 2025 — AGNI-V MIRV TEST</div>
+        <div class="tl-title">India Demonstrates Multiple Independently Targetable Reentry Vehicles</div>
+        <div class="tl-desc">Successful test of Agni-V with MIRV capability — 4-10 warheads per missile — marking watershed in India's strategic deterrence evolution against China. <a href="https://missilethreat.csis.org/missile/agni-5/" target="_blank" rel="noopener">CSIS Missile Threat →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 03: GROUND FORCE -->
+<section class="section-wrap" id="section-ground">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Ground Force — Indian Army</h2>
+      <span class="section-badge">ARMOR · ARTILLERY · INFANTRY</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">📊 GROUND FORCE SUMMARY</div>
+      <p>The Indian Army is the <strong class="critical">second-largest standing army in the world</strong> with 1.2 million active personnel organized into 4 Army Commands and 7 field armies. The force structure reflects India's dual strategic challenge: <strong class="critical">mountain warfare posture against China</strong> (specialized high-altitude divisions, ITBP forward deployment) and <strong class="critical">conventional mechanized offensive capability against Pakistan</strong> (Strike Corps, Integrated Battle Groups). Ongoing modernization includes the Arjun Mk2 indigenous MBT program, Futuristic Infantry Soldier as a System (F-INSAS), and advanced artillery procurement (M777 howitzers, K9 Vajra self-propelled guns, DRDO Pinaka MLRS).</p>
+    </div>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">MBT — INDIGENOUS</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/bdbd3ce28f42452e1addbc7c2bb56e12e5c117b9.jpg" alt="Arjun MBT main battle tank India DRDO" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Arjun Mk1A — India\'s Indigenous Main Battle Tank')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Arjun Mk1A / Mk2 MBT</div>
+          <div class="equip-desc">India's indigenous main battle tank developed by DRDO. The Mk1A features 72 upgrades including an AESA fire-control radar, advanced ammunition including LAHAT missile-firing capability, and improved armor protection. 118 Mk1A ordered for 2025 delivery. The Mk2 features composite armor, active protection system (APS), and L11 gun.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Weight</span><span class="equip-spec-val">68.5 tonnes</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Main Gun</span><span class="equip-spec-val">120mm rifled L11</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Engine</span><span class="equip-spec-val">1,400 HP MTU 838</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">450 km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">72 km/h</span></div>
+          </div>
+          <a href="https://www.globalfirepower.com/military-tanks-armored-vehicles.php" target="_blank" rel="noopener" class="equip-link">GlobalFirepower <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">SIKH REGIMENT — INFANTRY</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/2191528276023d6f37c6c1286b7b712e6cfb876c.jpg" alt="Indian Sikh Regiment soldiers in Republic Day parade" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Indian Army — Sikh Regiment Infantry, Republic Day Parade')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Indian Army Infantry / Mechanized Forces</div>
+          <div class="equip-desc">India fields 27 active infantry divisions with specialized mountain divisions (11th, 17th Mountain Strike Corps) for Himalayan warfare. The Mechanized Infantry deploys BMP-2 Sarath IFVs (2,600+ fleet). Futuristic Infantry Soldier as a System (F-INSAS) modernization underway with integrated targeting, encrypted comms, and body armor upgrades.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Infantry Divisions</span><span class="equip-spec-val">27 active + reserves</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">BMP-2 Sarath IFV</span><span class="equip-spec-val">2,600+ fleet</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Mountain Warfare</span><span class="equip-spec-val">Alt. 4,000–6,000m</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Special Program</span><span class="equip-spec-val">F-INSAS soldier modernization</span></div>
+          </div>
+          <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">MLRS — ARTILLERY</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/14121b9ccbbef27bdd305afcfed2e187b0206238.jpg" alt="Indian Army missile launcher Republic Day parade" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Indian Army Artillery — Multiple Launch Rocket System, Republic Day')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Pinaka MLRS / M777 Howitzer / K9 Vajra</div>
+          <div class="equip-desc">India has executed the most ambitious artillery modernization in its history. The indigenous Pinaka Mk-II MLRS fires to 75 km with GPS-guided rounds. 100+ M777 Ultra-Light Howitzers (155mm) deploy with helicopter-airlift capability for mountain operations. K9 Vajra self-propelled guns (100 ordered) provide mobility on plains.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Pinaka Mk-II Range</span><span class="equip-spec-val">75 km (GPS guided)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">M777 Weight</span><span class="equip-spec-val">4,218 kg (air-portable)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">K9 Vajra</span><span class="equip-spec-val">100+ ordered; 30 km range</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Artillery Guns (Total)</span><span class="equip-spec-val">~4,000 pieces</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/country/india/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>System</th><th>Type</th><th>Quantity</th><th>Role</th><th>Notes</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>T-90S Bhishma</td><td>MBT (Russian)</td><td>~1,600</td><td>Primary battle tank; plains/desert warfare</td><td>Backbone of armored corps; License produced by HVF Avadi</td><td><a href="https://www.army.mil/index.html" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>T-72M1 Ajeya</td><td>MBT (Soviet)</td><td>~1,657</td><td>Secondary tank; widely deployed</td><td>Upgrade with night-vision, ERA armor</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Arjun Mk1A</td><td>MBT (Indigenous)</td><td>118 (on order)</td><td>High-end domestic MBT</td><td>AESA FCS, LAHAT ATGM; delivery 2024-25</td><td><a href="https://www.drdo.gov.in" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>BMP-2 Sarath IFV</td><td>Infantry Fighting Vehicle</td><td>2,600+</td><td>Mechanized infantry transport</td><td>Licence-produced; Atmos munitions</td><td><a href="https://www.army-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Pinaka MLRS Mk-I/II</td><td>Multi-Launch Rocket System</td><td>~22 regiments</td><td>Area-denial, counter-battery</td><td>75 km GPS guided; enhanced Mk-III under dev</td><td><a href="https://www.drdo.gov.in" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>M777 Howitzer</td><td>Ultra-Light Towed Artillery</td><td>145+</td><td>Mountain/airlift operations</td><td>CH-47 Chinook sling-deployable; 24.7 km range</td><td><a href="https://www.army-technology.com/projects/m777-155mm-ultra-lightweight-field-howitzer/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>K9 Vajra-T</td><td>Self-Propelled Howitzer</td><td>100</td><td>Plains and desert mechanized ops</td><td>License from Hanwha Korea; 54 km extended range</td><td><a href="https://www.hanwhaaerospace.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>ALH Dhruv / LCH Prachand</td><td>Attack/Utility Helicopter</td><td>230+ / 15</td><td>Troop lift, mountain CAS, HAUL</td><td>LCH first indigenous attack helicopter; operates at 6,000m+</td><td><a href="https://www.hal-india.co.in" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Apache AH-64E</td><td>Attack Helicopter</td><td>22</td><td>Precision anti-armor, CAS</td><td>Hellfire, Hydra rockets; acquired 2019-2020</td><td><a href="https://www.boeing.com" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04: NAVY -->
+<section class="section-wrap" id="section-navy" style="background:var(--color-surface)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Indian Navy</h2>
+      <span class="section-badge">CARRIERS · SUBMARINES · IOR DOMINANCE</span>
+    </div>
+
+    <figure class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/d29375a924e957ef0ecff5c14db1596d3e6fd4ed.jpg" alt="INS Vikrant indigenous aircraft carrier aerial view India" width="1200" height="700" loading="lazy" onclick="openLightbox(this.src,'INS Vikrant (R11) — India\'s first indigenous aircraft carrier, commissioned September 2, 2022')">
+      <figcaption>INS VIKRANT (R11) // INDIA'S FIRST INDIGENOUS AIRCRAFT CARRIER — COMMISSIONED SEPTEMBER 2, 2022</figcaption>
+    </figure>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚓ NAVAL STRATEGIC OVERVIEW</div>
+      <p>The Indian Navy operates the <strong class="critical">most powerful blue-water fleet in the Indian Ocean Region</strong>, with 2 aircraft carriers, 13 destroyers, 14 frigates, 18 submarines, and 130+ total vessels. India's 2.3 million km² EEZ — the 7th largest globally — demands permanent patrol presence from the Arabian Sea to the Bay of Bengal. The commissioning of INS Vikrant (2022) and the ongoing Project 75I submarine program (6 air-independent propulsion boats) solidify India's naval dominance. China's expanding "String of Pearls" basing network (Pakistan/Gwadar, Sri Lanka/Hambantota, Djibouti) provides the strategic impetus for India's naval modernization investment.</p>
+    </div>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">AIRCRAFT CARRIER</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/879e71ae87a6817f9491c2330aee4c6f560e7e72.jpg" alt="INS Vikrant aircraft carrier India flag" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'INS Vikrant — Indian Navy Indigenous Aircraft Carrier')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">INS Vikrant (R11)</div>
+          <div class="equip-desc">India's first indigenously designed and built aircraft carrier — a 42,000-ton STOBAR vessel. Carries 30-36 aircraft (MiG-29K fighters, Ka-31 AEW helicopters, MH-60R ASW). Built at Cochin Shipyard. Completes carrier task force with INS Vikramaditya for two simultaneous carrier battle groups.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">45,000 tons (full load)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Length</span><span class="equip-spec-val">262 m</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Aircraft</span><span class="equip-spec-val">30-36 (MiG-29K, Ka-31)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">28 knots</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Commissioned</span><span class="equip-spec-val">September 2, 2022</span></div>
+          </div>
+          <a href="https://www.naval-technology.com/projects/ins-vikrant/" target="_blank" rel="noopener" class="equip-link">Naval Technology →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">SSBN — NUCLEAR SUB</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/77a5c66bf28a24ea4bc85238c63119f1e6b7219b.jpg" alt="INS Arihant nuclear ballistic missile submarine India" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'INS Arihant (S2) — India\'s Nuclear Ballistic Missile Submarine, second-strike capability')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">INS Arihant — Arihant-class SSBN</div>
+          <div class="equip-desc">India's nuclear ballistic missile submarine, ensuring a credible second-strike capability. INS Arihant (2016) and INS Arighat (2024) operational; 2 more under construction. Armed with K-15 Sagarika (750 km) and K-4 (3,500 km) SLBMs. Maintains continuous deterrence patrol ensuring survivable nuclear retaliation against both China and Pakistan.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">6,000 tons submerged</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Propulsion</span><span class="equip-spec-val">83 MW PWR nuclear reactor</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Missiles</span><span class="equip-spec-val">K-15 (750 km) / K-4 (3,500 km)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Fleet</span><span class="equip-spec-val">2 operational, 2 building</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Nuclear second-strike deterrence</span></div>
+          </div>
+          <a href="https://fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener" class="equip-link">FAS Nuclear Notebook →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">SSK — ATTACK SUB</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/93f2534ca00cbd4ad159d1ff6143d0d759ccce16.jpg" alt="Indian Navy submarine dockside" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Indian Navy Scorpène-class submarine — Project 75 fleet')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Scorpène-class (Project 75)</div>
+          <div class="equip-desc">Six Scorpène-class diesel-electric attack submarines built at Mazagon Dock Mumbai under technology transfer from Naval Group France. Features air-independent propulsion (AIP) in later units, SUBTICS combat management system, SM-39 Exocet anti-ship missiles, and F21 heavyweight torpedoes. Project 75I will field 6 next-generation AIP submarines.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Class</span><span class="equip-spec-val">Kalvari-class (P75)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Units</span><span class="equip-spec-val">6 in service</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Endurance</span><span class="equip-spec-val">50 days (AIP: +7 days)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Weapons</span><span class="equip-spec-val">SM-39, F21 torpedo, mines</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Next Gen</span><span class="equip-spec-val">P75I — 6 AIP boats procuring</span></div>
+          </div>
+          <a href="https://www.naval-technology.com/projects/scorpene-submarine/" target="_blank" rel="noopener" class="equip-link">Naval Technology →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Ship Type</th><th>Qty</th><th>Key Class/Ships</th><th>Strategic Role</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Aircraft Carriers</td><td>2</td><td>INS Vikrant (42,000T indigenous), INS Vikramaditya (44,500T ex-Soviet)</td><td>Power projection, task force command, fleet air defense</td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Guided Missile Destroyers</td><td>13</td><td>Kolkata-class (3), Delhi-class (3), Rajput-class (7)</td><td>Area air defense, anti-ship, land-attack strike</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Guided Missile Frigates</td><td>14</td><td>Shivalik-class (3), Nilgiri-class (3), Talwar-class (3), Leander-class (5)</td><td>General purpose escort, ASW, anti-ship</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Corvettes</td><td>18</td><td>Kamorta-class (4), Khukri-class (4), Abhay-class</td><td>Coastal defense, patrol, ASW, mine clearance</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Submarines (SSBN)</td><td>2+</td><td>INS Arihant, INS Arighat; 2 building</td><td>Nuclear second-strike; continuous patrol deterrence</td><td><a href="https://fas.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Submarines (SSK)</td><td>6+7</td><td>Kalvari-class (P75), Kilo-class (Sindhughosh)</td><td>Anti-surface/anti-submarine warfare, intelligence collection</td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Amphibious Ships</td><td>8</td><td>Austin-class LPD (2), LCU-class, Jalashwa</td><td>Amphibious assault, island defense, humanitarian</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Mine Countermeasures</td><td>9</td><td>Pondicherry-class, MSC-class sweepers</td><td>Harbor defense, sea lane clearing, IED neutralization</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 05: AIR FORCE -->
+<section class="section-wrap" id="section-airforce">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Indian Air Force</h2>
+      <span class="section-badge">RAFALE · SU-30MKI · TEJAS · AMCA</span>
+    </div>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">4.5-GEN FIGHTER</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/002fcdcee770108dd1d5bcf73f6711790c33870f.jpg" alt="Indian Air Force Rafale 4.5 generation fighter jet low pass" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Dassault Rafale — Indian Air Force, 4.5-generation multirole fighter')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Dassault Rafale</div>
+          <div class="equip-desc">India operates 36 Rafale F3R fighters, validated in combat during Operation Sindoor (May 2025) against PAF F-16s. Armed with METEOR BVR missile (100+ km engagement range) — the most advanced air-to-air missile in South Asia. SCALP cruise missiles struck deep targets in Pakistan. A follow-on MRFA order for 114 additional Rafales remains under direct government-to-government negotiation for 2026 contract.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Generation</span><span class="equip-spec-val">4.5-gen, AESA radar</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">36 (114 on order)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Primary Weapon</span><span class="equip-spec-val">METEOR AAM (100+ km)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Strike Weapon</span><span class="equip-spec-val">SCALP-EG (500 km)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Max Speed</span><span class="equip-spec-val">Mach 1.8</span></div>
+          </div>
+          <a href="https://www.airforce-technology.com/projects/rafale-multi-role/" target="_blank" rel="noopener" class="equip-link">Air Force Technology →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">4+-GEN AIR SUPERIORITY</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/d282adf471780bbc8153cb2331a14b039be1ccb2.jpg" alt="Indian Air Force Su-30MKI Flanker taking off" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Sukhoi Su-30MKI — Indian Air Force\'s primary air superiority platform (272 aircraft)')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Sukhoi Su-30MKI (Super-30)</div>
+          <div class="equip-desc">The IAF's primary air superiority and multirole platform with 272 aircraft — the largest Su-30MKI fleet outside Russia. The "Super-30" upgrade program (2025+) installs an AESA radar, IRST-OLS-35, upgraded avionics and BrahMos-A integration. Serves as a BrahMos-A supersonic cruise missile carrier — a nuclear-capable delivery vehicle. Upgrades ensure relevance through 2040.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Generation</span><span class="equip-spec-val">4+ gen, canard-delta</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Fleet Size</span><span class="equip-spec-val">272 in service</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Upgrade</span><span class="equip-spec-val">Super-30 AESA retrofit ongoing</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Nuclear Role</span><span class="equip-spec-val">BrahMos-A cruise missile carrier</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Max Speed</span><span class="equip-spec-val">Mach 2.0</span></div>
+          </div>
+          <a href="https://www.ausairpower.net/APA-Flanker.html" target="_blank" rel="noopener" class="equip-link">Airpower Australia →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">4-GEN INDIGENOUS</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1bf8267fc91cc1f1530176e4a551ddaac7e778f7.jpg" alt="HAL Tejas Mk1A light combat aircraft India" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'HAL Tejas Mk1A — India\'s indigenous light combat aircraft')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">HAL Tejas Mk1A</div>
+          <div class="equip-desc">India's indigenous light combat aircraft produced by Hindustan Aeronautics Limited (HAL). The Mk1A features an AESA radar, electronic warfare suite, aerial refueling probe, and Python-5/Derby AAM integration. 36 delivered by 2025 with 97 more on order. The Mk2 (planned for 2030) will feature 98 kN GE-414 engine, increasing payload and combat radius to replace ageing MiG-29 and Mirage 2000 fleets.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Generation</span><span class="equip-spec-val">4-gen AESA, delta wing</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Delivered/Ordered</span><span class="equip-spec-val">36 delivered / 97 on order</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Engine</span><span class="equip-spec-val">GE-F414 (90 kN)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Weapons</span><span class="equip-spec-val">Python-5, Derby, Astra BVR</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Mk2 Status</span><span class="equip-spec-val">Design phase; IOC ~2030</span></div>
+          </div>
+          <a href="https://www.hal-india.co.in/Tejas" target="_blank" rel="noopener" class="equip-link">HAL Official →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">5TH GEN — IN DEV</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a136e5316ad34a07457578d6a002c677e90c7cfb.jpg" alt="HAL AMCA India 5th generation stealth fighter infographic" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'HAL AMCA — India\'s 5th Generation Stealth Fighter, development phase 2026')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">HAL AMCA (Advanced Medium Combat Aircraft)</div>
+          <div class="equip-desc">India's first indigenous 5th-generation stealth fighter under development by HAL/DRDO. Features internal weapons bays, radar-absorbent materials, supercruise capability, and AI-integrated avionics. AMCA Mk1 (non-supercruise) planned for IOC 2035; Mk2 with supercruise and full stealth by 2040. Critical test of India's aerospace self-reliance ambitions.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Generation</span><span class="equip-spec-val">5th gen stealth, internal WB</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Engine</span><span class="equip-spec-val">GE-414 (Mk1) / indigenous GTRE (Mk2)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">IOC</span><span class="equip-spec-val">~2035 (Mk1), ~2040 (Mk2)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Design finalized; prototype fabrication</span></div>
+          </div>
+          <a href="https://www.hal-india.co.in/AMCA" target="_blank" rel="noopener" class="equip-link">HAL AMCA Program →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Aircraft</th><th>Quantity</th><th>Gen</th><th>Primary Role</th><th>Primary Weapon</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Rafale F3R (Dassault)</td><td>36 in service, 114 on order</td><td>4.5-gen</td><td>Air superiority, deep strike, ISR</td><td>METEOR AAM, SCALP-EG cruise</td><td><a href="https://www.airforce-technology.com/projects/rafale-multi-role/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Su-30MKI (Sukhoi)</td><td>272 (Super-30 upgrade ongoing)</td><td>4+-gen</td><td>Air dominance, maritime patrol, nuclear strike</td><td>BrahMos-A, R-77, R-73</td><td><a href="https://www.ausairpower.net" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Tejas Mk1A (HAL)</td><td>36 delivered, 97 on order</td><td>4-gen</td><td>Light combat, air defense, CAS</td><td>Python-5, Derby, Astra BVR</td><td><a href="https://www.hal-india.co.in" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>MiG-29 (Mikoyan)</td><td>~70 (Navy MiG-29K included)</td><td>4-gen</td><td>Air defense, carrier-borne fighter</td><td>R-77, R-73, Kh-31A</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Mirage 2000H (Dassault)</td><td>~50</td><td>4-gen</td><td>Air superiority, nuclear strike</td><td>MICA, Magic-2; Raad/Nirbhay nuclear</td><td><a href="https://www.airforce-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Jaguar IS (BAE)</td><td>~40 (phasing out)</td><td>3-gen+</td><td>Ground attack, low-level nuclear delivery</td><td>SPICE 2000, cluster munitions</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>C-17 Globemaster III</td><td>11</td><td>Strategic transport</td><td>Heavy airlift, airborne ops, HADR</td><td>Cargo: 77T; paratrooper capable</td><td><a href="https://www.boeing.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>IL-78MKI Tanker</td><td>6</td><td>Strategic tanker</td><td>Air-to-air refueling — extends Rafale/Su-30 range</td><td>3-point hose-drogue system</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- SECTION 06: MISSILE / ROCKET FORCE -->
+<section class="section-wrap" id="section-rocket" style="background:var(--color-surface)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Missile & Rocket Forces</h2>
+      <span class="section-badge">AGNI · BRAHMOS · PRITHVI · NIRBHAY</span>
+    </div>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">ICBM — MIRV</span>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/Agni_V_Ballistic_missile_successfully_launched_on_December_10%2C_2018.jpg" alt="Agni-V ICBM launch from transporter erector launcher India" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Agni-V MIRV ICBM — India successfully tested MIRV capability September 2025')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Agni-V (MIRV-capable ICBM)</div>
+          <div class="equip-desc">India's primary intercontinental-range ballistic missile with 5,400–7,000+ km range covering all of China. The September 2025 MIRV test demonstrated 4–10 independently targetable warheads, marking a watershed evolution in India's deterrence posture. Canister-launched for rapid deployment via road-mobile TEL. Agni-VI with 10+ MIRV warheads and 6,000–8,000 km range is under development.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">5,400–7,000+ km (ICBM class)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Warheads</span><span class="equip-spec-val">4–10 MIRV (Sep 2025 test)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">~80m (advanced inertial)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Launcher</span><span class="equip-spec-val">Road-mobile TEL, canister</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Operational; ~80 in arsenal</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/missile/agni-5/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">SUPERSONIC CRUISE — MACH 2.8</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/85909c6c01fed0e91e1d09e9cd2c67a703c37198.jpg" alt="BrahMos supersonic cruise missile India launch" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'BrahMos supersonic cruise missile — Mach 2.8, 500 km range, India-Russia joint development')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">BrahMos Supersonic Cruise Missile</div>
+          <div class="equip-desc">India-Russia joint development, the world's fastest operational cruise missile at Mach 2.8 (Block-III extended to 500 km range). Deployed from land, sea (destroyers, frigates), and air (Su-30MKI). BrahMos-NG (Next Generation) is a smaller, lighter variant for Tejas and AMCA integration. Philippines has signed $375M export deal, establishing India as a major missile exporter.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 2.8 (supersonic)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">500 km (Block-III extended)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">300 kg conventional</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Platforms</span><span class="equip-spec-val">Land, sea, Su-30MKI airborne</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Export</span><span class="equip-spec-val">Philippines $375M; Vietnam, UAE interest</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/missile/brahmos/" target="_blank" rel="noopener" class="equip-link">CSIS BrahMos Profile →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Missile System</th><th>Type</th><th>Range</th><th>Status</th><th>Warhead(s)</th><th>Notes</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Agni-I</td><td>SRBM Ballistic</td><td>700–900 km</td><td>Operational</td><td>1 × 800-1,000 kg</td><td>Road-mobile; Pakistan-focused deterrent</td><td><a href="https://missilethreat.csis.org/missile/agni-1/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Agni-II</td><td>MRBM Ballistic</td><td>2,000+ km</td><td>Operational</td><td>1 × 1,000 kg</td><td>Canister-launched; improved accuracy</td><td><a href="https://missilethreat.csis.org/missile/agni-2/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Agni-III</td><td>IRBM Ballistic</td><td>3,500 km</td><td>Operational</td><td>1 × 1,500 kg</td><td>China coverage; ASAT test platform adapted</td><td><a href="https://missilethreat.csis.org/missile/agni-3/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Agni-V (MIRV)</td><td>ICBM Ballistic</td><td>5,400–7,000+ km</td><td>Operational (MIRV 2025)</td><td>4–10 MIRV warheads</td><td>Covers all China; Sep 2025 MIRV watershed test</td><td><a href="https://missilethreat.csis.org/missile/agni-5/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Agni-VI</td><td>ICBM (MIRV, dev)</td><td>6,000–8,000 km</td><td>Development</td><td>10+ MIRV warheads</td><td>3-stage; flight testing phase; SLBM derivative potential</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Prithvi-II</td><td>SRBM Ballistic</td><td>250–350 km</td><td>Operational</td><td>1 × 700–1,000 kg</td><td>Pakistan-focused; ~40 deployed liquid-fuel</td><td><a href="https://missilethreat.csis.org/missile/prithvi-2/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>K-15 Sagarika</td><td>SLBM</td><td>700–750 km</td><td>Operational</td><td>1 × 1,000 kg nuclear</td><td>12 per Arihant-class SSBN; underwater launch</td><td><a href="https://missilethreat.csis.org/missile/k-15/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>K-4 SLBM</td><td>SLBM (extended range)</td><td>3,500 km</td><td>Limited deployment</td><td>1 × 1,000 kg nuclear</td><td>4 per larger S4-class SSBN; covers central China</td><td><a href="https://missilethreat.csis.org/missile/k-4/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>BrahMos</td><td>Supersonic Cruise</td><td>500 km</td><td>Operational (Land/Sea/Air)</td><td>300 kg conventional</td><td>Mach 2.8; land, ship, Su-30MKI launched</td><td><a href="https://missilethreat.csis.org/missile/brahmos/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Nirbhay</td><td>Subsonic Cruise</td><td>1,000+ km</td><td>Development/testing</td><td>Conventional/nuclear-capable</td><td>India's long-range cruise missile; JCTO tests ongoing</td><td><a href="https://missilethreat.csis.org/missile/nirbhay/" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 07: NUCLEAR POSTURE -->
+<section class="section-wrap" id="section-nuclear">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Nuclear Posture</h2>
+      <span class="section-badge">NFU · TRIAD · ~180 WARHEADS</span>
+    </div>
+
+    <div class="policy-quote">
+      "India will not be the first to use nuclear weapons, but if it is attacked with such weapons, it would engage in nuclear retaliation which will be massive and designed to inflict unacceptable damage."
+      <span class="policy-quote-attr">— India's Nuclear Doctrine (2003), Nuclear Command Authority | <a href="https://www.mea.gov.in/bilateral-documents.htm?dtl/7ennuclear+doctrine+of+india" target="_blank" rel="noopener">Ministry of External Affairs →</a></span>
+    </div>
+
+    <div class="triad-grid">
+      <div class="triad-card">
+        <div class="triad-icon">🚀</div>
+        <div class="triad-label">Land-Based Leg</div>
+        <div class="triad-title">Agni Ballistic Missiles</div>
+        <div class="triad-body">Agni series (I–VI) provides land-based deterrence from 700 km to 7,000+ km. MIRV-capable Agni-V covers all of China. Canister-based road-mobile TELs ensure survivability. ~80 ballistic missiles in strategic arsenal managed by Strategic Forces Command.</div>
+        <div class="triad-status">✓ FULLY OPERATIONAL</div>
+      </div>
+      <div class="triad-card">
+        <div class="triad-icon">✈</div>
+        <div class="triad-label">Air-Launched Leg</div>
+        <div class="triad-title">Mirage 2000H & Jaguar IS</div>
+        <div class="triad-body">48+ Mirage 2000H and Jaguar IS fighters assigned to nuclear strike role, equipped with Raad/Nirbhay nuclear-capable air-launched cruise missiles. BrahMos-A on Su-30MKI provides additional dual-use nuclear standoff capability. Continuous combat air patrol feasibility maintained.</div>
+        <div class="triad-status">✓ OPERATIONAL</div>
+      </div>
+      <div class="triad-card">
+        <div class="triad-icon">⚓</div>
+        <div class="triad-label">Sea-Based Leg</div>
+        <div class="triad-title">Arihant-class SSBN</div>
+        <div class="triad-body">INS Arihant and INS Arighat operational; 2 more S4/S4* class building. Armed with K-15 (750 km) and K-4 (3,500 km) SLBMs. At least 1 SSBN on continuous patrol ensures survivable second-strike. The sea leg is India's most assured retaliation guarantee against first strike.</div>
+        <div class="triad-status">✓ FULLY OPERATIONAL TRIAD LEG</div>
+      </div>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">☢ WARHEAD ESTIMATE — OPEN SOURCE ANALYSIS</div>
+      <p>India possesses approximately <strong class="critical">~180 nuclear warheads</strong> (SIPRI 2025 estimate; FAS Nuclear Notebook: 172 warheads deployed/stockpiled). India employs a "minimum credible deterrence" posture — sufficiency-based rather than matching China's ~600-warhead arsenal. The strategic calculation: 150–200 warheads with reliable delivery systems and second-strike survivability constitutes adequate deterrent against both China and Pakistan simultaneously. India's <strong class="critical">recessed deterrent posture</strong> maintains warheads physically separated from delivery systems in peacetime, transitioning to operational posture within hours during crisis escalation.</p>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Delivery System</th><th>Range (km)</th><th>Warheads</th><th>Status</th><th>Notes</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Agni-V (MIRV)</td><td>5,400–7,000+</td><td>4–10 MIRV</td><td>Operational</td><td>Primary China deterrent; MIRV validated Sep 2025</td><td><a href="https://fas.org/issues/nuclear-weapons/" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Agni-III</td><td>3,500</td><td>1 × TN warhead</td><td>Operational</td><td>Covers all China east; secondary deterrent</td><td><a href="https://fas.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Agni-II</td><td>2,000+</td><td>1 × TN warhead</td><td>Operational</td><td>China eastern seaboard coverage</td><td><a href="https://fas.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Agni-I / Prithvi-II</td><td>700–900 / 250–350</td><td>1 × TN warhead</td><td>Operational</td><td>Pakistan deterrent; deployed near LOC</td><td><a href="https://fas.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>K-15 Sagarika (SLBM)</td><td>700–750</td><td>1 × nuclear</td><td>Operational (SSBN)</td><td>12 per Arihant; second-strike insurance</td><td><a href="https://fas.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>K-4 SLBM</td><td>3,500</td><td>1 × nuclear</td><td>Limited deployment</td><td>4 per larger S4 SSBN; covers central China</td><td><a href="https://fas.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Mirage 2000H / Jaguar IS</td><td>1,500 / 1,400</td><td>Gravity bomb / ALCM</td><td>Operational</td><td>Air-launched nuclear delivery; Raad/Nirbhay ALCM</td><td><a href="https://fas.org" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="intel-alert intel-alert-red">
+      <div class="intel-alert-head">🔴 NFU DOCTRINE — CAVEAT ANALYSIS</div>
+      <p>India's official No-First-Use commitment contains a documented caveat: <strong class="critical">"No first use against nuclear weapons states; first use permitted against non-nuclear powers in extreme circumstances"</strong> — a provision potentially applicable if Pakistan-supported non-state actors conduct WMD attacks on Indian territory. Additionally, Defense Minister A.K. Antony's 2010 statement indicated NFU could be revised if India faced <strong class="critical">existential threat from biological or chemical weapons</strong>. The 2019 Balakot crisis and 2025 Sindoor operation suggest India's nuclear threshold is higher than Pakistan's, but sustained conventional military pressure may test this posture in future crises.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 08: SPECIAL — SPACE & BMD / TWO-FRONT DOCTRINE -->
+<section class="section-wrap" id="section-special" style="background:var(--color-surface)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2 class="section-title">Space, BMD & Special Operations</h2>
+      <span class="section-badge">ASAT · BMD · PARA SF · MARCOS</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">🛰 SPECIAL CAPABILITY: SPACE & BALLISTIC MISSILE DEFENSE</div>
+      <p>For India's A-08 dossier, Section 08 covers <strong class="critical">Space Warfare Capabilities, Ballistic Missile Defense (BMD), and Special Operations Forces</strong> — India's most distinctive asymmetric capabilities relative to the Pakistan/China threat axes. India's March 2019 Mission Shakti ASAT test demonstrated direct-ascent kinetic-kill capability against LEO satellites. The Defence Space Agency (DSA) established 2019 unifies military space operations. India's two-layer BMD system (Prithvi Air Defence + Advanced Air Defence) protects Delhi and Mumbai from Pakistani ballistic missile attack.</p>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--color-red);margin-bottom:var(--space-5);letter-spacing:1px">BALLISTIC MISSILE DEFENSE (BMD)</h3>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">S-400 TRIUMF</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/035a17f9ffba00a6014c20f0760c70ed7b3b1534.jpg" alt="S-400 Triumf air defense missile system India" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'S-400 Triumf air defense system — India procured despite US CAATSA sanctions threats')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">S-400 Triumf (Sudarshan Chakra)</div>
+          <div class="equip-desc">India procured 5 S-400 batteries ($5.4B deal) from Russia, defying US CAATSA sanctions threats — the largest defense import in Indian history. The S-400 provides layered air and missile defense with 40N6E missiles capable of engaging targets at 400 km range and 30 km altitude. Deployed to defend critical assets against Pakistani aircraft (F-16, JF-17) and emerging Chinese hypersonic threats.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Max Range</span><span class="equip-spec-val">400 km (40N6E missile)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Altitude</span><span class="equip-spec-val">Up to 30 km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Batteries</span><span class="equip-spec-val">5 batteries delivered 2021–2025</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Targets</span><span class="equip-spec-val">Aircraft, cruise/ballistic missiles</span></div>
+          </div>
+          <a href="https://crsreports.congress.gov/product/pdf/R/R45428" target="_blank" rel="noopener" class="equip-link">CRS S-400 Report →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">ASAT — MISSION SHAKTI</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/809ec8d4a660375c6923b6101d32abe10eb55579.jpg" alt="India Agni-V MIRV missile comparison DRDO" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'India DRDO ASAT / Agni-V MIRV — Mission Shakti demonstrated direct-ascent ASAT capability March 2019')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">ASAT Capability — Mission Shakti (2019)</div>
+          <div class="equip-desc">India conducted a direct-ascent ASAT test (Mission Shakti) on March 27, 2019, destroying the Microsat-R satellite at 283 km altitude — making India the 4th nation with demonstrated ASAT capability. The interceptor (Prithvi Defence Vehicle Mk2) derived from India's existing BMD program. India's ASAT program is strategically aimed at deterring Chinese space-based C2 assets that support PLA's network-centric warfare.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Demonstrated Altitude</span><span class="equip-spec-val">283 km (LEO capable)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Platform</span><span class="equip-spec-val">PDV Mk2 (BMD-derived)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Nations</span><span class="equip-spec-val">4th globally (US, Russia, China)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Next Gen</span><span class="equip-spec-val">MEO/GEO ASAT under development</span></div>
+          </div>
+          <a href="https://csis.org/analysis/mission-shakti-indias-antisatellite-test" target="_blank" rel="noopener" class="equip-link">CSIS Mission Shakti Analysis →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--color-red);margin:var(--space-8) 0 var(--space-5);letter-spacing:1px">SPECIAL OPERATIONS FORCES</h3>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">ARMY SOF — PARA SF</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/8e610ebf5e8e79e9daf2dd9366b97df76cb69f04.jpg" alt="India MARCOS navy special forces with US Navy SEALs" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Indian MARCOS Navy Special Forces with US SEALs and ROK Special Operations Forces — joint exercise')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Para SF (Special Forces) — 21st Para</div>
+          <div class="equip-desc">India's primary Army special operations force with 6,000+ operators. Conducted the 2019 Balakot cross-LOC ground infiltration operations. Para SF specializes in direct action, hostage rescue, CBRN, and long-range surveillance in Kashmir and the LAC. Exercise Desert Hunt 2025 demonstrated multi-service interoperability with MARCOS and Garud commandos.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Personnel</span><span class="equip-spec-val">6,000+</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Training</span><span class="equip-spec-val">3–4 year specialization pipeline</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Primary Theater</span><span class="equip-spec-val">Kashmir / LAC / counterterrorism</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Operations</span><span class="equip-spec-val">Balakot 2019; Sindoor 2025 SOF element</span></div>
+          </div>
+          <a href="https://www.rand.org/pubs/research_reports/RRA1079-2.html" target="_blank" rel="noopener" class="equip-link">RAND Special Operations →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">NAVY SOF — MARCOS</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/ff52fc874dd1c356da04df19bdc8cfedbecf13ba.jpg" alt="Indian Navy MARCOS with US Navy SEALs joint training" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Indian Navy MARCOS with US Navy SEALs and ROK Special Forces — multilateral joint exercise')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">MARCOS (Marine Commandos)</div>
+          <div class="equip-desc">India's maritime special operations force — often compared to US Navy SEALs. MARCOS specializes in amphibious operations, underwater demolition, anti-piracy, hostage rescue, and Riverine/littoral warfare. 1,400 personnel with intensive 2-year qualification course. Enhanced collaboration with UK Royal Marines and US Navy SEALs through 2025 joint exercise programs.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Personnel</span><span class="equip-spec-val">1,400</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Training</span><span class="equip-spec-val">2-year course; underwater combat</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Specialization</span><span class="equip-spec-val">Amphibious, IOR, anti-piracy</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Partners</span><span class="equip-spec-val">US Navy SEALs, UK Royal Marines</span></div>
+          </div>
+          <a href="https://www.navy.mil/News/Naval-Special-Warfare-Command/" target="_blank" rel="noopener" class="equip-link">Naval Special Warfare →<i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>BMD Layer</th><th>System</th><th>Role</th><th>Intercept Altitude</th><th>Status</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Exo-Atmospheric (HIT)</td><td>Prithvi Air Defence (PAD) / PDV Mk2</td><td>ICBM/IRBM intercept outside atmosphere</td><td>50–150 km</td><td>Operational; ASAT-adapted</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Endo-Atmospheric (HIT)</td><td>Advanced Air Defence (AAD) / Ashwin</td><td>SRBM/MRBM terminal intercept</td><td>15–30 km</td><td>Operational — Delhi, Mumbai</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Long-Range SAM</td><td>S-400 Triumf (Sudarshan Chakra)</td><td>Aircraft, cruise/ballistic missiles</td><td>Up to 30 km altitude, 400 km range</td><td>5 batteries delivered 2021–2025</td><td><a href="https://crsreports.congress.gov" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Medium-Range SAM</td><td>Akash-1S (indigenous)</td><td>Aircraft, cruise missiles, drones</td><td>18–25 km range</td><td>Operational; AESA active seeker Mk2</td><td><a href="https://www.drdo.gov.in" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Short-Range SAM</td><td>Spyder / QRSAM / Igla-S MANPADS</td><td>Low-altitude aircraft and drone threats</td><td>8–15 km</td><td>Operational; QRSAM indigenization</td><td><a href="https://www.drdo.gov.in" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Upcoming BMD</td><td>Project Kusha (indigenous S-400 equivalent)</td><td>Long-range area defense IADV</td><td>400+ km range goal</td><td>Development; 2029 target IOC</td><td><a href="https://www.drdo.gov.in" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 09: CYBER, SPACE & INFORMATION WARFARE -->
+<section class="section-wrap" id="section-cyber">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2 class="section-title">Cyber, Space & Information Warfare</h2>
+      <span class="section-badge">DCA · DSA · ASAT · EW</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">💻 DOMAIN OVERVIEW — CYBER & SPACE</div>
+      <p>India has made substantial investments in cyber and space warfare capabilities, though it remains <strong class="critical">significantly behind China and the USA</strong> in both domains. The Defence Cyber Agency (DCA, 2019) and Defence Space Agency (DSA, 2019) represent India's first formal military organizations for these domains. India faces a severe asymmetric cyber threat: Chinese APT groups (Emissary Panda, APT41) conduct persistent operations against Indian military networks, government systems, and critical infrastructure — particularly elevated during LAC border tensions.</p>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table domain-table">
+        <thead><tr><th>Domain</th><th>Capability</th><th>Assessment</th><th>Peer Equivalent</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Cyber — Offense</td><td>Limited offensive cyber operations; intelligence gathering focus; some disruption capability</td><td>EMERGING — below China/US/Russia tier</td><td>Turkey / Israel (limited)</td><td><a href="https://www.cisa.gov/india-cyber" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Cyber — Defense</td><td>NCIIPC (critical infrastructure); CERT-In national CERT; military network segmentation</td><td>DEVELOPING — significant gaps remain</td><td>South Korea</td><td><a href="https://www.cisa.gov" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Space — Surveillance</td><td>ISRO Space Situational Awareness (SSA); 52 military satellites planned by 2029; EMISAT EW satellite</td><td>OPERATIONAL — growing</td><td>France / Japan</td><td><a href="https://www.isro.gov.in" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Space — ASAT</td><td>Mission Shakti (2019) DA-ASAT at LEO; MEO/GEO capability in development; laser and co-orbital research</td><td>DEMONSTRATED LEO; MEO DEVELOPING</td><td>France (developing)</td><td><a href="https://csis.org/programs/aerospace-security/space-threat-assessment" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Electronic Warfare</td><td>DRDO Samyukta EW system; airborne EW on Rafale/Su-30MKI; Netra AEW&C for C2 disruption</td><td>ADEQUATE for Pakistan; gaps vs. China</td><td>Pakistan-superior; China-inferior</td><td><a href="https://www.drdo.gov.in" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Information Warfare</td><td>Narrative operations (Operation Sindoor 2025 information domain management); social media coordination</td><td>EMERGING DOCTRINE — tested 2025</td><td>Israel (comparable)</td><td><a href="https://www.rand.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>PNT / Navigation</td><td>NavIC (Indian Regional Navigation Satellite System) — 7 satellites, 1,500 km accuracy sphere</td><td>OPERATIONAL REGIONAL GNSS</td><td>GPS-independent for South Asia</td><td><a href="https://www.isro.gov.in/irnss-programme" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-head" onclick="toggleCollapsible(this)">
+        <span>🇮🇳 Confirmed Cyber Incidents & Threats (India as Target)</span>
+        <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px"></i>
+      </div>
+      <div class="collapsible-body">
+        <div class="collapsible-body-inner">
+          <ul>
+            <li><strong>October 2019:</strong> Kudankulam Nuclear Power Plant (KKNPP) IT network breached by North Korean Lazarus Group APT — malware discovered in administrative network (not control systems). <a href="https://www.cert-in.org.in" target="_blank" rel="noopener">CERT-In →</a></li>
+            <li><strong>2020–2021 (Galwan period):</strong> Chinese APT groups (Emissary Panda / APT41) conducted sustained operations against Indian MoD networks, defense PSUs, and border infrastructure systems coinciding with LAC standoff. Significant data exfiltration suspected.</li>
+            <li><strong>October 2020:</strong> Mumbai power grid outage (October 12) — U.S. firm Recorded Future attributed to Chinese state actor "RedEcho" targeting SCADA systems. India disputed attribution but acknowledged investigation.</li>
+            <li><strong>2021:</strong> AIIMS Delhi hospital ransomware (November 2022) — attributed to Chinese state-sponsored actor; disrupted patient records for 6 weeks; largest healthcare cyber incident in Indian history.</li>
+            <li><strong>2025 (Operation Sindoor period):</strong> Coordinated Pakistani and Chinese cyber operations targeted Indian military C2 networks, media organizations, and critical infrastructure. Indian DCA conducted counter-operations. Indian attribution confirmed Chinese PLA SSF involvement.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-head" onclick="toggleCollapsible(this)">
+        <span>🛰 Defence Space Agency (DSA) — Military Space Program</span>
+        <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px"></i>
+      </div>
+      <div class="collapsible-body">
+        <div class="collapsible-body-inner">
+          <ul>
+            <li><strong>Established:</strong> March 2019 — unifies military space operations under single command</li>
+            <li><strong>EMISAT:</strong> Electronic intelligence satellite (launched 2019) intercepts adversary radar/communication frequencies — specifically PAF and PLA Air Force emissions</li>
+            <li><strong>Cartosat-3 Reconnaissance:</strong> 0.25m resolution imaging satellite provides near real-time ISR over LAC and LOC, enabling targeting for precision strike missions</li>
+            <li><strong>RISAT-2BR series:</strong> Synthetic aperture radar (SAR) satellites operate through cloud cover — critical for Himalayan winter reconnaissance</li>
+            <li><strong>Space Situational Awareness (SSA):</strong> Multi-Object Tracking Radar (MOTR) commissioned 2022 for debris and satellite tracking</li>
+            <li><strong>Target 2029:</strong> 52 dedicated military satellites across ISR, communication, navigation, and EW monitoring domains</li>
+            <li><strong>Joint Military Space Doctrine (September 2025):</strong> First formal doctrine document integrating space into all-domain warfare framework</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 10: MILITARY DOCTRINE -->
+<section class="section-wrap" id="section-doctrine" style="background:var(--color-surface)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h2 class="section-title">Military Doctrine</h2>
+      <span class="section-badge">COLD START · TWO-FRONT · ATMA NIRBHAR</span>
+    </div>
+
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">⚡</div>
+        <div class="doctrine-card-title">Cold Start — IBG Doctrine</div>
+        <div class="doctrine-card-body">Rapid Limited War Under Nuclear Umbrella: India's primary warfighting concept for Pakistan. Eight Integrated Battle Groups (IBGs) seize 30 km of Pakistani territory within 72–96 hours before international pressure forces ceasefire — exploiting India's conventional superiority while avoiding nuclear escalation threshold. Validated conceptually by Operation Sindoor (2025) compressed timeline operations.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">🏔</div>
+        <div class="doctrine-card-title">Mountain Warfare — China LAC</div>
+        <div class="doctrine-card-body">Himalayan Defensive Containment: India's LAC strategy prioritizes preventing Chinese territorial conquest through fortified defense at altitude (4,000–6,000m), rapid response forces, and diplomatic pressure. Galwan 2020 lessons drove permanent force stationing, logistics prepositioning, and tunnel/road infrastructure investment. India cannot realistically recapture disputed territory — prevention is the mission.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">☢</div>
+        <div class="doctrine-card-title">Nuclear Doctrine — Minimum Credible Deterrence</div>
+        <div class="doctrine-card-body">Sufficiency-Based NFU Posture: ~180 warheads with credible triad (land/sea/air) and second-strike survivability provides adequate deterrence against China and Pakistan without matching their numerical arsenals. Recessed deterrent (warheads separated from delivery systems) enhances safety. 2025 MIRV capability expands strategic options substantially against Chinese missile defense investments.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">🏭</div>
+        <div class="doctrine-card-title">Atma Nirbhar Bharat — Self-Reliance</div>
+        <div class="doctrine-card-body">Defence Industrial Autonomy: "Make in India" defense production mandate targets 70% domestic procurement by 2027. Positive indigenization list prohibits import of 310+ platform categories. HAL (Tejas, AMCA, ALH Dhruv, LCH Prachand), DRDO (Pinaka, Akash, Agni, ASAT), MDL (Scorpène), and BDL (BrahMos) form the industrial backbone reducing dependence on Russia (historically 60%+ of imports).</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">🌊</div>
+        <div class="doctrine-card-title">IOR Dominance — Indian Ocean Strategy</div>
+        <div class="doctrine-card-body">Maritime Hegemon of the Indian Ocean: India's geographic centrality and expanding naval capabilities (2 carriers, 18 submarines, SLOC surveillance through Andaman/Nicobar) support a maritime strategy that counters China's "String of Pearls" basing network. Mission SAGAR (Security And Growth for All in the Region) provides humanitarian and capacity-building rationale for Indian naval presence across IOR littoral states.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">🔄</div>
+        <div class="doctrine-card-title">Two-Front War Planning</div>
+        <div class="doctrine-card-body">Simultaneous Threat Management: India's ultimate strategic planning scenario involves coordinated China-Pakistan military pressure on both fronts. While historically unlikely (limited China-Pakistan military coordination), the scenario drives permanent Army allocation: ~60% forces on northern (China) front, ~35% on western (Pakistan) front, 5% southern/maritime. 10-day sustainment constraint is India's acknowledged logistical vulnerability in this scenario.</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2035 — GOAL 1</div>
+        <div class="tl-title">5th-Generation Air Combat Capability</div>
+        <div class="tl-desc">HAL AMCA Mk1 initial operational capability (2035), Mk2 with full stealth and supercruise by 2040. Tejas Mk2 fleet replaces MiG-29, Mirage 2000. IAF targets 42 active squadrons to close current shortfall (currently ~30). Advanced air defense: Project Kusha (indigenous S-400 equivalent) operational. <a href="https://www.hal-india.co.in" target="_blank" rel="noopener">HAL →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2030 — GOAL 2</div>
+        <div class="tl-title">Naval Parity in Indian Ocean Region</div>
+        <div class="tl-desc">INS Vikrant-2 (third carrier) laid down; 6 Project 75I AIP submarines commissioned; Visakhapatnam-class destroyer fleet (7 total); INS Mormugao-class frigate expansion. 52 military satellites operational. India solidifies IOR "Necklace of Diamonds" basing agreements (Oman, Maldives, Seychelles, Mauritius). <a href="https://www.naval-technology.com" target="_blank" rel="noopener">Naval Technology →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2047 — VIKSIT BHARAT</div>
+        <div class="tl-title">"Developed India" — Global Power Status</div>
+        <div class="tl-desc">India's 100th independence anniversary target: $7–9 trillion economy (2nd or 3rd globally), peer conventional military capability vs China, full indigenous defense ecosystem ($25B+ defense exports), permanent UN Security Council seat (India's long-standing aspiration), and AI-integrated networked military across all domains. <a href="https://www.pmindia.gov.in/en/government_tr_rec/viksit-bharat-2047/" target="_blank" rel="noopener">PM India Vision →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 11: FOREIGN POLICY & GEOPOLITICAL GOALS -->
+<section class="section-wrap" id="section-foreign">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">11</span>
+      <h2 class="section-title">Foreign Policy & Geopolitical Goals</h2>
+      <span class="section-badge">QUAD · SCO · STRATEGIC AUTONOMY</span>
+    </div>
+
+    <figure class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/935fe30faf21300a78d3ba7689a187188b8aea08.jpg" alt="Quad leaders summit India US Australia Japan 2025" width="1200" height="680" loading="lazy" onclick="openLightbox(this.src,'Quad Summit — India, USA, Australia, Japan. The Quad is central to India\'s Indo-Pacific strategy and US alignment.')">
+      <figcaption>QUAD SUMMIT // INDIA · USA · AUSTRALIA · JAPAN — FREE AND OPEN INDO-PACIFIC FRAMEWORK</figcaption>
+    </figure>
+
+    <div class="policy-quote">
+      "India has always believed in the rule of law. We are a firm believer in a rules-based international order. This is not only our foreign policy — this is our civilizational value. India will be one of the most important voices for peace, stability and prosperity in the world."
+      <span class="policy-quote-attr">— Prime Minister Narendra Modi, United Nations General Assembly, September 2023 | <a href="https://www.pmindia.gov.in/en/news_updates/pms-address-at-unga/" target="_blank" rel="noopener">PM India Office →</a></span>
+    </div>
+
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">🌏</div>
+        <div class="doctrine-card-title">Primary Objective — Strategic Autonomy</div>
+        <div class="doctrine-card-body">"Multi-Alignment" — India's defining foreign policy principle. India maintains strategic independence from both US-led and China-led blocs simultaneously. Participates in Quad (with US) AND SCO (with China/Russia). Purchases both Russian S-400 and US Apache helicopters. This posture maximizes India's strategic value to all major powers and bargaining leverage — while constraining full integration into any single alliance architecture.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">💎</div>
+        <div class="doctrine-card-title">Quad — Primary Security Partnership</div>
+        <div class="doctrine-card-body">Australia-India-Japan-USA Quadrilateral Security Dialogue provides India's primary multilateral security framework without formal treaty obligations. Quad focuses on free and open Indo-Pacific, maritime domain awareness sharing (IPMDA), vaccine/tech supply chain resilience, and joint naval exercises (Malabar). For India, Quad provides tacit US security backing against China without committing to US alliance wars.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">🤝</div>
+        <div class="doctrine-card-title">Russia — Legacy Arms Relationship</div>
+        <div class="doctrine-card-body">India's historical defense dependency on Russia (60%+ of equipment) is being systematically reduced but cannot be rapidly severed. India refused to condemn Russia's Ukraine invasion, abstaining at UN votes. Russia remains supplier of Su-30MKI engines, maintenance for legacy platforms, S-400, and submarine propulsion technology. India walks a tightrope avoiding CAATSA sanctions while diversifying to US/French/Israeli suppliers through 2030.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">⚓</div>
+        <div class="doctrine-card-title">IOR Dominance — Necklace of Diamonds</div>
+        <div class="doctrine-card-body">India's counter to China's "String of Pearls" basing strategy: securing access agreements in Oman (Duqm), Seychelles (Assumption Island), Maldives, Mauritius (Agaléga), and Sri Lanka. These "Mission SAGAR" partnerships provide Indian naval surveillance and logistical access points across the Indian Ocean. The Andaman/Nicobar Islands provide India's "unsinkable aircraft carrier" controlling the Malacca Strait approach.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">💰</div>
+        <div class="doctrine-card-title">Economic Diplomacy — Global South Leadership</div>
+        <div class="doctrine-card-body">India positions itself as the voice of the Global South in G20 and multilateral forums, leveraging its democratic-developing nation identity for soft power. The India-Middle East-Europe Economic Corridor (IMEC) — announced G20 2023 — competes with China's BRI as an alternative connectivity platform. India is positioning its digital payments infrastructure (UPI), generic pharmaceuticals, and IT services as tools of economic statecraft.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-icon">🔬</div>
+        <div class="doctrine-card-title">Technology Sovereignty</div>
+        <div class="doctrine-card-body">India-US iCET (Initiative on Critical and Emerging Technology, 2023) covers semiconductor co-production, AI collaboration, quantum computing, and space cooperation. GE-F414 jet engine technology transfer to HAL (for Tejas Mk2 and AMCA) is the most significant defense technology transfer in India-US history. India is building domestic semiconductor fab capacity through the India Semiconductor Mission ($10B+ investment).</div>
+      </div>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-head" onclick="toggleCollapsible(this)">
+        <span>🌐 India-China: Competitive Co-existence (2026 Assessment)</span>
+        <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px"></i>
+      </div>
+      <div class="collapsible-body">
+        <div class="collapsible-body-inner">
+          <ul>
+            <li><strong>October 2024 LAC Disengagement Agreement:</strong> Both sides withdrew from some friction points (Depsang, Demchok). Reduces immediate clash risk but China retained territorial gains from 2020–2022 "salami slicing" operations</li>
+            <li><strong>Trade Paradox:</strong> India-China bilateral trade exceeds $130B (China is India's largest trade partner) even as military competition intensifies — creating economic interdependence that constrains full confrontation</li>
+            <li><strong>Diplomatic Track:</strong> SCO membership (both members) provides forum for managing competition; India-China Foreign Minister meetings 2024 partially restored diplomatic channels</li>
+            <li><strong>Border Status (2026):</strong> ~50,000 Indian troops permanently stationed on LAC; China maintains equivalent force. Disengagement reduced contact points but fundamental territorial dispute unresolved</li>
+            <li><strong>Intelligence Assessment:</strong> China continues "salami-slicing" via gradual infrastructure development in contested zones; India responding with accelerated BRO road/tunnel construction</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-head" onclick="toggleCollapsible(this)">
+        <span>🕊 India-Pakistan: Post-Operation Sindoor (2026 Status)</span>
+        <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px"></i>
+      </div>
+      <div class="collapsible-body">
+        <div class="collapsible-body-inner">
+          <ul>
+            <li><strong>Ceasefire Status:</strong> May 10, 2025 ceasefire holds as of March 2026; both sides withdrew forces to pre-Sindoor LOC positions</li>
+            <li><strong>Diplomatic Channels:</strong> Minimal — India suspended Indus Waters Treaty (IWT) negotiations; Pakistan severed trade links</li>
+            <li><strong>Terrorism Baseline:</strong> Cross-border infiltration reduced 60% vs 2024 peak; Pakistan-based militant groups LASHKAR-e-TAIBA and JAISH-e-MOHAMMED restructuring after infrastructure destruction</li>
+            <li><strong>Nuclear Signaling:</strong> Both nations activated nuclear command mechanisms during May 2025 crisis; India observed Pakistan's NCA convening; deterrence held at crisis peak</li>
+            <li><strong>Strategic Assessment:</strong> India demonstrated overwhelming conventional superiority and willingness to use it; Pakistan's nuclear deterrent prevented full-scale conventional defeat. Strategic stalemate continues</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 12: DEFENSE ECONOMY & PROCUREMENT -->
+<section class="section-wrap" id="section-economy">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">12</span>
+      <h2 class="section-title">Defence Economy & Procurement</h2>
+      <span class="section-badge">$86B BUDGET · MAKE IN INDIA · SIPRI</span>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">💰 DEFENCE BUDGET — FY2025/26</div>
+      <p>India's defence allocation for FY2025/26 is <strong class="critical">₹6.21 lakh crore ($74.4 billion USD)</strong> — <strong class="critical">4th highest globally</strong> after the USA, China, and Russia. As a percentage of GDP (~1.9%), India's defence spending remains below NATO's 2% benchmark and China's ~2.1%. Effective military purchasing power is higher due to lower labor costs. The Atma Nirbhar Bharat initiative mandates <strong class="critical">75% domestic procurement</strong> by FY2027 — driving a complete restructuring of India's defense industrial base from Russian import-dependency towards self-sufficiency.</p>
+    </div>
+
+    <div class="equip-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--space-4);margin-bottom:var(--space-8)">
+      <div class="stat-card">
+        <div class="stat-num">$74.4B</div>
+        <div class="stat-label">Defence Budget FY2025/26</div>
+        <div class="stat-note">4th largest globally</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">1.9%</div>
+        <div class="stat-label">% of GDP allocated</div>
+        <div class="stat-note">Target: 2.5% by 2030</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$2.63B</div>
+        <div class="stat-label">Defence Exports FY2024</div>
+        <div class="stat-note">Target: $5B by 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">310+</div>
+        <div class="stat-label">Items on Positive Indigenization List</div>
+        <div class="stat-note">Import banned; domestic only</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">21%</div>
+        <div class="stat-label">Capital Budget for Domestic Procurement</div>
+        <div class="stat-note">From ~20% in 2020</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$10B+</div>
+        <div class="stat-label">Rafale Mk2 Potential Deal Value</div>
+        <div class="stat-note">114 aircraft; 2026 contract expected</div>
+      </div>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Category</th><th>FY2025/26 Allocation</th><th>YoY Change</th><th>Priority Programs</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Capital (New Equipment)</td><td>₹1.8 lakh crore ($21.5B)</td><td>+11.1%</td><td>Tejas Mk1A (HAL), P75I submarines, Rafale MK2 down payment, AMCA TD</td><td><a href="https://www.indiabudget.gov.in" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Revenue (Operations/Maintenance)</td><td>₹4.4 lakh crore ($52.9B)</td><td>+6.2%</td><td>Salaries (1.46M+ uniformed), fuel, spare parts, ammunition procurement</td><td><a href="https://www.indiabudget.gov.in" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>DRDO R&D</td><td>₹26,000 crore ($3.1B)</td><td>+9.5%</td><td>AMCA, Agni-VI, Project Kusha BMD, Autonomous Weapons, Quantum Radar</td><td><a href="https://www.drdo.gov.in" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Coast Guard / Paramilitary</td><td>₹38,000 crore ($4.6B)</td><td>+5.8%</td><td>OPV procurement, Dornier Do-228 coastal surveillance, cyber units</td><td><a href="https://www.indiancoastguard.gov.in" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--color-primary);margin:var(--space-8) 0 var(--space-4);letter-spacing:1px">MAJOR PENDING PROCUREMENT DECISIONS (2026–2028)</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Program</th><th>Value</th><th>Options</th><th>Decision Timeline</th><th>Strategic Weight</th></tr></thead>
+        <tbody>
+          <tr><td>MRFA (Multi Role Fighter Aircraft)</td><td>~$20–24B (114 aircraft)</td><td>Rafale F4 (France) vs F/A-18E (USA) vs F-15EX (USA)</td><td>2026 contract (G2G)</td><td>🔴 CRITICAL — closes IAF squadron gap</td></tr>
+          <tr><td>Project 75I Submarines</td><td>~$8–9B (6 AIP SSKs)</td><td>HDW/TKMS (Germany), Naval Group/DCNS (France), Navantia (Spain)</td><td>2026–2027 contract</td><td>🔴 CRITICAL — sea-lane control vs China</td></tr>
+          <tr><td>Future Ready Combat Vehicle</td><td>~$15B (1,770 IFVs)</td><td>Indigenous FICV vs BMP upgrade vs K-21 (Korea)</td><td>2027</td><td>🟡 HIGH — Army mechanization modernization</td></tr>
+          <tr><td>Naval Multi Role Helicopter</td><td>~$2.4B (111 MRH)</td><td>MH-60R Seahawk (USA) + indigenous development</td><td>Contract executing</td><td>🟡 HIGH — ASW capability gap closure</td></tr>
+          <tr><td>AMCA Technology Demonstrator</td><td>~$3.1B R&D phase</td><td>HAL sole-source; GE-F414 engine shortlisted</td><td>2026 TD flight anticipated</td><td>🔴 CRITICAL — 5th gen sovereignty program</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 13: ORDER OF BATTLE — QUICK REFERENCE -->
+<section class="section-wrap" id="section-oob" style="background:var(--color-surface)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">13</span>
+      <h2 class="section-title">Order of Battle — Quick Reference</h2>
+      <span class="section-badge">CLASSIFIED OPEN SOURCE | MARCH 2026</span>
+    </div>
+    <p style="color:var(--color-muted);margin-bottom:var(--space-6);font-size:0.9rem">Sources: SIPRI, IISS Military Balance 2025, Global Firepower, FAS Nuclear Notebook, DRDO/HAL official releases. All figures approximate open-source estimates.</p>
+
+    <div class="oob-grid">
+      <div class="oob-block">
+        <div class="oob-block-head">🪖 ARMY</div>
+        <table class="data-table">
+          <tbody>
+            <tr><td>Active Personnel</td><td><strong>1,237,117</strong></td></tr>
+            <tr><td>Reserve Personnel</td><td>960,000</td></tr>
+            <tr><td>Paramilitary</td><td>1,587,000</td></tr>
+            <tr><td>Army Commands</td><td>7 (+ 2 in development)</td></tr>
+            <tr><td>Armoured Regiments</td><td>63 (+4 IBG allocation)</td></tr>
+            <tr><td>Artillery Regiments</td><td>299</td></tr>
+            <tr><td>Main Battle Tanks</td><td>~4,614 (T-90/T-72/Arjun)</td></tr>
+            <tr><td>Armored Vehicles (total)</td><td>~11,000+</td></tr>
+            <tr><td>Self-Propelled Artillery</td><td>~100 (K9 Vajra)</td></tr>
+            <tr><td>Towed Artillery</td><td>~3,700</td></tr>
+            <tr><td>MLRS</td><td>~250 (Pinaka, BM-21 Grad)</td></tr>
+            <tr><td>Anti-Aircraft (SAM + radar)</td><td>~2,500 + S-400/Akash</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="oob-block">
+        <div class="oob-block-head">⚓ NAVY</div>
+        <table class="data-table">
+          <tbody>
+            <tr><td>Active Personnel</td><td><strong>67,228</strong></td></tr>
+            <tr><td>Aircraft Carriers</td><td>2 (Vikrant, Vikramaditya)</td></tr>
+            <tr><td>Destroyers</td><td>13</td></tr>
+            <tr><td>Frigates</td><td>14</td></tr>
+            <tr><td>Corvettes</td><td>18</td></tr>
+            <tr><td>SSBN (nuclear sub)</td><td>2 (+2 building)</td></tr>
+            <tr><td>SSK (diesel sub)</td><td>13 (6 Scorpène + 7 Kilo)</td></tr>
+            <tr><td>Amphibious Ships</td><td>8</td></tr>
+            <tr><td>Offshore Patrol Vessels</td><td>12</td></tr>
+            <tr><td>Mine Countermeasure</td><td>9</td></tr>
+            <tr><td>Naval Aircraft (total)</td><td>~250 (fixed & rotary)</td></tr>
+            <tr><td>Forward Bases (IOR)</td><td>Andaman/Nicobar, Lakshadweep, Oman (access)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="oob-block">
+        <div class="oob-block-head">✈ AIR FORCE</div>
+        <table class="data-table">
+          <tbody>
+            <tr><td>Active Personnel</td><td><strong>170,000</strong></td></tr>
+            <tr><td>Total Aircraft</td><td>~2,200 (all types)</td></tr>
+            <tr><td>Fighter/Attack Aircraft</td><td>~730</td></tr>
+            <tr><td>Rafale F3R</td><td>36 (+114 on order)</td></tr>
+            <tr><td>Su-30MKI</td><td>272</td></tr>
+            <tr><td>Tejas Mk1A</td><td>36 del. / 97 ordered</td></tr>
+            <tr><td>MiG-29 (all variants)</td><td>~70</td></tr>
+            <tr><td>Mirage 2000H</td><td>~50</td></tr>
+            <tr><td>Transport (C-17, C-130J, IL-76)</td><td>~190</td></tr>
+            <tr><td>Tanker (IL-78MKI)</td><td>6</td></tr>
+            <tr><td>AEW&C (Netra, Phalcon)</td><td>6</td></tr>
+            <tr><td>Active Squadrons</td><td>~30 (target: 42)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="oob-block">
+        <div class="oob-block-head">☢ STRATEGIC FORCES</div>
+        <table class="data-table">
+          <tbody>
+            <tr><td>Estimated Warheads</td><td><strong>~180</strong> (SIPRI 2025)</td></tr>
+            <tr><td>Nuclear Doctrine</td><td>No First Use (NFU) + caveats</td></tr>
+            <tr><td>ICBM (Agni-V MIRV)</td><td>~80 missiles, 4–10 MIRVs</td></tr>
+            <tr><td>IRBM (Agni-III)</td><td>~40 missiles, 3,500 km</td></tr>
+            <tr><td>MRBM (Agni-II)</td><td>~30 missiles, 2,000+ km</td></tr>
+            <tr><td>SRBM (Agni-I, Prithvi)</td><td>~200 missiles</td></tr>
+            <tr><td>SLBM (K-15, K-4)</td><td>~24 deployed on SSBN</td></tr>
+            <tr><td>Air-Delivered (nuclear)</td><td>Mirage 2000H, Jaguar IS</td></tr>
+            <tr><td>Strategic Forces Command</td><td>Established 2003; PM as NCA Chairman</td></tr>
+            <tr><td>ASAT Capability</td><td>LEO demonstrated (2019); MEO developing</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 14: RECENT OPERATIONS -->
+<section class="section-wrap" id="section-ops">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">14</span>
+      <h2 class="section-title">Recent Operations</h2>
+      <span class="section-badge">OP SINDOOR 2025 · GALWAN 2020 · BALAKOT 2019</span>
+    </div>
+
+    <div class="intel-alert intel-alert-red">
+      <div class="intel-alert-head">🔴 OPERATION SINDOOR — MAY 7–10, 2025 (Most Recent Combat Action)</div>
+      <p>India's most significant military operation since 1971: precision strike campaign against 9 Pakistani/PoJK terrorist infrastructure targets. <strong class="critical">Triggered by</strong> the Pahalgam massacre (April 22, 2025; 26 tourists killed; attributed to Lashkar-e-Taiba, Pakistan-based). India struck Muridke (LET HQ near Lahore), Bahawalpur (JeM HQ), Muzaffarabad (PoJK), and 7 other locations with Rafale-delivered SCALP-EG cruise missiles and Su-30MKI BrahMos. Pakistan responded with F-16/JF-17 sorties; at least 2 PAF aircraft shot down by METEOR BVR missiles (IAF Rafale engagement). Ceasefire brokered by US/Saudi Arabia on May 10. India's first acknowledged Rafale combat employment.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">May 7–10, 2025</div>
+        <div class="tl-title">Operation Sindoor (2025)</div>
+        <div class="tl-desc">Multi-domain precision strike against Lashkar/JeM infrastructure in Pakistan and PoJK following Pahalgam terrorist attack. First combat use of Rafale, SCALP-EG, and METEOR by IAF. PAF F-16 downed by METEOR in first confirmed 4th-gen BVR combat engagement in South Asia. Ceasefire May 10. <a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2121760" target="_blank" rel="noopener">MoD Statement →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">June 15–17, 2020</div>
+        <div class="tl-title">Galwan Valley Clash (2020)</div>
+        <div class="tl-desc">20 Indian soldiers killed (4 PLA confirmed, others disputed) in hand-to-hand combat at Galwan River, Eastern Ladakh, following Chinese intrusion into disputed territory. Triggered massive Indian military buildup: S-400 deployment accelerated, Rafale delivery expedited, permanent forward deployment of ~50,000 troops. India banned 250+ Chinese apps; restricted Chinese FDI. <a href="https://www.reuters.com/world/india/galwan-clash-india-china" target="_blank" rel="noopener">Reuters →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">February 26, 2019</div>
+        <div class="tl-title">Balakot Airstrikes (2019)</div>
+        <div class="tl-desc">Indian Mirage 2000H aircraft struck Jaish-e-Mohammed training camp near Balakot, KPK Province, Pakistan — first Indian airstrikes inside Pakistan since 1971. Response to Pulwama suicide bombing (Feb 14; 40 CRPF killed). Pakistan retaliated; dogfight resulted in IAF MiG-21 shot down (Abhinandan captured, released). Operation demonstrated Indian willingness to strike inside Pakistan despite nuclear risk. <a href="https://www.reuters.com/article/india-pakistan-airstrike" target="_blank" rel="noopener">Reuters →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">September 28, 2016</div>
+        <div class="tl-title">URI Surgical Strikes (2016)</div>
+        <div class="tl-desc">Para SF commandos crossed LOC and destroyed 7 militant launch pads in PoJK following URI attack (18 Indian soldiers killed, September 18). India officially acknowledged the strikes — a departure from previous policy of deniable operations across LOC. Established a precedent for acknowledged cross-LOC military action. <a href="https://www.mea.gov.in/bilateral-documents.htm" target="_blank" rel="noopener">MEA Statement →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 15: KEY PERSONALITIES -->
+<section class="section-wrap" id="section-personalities" style="background:var(--color-surface)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">15</span>
+      <h2 class="section-title">Key Personalities</h2>
+      <span class="section-badge">POLITICAL · MILITARY CHAIN OF COMMAND</span>
+    </div>
+
+    <div class="equip-grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">
+      <div class="person-card">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1e1f31cdf2c0fa95c88e7b7b0b6f4a714dbb2c73.jpg" alt="Prime Minister Narendra Modi India 2025" width="120" height="120" loading="lazy" class="person-img" onclick="openLightbox(this.src,'Prime Minister Narendra Modi — Chairman, Nuclear Command Authority & Cabinet Committee on Security')">
+        <div class="person-body">
+          <div class="person-name">Narendra Modi</div>
+          <div class="person-title">Prime Minister of India</div>
+          <div class="person-role">Chairman, Cabinet Committee on Security (CCS) · Chairman, Nuclear Command Authority (NCA) · In office since May 2014; re-elected June 2024</div>
+        </div>
+      </div>
+      <div class="person-card">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/6ae7b7f5e0ee4d5a7bffc673ea47a99f5d009804.jpg" alt="Rajnath Singh India Defence Minister" width="120" height="120" loading="lazy" class="person-img" onclick="openLightbox(this.src,'Rajnath Singh — Minister of Defence, India')">
+        <div class="person-body">
+          <div class="person-name">Rajnath Singh</div>
+          <div class="person-title">Minister of Defence</div>
+          <div class="person-role">Oversees MoD, defence procurement, DRDO, HAL, DPSUs · Member, CCS · Re-appointed 2024 · Key decision-maker for S-400, Rafale, Tejas Mk1A</div>
+        </div>
+      </div>
+      <div class="person-card">
+        <div class="person-img-placeholder">COAS</div>
+        <div class="person-body">
+          <div class="person-name">General Upendra Dwivedi</div>
+          <div class="person-title">Chief of Army Staff (COAS)</div>
+          <div class="person-role">Commands 1.23M Indian Army · Principal Military Adviser to DefMin · Member, Chiefs of Staff Committee · Appointed June 2024</div>
+        </div>
+      </div>
+      <div class="person-card">
+        <div class="person-img-placeholder">CNS</div>
+        <div class="person-body">
+          <div class="person-name">Admiral Dinesh Kumar Tripathi</div>
+          <div class="person-title">Chief of Naval Staff (CNS)</div>
+          <div class="person-role">Commands Indian Navy · Focus: Project 75I submarines, third carrier planning, IOR surveillance expansion · Appointed April 2024</div>
+        </div>
+      </div>
+      <div class="person-card">
+        <div class="person-img-placeholder">CAS</div>
+        <div class="person-body">
+          <div class="person-name">Air Chief Marshal A.P. Singh</div>
+          <div class="person-title">Chief of Air Staff (CAS)</div>
+          <div class="person-role">Commands Indian Air Force · Oversees Rafale MK2 MRFA process, AMCA TD, IAF modernization roadmap · Appointed September 2024</div>
+        </div>
+      </div>
+      <div class="person-card">
+        <div class="person-img-placeholder">CDS</div>
+        <div class="person-body">
+          <div class="person-name">General Anil Chauhan</div>
+          <div class="person-title">Chief of Defence Staff (CDS)</div>
+          <div class="person-role">India's first permanent joint warfighting commander · Coordinates tri-service operations · Drives Integrated Theatre Commands creation · Appointed Dec 2022</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 16: THREAT ASSESSMENT -->
+<section class="section-wrap" id="section-threats">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">16</span>
+      <h2 class="section-title">Threat Assessment</h2>
+      <span class="section-badge">CHINA · PAKISTAN · INTERNAL · HYBRID</span>
+    </div>
+
+    <div class="threat-matrix">
+      <div class="threat-level threat-critical">
+        <div class="threat-label">🔴 CRITICAL THREAT: CHINA (PRC)</div>
+        <ul>
+          <li><strong>Two-Front Coordination Risk:</strong> Simultaneous China+Pakistan military pressure remains India's most dangerous scenario. Both China (nuclear coercion) and Pakistan (unconventional + nuclear) maintain strategic incentives for coordinated pressure.</li>
+          <li><strong>Himalayan Salami Slicing:</strong> China continues incremental LAC encroachment through "grey zone" infrastructure creep. India's limited ability to dislodge already-captured positions creates chronic vulnerability.</li>
+          <li><strong>Naval Encirclement:</strong> China's String of Pearls basing network (Gwadar, Hambantota, Djibouti, potential Myanmar access) positions the PLAN to threaten Indian Ocean SLOCs on which India's energy imports depend.</li>
+          <li><strong>Cyber/Space Threat:</strong> PLA SSF conducts persistent offensive cyber operations against Indian military C2, power grid, and financial systems — most aggressive non-state-level digital threat India faces.</li>
+          <li><strong>Technology Gap:</strong> China fields J-20 5th-gen fighters, DF-41 MIRV ICBMs, and hypersonic weapons while India's 5th-gen AMCA remains 10+ years from IOC.</li>
+        </ul>
+      </div>
+
+      <div class="threat-level threat-high">
+        <div class="threat-label">🟠 HIGH THREAT: PAKISTAN (ISI-Sponsored Terrorism + Nuclear)</div>
+        <ul>
+          <li><strong>Strategic Depth Through Proxy:</strong> Pakistan's ISI continues supporting Lashkar-e-Taiba, Jaish-e-Mohammed, and Hizbul Mujahideen despite Operation Sindoor (2025) — the infrastructure was degraded, not destroyed.</li>
+          <li><strong>Nuclear First-Use Posture:</strong> Pakistan's explicit "first use" nuclear policy (against conventional Indian advances) and short-range tactical nuclear weapons (Nasr/Hatf-9) constrain India's Cold Start doctrine execution.</li>
+          <li><strong>Kashgar Corridor Threat:</strong> CPEC military dimensions (joint exercises, Chinese military advisors) blur civilian/military lines and potentially give China forward staging options in PoK for a two-front scenario.</li>
+          <li><strong>Economic Fragility = Instability:</strong> Pakistan's near-perpetual economic crisis (IMF programs, debt distress) drives domestic political instability — increasing risk of military adventurism as a domestic distraction tool.</li>
+        </ul>
+      </div>
+
+      <div class="threat-level threat-medium">
+        <div class="threat-label">🟡 MEDIUM THREAT: INTERNAL SECURITY & HYBRID</div>
+        <ul>
+          <li><strong>Jammu & Kashmir:</strong> Ongoing insurgency with cross-LOC infiltration. Post-Sindoor period shows reduced incidents but structural vulnerability persists. Abrogation of Article 370 (2019) complicated political landscape.</li>
+          <li><strong>Naxalite/Maoist (LWE):</strong> Left-Wing Extremism in eastern/central India (Chhattisgarh, Jharkhand, Odisha) has declined substantially but retains capability to disrupt infrastructure and mining operations.</li>
+          <li><strong>Northeast Insurgencies:</strong> Multiple separatist and ethnic insurgencies in Nagaland, Manipur, Assam — resource drain on CAPF; periodic cross-border sanctuary in Myanmar.</li>
+          <li><strong>Disinformation / Grey Zone:</strong> Chinese and Pakistani influence operations target Indian domestic politics, communal tensions, and democratic institutions. Deepfake/AI-generated content increasingly weaponized.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="dossier-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-label="Dossier Logo">
+          <rect width="36" height="36" rx="4" fill="var(--color-red)"/>
+          <text x="6" y="25" font-size="18" font-family="monospace" font-weight="900" fill="white">A</text>
+          <text x="17" y="25" font-size="18" font-family="monospace" font-weight="300" fill="rgba(255,255,255,.7)">08</text>
+        </svg>
+        <div class="footer-brand-text">
+          <div class="footer-brand-name">INDIA — A-08</div>
+          <div class="footer-brand-sub">Country Dossier // Strategic Assessment</div>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <div class="footer-meta-item">Compiled: March 2026</div>
+        <div class="footer-meta-item">Classification: Open Source</div>
+        <div class="footer-meta-item">Sources: IISS, SIPRI, CSIS, FAS, DRDO, HAL, GlobalFirepower, IHS Jane's</div>
+      </div>
+      <div class="footer-nav">
+        <a href="#section-overview">Overview</a>
+        <a href="#section-ground">Army</a>
+        <a href="#section-navy">Navy</a>
+        <a href="#section-airforce">Air Force</a>
+        <a href="#section-rocket">Missiles</a>
+        <a href="#section-nuclear">Nuclear</a>
+        <a href="#section-cyber">Cyber</a>
+        <a href="#section-doctrine">Doctrine</a>
+        <a href="#section-foreign">Foreign Policy</a>
+        <a href="#section-oob">OOB</a>
+        <a href="#section-ops">Operations</a>
+        <a href="#section-threats">Threats</a>
+      </div>
+      <div class="footer-disc">
+        <p>This document is compiled from open-source intelligence including SIPRI, IISS Military Balance, CSIS, FAS Nuclear Notebook, official defense ministry statements, and Jane's Defence. It does not contain classified information. All figures are open-source estimates subject to revision. For research and educational purposes only.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+  <img id="lightbox-img" src="" alt="" class="lightbox-img">
+  <div id="lightbox-cap" class="lightbox-cap"></div>
+</div>
+
+<script>
+// Theme toggle
+(function(){
+  const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;
+  let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+  r.setAttribute('data-theme',d);
+  if(t) t.addEventListener('click',()=>{
+    d=d==='dark'?'light':'dark';
+    r.setAttribute('data-theme',d);
+    t.setAttribute('aria-label','Switch to '+(d==='dark'?'light':'dark')+' mode');
+    t.innerHTML=d==='dark'?'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>':'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  });
+})();
+
+// Lucide icons
+lucide.createIcons();
+
+// Smooth scroll for nav
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+
+// Collapsible
+function toggleCollapsible(head) {
+  const body = head.nextElementSibling;
+  const chev = head.querySelector('.chev');
+  body.classList.toggle('open');
+  if(chev) chev.style.transform = body.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+
+// Lightbox
+function openLightbox(src, caption) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-cap').textContent = caption || '';
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+
+// Scroll progress bar
+const progressBar = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = Math.min(100, (scrollTop / docHeight) * 100);
+  if(progressBar) progressBar.style.width = pct + '%';
+});
+
+// Active nav highlight
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.side-nav a');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) {
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const active=document.querySelector(`.side-nav a[href="#${e.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+},{threshold:0.3, rootMargin:'-100px 0px -50% 0px'});
+sections.forEach(s=>obs.observe(s));
+
+// Stat counters
+function animateCounter(el) {
+  const target = parseFloat(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const prefix = el.dataset.prefix || '';
+  const isFloat = el.dataset.float === 'true';
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = target * eased;
+    el.textContent = prefix + (isFloat ? value.toFixed(1) : Math.floor(value).toLocaleString()) + suffix;
+    if(progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const counterObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && !e.target.dataset.animated) {
+      e.target.dataset.animated = 'true';
+      animateCounter(e.target);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('[data-target]').forEach(el=>counterObs.observe(el));
+</script>
+</body>
+</html>

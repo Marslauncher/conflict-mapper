@@ -1,0 +1,176 @@
+/* ============================================================
+   CONFLICT MAPPER — Shared Site Styles
+   Design system: dark military aesthetic
+   ============================================================ */
+
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  /* Type scale (fluid) */
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+  --text-hero: clamp(2.5rem,   1rem    + 5vw,    6rem);
+
+  /* Spacing (4px base) */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Fonts */
+  --font-display: 'Rajdhani', 'Share Tech Mono', sans-serif;
+  --font-mono:    'Share Tech Mono', 'Courier New', monospace;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  /* Radii */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  /* Transitions */
+  --transition: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Nav */
+  --nav-height: 52px;
+}
+
+/* ── Dark Mode (default) ──────────────────────────────────── */
+:root,
+[data-theme="dark"] {
+  --color-bg:           #0a0c10;
+  --color-surface:      #0f1117;
+  --color-surface-2:    #141820;
+  --color-surface-3:    #1a2030;
+  --color-border:       rgba(196, 30, 58, 0.2);
+  --color-border-dim:   rgba(255, 255, 255, 0.07);
+  --color-text:         #dde2ec;
+  --color-text-muted:   #8a94a8;
+  --color-text-faint:   #4a5168;
+  --color-accent:       #c41e3a;
+  --color-accent-glow:  rgba(196, 30, 58, 0.15);
+  --color-accent-dim:   rgba(196, 30, 58, 0.08);
+  --color-accent-hover: #e02442;
+  --color-green:        #22c55e;
+  --color-amber:        #f59e0b;
+  --color-blue:         #60a5fa;
+  --color-teal:         #2dd4bf;
+  --shadow-nav: 0 2px 16px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-dropdown: 0 8px 32px rgba(0, 0, 0, 0.7);
+}
+
+/* ── Light Mode ───────────────────────────────────────────── */
+[data-theme="light"] {
+  --color-bg:           #f0f2f5;
+  --color-surface:      #ffffff;
+  --color-surface-2:    #f5f6f8;
+  --color-surface-3:    #eaedf1;
+  --color-border:       rgba(196, 30, 58, 0.25);
+  --color-border-dim:   rgba(0, 0, 0, 0.1);
+  --color-text:         #0d1117;
+  --color-text-muted:   #4a5568;
+  --color-text-faint:   #9aa0ad;
+  --color-accent:       #c41e3a;
+  --color-accent-glow:  rgba(196, 30, 58, 0.08);
+  --color-accent-dim:   rgba(196, 30, 58, 0.05);
+  --color-accent-hover: #a01830;
+  --color-green:        #16a34a;
+  --color-amber:        #d97706;
+  --color-blue:         #2563eb;
+  --color-teal:         #0d9488;
+  --shadow-nav: 0 2px 12px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-dropdown: 0 8px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* System preference fallback */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg:           #0a0c10;
+    --color-surface:      #0f1117;
+    --color-surface-2:    #141820;
+    --color-surface-3:    #1a2030;
+    --color-border:       rgba(196, 30, 58, 0.2);
+    --color-border-dim:   rgba(255, 255, 255, 0.07);
+    --color-text:         #dde2ec;
+    --color-text-muted:   #8a94a8;
+    --color-text-faint:   #4a5168;
+    --color-accent:       #c41e3a;
+    --color-accent-glow:  rgba(196, 30, 58, 0.15);
+    --color-accent-dim:   rgba(196, 30, 58, 0.08);
+    --color-accent-hover: #e02442;
+    --color-green:        #22c55e;
+    --color-amber:        #f59e0b;
+    --color-blue:         #60a5fa;
+    --color-teal:         #2dd4bf;
+    --shadow-nav: 0 2px 16px rgba(0, 0, 0, 0.6);
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --shadow-dropdown: 0 8px 32px rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* ── Base Reset ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  overflow: hidden; /* No scroll on shell — content scrolls inside iframe */
+  min-height: 100dvh;
+}
+
+img, svg { display: block; max-width: 100%; }
+button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+input, select, textarea { font: inherit; color: inherit; }
+a { color: var(--color-accent); text-decoration: none; }
+ul[role="list"], ol[role="list"] { list-style: none; }
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: rgba(196, 30, 58, 0.4); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
+
+/* ── Utilities ────────────────────────────────────────────── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+}
+
+.font-display { font-family: var(--font-display); }
+.font-mono    { font-family: var(--font-mono); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B-05 Africa Theater // Geopolitical Intelligence Platform v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DESIGN SYSTEM — B-05 Africa Theater
+   Accent: Sahara Amber #C27B30 / Bright #E8A04B
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --color-bg:       #0a0c10;
+  --color-surface:  #0f1117;
+  --color-surface-2:#141820;
+  --color-surface-3:#1a2030;
+  --color-border:   rgba(194,123,48,0.22);
+  --color-border-2: rgba(194,123,48,0.10);
+  --color-text:     #dde2ec;
+  --color-text-muted:#8a94a8;
+  --color-text-faint:#4a5168;
+  --color-accent:   #C27B30;
+  --color-accent-bright:#E8A04B;
+  --color-teal:     #2dd4bf;
+  --color-blue:     #60a5fa;
+  --color-red:      #f87171;
+  --color-green:    #4ade80;
+  --font-display:   'Rajdhani', sans-serif;
+  --font-mono:      'Share Tech Mono', monospace;
+  --font-body:      'Inter', sans-serif;
+  --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;  --space-10:2.5rem;
+  --space-12:3rem;  --space-16:4rem;
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;
+  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);
+  --text-sm:clamp(.875rem,.8rem + .35vw,1rem);
+  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
+  --text-hero:clamp(2.5rem,1rem + 5vw,5.5rem);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);line-height:1.65;}
+img,video{display:block;max-width:100%;height:auto;}
+a{color:var(--color-accent);text-decoration:none;}
+a:hover{color:var(--color-accent-bright);}
+.highlight{color:var(--color-accent);}
+strong.critical{color:var(--color-accent-bright);}
+
+/* ── STICKY NAV ─────────────────────────────────────────── */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,12,16,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);height:60px;display:flex;align-items:center;}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-4);width:100%;}
+.nav-logo{font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;letter-spacing:.08em;color:var(--color-accent);white-space:nowrap;flex-shrink:0;}
+.nav-badge{font-family:var(--font-mono);font-size:10px;background:color-mix(in oklch,var(--color-accent) 15%,transparent);color:var(--color-accent);border:1px solid var(--color-border);padding:2px 8px;border-radius:3px;}
+.nav-links{display:flex;align-items:center;gap:0;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;flex:1;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;letter-spacing:.06em;color:var(--color-text-muted);padding:var(--space-1) var(--space-3);white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;text-transform:uppercase;}
+.nav-link:hover,.nav-link.active{color:var(--color-accent);border-bottom-color:var(--color-accent);}
+
+/* ── HERO ───────────────────────────────────────────────── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:60px;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(194,123,48,.08) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(96,165,250,.05) 0%,transparent 60%),#0a0c10;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(194,123,48,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(194,123,48,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.hero-content{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:var(--space-16) var(--space-6);}
+.hero-eyebrow{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-4);display:flex;align-items:center;gap:var(--space-3);}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--color-accent);}
+.hero-icon{font-size:3rem;margin-bottom:var(--space-4);}
+.hero-title{font-family:var(--font-display);font-size:var(--text-hero);font-weight:700;line-height:1.0;letter-spacing:.02em;text-transform:uppercase;margin-bottom:var(--space-4);}
+.hero-title .sub-title{display:block;font-size:clamp(1rem,1rem + 2vw,2.2rem);color:var(--color-accent);font-weight:500;letter-spacing:.1em;}
+.hero-subtitle{font-size:var(--text-lg);color:var(--color-text-muted);max-width:700px;margin-bottom:var(--space-8);}
+.hero-stamp{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-8);}
+.hero-stats{display:flex;flex-wrap:wrap;gap:var(--space-4);}
+.h-stat{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-4) var(--space-6);min-width:130px;}
+.h-stat-val{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);display:block;}
+.h-stat-key{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.08em;}
+.scroll-cue{margin-top:var(--space-12);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text-faint);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.1em;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+
+/* ── SECTION SCAFFOLDING ────────────────────────────────── */
+.section-wrap{padding:clamp(var(--space-10),5vw,var(--space-16)) var(--space-6);max-width:1280px;margin:0 auto;}
+section{border-top:1px solid var(--color-border-2);}
+.section-header{display:flex;align-items:flex-end;gap:var(--space-4);margin-bottom:var(--space-8);}
+.section-num{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.15em;margin-bottom:var(--space-1);}
+.section-title{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;text-transform:uppercase;line-height:1.1;}
+.section-lead{color:var(--color-text-muted);font-size:var(--text-sm);max-width:36ch;}
+.section-divider{flex:1;height:1px;background:linear-gradient(90deg,var(--color-accent),transparent);opacity:.3;margin-bottom:8px;}
+
+/* ── CARD GRID ──────────────────────────────────────────── */
+.card-grid{display:grid;gap:var(--space-4);}
+.grid-2{grid-template-columns:repeat(auto-fill,minmax(min(480px,100%),1fr));}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));}
+.grid-4{grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));}
+
+/* ── EQUIPMENT CARD ─────────────────────────────────────── */
+.equip-card{background:var(--color-surface);border:1px solid var(--color-border);overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.equip-card:hover{border-color:var(--color-accent);box-shadow:0 0 20px rgba(194,123,48,.08);}
+.equip-img-wrap{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--color-surface-2);}
+.equip-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform .4s;}
+.equip-img-wrap img:hover{transform:scale(1.04);}
+.equip-badge{position:absolute;top:var(--space-2);left:var(--space-2);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;background:color-mix(in oklch,var(--color-accent) 18%,transparent);color:var(--color-accent);border:1px solid var(--color-border);padding:2px 7px;backdrop-filter:blur(4px);}
+.equip-country-badge{position:absolute;top:var(--space-2);right:var(--space-2);font-size:1.2rem;background:rgba(10,12,16,.7);padding:2px 6px;border-radius:3px;}
+.equip-body{padding:var(--space-4) var(--space-5);}
+.equip-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-2);}
+.equip-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3);}
+.equip-specs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-1) var(--space-4);margin-bottom:var(--space-3);}
+.equip-spec{display:flex;justify-content:space-between;gap:var(--space-2);padding:var(--space-1) 0;border-bottom:1px solid rgba(194,123,48,.08);}
+.equip-spec-key{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.06em;}
+.equip-spec-val{font-family:var(--font-mono);font-size:11px;color:var(--color-accent-bright);font-weight:600;}
+.equip-link{display:inline-flex;align-items:center;gap:var(--space-1);font-family:var(--font-mono);font-size:10px;color:var(--color-blue);letter-spacing:.06em;text-transform:uppercase;}
+.equip-link:hover{color:var(--color-accent);}
+
+/* ── DATA TABLE ─────────────────────────────────────────── */
+.data-table-wrap{overflow-x:auto;border:1px solid var(--color-border);}
+.data-table{width:100%;border-collapse:collapse;font-size:var(--text-sm);}
+.data-table thead th{background:var(--color-surface-2);font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent);padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border);white-space:nowrap;}
+.data-table tbody tr{border-bottom:1px solid rgba(194,123,48,.06);transition:background .15s;}
+.data-table tbody tr:hover{background:rgba(194,123,48,.04);}
+.data-table tbody td{padding:var(--space-3) var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);vertical-align:middle;}
+.data-table tbody td:first-child{color:var(--color-text);font-weight:500;}
+.data-table td a{color:var(--color-blue);font-family:var(--font-mono);font-size:11px;}
+.data-table td a:hover{color:var(--color-accent);}
+
+/* ── INTEL ALERT ────────────────────────────────────────── */
+.intel-alert{background:color-mix(in oklch,var(--color-accent) 8%,var(--color-surface));border:1px solid var(--color-border);border-left:3px solid var(--color-accent);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-6);}
+.intel-alert-head{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-2);}
+.intel-alert p{font-size:var(--text-sm);line-height:1.7;}
+.intel-alert.red{border-left-color:var(--color-red);background:color-mix(in oklch,var(--color-red) 6%,var(--color-surface));}
+.intel-alert.red .intel-alert-head{color:var(--color-red);}
+
+/* ── POLICY QUOTE ───────────────────────────────────────── */
+.policy-quote{background:var(--color-surface-3);border:1px solid var(--color-border);border-left:3px solid var(--color-accent);padding:var(--space-6) var(--space-8);margin:var(--space-6) 0;font-size:var(--text-base);color:var(--color-text);font-style:italic;line-height:1.8;}
+.policy-quote-attr{display:block;margin-top:var(--space-3);font-style:normal;font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);letter-spacing:.06em;}
+
+/* ── CHOKEPOINT CARD ────────────────────────────────────── */
+.chokepoint-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-5);}
+.chokepoint-card{background:var(--color-surface);border:1px solid var(--color-border);overflow:hidden;transition:border-color .2s;}
+.chokepoint-card:hover{border-color:var(--color-accent);}
+.chokepoint-img-wrap{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--color-surface-2);}
+.chokepoint-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform .4s;}
+.chokepoint-img-wrap img:hover{transform:scale(1.04);}
+.chokepoint-badge{position:absolute;top:var(--space-2);left:var(--space-2);font-family:var(--font-mono);font-size:10px;background:color-mix(in oklch,var(--color-accent) 18%,rgba(10,12,16,.8));color:var(--color-accent);border:1px solid var(--color-border);padding:2px 7px;backdrop-filter:blur(4px);}
+.chokepoint-body{padding:var(--space-4) var(--space-5);}
+.chokepoint-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:2px;}
+.chokepoint-width{font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);margin-bottom:var(--space-3);text-transform:uppercase;letter-spacing:.06em;}
+.chokepoint-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3);}
+.chokepoint-controllers{font-size:var(--text-xs);margin-bottom:var(--space-2);}
+.ctrl-label{font-family:var(--font-mono);color:var(--color-text-faint);letter-spacing:.06em;}
+.ctrl-val{color:var(--color-text);margin-left:var(--space-2);}
+.chokepoint-risk{font-size:var(--text-xs);}
+.risk-label{font-family:var(--font-mono);color:var(--color-text-faint);letter-spacing:.06em;}
+.risk-val{margin-left:var(--space-2);font-weight:700;font-family:var(--font-mono);}
+.risk-high{color:var(--color-red);}
+.risk-med{color:var(--color-accent);}
+.risk-low{color:var(--color-green);}
+
+/* ── MATRIX TABLE ───────────────────────────────────────── */
+.matrix-country{white-space:nowrap;}
+.flag-chip{display:inline-flex;align-items:center;gap:var(--space-2);}
+.flag-emoji{font-size:1.1rem;}
+.flag-name{font-family:var(--font-display);font-weight:600;font-size:var(--text-sm);color:var(--color-text);}
+.rating-bar{display:flex;align-items:center;gap:var(--space-2);min-width:120px;}
+.rating-fill-wrap{flex:1;background:rgba(255,255,255,.06);height:6px;border-radius:3px;overflow:hidden;}
+.rating-fill{height:100%;background:var(--color-accent);border-radius:3px;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+.rating-num{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);min-width:30px;}
+.nuclear-yes{color:var(--color-red);font-weight:700;font-family:var(--font-mono);}
+.nuclear-limited{color:var(--color-accent);font-family:var(--font-mono);}
+.nuclear-no{color:var(--color-text-faint);font-family:var(--font-mono);}
+
+/* ── ESCALATION LADDER ──────────────────────────────────── */
+.escalation-ladder{display:flex;flex-direction:column;gap:0;}
+.esc-rung{border:1px solid var(--color-border);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-2);position:relative;transition:border-color .2s;}
+.esc-rung:hover{border-color:var(--color-accent);}
+.esc-level-1{border-left:3px solid #4ade80;}
+.esc-level-2{border-left:3px solid #a3e635;}
+.esc-level-3{border-left:3px solid #C27B30;}
+.esc-level-4{border-left:3px solid #f97316;}
+.esc-level-5{border-left:3px solid #ef4444;}
+.esc-level-6{border-left:3px solid #dc2626;background:rgba(220,38,38,.06);}
+.esc-level-num{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-1);}
+.esc-level-name{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);}
+.esc-level-desc{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-2);line-height:1.6;}
+.esc-level-actors{font-family:var(--font-mono);font-size:11px;color:var(--color-blue);margin-bottom:var(--space-1);}
+.esc-level-trigger{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);letter-spacing:.04em;}
+.esc-arrow{text-align:center;color:var(--color-text-faint);font-size:1.2rem;margin:var(--space-1) 0;}
+
+/* ── TABS ───────────────────────────────────────────────── */
+.tabs-wrap{margin-bottom:var(--space-8);}
+.tab-buttons{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-4);border-bottom:1px solid var(--color-border);padding-bottom:0;}
+.tab-btn{font-family:var(--font-display);font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted);padding:var(--space-2) var(--space-4);border-bottom:2px solid transparent;cursor:pointer;transition:color .2s,border-color .2s;background:none;border-top:none;border-left:none;border-right:none;text-transform:uppercase;letter-spacing:.06em;margin-bottom:-1px;}
+.tab-btn:hover,.tab-btn.active{color:var(--color-accent);border-bottom-color:var(--color-accent);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* ── SCENARIO TAB CONTENT ───────────────────────────────── */
+.scenario-card{background:var(--color-surface-2);border:1px solid var(--color-border);padding:var(--space-6);}
+.scenario-trigger{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.scenario-title{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-text);margin-bottom:var(--space-4);}
+.scenario-steps{display:flex;flex-direction:column;gap:var(--space-3);}
+.scenario-step{display:flex;gap:var(--space-4);padding:var(--space-3) var(--space-4);background:rgba(194,123,48,.04);border:1px solid rgba(194,123,48,.08);}
+.step-time{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);min-width:80px;padding-top:2px;}
+.step-text{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── COLLAPSIBLE ────────────────────────────────────────── */
+.collapsible{border:1px solid var(--color-border);margin-bottom:var(--space-3);}
+.collapsible-head{display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);cursor:pointer;font-family:var(--font-display);font-weight:600;font-size:var(--text-base);text-transform:uppercase;letter-spacing:.04em;transition:color .2s;background:var(--color-surface);}
+.collapsible-head:hover,.collapsible-head.open{color:var(--color-accent);}
+.collapsible-body{display:none;padding:var(--space-5);border-top:1px solid var(--color-border);background:var(--color-surface-2);}
+.collapsible-body.open{display:block;}
+
+/* ── STAT BAR ───────────────────────────────────────────── */
+.stat-row{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-3);}
+.stat-label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);min-width:160px;text-transform:uppercase;letter-spacing:.06em;}
+.stat-bar-wrap{flex:1;background:rgba(255,255,255,.06);height:8px;border-radius:4px;overflow:hidden;}
+.stat-fill{height:100%;background:var(--color-accent);border-radius:4px;}
+.stat-val{font-family:var(--font-mono);font-size:11px;color:var(--color-accent);min-width:40px;text-align:right;}
+
+/* ── WILDCARD CARD ──────────────────────────────────────── */
+.wildcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-4);}
+.wildcard-card{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);transition:border-color .2s;}
+.wildcard-card:hover{border-color:var(--color-accent);}
+.wildcard-icon{font-size:1.8rem;margin-bottom:var(--space-3);}
+.wildcard-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:var(--space-2);}
+.wildcard-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── DOCTRINE CARD ──────────────────────────────────────── */
+.doctrine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:var(--space-4);}
+.doctrine-card{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-5);}
+.doctrine-icon{font-size:1.6rem;margin-bottom:var(--space-3);}
+.doctrine-label{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--space-1);}
+.doctrine-title{font-family:var(--font-display);font-size:var(--text-base);font-weight:700;color:var(--color-accent-bright);margin-bottom:var(--space-2);}
+.doctrine-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;}
+
+/* ── MAP / INLINE IMAGE ─────────────────────────────────── */
+.map-container{position:relative;overflow:hidden;border:1px solid var(--color-border);margin-bottom:var(--space-4);}
+.map-img{width:100%;cursor:pointer;transition:transform .4s;}
+.map-img:hover{transform:scale(1.02);}
+.map-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,12,16,.85));padding:var(--space-4) var(--space-5);}
+.map-caption{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;}
+.map-stats-row{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-6);}
+.map-stat{background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-3) var(--space-5);flex:1;min-width:120px;}
+.map-stat-val{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);display:block;}
+.map-stat-key{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.06em;}
+figure.inline-img{border:1px solid var(--color-border);overflow:hidden;margin:var(--space-6) 0;}
+figure.inline-img img{width:100%;cursor:pointer;transition:transform .3s;}
+figure.inline-img img:hover{transform:scale(1.02);}
+figure.inline-img figcaption{padding:var(--space-3) var(--space-4);font-family:var(--font-mono);font-size:11px;color:var(--color-text-faint);background:var(--color-surface);letter-spacing:.04em;}
+
+/* ── XREF LINKS ─────────────────────────────────────────── */
+.xref-links{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);margin-bottom:var(--space-6);padding:var(--space-3) var(--space-4);background:var(--color-surface);border:1px solid var(--color-border);}
+.xref-label{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;}
+.xref-chip{font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;background:color-mix(in oklch,var(--color-accent) 10%,var(--color-surface-2));color:var(--color-accent);border:1px solid var(--color-border);padding:var(--space-1) var(--space-3);}
+.xref-chip:hover{background:color-mix(in oklch,var(--color-accent) 18%,var(--color-surface-2));color:var(--color-accent-bright);}
+
+/* ── SOURCES GRID ───────────────────────────────────────── */
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:var(--space-6);}
+.sources-col h3{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-4);padding-bottom:var(--space-2);border-bottom:1px solid var(--color-border);}
+.source-item{display:flex;flex-direction:column;gap:2px;margin-bottom:var(--space-4);}
+.source-item a{font-size:var(--text-sm);font-weight:500;color:var(--color-text);}
+.source-item a:hover{color:var(--color-accent);}
+.source-item span{font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);}
+.classification-notice{background:var(--color-surface-2);border:1px solid var(--color-border);border-top:3px solid var(--color-accent);padding:var(--space-6);margin-top:var(--space-8);text-align:center;}
+.class-title{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-3);}
+.class-body{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;max-width:700px;margin:0 auto;}
+
+/* ── LIGHTBOX ───────────────────────────────────────────── */
+#lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;flex-direction:column;gap:var(--space-4);}
+#lightbox.active{display:flex;}
+#lightbox-img{max-width:90vw;max-height:80vh;object-fit:contain;border:1px solid var(--color-border);}
+#lightbox-cap{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-muted);max-width:600px;text-align:center;}
+#lightbox-close{position:absolute;top:var(--space-4);right:var(--space-6);font-family:var(--font-mono);font-size:var(--text-xl);color:var(--color-text-muted);cursor:pointer;}
+#lightbox-close:hover{color:var(--color-accent);}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--space-6);text-align:center;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-text{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.06em;}
+
+/* ── UTILITY ─────────────────────────────────────────────── */
+.mb-4{margin-bottom:var(--space-4);} .mb-6{margin-bottom:var(--space-6);} .mb-8{margin-bottom:var(--space-8);}
+.text-muted{color:var(--color-text-muted);} .text-accent{color:var(--color-accent);}
+.mono{font-family:var(--font-mono);font-size:var(--text-xs);}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:10px;padding:2px 8px;border:1px solid var(--color-border);color:var(--color-text-faint);letter-spacing:.06em;margin:2px;}
+.tag-red{border-color:rgba(248,113,113,.3);color:var(--color-red);}
+.tag-green{border-color:rgba(74,222,128,.3);color:var(--color-green);}
+.tag-teal{border-color:rgba(45,212,191,.3);color:var(--color-teal);}
+.gap-2{gap:var(--space-2);}
+.flex-wrap{display:flex;flex-wrap:wrap;gap:var(--space-2);}
+@media(max-width:768px){
+  .nav-logo{font-size:11px;}
+  .hero-stats{flex-direction:column;}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
+  .section-title{font-size:var(--text-xl);}
+  .equip-specs{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="site-nav" role="navigation" aria-label="Theater navigation">
+  <div class="nav-inner">
+    <div class="nav-logo">INTEL PLATFORM v2</div>
+    <div class="nav-badge">B-05</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#theater-map">Geography</a>
+      <a class="nav-link" href="#theater-context">Context</a>
+      <a class="nav-link" href="#theater-history">History</a>
+      <a class="nav-link" href="#theater-forces">Forces</a>
+      <a class="nav-link" href="#theater-matrix">Matrix</a>
+      <a class="nav-link" href="#theater-chokepoints">Chokepoints</a>
+      <a class="nav-link" href="#theater-flashpoints">Flashpoints</a>
+      <a class="nav-link" href="#theater-logistics">Logistics</a>
+      <a class="nav-link" href="#theater-escalation">Escalation</a>
+      <a class="nav-link" href="#theater-wildcards">Wild Cards</a>
+      <a class="nav-link" href="#theater-assessment">Assessment</a>
+      <a class="nav-link" href="#theater-sources">Sources</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">CLASSIFIED OPEN-SOURCE ANALYSIS // MARCH 2026 // SERIES B THEATER DOSSIER</div>
+    <div class="hero-icon">🌍</div>
+    <h1 class="hero-title">
+      AFRICA
+      <span class="sub-title">OPERATIONAL THEATER ANALYSIS // B-05</span>
+    </h1>
+    <p class="hero-subtitle">Great power competition, proxy network analysis & conflict scenario modeling across the world's most expansive and resource-contested strategic theater</p>
+    <p class="hero-stamp">ACTORS: RUSSIA (AFRICA CORPS) · CHINA (PLAN DJIBOUTI) · USA (AFRICOM) · FRANCE (BARKHANE WITHDRAWAL) · NIGERIA · EGYPT · SOUTH AFRICA</p>
+    <div class="hero-stats">
+      <div class="h-stat">
+        <span class="h-stat-val">30.4M km²</span>
+        <span class="h-stat-key">Theater Area</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">54</span>
+        <span class="h-stat-key">Nations</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">4</span>
+        <span class="h-stat-key">External Powers</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val">ACTIVE</span>
+        <span class="h-stat-key">Conflict Status</span>
+      </div>
+      <div class="h-stat">
+        <span class="h-stat-val highlight">7/10</span>
+        <span class="h-stat-key">Threat Level</span>
+      </div>
+    </div>
+    <div class="scroll-cue">▼ &nbsp; SCROLL TO ANALYZE</div>
+  </div>
+</section>
+
+<!-- SECTION 01: GEOGRAPHIC OVERVIEW -->
+<section id="theater-map">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">01 // GEOGRAPHIC OVERVIEW</div>
+      <h2 class="section-title">Strategic Geography</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Sahel corridor, Horn of Africa & maritime chokepoints</div>
+  </div>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚠ STRATEGIC OVERVIEW</div>
+    <p>The Africa theater is the world's largest contiguous landmass — <strong class="critical">30.4 million km² hosting 54 sovereign nations</strong> — and the primary arena for 21st-century great power competition. Russia's Africa Corps (Wagner Group successor) operates across the Sahel; China controls the continent's only purpose-built foreign military base in Djibouti and anchors Belt &amp; Road dual-use port infrastructure from the Atlantic to the Indian Ocean; the United States operates AFRICOM from Stuttgart and maintains its largest Africa base at Camp Lemonnier, Djibouti. France's withdrawal from Mali, Burkina Faso, and Niger has created strategic vacuums being filled at speed by Russian and Chinese influence, making Africa the fastest-moving theater in the 2026 great power competition landscape.</p>
+  </div>
+
+  <div class="map-container mb-6">
+    <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3b5aa0f78d45a8f32a11a05e9f34f4d94b0b8574.jpg"
+      alt="Africa political map showing Sahel corridor and key strategic regions" width="1280" height="720" loading="lazy"
+      onclick="openLightbox(this.src,'Africa theater strategic overview — Sahel corridor (Mali, Niger, Burkina Faso, Chad), Horn of Africa (Djibouti basing hub, Ethiopia, Somalia), Gulf of Guinea oil corridor (Nigeria, Angola), Mozambique Channel, Cape of Good Hope')">
+    <div class="map-overlay">
+      <div class="map-caption">AFRICA THEATER // STRATEGIC OVERVIEW // GREAT POWER COMPETITION ZONES</div>
+    </div>
+  </div>
+  <div class="map-stats-row">
+    <div class="map-stat"><span class="map-stat-val">30.4M km²</span><span class="map-stat-key">Theater Area</span></div>
+    <div class="map-stat"><span class="map-stat-val">54</span><span class="map-stat-key">Nation-States</span></div>
+    <div class="map-stat"><span class="map-stat-val">4,000+</span><span class="map-stat-key">US Troops (Camp Lemonnier)</span></div>
+    <div class="map-stat"><span class="map-stat-val">1</span><span class="map-stat-key">PLA Base (Djibouti)</span></div>
+    <div class="map-stat"><span class="map-stat-val">~20</span><span class="map-stat-key">Russia Africa Corps Countries</span></div>
+  </div>
+
+  <div class="map-container mb-6">
+    <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b8cb700da6c36b7c7f5f39d1fd7ef8d68f4c3098.jpg"
+      alt="Djibouti strategic location map showing Camp Lemonnier and Chinese PLA base" width="1280" height="720" loading="lazy"
+      onclick="openLightbox(this.src,'Djibouti basing hub — the only location on Earth where US, Chinese, French, and Japanese military bases are within a few kilometers of each other. Camp Lemonnier (US, 4,000 troops), PLA Support Base (China, 400–2,000 personnel), Camp Lemonnier French detachment, JGSDF (Japan). Controls Bab el-Mandeb access to Red Sea.')">
+    <div class="map-overlay">
+      <div class="map-caption">DJIBOUTI BASING HUB // MULTI-POWER MILITARY CONCENTRATION // BAB EL-MANDEB GATEWAY</div>
+    </div>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Strategic Terrain Analysis</h3>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">The Africa theater is defined by five strategic sub-regions that each present distinct competition dynamics. The <strong style="color:var(--color-accent);">Sahel corridor</strong> (Mali–Niger–Burkina Faso–Chad) is the active hot zone of Russian influence expansion and jihadist insurgency. The <strong style="color:var(--color-accent);">Horn of Africa</strong> — centered on Djibouti — is the world's most concentrated foreign basing hub, hosting US, Chinese, French, and Japanese forces within kilometers of each other. The <strong style="color:var(--color-accent);">Gulf of Guinea</strong> hosts Nigeria's oil infrastructure (2.1M bbl/day capacity) and growing maritime piracy operations. The <strong style="color:var(--color-accent);">Mozambique Channel</strong> is an emerging insurgency and energy flashpoint (natural gas reserves). The <strong style="color:var(--color-accent);">Cape of Good Hope</strong> corridor provides the alternative global trade route when Suez/Bab el-Mandeb is disrupted.</p>
+      <p class="text-muted mb-4" style="font-size:var(--text-sm);line-height:1.7;">Africa's mineral endowment — over 30% of the world's cobalt (DRC), significant lithium, manganese, platinum, and rare earth deposits — positions the continent as a decisive theater for 21st-century technology supply chain competition. Chinese control of Zambian/Congolese cobalt through debt-for-resource infrastructure financing creates strategic leverage over global EV battery production that rivals any military asset in the theater.</p>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);margin-bottom:var(--space-3);text-transform:uppercase;">Key Strategic Nodes</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Node</th><th>Significance</th><th>Controller</th><th>Risk</th></tr></thead>
+          <tbody>
+            <tr><td>Djibouti</td><td>Multi-power basing hub; Bab el-Mandeb access</td><td>Djibouti + US/China/France</td><td class="tag-red" style="color:var(--color-red);font-family:var(--font-mono);font-size:11px;">CRITICAL</td></tr>
+            <tr><td>Sahel Corridor</td><td>Wagner/Africa Corps expansion zone; 3 coups 2020–23</td><td>Russia proxy network</td><td class="tag-red" style="color:var(--color-red);font-family:var(--font-mono);font-size:11px;">CRITICAL</td></tr>
+            <tr><td>DRC / Cobalt Belt</td><td>70% of global cobalt; Chinese-controlled supply</td><td>China (Sicomines/CMOC)</td><td style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Cape of Good Hope</td><td>Alternative Suez route; 20,000+ vessels/year</td><td>South Africa (neutral)</td><td style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Gulf of Guinea</td><td>Nigeria/Angola oil; 5% global supply</td><td>Nigeria, Angola, USA (AFRICOM)</td><td style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;">HIGH</td></tr>
+            <tr><td>Mozambique Channel</td><td>LNG reserves (Cabo Delgado); IS-Mozambique insurgency</td><td>Mozambique + Rwanda/SADC</td><td style="color:var(--color-green);font-family:var(--font-mono);font-size:11px;">ELEVATED</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 02: STRATEGIC CONTEXT -->
+<section id="theater-context">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">02 // STRATEGIC CONTEXT</div>
+      <h2 class="section-title">Why Africa Matters</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert red">
+    <div class="intel-alert-head">🔴 ACTIVE COMPETITION THEATER — MARCH 2026</div>
+    <p>The Africa theater is experiencing <strong class="critical">accelerating great power competition</strong> as France's Sahel withdrawal creates strategic vacuums rapidly being filled by Russia's Africa Corps and deepening Chinese infrastructure investment. The Sahel has seen three military coups since 2020 (Mali 2021, Burkina Faso 2022, Niger 2023) — all resulting in expulsion of French forces and invitation of Russian PMC/Africa Corps operatives. China now operates <strong class="critical">the only foreign military base on the continent</strong> (Djibouti, since 2017) and controls strategic port infrastructure at Doraleh (Djibouti), Lamu (Kenya), and Bagamoyo (Tanzania). AFRICOM's counterterrorism mission is being displaced by great power competition as the primary organizing framework.</p>
+  </div>
+
+  <div class="doctrine-grid mb-8">
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🇷🇺</div>
+      <div class="doctrine-label">Russian Strategy</div>
+      <div class="doctrine-title">Africa Corps / Wagner Successor</div>
+      <div class="doctrine-desc">Russia's Africa Corps (rebranded from Wagner Group post-Prigozhin 2023) operates across 20+ African countries, providing regime security for authoritarian governments in exchange for mining concessions and strategic basing access. The model combines PMC fighters, disinformation campaigns, and resource extraction to create durable Russian spheres of influence that displace Western partners at minimal cost.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🇨🇳</div>
+      <div class="doctrine-label">Chinese Strategy</div>
+      <div class="doctrine-title">Dual-Use Infrastructure (BRI)</div>
+      <div class="doctrine-desc">China's Belt &amp; Road Initiative in Africa combines commercial port development with potential military access. The Djibouti base (PLAN Support Base, 2017) established China's first overseas military facility — with potential capacity for aircraft carriers. Chinese-built ports at Doraleh, Mombasa, Bagamoyo, and Hambantota (Indian Ocean) create a "String of Pearls" limiting US freedom of maneuver.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🇺🇸</div>
+      <div class="doctrine-label">US Strategy</div>
+      <div class="doctrine-title">AFRICOM Counterterrorism to GPC</div>
+      <div class="doctrine-desc">AFRICOM (est. 2007) originally focused on counterterrorism: al-Shabaab (Somalia), ISIS-Sahel, Boko Haram. The 2022 National Defense Strategy elevated Great Power Competition (GPC) as the primary organizing mission. AFRICOM now frames Chinese basing access and Russian PMC operations as equal-priority threats to Islamist insurgency. Camp Lemonnier (4,000 troops) and Agadez drone base (Niger, suspended 2024) are keystone nodes.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🇫🇷</div>
+      <div class="doctrine-label">French Withdrawal</div>
+      <div class="doctrine-title">Barkhane Collapse &amp; Power Vacuum</div>
+      <div class="doctrine-desc">France's Operation Barkhane (2014–2022, 5,100 troops) was expelled from Mali in 2022, Burkina Faso in 2023, and Niger in 2023 after military coups. Each expulsion was followed by Africa Corps (Wagner) deployment within weeks. France retains a smaller presence in Chad and Senegal but has lost its Sahel security architecture. This represents the fastest collapse of a major power's regional security framework since Cold War decolonization.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">⛏️</div>
+      <div class="doctrine-label">Resource Competition</div>
+      <div class="doctrine-title">Critical Minerals Race</div>
+      <div class="doctrine-desc">Africa holds 30%+ of global cobalt (DRC), 40% of gold, significant lithium (Zimbabwe, DRC), manganese, platinum, and rare earth elements. Chinese firms control the processing and extraction of most DRC cobalt through Sicomines and CMOC joint ventures. US Executive Order 14017 identified African critical minerals as a supply chain vulnerability. Russian gold extraction in Sudan, Central African Republic, and Mali funds Africa Corps operations.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-icon">🕌</div>
+      <div class="doctrine-label">Jihadist Insurgency</div>
+      <div class="doctrine-title">IS-Sahel / JNIM Expansion</div>
+      <div class="doctrine-desc">JNIM (Jama'at Nusrat al-Islam wal-Muslimin, al-Qaeda affiliate) and ISGS (Islamic State Greater Sahara) have expanded territorial control across Mali, Burkina Faso, and Niger as Western CT presence withdrew. JNIM controls significant rural territory in three countries as of 2026. Africa Corps forces have failed to reverse insurgent gains despite high civilian casualties, suggesting the PMC model cannot substitute for population-centric COIN operations.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 03: HISTORICAL CONTEXT -->
+<section id="theater-history">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">03 // HISTORICAL PRECEDENT</div>
+      <h2 class="section-title">Conflict Lineage</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="card-grid grid-2">
+    <div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Year</th><th>Event</th><th>Strategic Significance</th></tr></thead>
+          <tbody>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">1956–75</td><td>African independence wave; Cold War proxy competition begins</td><td>US/USSR compete for influence; Angola, Ethiopia, Mozambique become proxy battlegrounds</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">1991–94</td><td>Somalia collapse; US Black Hawk Down (1993)</td><td>First post-Cold War African intervention fails; US withdraws; AU peacekeeping vacuum</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">1994</td><td>Rwanda Genocide (800,000 killed)</td><td>UN/West failure to intervene; shaped R2P doctrine; France implicated in supporting Hutu regime</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2001–07</td><td>Global War on Terror — Africa front opens</td><td>US CJTF-HOA (Combined Joint Task Force Horn of Africa) established 2002; AFRICOM 2007; CT becomes primary US Africa mission</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2011</td><td>NATO Libya intervention; Gaddafi falls</td><td>Libya becomes permanent failed state; weapons proliferate to Sahel; Tuareg fighters return to Mali with advanced weapons</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2013</td><td>French Operation Serval / Barkhane in Mali</td><td>France deploys 5,100 troops to halt Islamist advance on Bamako; initial success, but insurgency metastasizes to Burkina Faso and Niger</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2017</td><td>China opens PLA Support Base Djibouti</td><td>First Chinese overseas military installation; begins building "String of Pearls" naval access infrastructure</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2018</td><td>Wagner Group enters Central African Republic</td><td>First Africa Corps deployment; model: regime protection + gold/diamond mining concessions + disinformation; template replicated across continent</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2021</td><td>Mali coup (August); French expulsion begins</td><td>Junta invites Wagner immediately post-coup; France withdraws 5,100 troops over 18 months; Africa Corps fills vacuum</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2022</td><td>Burkina Faso coup; Wagner invited in</td><td>Second Sahel state to expel French forces and invite Russian PMCs within 12 months</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">Jun 2023</td><td>Prigozhin mutiny; Wagner → Africa Corps transition</td><td>Wagner Group formally rebranded as Africa Corps under Russian MoD control after Prigozhin's death; operations continue uninterrupted</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">Jul 2023</td><td>Niger coup; AFRICOM Agadez base threatened</td><td>Third Sahel coup expels French, threatens US MQ-9 drone base at Agadez; AFRICOM ultimately suspended operations and withdrew 2024</td></tr>
+            <tr><td style="font-family:var(--font-mono);color:var(--color-accent);">2024–26</td><td>Africa Corps expands to Libya, Sudan, Mozambique</td><td>Russian PMC operations spread to Mediterranean Africa (Libya support to Haftar) and Indian Ocean (Mozambique discussions); JNIM/ISGS territorial expansion accelerates</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="intel-alert mb-4">
+        <div class="intel-alert-head">📌 KEY LESSON: THE WAGNER/AFRICA CORPS MODEL</div>
+        <p>Russia's Africa model has proven remarkably cost-effective: <strong class="critical">deploy 500–2,000 PMC fighters, provide regime security, extract gold/diamonds/minerals</strong> to fund operations, run disinformation campaigns against Western partners, and create durable Russian influence spheres at a fraction of the cost of conventional military deployments. The model works because African governments facing insurgencies and popular pressure need security quickly — and Africa Corps delivers without the human rights conditionality of Western partners. The weakness: Africa Corps has consistently failed to defeat JNIM and ISGS tactically, creating long-term insurgency dependence that perpetuates Russian involvement.</p>
+      </div>
+      <div class="intel-alert">
+        <div class="intel-alert-head">📌 KEY LESSON: DJIBOUTI AS STRATEGIC BELLWETHER</div>
+        <p>Djibouti's unique geography — controlling Bab el-Mandeb with <strong class="critical">all four major powers (US, China, France, Japan) maintaining bases within 5km of each other</strong> — makes it the most strategically sensitive real estate in Africa. A Chinese-Djiboutian renegotiation of the Doraleh Container Terminal lease (seized in 2018) and the PLA base expansion negotiations represent the clearest near-term signal of China's Africa military ambitions. Any Chinese capability to operate aircraft carriers from Djibouti would fundamentally alter the Indian Ocean balance.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 04: FORCE DISPOSITION -->
+<section id="theater-forces">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">04 // FORCE DISPOSITION</div>
+      <h2 class="section-title">Key Systems & Order of Battle</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="xref-links mb-8">
+    <span class="xref-label">COUNTRY DOSSIERS:</span>
+    <a href="../countries/russia-dossier.html" class="xref-chip" target="_blank">🇷🇺 Russia →</a>
+    <a href="../countries/china-dossier.html" class="xref-chip" target="_blank">🇨🇳 China →</a>
+    <a href="../countries/usa-dossier.html" class="xref-chip" target="_blank">🇺🇸 USA →</a>
+  </div>
+
+  <!-- RUSSIA AFRICA CORPS SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇷🇺 <span>Russia — Africa Corps (Wagner Successor)</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">GROUND ATTACK</span>
+        <span class="equip-country-badge">🇷🇺</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a14db2a4f60d57ff55e1d81f0a7d3d4b06a44cff.jpg"
+          alt="Su-25 Frogfoot ground attack aircraft" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Su-25 Frogfoot — Russia\'s primary fixed-wing ground attack aircraft deployed via Africa Corps in Libya and Central African Republic. Used for close air support against rebel and insurgent formations. Russia has transferred or licensed Su-25 operations to Libyan National Army (Haftar) and to CAR forces under Africa Corps oversight.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Su-25 Frogfoot (Libya / CAR)</div>
+        <div class="equip-desc">Russia's primary fixed-wing tactical ground attack aircraft deployed through Africa Corps contracts in Libya and Central African Republic. The Su-25 provides conventional air support to allied governments and the Libyan National Army (LNA/Haftar forces). Russian pilots have been reported flying missions under ambiguous "contractor" designations, providing plausible deniability for the Kremlin while delivering decisive air superiority against lightly armed insurgents.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">CAS / Ground Attack</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">750km combat</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">4,400kg</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Basing</span><span class="equip-spec-val">Libya (al-Jufra)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Operators</span><span class="equip-spec-val">Africa Corps pilots</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Theater</span><span class="equip-spec-val">Libya, CAR</span></div>
+        </div>
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">MAIN BATTLE TANK</span>
+        <span class="equip-country-badge">🇷🇺</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/99b5e0b20c1dae95ea75bf36c43add2a1f63b7f8.jpg"
+          alt="T-72 main battle tank in desert terrain" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'T-72 Main Battle Tank — Russia has transferred T-72 tanks to the Malian Armed Forces (FAMA) under Africa Corps advisory relationships. The T-72 provides armored firepower that FAMA lacked against JNIM and ISGS vehicle-borne attacks. Multiple T-72 units documented at Bamako military base, 2023–24.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">T-72 (Mali / Libya)</div>
+        <div class="equip-desc">Russia has transferred T-72 main battle tanks to the Malian Armed Forces (FAMA) as part of Africa Corps security assistance packages. T-72s provide a decisive armored advantage over jihadist forces equipped with only light weapons and technicals. In Libya, the LNA (Haftar) operates a mix of T-72 and older T-55 tanks with Russia-provided maintenance support. Equipment transfers create long-term Russian logistics dependency that sustains influence beyond initial deployment.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Weight</span><span class="equip-spec-val">41.5 tonnes</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Gun</span><span class="equip-spec-val">125mm 2A46</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Armor</span><span class="equip-spec-val">Composite + ERA</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">500km (fuel)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Recipients</span><span class="equip-spec-val">Mali, Libya (LNA)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Active (2024–26)</span></div>
+        </div>
+        <a href="https://acleddata.com/" target="_blank" rel="noopener" class="equip-link">ACLED Data Africa <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">AIR DEFENSE / FIGHTER</span>
+        <span class="equip-country-badge">🇷🇺</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1fef47166eb72a5e419b1e1b3c27e3cf0a019e5a.jpg"
+          alt="MiG-29 fighter aircraft on runway" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'MiG-29 Fulcrum — Russia has transferred or deployed MiG-29 fighters to the Libyan National Army (LNA) as part of Haftar support operations. The MiG-29 provides Libya\'s first credible air superiority and ground attack capability. Additionally, Russia has supplied modern air defense systems to Burkina Faso — likely Pantsir-S1 or S-125 variants — following the French Barkhane withdrawal, establishing an air defense layer that complicates any future Western intervention.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">MiG-29 (Libya) + Air Defense (Burkina Faso)</div>
+        <div class="equip-desc">Russia transferred MiG-29 fighters to the Libyan National Army (LNA), providing Haftar's forces with a credible air superiority and ground strike capability for the first time. Separately, following France's expulsion from Burkina Faso in 2023, Russia supplied air defense systems (Pantsir-S1/S-125 believed) establishing a Russian-controlled air defense umbrella that would complicate any future Western intervention in the Sahel — a deliberate anti-access/area-denial play against AFRICOM and French Barkhane operations.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">MiG-29 Role</span><span class="equip-spec-val">Air superiority/CAS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Libya Qty</span><span class="equip-spec-val">4–6 operational (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">AD Range</span><span class="equip-spec-val">20km (Pantsir S1)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">AD Altitude</span><span class="equip-spec-val">15km max</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Basing</span><span class="equip-spec-val">Libya/Burkina Faso</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Implication</span><span class="equip-spec-val">AFRICOM A2/AD risk</span></div>
+        </div>
+        <a href="https://www.sipri.org/databases/armstransfers" target="_blank" rel="noopener" class="equip-link">SIPRI Arms Transfers Database <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHINA SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇨🇳 <span>China — PLA Africa Presence</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">OVERSEAS MILITARY BASE</span>
+        <span class="equip-country-badge">🇨🇳</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5e5b8e6e1d3f0d4d8de9fe0d2b8e83f0f4c1d63a.jpg"
+          alt="PLA Support Base Djibouti facility" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'PLA Support Base Djibouti (PLAN) — China\'s first overseas military base, opened 2017. Located 8km from Camp Lemonnier. Expanded 2021 to include a pier capable of berthing aircraft carriers. Estimated 400–2,000 PLAN personnel. Houses logistics, anti-piracy, and potential power projection assets. Chinese engineers installed what is believed to be a weapons testing/electronic intelligence facility on the expanded facility.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">PLA Support Base — Djibouti (PLAN)</div>
+        <div class="equip-desc">China's first overseas military installation, the People's Liberation Army Support Base in Djibouti opened in 2017, sited 8km from US Camp Lemonnier. Expanded in 2021 to include a pier capable of berthing Type 075 LHDs or carriers. Provides logistics for PLAN anti-piracy deployments, non-combatant evacuation operations, and potential power projection. US intelligence assesses the base is collecting intelligence on Camp Lemonnier operations and may host combat-capable forces in a crisis. A second Chinese base in Africa is widely anticipated, with Tanzania/Mozambique as probable candidates.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Opened</span><span class="equip-spec-val">2017 (expanded 2021)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Personnel</span><span class="equip-spec-val">400–2,000 (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Pier</span><span class="equip-spec-val">Carrier-capable (2021)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Distance to US</span><span class="equip-spec-val">~8km (Camp Lemonnier)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Logistics / ISR / Power Proj.</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Future Risk</span><span class="equip-spec-val">2nd base (Tanzania/Moz.)</span></div>
+        </div>
+        <a href="https://www.csis.org/analysis/chinas-overseas-bases-and-facilities" target="_blank" rel="noopener" class="equip-link">CSIS China Overseas Bases <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">DESTROYER DEPLOYMENT</span>
+        <span class="equip-country-badge">🇨🇳</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/ae4e2b8b51c91d2c84a40cc40e22ccb8fc7e8b33.jpg"
+          alt="Chinese Type 052D destroyer at sea" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Type 052D Luyang III destroyer — China\'s premier surface combatant. PLAN deploys Type 052D destroyers on rotating anti-piracy/escort task forces to the Gulf of Aden and Red Sea, using the Djibouti base as a logistics hub. These deployments provide China with real-world blue-water operational experience at the critical Bab el-Mandeb chokepoint — the same waters where US, French, and Houthi forces operate.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Type 052D Luyang III Destroyer</div>
+        <div class="equip-desc">China's Type 052D guided-missile destroyer is deployed on rotating PLAN task forces to the Gulf of Aden, using Djibouti as a logistics base. These counter-piracy missions — now in their 40th+ deployment iteration — provide PLAN with continuous blue-water operational experience at the Bab el-Mandeb chokepoint alongside US, French, and NATO forces. The deployments have escalated from frigate to destroyer class, signaling China's intent to expand its maritime presence in Africa's strategic waters beyond anti-piracy to power projection.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">7,500 tonnes</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">VLS Cells</span><span class="equip-spec-val">64 (HHQ-9 / YJ-18)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">4,500nm</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Deployments</span><span class="equip-spec-val">40+ Gulf of Aden task forces</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Hub</span><span class="equip-spec-val">Djibouti base</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Anti-piracy / presence</span></div>
+        </div>
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">DUAL-USE PORT INFRASTRUCTURE</span>
+        <span class="equip-country-badge">🇨🇳</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e1ce3a25c8d5082e8e55ab46ed2e2e4e7a41d7ad.jpg"
+          alt="Doraleh Container Terminal in Djibouti" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Doraleh Container Terminal (Djibouti) — Built by China Merchants Port Holdings. Djibouti seized control from DP World in 2018, China Merchants increased stake. Strategic dual-use port adjacent to the Bab el-Mandeb chokepoint. Chinese-funded ports across Africa (Doraleh, Lamu, Bagamoyo, Mombasa, Dar es Salaam, Walvis Bay) form a logistics chain that could support PLAN operations from the Atlantic to Indian Ocean.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Belt &amp; Road Dual-Use Ports (Doraleh / Lamu / Bagamoyo)</div>
+        <div class="equip-desc">China's Belt &amp; Road Initiative has financed or built major port infrastructure across Africa that provides both commercial revenue and potential military access. Key nodes: Doraleh (Djibouti, adjacent to military base), Lamu (Kenya, $3.8B project), Bagamoyo (Tanzania, $10B, suspended), Mombasa, Dar es Salaam, Walvis Bay (Namibia), and Atlantic ports in Guinea. US DoD assesses these ports constitute a dual-use network that could support PLAN logistics from the Atlantic to the Indian Ocean — the most consequential military infrastructure investment in Africa in the post-colonial era.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Key Ports</span><span class="equip-spec-val">Doraleh, Lamu, Bagamoyo</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">BRI Investment</span><span class="equip-spec-val">$70B+ Africa (est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Strategic Risk</span><span class="equip-spec-val">Dual-use access</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Debt leverage</span><span class="equip-spec-val">Zambia, Kenya, Djibouti</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Atlantic</span><span class="equip-spec-val">Guinea, Angola ports</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Indian Ocean</span><span class="equip-spec-val">Kenya to Tanzania</span></div>
+        </div>
+        <a href="https://www.csis.org/programs/china-power-project" target="_blank" rel="noopener" class="equip-link">CSIS China Power Project <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- USA SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇺🇸 <span>United States — AFRICOM</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">ISR / STRIKE DRONE</span>
+        <span class="equip-country-badge">🇺🇸</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/bfe87649bbbcfdfd30f9b23b47db52419db6cac9.jpg"
+          alt="MQ-9 Reaper drone on runway" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'MQ-9 Reaper — AFRICOM\'s primary ISR and precision strike asset in Africa. Operates from Camp Lemonnier (Djibouti) for Horn of Africa/Somalia operations (al-Shabaab targeting) and formerly from Agadez, Niger for Sahel surveillance. The Agadez base was suspended in 2024 following the Niger coup and junta demands for US withdrawal, representing a significant setback to AFRICOM\'s Sahel surveillance network.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">MQ-9 Reaper — Camp Lemonnier &amp; Agadez</div>
+        <div class="equip-desc">The MQ-9 Reaper is AFRICOM's primary intelligence, surveillance, reconnaissance (ISR) and strike platform across the continent. From Camp Lemonnier, MQ-9s conduct persistent surveillance and counter-terrorism strikes against al-Shabaab targets in Somalia under Operation Juniper Shield. The Agadez, Niger forward operating base (constructed 2016, cost $110M) provided deep Sahel coverage — suspended in 2024 after the junta demanded US military withdrawal, creating a critical ISR gap across the central Sahel that Russia and China cannot yet fill technically.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Endurance</span><span class="equip-spec-val">27 hours</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,850km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">1,700kg (8× Hellfire)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Base 1</span><span class="equip-spec-val">Camp Lemonnier (active)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Base 2</span><span class="equip-spec-val">Agadez, Niger (suspended 2024)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Mission</span><span class="equip-spec-val">CT / ISR (Somalia/Sahel)</span></div>
+        </div>
+        <a href="https://www.africom.mil/" target="_blank" rel="noopener" class="equip-link">AFRICOM Official <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">MAIN BASE / SOF HUB</span>
+        <span class="equip-country-badge">🇺🇸</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/6d2ae7c2f5b3f2d6a78a3a9a7a6c1c6c3a0e5c8b.jpg"
+          alt="Camp Lemonnier US military base Djibouti aerial view" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Camp Lemonnier, Djibouti — AFRICOM\'s largest and most strategically critical installation in Africa. 4,000+ US personnel operating ISR, SOF, logistics, and power projection assets. The only permanent US military base in sub-Saharan Africa with an active airfield capable of fixed-wing operations. Camp Lemonnier is co-located with the Djibouti-Ambouli International Airport, creating complex dual-use infrastructure dynamics.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Camp Lemonnier — AFRICOM Forward HQ</div>
+        <div class="equip-desc">Camp Lemonnier is AFRICOM's largest permanent installation in Africa, hosting 4,000+ US military and contractor personnel in Djibouti. The base serves as the hub for Special Operations Forces (SOF) conducting counter-terrorism operations across Somalia, Yemen, and the Sahel. Hosts MQ-9 Reapers, P-3 Orion maritime patrol aircraft, and rotating special mission aviation units. The US pays $70M/year to lease the facility from Djibouti — a government that simultaneously hosts the Chinese PLA base 8km away, creating an unprecedented great power basing coexistence dynamic.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Personnel</span><span class="equip-spec-val">4,000+ (US + contractors)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Annual Lease</span><span class="equip-spec-val">$70M/year</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Assets</span><span class="equip-spec-val">MQ-9, P-3, SOF elements</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Distance to PLA</span><span class="equip-spec-val">~8km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Since</span><span class="equip-spec-val">2001 (GWOT origin)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">CT / ISR / Power proj.</span></div>
+        </div>
+        <a href="https://crsreports.congress.gov/product/pdf/R/R43245" target="_blank" rel="noopener" class="equip-link">CRS AFRICOM Report <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">SPECIAL OPERATIONS</span>
+        <span class="equip-country-badge">🇺🇸</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/85bd50ded7bc2c8f5c78f0f71fa58f7eb42a8b4a.jpg"
+          alt="US Special Operations Forces training African military partners" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'US Special Operations Forces (SOF) training African partner forces — a core AFRICOM mission. SOFAFRICA conducts training, advisory, and direct action operations across the continent. A 2017 ambush in Niger killed 4 US soldiers (Green Berets) conducting a combat advisory mission, highlighting the real-world risk of SOF advisory operations. As Africa Corps expands, US SOF face an adversarial PMC presence that mimics and counters partner-force building.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">AFRICOM SOF — Partner Force Training Network</div>
+        <div class="equip-desc">AFRICOM's Special Operations Forces (SOFAFRICA) conduct training, advise and assist, and direct action operations across approximately 15–20 African countries. Key missions include training Nigerian Special Forces against Boko Haram/ISWAP, Kenya Defense Forces against al-Shabaab, and Mozambican forces against IS-Mozambique. The 2017 Niger ambush (4 US KIA) highlighted risks of SOF advisory missions. As Africa Corps expands and Sahel countries expel US forces, SOFAFRICA is losing partner nation access at the exact moment Russia gains it.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Countries Active</span><span class="equip-spec-val">~15–20 (2026 est.)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">SOFA Status</span><span class="equip-spec-val">Niger suspended (2024)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Key Partners</span><span class="equip-spec-val">Nigeria, Kenya, Moz.</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Mission</span><span class="equip-spec-val">Advise / train / CT</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Risk</span><span class="equip-spec-val">Access erosion vs. Africa Corps</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">HQ</span><span class="equip-spec-val">Stuttgart, Germany (AFRICOM)</span></div>
+        </div>
+        <a href="https://www.africom.mil/what-we-do/special-operations" target="_blank" rel="noopener" class="equip-link">AFRICOM SOF Programs <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRANCE SYSTEMS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3);">🇫🇷 <span>France — Residual Presence (Post-Barkhane)</span></h3>
+
+  <div class="card-grid grid-3 mb-8">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">MULTI-ROLE FIGHTER</span>
+        <span class="equip-country-badge">🇫🇷</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5e1a4fde7282fbd83d5f0a43e99be1f72fbf3a44.jpg"
+          alt="French Rafale fighter jet in flight" width="400" height="250" loading="lazy"
+          onclick="openLightbox(this.src,'Rafale F3-R — France\'s primary combat aircraft. Rafales flew strike missions from N\'Djamena (Chad) and Niamey (Niger) during Operation Barkhane, targeting JNIM leadership and vehicle convoys across the Sahel. Post-2022–23 withdrawal from Mali, Burkina Faso, and Niger, Rafale presence is now limited to Chad (1,000 troops, Épervier/Éléphant force) and Djibouti (French Foreign Legion base, ~1,350 personnel). France retains strike capability but has lost the forward basing network required for Sahel-wide air operations.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Rafale (Chad / Djibouti)</div>
+        <div class="equip-desc">France's Rafale multirole fighter conducted strike missions across the Sahel from N'Djamena (Chad) and Niamey (Niger) during Barkhane. Post-expulsion from three Sahel states (2022–23), Rafale operations are now limited to Chad (Operation Éléphant, ~1,000 troops, N'Djamena base) and Djibouti (French Foreign Legion, ~1,350 personnel). France retains a significant theater strike capability in Africa but has lost the depth and freedom of action that a five-state basing network provided during Barkhane's peak 2013–2020 period.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Chad Troops</span><span class="equip-spec-val">~1,000 (Op. Éléphant)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Djibouti</span><span class="equip-spec-val">~1,350 (Foreign Legion)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Senegal</span><span class="equip-spec-val">~350 (reducing)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Rafale Range</span><span class="equip-spec-val">3,700km (ferry)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">9,500kg (multi-role)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Reduced post-Barkhane</span></div>
+        </div>
+        <a href="https://www.defense.gouv.fr/operations/afrique" target="_blank" rel="noopener" class="equip-link">French MoD Africa Ops <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- SECTION 05: CAPABILITY MATRIX -->
+<section id="theater-matrix">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">05 // CAPABILITY MATRIX</div>
+      <h2 class="section-title">Actor Capability Matrix</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Proxy Forces · PMC Operations · Resource Control · Logistics · Basing</div>
+  </div>
+
+  <div class="data-table-wrap mb-8">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Actor</th>
+          <th>Proxy Forces</th>
+          <th>PMC Operations</th>
+          <th>Resource Control</th>
+          <th>Logistics Infrastructure</th>
+          <th>Basing Access</th>
+          <th>Nuclear Option</th>
+          <th>Theater Rating</th>
+          <th>Ref</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇷🇺</span>
+              <a href="../countries/russia-dossier.html" class="flag-name" target="_blank">Russia (Africa Corps)</a>
+            </span>
+          </td>
+          <td>FAMA (Mali), FACA (CAR), FADS (Sudan), Burkina Faso army units; estimated 25,000–40,000 Africa Corps fighters deployed across 20+ countries</td>
+          <td>Africa Corps: ~5,000 fighters across Sahel + CAR + Libya + Sudan + Mozambique. Goldmining concessions fund ops. Redfish/Patriot Act disinformation network for political warfare</td>
+          <td>Gold mines (Sudan, CAR, Mali), diamond concessions (CAR), uranium potential (Niger), timber (CAR). Resource extraction estimated $250M+/year offsetting deployment costs</td>
+          <td>Russian Air Force transport (Il-76) air bridge to Africa; Wagner/Africa Corps logistics hub at Bamako (Mali) and Bangui (CAR); Libya (al-Jufra) airbase</td>
+          <td>Mali (Bamako airport, Kidal), CAR (Bangui), Libya (al-Jufra, al-Watiya), Burkina Faso, Sudan (Red Sea port negotiations)</td>
+          <td class="nuclear-yes">STRATEGIC</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:72%"></div></div>
+              <span class="rating-num">7.2/10</span>
+            </div>
+          </td>
+          <td><a href="https://acleddata.com/" target="_blank" rel="noopener">ACLED →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇨🇳</span>
+              <a href="../countries/china-dossier.html" class="flag-name" target="_blank">China (PLA/BRI)</a>
+            </span>
+          </td>
+          <td>No proxy force network; uses economic leverage and arms transfers. Peacekeeper contributions to AU missions provide indirect soft power and intelligence access</td>
+          <td>No PMC in Africa Corps sense. Chinese security contractors protect BRI infrastructure projects. Dewe Security (est.) and CNOOC/Sinopec private security teams in high-risk areas</td>
+          <td>DRC cobalt (Sicomines, CMOC = 70% global supply), Zambian copper, Congolese coltan, Zimbabwean lithium, Guinean bauxite. Largest foreign mineral control position in Africa</td>
+          <td>BRI port network (Doraleh, Lamu, Bagamoyo, Mombasa, Walvis Bay). China Merchants Port Holdings operates 5+ African terminals. PLAN Djibouti base logistics hub</td>
+          <td>Djibouti (PLA base, carrier-capable pier), port access rights across BRI network. Second base likely Tanzania/Mozambique 2027–30</td>
+          <td class="nuclear-yes">STRATEGIC</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:75%"></div></div>
+              <span class="rating-num">7.5/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.csis.org/programs/china-power-project" target="_blank" rel="noopener">CSIS →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇺🇸</span>
+              <a href="../countries/usa-dossier.html" class="flag-name" target="_blank">USA (AFRICOM)</a>
+            </span>
+          </td>
+          <td>Partner force building: Nigeria (ISWAP/Boko Haram CT), Kenya/Somalia (AMISOM/al-Shabaab), Ethiopia (historical), Mozambique (IS-Moz.); SOCAFRICA trains 15–20 partner armies</td>
+          <td>No US PMC network. Academi/MPRI government contracts for training support. DynCorp aviation support at some locations. Contractors ~2,000 estimated in theater</td>
+          <td>No resource extraction. US strategic interest: ensuring African critical minerals do NOT flow exclusively to China. Lobito Corridor ($250M US investment), Pro-Blue critical minerals initiative</td>
+          <td>Camp Lemonnier (Djibouti) primary hub; NSB Agadez (Niger, suspended); Manda Bay (Kenya); Cooperative Security Locations (CSLs) in ~8 countries; AFRICOM HQ Stuttgart</td>
+          <td>Camp Lemonnier (permanent), Manda Bay Kenya (semi-permanent), rotating access 8+ countries. Post-Niger coup: reduced from 14 to ~10 active partner access agreements</td>
+          <td class="nuclear-yes">STRATEGIC FULL</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:82%"></div></div>
+              <span class="rating-num">8.2/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.africom.mil/" target="_blank" rel="noopener">AFRICOM →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🇫🇷</span>
+              <span class="flag-name">France (Post-Barkhane)</span>
+            </span>
+          </td>
+          <td>Residual partner force support Chad, Senegal; G5 Sahel framework effectively defunct post-Mali/Burkina/Niger coups. France-trained units now serving junta governments</td>
+          <td>No PMC. Réseau Action for Africa (2024 French strategy) emphasizes civil/economic engagement over military. Attempted public diplomacy cannot compete with Africa Corps disinformation reach</td>
+          <td>Uranium: historically Areva/Orano Nigerien uranium (35% of French nuclear fuel) suspended post-coup July 2023. French energy companies losing contracts to Chinese/Russian alternatives</td>
+          <td>N'Djamena (Chad) hub; Djibouti French Foreign Legion base; reduced Senegal presence. Lost: Gao, Timbuktu, Niamey, Ouagadougou forward operating bases</td>
+          <td>Chad (~1,000 troops), Djibouti (~1,350), Senegal (~350); from 5,100 Barkhane peak to ~2,700 Africa total. Trajectory: continued reduction</td>
+          <td class="nuclear-yes">STRATEGIC</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:45%"></div></div>
+              <span class="rating-num">4.5/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.defense.gouv.fr/" target="_blank" rel="noopener">French MoD →</a></td>
+        </tr>
+        <tr class="matrix-row">
+          <td class="matrix-country">
+            <span class="flag-chip">
+              <span class="flag-emoji">🌍</span>
+              <span class="flag-name">Regional (Nigeria / Egypt / South Africa)</span>
+            </span>
+          </td>
+          <td>Nigeria: ~130,000 active; MNJTF (Lake Chad Basin) vs. ISWAP/Boko Haram. Egypt: ~440,000 active; Sinai CT + Libya border. South Africa: SANDF ~77,000; DRC SADC mission (Op. Metutsi)</td>
+          <td>South Africa: SANDF deployed to DRC/Mozambique under SADC framework. No regional PMC network comparable to Africa Corps. Rwanda RDF operates in Mozambique under EU-funded framework</td>
+          <td>Nigeria: 2.1M bbl/day oil potential; ExxonMobil / Shell / Chevron; NNPC. Angola: 1.2M bbl/day. South Africa: platinum, chrome, manganese. Egypt: Suez Canal ($9B revenue)</td>
+          <td>Nigeria: regional logistics hub; ECOWAS economic backbone. Egypt: Suez Canal control. South Africa: Cape route maritime infrastructure. Each a sub-regional hub for neighboring states</td>
+          <td>Nigeria dominates ECOWAS/MNJTF. Egypt dominates north Africa/AU. South Africa leads SADC military cooperation. None project beyond sub-region as of 2026</td>
+          <td class="nuclear-no">NO (SA dismantled 1989)</td>
+          <td>
+            <div class="rating-bar">
+              <div class="rating-fill-wrap"><div class="rating-fill" style="width:55%"></div></div>
+              <span class="rating-num">5.5/10</span>
+            </div>
+          </td>
+          <td><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS →</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 06: CHOKEPOINTS -->
+<section id="theater-chokepoints">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">06 // KEY TERRAIN & CHOKEPOINTS</div>
+      <h2 class="section-title">Strategic Chokepoints</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="chokepoint-grid mb-8">
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/ae6fdc204b7dd1257e484d7f8da7181d5b24759b.jpg"
+          alt="Bab el-Mandeb satellite view showing Djibouti and Yemen" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Bab el-Mandeb — \"Gate of Tears\". 29km wide at its narrowest point. Africa\'s most critical maritime chokepoint. All traffic between Red Sea and Indian Ocean passes through this strait. Controlled by Djibouti (with US/China/French bases) on the African side, and Yemen (including Houthi-controlled coast) on the Arabian side. Houthi attacks 2023–25 demonstrated that effective interdiction is possible without controlling the strait physically.')">
+        <div class="chokepoint-badge">STRAIT</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Bab el-Mandeb</div>
+        <div class="chokepoint-width">29km WIDE // GATEWAY TO SUEZ / RED SEA</div>
+        <div class="chokepoint-desc">The "Gate of Tears" separates the Horn of Africa (Djibouti/Eritrea) from the Arabian Peninsula (Yemen). 12% of global trade and 8% of global LNG transits this passage annually en route to the Suez Canal. Djibouti — which hosts US, Chinese, French, and Japanese military bases — controls the African shore. Houthi interdiction from the Yemeni shore (2023–25) demonstrated effective non-state maritime blockade capability, reducing Red Sea transits by 65–70% without controlling the strait. The Bab el-Mandeb is also the exit point for any Chinese naval force deploying from the Djibouti base into the Indian Ocean.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Djibouti (Africa shore, multi-power bases), Yemen/Eritrea</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">CRITICAL</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/7c14bb8a40ec7c5b1ef9a5c95c68aadf5a1a71c2.jpg"
+          alt="Cape of Good Hope from satellite with shipping lanes" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Cape of Good Hope — Africa\'s southern tip. The alternative global trade route when Suez/Bab el-Mandeb is disrupted. 20,000+ vessels round the Cape annually. Houthi Red Sea campaign (2023–25) diverted thousands of vessels to Cape route — adding 7–14 days and $1–3M per voyage. In any scenario involving prolonged Suez interdiction, Cape traffic can increase 200–300%, overwhelming South Africa\'s limited maritime domain awareness infrastructure.')">
+        <div class="chokepoint-badge">CAPE ROUTE</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Cape of Good Hope</div>
+        <div class="chokepoint-width">SOUTHERN TIP OF AFRICA // ALTERNATE GLOBAL TRADE ROUTE</div>
+        <div class="chokepoint-desc">Africa's southern tip is the alternative global maritime trade route when the Suez Canal and Bab el-Mandeb are disrupted. Approximately 20,000 vessels round the Cape annually under normal conditions, rising sharply during Red Sea crises. The Houthi campaign (2023–25) diverted an estimated 2,500+ vessels via Cape route, adding 7–14 days and $1–3M per voyage. South Africa's political non-alignment (BRICS member, naval exercises with Russia and China) creates uncertainty about Cape access rights in a great power conflict involving African states.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">South Africa (territorial waters; politically non-aligned)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-med">MEDIUM</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Strait_of_Gibraltar_on_a_map.jpg/800px-Strait_of_Gibraltar_on_a_map.jpg"
+          alt="Strait of Gibraltar map showing Africa side" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Strait of Gibraltar — 14km at its narrowest. Africa (Morocco/Ceuta) controls the southern shore. All Atlantic-Mediterranean maritime traffic passes through this chokepoint. In any scenario involving conflict with Morocco or Algerian alignment with a great power adversary, the African side of Gibraltar becomes a critical vulnerability for NATO Atlantic access. Spain\'s Ceuta and Melilla enclaves on Moroccan territory create ongoing sovereignty friction.')">
+        <div class="chokepoint-badge">STRAIT</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Strait of Gibraltar (Africa Side)</div>
+        <div class="chokepoint-width">14km NARROWEST POINT // MOROCCO/SPAIN</div>
+        <div class="chokepoint-desc">The Strait of Gibraltar's southern shore is controlled by Morocco (and the Spanish enclaves of Ceuta and Melilla). All Atlantic-Mediterranean maritime traffic — over 200 vessels per day — passes through this 14km chokepoint. Morocco's strategic position gives it significant leverage as a US/NATO partner, but ongoing Saharan sovereignty disputes and Chinese infrastructure investment in Tangier Med (Africa's largest container port) create competing alignment pressures. Any great power conflict involving North Africa would make the Gibraltar African shore a NATO priority.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Morocco (+ Spain's Ceuta/Melilla enclaves)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-med">MEDIUM</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e3e6b6e1d0b67f1f5a2b8b2b0c3e5c5c7d1e3c4b.jpg"
+          alt="Mozambique Channel map showing shipping routes and LNG fields" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Mozambique Channel — 450km wide at its narrowest. The channel between Mozambique and Madagascar carries significant Indian Ocean trade and hosts the world\'s largest onshore natural gas discovery in the past decade (Cabo Delgado, 150 trillion cubic feet, Eni/TotalEnergies). IS-Mozambique insurgency (since 2017) has disrupted $20B+ in LNG investment. SADC/Rwanda military intervention (2021–present) attempting to stabilize the region for energy extraction.')">
+        <div class="chokepoint-badge">CHANNEL</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Mozambique Channel</div>
+        <div class="chokepoint-width">450km WIDE // INDIAN OCEAN GATEWAY</div>
+        <div class="chokepoint-desc">The Mozambique Channel separates Mozambique from Madagascar and carries significant Indian Ocean trade. The channel's strategic importance was dramatically elevated by the discovery of vast natural gas reserves in Cabo Delgado province (est. 150 trillion cubic feet) — among the largest finds globally. IS-Mozambique (Ansar al-Sunna) insurgency since 2017 has driven 800,000 IDPs and disrupted $20B+ in TotalEnergies, Eni, and ExxonMobil LNG projects. SADC and Rwandan military intervention (2021–present) protects energy infrastructure but has not eliminated the insurgency. Chinese port investment at Beira and Maputo creates a BRI node in the channel's approach.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Mozambique, Madagascar, South Africa (maritime patrol)</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-med">ELEVATED</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/8d9c2e3a7d4f8c1a9e6b0c4d2f5a3b7e1c8d4f6a.jpg"
+          alt="Gulf of Guinea map showing Nigeria oil infrastructure" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Gulf of Guinea oil corridor — Nigeria (2.1M bbl/day peak capacity), Angola (1.2M bbl/day), and Equatorial Guinea are sub-Saharan Africa\'s largest oil producers. The Gulf of Guinea supplies approximately 5–6% of global crude oil and is a major energy source for the United States and Europe. Maritime piracy in the Gulf peaked 2010–2020 (Nigeria Delta, Gulf approaches) and has declined with Nigerian Navy operations, but remains a threat vector. China is the dominant buyer of Angolan crude, creating strategic oil dependency leverage.')">
+        <div class="chokepoint-badge">OIL CORRIDOR</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Gulf of Guinea Oil Corridor</div>
+        <div class="chokepoint-width">NIGERIA TO ANGOLA // SUB-SAHARAN ENERGY HUB</div>
+        <div class="chokepoint-desc">The Gulf of Guinea hosts sub-Saharan Africa's major oil-producing states — Nigeria (2.1M bbl/day capacity, reduced by theft/sabotage to ~1.3M), Angola (1.2M bbl/day), Equatorial Guinea, Gabon, and Congo-Brazzaville — collectively supplying 5–6% of global crude. China is Angola's primary export destination (60%+ of crude). Nigeria's Delta oil infrastructure faces persistent militancy and theft from the Ijaw/MEND networks. Gulf of Guinea piracy (ISWAP/Lagos-based syndicates) has declined but remains a regional security burden. AFRICOM's Gulf of Guinea maritime partnership is a key competition vector against Chinese port dominance.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Nigeria, Angola (dominant producers), ECOWAS maritime framework</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-med">MEDIUM</span></div>
+      </div>
+    </div>
+
+    <div class="chokepoint-card">
+      <div class="chokepoint-img-wrap">
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3e7c8a4f9d2b1e6c0a5f3b8d7c4e9a2f1b3d5c7e.jpg"
+          alt="Sahel corridor map showing Mali Niger Burkina Faso conflict zones" width="400" height="300" loading="lazy"
+          onclick="openLightbox(this.src,'Sahel Corridor — the primary land-based conflict zone in Africa and the center of Russian Africa Corps expansion. The Sahel extends 5,400km from the Atlantic to the Red Sea across a belt of semi-arid land south of the Sahara. Mali, Burkina Faso, Niger, Chad, and Sudan are the core crisis states. JNIM (al-Qaeda) and ISGS (Islamic State) collectively control significant rural territory in all five states as of 2026. Three military coups (2020–2023) resulted in French expulsion and Russia Africa Corps invitation.')">
+        <div class="chokepoint-badge">LAND CORRIDOR</div>
+      </div>
+      <div class="chokepoint-body">
+        <div class="chokepoint-name">Sahel Corridor</div>
+        <div class="chokepoint-width">5,400km EAST-WEST // ATLANTIC TO RED SEA</div>
+        <div class="chokepoint-desc">The Sahel is Africa's primary land-based strategic conflict zone — a 5,400km semi-arid belt from Senegal to Eritrea that serves as both the epicenter of Islamist insurgency expansion and the theater of Russian Africa Corps operations. Three military coups (Mali 2021, Burkina Faso 2022, Niger 2023) flipped Sahel security architectures from French/Western to Russian in under 24 months. JNIM and ISGS now control significant territory across all three coup states. The Sahel corridor is also the primary transit route for sub-Saharan migration toward Mediterranean Europe, creating EU security stakes beyond the immediate CT mission.</div>
+        <div class="chokepoint-controllers"><span class="ctrl-label">CONTROLLING POWERS:</span><span class="ctrl-val">Junta governments (Mali/Burkina/Niger) + Russia Africa Corps; JNIM/ISGS control rural territory</span></div>
+        <div class="chokepoint-risk"><span class="risk-label">INTERDICTION RISK:</span><span class="risk-val risk-high">HIGH (STATE COLLAPSE)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 07: FLASHPOINTS -->
+<section id="theater-flashpoints">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">07 // FLASHPOINTS & TRIGGERS</div>
+      <h2 class="section-title">Conflict Scenarios</h2>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section-lead">Proxy War → Great Power Direct Confrontation Pathways</div>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="switchTab(event,'flash-1')">Africa Corps Expansion</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-2')">China-US Basing Crisis</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-3')">Sahel State Collapse</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-4')">Red Sea / Horn Escalation</button>
+      <button class="tab-btn" onclick="switchTab(event,'flash-5')">DRC Resource Conflict</button>
+    </div>
+
+    <div id="flash-1" class="tab-pane active">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // HIGHEST PROBABILITY 12-MONTH</div>
+        <div class="scenario-title">Scenario A: Russia Africa Corps Enters New Country (Nigeria / Côte d'Ivoire)</div>
+        <div class="card-grid grid-2 mb-6">
+          <div>
+            <div class="scenario-steps">
+              <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">Military coup in Nigeria or Côte d'Ivoire — both facing Islamist insurgency pressures and political instability. New junta government immediately seeks security partners outside Western framework, citing Niger/Mali/Burkina Faso model.</div></div>
+              <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">Russia Africa Corps delegation arrives in capital within days, replicating the Niger/Mali playbook. Wagner/Africa Corps signs security assistance agreement offering PMC deployment, arms transfer, and "no-conditionality" support. Expulsion of AFRICOM SOF advisors and French trainers announced.</div></div>
+              <div class="scenario-step"><div class="step-time">T+1mo</div><div class="step-text">First Africa Corps fighters arrive (500–1,000 initial deployment). Russia gains ECOWAS-area access for the first time. Nigeria: risks disrupting US energy supply chains and Camp Lemonnier logistic alternatives. Côte d'Ivoire: French Foreign Legion base at Port Bouët threatened.</div></div>
+              <div class="scenario-step"><div class="step-time">T+3mo</div><div class="step-text">ECOWAS fractures between pro-democracy and coup-aligned states. AU mediation fails. US imposes sanctions — ineffective if Russia/China provide economic buffer. EU debates replicating Sahel mistake or deploying Eufor Africa mission.</div></div>
+              <div class="scenario-step"><div class="step-time">T+6–12mo</div><div class="step-text">Africa Corps installs Russian disinformation networks targeting US/EU audiences. Gold mining concessions signed. Nigeria scenario: Chinese immediately seek expanded port access at Lagos/Lekki as AFRICOM access suspended. Russia gains a major Atlantic-facing presence for the first time.</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="intel-alert red mb-4">
+              <div class="intel-alert-head">⚠ ESCALATION DRIVER</div>
+              <p>Nigeria is the critical variable: Africa's largest economy, most populous country, and ECOWAS anchor. An Africa Corps deployment to Nigeria would be qualitatively different from Mali/CAR — it would give Russia an <strong class="critical">Atlantic-facing presence adjacent to Gulf of Guinea oil infrastructure</strong> and create an ECOWAS split that paralyzes all regional security cooperation.</p>
+            </div>
+            <div class="intel-alert mb-4">
+              <div class="intel-alert-head">📊 PROBABILITY ASSESSMENT</div>
+              <p>Africa Corps expansion to a new country within 12 months: <strong class="critical">45–55%</strong>. Most likely candidates: Guinea (2021 coup, transitioning), Gabon (2023 coup, still in transition), or a new Senegal crisis. Nigeria probability lower (~10–15%) but consequences orders of magnitude higher.</p>
+            </div>
+            <h4 style="font-family:var(--font-display);font-weight:700;color:var(--color-text);margin-bottom:var(--space-3);text-transform:uppercase;font-size:var(--text-sm);">Escalation Probability Bars</h4>
+            <div class="stat-row"><span class="stat-label">Africa Corps Expansion (12mo)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:50%"></div></div><span class="stat-val">50%</span></div>
+            <div class="stat-row"><span class="stat-label">ECOWAS Fracture</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:40%"></div></div><span class="stat-val">40%</span></div>
+            <div class="stat-row"><span class="stat-label">US-Russia Direct Confrontation</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:5%"></div></div><span class="stat-val">5%</span></div>
+            <div class="stat-row"><span class="stat-label">Nigeria Coup Risk (5yr)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:20%"></div></div><span class="stat-val">20%</span></div>
+          </div>
+        </div>
+        <div class="policy-quote">
+          "The Wagner Group's presence in Africa has enabled Russia to expand its influence at relatively low cost, providing military support and disinformation campaigns while extracting natural resources. The transition to Africa Corps has institutionalized this model under direct Russian Ministry of Defense control."
+          <span class="policy-quote-attr">— RAND Corporation, Africa Policy Memorandum, 2025 | <a href="https://www.rand.org/topics/africa.html" target="_blank" rel="noopener">RAND Africa Research →</a></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-2" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // GREAT POWER FRICTION PATHWAY</div>
+        <div class="scenario-title">Scenario B: China-US Djibouti Basing Crisis</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">Djibouti government, under financial pressure from Chinese debt (port lease disputes) and incentivized by Chinese economic offers, renegotiates Camp Lemonnier lease terms — demanding a 300% rent increase and restrictions on ISR operations against Chinese-linked targets. Simultaneously, PLA base expansion approved for second pier and permanent aviation detachment (helicopters/drones).</div></div>
+          <div class="scenario-step"><div class="step-time">T+1mo</div><div class="step-text">US refuses lease renegotiation terms. AFRICOM activates contingency basing alternatives: Kenya's Manda Bay expanded, negotiations with Ethiopia (if post-Tigray stabilized) and Rwanda (strong US partner). Intel collection on PLA base operations increases — Chinese electronically detect and protest US ISR flights near Chinese base perimeter.</div></div>
+          <div class="scenario-step"><div class="step-time">T+3mo</div><div class="step-text">Chinese-Djiboutian agreement announced: PLA base expanded to accommodate Type 075 LHD (amphibious assault ship). US intelligence community assesses this represents China's first power-projection-capable overseas facility — equivalent to a second carrier group in the western Indian Ocean. NSC emergency review of AFRICOM posture.</div></div>
+          <div class="scenario-step"><div class="step-time">T+6mo</div><div class="step-text">Competing US-China intelligence operations in Djibouti city create first kinetic risk: armed Chinese security personnel and US counterintelligence officers involved in a confrontation near port facilities. Djibouti government orders both sides to de-escalate or face expulsion. Diplomatic crisis at UN Security Council.</div></div>
+          <div class="scenario-step"><div class="step-time">T+12mo</div><div class="step-text">Resolution: negotiated coexistence agreement or US relocates to alternative base (likely Kenya or Ethiopia). Either outcome reshapes Indian Ocean access balance significantly. Chinese carrier operations from Djibouti would be the most consequential geostrategic shift since the Cold War in the Indian Ocean region.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-3" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // REGIONAL HUMANITARIAN CATASTROPHE</div>
+        <div class="scenario-title">Scenario C: Sahel State Collapse (Mali or Burkina Faso)</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">JNIM forces capture a Malian or Burkinabé regional capital (Mopti, Ségou, or Ouahigouya), demonstrating that Africa Corps cannot hold urban terrain. Junta government faces existential challenge. Civilian casualty count from Africa Corps operations against villages suspected of JNIM support triggers mass displacement — 2M+ IDPs in 60 days.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1mo</div><div class="step-text">Junta government collapses or splinters. Africa Corps (Russia) facing the choice of massively escalating (deploying 5,000+ fighters, requesting Russian Air Force conventional support) or accepting strategic failure. Russian military advisors recommend escalation to prevent reputational damage of their "security model" failing visibly.</div></div>
+          <div class="scenario-step"><div class="step-time">T+3mo</div><div class="step-text">JNIM declares provisional control of significant territory. Humanitarian emergency: 5M+ food insecure. EU debates intervention but no consensus. France cannot re-enter without invitation. AU emergency session fails to agree on force deployment. US SOF cannot operate — no SOFA. Only AU mission with mandate is MINUSMA rump (already withdrawn).</div></div>
+          <div class="scenario-step"><div class="step-time">T+6mo</div><div class="step-text">JNIM/ISGS consolidation creates a functional jihadist proto-state in central Sahel — first territorial caliphate-analog since ISIS Mosul. Global jihadi recruitment surge. Sahel migration crisis spikes: 500,000 additional Europe-bound migrants add to political pressure on EU governments. Terrorism export risk to Europe assessed as highest since 2016.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-4" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // HORN OF AFRICA ESCALATION</div>
+        <div class="scenario-title">Scenario D: Red Sea / Horn of Africa Escalation involving African Bases</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">Houthi attacks resume at scale against US and allied vessels in Red Sea. CENTCOM seeks to expand strikes into Houthi supply chains — including Iran-Houthi weapons transshipment routes through Horn of Africa. Requests Camp Lemonnier support for expanded strike operations targeting supply chain nodes in Somalia/Eritrea-adjacent waters.</div></div>
+          <div class="scenario-step"><div class="step-time">T+24h</div><div class="step-text">Chinese PLA base Djibouti is placed on heightened alert — PLA forces increase patrols of base perimeter, citing concern about collateral risk from Camp Lemonnier-launched strike operations. Chinese navy warship (Type 052D) in Gulf of Aden tracks US carrier strike group. First direct military shadowing between US and Chinese forces in Africa theater.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">Djibouti government, under Chinese and US pressure simultaneously, threatens to revoke both base agreements unless conflict de-escalates. Eritrea (which has warming China relations) allows Houthi resupply via Massawa port — creating a direct African-shore supply chain vulnerability that AFRICOM/CENTCOM must address without partner nation access.</div></div>
+          <div class="scenario-step"><div class="step-time">T+2–4wk</div><div class="step-text">Potential for miscalculation: US aircraft launched from Camp Lemonnier conduct ISR over Chinese base perimeter. China interprets as targeting reconnaissance. Both sides on maximum alert in a 8km radius. First US-China military near-incident in Africa theater. Hotline calls at presidential level required to de-escalate.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash-5" class="tab-pane">
+      <div class="scenario-card">
+        <div class="scenario-trigger">TRIGGER EVENT // CRITICAL MINERAL SUPPLY CHAIN DISRUPTION</div>
+        <div class="scenario-title">Scenario E: DRC Cobalt / Mineral Resource Conflict Escalation</div>
+        <div class="scenario-steps">
+          <div class="scenario-step"><div class="step-time">T-0</div><div class="step-text">M23 rebel forces (Rwanda-backed) or FDLR (Hutu militia) seize control of major cobalt mining operations in Lualaba/South Kivu province of DRC. Chinese-operated Sicomines and CMOC facilities seized or suspended. 30% of global cobalt supply at risk. EV battery supply chains of Tesla, BYD, CATL immediately threatened.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1wk</div><div class="step-text">Cobalt spot price surges 200–400%. US invokes Defense Production Act to assess critical mineral vulnerability. China sends diplomatic delegation to Kinshasa demanding immediate military protection of CMOC facilities. Chinese private security contractors (armed) surge to mining sites under company authorization. DRC government faces political crisis — seen as unable to protect national assets.</div></div>
+          <div class="scenario-step"><div class="step-time">T+1mo</div><div class="step-text">SADC deploys expanded force under Angolan leadership. Rwanda (M23 patron) and DRC on brink of direct interstate war — fourth Rwanda-DRC conflict since 1996. US AFRICOM faces choice: support DRC/SADC (which would antagonize Rwanda, a key US CT partner in East Africa and Mozambique) or attempt mediation that benefits China's mineral position.</div></div>
+          <div class="scenario-step"><div class="step-time">T+3–6mo</div><div class="step-text">Resolution scenario: SADC stabilizes mining zones. China secures long-term cobalt supply through DRC government concessions. US critical mineral initiative (Lobito Corridor, Partnership for Global Infrastructure) provides alternative sourcing support. Long-term outcome: DRC becomes the permanent center of Africa mineral competition, with China, the US, EU, and regional powers all maintaining armed presence or proxies to secure supply chains.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 08: LOGISTICS -->
+<section id="theater-logistics">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">08 // LOGISTICS & SUSTAINMENT</div>
+      <h2 class="section-title">Supply Lines & Access Networks</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">External Power Logistics Comparison</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Actor</th><th>Primary Logistics Hub</th><th>Air Transport</th><th>Sustainment Depth</th></tr></thead>
+          <tbody>
+            <tr><td>Russia (Africa Corps)</td><td>Bamako (Mali), Bangui (CAR), al-Jufra (Libya)</td><td>Il-76/An-124 air bridge from Russia; 20+ sorties/month estimated</td><td>30–60 days; constrained by Ukraine war demand for same assets</td></tr>
+            <tr><td>China (PLAN)</td><td>Djibouti PLA base; BRI port network (Mombasa, Doraleh)</td><td>PLAN Y-20 transport; commercial charter; COSCO maritime</td><td>90+ days via maritime; Djibouti pre-positioned stocks</td></tr>
+            <tr><td>USA (AFRICOM)</td><td>Camp Lemonnier (Djibouti); NSB Agadez (suspended); Manda Bay (Kenya)</td><td>C-17/C-130 from Ramstein (Germany) and CONUS; KC-135 tanker support</td><td>90+ days; 30-day CONUS reinforcement via RO-RO sealift</td></tr>
+            <tr><td>France</td><td>N'Djamena (Chad); Djibouti Foreign Legion base</td><td>A400M, C-130 from Évreux/Istres; Air France charter</td><td>45–60 days at current reduced scale; contracted civilian logistics</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">Logistics Assessment</h3>
+      <div class="doctrine-grid" style="grid-template-columns:1fr;">
+        <div class="doctrine-card">
+          <div class="doctrine-label">Chinese Port Network Advantage</div>
+          <div class="doctrine-title">Belt &amp; Road Strategic Depth</div>
+          <div class="doctrine-desc">China's BRI port investments provide a blue-water logistics chain from the Atlantic to the Indian Ocean that no competitor can match. Chinese ports at Doraleh (Djibouti), Lamu (Kenya), Bagamoyo (Tanzania), Mombasa, Walvis Bay (Namibia), and multiple Atlantic ports create a pre-positioned logistics infrastructure that took decades and $70B+ to build. In a major contingency, PLAN could sustain naval operations from the Djibouti base while drawing on this commercial port network for resupply.</div>
+        </div>
+        <div class="doctrine-card">
+          <div class="doctrine-label">Russian Air Bridge Constraint</div>
+          <div class="doctrine-title">Ukraine War Creates Africa Logistics Competition</div>
+          <div class="doctrine-desc">Russia's Il-76 and An-124 strategic airlift fleet is under severe strain from Ukraine war operations, limiting the scale of the Africa Corps air bridge. Estimated 20+ Il-76 sorties/month to Africa are drawn from the same pool supporting Ukraine operations. Equipment quality to Africa is declining — older T-72 variants and less sophisticated air defense systems than would otherwise be provided. This creates a window for Western partners to demonstrate superior equipment quality if partner nation access can be maintained.</div>
+        </div>
+        <div class="doctrine-card">
+          <div class="doctrine-label">AFRICOM Access Erosion</div>
+          <div class="doctrine-title">Niger Loss Creates ISR Gap</div>
+          <div class="doctrine-desc">AFRICOM's suspension of Agadez, Niger operations (2024) has created a critical ISR and logistics coverage gap across the central Sahel. The $110M Agadez base provided MQ-9 coverage of approximately 2.5 million km² of Sahel territory from a single site. Replacement via Manda Bay (Kenya) and occasional Djibouti sorties cannot replicate central Sahel coverage geometry. French withdrawal from three Sahel states simultaneously compounds the access problem — AFRICOM is losing the forward presence infrastructure it spent 15 years building.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚠ FRANCE WITHDRAWAL: LOGISTICS IMPACT ASSESSMENT</div>
+    <p>France's withdrawal from Mali, Burkina Faso, and Niger has created a logistics vacuum that <strong class="critical">Russia has been faster to fill than any other external actor</strong>. French infrastructure at Niamey (Niger), Bamako (Mali), and Ouagadougou (Burkina Faso) included hardened airfields, fuel depots, forward ammunition storage, and medical facilities. These have transferred — with varying degrees of condition — to either junta control or Africa Corps use. The strategic consequence is that Russia now has three former French military bases that provide better infrastructure than anything Russia built from scratch in Africa. France is effectively subsidizing Russia's Africa logistics build-up through the cost of abandoned infrastructure.</p>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 09: ESCALATION PATHWAYS -->
+<section id="theater-escalation">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">09 // ESCALATION PATHWAYS</div>
+      <h2 class="section-title">Proxy War → Great Power Confrontation</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert mb-6">
+    <div class="intel-alert-head">🎯 ESCALATION FRAMEWORK NOTE</div>
+    <p>The Africa theater's escalation dynamic is fundamentally different from Europe or the Pacific: the primary risk is <strong class="critical">creeping great power competition via proxies and infrastructure</strong> rather than conventional military confrontation. The escalation ladder in Africa runs from proxy competition to inadvertent confrontation between US/China forces in the compressed Djibouti basing environment — not from conventional to nuclear exchanges. The wild card is an Africa Corps action that directly kills US personnel (e.g., in a SOF advisory role in a country where Africa Corps is also operating), triggering a crisis that tests whether great powers can de-escalate in a theater with no established crisis management protocols.</p>
+  </div>
+
+  <div class="escalation-ladder mb-8">
+    <div class="esc-rung esc-level-1">
+      <div class="esc-level-num">LEVEL 1 // CURRENT BASELINE (2026)</div>
+      <div class="esc-level-name">Proxy Competition / Gray Zone Operations</div>
+      <div class="esc-level-desc">Russia Africa Corps conducts security operations, disinformation, and resource extraction across 20+ African states. China expands BRI port network and Djibouti base capabilities. AFRICOM SOF training missions compete with Africa Corps partner-force building. France withdraws and loses influence sequentially. No direct US-Russia or US-China military interaction.</div>
+      <div class="esc-level-actors">ACTORS: Russia (Africa Corps), China (PLA/BRI), USA (AFRICOM SOF), France (residual), JNIM/ISGS</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 2: Africa Corps kills US SOF advisor in a shared-theater country; PLA base expansion threatens Camp Lemonnier operations</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-2">
+      <div class="esc-level-num">LEVEL 2</div>
+      <div class="esc-level-name">Competitive Friction — Near-Incidents</div>
+      <div class="esc-level-desc">US and Russian forces operate in proximity in a shared country (e.g., both advising competing factions in Libya or Sudan). PLA and US forces conduct competing ISR operations in Gulf of Aden. A near-incident in Djibouti involving armed security personnel of both nations. Diplomatic protests exchanged; no shots fired. African partners forced to choose between external powers.</div>
+      <div class="esc-level-actors">ACTORS: USA (AFRICOM), Russia (Africa Corps), China (PLAN), involved African governments</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 3: US or Russian personnel killed in a shared-theater incident with ambiguous attribution; Chinese base weaponized for intelligence against Camp Lemonnier operations</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-3">
+      <div class="esc-level-num">LEVEL 3</div>
+      <div class="esc-level-name">Conventional Limited — Direct Incident</div>
+      <div class="esc-level-desc">US conducts airstrikes on Africa Corps positions after Americans killed. Russian military advisors (not Africa Corps mercenaries) explicitly targeted, triggering Kremlin response. OR: China activates carrier operations from Djibouti, challenging CENTCOM freedom of navigation in Bab el-Mandeb during a Red Sea crisis. Limited conventional exchange with all parties seeking off-ramp.</div>
+      <div class="esc-level-actors">ACTORS: USA, Russia (direct military), China (PLAN), involved African governments</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 4: Escalation linked to European/Pacific theater crisis (e.g., Africa Corps action synchronized with Ukraine escalation or Taiwan crisis)</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-4">
+      <div class="esc-level-num">LEVEL 4</div>
+      <div class="esc-level-name">Theater Linkage — Multi-Domain Escalation</div>
+      <div class="esc-level-desc">Africa theater incidents linked to simultaneous crises in Europe or Pacific. Russia uses Africa Corps actions to create a second front to distract AFRICOM from supporting European allies. China leverages Djibouti base to threaten Camp Lemonnier access during a Taiwan crisis, forcing AFRICOM to choose between Africa/Pacific/European demands simultaneously. Africa becomes a lever in a global great power confrontation rather than an independent theater.</div>
+      <div class="esc-level-actors">ACTORS: USA, Russia, China, NATO (indirectly), African partner states</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 5: Africa action part of coordinated global conflict; Camp Lemonnier attacked or blockaded</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-5">
+      <div class="esc-level-num">LEVEL 5</div>
+      <div class="esc-level-name">Major Power Confrontation in Africa Theater</div>
+      <div class="esc-level-desc">Large-scale conventional military operations between US and Russia (Africa Corps → Russian MoD direct) in Libya or Sudan. OR Chinese naval blockade of Camp Lemonnier in Djibouti during a global conflict. This level would represent unprecedented great power direct military conflict in Africa — not seen since Cold War proxy wars. Global economic disruption from simultaneous Bab el-Mandeb and Cape of Good Hope risk.</div>
+      <div class="esc-level-actors">ACTORS: USA, Russia (direct), China (PLAN), NATO (allied support), AU (emergency session)</div>
+      <div class="esc-level-trigger">▲ TRIGGER TO LEVEL 6: Nuclear-armed states in direct conflict in Africa as part of global strategic confrontation</div>
+    </div>
+    <div class="esc-arrow">▼</div>
+    <div class="esc-rung esc-level-6">
+      <div class="esc-level-num">LEVEL 6</div>
+      <div class="esc-level-name">Civilization-Ending Exchange (Terminal)</div>
+      <div class="esc-level-desc">Africa theater incidents contributing to full nuclear exchange between great powers. Extremely low probability as Africa itself is not a nuclear theater — but as a lever in a global US-Russia-China confrontation, actions here could trigger or accelerate nuclear thresholds elsewhere. Nuclear winter / civilizational collapse. This scenario represents the outer boundary of the ladder, constrained by mutual deterrence.</div>
+      <div class="esc-level-actors">ACTORS: USA, Russia, China (all nuclear-armed great powers)</div>
+      <div class="esc-level-trigger">TERMINAL: No de-escalation pathway at this level</div>
+    </div>
+  </div>
+
+  <div class="policy-quote">
+    "Africa is arguably the most consequential theater for the long-term balance of power between the United States and China. China's combination of economic investment, military basing, and resource extraction — conducted without the human rights conditionality that has made Western partnerships unpopular — gives Beijing structural advantages that will be very difficult to reverse."
+    <span class="policy-quote-attr">— RAND Corporation, China's African Strategy, 2025 | <a href="https://www.rand.org/topics/africa.html" target="_blank" rel="noopener">RAND Africa Research →</a></span>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 10: WILD CARDS -->
+<section id="theater-wildcards">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">10 // WILD CARDS & X-FACTORS</div>
+      <h2 class="section-title">Black Swans & Inflection Points</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="wildcard-grid mb-8">
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🌍</div>
+      <div class="wildcard-title">African Union Military Integration</div>
+      <div class="wildcard-desc">A revitalized African Standby Force (ASF) under Nigerian or South African leadership could create an indigenous security architecture that reduces dependence on all external powers simultaneously. The AU has the mandate (Article 4(h) of the AU Constitutive Act permits intervention to prevent genocide) but historically lacks the logistics, financing, and political will to sustain operations. ECOWAS's 2023 threatened intervention in Niger (ultimately not executed) shows both the potential and limitations of this model.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">⚓</div>
+      <div class="wildcard-title">Chinese Naval Base Expansion (Second Base)</div>
+      <div class="wildcard-desc">US intelligence assesses China is actively negotiating a second African military base, with Tanzania (Bagamoyo/Dar es Salaam), Mozambique, or Equatorial Guinea (Atlantic) as the most likely sites. An Atlantic-facing Chinese base would be qualitatively transformative — providing PLAN with operational access to the Atlantic for the first time and positioning Chinese forces adjacent to the Cape of Good Hope trade route. This is assessed as the single most consequential potential geostrategic development in Africa this decade.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">⚛️</div>
+      <div class="wildcard-title">Russian Nuclear Energy Deals as Leverage</div>
+      <div class="wildcard-desc">Rosatom (Russia's state nuclear energy company) is aggressively marketing nuclear power plants across Africa, with signed agreements in Egypt (El Dabaa, 4 reactors under construction), South Africa (negotiations), Nigeria, Rwanda, Ethiopia, Uganda, and Zambia. Nuclear energy deals create 60–80 year dependency relationships — Rosatom provides fuel, operations, waste management, and training. A Russian nuclear energy monopoly across Africa would give Moscow unprecedented long-term political leverage well beyond any PMC deployment.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🌊</div>
+      <div class="wildcard-title">Climate Migration Destabilization</div>
+      <div class="wildcard-desc">The Sahel is experiencing 1.5x the global average rate of temperature increase. Lake Chad has shrunk 90% since 1960, displacing 2.5M people. Combined with population growth (Africa's population is projected to reach 2.5B by 2050), climate-driven resource scarcity will generate unprecedented migration and conflict pressure. Great powers that invest in African climate adaptation now will gain durable influence; those that don't will face destabilization that their military investments cannot contain. Africa Corps and BRI ports cannot address Sahel desertification.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">⛏️</div>
+      <div class="wildcard-title">Critical Mineral Supply Chain Disruption</div>
+      <div class="wildcard-desc">China controls ~80% of the world's cobalt refining, with DRC providing 70% of raw supply. A disruption to DRC cobalt (conflict, export ban, Chinese embargo in retaliation for Taiwan sanctions) would halt global EV production within 6 months. The US has one operational cobalt refinery. EU has none. This supply chain concentration gives China enormous economic coercion leverage that exceeds any military asset in the Africa theater — and is not susceptible to military solution. It can only be resolved by decade-long diversification investments.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🗳️</div>
+      <div class="wildcard-title">Democratic Consolidation Counter-Trend</div>
+      <div class="wildcard-desc">West Africa's coup wave (2020–23) may be approaching saturation. Senegal, Ghana, and Kenya have maintained democratic governance under significant pressure. A successful African democratic model that demonstrates economic growth and security without authoritarian partners would be the most powerful counter to both Africa Corps and Chinese authoritarian-infrastructure influence. Botswana, Namibia, and Cape Verde represent stable democratic examples — if their development model scales, it undermines the Africa Corps pitch fundamentally.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">🤖</div>
+      <div class="wildcard-title">Autonomous Weapons Proliferation to Non-State Actors</div>
+      <div class="wildcard-desc">Turkish Bayraktar TB2 drones (used effectively by Azerbaijan and Ukraine) have proliferated to Ethiopia, Morocco, Niger, and potentially others. Chinese armed drones (Wing Loong II, Caihong series) are the most widely exported armed UAVs globally, with multiple African operators. The combination of cheap commercial drones and increasingly capable Chinese/Iranian drone technology is democratizing precision air strike capability — enabling Sahelian insurgent groups and militia forces to challenge state air defenses for the first time.</div>
+    </div>
+    <div class="wildcard-card">
+      <div class="wildcard-icon">💡</div>
+      <div class="wildcard-title">Tech-Enabled African Leapfrogging</div>
+      <div class="wildcard-desc">Africa has already demonstrated mobile payment leapfrogging (M-Pesa Kenya) and solar energy leapfrogging. If African states build indigenous AI/drone industries using Chinese or US investment, they may develop independent military-relevant technology that reduces dependence on all external powers. Nigeria's growing tech ecosystem, Kenya's AI innovation sector, and Rwanda's drone delivery infrastructure (Zipline) represent potential seeds of an indigenous African defense technology base that could reshape theater dynamics by 2035.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-head" onclick="toggleCollapsible(this)">
+      <span>Africa Corps Model — Strengths, Weaknesses &amp; Long-Term Trajectory</span>
+      <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px;transition:transform .3s;"></i>
+    </div>
+    <div class="collapsible-body">
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">Russia's Africa Corps (Wagner successor) has achieved <strong style="color:var(--color-accent);">remarkable geopolitical returns on a relatively modest investment</strong>. For an estimated $2–3B annual cost (partially offset by resource extraction), Russia has displaced French and US influence from the Sahel's three key states, established four African military footholds (Mali, CAR, Libya, Burkina Faso), and positioned Russia as the preferred security partner for authoritarian governments facing insurgency. The model's core advantage is providing security without political conditionality — something Western partners legally cannot do.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">However, Africa Corps has <strong style="color:var(--color-accent-bright);">consistently failed to defeat JNIM and ISGS militarily</strong>. In Mali, JNIM has expanded territorial control since Africa Corps arrival. In CAR, armed groups continue operating near the capital. The pattern: Africa Corps can prevent regime collapse and punish opposition villages, but cannot win population-centric counterinsurgency. This creates a <strong style="color:var(--color-accent-bright);">strategic dependency trap</strong> — junta governments become permanently reliant on Russian security as the insurgency endures, deepening Russia's leverage while protecting its resource extraction and basing access indefinitely.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;">The post-Prigozhin Africa Corps transition to Russian MoD control has <strong style="color:var(--color-red);">reduced the organizational autonomy</strong> that made Wagner effective (flexible, fast, willing to take risks MoD won't authorize). Some African clients have noted declining operational quality since the 2023 restructuring. The Ukraine war also diverts experienced Africa Corps personnel back to Eastern Europe, creating capacity constraints that China is positioned to exploit in countries where Beijing offers infrastructure-for-security deals rather than Russia's mining-for-security model.</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-head" onclick="toggleCollapsible(this)">
+      <span>China's "No Conditions" Africa Model vs. Western Conditionality — The Competitive Dynamics</span>
+      <i data-lucide="chevron-down" class="chev" style="width:20px;height:20px;transition:transform .3s;"></i>
+    </div>
+    <div class="collapsible-body">
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">China's Africa investment model — "economic cooperation without political interference" — has proven highly attractive to African governments frustrated by Western human rights conditionality on aid and investment. China has built $700B+ in African infrastructure (roads, ports, railways, power plants) since 2000, primarily through BRI, with no democratic governance requirements. This creates economic relationships that outlast any government and generate durable Chinese influence regardless of who holds power.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-4);">The model's vulnerabilities are becoming apparent: <strong style="color:var(--color-accent);">debt sustainability concerns</strong> (Zambia defaulted on Chinese debt 2020; Kenya/Ethiopia face unsustainable Chinese loan burdens) have given some African governments leverage to renegotiate terms. Chinese infrastructure quality has been inconsistent — some BRI railways have near-collapsed within 5 years of completion. And China's refusal to engage with conflict mediation (unlike the US/France/AU) means Beijing cannot resolve the security crises that undermine its own infrastructure investments.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;">The critical competition for the US is whether it can offer a genuinely competitive alternative that addresses African governments' core needs: <strong style="color:var(--color-accent-bright);">security + development + no lectures</strong>. The US Development Finance Corporation (DFC), Lobito Corridor railway investment ($250M), and the Partnership for Global Infrastructure and Investment (PGII) represent attempts at this — but at $500M–$1B/year in Africa, they are dwarfed by Chinese BRI commitments of $10–20B/year historically.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 11: ASSESSMENT -->
+<section id="theater-assessment">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">11 // ASSESSMENT & PROBABILITY</div>
+      <h2 class="section-title">Theater Assessment</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="intel-alert red mb-6">
+    <div class="intel-alert-head">🔴 OVERALL ASSESSMENT — MARCH 2026</div>
+    <p>The Africa theater is at a <strong class="critical">strategic inflection point</strong>: France's Sahel architecture has collapsed, AFRICOM's access network is contracting, and Russia's Africa Corps + China's BRI are consolidating positions that will be increasingly difficult to reverse. Three variables determine theater trajectory: (1) Whether Africa Corps can extend into West Africa's anchor states (Nigeria, Côte d'Ivoire) — which would shift the entire ECOWAS security framework; (2) Whether China establishes a second military base on Africa's Atlantic coast — which would give Beijing unprecedented maritime reach from the Indian Ocean to the Atlantic; (3) Whether any African states develop sufficient internal governance capacity and economic growth to demonstrate a third model that rejects both Western conditionality and Russian/Chinese dependency. The near-term outlook (2026–28) favors continued Russia/China advance; the long-term outlook (2035+) depends on whether African demographic and economic growth generates indigenous strategic agency.</p>
+  </div>
+
+  <div class="card-grid grid-2 mb-8">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">Probability Assessment</h3>
+      <div class="stat-row"><span class="stat-label">Africa Corps New Country (12mo)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:50%"></div></div><span class="stat-val">50%</span></div>
+      <div class="stat-row"><span class="stat-label">China 2nd Africa Base (5yr)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:55%"></div></div><span class="stat-val">55%</span></div>
+      <div class="stat-row"><span class="stat-label">Sahel State Collapse (Burkina/Mali)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:45%"></div></div><span class="stat-val">45%</span></div>
+      <div class="stat-row"><span class="stat-label">DRC Cobalt Supply Disruption</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:35%"></div></div><span class="stat-val">35%</span></div>
+      <div class="stat-row"><span class="stat-label">ECOWAS Fracture</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:40%"></div></div><span class="stat-val">40%</span></div>
+      <div class="stat-row"><span class="stat-label">US-China Djibouti Near-Incident</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:30%"></div></div><span class="stat-val">30%</span></div>
+      <div class="stat-row"><span class="stat-label">Rosatom Nuclear Deal Completed (Egypt)</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:75%"></div></div><span class="stat-val">75%</span></div>
+      <div class="stat-row"><span class="stat-label">US-Russia Direct Military Incident</span><div class="stat-bar-wrap"><div class="stat-fill" style="width:8%"></div></div><span class="stat-val">8%</span></div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-4);">Force Projection Trajectory</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Actor</th><th>2026 (Current)</th><th>2028 (Projected)</th><th>2032 (Long-term)</th></tr></thead>
+          <tbody>
+            <tr><td>Russia (Africa Corps)</td><td>~5,000 fighters, 20 countries; growing but constrained by Ukraine</td><td>Possible 10+ country expansion; post-Ukraine reallocation if ceasefire; new country entries 1–2/year</td><td>Either entrenched Africa empire or retrenchment if economically unsustainable; succession crisis risk</td></tr>
+            <tr><td>China (PLA/BRI)</td><td>Djibouti base (carrier-capable pier), 50+ BRI port/railway projects active</td><td>Second base (Atlantic/Tanzania); PLAN carrier task force exercises from Djibouti; cobalt supply secured</td><td>Dominant external power in Africa by most metrics; PLAN capable of sustained Indian Ocean/Atlantic operations from African bases</td></tr>
+            <tr><td>USA (AFRICOM)</td><td>Camp Lemonnier + ~10 partner access states; Agadez suspended; GPC framing adopted</td><td>Lobito Corridor + DFC investments providing economic competition alternative; Manda Bay expanded; Sahel ISR gap partially addressed via HAPS systems</td><td>Either successful GPC pivot creates new Africa partnership model, or continued access erosion; competing with China for mineral supply chain partnerships</td></tr>
+            <tr><td>France</td><td>~2,700 troops (Chad/Djibouti/Senegal); trajectory declining</td><td>Potential Chad withdrawal; Djibouti retained as strategic priority; diplomatic relaunch with civil society focus</td><td>Minimal residual military presence; economic/cultural influence remaining in Francophone Africa but military role ended</td></tr>
+            <tr><td>Regional Actors</td><td>Nigeria/Egypt/South Africa sub-regional roles; SADC DRC mission active</td><td>Rwanda emerging as preferred African security partner (Mozambique, CAR, post-conflict roles); Nigeria political stability uncertain</td><td>Potential indigenous African security architecture if AU funded; or permanent fragmentation between Russian/Chinese/US spheres</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION 12: SOURCES -->
+<section id="theater-sources">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-num">12 // PRIMARY SOURCES</div>
+      <h2 class="section-title">Authoritative References</h2>
+    </div>
+    <div class="section-divider"></div>
+  </div>
+
+  <!-- CROSS-REFERENCE COUNTRY DOSSIERS -->
+  <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);text-transform:uppercase;margin-bottom:var(--space-3);">Cross-Reference: Series A Country Dossiers</h3>
+  <div class="xref-links mb-8" style="flex-wrap:wrap;gap:var(--space-2) var(--space-3);">
+    <span class="xref-label">RELATED DOSSIERS:</span>
+    <a href="../countries/russia-dossier.html" class="xref-chip" target="_blank">🇷🇺 Russia A-05 →</a>
+    <a href="../countries/china-dossier.html" class="xref-chip" target="_blank">🇨🇳 China A-01 →</a>
+    <a href="../countries/usa-dossier.html" class="xref-chip" target="_blank">🇺🇸 USA A-11 →</a>
+    <a href="./middle-east-theater.html" class="xref-chip" target="_blank">⚔️ B-03 Middle East →</a>
+    <a href="./eastern-europe-theater.html" class="xref-chip" target="_blank">🛡️ B-02 Eastern Europe →</a>
+    <a href="./asia-pacific-theater.html" class="xref-chip" target="_blank">🌊 B-04 Asia-Pacific →</a>
+    <a href="./cyber-asymmetric.html" class="xref-chip" target="_blank">💻 B-08 Cyber &amp; Asymmetric →</a>
+    <a href="../index.html" class="xref-chip" target="_blank">🌐 Platform Home →</a>
+  </div>
+
+  <div class="sources-grid">
+    <div class="sources-col">
+      <h3>US Government &amp; Military</h3>
+      <div class="source-item"><a href="https://www.africom.mil/" target="_blank" rel="noopener">AFRICOM Official Website</a><span>US Africa Command // Force disposition, press releases, mission</span></div>
+      <div class="source-item"><a href="https://crsreports.congress.gov/product/pdf/R/R43245" target="_blank" rel="noopener">CRS: US Military in Africa</a><span>Congressional Research Service — AFRICOM force posture and basing</span></div>
+      <div class="source-item"><a href="https://crsreports.congress.gov/product/pdf/R/R46368" target="_blank" rel="noopener">CRS: Russia Africa Corps / Wagner</a><span>Congressional Research Service — Wagner/Africa Corps activities</span></div>
+      <div class="source-item"><a href="https://www.odni.gov/files/ODNI/documents/assessments/ATA-2025-Unclassified-Report.pdf" target="_blank" rel="noopener">ODNI Annual Threat Assessment 2025</a><span>Office of the Director of National Intelligence</span></div>
+      <div class="source-item"><a href="https://dod.defense.gov/Portals/1/Documents/pubs/2022-National-Defense-Strategy-NPR-MDR.pdf" target="_blank" rel="noopener">National Defense Strategy 2022</a><span>DoD — Establishes GPC as primary organizing mission for AFRICOM</span></div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Conflict Data &amp; Think Tanks</h3>
+      <div class="source-item"><a href="https://acleddata.com/africa/" target="_blank" rel="noopener">ACLED Africa Data</a><span>Armed Conflict Location &amp; Event Data // Real-time conflict tracking across Africa</span></div>
+      <div class="source-item"><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS Military Balance 2025</a><span>International Institute for Strategic Studies // Gold standard force data</span></div>
+      <div class="source-item"><a href="https://www.rand.org/topics/africa.html" target="_blank" rel="noopener">RAND Africa Research Portal</a><span>RAND Corporation // Strategic analysis, Africa Corps assessments</span></div>
+      <div class="source-item"><a href="https://www.cfr.org/africa" target="_blank" rel="noopener">CFR Africa Program</a><span>Council on Foreign Relations // Africa policy analysis and tracker</span></div>
+      <div class="source-item"><a href="https://www.crisisgroup.org/africa" target="_blank" rel="noopener">ICG Africa Reports</a><span>International Crisis Group // In-country conflict analysis and early warning</span></div>
+    </div>
+
+    <div class="sources-col">
+      <h3>China &amp; Great Power Competition</h3>
+      <div class="source-item"><a href="https://www.csis.org/programs/china-power-project" target="_blank" rel="noopener">CSIS China Power Project</a><span>Center for Strategic &amp; International Studies // China global influence tracking</span></div>
+      <div class="source-item"><a href="https://www.csis.org/analysis/chinas-overseas-bases-and-facilities" target="_blank" rel="noopener">CSIS: China Overseas Bases</a><span>CSIS — Djibouti and potential second base analysis</span></div>
+      <div class="source-item"><a href="https://www.sipri.org/databases/armstransfers" target="_blank" rel="noopener">SIPRI Arms Transfers Database</a><span>Stockholm International Peace Research Institute // All weapons transfers to Africa</span></div>
+      <div class="source-item"><a href="https://www.sipri.org/yearbook" target="_blank" rel="noopener">SIPRI Yearbook 2025</a><span>SIPRI // Global military expenditure, Africa chapter</span></div>
+    </div>
+
+    <div class="sources-col">
+      <h3>Sahel &amp; Russia Africa Corps</h3>
+      <div class="source-item"><a href="https://www.crisisgroup.org/africa/sahel" target="_blank" rel="noopener">ICG Sahel Analysis</a><span>International Crisis Group // Mali, Niger, Burkina Faso deep dives</span></div>
+      <div class="source-item"><a href="https://globalinitiative.net/analysis/africa-organized-crime/" target="_blank" rel="noopener">Global Initiative — Africa Crime</a><span>Global Initiative Against Transnational Organized Crime // Wagner/Africa Corps activities</span></div>
+      <div class="source-item"><a href="https://www.africa-confidential.com/" target="_blank" rel="noopener">Africa Confidential</a><span>Africa Confidential // Authoritative Africa political intelligence</span></div>
+      <div class="source-item"><a href="https://allafrica.com/" target="_blank" rel="noopener">AllAfrica News Aggregator</a><span>AllAfrica.com // Pan-African news aggregation from primary sources</span></div>
+    </div>
+  </div>
+
+  <div class="classification-notice">
+    <div class="class-title">⚠ OPEN-SOURCE INTELLIGENCE NOTICE</div>
+    <p class="class-body">This dossier is compiled entirely from unclassified, publicly available open-source intelligence (OSINT). All data is sourced from official government publications, peer-reviewed think tank research, verified news reporting, and international monitoring organizations. No classified information is included or implied. Force estimates marked as "estimated" reflect best-available OSINT and may differ from classified assessments. Geopolitical Intelligence Platform v2 — Series B Theater Dossier B-05 // March 2026.</p>
+  </div>
+</div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+  <span id="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</span>
+  <img id="lightbox-img" src="" alt="Expanded view">
+  <div id="lightbox-cap"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-text">GEOPOLITICAL INTELLIGENCE PLATFORM v2 // THEATER DOSSIER B-05 AFRICA // MARCH 2026 // OPEN-SOURCE ANALYSIS</p>
+    <p class="footer-text" style="margin-top:var(--space-2);">Series B: Theater / Domain Analysis | Cross-ref: A-01 China · A-05 Russia · A-11 USA | Sources: ACLED · SIPRI · RAND · CFR · IISS · Crisis Group</p>
+  </div>
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.lucide) lucide.createIcons();
+});
+
+function openLightbox(src, cap) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-cap').textContent = cap || '';
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+function switchTab(e, id) {
+  const container = e.target.closest('.tabs-wrap') || document;
+  container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  const pane = document.getElementById(id);
+  if (pane) pane.classList.add('active');
+}
+
+function toggleCollapsible(head) {
+  const isOpen = head.classList.contains('open');
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+  const chev = head.querySelector('.chev');
+  if (chev) chev.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+
+// Scroll-active nav
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-60px 0px -40% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Animate stat bars + rating bars on scroll
+const fills = document.querySelectorAll('.stat-fill, .rating-fill');
+const fillObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const w = e.target.style.width;
+      e.target.style.width = '0%';
+      setTimeout(() => { e.target.style.width = w; }, 100);
+      fillObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+fills.forEach(f => {
+  f.style.transition = 'width 1.2s cubic-bezier(0.16,1,0.3,1)';
+  fillObserver.observe(f);
+});
+
+// Light/dark mode toggle
+(function(){
+  document.documentElement.setAttribute('data-theme', 'dark');
+  const nav = document.querySelector('.nav-inner');
+  const btn = document.createElement('button');
+  btn.setAttribute('data-theme-toggle', '');
+  btn.setAttribute('aria-label', 'Switch to light mode');
+  btn.style.cssText = 'background:none;border:1px solid rgba(194,123,48,0.3);color:var(--color-accent);padding:4px 8px;cursor:pointer;font-size:14px;border-radius:3px;flex-shrink:0;margin-left:auto;';
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  nav.appendChild(btn);
+
+  let dark = true;
+  btn.addEventListener('click', () => {
+    dark = !dark;
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    btn.setAttribute('aria-label', 'Switch to ' + (dark ? 'light' : 'dark') + ' mode');
+    btn.innerHTML = dark
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  });
+})();
+
+// Light mode CSS variables (injected dynamically)
+const lightModeStyles = document.createElement('style');
+lightModeStyles.textContent = `
+[data-theme="light"] {
+  --color-bg: #f5eee0;
+  --color-surface: #faf4e8;
+  --color-surface-2: #fffaf0;
+  --color-surface-3: #fff8ea;
+  --color-border: rgba(194,123,48,0.25);
+  --color-border-2: rgba(194,123,48,0.12);
+  --color-text: #1a1208;
+  --color-text-muted: #5a4020;
+  --color-text-faint: #9e7a40;
+  --color-accent: #8a4a08;
+  --color-accent-bright: #a66010;
+  --color-teal: #0d7a6e;
+  --color-blue: #1a5fa3;
+  --color-red: #c0392b;
+  --color-green: #1e7a40;
+}
+[data-theme="light"] .site-nav {
+  background: rgba(245,238,224,0.95);
+}
+[data-theme="light"] .hero-bg {
+  background: radial-gradient(ellipse 80% 60% at 60% 40%,rgba(194,123,48,.06) 0%,transparent 65%),
+              radial-gradient(ellipse 50% 40% at 20% 80%,rgba(96,165,250,.04) 0%,transparent 60%), #f5eee0;
+}
+`;
+document.head.appendChild(lightModeStyles);
+</script>
+
+</body>
+</html>

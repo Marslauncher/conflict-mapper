@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historical Reports — Conflict Mapper</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0c10;
+  --surface: #12151c;
+  --surface-2: #1a1e28;
+  --surface-3: #222736;
+  --border: rgba(255,255,255,0.1);
+  --border-dim: rgba(255,255,255,0.06);
+  --accent: #c41e3a;
+  --accent-dim: rgba(196,30,58,0.08);
+  --accent-glow: rgba(196,30,58,0.15);
+  --amber: #f59e0b;
+  --green: #22c55e;
+  --text: #e8eaf0;
+  --text-muted: rgba(232,234,240,0.55);
+  --text-faint: rgba(232,234,240,0.3);
+  --font-display: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+  --transition: 0.15s ease;
+  --radius: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+[data-theme="light"] {
+  --bg: #f0f2f5;
+  --surface: #ffffff;
+  --surface-2: #f5f7fa;
+  --surface-3: #ebedf2;
+  --border: rgba(0,0,0,0.1);
+  --border-dim: rgba(0,0,0,0.06);
+  --accent-dim: rgba(196,30,58,0.06);
+  --accent-glow: rgba(196,30,58,0.1);
+  --text: #0f1117;
+  --text-muted: rgba(15,17,23,0.55);
+  --text-faint: rgba(15,17,23,0.35);
+}
+
+html, body {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── Layout ── */
+.page-wrap {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Report viewer (right side, hidden by default) ── */
+.report-viewer {
+  flex: 1;
+  position: relative;
+  display: none;
+}
+.report-viewer.open { display: flex; flex-direction: column; }
+.viewer-topbar {
+  height: 44px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-dim);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  flex-shrink: 0;
+}
+.viewer-back {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius);
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.viewer-back:hover { border-color: var(--accent); color: var(--accent); }
+.viewer-title {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+  flex: 1;
+}
+#report-iframe {
+  flex: 1;
+  border: none;
+  width: 100%;
+  background: var(--bg);
+}
+
+/* ── Sidebar ── */
+.hist-sidebar {
+  width: 100%;
+  max-width: 720px;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 28px 28px 40px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border-dim);
+  background: var(--bg);
+}
+.report-viewer.open ~ .hist-sidebar { display: none; }
+.page-wrap.viewer-open .hist-sidebar { width: 0; overflow: hidden; padding: 0; border: none; }
+
+/* When viewer is not open, take full width */
+.hist-sidebar:only-child { max-width: 900px; margin: 0 auto; padding: 40px 24px; width: 100%; border: none; }
+
+/* ── Page header ── */
+.page-header { margin-bottom: 28px; }
+.page-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.page-eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-dim);
+}
+.page-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.page-title span { color: var(--accent); }
+.page-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+.country-flag-display { font-size: 2.5rem; line-height: 1; margin-bottom: 10px; }
+
+/* ── Filter strip ── */
+.filter-strip {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border-dim);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.filter-btn:hover { border-color: var(--accent); color: var(--text); }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.search-input {
+  margin-left: auto;
+  background: var(--surface-2);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius);
+  padding: 5px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--transition);
+  width: 180px;
+}
+.search-input:focus { border-color: var(--accent); }
+.search-input::placeholder { color: var(--text-faint); }
+
+/* ── Report cards ── */
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.report-card {
+  background: var(--surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition), box-shadow var(--transition);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.report-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.report-card:hover {
+  border-color: var(--accent);
+  background: var(--surface-2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.report-card:hover::before { opacity: 1; }
+
+.report-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.report-type-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius);
+  background: var(--accent-dim);
+  border: 1px solid rgba(196,30,58,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+.report-meta-top { flex: 1; }
+.report-date {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+.report-time {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+
+.report-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.report-tag {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--surface-3);
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+.report-tag.country { background: rgba(245,158,11,0.12); color: var(--amber); }
+.report-tag.global { background: rgba(59,130,246,0.12); color: #60a5fa; }
+
+.report-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+.report-size {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+.report-open-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity var(--transition), transform var(--transition);
+}
+.report-card:hover .report-open-arrow { opacity: 1; transform: translateX(2px); }
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  grid-column: 1 / -1;
+}
+.empty-icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.3; }
+.empty-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.empty-desc {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+
+/* ── Loading ── */
+.loading-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.loading-card {
+  background: var(--surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  height: 100px;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ── Stats summary ── */
+.hist-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.hist-stat {
+  background: var(--surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  text-align: center;
+}
+.hist-stat-val { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--text); line-height: 1; }
+.hist-stat-key { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.12em; color: var(--text-faint); text-transform: uppercase; margin-top: 4px; }
+
+/* ── Action bar ── */
+.action-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+}
+.action-bar-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  flex: 1;
+}
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 6px 12px; border-radius: var(--radius); font-family: var(--font-display); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border: none; transition: all var(--transition); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: #a01730; }
+.btn-secondary { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border-dim); }
+.btn-secondary:hover { border-color: var(--accent); color: var(--text); }
+.btn-sm { padding: 4px 8px; font-size: 0.68rem; }
+</style>
+</head>
+<body>
+
+<div class="page-wrap" id="page-wrap">
+
+  <!-- Report viewer (hidden initially) -->
+  <div class="report-viewer" id="report-viewer">
+    <div class="viewer-topbar">
+      <button class="viewer-back" onclick="closeViewer()">← Back</button>
+      <div class="viewer-title" id="viewer-title">Loading report...</div>
+    </div>
+    <iframe id="report-iframe" title="Historical report viewer" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+  </div>
+
+  <!-- Sidebar / main content -->
+  <div class="hist-sidebar" id="hist-sidebar">
+
+    <div class="page-header">
+      <div class="page-eyebrow">Historical Analysis Archive</div>
+      <div class="country-flag-display" id="page-flag">📁</div>
+      <h1 class="page-title" id="page-title">Historical <span>Reports</span></h1>
+      <p class="page-subtitle" id="page-subtitle">Archived intelligence analysis reports</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="hist-stats">
+      <div class="hist-stat">
+        <div class="hist-stat-val" id="stat-total">—</div>
+        <div class="hist-stat-key">Total Reports</div>
+      </div>
+      <div class="hist-stat">
+        <div class="hist-stat-val" id="stat-latest">—</div>
+        <div class="hist-stat-key">Latest</div>
+      </div>
+      <div class="hist-stat">
+        <div class="hist-stat-val" id="stat-span">—</div>
+        <div class="hist-stat-key">Archive Span</div>
+      </div>
+    </div>
+
+    <!-- Action bar -->
+    <div class="action-bar">
+      <div class="action-bar-label" id="action-label">Viewing all historical reports</div>
+      <button class="btn btn-secondary btn-sm" onclick="loadReports()">↻ Refresh</button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-strip">
+      <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+      <button class="filter-btn" onclick="setFilter('country', this)">Country Analysis</button>
+      <button class="filter-btn" onclick="setFilter('global', this)">Global</button>
+      <input class="search-input" type="search" placeholder="Search reports..." id="search-input" oninput="applySearch()">
+    </div>
+
+    <!-- Report grid -->
+    <div id="reports-container">
+      <div class="loading-grid">
+        <div class="loading-card"></div>
+        <div class="loading-card"></div>
+        <div class="loading-card"></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+'use strict';
+
+let allReports = [];
+let filteredReports = [];
+let activeFilter = 'all';
+
+/* ── Read URL params ── */
+const params = new URLSearchParams(window.location.search);
+const countrySlug = params.get('country') || '';
+const isGlobal = params.get('type') === 'global';
+
+const COUNTRY_DATA = {
+  usa: { name: 'United States', flag: '🇺🇸' },
+  china: { name: 'China', flag: '🇨🇳' },
+  russia: { name: 'Russia', flag: '🇷🇺' },
+  ukraine: { name: 'Ukraine', flag: '🇺🇦' },
+  taiwan: { name: 'Taiwan', flag: '🇹🇼' },
+  iran: { name: 'Iran', flag: '🇮🇷' },
+  israel: { name: 'Israel', flag: '🇮🇱' },
+  india: { name: 'India', flag: '🇮🇳' },
+  pakistan: { name: 'Pakistan', flag: '🇵🇰' },
+  'north-korea': { name: 'North Korea', flag: '🇰🇵' },
+  nato: { name: 'NATO', flag: '🇪🇺' }
+};
+
+/* ── Init ── */
+function init() {
+  const meta = countrySlug ? COUNTRY_DATA[countrySlug] : null;
+
+  if (isGlobal) {
+    document.getElementById('page-flag').textContent = '🌍';
+    document.getElementById('page-title').innerHTML = 'Global <span>Reports</span>';
+    document.getElementById('page-subtitle').textContent = 'Worldwide intelligence analysis archive';
+    document.title = 'Global Historical Reports — Conflict Mapper';
+    document.getElementById('action-label').textContent = 'Viewing global analysis reports';
+  } else if (meta) {
+    document.getElementById('page-flag').textContent = meta.flag;
+    document.getElementById('page-title').innerHTML = escHtml(meta.name) + ' <span>Reports</span>';
+    document.getElementById('page-subtitle').textContent = `Intelligence analysis archive — ${countrySlug.toUpperCase()}`;
+    document.title = `${meta.name} Historical Reports — Conflict Mapper`;
+    document.getElementById('action-label').textContent = `Viewing ${meta.name} historical reports`;
+  }
+
+  loadReports();
+}
+
+/* ── Load reports ── */
+async function loadReports() {
+  const container = document.getElementById('reports-container');
+  container.innerHTML = `<div class="loading-grid">${Array(4).fill('<div class="loading-card"></div>').join('')}</div>`;
+
+  try {
+    let endpoint;
+    if (isGlobal) {
+      endpoint = '/api/analysis/history/global';
+    } else if (countrySlug) {
+      endpoint = `/api/analysis/history/country/${countrySlug}`;
+    } else {
+      endpoint = '/api/analysis/history';
+    }
+
+    const res = await fetch(endpoint);
+    if (!res.ok) throw new Error('API unavailable');
+    const data = await res.json();
+    allReports = Array.isArray(data) ? data : (data.reports || []);
+  } catch(e) {
+    // Generate mock historical reports for demo
+    allReports = generateMockReports();
+  }
+
+  updateStats();
+  applyFilter();
+}
+
+/* ── Stats ── */
+function updateStats() {
+  document.getElementById('stat-total').textContent = allReports.length;
+
+  if (!allReports.length) {
+    document.getElementById('stat-latest').textContent = '—';
+    document.getElementById('stat-span').textContent = '—';
+    return;
+  }
+
+  const sorted = [...allReports].sort((a, b) => new Date(b.generatedAt || b.date) - new Date(a.generatedAt || a.date));
+  const latest = sorted[0];
+  const latestDate = new Date(latest.generatedAt || latest.date);
+  document.getElementById('stat-latest').textContent = latestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+  if (allReports.length > 1) {
+    const oldest = sorted[sorted.length - 1];
+    const oldestDate = new Date(oldest.generatedAt || oldest.date);
+    const days = Math.ceil((latestDate - oldestDate) / 86400000);
+    document.getElementById('stat-span').textContent = days + 'd';
+  } else {
+    document.getElementById('stat-span').textContent = '1d';
+  }
+}
+
+/* ── Filters ── */
+function setFilter(type, btn) {
+  activeFilter = type;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  applyFilter();
+}
+
+function applyFilter() {
+  const search = document.getElementById('search-input')?.value?.toLowerCase() || '';
+
+  filteredReports = allReports.filter(r => {
+    if (activeFilter === 'country' && r.type !== 'country') return false;
+    if (activeFilter === 'global' && r.type !== 'global') return false;
+    if (search) {
+      const searchable = `${r.title || ''} ${r.country || ''} ${r.type || ''}`.toLowerCase();
+      if (!searchable.includes(search)) return false;
+    }
+    return true;
+  });
+
+  renderReports();
+}
+
+function applySearch() { applyFilter(); }
+
+/* ── Render ── */
+function renderReports() {
+  const container = document.getElementById('reports-container');
+
+  if (!filteredReports.length) {
+    container.innerHTML = `
+      <div class="reports-grid">
+        <div class="empty-state">
+          <div class="empty-icon">📄</div>
+          <div class="empty-title">No reports found</div>
+          <div class="empty-desc">
+            No historical reports match your criteria.<br>
+            Run a new analysis from the Admin panel to generate reports.
+          </div>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  const sorted = [...filteredReports].sort((a, b) => new Date(b.generatedAt || b.date) - new Date(a.generatedAt || a.date));
+
+  container.innerHTML = `
+    <div class="reports-grid">
+      ${sorted.map(r => renderReportCard(r)).join('')}
+    </div>
+  `;
+}
+
+function renderReportCard(report) {
+  const date = new Date(report.generatedAt || report.date || Date.now());
+  const dateStr = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+  const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  const size = report.size ? formatBytes(report.size) : '—';
+  const isGlobalType = report.type === 'global';
+
+  const countryMeta = report.country ? COUNTRY_DATA[report.country] : null;
+  const typeIcon = isGlobalType ? '🌍' : (countryMeta ? countryMeta.flag : '📄');
+
+  return `
+    <div class="report-card" onclick="openReport(${JSON.stringify(report).replace(/"/g, '&quot;')})">
+      <div class="report-card-header">
+        <div class="report-type-icon">${typeIcon}</div>
+        <div class="report-meta-top">
+          <div class="report-date">${escHtml(dateStr)}</div>
+          <div class="report-time">${escHtml(timeStr)} UTC</div>
+        </div>
+      </div>
+      <div class="report-tags">
+        ${isGlobalType
+          ? '<span class="report-tag global">Global Analysis</span>'
+          : `<span class="report-tag country">${escHtml(countryMeta ? countryMeta.name : (report.country || 'Unknown'))}</span>`
+        }
+        ${report.tags ? report.tags.map(t => `<span class="report-tag">${escHtml(t)}</span>`).join('') : ''}
+        <span class="report-tag">Intelligence Report</span>
+      </div>
+      <div class="report-footer">
+        <span class="report-size">${escHtml(size)}</span>
+        <span class="report-open-arrow">Open →</span>
+      </div>
+    </div>
+  `;
+}
+
+/* ── Open/close report viewer ── */
+function openReport(report) {
+  const url = report.path || report.url || buildReportPath(report);
+  const date = new Date(report.generatedAt || report.date || Date.now());
+  const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const title = report.type === 'global'
+    ? `Global Analysis — ${dateStr}`
+    : `${(COUNTRY_DATA[report.country] || {}).name || report.country} — ${dateStr}`;
+
+  document.getElementById('viewer-title').textContent = title;
+  document.getElementById('report-iframe').src = url;
+  document.getElementById('report-viewer').classList.add('open');
+
+  // Adjust layout
+  document.getElementById('hist-sidebar').style.display = 'none';
+}
+
+function closeViewer() {
+  document.getElementById('report-viewer').classList.remove('open');
+  document.getElementById('report-iframe').src = '';
+  document.getElementById('hist-sidebar').style.display = '';
+}
+
+function buildReportPath(report) {
+  if (report.type === 'global') {
+    return `../reports/global/${report.id || formatDatePath(report.date)}/report.html`;
+  } else {
+    return `../reports/countries/${report.country}/${report.id || formatDatePath(report.date)}/report.html`;
+  }
+}
+
+function formatDatePath(dateStr) {
+  if (!dateStr) return 'latest';
+  const d = new Date(dateStr);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+/* ── Mock data ── */
+function generateMockReports() {
+  const now = Date.now();
+  const reports = [];
+
+  if (isGlobal || !countrySlug) {
+    // Global reports
+    for (let i = 0; i < 8; i++) {
+      const d = new Date(now - i * 86400000 * 3);
+      reports.push({
+        id: `global-${i}`,
+        type: 'global',
+        generatedAt: d.toISOString(),
+        size: Math.floor(Math.random() * 80000 + 20000),
+        tags: ['AI Generated', 'OSINT'],
+        path: '#'
+      });
+    }
+  }
+
+  if (countrySlug) {
+    // Country-specific reports
+    for (let i = 0; i < 12; i++) {
+      const d = new Date(now - i * 86400000 * 2);
+      reports.push({
+        id: `${countrySlug}-${i}`,
+        type: 'country',
+        country: countrySlug,
+        generatedAt: d.toISOString(),
+        size: Math.floor(Math.random() * 60000 + 15000),
+        tags: ['AI Generated', 'Strategic'],
+        path: '#'
+      });
+    }
+  }
+
+  if (!isGlobal && !countrySlug) {
+    // Mix of everything
+    const countries = Object.keys(COUNTRY_DATA);
+    for (let i = 0; i < 16; i++) {
+      const d = new Date(now - i * 86400000);
+      const isGlobalRep = Math.random() > 0.7;
+      const country = countries[Math.floor(Math.random() * countries.length)];
+      reports.push({
+        id: `report-${i}`,
+        type: isGlobalRep ? 'global' : 'country',
+        country: isGlobalRep ? null : country,
+        generatedAt: d.toISOString(),
+        size: Math.floor(Math.random() * 80000 + 20000),
+        tags: ['AI Generated'],
+        path: '#'
+      });
+    }
+  }
+
+  return reports;
+}
+
+/* ── Utilities ── */
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+/* ── Boot ── */
+init();
+</script>
+</body>
+</html>

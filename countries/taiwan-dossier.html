@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A-02 // Taiwan (ROC) — Country Dossier | Geopolitical Intelligence Platform v2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --color-bg: #0a0c10;
+      --color-surface: #0f1117;
+      --color-surface-2: #141820;
+      --color-surface-3: #1a2030;
+      --color-border: rgba(0,63,135,0.28);
+      --color-border-2: rgba(255,200,50,0.18);
+      --color-text: #dde2ec;
+      --color-text-muted: #8a94a8;
+      --color-text-faint: #4a5168;
+      --color-accent: #003F87;
+      --color-accent-bright: #1a6fd9;
+      --color-gold: #ffc832;
+      --color-teal: #2dd4bf;
+      --color-blue: #60a5fa;
+      --color-red: #e03333;
+      --font-display: 'Rajdhani', sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+      --font-body: 'Inter', sans-serif;
+      --space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;
+      --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
+      --space-12:3rem;--space-16:4rem;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;scroll-padding-top:64px;}
+    body{font-family:var(--font-body);background:var(--color-bg);color:var(--color-text);line-height:1.65;-webkit-font-smoothing:antialiased;}
+    img,picture,video,canvas,svg{display:block;max-width:100%;height:auto;}
+    table{border-collapse:collapse;width:100%;}
+
+    /* ─── NAV ─── */
+    .nav{position:sticky;top:0;z-index:100;background:rgba(10,12,16,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);display:flex;align-items:center;justify-content:space-between;padding:0 var(--space-6);height:60px;}
+    .nav-brand{font-family:var(--font-mono);font-size:0.75rem;color:var(--color-accent-bright);letter-spacing:0.12em;text-transform:uppercase;}
+    .nav-links{display:flex;gap:var(--space-1);align-items:center;overflow-x:auto;scrollbar-width:none;}
+    .nav-links::-webkit-scrollbar{display:none;}
+    .nav-link{font-family:var(--font-display);font-size:0.78rem;font-weight:600;color:var(--color-text-muted);text-decoration:none;padding:var(--space-2) var(--space-3);border-radius:4px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;transition:color 0.2s,border-color 0.2s;}
+    .nav-link:hover{color:var(--color-accent-bright);}
+    .nav-link.active{color:var(--color-accent-bright);border-bottom-color:var(--color-accent-bright);}
+    .nav-dossier-id{font-family:var(--font-mono);font-size:0.7rem;color:var(--color-gold);background:rgba(255,200,50,0.08);padding:2px 8px;border-radius:3px;border:1px solid rgba(255,200,50,0.25);}
+
+    /* ─── HERO ─── */
+    .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#0a0c10;}
+    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%, rgba(0,63,135,0.18) 0%, transparent 70%),radial-gradient(ellipse 40% 40% at 20% 80%, rgba(26,111,217,0.08) 0%, transparent 60%);pointer-events:none;}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,63,135,0.06) 1px, transparent 1px),linear-gradient(90deg, rgba(0,63,135,0.06) 1px, transparent 1px);background-size:40px 40px;pointer-events:none;}
+    .hero-content{position:relative;z-index:2;max-width:1100px;padding:var(--space-16) var(--space-6);text-align:center;}
+    .hero-flag{font-size:5rem;margin-bottom:var(--space-4);}
+    .hero-eyebrow{font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.2em;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-4);}
+    .hero-title{font-family:var(--font-display);font-size:clamp(2.8rem,7vw,6.5rem);font-weight:700;line-height:1;letter-spacing:0.02em;margin-bottom:var(--space-4);}
+    .hero-title .cn{font-size:0.5em;display:block;color:var(--color-accent-bright);font-weight:400;letter-spacing:0.08em;margin-bottom:0.3em;}
+    .hero-subtitle{font-family:var(--font-display);font-size:1.15rem;color:var(--color-text-muted);max-width:680px;margin:0 auto var(--space-3);}
+    .hero-stamp{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.15em;color:var(--color-text-faint);text-transform:uppercase;margin-bottom:var(--space-8);}
+    .hero-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-4);}
+    .hero-stat{background:rgba(0,63,135,0.12);border:1px solid rgba(0,63,135,0.3);border-radius:6px;padding:var(--space-4) var(--space-5);min-width:130px;text-align:center;}
+    .hero-stat-val{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--color-accent-bright);display:block;}
+    .hero-stat-key{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.12em;color:var(--color-text-muted);text-transform:uppercase;margin-top:4px;display:block;}
+    .scroll-cue{margin-top:var(--space-10);font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;color:var(--color-text-faint);text-transform:uppercase;}
+
+    /* ─── LAYOUT ─── */
+    .container{max-width:1200px;margin:0 auto;padding:0 var(--space-6);}
+    .section-wrap{padding:var(--space-16) 0;}
+    .section-header{margin-bottom:var(--space-8);}
+    .section-eyebrow{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-3);}
+    .section-num{font-family:var(--font-mono);font-size:0.65rem;color:var(--color-accent-bright);letter-spacing:0.15em;display:inline-block;margin-bottom:var(--space-2);}
+    .section-title{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;line-height:1.1;color:var(--color-text);}
+    .section-title .accent{color:var(--color-accent-bright);}
+    .section-divider{width:60px;height:3px;background:var(--color-accent-bright);margin:var(--space-4) 0 0;}
+    section{border-top:1px solid var(--color-border);}
+
+    /* ─── BODY TEXT ─── */
+    .body-text{font-size:0.97rem;line-height:1.75;color:var(--color-text-muted);margin-bottom:var(--space-4);}
+    .body-text strong,.critical{color:var(--color-text);font-weight:600;}
+    .body-text a{color:var(--color-accent-bright);text-decoration:none;}
+    .body-text a:hover{text-decoration:underline;}
+    h3.subsection{font-family:var(--font-display);font-size:1.25rem;font-weight:600;color:var(--color-text);margin:var(--space-8) 0 var(--space-4);padding-left:var(--space-4);border-left:3px solid var(--color-accent-bright);}
+
+    /* ─── INTEL ALERT ─── */
+    .intel-alert{background:rgba(0,63,135,0.08);border:1px solid rgba(0,63,135,0.3);border-left:4px solid var(--color-accent-bright);border-radius:4px;padding:var(--space-5) var(--space-6);margin:var(--space-6) 0;}
+    .intel-alert-head{font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.15em;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-3);}
+    .intel-alert.warning{border-left-color:var(--color-gold);background:rgba(255,200,50,0.06);}
+    .intel-alert.warning .intel-alert-head{color:var(--color-gold);}
+    .intel-alert.critical{border-left-color:var(--color-red);background:rgba(224,51,51,0.07);}
+    .intel-alert.critical .intel-alert-head{color:var(--color-red);}
+
+    /* ─── STAT BARS ─── */
+    .stat-bars{display:flex;flex-direction:column;gap:var(--space-3);margin:var(--space-6) 0;}
+    .stat-bar-row{display:grid;grid-template-columns:180px 1fr 60px;align-items:center;gap:var(--space-4);}
+    .stat-bar-label{font-family:var(--font-display);font-size:0.82rem;font-weight:600;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.05em;}
+    .stat-bar-track{height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;}
+    .stat-fill{height:100%;background:linear-gradient(90deg,var(--color-accent),var(--color-accent-bright));border-radius:4px;transition:width 1.2s cubic-bezier(0.16,1,0.3,1);}
+    .stat-bar-val{font-family:var(--font-mono);font-size:0.72rem;color:var(--color-accent-bright);text-align:right;}
+
+    /* ─── EQUIPMENT CARDS ─── */
+    .equip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:var(--space-5);margin:var(--space-6) 0;}
+    .equip-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:6px;overflow:hidden;transition:border-color 0.2s,transform 0.2s;}
+    .equip-card:hover{border-color:rgba(26,111,217,0.4);transform:translateY(-2px);}
+    .equip-img-wrap{position:relative;height:200px;overflow:hidden;background:var(--color-surface-2);}
+    .equip-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease;cursor:zoom-in;}
+    .equip-img-wrap img:hover{transform:scale(1.04);}
+    .equip-badge{position:absolute;top:var(--space-3);left:var(--space-3);font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.15em;background:rgba(0,63,135,0.18);color:var(--color-accent-bright);border:1px solid rgba(0,63,135,0.4);padding:3px 8px;border-radius:3px;text-transform:uppercase;z-index:2;}
+    .equip-body{padding:var(--space-5);}
+    .equip-name{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);}
+    .equip-desc{font-size:0.85rem;color:var(--color-text-muted);line-height:1.65;margin-bottom:var(--space-4);}
+    .equip-specs{border-top:1px solid var(--color-border);padding-top:var(--space-3);display:flex;flex-direction:column;gap:var(--space-2);}
+    .equip-spec{display:flex;justify-content:space-between;align-items:center;}
+    .equip-spec-key{font-family:var(--font-mono);font-size:0.65rem;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.1em;}
+    .equip-spec-val{font-family:var(--font-mono);font-size:0.75rem;color:var(--color-teal);}
+    .equip-link{display:inline-flex;align-items:center;gap:4px;margin-top:var(--space-3);font-family:var(--font-mono);font-size:0.65rem;color:var(--color-accent-bright);text-decoration:none;text-transform:uppercase;letter-spacing:0.1em;}
+    .equip-link:hover{text-decoration:underline;}
+
+    /* ─── DATA TABLE ─── */
+    .data-table-wrap{overflow-x:auto;margin:var(--space-5) 0;border:1px solid var(--color-border);border-radius:6px;}
+    .data-table{font-size:0.83rem;}
+    .data-table thead th{background:rgba(0,63,135,0.12);color:var(--color-accent-bright);font-family:var(--font-display);font-weight:700;font-size:0.78rem;letter-spacing:0.06em;padding:var(--space-3) var(--space-4);text-transform:uppercase;border-bottom:1px solid var(--color-border);text-align:left;white-space:nowrap;}
+    .data-table tbody td{padding:var(--space-3) var(--space-4);border-bottom:1px solid rgba(0,63,135,0.1);color:var(--color-text-muted);vertical-align:top;}
+    .data-table tbody tr:last-child td{border-bottom:none;}
+    .data-table tbody tr:hover td{background:rgba(0,63,135,0.05);}
+    .data-table a{color:var(--color-accent-bright);text-decoration:none;font-family:var(--font-mono);font-size:0.75rem;}
+    .data-table a:hover{text-decoration:underline;}
+    .pill{display:inline-block;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;padding:2px 7px;border-radius:3px;text-transform:uppercase;border:1px solid;}
+    .pill-teal{background:rgba(45,212,191,0.08);color:var(--color-teal);border-color:rgba(45,212,191,0.3);}
+    .pill-blue{background:rgba(96,165,250,0.08);color:var(--color-blue);border-color:rgba(96,165,250,0.3);}
+    .pill-gold{background:rgba(255,200,50,0.08);color:var(--color-gold);border-color:rgba(255,200,50,0.3);}
+    .pill-red{background:rgba(224,51,51,0.08);color:var(--color-red);border-color:rgba(224,51,51,0.3);}
+
+    /* ─── MAP CONTAINER ─── */
+    .map-container{position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--color-border);margin:var(--space-5) 0;cursor:zoom-in;}
+    .map-img{width:100%;height:auto;display:block;transition:transform 0.4s;}
+    .map-container:hover .map-img{transform:scale(1.02);}
+    .map-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,12,16,0.85));padding:var(--space-4) var(--space-5);}
+    .map-caption{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--color-accent-bright);text-transform:uppercase;}
+    .map-stats-row{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-4);}
+    .map-stat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:4px;padding:var(--space-3) var(--space-4);}
+    .map-stat-val{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--color-accent-bright);display:block;}
+    .map-stat-key{font-family:var(--font-mono);font-size:0.6rem;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.1em;}
+
+    /* ─── TIMELINE ─── */
+    .timeline{position:relative;padding-left:var(--space-8);margin:var(--space-6) 0;}
+    .timeline::before{content:'';position:absolute;left:0;top:8px;bottom:0;width:2px;background:linear-gradient(var(--color-accent-bright),transparent);}
+    .tl-item{position:relative;margin-bottom:var(--space-6);}
+    .tl-dot{position:absolute;left:calc(-1 * var(--space-8) - 5px);top:6px;width:12px;height:12px;border-radius:50%;background:var(--color-accent);border:2px solid var(--color-accent-bright);}
+    .tl-year{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.15em;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-1);}
+    .tl-title{font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--color-text);margin-bottom:var(--space-2);}
+    .tl-desc{font-size:0.84rem;color:var(--color-text-muted);line-height:1.65;}
+    .tl-desc a{color:var(--color-accent-bright);font-size:0.78rem;text-decoration:none;}
+
+    /* ─── TABS ─── */
+    .tab-bar{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-5);border-bottom:1px solid var(--color-border);padding-bottom:var(--space-3);}
+    .tab-btn{font-family:var(--font-display);font-size:0.82rem;font-weight:600;letter-spacing:0.05em;padding:var(--space-2) var(--space-4);background:transparent;border:1px solid var(--color-border);border-radius:4px;color:var(--color-text-muted);cursor:pointer;transition:all 0.2s;text-transform:uppercase;}
+    .tab-btn:hover{border-color:rgba(26,111,217,0.4);color:var(--color-text);}
+    .tab-btn.active{background:rgba(0,63,135,0.15);border-color:var(--color-accent-bright);color:var(--color-accent-bright);}
+    .tab-pane{display:none;}
+    .tab-pane.active{display:block;}
+
+    /* ─── COLLAPSIBLE ─── */
+    .collapsible{border:1px solid var(--color-border);border-radius:6px;overflow:hidden;margin-bottom:var(--space-3);}
+    .collapsible-head{display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);cursor:pointer;background:var(--color-surface);font-family:var(--font-display);font-size:0.95rem;font-weight:600;color:var(--color-text);user-select:none;transition:background 0.2s;}
+    .collapsible-head:hover{background:var(--color-surface-2);}
+    .collapsible-head .chev{transition:transform 0.3s;color:var(--color-text-faint);}
+    .collapsible-head.open .chev{transform:rotate(180deg);}
+    .collapsible-body{display:none;padding:var(--space-5);background:var(--color-surface-2);border-top:1px solid var(--color-border);}
+    .collapsible-body.open{display:block;}
+
+    /* ─── POLICY QUOTE ─── */
+    .policy-quote{border-left:3px solid var(--color-accent-bright);padding:var(--space-5) var(--space-6);background:rgba(0,63,135,0.07);border-radius:0 6px 6px 0;margin:var(--space-5) 0;font-style:italic;color:var(--color-text-muted);font-size:0.97rem;line-height:1.75;}
+    .policy-quote-attr{display:block;margin-top:var(--space-3);font-style:normal;font-family:var(--font-mono);font-size:0.67rem;color:var(--color-text-faint);letter-spacing:0.1em;}
+    .policy-quote-attr a{color:var(--color-accent-bright);text-decoration:none;}
+
+    /* ─── DOCTRINE CARDS ─── */
+    .doctrine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-4);margin:var(--space-5) 0;}
+    .doctrine-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:6px;padding:var(--space-5);}
+    .doctrine-card-num{font-family:var(--font-mono);font-size:0.6rem;color:var(--color-accent-bright);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:var(--space-3);}
+    .doctrine-card-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--color-text);margin-bottom:var(--space-3);}
+    .doctrine-card-body{font-size:0.83rem;color:var(--color-text-muted);line-height:1.65;}
+
+    /* ─── RISK PROBABILITY BAR ─── */
+    .risk-bar-wrap{margin:var(--space-4) 0;}
+    .risk-label{font-family:var(--font-display);font-size:0.85rem;font-weight:600;color:var(--color-text);margin-bottom:var(--space-2);}
+    .risk-track{height:10px;background:rgba(255,255,255,0.06);border-radius:5px;overflow:hidden;}
+    .risk-fill{height:100%;border-radius:5px;}
+    .risk-fill-red{background:linear-gradient(90deg,#991111,var(--color-red));}
+    .risk-fill-gold{background:linear-gradient(90deg,#997600,var(--color-gold));}
+    .risk-fill-teal{background:linear-gradient(90deg,#166e6a,var(--color-teal));}
+    .risk-pct{font-family:var(--font-mono);font-size:0.7rem;color:var(--color-text-muted);margin-top:4px;text-align:right;}
+
+    /* ─── INLINE IMAGE ─── */
+    figure.inline-img{margin:var(--space-5) 0;border-radius:6px;overflow:hidden;border:1px solid var(--color-border);}
+    figure.inline-img img{width:100%;object-fit:cover;cursor:zoom-in;}
+    figure.inline-img figcaption{font-family:var(--font-mono);font-size:0.64rem;letter-spacing:0.1em;color:var(--color-text-faint);padding:var(--space-3) var(--space-4);background:var(--color-surface);text-transform:uppercase;}
+
+    /* ─── PROJECTION TABLE ─── */
+    .projection-table td:first-child{font-family:var(--font-mono);font-size:0.72rem;color:var(--color-gold);font-weight:600;}
+    .projection-table td:nth-child(n+2){font-size:0.82rem;}
+
+    /* ─── SOURCES GRID ─── */
+    .sources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--space-5);}
+    .source-col h4{font-family:var(--font-display);font-size:0.9rem;font-weight:700;color:var(--color-accent-bright);margin-bottom:var(--space-4);text-transform:uppercase;letter-spacing:0.05em;}
+    .source-list{list-style:none;display:flex;flex-direction:column;gap:var(--space-3);}
+    .source-list li{display:flex;align-items:flex-start;gap:var(--space-2);font-size:0.82rem;}
+    .source-list li::before{content:"→";color:var(--color-accent-bright);font-family:var(--font-mono);flex-shrink:0;margin-top:1px;}
+    .source-list a{color:var(--color-blue);text-decoration:none;line-height:1.4;}
+    .source-list a:hover{text-decoration:underline;color:var(--color-accent-bright);}
+    .source-meta{font-family:var(--font-mono);font-size:0.6rem;color:var(--color-text-faint);display:block;margin-top:2px;}
+
+    /* ─── LIGHTBOX ─── */
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;align-items:center;justify-content:center;flex-direction:column;}
+    .lightbox.active{display:flex;}
+    .lightbox-img{max-width:90vw;max-height:80vh;object-fit:contain;border-radius:4px;}
+    .lightbox-cap{font-family:var(--font-mono);font-size:0.72rem;color:rgba(255,255,255,0.5);margin-top:var(--space-4);letter-spacing:0.1em;max-width:700px;text-align:center;}
+    .lightbox-close{position:absolute;top:var(--space-5);right:var(--space-5);font-size:1.5rem;color:rgba(255,255,255,0.5);cursor:pointer;background:none;border:none;transition:color 0.2s;}
+    .lightbox-close:hover{color:#fff;}
+
+    /* ─── FOOTER ─── */
+    footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--space-6);text-align:center;}
+    .footer-stamp{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.15em;color:var(--color-text-faint);text-transform:uppercase;}
+    .footer-classify{display:inline-block;margin-top:var(--space-3);font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;color:var(--color-accent-bright);border:1px solid rgba(0,63,135,0.4);padding:4px 12px;border-radius:3px;}
+
+    /* ─── SEMICONDUCTOR CARD ─── */
+    .semi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-4);margin:var(--space-5) 0;}
+    .semi-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:6px;padding:var(--space-5);text-align:center;}
+    .semi-card-val{font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:var(--color-accent-bright);display:block;}
+    .semi-card-label{font-family:var(--font-mono);font-size:0.62rem;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:var(--space-2);}
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:768px){
+      .nav-links{gap:0;}
+      .nav-link{padding:var(--space-2)var(--space-2);font-size:0.7rem;}
+      .equip-grid{grid-template-columns:1fr;}
+      .stat-bar-row{grid-template-columns:120px 1fr 50px;}
+      .doctrine-grid{grid-template-columns:1fr;}
+      .sources-grid{grid-template-columns:1fr;}
+      .hero-stat{min-width:100px;}
+      .semi-grid{grid-template-columns:1fr 1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+  <img id="lightbox-img" class="lightbox-img" src="" alt="">
+  <p id="lightbox-cap" class="lightbox-cap"></p>
+</div>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Dossier navigation">
+  <div class="nav-brand">GIP v2 // <span style="color:#dde2ec">A-02 Taiwan</span></div>
+  <div class="nav-links">
+    <a href="#section-map" class="nav-link">01 Map</a>
+    <a href="#section-overview" class="nav-link">02 Overview</a>
+    <a href="#section-ground" class="nav-link">03 Army</a>
+    <a href="#section-navy" class="nav-link">04 Navy</a>
+    <a href="#section-airforce" class="nav-link">05 Air Force</a>
+    <a href="#section-rocket" class="nav-link">06 Missiles</a>
+    <a href="#section-nuclear" class="nav-link">07 Nuclear</a>
+    <a href="#section-special" class="nav-link">08 Porcupine</a>
+    <a href="#section-cyber" class="nav-link">09 Cyber</a>
+    <a href="#section-doctrine" class="nav-link">10 Doctrine</a>
+    <a href="#section-budget" class="nav-link">11 Budget</a>
+    <a href="#section-relations" class="nav-link">12 Relations</a>
+    <a href="#section-threats" class="nav-link">13 Threats</a>
+    <a href="#section-economy" class="nav-link">14 Silicon Shield</a>
+    <a href="#section-sources" class="nav-link">15 Sources</a>
+  </div>
+  <span class="nav-dossier-id">A-02</span>
+</nav>
+
+<!-- ══════════════════════════════════════════ HERO ══════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-flag">🇹🇼</div>
+    <div class="hero-eyebrow">Classified Open-Source Analysis // March 2026 // Dossier A-02</div>
+    <h1 class="hero-title">
+      <span class="cn">中華民國 · Republic of China</span>
+      TAIWAN
+    </h1>
+    <p class="hero-subtitle">Fortress Island — Asymmetric Defense, Semiconductor Deterrence &amp; Cross-Strait Crisis Dynamics</p>
+    <p class="hero-stamp">Republic of China Army · Navy · Air Force · Marine Corps · Reserve Command · Coast Guard</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-val">230,000</span><span class="hero-stat-key">Active Personnel</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">USD $30B</span><span class="hero-stat-key">Defense Budget FY25</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">NON-NUCLEAR</span><span class="hero-stat-key">Nuclear Status</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">22</span><span class="hero-stat-key">Frigates</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">4</span><span class="hero-stat-key">Submarines (incl. IDS)</span></div>
+    </div>
+    <div class="scroll-cue">▼ Scroll to analyze</div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ 01 GEOGRAPHIC OVERVIEW ══════════════════════════════ -->
+<section id="section-map" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 01</div>
+      <h2 class="section-title">Geographic <span class="accent">Overview</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="map-container">
+      <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e9f7280a7ca7b4aa852d544fb6dc44bb15f77d8a.jpg" alt="Satellite map of Taiwan, China and Taiwan Strait" width="1200" height="800" loading="lazy" onclick="openLightbox(this.src,'Satellite Overview: Taiwan, the Taiwan Strait, and Southeast China')">
+      <div class="map-overlay"><div class="map-caption">Satellite Overview // Taiwan Strait & First Island Chain</div></div>
+    </div>
+
+    <div class="map-stats-row">
+      <div class="map-stat"><span class="map-stat-val">36,193 km²</span><span class="map-stat-key">Total Area (main island)</span></div>
+      <div class="map-stat"><span class="map-stat-val">23.6M</span><span class="map-stat-key">Population</span></div>
+      <div class="map-stat"><span class="map-stat-val">180 km</span><span class="map-stat-key">Width of Taiwan Strait (narrowest)</span></div>
+      <div class="map-stat"><span class="map-stat-val">1,566 km</span><span class="map-stat-key">Total Coastline</span></div>
+      <div class="map-stat"><span class="map-stat-val">3,952 m</span><span class="map-stat-key">Highest Point (Yu Shan)</span></div>
+    </div>
+
+    <div class="map-container" style="margin-top:var(--space-6)">
+      <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f89890c4fcae44696a87c6a82a04a8c079e07ee2.jpg" alt="First Island Chain military map" width="1200" height="800" loading="lazy" onclick="openLightbox(this.src,'First and Second Island Chains — US DoD reference map')">
+      <div class="map-overlay"><div class="map-caption">First Island Chain Strategic Context // US DoD Reference</div></div>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚠ Strategic Geography — Key Advantage</div>
+      <p class="body-text">Taiwan sits at the <strong>geographic fulcrum of the First Island Chain</strong>, a string of islands stretching from Japan through the Philippines that constrains Chinese naval access to the broader Pacific. Taiwan's mountainous interior (over 200 peaks above 3,000m), narrow coastal plains, and limited beach landing zones constitute natural fortifications. The Taiwan Strait's width of 180km at its narrowest point creates a contested crossing zone where PLA amphibious forces would be exposed to multi-domain attack for minimum 6–12 hours. These geographic factors are central to Taiwan's defensive viability.</p>
+    </div>
+
+    <h3 class="subsection">Territorial Control &amp; Disputed Features</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Territory</th><th>Status</th><th>Strategic Significance</th><th>Threat Vector</th></tr></thead>
+        <tbody>
+          <tr><td>Taiwan Main Island</td><td><span class="pill pill-teal">Controlled</span></td><td>Core homeland; semiconductor manufacturing hub; political capital</td><td>PLA amphibious invasion; missile barrage; blockade</td></tr>
+          <tr><td>Penghu Islands</td><td><span class="pill pill-teal">Controlled</span></td><td>Air base (CCK); radar coverage; shipping lane protection</td><td>Early seizure target in PLA invasion concept</td></tr>
+          <tr><td>Kinmen (Quemoy)</td><td><span class="pill pill-teal">Controlled</span></td><td>3km from Chinese city of Xiamen; visible deterrent and intelligence platform</td><td>Surrounded by PLA on three sides; isolated resupply</td></tr>
+          <tr><td>Matsu Islands</td><td><span class="pill pill-teal">Controlled</span></td><td>Northwest Taiwan Strait presence; political symbolism</td><td>Isolated, difficult to reinforce under contested conditions</td></tr>
+          <tr><td>Pratas (Dongsha) Islands</td><td><span class="pill pill-teal">Controlled</span></td><td>South China Sea early warning; Coast Guard presence</td><td>PLA gray-zone pressure; vulnerable to rapid seizure</td></tr>
+          <tr><td>Itu Aba (Taiping Island)</td><td><span class="pill pill-teal">Controlled</span></td><td>Largest naturally occurring island in the Spratlys; ROC garrison</td><td>Disputed by PRC, Philippines, Vietnam; SCS claims</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 02 MILITARY OVERVIEW ══════════════════════════════ -->
+<section id="section-overview" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 02</div>
+      <h2 class="section-title">Military <span class="accent">Overview</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <figure class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/31807e8b4f6f2007e417fa4901f70eb62bbd1b28.jpg" alt="Taiwan military review with armored vehicles and formations" width="1200" height="600" loading="lazy" onclick="openLightbox(this.src,'Republic of China Armed Forces — Combined Arms Review, Taiwan')">
+      <figcaption>Republic of China Armed Forces // Combined-Arms Review Formation</figcaption>
+    </figure>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">🛡 Executive Assessment — March 2026</div>
+      <p class="body-text">Taiwan's armed forces are undergoing the most significant modernization in over two decades. As of March 2026, active personnel reached <strong>nearly 230,000</strong>—a historic increase of ~10,000 from the sustained 215,000 baseline. The defense budget stands at NT$949.5B (~USD $30B), representing 3.32% of GDP, with a presidential target of 5% by 2030. The military strategy has pivoted from conventional force-on-force deterrence toward a <strong>"Porcupine Strategy"</strong> emphasizing asymmetric, dispersed, high-cost denial capabilities. Despite a 20.8% personnel shortfall and political gridlock blocking full defense budget approvals, Taiwan's trajectory toward enhanced defensive capability and whole-of-society resilience is intact.</p>
+    </div>
+
+    <h3 class="subsection">Force Structure — Personnel Breakdown</h3>
+    <div class="stat-bars">
+      <div class="stat-bar-row"><span class="stat-bar-label">Army (ROCA)</span><div class="stat-bar-track"><div class="stat-fill" style="width:50%"></div></div><span class="stat-bar-val">~115,000</span></div>
+      <div class="stat-bar-row"><span class="stat-bar-label">Air Force (ROCAF)</span><div class="stat-bar-track"><div class="stat-fill" style="width:20%"></div></div><span class="stat-bar-val">~45,000</span></div>
+      <div class="stat-bar-row"><span class="stat-bar-label">Navy (ROCN)</span><div class="stat-bar-track"><div class="stat-fill" style="width:18%"></div></div><span class="stat-bar-val">~40,000</span></div>
+      <div class="stat-bar-row"><span class="stat-bar-label">Marine Corps</span><div class="stat-bar-track"><div class="stat-fill" style="width:5%"></div></div><span class="stat-bar-val">~10,000</span></div>
+      <div class="stat-bar-row"><span class="stat-bar-label">Reserve Force</span><div class="stat-bar-track"><div class="stat-fill" style="width:90%"></div></div><span class="stat-bar-val">1.67M mob.</span></div>
+    </div>
+
+    <h3 class="subsection">Defense Modernization Timeline</h3>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2017 — Training Reform</div>
+        <div class="tl-title">All-Volunteer Force Transition &amp; Reserve Restructuring</div>
+        <div class="tl-desc">Taiwan formally shifted to an all-volunteer active force, with conscription limited to 4-month "military training." Acknowledged as inadequate, leading to later reforms. <a href="https://www.rand.org/pubs/research_reports/RRA1799-1.html" target="_blank" rel="noopener">RAND Analysis →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2022 — Conscription Reform</div>
+        <div class="tl-title">One-Year Mandatory Service Restored (Effective Jan 2024)</div>
+        <div class="tl-desc">President Tsai Ing-wen announced reinstatement of full one-year military service for all males born 2005 or later. Reversal of post-2013 4-month policy. Enhanced combat training curriculum introduced. <a href="https://www.defense.gov" target="_blank" rel="noopener">DoD Assessment →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2023 — HIMARS Delivery</div>
+        <div class="tl-title">M142 HIMARS Multiple Launch Rocket Systems Arrive</div>
+        <div class="tl-desc">First batch of 11 HIMARS systems delivered, providing precision long-range strike capability against PLA assembly areas, logistics nodes, and amphibious staging areas. <a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2024 — M1A2T Delivery Begins</div>
+        <div class="tl-title">First Abrams Main Battle Tanks Arrive (38 Units, Phase 1)</div>
+        <div class="tl-desc">First batch of M1A2T Abrams tanks — Taiwan-specific variant with specialized modifications — delivered, beginning the most significant armor upgrade in decades. <a href="https://www.defense.gov" target="_blank" rel="noopener">DoD →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2024 — Hai Kun Launch</div>
+        <div class="tl-title">First Indigenous Defense Submarine (IDS) Hai Kun Launched at Kaohsiung</div>
+        <div class="tl-desc">SS-711 Hai Kun launched at CSBC Corporation's Kaohsiung facility — Taiwan's first domestically built submarine, representing the most significant defense-industrial milestone in decades. <a href="https://csis.org" target="_blank" rel="noopener">CSIS →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">Jan 2026 — IDS Sea Trials</div>
+        <div class="tl-title">Hai Kun Completes First Submerged Sea Trials (Jan 29, 2026)</div>
+        <div class="tl-desc">Historic milestone: Hai Kun completes first submerged sea trials, validating indigenous submarine engineering and confirming viability of the planned 8-vessel class. <a href="https://www.rand.org" target="_blank" rel="noopener">RAND →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">Nov 2025 — Budget Ambition</div>
+        <div class="tl-title">President Lai Announces 8-Year NT$1.25T Defense Plan</div>
+        <div class="tl-desc">Lai Ching-te targets 5% GDP defense spending by 2030, funding asymmetric systems, indigenous submarines, long-range missiles, and unmanned platforms. Legislature passes truncated NT$400B special budget in Jan 2026. <a href="https://www.sipri.org" target="_blank" rel="noopener">SIPRI →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">Dec 2025 — Landmark Arms Sale</div>
+        <div class="tl-title">Trump Administration Notifies Congress of $11B+ Taiwan Arms Package</div>
+        <div class="tl-desc">Largest single arms package by dollar value ever offered to Taiwan, including advanced missile systems, air defense upgrades, and electronic warfare equipment. Total FMS backlog reaches $32B. <a href="https://www.defense.gov" target="_blank" rel="noopener">DoD FMS Notice →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ 03 GROUND FORCE ══════════════════════════════ -->
+<section id="section-ground" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 03</div>
+      <h2 class="section-title">Republic of China <span class="accent">Army</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <p class="body-text">The Republic of China Army (ROCA) maintains approximately <strong>115,000 active personnel</strong> organized to defend against PLA amphibious invasion and conduct sustained territorial defense. Force structure emphasizes rapid coastal defense, with concentration of forces in northern Taiwan and regions most vulnerable to amphibious assault. The acquisition of M1A2T Abrams tanks and HIMARS rocket systems in 2024–2025 represents the most significant armor and precision-fire modernization in decades.</p>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Main Battle Tank</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/d0fb33112359abbbc0cac9100e00df886b8a3913.jpg" alt="Taiwan M1A2T Abrams main battle tank" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'M1A2T Abrams — Taiwan Army, ROCA. 108 units delivered 2024-2026')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">M1A2T Abrams</div>
+          <div class="equip-desc">Taiwan-specific variant of the US M1A2 System Enhancement Package (SEP). Features depleted uranium armor, 120mm smoothbore gun, and advanced fire control. Delivered in three phases: 38 in 2024, 42 in 2025, 28 in Q1 2026. Represents the most capable armor in ROCA inventory.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">108 total (all delivered by 2026)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Main Gun</span><span class="equip-spec-val">M256 120mm smoothbore</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Max Speed</span><span class="equip-spec-val">67 km/h (road)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Combat Weight</span><span class="equip-spec-val">~70 metric tons</span></div>
+          </div>
+          <a href="https://www.defense.gov/News/Contracts/Contract/Article/3673780/" target="_blank" rel="noopener" class="equip-link">DoD Contract Notice <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">MLRS Precision Strike</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/d2ed394e185e19a1a7607dd1d3d2d1e550450ee8.jpg" alt="HIMARS rocket launchers delivered to Taiwan" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'M142 HIMARS — Delivered to Taiwan 2024, shown at port of arrival')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">M142 HIMARS</div>
+          <div class="equip-desc">High Mobility Artillery Rocket System provides precision, long-range area fire capability. Taiwan operates 11 systems acquired from the United States, capable of firing GMLRS guided rockets (70km) and potentially ATACMS missiles (300km+). Provides standoff strike against PLA amphibious staging areas and logistics nodes.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">11 systems</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">GMLRS Range</span><span class="equip-spec-val">~70 km (guided)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Crew</span><span class="equip-spec-val">3</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Mobility</span><span class="equip-spec-val">Wheeled (C-130 air-transportable)</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/missile/m270-himars/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Database <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Legacy MBT</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/c060ecfe99410b6a33bd70aedf3a77b63565fc12.jpg" alt="Taiwan M1A2T Abrams crew training" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'ROCA Armor — M1A2T crew in training evolution')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">M60A3 Patton &amp; CM-11</div>
+          <div class="equip-desc">Taiwan's primary legacy armor inventory includes ~460 M60A3 Patton tanks (modernized 2022+ with upgraded engines and extended service life) and ~300 CM-11 Brave Tiger tanks — a Taiwan-US hybrid design combining an M48 hull with M60 turret. While outclassed by modern platforms, their numbers and dispersal contribute to the porcupine defense.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">M60A3 Qty</span><span class="equip-spec-val">~460 (modernized)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">CM-11 Qty</span><span class="equip-spec-val">~300</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">M60A3 Gun</span><span class="equip-spec-val">M68 105mm rifled</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Operational (extended life)</span></div>
+          </div>
+          <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subsection">Ground Force Order of Battle</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>System</th><th>Quantity</th><th>Role</th><th>Status / Notes</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>M1A2T Abrams MBT</td><td>108</td><td>Armored breakthrough / counter-armor</td><td>All delivered by Q1 2026; Taiwan-specific variant</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>M60A3 Patton MBT</td><td>~460</td><td>Territorial defense, coastal</td><td>Upgraded 2022+; extended service</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>CM-11 Brave Tiger MBT</td><td>~300</td><td>Mixed armor support</td><td>M48 hull / M60 turret; operational</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>CM-12 Light Tank</td><td>~200</td><td>Light armor / recce</td><td>Operational</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>M113 APC</td><td>~1,000+</td><td>Infantry mobility</td><td>Aging fleet; upgrade/replacement planned</td><td><a href="https://www.globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>M142 HIMARS</td><td>11</td><td>Precision long-range fires</td><td>Delivered 2024; GMLRS-capable</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>M109A5 Paladin SPH</td><td>~60</td><td>Self-propelled artillery</td><td>155mm; mobile fire support</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>M198 155mm Howitzer</td><td>~100</td><td>Medium artillery</td><td>Towed; dispersed coastal defense</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>UH-60 Black Hawk</td><td>60+</td><td>Utility / transport</td><td>Army aviation; ongoing delivery</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>AH-64E Apache Guardian</td><td>30</td><td>Attack helicopter</td><td>Fire support; anti-armor</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 04 NAVY ══════════════════════════════ -->
+<section id="section-navy" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 04</div>
+      <h2 class="section-title">Republic of China <span class="accent">Navy</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <p class="body-text">The Republic of China Navy (ROCN) operates a fleet of <strong>94 active vessels</strong> including surface combatants, submarines, mine warfare vessels, and support ships — with an additional 19 in reserve or training status, bringing total strength to approximately 113 vessels. The ROCN emphasizes coastal and littoral operations, asymmetric anti-ship defense, and a distributed architecture of fast-attack corvettes designed to impose prohibitive costs on any invasion fleet crossing the Taiwan Strait.</p>
+
+    <figure class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/ea45787f031bd061b73ca5ceb812a71da05561f9.jpg" alt="Taiwan naval officers on warship formation" width="1200" height="500" loading="lazy" onclick="openLightbox(this.src,'Republic of China Navy officers in parade formation aboard a ROCN warship')">
+      <figcaption>Republic of China Navy (ROCN) // Fleet Ceremony, Zuoying Naval Base, Kaohsiung</figcaption>
+    </figure>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Fast Missile Corvette</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/419c66e7e9bc9360bc6999ddb0063e7bab3291fa.jpg" alt="Tuo Chiang-class corvette aerial view" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Tuo Chiang-class Fast Missile Corvette — aerial view, stealth catamaran hull')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Tuo Chiang-class Corvette</div>
+          <div class="equip-desc">Taiwan's most modern surface combatant exemplifies the porcupine strategy: a stealth-hull catamaran corvette displacing ~500–600 tons capable of speeds exceeding 45 knots. Armed with 8x Hsiung Feng II/III anti-ship missiles, one 76mm main gun, and anti-submarine torpedoes. 7 commissioned as of 2026; 5 more completing to bring class to 12 total.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Completed</span><span class="equip-spec-val">7 commissioned; 5 more 2026</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">45+ knots</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">~500–600 tons</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Missiles</span><span class="equip-spec-val">8× HF-II/III anti-ship</span></div>
+          </div>
+          <a href="https://www.naval-technology.com/projects/tuo-chiang-class/" target="_blank" rel="noopener" class="equip-link">Naval Technology <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Indigenous Submarine</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/d72bc151d84bb1c1640ffc0d4081c4376fda9659.jpg" alt="Hai Kun class submarine SS-711 sea trials" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'SS-711 Hai Kun (Narwhal) — Taiwan's first indigenous submarine, sea trials January 2026')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Hai Kun-class IDS (SS-711)</div>
+          <div class="equip-desc">Taiwan's first indigenously built submarine — a historic achievement breaking through decades of international embargo restrictions. Built by CSBC Corporation at Kaohsiung, launched 2024, completed first submerged sea trials January 29, 2026. Design based on updated Dutch Zwaardvis architecture with ~40% indigenous components. 8-vessel class planned (2025–2038).</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">~2,460–2,950 tons</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Length</span><span class="equip-spec-val">~79m (260 ft)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Propulsion</span><span class="equip-spec-val">Diesel-electric</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Cost</span><span class="equip-spec-val">~USD $1.54B per vessel</span></div>
+          </div>
+          <a href="https://csis.org/analysis/taiwans-new-submarine" target="_blank" rel="noopener" class="equip-link">CSIS Analysis <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Frigate</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/ea45787f031bd061b73ca5ceb812a71da05561f9.jpg" alt="ROCN warship formation" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'ROCN Surface Combatants — Cheng Kung-class frigates at Zuoying Naval Base')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Cheng Kung &amp; Kang Ding-class Frigates</div>
+          <div class="equip-desc">Taiwan's 22-frigate force forms the backbone of ROCN surface capability. The 10 Cheng Kung-class vessels (based on US Oliver Hazard Perry-class) provide the numerical majority; the 6 Kang Ding-class (French La Fayette stealth design) are the most capable. All carry Hsiung Feng II/III anti-ship missiles and ASW systems.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Cheng Kung</span><span class="equip-spec-val">10 vessels (Perry-based)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Kang Ding</span><span class="equip-spec-val">6 vessels (La Fayette stealth)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Chi Yang</span><span class="equip-spec-val">6 vessels (Knox-class)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Armament</span><span class="equip-spec-val">HF-II/III, 76mm gun, ASW</span></div>
+          </div>
+          <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subsection">Fleet Order of Battle</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Vessel Class</th><th>Type</th><th>Qty</th><th>Key Systems</th><th>Status</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Cheng Kung-class</td><td>Frigate (FFG)</td><td>10</td><td>HF-II/III, Standard SM-1, ASW, helicopter</td><td><span class="pill pill-teal">Active</span></td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Kang Ding-class</td><td>Frigate (FFGHM)</td><td>6</td><td>HF-II/III, Stealth hull, advanced radar</td><td><span class="pill pill-teal">Active</span></td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Chi Yang-class</td><td>Frigate (FF)</td><td>6</td><td>HF missiles, ASW</td><td><span class="pill pill-gold">Legacy</span></td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Tuo Chiang-class</td><td>Corvette (PCFG)</td><td>7 (12 planned)</td><td>HF-II/III, 76mm, 45+ kts</td><td><span class="pill pill-teal">Active / Expanding</span></td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Hai Lung-class</td><td>Submarine (SSK)</td><td>2</td><td>Harpoon UGM-84, torpedoes</td><td><span class="pill pill-gold">Aging</span></td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Hai Kun-class (IDS)</td><td>Submarine (SS)</td><td>1 (8 planned)</td><td>Torpedoes; future weapon integration TBD</td><td><span class="pill pill-teal">Sea Trials 2026</span></td><td><a href="https://csis.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Minesweepers/Minelayers</td><td>Mine Warfare</td><td>Multiple</td><td>Extensive mine inventory; strait denial</td><td><span class="pill pill-teal">Active</span></td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>LCU / Landing Craft</td><td>Amphibious</td><td>~20</td><td>Coastal logistics; Marine Corps support</td><td><span class="pill pill-teal">Active</span></td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="intel-alert warning">
+      <div class="intel-alert-head">⚠ Submarine Force — Critical Gap</div>
+      <p class="body-text">Taiwan's two Hai Lung-class (Zwaardvis-class) submarines were procured from the Netherlands in the 1980s and are now over 40 years old. They constitute a <strong>critical capability gap</strong> — the most decisive anti-access weapon in any Taiwan Strait contingency is an effective submarine force, and Taiwan currently lacks it. The Hai Kun IDS program is designed to address this gap with 8 modern diesel-electric submarines by 2038, but the transition period (2026–2032) represents Taiwan's greatest undersea vulnerability.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ 05 AIR FORCE ══════════════════════════════ -->
+<section id="section-airforce" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 05</div>
+      <h2 class="section-title">Republic of China <span class="accent">Air Force</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <p class="body-text">The Republic of China Air Force (ROCAF) operates approximately <strong>250–270 combat aircraft</strong> across multiple fighter squadrons, constituting one of the most substantial air forces in the Western Pacific. Taiwan's air strategy emphasizes distributed operations across multiple bases, rapid response capability, and integration with ground-based air defense to counter the numerically superior PLAAF. The three primary fighter types divide responsibility by altitude zone, creating a layered intercept architecture.</p>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">4th Gen Fighter</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/88c5593aeb685ec66ffcccd7734ffd8a39daf50e.jpg" alt="Taiwan F-16V Block 70 fighter jet" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'ROCAF F-16V (Block 70/72) — Taiwan's most capable air combat platform')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">F-16 Block 70/72 (F-16V "Viper")</div>
+          <div class="equip-desc">Taiwan's most advanced fighter, featuring the APG-83 AESA radar, advanced avionics, and improved electronic warfare suites. ~60 in service as of early 2026, with bulk new deliveries scheduled for 2026 after production delays. The first Taiwanese-assembled F-16V (#6831) taxied at Lockheed's Greenville facility in December 2025.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">In Service</span><span class="equip-spec-val">~60 (more on order)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Radar</span><span class="equip-spec-val">APG-83 AESA</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Primary Base</span><span class="equip-spec-val">Chiayi AB (4th Fighter Wing)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Mid-altitude intercept, strike</span></div>
+          </div>
+          <a href="https://www.airforce-technology.com/projects/f-16-fighting-falcon/" target="_blank" rel="noopener" class="equip-link">Air Force Technology <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Indigenous Fighter</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/deed0363c0fa74a5c27a38e654949e83a5ad5d01.jpg" alt="Taiwan F-CK-1 IDF Ching-kuo fighter" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'F-CK-1 Ching-kuo IDF — Taiwan's indigenously-designed and produced fighter')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">F-CK-1 Ching-kuo (IDF)</div>
+          <div class="equip-desc">Taiwan's domestically-designed and built Indigenous Defense Fighter, with approximately 129 operational aircraft. Represents a significant aerospace achievement, carrying Taiwan-designed avionics and PL-1T/PL-2T infrared missiles. Being upgraded to carry the Hsiung Feng III anti-ship missile. Distributed across multiple bases for survivability. Primary low-altitude interceptor.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">~129 operational</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Primary Bases</span><span class="equip-spec-val">Penghu, Tainan, CCK AB</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Max Speed</span><span class="equip-spec-val">Mach 1.8</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Role</span><span class="equip-spec-val">Low-altitude intercept, anti-ship</span></div>
+          </div>
+          <a href="https://www.airforce-technology.com" target="_blank" rel="noopener" class="equip-link">Air Force Technology <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Interceptor (Retiring)</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e520dba7e303fd0bb8f323843b6bf40e47a09d4c.jpg" alt="Taiwan Mirage 2000-5 fighter" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'ROCAF Mirage 2000-5 — French high-altitude interceptor, gradual retirement underway')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Mirage 2000-5</div>
+          <div class="equip-desc">French-origin high-altitude interceptor, procured in the 1990s. Approximately 55 operational aircraft specializing in high-altitude air combat with excellent turning performance. Gradually being phased out as F-16V deliveries accelerate; anticipated full retirement within 5–8 years. Strong high-altitude dogfight performance, but aging avionics limit network integration.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">~55 operational</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Primary Base</span><span class="equip-spec-val">Hsinchu AB (2nd Wing)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Max Speed</span><span class="equip-spec-val">Mach 2.2</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Operational; gradual retirement</span></div>
+          </div>
+          <a href="https://www.ausairpower.net" target="_blank" rel="noopener" class="equip-link">Airpower Australia <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subsection">Aircraft Inventory &amp; Deployment</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Aircraft</th><th>Qty</th><th>Role</th><th>Base(s)</th><th>Primary Weapon</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>F-16 Block 70/72 (V)</td><td>~60+ (more on order)</td><td>Mid-altitude intercept, strike</td><td>Chiayi AB</td><td>AIM-120 AMRAAM, AIM-9X</td><td><a href="https://www.airforce-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>F-CK-1 IDF</td><td>~129</td><td>Low-altitude intercept, anti-ship</td><td>Penghu, Tainan, CCK AB</td><td>PL-1T/2T AAM, HF-III (upgrade)</td><td><a href="https://www.airforce-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Mirage 2000-5</td><td>~55</td><td>High-altitude intercept, air superiority</td><td>Hsinchu AB</td><td>MICA AAM, Magic 2</td><td><a href="https://www.ausairpower.net" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>E-2D Hawkeye</td><td>4</td><td>AEW&amp;C, airspace command</td><td>Multiple</td><td>N/A (sensor platform)</td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>C-130H/HE Hercules</td><td>~17</td><td>Strategic airlift, mine-laying</td><td>Pingtung AB</td><td>Rapid minefield deployment capable</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>P-3C Orion</td><td>~12</td><td>Maritime patrol, ASW</td><td>Pingtung AB</td><td>Harpoon, torpedoes</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>S-70C(M) SeaHawk</td><td>~35</td><td>Naval ASW helicopter</td><td>Fleet-distributed</td><td>Mk 46/54 torpedoes</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 06 MISSILES ══════════════════════════════ -->
+<section id="section-rocket" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 06</div>
+      <h2 class="section-title">Missile &amp; <span class="accent">Rocket Force</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <p class="body-text">Taiwan's missile arsenal is the centerpiece of its asymmetric defense strategy. The <strong>Hsiung Feng ("Brave Wind") family</strong> of indigenous anti-ship and land-attack missiles provides multi-layered, distributed strike capability against PLA naval and ground forces at progressively greater standoff ranges. Complementing these are US-supplied air defense missiles, HIMARS guided rockets, and a developing family of long-range precision strike weapons. Taiwan maintains one of the world's most extensive mine inventories as an additional sea-denial layer.</p>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Anti-Ship Missile</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3c267a3c8d41b072714c0bc65aca2c6efe48f03d.jpg" alt="Hsiung Feng IIE cruise missile launch" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Hsiung Feng IIE (HF-IIE) — Taiwan's land-attack cruise missile variant, launch')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Hsiung Feng IIE (HF-IIE)</div>
+          <div class="equip-desc">Taiwan's primary land-attack cruise missile, capable of striking targets deep inside mainland China. An evolution of the subsonic HF-II anti-ship missile adapted for terrain-following land attack. Deployed on ground-based launchers distributed across the island, providing deterrent strike capability against PLA ports, airfields, and command nodes. Range estimated at 600–1,200km.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Range (est.)</span><span class="equip-spec-val">600–1,200 km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">INS + GPS + terrain following</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Launch Platform</span><span class="equip-spec-val">Ground-mobile TEL</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">HE unitary or sub-munition</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/missile/hsiung-feng-iie/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Supersonic Anti-Ship</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/9bc8ae236b75d84da592231d50c3d461fdfe0242.jpg" alt="Taiwan Hsiung Feng III supersonic anti-ship missile display" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Hsiung Feng III (HF-III) — Taiwan's supersonic anti-ship missile on ground launcher')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Hsiung Feng III (HF-III) &amp; ER Variant</div>
+          <div class="equip-desc">Taiwan's most capable anti-ship missile — a supersonic ramjet-powered weapon with a range of ~200km standard, extended to ~400km in the ER (extended-range) variant. Capable of defeating advanced ship defenses through supersonic terminal approach. Deployed on Tuo Chiang-class corvettes, frigates, shore batteries, and F-CK-1 fighters (upgrade program).</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Range (standard)</span><span class="equip-spec-val">~200 km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Range (ER)</span><span class="equip-spec-val">~400 km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Supersonic (est. Mach 2+)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Platforms</span><span class="equip-spec-val">Ship, ground, air (IDF upgrade)</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/missile/hsiung-feng-iii/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Air Defense</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/953b58cc31e5d17efdb6cafabc425360914d4264.jpg" alt="Patriot PAC-3 MSE missile launcher" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Patriot PAC-3 MSE launcher — Taiwan operates MIM-104 Patriot batteries for ballistic missile defense')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">MIM-104 Patriot PAC-2/3</div>
+          <div class="equip-desc">US-supplied Patriot Advanced Capability missile batteries provide Taiwan's primary theater ballistic missile defense layer. PAC-3 MSE intercepts ballistic missiles in their terminal phase, protecting airfields, command centers, and population centers against DF-class ballistic missile attack. Additional PAC-3 batteries and interceptor missiles in the $11B December 2025 arms package.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Variants</span><span class="equip-spec-val">PAC-2 GEM-T, PAC-3 MSE</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">PAC-3 Range</span><span class="equip-spec-val">~35 km (intercept)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Target</span><span class="equip-spec-val">Ballistic missiles, cruise, aircraft</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Batteries</span><span class="equip-spec-val">Multiple (classified)</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org/defsys/patriot-pac-3/" target="_blank" rel="noopener" class="equip-link">CSIS Air Defense <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subsection">Missile &amp; Air Defense Inventory</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>System</th><th>Type</th><th>Range</th><th>Role</th><th>Notes</th><th>Ref</th></tr></thead>
+        <tbody>
+          <tr><td>Hsiung Feng IIE</td><td>Land-attack cruise</td><td>600–1,200km</td><td>Deterrent strike / retaliatory</td><td>Mainland China targets; TEL-launched</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Hsiung Feng III ER</td><td>Supersonic anti-ship</td><td>~400km</td><td>Fleet denial / carrier strike</td><td>Extended-range variant; multi-platform</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Hsiung Feng II</td><td>Subsonic anti-ship</td><td>~160km</td><td>Surface vessel targeting</td><td>Sea-skimming; ship, shore, air launched</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Patriot PAC-3 MSE</td><td>Ballistic missile defense</td><td>~35km intercept</td><td>TMD / area air defense</td><td>Layered with Sky Bow; more in FY26 package</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Sky Bow III (Tien Kung III)</td><td>Indigenous SAM</td><td>~200km</td><td>Area air defense / ABM</td><td>Indigenous; radar-guided; dispersed batteries</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Sky Bow II (Tien Kung II)</td><td>Indigenous SAM</td><td>~100km</td><td>Medium-range air defense</td><td>Backbone of medium-altitude IADS</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>M142 HIMARS (GMLRS)</td><td>Guided rocket</td><td>~70km</td><td>Precision fires vs. landing force</td><td>11 systems; C-130 deployable</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+          <tr><td>Chaparral / Stinger</td><td>MANPADS / SHORAD</td><td>5–10km</td><td>Low-altitude point defense</td><td>Distributed to infantry; legacy systems</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ 07 NUCLEAR POSTURE ══════════════════════════════ -->
+<section id="section-nuclear" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 07</div>
+      <h2 class="section-title">Nuclear <span class="accent">Posture</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="intel-alert critical">
+      <div class="intel-alert-head">⚡ Nuclear Status — Non-Nuclear State</div>
+      <p class="body-text">Taiwan does <strong>not possess nuclear weapons</strong> and has no nuclear weapons program. The Republic of China signed and ratified the Nuclear Non-Proliferation Treaty (NPT). Taiwan abandoned its nuclear weapons research program in the 1970s–1980s following US pressure and the defection of a key scientist to the US. Taiwan operates civilian nuclear power infrastructure, but there is no credible evidence of weapons intent. Taiwan's deterrent relies entirely on conventional military capability, the semiconductor "silicon shield," and the implicit protection of the US-Taiwan security relationship under the Taiwan Relations Act.</p>
+    </div>
+
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Nuclear Dimension 01</div>
+        <div class="doctrine-card-title">NPT Signatory — No Nuclear Weapons</div>
+        <div class="doctrine-card-body">Taiwan signed the NPT (though its status as a recognized state is contested). Renounced nuclear weapons development in the 1980s under US pressure. IAEA safeguards apply to Taiwan's civilian nuclear facilities. No warheads, no delivery vehicles, no weapons-grade enrichment.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Nuclear Dimension 02</div>
+        <div class="doctrine-card-title">US Extended Deterrence</div>
+        <div class="doctrine-card-body">Taiwan's nuclear umbrella comes implicitly from the United States. PRC nuclear coercion against Taiwan would invoke US calculations about extended deterrence commitments across the Indo-Pacific. The Taiwan Relations Act creates legal ambiguity about US intervention — deterring nuclear coercion without explicit guarantee.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Nuclear Dimension 03</div>
+        <div class="doctrine-card-title">Historical Program (Abandoned)</div>
+        <div class="doctrine-card-body">Taiwan conducted secret nuclear research in the 1960s–70s at the Chung-Shan Institute of Science and Technology. The program was shut down under US pressure after the 1975 defection of Col. Chang Hsien-yi to the CIA. Confirmed that Taiwan had produced small quantities of plutonium before program termination.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Nuclear Dimension 04</div>
+        <div class="doctrine-card-title">Civilian Nuclear Infrastructure</div>
+        <div class="doctrine-card-body">Taiwan operates three nuclear power plants (Chinshan, Kuosheng, Maanshan) with ongoing phase-out controversy. The plants provide civilian power but no weapons-related capability. Government policy since 2011 has been gradual nuclear phase-out, though energy security debates continue under defense pressure.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Nuclear Dimension 05</div>
+        <div class="doctrine-card-title">PRC Nuclear Threat to Taiwan</div>
+        <div class="doctrine-card-body">PRC nuclear doctrine ambiguity creates coercive potential. China's "No First Use" pledge does not explicitly cover Taiwan, which Beijing considers a domestic matter. PLA Rocket Force (PLARF) DF-41 ICBMs and DF-5B can target Taiwan, though ballistic nuclear use against Taiwan would be strategically self-defeating given economic and diplomatic consequences.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Nuclear Dimension 06</div>
+        <div class="doctrine-card-title">Semiconductor Deterrent = Non-Nuclear Strategic Asset</div>
+        <div class="doctrine-card-body">Taiwan's control of 92% of the world's most advanced logic chip production functions as a strategic deterrent analogous to a non-nuclear "scorched earth" option. A conflict that damaged TSMC would remove an estimated $1.7T in global economic value — creating deterrence without nuclear weapons.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 08 PORCUPINE STRATEGY ══════════════════════════════ -->
+<section id="section-special" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 08</div>
+      <h2 class="section-title">Fortress Taiwan — <span class="accent">Porcupine Strategy</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">🦔 Special Capability Analysis — Asymmetric Defense</div>
+      <p class="body-text">Taiwan's most distinctive military innovation is not a single weapon system but an entire strategic doctrine: the <strong>"Porcupine Strategy"</strong> (or Overall Defense Concept). This approach acknowledges Taiwan cannot match the PLA in conventional force-on-force combat, and instead seeks to make any invasion so costly — in blood, treasure, time, and international credibility — that it becomes strategically irrational. The strategy centers on distributed, dispersed, mobile, and survivable defense systems that can continue to inflict losses long after an initial PLA strike.</p>
+    </div>
+
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Fast Corvette — Sea Denial</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/419c66e7e9bc9360bc6999ddb0063e7bab3291fa.jpg" alt="Tuo Chiang-class corvette" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Tuo Chiang-class — The porcupine's maritime spine: fast, armed, survivable')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Maritime Denial — Tuo Chiang Swarm</div>
+          <div class="equip-desc">12 planned Tuo Chiang corvettes each carrying 8 anti-ship missiles represent a distributed, hard-to-suppress missile swarm. At 45+ knots, they can reposition to avoid counter-strikes. A single corvette carries the firepower equivalent of a destroyer's anti-ship complement at 1/20th the cost and 1/10th the displacement.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Missiles per ship</span><span class="equip-spec-val">8× HF-II/III</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Total class salvo</span><span class="equip-spec-val">96 anti-ship missiles (12 ships)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Reposition time</span><span class="equip-spec-val">&lt;30 min to new firing position</span></div>
+          </div>
+          <a href="https://csis.org" target="_blank" rel="noopener" class="equip-link">CSIS Analysis <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Ground Air Defense</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/67ac5f7c405b12bc8ed49e477d5521ea69d343f2.jpg" alt="Taiwan Patriot missile system by pagoda" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Taiwan Patriot battery positioned near civilian infrastructure — distributed air defense architecture')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Layered Air Defense Network</div>
+          <div class="equip-desc">The integrated air defense system (IADS) layers Patriot PAC-3, Sky Bow III, Sky Bow II, and short-range systems into an overlapping coverage matrix. Distributed radar sites, mobile launchers, and hardened command nodes make the network resilient to decapitation strikes. Fighter aircraft provide a manned air superiority layer over the integrated missile grid.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">Long range</span><span class="equip-spec-val">Sky Bow III (~200km)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Theater BMD</span><span class="equip-spec-val">Patriot PAC-3 MSE</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Short range</span><span class="equip-spec-val">Chaparral, Stinger, Avenger</span></div>
+          </div>
+          <a href="https://missilethreat.csis.org" target="_blank" rel="noopener" class="equip-link">CSIS Air Defense <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+
+      <div class="equip-card">
+        <div class="equip-img-wrap">
+          <span class="equip-badge">Long-Range Strike</span>
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/36b4bac930f4e27b88af1c885b794dbbeb442d3c.jpg" alt="HIMARS rocket launcher firing" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'HIMARS precision fire — Taiwan's standoff strike against PLA amphibious staging areas')">
+        </div>
+        <div class="equip-body">
+          <div class="equip-name">Standoff Precision Strike</div>
+          <div class="equip-desc">HIMARS (11 systems), Hsiung Feng IIE land-attack cruise missiles, and extended-range HF-III create a layered standoff strike architecture. HIMARS can target PLA amphibious staging areas in Fujian Province. HF-IIE can reach deep into mainland China. This cross-strait strike capability transforms Taiwan from a passive defender to an active deterrent.</div>
+          <div class="equip-specs">
+            <div class="equip-spec"><span class="equip-spec-key">HIMARS range</span><span class="equip-spec-val">~70km (GMLRS)</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">HF-IIE range</span><span class="equip-spec-val">600–1,200km</span></div>
+            <div class="equip-spec"><span class="equip-spec-key">Target set</span><span class="equip-spec-val">Ports, airfields, C2 nodes</span></div>
+          </div>
+          <a href="https://www.rand.org/pubs/research_reports/RRA1799-1.html" target="_blank" rel="noopener" class="equip-link">RAND ODC Analysis <i data-lucide="external-link" style="width:11px;height:11px"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subsection">The Five Principles of Porcupine Defense</h3>
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Principle 01</div>
+        <div class="doctrine-card-title">Dispersal Over Concentration</div>
+        <div class="doctrine-card-body">Traditional military doctrine concentrates forces for decisive battle. Taiwan's porcupine strategy deliberately disperses forces, weapons, and capabilities to prevent the PLA from achieving decisive results with a single massive strike. Distributed systems are harder to find, target, and suppress simultaneously.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Principle 02</div>
+        <div class="doctrine-card-title">Mobility Equals Survivability</div>
+        <div class="doctrine-card-body">Mobile systems (HIMARS, Tuo Chiang corvettes, truck-launched HF missiles) can relocate between fire missions, making counter-battery and counter-strike efforts expensive and time-consuming for the PLA. A target that moves every 20 minutes cannot be reliably neutralized by pre-programmed ballistic missiles.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Principle 03</div>
+        <div class="doctrine-card-title">Cost Imposition Over Force Parity</div>
+        <div class="doctrine-card-body">Taiwan doesn't need to win a conventional war; it needs to make the cost of conquest prohibitively high. A $1.5M anti-ship missile destroying a $1B destroyer imposes a favorable cost-exchange ratio. Every day of resistance adds to PLA losses, economic damage, and international political costs.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Principle 04</div>
+        <div class="doctrine-card-title">Defense in Depth — Geographic Layers</div>
+        <div class="doctrine-card-body">Taiwan's geography creates natural defensive layers: (1) Taiwan Strait — contested maritime zone; (2) Beach/coastal defense — initial landing denial; (3) Urban terrain — costly ground combat; (4) Mountain interior — guerrilla potential. Defenders exploit each layer to attrit the attacker progressively.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Principle 05</div>
+        <div class="doctrine-card-title">Missiles as the Equalizer</div>
+        <div class="doctrine-card-body">Anti-ship missiles (HF-III ER, coastal batteries) and air defense missiles (Sky Bow, Patriot) provide firepower grossly disproportionate to Taiwan's conventional force size. Distributed along coastlines and in hardened sites, these systems create an A2/AD envelope that the PLA must suppress at high cost before any amphibious operation can proceed.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Principle 06</div>
+        <div class="doctrine-card-title">Reserve Mobilization Surge</div>
+        <div class="doctrine-card-body">1.67 million mobilizable reservists represent a mass-mobilization capacity that transforms Taiwan's 230,000-person professional force into a multi-hundred-thousand strong fighting force within days. Even partial mobilization doubles Taiwan's effective combatants, extending any conflict far beyond PLA planning assumptions.</div>
+      </div>
+    </div>
+
+    <h3 class="subsection">Strategy Components — Implementation Matrix</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Component</th><th>Implementation</th><th>Strategic Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Dispersed Coastal Defense</td><td>Mobile HF missile batteries, hidden coastal artillery, distributed radar</td><td>Layered defense throughout coastal zone; prevent force concentration at single points</td></tr>
+          <tr><td>Fast Missile Corvettes</td><td>Tuo Chiang-class (12 planned), fast attack craft</td><td>Rapid response, distributed firepower, difficult targeting for PLA</td></tr>
+          <tr><td>Naval Mines</td><td>Extensive inventory; C-130 air-laid, ship-laid</td><td>Canalize invasion fleet; impose attrition; deny port approaches</td></tr>
+          <tr><td>Standoff Strike</td><td>HIMARS, HF-IIE cruise missiles, HF-III ER</td><td>Strike approaching forces at maximum range; reduce platform attrition</td></tr>
+          <tr><td>Integrated Air Defense</td><td>Patriot, Sky Bow III/II, fighters, SHORAD</td><td>Layered defense against PLAAF; protect ground forces and critical infrastructure</td></tr>
+          <tr><td>Unmanned Systems</td><td>Growing drone inventory; loitering munitions under acquisition</td><td>Surveillance, ISR, cost-effective strike options; extending sensor reach</td></tr>
+          <tr><td>Reserve Mobilization</td><td>1.67M person reserve; reformed training; civil defense committees</td><td>Massive surge capacity; protracted conflict capability; whole-of-society resilience</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ 09 CYBER / SPACE ══════════════════════════════ -->
+<section id="section-cyber" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 09</div>
+      <h2 class="section-title">Cyber, Space &amp; <span class="accent">Information Warfare</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <p class="body-text">Taiwan occupies a unique position in the global cyber threat landscape: it is simultaneously one of the <strong>most heavily targeted states</strong> by Chinese state-sponsored cyber operations and one of the most experienced in cyber defense. Facing an average of 2.4 million daily cyber intrusion attempts as of 2025, Taiwan has developed robust cyber defense capabilities and is increasingly active in offensive and intelligence cyber operations. Taiwan's semiconductor sector — the target of consistent Chinese industrial espionage — has forced the development of world-class intellectual property protection systems.</p>
+
+    <figure class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/7696c919dcfea2f6b85973a861fe9d42a86a594e.jpg" alt="Taiwan cyber command operations center" width="1200" height="500" loading="lazy" onclick="openLightbox(this.src,'Taiwan cyber operations center — Taiwan Digital Agency and military cyber command joint exercise')">
+      <figcaption>Taiwan Cyber Command // Joint Cyber Exercise — Taiwan Digital Agency &amp; Military Coordination</figcaption>
+    </figure>
+
+    <h3 class="subsection">Domain Capability Assessment</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Domain</th><th>Capability</th><th>Assessment</th><th>Peer Equivalent</th><th>Key Gap</th></tr></thead>
+        <tbody>
+          <tr><td>Defensive Cyber</td><td>Taiwan Digital Agency; MND Cyber Cmd; CERT/CC</td><td><span class="pill pill-teal">Strong</span></td><td>Israel / South Korea tier</td><td>Legacy infrastructure vulnerability</td></tr>
+          <tr><td>Offensive Cyber</td><td>Limited public acknowledgment; classified capabilities</td><td><span class="pill pill-gold">Developing</span></td><td>Below Tier-1 cyber powers</td><td>Attribution risk vs. PRC</td></tr>
+          <tr><td>Information Operations</td><td>Active defense vs. PRC disinformation; OSINT capacity</td><td><span class="pill pill-teal">Strong (defensive)</span></td><td>Active target; mature defenses</td><td>Domestic political polarization</td></tr>
+          <tr><td>Space / ISR</td><td>Contracted satellite imagery; no indigenous military satellites</td><td><span class="pill pill-red">Limited</span></td><td>Relies on US / commercial</td><td>No sovereign orbital capability</td></tr>
+          <tr><td>Electronic Warfare</td><td>US-supplied EW suites on F-16V, ships</td><td><span class="pill pill-gold">Moderate</span></td><td>Below PLA EW capacity</td><td>Limited indigenous EW R&amp;D</td></tr>
+          <tr><td>Anti-Satellite</td><td>No ASAT capability; relies on satellite denial awareness</td><td><span class="pill pill-red">Absent</span></td><td>Non-applicable</td><td>Satellite dependency vulnerability</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="subsection">Documented Cyber Incidents — PRC Operations Against Taiwan</h3>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2024 — APT40 / Volt Typhoon</div>
+        <div class="tl-title">PLA-Linked Persistent Access Campaigns</div>
+        <div class="tl-desc">CISA and NSA advisories confirmed PLA-affiliated actors (Volt Typhoon / APT40) pre-positioned in Taiwanese critical infrastructure including water systems, communications, and energy grid — mirroring pre-conflict preparation doctrine. <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-038a" target="_blank" rel="noopener">CISA Advisory →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2023 — Pelosi Aftermath</div>
+        <div class="tl-title">Sustained DDoS Campaigns During PLA Exercises</div>
+        <div class="tl-desc">Coordinated DDoS attacks targeted Taiwanese government websites, military portals, and critical infrastructure during and after Speaker Pelosi's 2022 visit and associated PLA exercises. Government resilience tested and largely maintained. <a href="https://www.cisa.gov" target="_blank" rel="noopener">CISA →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2025 — Election Period Disinformation</div>
+        <div class="tl-title">Coordinated Influence Operations During Presidential Election</div>
+        <div class="tl-desc">PRC-attributed disinformation campaigns targeting Taiwan's January 2024 presidential election, amplified through social media, deepfake video production, and manipulation of LINE messaging app — Taiwan's primary communications platform. Taiwan's Digital Ministry mounted active counter-operations. <a href="https://www.odni.gov/files/ODNI/documents/assessments/ATA-2025-Unclassified-Report.pdf" target="_blank" rel="noopener">ODNI Threat Assessment →</a></div>
+      </div>
+    </div>
+
+    <h3 class="subsection">Information Warfare Countermeasures</h3>
+    <div class="intel-alert">
+      <div class="intel-alert-head">ℹ Taiwan's Disinformation Defense Architecture</div>
+      <p class="body-text">Taiwan has developed one of the world's most advanced institutional responses to state-sponsored disinformation. The <strong>Taiwan FactCheck Center</strong>, <strong>CoFacts collaborative fact-checking platform</strong>, and the government's <strong>Digital Ministry</strong> (established 2022) coordinate rapid identification and debunking of false narratives. The "humor over clamor" (以柔克剛) counter-disinformation strategy pioneered under Minister Audrey Tang uses viral memes and comedy to preemptively defuse false narratives before they spread. Taiwan regularly participates in US-led cyber exercises including the Cyber Flag series.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 10 DOCTRINE ══════════════════════════════ -->
+<section id="section-doctrine" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 10</div>
+      <h2 class="section-title">Military <span class="accent">Doctrine</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="policy-quote">
+      "Taiwan will become a nation that the enemy does not dare to invade. We will build Taiwan into a country that is not afraid of any threats. In the face of threats, we will never back down."
+      <span class="policy-quote-attr">— President Lai Ching-te, National Defense Report Press Conference, November 2025 | <a href="https://www.mnd.gov.tw" target="_blank" rel="noopener">MND Taiwan →</a></span>
+    </div>
+
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Doctrine 01</div>
+        <div class="doctrine-card-title">Asymmetric Defense (Porcupine Strategy)</div>
+        <div class="doctrine-card-body">Core doctrine acknowledging numerical inferiority versus PLA. Focuses on distributed, mobile, high-cost denial systems that inflict disproportionate casualties on any invasion force. Emphasizes quantity of missiles, fast craft, and mines over prestige conventional platforms.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Doctrine 02</div>
+        <div class="doctrine-card-title">Multi-Domain Layered Defense</div>
+        <div class="doctrine-card-body">Integration of land, sea, air, cyber, and information domains into a coherent contested-zone defense. No single domain operates independently. Losses in one domain are compensated by surge capability in others. The goal is to deny PLA the ability to achieve decisive superiority in any single domain simultaneously.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Doctrine 03</div>
+        <div class="doctrine-card-title">Hardening and Survivability</div>
+        <div class="doctrine-card-body">Investment in hardened air bases, underground storage, dispersed command nodes, and redundant communications. Any PLA first strike must simultaneously suppress hundreds of distributed targets — an operationally and economically costly proposition. Tunneled fuel and ammunition storage reduces first-strike effectiveness.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Doctrine 04</div>
+        <div class="doctrine-card-title">Whole-of-Society Resilience</div>
+        <div class="doctrine-card-body">Military defense is integrated with civil defense, critical infrastructure protection, and population resilience. The Whole-of-Society Defense Resilience Committee (est. 2024) coordinates government, civil society, and private sector (including TSMC) emergency response and sustained-resistance planning.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Doctrine 05</div>
+        <div class="doctrine-card-title">Strategic Ambiguity &amp; US Partnership</div>
+        <div class="doctrine-card-body">Taiwan's security strategy deliberately exploits US strategic ambiguity about intervention. Rather than seeking explicit guarantee (which could provoke PRC), Taiwan builds self-defense capability to a level where US intervention would be sufficient to reverse any PLA gains — making intervention rational for Washington even absent formal treaty commitments.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Doctrine 06</div>
+        <div class="doctrine-card-title">Extended Deterrence via Semiconductor Leverage</div>
+        <div class="doctrine-card-body">Taiwan's role as the world's irreplaceable advanced chip manufacturer functions as a non-military deterrent. Global economic interdependency raises the cost of any military action to levels that affect not just US and allied willingness to intervene, but also PRC's calculus about the economic consequences of conflict for China itself.</div>
+      </div>
+    </div>
+
+    <h3 class="subsection">Strategic Goals Timeline</h3>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2027 — Combat Readiness Target</div>
+        <div class="tl-title">Full Combat Readiness Across All Service Branches</div>
+        <div class="tl-desc">The Lai administration's stated goal of achieving comprehensive combat readiness by 2027 — coinciding with the PLA's own centenary modernization target. Includes reserve force reform completion, asymmetric weapons fielding, and joint exercise proficiency. <a href="https://www.defense.gov" target="_blank" rel="noopener">DoD Report →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2030 — 5% GDP Defense Spending</div>
+        <div class="tl-title">Defense Expenditure Target: 5% of GDP</div>
+        <div class="tl-desc">President Lai's 8-year plan, if fully approved and funded, would bring Taiwan's defense spending to approximately 5% of GDP — among the highest in East Asia and reflecting serious commitment to deterrence. <a href="https://www.sipri.org" target="_blank" rel="noopener">SIPRI →</a></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2038 — Full IDS Submarine Fleet</div>
+        <div class="tl-title">8-Vessel Indigenous Submarine Class Completed</div>
+        <div class="tl-desc">Completion of the 8-vessel Hai Kun-class submarine program would give Taiwan a credible undersea deterrent for the first time, enabling sea-denial, intelligence gathering, and anti-ship operations beyond the reach of PLA surface forces. <a href="https://csis.org" target="_blank" rel="noopener">CSIS →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ 11 DEFENSE BUDGET ══════════════════════════════ -->
+<section id="section-budget" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 11</div>
+      <h2 class="section-title">Defense <span class="accent">Budget &amp; Procurement</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <p class="body-text">Taiwan's defense budget has grown dramatically in recent years, from a sustained ~2.1% of GDP through the 2010s to <strong>3.32% (~USD $30B) in 2026</strong>. President Lai Ching-te has set a target of 5% of GDP by 2030 as part of a strategic transformation plan. The largest single military-to-military procurement relationship remains the US Foreign Military Sales (FMS) system, with a current backlog of ~$32 billion in undelivered orders representing the largest arms procurement pipeline in Taiwan's history.</p>
+
+    <h3 class="subsection">Budget Trend</h3>
+    <div class="stat-bars">
+      <div class="stat-bar-row"><span class="stat-bar-label">2020</span><div class="stat-bar-track"><div class="stat-fill" style="width:42%"></div></div><span class="stat-bar-val">~$12.5B USD (2.1% GDP)</span></div>
+      <div class="stat-bar-row"><span class="stat-bar-label">2022</span><div class="stat-bar-track"><div class="stat-fill" style="width:52%"></div></div><span class="stat-bar-val">~$16.7B USD (2.4% GDP)</span></div>
+      <div class="stat-bar-row"><span class="stat-bar-label">2024</span><div class="stat-bar-track"><div class="stat-fill" style="width:68%"></div></div><span class="stat-bar-val">~$22.4B USD (2.9% GDP)</span></div>
+      <div class="stat-bar-row"><span class="stat-bar-label">2026</span><div class="stat-bar-track"><div class="stat-fill" style="width:80%"></div></div><span class="stat-bar-val">~$30.0B USD (3.32% GDP)</span></div>
+      <div class="stat-bar-row"><span class="stat-bar-label">2030 Target</span><div class="stat-bar-track"><div class="stat-fill" style="width:100%"></div></div><span class="stat-bar-val">~$50B+ USD (5.0% GDP target)</span></div>
+    </div>
+
+    <h3 class="subsection">Major Active Procurement Programs</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Program</th><th>System</th><th>Value (est.)</th><th>Delivery Status</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>F-16 Block 70/72</td><td>66 new-build F-16V fighters</td><td>~$8B</td><td>Deliveries 2026–2028 (after delays)</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">DoD FMS</a></td></tr>
+          <tr><td>M1A2T Abrams</td><td>108 M1A2 SEP v3 tanks</td><td>~$2.2B</td><td>Complete (final batch Q1 2026)</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">DoD FMS</a></td></tr>
+          <tr><td>Patriot PAC-3 MSE</td><td>Additional batteries + interceptors</td><td>~$3.5B (Dec 2025 pkg)</td><td>Contracted; 3–5yr delivery</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">DoD FMS</a></td></tr>
+          <tr><td>Hai Kun IDS</td><td>8x indigenous submarines</td><td>~$12.3B total (est.)</td><td>SS-711 sea trials 2026; #2 keel 2025</td><td><a href="https://csis.org" target="_blank" rel="noopener">CSIS</a></td></tr>
+          <tr><td>Tuo Chiang Expansion</td><td>+5 corvettes (to 12 total)</td><td>~$800M est.</td><td>Production ongoing; 2026–2027 delivery</td><td><a href="https://www.naval-technology.com" target="_blank" rel="noopener">NT</a></td></tr>
+          <tr><td>Long-Range Strike Missiles</td><td>Enhanced HF-IIE / HF-III ER</td><td>Classified</td><td>In production; ongoing delivery</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS</a></td></tr>
+          <tr><td>UH-60M Black Hawk</td><td>60 helicopters</td><td>~$1.2B</td><td>Multi-year delivery ongoing</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">DoD FMS</a></td></tr>
+          <tr><td>E-2D Advanced Hawkeye</td><td>2 additional AEW&amp;C aircraft</td><td>~$750M</td><td>On order; delivery 2027</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">DoD FMS</a></td></tr>
+          <tr><td>Dec 2025 Arms Package</td><td>Multi-domain advanced package</td><td>~$11B</td><td>Notified to Congress; contracts pending</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">DoD</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">ℹ FMS Backlog — $32 Billion Risk Factor</div>
+      <p class="body-text">Taiwan's ~$32 billion US FMS backlog is the largest single risk to its procurement strategy. Delivery delays — already affecting F-16V and other programs — reflect US industrial base capacity limitations and Pentagon prioritization decisions. In a deteriorating security environment, the gap between contracted capability and delivered capability represents an exploitable window. The December 2025 $11 billion notification package adds to the backlog; actual delivery timelines remain uncertain. Congressional pressure and TSMC's domestic US presence create political will for acceleration, but manufacturing capacity is the binding constraint.</p>
+    </div>
+
+    <h3 class="subsection">Indigenous Defense Industry</h3>
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Industry 01</div>
+        <div class="doctrine-card-title">CSBC Corporation (Shipbuilding)</div>
+        <div class="doctrine-card-body">CSBC Corporation Taiwan (中國造船股份有限公司) is the state-owned shipbuilder responsible for the Hai Kun-class IDS submarine program, Tuo Chiang-class corvettes, and coast guard vessel construction. Located in Kaohsiung. Employs ~4,500 workers. Has undergone massive capability expansion for submarine construction.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Industry 02</div>
+        <div class="doctrine-card-title">NCSIST (Missiles &amp; Electronics)</div>
+        <div class="doctrine-card-body">The National Chung-Shan Institute of Science &amp; Technology (中山科學研究院) is Taiwan's primary defense research and production organization. Develops and produces the Hsiung Feng anti-ship missile family, Sky Bow SAM systems, and associated electronics. Directly oversees the most strategically critical indigenous weapons programs.</div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// Industry 03</div>
+        <div class="doctrine-card-title">AIDC (Aircraft &amp; Aerospace)</div>
+        <div class="doctrine-card-body">Aerospace Industrial Development Corporation produces the F-CK-1 IDF fighter and provides MRO for the ROCAF fleet. Collaborating on next-generation trainer aircraft and drone development programs. Has growing capacity for licensed assembly of US systems and future potential domestic fighter development.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 12 FOREIGN RELATIONS ══════════════════════════════ -->
+<section id="section-relations" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 12</div>
+      <h2 class="section-title">Foreign Relations <span class="accent">&amp; Alliances</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <p class="body-text">Taiwan's foreign policy operates under unique constraints: it lacks formal diplomatic recognition from most states due to PRC pressure, yet maintains <strong>extensive informal relationships</strong> that function as de facto alliances and partnerships. The United States, Japan, and an expanding network of like-minded democracies form Taiwan's practical security architecture. The Taiwan Relations Act (1979), US arms sales, and increasingly direct US-Taiwan military exchanges form the core of Taiwan's security backstop.</p>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Partner</th><th>Relationship Type</th><th>Key Framework</th><th>Military Significance</th><th>Trend</th></tr></thead>
+        <tbody>
+          <tr><td>🇺🇸 United States</td><td>Principal security partner (unofficial)</td><td>Taiwan Relations Act (1979); TSCA; FMS</td><td>Arms supplier, deterrence backstop, implied defense commitment, intelligence sharing</td><td><span class="pill pill-teal">Deepening</span></td></tr>
+          <tr><td>🇯🇵 Japan</td><td>Strategic quasi-ally (unofficial)</td><td>Japan-Taiwan Exchange Association; QUAD alignment</td><td>Geographic mutual interest (Taiwan Strait = Okinawa / Ryukyu Islands threat vector); intelligence coordination; logistics access in contingency</td><td><span class="pill pill-teal">Deepening</span></td></tr>
+          <tr><td>🇦🇺 Australia</td><td>Security partner (unofficial)</td><td>AUKUS alignment; Five Eyes adjacent</td><td>Intelligence sharing; regional security alignment; public statements of Taiwan importance</td><td><span class="pill pill-teal">Strengthening</span></td></tr>
+          <tr><td>🇬🇧 United Kingdom</td><td>Democratic partner</td><td>UK-Taiwan bilateral; Indo-Pacific tilt</td><td>Maritime patrol coordination; arms technology cooperation; political support</td><td><span class="pill pill-gold">Stable</span></td></tr>
+          <tr><td>🇪🇺 European Union</td><td>Economic / emerging security</td><td>Taiwan-EU bilateral; ECA; chip partnerships</td><td>Growing security dialogue; arms supply from some member states; semiconductor-linked leverage</td><td><span class="pill pill-teal">Developing</span></td></tr>
+          <tr><td>🇮🇳 India</td><td>Trade / informal coordination</td><td>ITEC; trade negotiations</td><td>Limited military dimension; semiconductor competition with PRC creates alignment of interests</td><td><span class="pill pill-gold">Neutral/Emerging</span></td></tr>
+          <tr><td>🇵🇭 Philippines</td><td>Informal partner</td><td>SCS mutual interest</td><td>Geographic proximity; shared concerns about PRC; increasing security dialogue</td><td><span class="pill pill-teal">Improving</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="subsection">Taiwan Relations Act — Key Provisions</h3>
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚖ Legal Framework: Taiwan Relations Act (1979)</div>
+      <p class="body-text">The Taiwan Relations Act (TRA) is the legal cornerstone of the US-Taiwan relationship. Key defense provisions: (1) <strong>Defensive arms sales</strong> — the US "shall make available to Taiwan such defense articles and defense services in such quantity as may be necessary to enable Taiwan to maintain a sufficient self-defense capability"; (2) <strong>Threat response</strong> — the US "shall consider any effort to determine the future of Taiwan by other than peaceful means... a matter of grave concern to the United States"; (3) <strong>Strategic ambiguity</strong> — the TRA does NOT guarantee US military intervention, creating deliberate ambiguity that deters both PRC attack AND Taiwan declaring independence. The Trump administration's December 2025 $11B arms package represents the largest single TRA arms provision since the law's passage.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ 13 THREAT ASSESSMENT ══════════════════════════════ -->
+<section id="section-threats" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 13</div>
+      <h2 class="section-title">Threat <span class="accent">Assessment</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="intel-alert critical">
+      <div class="intel-alert-head">⚠ Top-Line Assessment — March 2026</div>
+      <p class="body-text">The threat environment facing Taiwan has materially worsened since 2022. PLA air incursions have escalated from hundreds to <strong>thousands of ADIZ violations annually</strong> — with 2024 setting a record of 1,773 documented intrusions. PLA naval encirclement exercises ("Joint Sword" format) have become semi-routine, demonstrating growing capability to blockade Taiwan. The most credible near-term scenarios are <strong>gray-zone coercion</strong> (ongoing) and <strong>blockade/quarantine</strong> operations (elevated risk 2027–2032 window). Full amphibious invasion remains the highest-consequence but lowest-probability scenario — the PLA's logistics, amphibious capacity, and air transport continue to develop but have not yet achieved the scale required for high-confidence invasion.</p>
+    </div>
+
+    <figure class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/33b1fd5c9ae8deb7e1c7e5bd6e7b28adce8c2218.jpg" alt="PLA warships Taiwan Strait exercise formation" width="1200" height="500" loading="lazy" onclick="openLightbox(this.src,'PLA Naval Forces — Taiwan Strait encirclement exercise formation, 2024')">
+      <figcaption>PLA Navy // Taiwan Strait Encirclement Exercise ("Joint Sword") Formation, 2024</figcaption>
+    </figure>
+
+    <h3 class="subsection">Scenario Risk Matrix</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Scenario</th><th>Probability (2026–2035)</th><th>Consequence</th><th>Trigger Conditions</th><th>Taiwan Countermeasure</th></tr></thead>
+        <tbody>
+          <tr><td>Gray-Zone Harassment</td><td><span class="pill pill-red">ONGOING</span></td><td>Moderate — resource attrition, political fatigue</td><td>Any political developments; perennial baseline</td><td>ADIZ intercepts; diplomatic messaging; cost imposition</td></tr>
+          <tr><td>Cyberattack Campaign</td><td><span class="pill pill-red">HIGH</span></td><td>Moderate–High — critical infrastructure disruption</td><td>Pre-invasion preparation; political signaling</td><td>Taiwan Digital Agency; hardened SCADA; resilience drills</td></tr>
+          <tr><td>Blockade / Quarantine</td><td><span class="pill pill-gold">ELEVATED</span></td><td>High — economic strangulation; semiconductor disruption</td><td>Taiwan independence declaration; post-Taiwan election period</td><td>Naval dispersal; pre-positioning; US carrier deterrence</td></tr>
+          <tr><td>Pratas / Outlying Island Seizure</td><td><span class="pill pill-gold">MODERATE</span></td><td>Moderate — symbolic; precedent for escalation</td><td>Low-cost PRC option during crisis; "salami slicing"</td><td>Fortification limits; political costs; US response ambiguity</td></tr>
+          <tr><td>Kinmen / Matsu Seizure</td><td><span class="pill pill-gold">MODERATE</span></td><td>High — political shock; major escalation risk</td><td>PRC political window; US distraction scenario</td><td>Kinmen garrison; symbolic deterrence; US red line ambiguity</td></tr>
+          <tr><td>Full Amphibious Invasion</td><td><span class="pill pill-teal">LOW–MODERATE</span></td><td>Catastrophic — global economic collapse, WWIII risk</td><td>Window of overwhelming military superiority; US withdrawal; Taiwan independence declaration</td><td>Porcupine strategy; US deterrence; geographic cost</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="subsection">PLA Force Build-Up vs. Taiwan — Key Data Points</h3>
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// PLA Threat 01</div>
+        <div class="doctrine-card-title">Missile Order of Battle (PLARF)</div>
+        <div class="doctrine-card-body">The PLA Rocket Force can deploy ~1,500+ conventional ballistic and cruise missiles capable of targeting Taiwan from ranges of 500–3,000km. In a first-strike scenario, PLA planners envision simultaneous salvos against airfields, missile batteries, naval bases, C2 nodes, and radar sites designed to achieve air superiority in the first 24 hours. <a href="https://www.defense.gov/CMPR/" target="_blank" rel="noopener">DoD CMPR →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// PLA Threat 02</div>
+        <div class="doctrine-card-title">PLAN Amphibious Capacity (2026)</div>
+        <div class="doctrine-card-body">The PLAN operates 3 Type 075 LHAs (amphibious assault ships), 50+ Type 071 LPDs, and is expanding amphibious shipping at rate of approximately 1–2 major vessels per year. Current estimates suggest PLA can transport ~100,000 troops in a first wave — adequate for initial assault but insufficient for decisive conquest without rapid follow-on. <a href="https://www.defense.gov" target="_blank" rel="noopener">DoD CMPR 2025 →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// PLA Threat 03</div>
+        <div class="doctrine-card-title">PLAAF Air Superiority Challenge</div>
+        <div class="doctrine-card-body">The PLAAF operates 600+ 4th/4.5th generation fighters and an expanding fleet of J-20 5th generation stealth aircraft that can reach Taiwan from mainland bases without refueling. PLA numerical superiority in air is approximately 4:1 over ROCAF — offset only partially by Taiwan's defensive terrain advantages and SAM coverage. <a href="https://www.defense.gov" target="_blank" rel="noopener">DoD CMPR →</a></div>
+      </div>
+      <div class="doctrine-card">
+        <div class="doctrine-card-num">// PLA Threat 04</div>
+        <div class="doctrine-card-title">ADIZ Intrusion Escalation</div>
+        <div class="doctrine-card-body">PLA air incursions into Taiwan's ADIZ have escalated from ~400/year in 2020 to ~1,773 in 2024. Regular intrusions now routinely cross the median line of the Taiwan Strait — previously a tacit boundary respected since the 1950s. Multi-day "encirclement exercises" have been conducted four times since 2022. <a href="https://www.csis.org/analysis/tracking-pla-adiz" target="_blank" rel="noopener">CSIS Taiwan Tracker →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 14 SEMICONDUCTOR SHIELD ══════════════════════════════ -->
+<section id="section-economy" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 14</div>
+      <h2 class="section-title">Semiconductor <span class="accent">Shield</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <p class="body-text">Taiwan's greatest strategic asset is not a weapons system — it is the <strong>Taiwan Semiconductor Manufacturing Company (TSMC)</strong> and the broader semiconductor ecosystem that controls 92% of global production of logic chips at the most advanced process nodes. This concentration of irreplaceable technology creates a deterrence dynamic called the "Silicon Shield": any military conflict damaging Taiwan's semiconductor infrastructure would trigger an immediate global recession, making Taiwan's destruction economically irrational for virtually every major power — including China.</p>
+
+    <figure class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/d85d3c28d9e18bb4e3ecbe327f697f8d5ba2e9e9.jpg" alt="TSMC semiconductor wafer fabrication facility Taiwan" width="1200" height="500" loading="lazy" onclick="openLightbox(this.src,'TSMC semiconductor fabrication facility, Hsinchu Science Park, Taiwan — 2nm node production, 2025')">
+      <figcaption>TSMC Wafer Fabrication // Hsinchu Science Park, Taiwan — 2nm Node Production Facility (2025)</figcaption>
+    </figure>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Metric</th><th>Value</th><th>Global Share</th><th>Strategic Significance</th></tr></thead>
+        <tbody>
+          <tr><td>TSMC Market Cap</td><td>~$1.1 trillion USD (2026)</td><td>—</td><td>Most valuable semiconductor company globally</td></tr>
+          <tr><td>Advanced Logic Chips (&lt;5nm)</td><td>TSMC produces 92%</td><td>92%</td><td>No credible alternative for advanced semiconductor supply</td></tr>
+          <tr><td>TSMC Revenue (2025)</td><td>~$89.4B USD</td><td>~54% of global foundry revenue</td><td>Single-company concentration of strategic technology</td></tr>
+          <tr><td>Apple chip supply</td><td>100% TSMC</td><td>—</td><td>Every iPhone, Mac, iPad chip made in Taiwan</td></tr>
+          <tr><td>NVIDIA GPU production</td><td>~100% TSMC</td><td>—</td><td>AI arms race entirely dependent on Taiwan production</td></tr>
+          <tr><td>AMD / Qualcomm / MediaTek</td><td>~90%+ TSMC</td><td>—</td><td>Global technology supply chain anchored in Taiwan</td></tr>
+          <tr><td>Defense &amp; aerospace chips</td><td>Significant TSMC share</td><td>—</td><td>US military electronic systems dependent on Taiwan supply</td></tr>
+          <tr><td>Economic disruption estimate</td><td>$1.7T+ GDP loss (global)</td><td>—</td><td>Any major conflict triggers global recession</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">⚠ Silicon Shield Limitations</div>
+      <p class="body-text">The semiconductor deterrent has three key vulnerabilities: (1) <strong>TSMC's Arizona expansion</strong> — three US fabs (N4P operational 2024; N2 2025; advanced packaging 2027) represent an initial reduction in Taiwan's irreplaceability, though analysts estimate US fabs will supply &lt;10% of advanced chip demand through 2030; (2) <strong>PRC chip independence drive</strong> — China's SMIC and state-backed chipmakers have made progress on 7nm and below using non-EUV workarounds, but remain 2–4 technology generations behind; (3) <strong>Economic coercion vs. military aggression</strong> — PRC can attempt economic strangulation (blockade) without the full costs of invasion, reducing but not eliminating the semiconductor deterrent effect.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ 15 SOURCES ══════════════════════════════ -->
+<section id="section-sources" class="section-wrap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">// 15</div>
+      <h2 class="section-title">Intelligence <span class="accent">Sources</span></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="intel-alert">
+      <div class="intel-alert-head">ℹ Methodology Note</div>
+      <p class="body-text">This dossier is compiled exclusively from <strong>open-source intelligence (OSINT)</strong> — publicly available government documents, independent research institutions, peer-reviewed defense journals, and reputable international news sources. All data points are cross-referenced against multiple sources. Classification markings are stylistic, not functional. Analysis reflects conditions as of <strong>March 28, 2026</strong>.</p>
+    </div>
+
+    <div class="sources-grid">
+      <div class="source-col">
+        <h4>US Government &amp; DoD</h4>
+        <ul class="source-list">
+          <li><a href="https://www.defense.gov/CMPR/" target="_blank" rel="noopener">DoD Annual China Military Power Report (CMPR)<span class="source-meta">Pentagon / Office of Secretary of Defense // 2025</span></a></li>
+          <li><a href="https://www.state.gov/arms-control-and-international-security/arms-sales-and-fms/" target="_blank" rel="noopener">US Foreign Military Sales (FMS) Notifications<span class="source-meta">US Department of State // Defense Security Cooperation Agency</span></a></li>
+          <li><a href="https://www.dni.gov/index.php/newsroom/reports-publications/annual-threat-assessment" target="_blank" rel="noopener">Annual Threat Assessment of the US Intelligence Community<span class="source-meta">Office of the Director of National Intelligence // 2025</span></a></li>
+          <li><a href="https://www.cisa.gov/news-events/cybersecurity-advisories" target="_blank" rel="noopener">CISA Cybersecurity Advisories (AA24-038A, Volt Typhoon)<span class="source-meta">Cybersecurity &amp; Infrastructure Security Agency // 2024–2025</span></a></li>
+          <li><a href="https://www.congress.gov/bill/96th-congress/house-bill/2479" target="_blank" rel="noopener">Taiwan Relations Act (Public Law 96-8, 1979)<span class="source-meta">US Congress // Original legislation with amendments</span></a></li>
+        </ul>
+      </div>
+
+      <div class="source-col">
+        <h4>Think Tanks &amp; Research</h4>
+        <ul class="source-list">
+          <li><a href="https://www.rand.org/pubs/research_reports/RRA1799-1.html" target="_blank" rel="noopener">RAND Corporation — Taiwan Defense Analysis &amp; ODC<span class="source-meta">Ochmanek, Massicot, et al. // 2022–2025</span></a></li>
+          <li><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS Missile Defense Project / Missile Threat Database<span class="source-meta">Center for Strategic &amp; International Studies // Continuously updated</span></a></li>
+          <li><a href="https://chinapower.csis.org/taiwan/" target="_blank" rel="noopener">CSIS China Power Project — Taiwan Tracker<span class="source-meta">Center for Strategic &amp; International Studies // 2024</span></a></li>
+          <li><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS Military Balance 2025<span class="source-meta">International Institute for Strategic Studies // Annual reference</span></a></li>
+          <li><a href="https://www.sipri.org/databases/milex" target="_blank" rel="noopener">SIPRI Military Expenditure Database<span class="source-meta">Stockholm International Peace Research Institute // 2025 data</span></a></li>
+          <li><a href="https://warontherocks.com" target="_blank" rel="noopener">War on the Rocks — Taiwan Defense Analysis<span class="source-meta">Multiple authors // 2024–2026</span></a></li>
+        </ul>
+      </div>
+
+      <div class="source-col">
+        <h4>Defense Industry &amp; Technical</h4>
+        <ul class="source-list">
+          <li><a href="https://www.naval-technology.com" target="_blank" rel="noopener">Naval Technology — ROCN Fleet Profiles<span class="source-meta">Verdict Media // Platform specifications and updates</span></a></li>
+          <li><a href="https://www.airforce-technology.com" target="_blank" rel="noopener">Air Force Technology — ROCAF Aircraft Data<span class="source-meta">Verdict Media // Platform profiles</span></a></li>
+          <li><a href="https://www.ausairpower.net" target="_blank" rel="noopener">AirPower Australia — PLAAF vs. ROCAF Analysis<span class="source-meta">Dr. Carlo Kopp, Peter Goon // Technical analysis</span></a></li>
+          <li><a href="https://www.globalfirepower.com/country-military-strength-detail.php?country_id=taiwan" target="_blank" rel="noopener">Global Firepower — Taiwan Military Strength<span class="source-meta">GFP // Cross-reference inventory data</span></a></li>
+          <li><a href="https://csbc.com.tw" target="_blank" rel="noopener">CSBC Corporation Taiwan (Shipbuilder)<span class="source-meta">China Shipbuilding Corp. — Hai Kun builder</span></a></li>
+        </ul>
+      </div>
+
+      <div class="source-col">
+        <h4>Taiwanese Government</h4>
+        <ul class="source-list">
+          <li><a href="https://www.mnd.gov.tw" target="_blank" rel="noopener">Republic of China Ministry of National Defense<span class="source-meta">MND National Defense Report 2025 (Nov 2025)</span></a></li>
+          <li><a href="https://www.president.gov.tw" target="_blank" rel="noopener">Office of the President — ROC<span class="source-meta">Presidential addresses and policy announcements</span></a></li>
+          <li><a href="https://www.ncsist.org.tw" target="_blank" rel="noopener">National Chung-Shan Institute of Science &amp; Technology<span class="source-meta">NCSIST — Indigenous weapons R&amp;D organization</span></a></li>
+          <li><a href="https://www.nstc.gov.tw" target="_blank" rel="noopener">National Science &amp; Technology Council<span class="source-meta">Semiconductor and S&amp;T policy</span></a></li>
+          <li><a href="https://moda.gov.tw" target="_blank" rel="noopener">Taiwan Ministry of Digital Affairs<span class="source-meta">MODA — Cyber defense and digital resilience</span></a></li>
+        </ul>
+      </div>
+
+      <div class="source-col">
+        <h4>Media &amp; Academic</h4>
+        <ul class="source-list">
+          <li><a href="https://www.reuters.com/world/asia-pacific/taiwan/" target="_blank" rel="noopener">Reuters — Taiwan Defense and Security Desk<span class="source-meta">Wire service // Ongoing reporting 2024–2026</span></a></li>
+          <li><a href="https://www.ft.com/taiwan" target="_blank" rel="noopener">Financial Times — Taiwan Coverage<span class="source-meta">Premium journalism // Strategic and economic analysis</span></a></li>
+          <li><a href="https://thediplomat.com/category/asia-defense/" target="_blank" rel="noopener">The Diplomat — Asia Defense<span class="source-meta">Comprehensive Indo-Pacific defense journalism</span></a></li>
+          <li><a href="https://nationalinterest.org" target="_blank" rel="noopener">The National Interest — Taiwan Analysis<span class="source-meta">Policy analysis and strategic affairs</span></a></li>
+          <li><a href="https://asiapacific.anu.edu.au/research/projects/taiwan" target="_blank" rel="noopener">ANU East Asia Forum — Taiwan Security Studies<span class="source-meta">Academic policy analysis // ANU Coral Bell School</span></a></li>
+        </ul>
+      </div>
+
+      <div class="source-col">
+        <h4>Semiconductor / Economics</h4>
+        <ul class="source-list">
+          <li><a href="https://www.tsmc.com/english/investorRelations/annualReports" target="_blank" rel="noopener">TSMC Annual Report 2025<span class="source-meta">Taiwan Semiconductor Manufacturing Company</span></a></li>
+          <li><a href="https://www.semiconductors.org" target="_blank" rel="noopener">Semiconductor Industry Association (SIA)<span class="source-meta">Global market share and production data</span></a></li>
+          <li><a href="https://www.bcg.com/publications/2021/strengthening-the-global-semiconductor-supply-chain" target="_blank" rel="noopener">BCG — Strengthening Global Semiconductor Supply Chain<span class="source-meta">Boston Consulting Group // Analysis of Taiwan concentration risk</span></a></li>
+          <li><a href="https://www.cbo.gov" target="_blank" rel="noopener">CBO / OMB — Taiwan Conflict Economic Impact Modeling<span class="source-meta">US Congressional Budget Office</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--color-border);">
+      <p class="body-text" style="font-size:0.82rem;text-align:center;max-width:100%">Last updated: <strong>March 28, 2026</strong> &nbsp;|&nbsp; Dossier ID: <strong>A-02</strong> &nbsp;|&nbsp; Series: INDO-PACIFIC THEATER &nbsp;|&nbsp; Classification: UNCLASSIFIED // OPEN SOURCE &nbsp;|&nbsp; Next review: Q2 2026</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-stamp">Geopolitical Intelligence Platform v2 &nbsp;// &nbsp;Dossier A-02 &nbsp;// &nbsp;Republic of China — Taiwan &nbsp;// &nbsp;March 2026</div>
+  <div style="margin-top:var(--space-3)"><span class="footer-classify">UNCLASSIFIED // OPEN SOURCE INTELLIGENCE</span></div>
+  <div style="margin-top:var(--space-3);font-family:var(--font-mono);font-size:0.6rem;color:var(--color-text-faint);">All data derived from publicly available sources. For research and educational purposes only.</div>
+</footer>
+
+<!-- ══════════════════════════════════════════ SCRIPTS ══════════════════════════════════════════ -->
+<script>
+// Lucide icons
+if(typeof lucide !== 'undefined') lucide.createIcons();
+
+// Lightbox
+function openLightbox(src, cap) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-cap').textContent = cap || '';
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+  document.getElementById('lightbox-img').src = '';
+}
+document.getElementById('lightbox').addEventListener('click', function(e){
+  if(e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeLightbox();
+});
+
+// Active nav link on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (activeLink) {
+        activeLink.classList.add('active');
+        activeLink.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+      }
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(section => observer.observe(section));
+
+// Animate stat bars on scroll
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.stat-fill').forEach(fill => {
+        fill.style.width = fill.style.width; // trigger reflow
+      });
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.stat-bars').forEach(el => barObserver.observe(el));
+</script>
+</body>
+</html>

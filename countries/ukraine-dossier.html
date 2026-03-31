@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ukraine — Military Intelligence Dossier A-03 | Geopolitical Intelligence Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{background:#0a0c10;color:#dde2ec;font-family:'Inter',sans-serif;font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+:root{
+  --color-bg:#0a0c10;--color-surface:#0f1117;--color-surface-2:#141820;--color-surface-3:#1a2030;
+  --color-border:rgba(0,91,187,0.28);--color-border-2:rgba(255,200,50,0.18);
+  --color-text:#dde2ec;--color-text-muted:#8a94a8;--color-text-faint:#4a5168;
+  --color-red:#005bbb;--color-red-bright:#1a7de8;
+  --color-gold:#ffd700;--color-teal:#2dd4bf;--color-blue:#60a5fa;--color-yellow:#ffd700;
+  --space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-5:1.25rem;
+  --space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--space-16:4rem;
+  --font-display:'Rajdhani',sans-serif;--font-mono:'Share Tech Mono',monospace;
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;
+}
+/* Scrollbar */
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#0a0c10}::-webkit-scrollbar-thumb{background:#1a7de8;border-radius:3px}
+/* ── NAV ── */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,12,16,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--color-border);height:60px;display:flex;align-items:center}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-4);width:100%}
+.nav-logo{font-family:var(--font-display);font-size:.85rem;font-weight:700;letter-spacing:.12em;color:var(--color-red-bright);text-transform:uppercase;white-space:nowrap;text-decoration:none}
+.nav-sep{width:1px;height:24px;background:var(--color-border);flex-shrink:0}
+.nav-links{display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;flex:1}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-link{font-family:var(--font-display);font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);text-decoration:none;padding:var(--space-2) var(--space-3);border-bottom:2px solid transparent;white-space:nowrap;transition:color .18s,border-color .18s}
+.nav-link:hover,.nav-link.active{color:var(--color-red-bright);border-bottom-color:var(--color-red-bright)}
+/* ── HERO ── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding-top:60px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(0,91,187,.18) 0%,transparent 70%),linear-gradient(180deg,#0a0c10 0%,#060810 100%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,91,187,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,91,187,.07) 1px,transparent 1px);background-size:48px 48px;animation:gridPulse 8s ease-in-out infinite}
+@keyframes gridPulse{0%,100%{opacity:.5}50%{opacity:1}}
+.hero-scanline{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);pointer-events:none}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:900px;padding:var(--space-10) var(--space-6)}
+.hero-flag{font-size:5rem;margin-bottom:var(--space-4);filter:drop-shadow(0 0 24px rgba(0,91,187,.5))}
+.hero-eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.2em;color:var(--color-red-bright);text-transform:uppercase;margin-bottom:var(--space-4);opacity:.85}
+.hero-title{font-family:var(--font-display);font-size:clamp(3rem,8vw,7rem);font-weight:700;line-height:1.05;letter-spacing:.06em;text-transform:uppercase;margin-bottom:var(--space-4)}
+.hero-title .ua{color:var(--color-red-bright);display:block;font-size:.45em;font-weight:400;letter-spacing:.15em;margin-bottom:var(--space-2);opacity:.75}
+.hero-subtitle{font-family:var(--font-display);font-size:1.1rem;color:var(--color-text-muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:var(--space-6)}
+.hero-stamp{font-family:var(--font-mono);font-size:.68rem;color:var(--color-text-faint);letter-spacing:.12em;text-transform:uppercase;margin-bottom:var(--space-10);padding:var(--space-2) var(--space-4);border:1px solid var(--color-border);display:inline-block;border-radius:var(--radius-sm)}
+.hero-stats{display:flex;flex-wrap:wrap;gap:var(--space-4);justify-content:center;margin-bottom:var(--space-8)}
+.hero-stat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4) var(--space-6);min-width:140px;text-align:center}
+.hero-stat-val{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--color-red-bright);line-height:1}
+.hero-stat-key{font-family:var(--font-mono);font-size:.65rem;color:var(--color-text-faint);letter-spacing:.12em;text-transform:uppercase;margin-top:var(--space-1);display:block}
+.scroll-cue{display:flex;flex-direction:column;align-items:center;gap:var(--space-2);animation:bounce 2s ease-in-out infinite;color:var(--color-text-faint)}
+.scroll-cue span{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase}
+.scroll-arrow{width:20px;height:20px;border-right:2px solid var(--color-red-bright);border-bottom:2px solid var(--color-red-bright);transform:rotate(45deg)}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+/* ── SECTION WRAPPER ── */
+.section-wrap{max-width:1400px;margin:0 auto;padding:var(--space-16) var(--space-6)}
+section[id]{padding-top:calc(60px + var(--space-8))}
+.section-label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;color:var(--color-red-bright);text-transform:uppercase;margin-bottom:var(--space-2);display:flex;align-items:center;gap:var(--space-3)}
+.section-label::before{content:'';width:32px;height:1px;background:var(--color-red-bright);display:block}
+.section-label .section-num{color:var(--color-text-faint)}
+.section-title{font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--space-8);line-height:1.15}
+.section-title .highlight{color:var(--color-red-bright)}
+/* ── INTEL ALERT ── */
+.intel-alert{background:rgba(0,91,187,.08);border:1px solid rgba(0,91,187,.3);border-left:3px solid var(--color-red-bright);border-radius:var(--radius-md);padding:var(--space-5) var(--space-6);margin-bottom:var(--space-8)}
+.intel-alert-head{font-family:var(--font-display);font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-red-bright);margin-bottom:var(--space-2)}
+.intel-alert p{color:var(--color-text-muted);font-size:.95rem;line-height:1.65}
+.intel-alert strong.critical{color:var(--color-yellow);font-weight:600}
+.intel-alert-warn{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-left-color:var(--color-gold)}
+.intel-alert-warn .intel-alert-head{color:var(--color-gold)}
+/* ── EQUIPMENT CARD ── */
+.equip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--space-6);margin-bottom:var(--space-8)}
+.equip-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.equip-card:hover{border-color:var(--color-red-bright);box-shadow:0 0 24px rgba(0,91,187,.2)}
+.equip-img-wrap{position:relative;height:200px;overflow:hidden;background:var(--color-surface-2)}
+.equip-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:zoom-in;transition:transform .4s}
+.equip-card:hover .equip-img-wrap img{transform:scale(1.04)}
+.equip-badge{position:absolute;top:var(--space-3);left:var(--space-3);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;background:rgba(0,91,187,.7);color:var(--color-red-bright);border:1px solid var(--color-red-bright);padding:var(--space-1) var(--space-2);border-radius:var(--radius-sm);backdrop-filter:blur(8px)}
+.equip-body{padding:var(--space-5)}
+.equip-name{font-family:var(--font-display);font-size:1.2rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text);margin-bottom:var(--space-2)}
+.equip-desc{font-size:.88rem;color:var(--color-text-muted);margin-bottom:var(--space-4);line-height:1.6}
+.equip-specs{display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:var(--space-4)}
+.equip-spec{display:flex;justify-content:space-between;font-size:.8rem;padding-bottom:var(--space-2);border-bottom:1px solid rgba(255,255,255,.04)}
+.equip-spec-key{color:var(--color-text-faint);font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase;font-size:.72rem}
+.equip-spec-val{color:var(--color-teal);font-weight:600;font-family:var(--font-mono)}
+.equip-link{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--color-blue);text-decoration:none;display:flex;align-items:center;gap:var(--space-1);transition:color .15s}
+.equip-link:hover{color:var(--color-red-bright)}
+/* ── DATA TABLE ── */
+.data-table-wrap{overflow-x:auto;margin-bottom:var(--space-8);border-radius:var(--radius-lg);border:1px solid var(--color-border)}
+.data-table{width:100%;border-collapse:collapse}
+.data-table thead tr{background:var(--color-surface-2)}
+.data-table th{font-family:var(--font-display);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-muted);padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border)}
+.data-table td{padding:var(--space-3) var(--space-4);font-size:.86rem;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+.data-table tbody tr:hover{background:rgba(0,91,187,.06)}
+.data-table tbody tr:last-child td{border-bottom:none}
+.data-table a{color:var(--color-blue);text-decoration:none}
+.data-table a:hover{color:var(--color-red-bright)}
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:var(--space-8);margin-bottom:var(--space-8)}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--color-red-bright),rgba(0,91,187,.1))}
+.tl-item{position:relative;margin-bottom:var(--space-8)}
+.tl-dot{position:absolute;left:calc(-1 * var(--space-8) - 5px);top:4px;width:12px;height:12px;border-radius:50%;background:var(--color-red-bright);border:2px solid var(--color-bg);box-shadow:0 0 12px rgba(0,91,187,.6)}
+.tl-year{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.14em;color:var(--color-red-bright);text-transform:uppercase;margin-bottom:var(--space-1)}
+.tl-title{font-family:var(--font-display);font-size:1rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text);margin-bottom:var(--space-2)}
+.tl-desc{font-size:.87rem;color:var(--color-text-muted);line-height:1.65}
+.tl-desc a{color:var(--color-blue);text-decoration:none}
+.tl-desc a:hover{color:var(--color-red-bright)}
+/* ── STAT BARS ── */
+.stat-bars{display:flex;flex-direction:column;gap:var(--space-4);margin-bottom:var(--space-8)}
+.stat-bar-row{display:flex;align-items:center;gap:var(--space-4)}
+.stat-bar-label{font-family:var(--font-display);font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text);min-width:180px}
+.stat-bar-track{flex:1;height:6px;background:var(--color-surface-2);border-radius:3px;overflow:hidden}
+.stat-fill{height:100%;background:linear-gradient(90deg,var(--color-red),var(--color-red-bright));border-radius:3px}
+.stat-bar-val{font-family:var(--font-mono);font-size:.78rem;color:var(--color-teal);min-width:80px;text-align:right}
+/* ── POLICY QUOTE ── */
+.policy-quote{background:var(--color-surface-2);border:1px solid var(--color-border-2);border-left:3px solid var(--color-gold);border-radius:var(--radius-md);padding:var(--space-6) var(--space-8);margin-bottom:var(--space-8);font-size:1.05rem;font-style:italic;color:var(--color-text);line-height:1.7}
+.policy-quote-attr{display:block;font-size:.78rem;font-style:normal;font-family:var(--font-mono);color:var(--color-gold);margin-top:var(--space-3);letter-spacing:.1em;text-transform:uppercase}
+.policy-quote-attr a{color:var(--color-gold);text-decoration:none}
+/* ── TABS ── */
+.tabs{margin-bottom:var(--space-8)}
+.tab-btns{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-6);border-bottom:1px solid var(--color-border);padding-bottom:var(--space-4)}
+.tab-btn{font-family:var(--font-display);font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:var(--space-2) var(--space-4);cursor:pointer;transition:all .18s}
+.tab-btn:hover,.tab-btn.active{background:rgba(0,91,187,.15);border-color:var(--color-red-bright);color:var(--color-red-bright)}
+.tab-pane{display:none}.tab-pane.active{display:block}
+/* ── MAP ── */
+.map-container{position:relative;border-radius:var(--radius-lg);overflow:hidden;margin-bottom:var(--space-4);border:1px solid var(--color-border)}
+.map-img{width:100%;height:auto;cursor:zoom-in;display:block;transition:transform .4s}
+.map-container:hover .map-img{transform:scale(1.01)}
+.map-overlay{position:absolute;bottom:0;left:0;right:0;padding:var(--space-4) var(--space-6);background:linear-gradient(0deg,rgba(10,12,16,.95),transparent);pointer-events:none}
+.map-caption{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--color-red-bright)}
+.map-stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--space-4);margin-bottom:var(--space-8)}
+.map-stat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);text-align:center}
+.map-stat-val{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--color-red-bright);line-height:1}
+.map-stat-key{font-family:var(--font-mono);font-size:.62rem;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-top:var(--space-1)}
+/* ── DOCTRINE CARDS ── */
+.doctrine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-5);margin-bottom:var(--space-8)}
+.doctrine-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);transition:border-color .2s}
+.doctrine-card:hover{border-color:var(--color-red-bright)}
+.doctrine-card-num{font-family:var(--font-mono);font-size:.68rem;color:var(--color-red-bright);letter-spacing:.15em;margin-bottom:var(--space-2);text-transform:uppercase}
+.doctrine-card-title{font-family:var(--font-display);font-size:1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text);margin-bottom:var(--space-3)}
+.doctrine-card-body{font-size:.87rem;color:var(--color-text-muted);line-height:1.65}
+/* ── COLLAPSIBLE ── */
+.collapsible{border:1px solid var(--color-border);border-radius:var(--radius-md);margin-bottom:var(--space-4);overflow:hidden}
+.collapsible-head{display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);cursor:pointer;font-family:var(--font-display);font-size:.92rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text);background:var(--color-surface);transition:background .15s}
+.collapsible-head:hover,.collapsible-head.open{background:var(--color-surface-2)}
+.collapsible-head.open{color:var(--color-red-bright)}
+.chev{transition:transform .2s;color:var(--color-text-faint)}
+.collapsible-head.open .chev{transform:rotate(180deg)}
+.collapsible-body{display:none;padding:var(--space-5);background:var(--color-surface-2);border-top:1px solid var(--color-border);font-size:.89rem;color:var(--color-text-muted);line-height:1.7}
+.collapsible-body.open{display:block}
+/* ── INLINE IMG ── */
+.inline-img{margin:var(--space-8) 0;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border)}
+.inline-img img{width:100%;height:auto;cursor:zoom-in;display:block}
+.inline-img figcaption{background:var(--color-surface-2);padding:var(--space-3) var(--space-5);font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;color:var(--color-text-faint);text-transform:uppercase}
+/* ── RISK GRID ── */
+.risk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--space-5);margin-bottom:var(--space-8)}
+.risk-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6)}
+.risk-level{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-2)}
+.risk-level.critical{color:#ff4444}.risk-level.high{color:var(--color-gold)}.risk-level.medium{color:var(--color-teal)}.risk-level.low{color:#4ade80}
+.risk-title{font-family:var(--font-display);font-size:1rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:var(--space-3);color:var(--color-text)}
+.risk-body{font-size:.86rem;color:var(--color-text-muted);line-height:1.65}
+/* ── SOURCES ── */
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-6);margin-bottom:var(--space-8)}
+.sources-col-title{font-family:var(--font-display);font-size:.9rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--color-red-bright);margin-bottom:var(--space-4);padding-bottom:var(--space-2);border-bottom:1px solid var(--color-border)}
+.sources-list{display:flex;flex-direction:column;gap:var(--space-2)}
+.sources-list a{font-size:.85rem;color:var(--color-blue);text-decoration:none;padding:var(--space-2) 0;border-bottom:1px solid rgba(255,255,255,.04);transition:color .15s;display:flex;align-items:center;gap:var(--space-2)}
+.sources-list a:hover{color:var(--color-red-bright)}
+.sources-list a::before{content:'→';color:var(--color-text-faint);font-family:var(--font-mono);font-size:.8rem;flex-shrink:0}
+/* ── CLASSIFICATION FOOTER ── */
+.class-footer{background:var(--color-surface-2);border:1px solid var(--color-border);border-top:2px solid var(--color-red-bright);border-radius:var(--radius-lg);padding:var(--space-8);text-align:center;margin-bottom:var(--space-8)}
+.class-notice{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;color:var(--color-text-faint);text-transform:uppercase;line-height:1.8}
+.class-badge{font-family:var(--font-display);font-size:1rem;font-weight:700;letter-spacing:.2em;color:var(--color-red-bright);border:1px solid var(--color-red-bright);display:inline-block;padding:var(--space-2) var(--space-6);margin-bottom:var(--space-4);text-transform:uppercase}
+/* ── LIGHTBOX ── */
+.lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:var(--space-8)}
+.lightbox.active{display:flex;flex-direction:column;gap:var(--space-4)}
+.lightbox img{max-width:90vw;max-height:80vh;border-radius:var(--radius-lg);border:1px solid var(--color-border)}
+#lightbox-cap{font-family:var(--font-mono);font-size:.75rem;color:var(--color-text-muted);letter-spacing:.1em;text-transform:uppercase;text-align:center}
+.lightbox-close{position:absolute;top:var(--space-6);right:var(--space-6);font-family:var(--font-display);font-size:1.5rem;color:var(--color-text-muted);cursor:pointer;background:var(--color-surface);border:1px solid var(--color-border);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+/* ── RESPONSIVE ── */
+@media(max-width:768px){.nav-links{display:none}.stat-bar-row{flex-direction:column;align-items:flex-start}.stat-bar-label{min-width:auto}.hero-stats{flex-direction:column;align-items:center}.section-wrap{padding:var(--space-8) var(--space-4)}}
+/* ── DOMAIN TABLE ── */
+.domain-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5);margin-bottom:var(--space-8)}
+@media(max-width:900px){.domain-grid{grid-template-columns:1fr}}
+.domain-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5)}
+.domain-label{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--color-red-bright);margin-bottom:var(--space-2)}
+.domain-title{font-family:var(--font-display);font-size:1rem;font-weight:700;text-transform:uppercase;margin-bottom:var(--space-3)}
+.domain-body{font-size:.86rem;color:var(--color-text-muted);line-height:1.6}
+/* ── Two-col layout ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);margin-bottom:var(--space-8)}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}}
+/* ── Projection table ── */
+.proj-table{width:100%;border-collapse:collapse;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border);margin-bottom:var(--space-6)}
+.proj-table th{background:var(--color-surface-2);font-family:var(--font-display);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:var(--space-3) var(--space-4);color:var(--color-text-muted);text-align:left;border-bottom:1px solid var(--color-border)}
+.proj-table td{padding:var(--space-3) var(--space-4);font-size:.87rem;border-bottom:1px solid rgba(255,255,255,.04)}
+.proj-table tr:hover{background:rgba(0,91,187,.05)}
+/* Western Aid banner */
+.aid-banner{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-4);margin-bottom:var(--space-8)}
+.aid-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4) var(--space-5)}
+.aid-donor{font-family:var(--font-display);font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text);margin-bottom:var(--space-2)}
+.aid-systems{font-size:.82rem;color:var(--color-text-muted);line-height:1.5}
+.aid-amount{font-family:var(--font-mono);font-size:.75rem;color:var(--color-teal);margin-top:var(--space-2)}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav class="top-nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">GIP v2 // A-03</a>
+    <div class="nav-sep"></div>
+    <div class="nav-links">
+      <a href="#section-map" class="nav-link">01 Geo</a>
+      <a href="#section-overview" class="nav-link">02 Overview</a>
+      <a href="#section-ground" class="nav-link">03 Ground</a>
+      <a href="#section-navy" class="nav-link">04 Navy</a>
+      <a href="#section-airforce" class="nav-link">05 Air Force</a>
+      <a href="#section-rocket" class="nav-link">06 Missiles</a>
+      <a href="#section-nuclear" class="nav-link">07 Nuclear</a>
+      <a href="#section-special" class="nav-link">08 Drone War</a>
+      <a href="#section-cyber" class="nav-link">09 Cyber</a>
+      <a href="#section-economy" class="nav-link">10 Economy</a>
+      <a href="#section-political" class="nav-link">11 Political</a>
+      <a href="#section-geopolitical" class="nav-link">12 Geopolitical</a>
+      <a href="#section-doctrine" class="nav-link">13 Doctrine</a>
+      <a href="#section-risk" class="nav-link">14 Risk</a>
+      <a href="#section-sources" class="nav-link">15 Sources</a>
+    </div>
+  </div>
+</nav>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-scanline"></div>
+  <div class="hero-content">
+    <div class="hero-flag">🇺🇦</div>
+    <div class="hero-eyebrow">CLASSIFIED OPEN-SOURCE ANALYSIS // MARCH 2026 // DOSSIER A-03</div>
+    <h1 class="hero-title">
+      <span class="ua">Збройні Сили України</span>
+      UKRAINE
+    </h1>
+    <p class="hero-subtitle">Armed Forces of Ukraine — Military Intelligence Profile</p>
+    <p class="hero-stamp">Ground Forces · Naval Forces · Air Force · Air Defense · Special Operations · Territorial Defense</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-val">~900K</span><span class="hero-stat-key">Active Personnel</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">$120B</span><span class="hero-stat-key">2026 Defense Budget</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">NONE</span><span class="hero-stat-key">Nuclear Warheads</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">0</span><span class="hero-stat-key">Capital Ships (Surface)</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">~4M</span><span class="hero-stat-key">Total Reserve Pool</span></div>
+    </div>
+    <div class="scroll-cue"><span>Scroll to Explore</span><div class="scroll-arrow"></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  01 — GEOGRAPHIC OVERVIEW
+══════════════════════════════════════════ -->
+<section id="section-map">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">01 //</span> Geographic Overview</div>
+  <h2 class="section-title">UKRAINE — <span class="highlight">STRATEGIC GEOGRAPHY</span></h2>
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚑ STRATEGIC ASSESSMENT</div>
+    <p>Ukraine occupies a <strong class="critical">pivotal geographic position</strong> between NATO's eastern flank and the Russian Federation. At 603,550 km², it is the largest country entirely within Europe. Its 2,295-km land border with Russia, 1,084-km Black Sea and Sea of Azov coastline, and critical agricultural plains make it a defining theater of 21st-century great-power competition. As of March 2026, approximately <strong class="critical">17-18% of Ukrainian pre-war territory</strong> remains under Russian military occupation.</p>
+  </div>
+  <div class="map-container">
+    <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/f3026f7751631a26df5d4c4d2a2950ffe48b8a8f.jpg" alt="Ukraine satellite terrain map" width="1234" height="837" loading="lazy" onclick="openLightbox(this.src,'Ukraine — Satellite Terrain Overview')">
+    <div class="map-overlay"><div class="map-caption">SATELLITE OVERVIEW // UKRAINE // 603,550 KM²</div></div>
+  </div>
+  <div class="map-stats-row">
+    <div class="map-stat"><span class="map-stat-val">603,550</span><span class="map-stat-key">Total Area km²</span></div>
+    <div class="map-stat"><span class="map-stat-val">~36M</span><span class="map-stat-key">Estimated Population</span></div>
+    <div class="map-stat"><span class="map-stat-val">2,295 km</span><span class="map-stat-key">Border w/ Russia</span></div>
+    <div class="map-stat"><span class="map-stat-val">1,084 km</span><span class="map-stat-key">Black Sea Coastline</span></div>
+    <div class="map-stat"><span class="map-stat-val">1,000 km</span><span class="map-stat-key">Active Front Line</span></div>
+    <div class="map-stat"><span class="map-stat-val">~18%</span><span class="map-stat-key">Territory Occupied</span></div>
+  </div>
+  <div class="map-container">
+    <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5e600182cae95a410f936319840d9e36702a4698.jpg" alt="Ukraine frontline map 2025-2026 conflict zones" width="1280" height="1312" loading="lazy" onclick="openLightbox(this.src,'Ukraine Conflict Front Line Map — 2025/2026')">
+    <div class="map-overlay"><div class="map-caption">FRONT LINE MAP // RUSSIAN CONTROLLED ZONES (RED) // 2025-2026</div></div>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.15rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Territorial Disputes &amp; Occupied Regions</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Region</th><th>Status (March 2026)</th><th>Area km²</th><th>Strategic Significance</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>Crimea</td><td>Russian military occupation since 2014</td><td>27,000</td><td>Black Sea Fleet HQ, Sevastopol naval base, S-400 coverage</td><td><a href="https://www.bbc.com/news/world-europe-26200768" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Donetsk Oblast (partial)</td><td>~60% under Russian control, active combat</td><td>~14,900</td><td>Avdiivka, Bakhmut (Artemivsk), Pokrovsk, Vuhledar fronts</td><td><a href="https://understandingwar.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Luhansk Oblast (partial)</td><td>~95% under Russian control</td><td>~26,000</td><td>DPRK troop deployment area; Kreminna defensive line</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Zaporizhzhia Oblast (partial)</td><td>~70% under Russian control</td><td>~15,600</td><td>Zaporizhzhia NPP; potential Dnipro crossing axis</td><td><a href="https://www.iaea.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Kherson Oblast (partial)</td><td>Right-bank liberated; left-bank occupied</td><td>~12,700</td><td>Dnieper River defensive boundary; irrigation infrastructure</td><td><a href="https://understandingwar.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Kursk Oblast (Russia)</td><td>Ukrainian incursion Aug 2024; mostly withdrawn early 2025</td><td>~500–1,200 at peak</td><td>Demonstrated AFU offensive capability; leveraging tool</td><td><a href="https://www.bbc.com/news/articles/c72ek0rkk8go" target="_blank" rel="noopener">→</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  02 — MILITARY OVERVIEW
+══════════════════════════════════════════ -->
+<section id="section-overview">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">02 //</span> Military Overview</div>
+  <h2 class="section-title">ARMED FORCES OF UKRAINE — <span class="highlight">OVERVIEW</span></h2>
+  <figure class="inline-img">
+    <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/cece210249230e6e591bfe5e2dbf9f21ed89db49.jpg" alt="President Zelensky visits Ukrainian frontline troops" width="1024" height="683" loading="lazy" onclick="openLightbox(this.src,'President Zelensky with AFU Troops at the Frontline')">
+    <figcaption>President Zelensky with frontline AFU personnel — The Armed Forces of Ukraine have transformed from 200,000 to ~900,000 active personnel since 2022</figcaption>
+  </figure>
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚑ EXECUTIVE ASSESSMENT — MARCH 2026</div>
+    <p>Ukraine's Armed Forces (ZSU) have undergone a <strong class="critical">historic wartime transformation</strong>, growing from ~200,000 pre-war personnel to approximately 900,000 active troops — the largest military in Europe by active headcount. This is not mere conscription: it represents full institutional transformation, NATO interoperability integration, and combat-hardening unmatched by any peacetime force. The AFU ranks 6th globally in active personnel (IISS 2026) and 5th if total strength is counted. <strong class="critical">The 2026 defense budget reaches $120 billion</strong> — roughly 26% of GDP — with NATO and partners funding approximately 50%. Ukraine has become the most combat-tested military in the Western alliance structure.</p>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-6) 0 var(--space-4)">Service Branch Breakdown by Personnel</h3>
+  <div class="stat-bars">
+    <div class="stat-bar-row"><span class="stat-bar-label">Ground Forces (ZSU)</span><div class="stat-bar-track"><div class="stat-fill" style="width:68%"></div></div><span class="stat-bar-val">~612,000</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">Territorial Defense</span><div class="stat-bar-track"><div class="stat-fill" style="width:15%"></div></div><span class="stat-bar-val">~130,000</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">Air Force (VPS)</span><div class="stat-bar-track"><div class="stat-fill" style="width:6%"></div></div><span class="stat-bar-val">~50,000</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">Naval Forces (VMS)</span><div class="stat-bar-track"><div class="stat-fill" style="width:3%"></div></div><span class="stat-bar-val">~25,000</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">Special Operations (SSO)</span><div class="stat-bar-track"><div class="stat-fill" style="width:4%"></div></div><span class="stat-bar-val">~30,000</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">Air Defense Forces</span><div class="stat-bar-track"><div class="stat-fill" style="width:5%"></div></div><span class="stat-bar-val">~45,000</span></div>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Military Modernization Timeline</h3>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2014 — FIRST TRANSFORMATION</div>
+      <div class="tl-title">Post-Maidan Rebuilding &amp; Donbas Combat</div>
+      <div class="tl-desc">Following Russian annexation of Crimea and proxy war in Donbas, Ukraine initiated military reform from its Soviet-legacy force. Territorial Defense Forces established. Active personnel expanded from ~130,000 to ~250,000. <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">Source → IISS Military Balance</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2022 FEB — FULL-SCALE INVASION</div>
+      <div class="tl-title">Russia's Full-Scale Invasion — Day One</div>
+      <div class="tl-desc">Russia launched a multi-axis invasion from Belarus, Crimea, Donbas, and Kharkiv. Ukrainian forces, despite significant initial pressure, halted Russian advance on Kyiv by March 2022 and forced Russian withdrawal from northern Ukraine. <a href="https://understandingwar.org/backgrounder/russian-offensive-campaign-assessment-february-24-2022" target="_blank" rel="noopener">ISW Assessment →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2022 APR — STRATEGIC NAVAL</div>
+      <div class="tl-title">Sinking of Russian Flagship Moskva</div>
+      <div class="tl-desc">Neptune anti-ship missiles struck and sank the Black Sea Fleet flagship Moskva — the first flagship lost in combat since WWII. This eliminated Russia's primary Black Sea command vessel and forced fundamental reassessment of Russian naval operations. <a href="https://www.bbc.com/news/world-europe-61103927" target="_blank" rel="noopener">BBC Report →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2022 SEP-NOV — KHARKIV/KHERSON</div>
+      <div class="tl-title">Successful Counteroffensives Liberate Territory</div>
+      <div class="tl-desc">Ukrainian counteroffensive in Kharkiv Oblast liberated ~6,000 km² in September. Kherson city liberated in November 2022. Demonstrated Ukraine's ability to conduct combined arms operations against entrenched Russian positions. <a href="https://www.rand.org/pubs/research_reports/RRA2510-1.html" target="_blank" rel="noopener">RAND Analysis →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2023 — WESTERN ARMOR ARRIVES</div>
+      <div class="tl-title">NATO Main Battle Tank Deliveries Begin</div>
+      <div class="tl-desc">Germany, UK, USA, Poland and others delivered Leopard 2, Challenger 2, and M1 Abrams MBTs. Bradley IFVs, Strykers, and other armored vehicles transformed Ukraine's offensive capability. The June 2023 counteroffensive, though limited in gains, demonstrated AFU combined-arms proficiency. <a href="https://www.defense.gov/News/Releases/" target="_blank" rel="noopener">DoD Release →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024 — F-16 DELIVERIES</div>
+      <div class="tl-title">First F-16 Vipers Operational in Ukraine</div>
+      <div class="tl-desc">Denmark and Netherlands delivered F-16s; Belgium and Poland follow-on deliveries committed. A $310.5M U.S. FMS package approved May 2025 ensures sustainment. Ukrainian pilots trained in U.S., Romania, and other NATO partners. Air Force fundamentally transformed. <a href="https://www.state.gov/arms-transfers-and-security-assistance/" target="_blank" rel="noopener">State Dept FMS →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024 AUG — KURSK INCURSION</div>
+      <div class="tl-title">AFU Cross-Border Offensive into Russia</div>
+      <div class="tl-desc">Ukraine launched a bold combined-arms incursion into Russia's Kursk Oblast, temporarily occupying up to 1,200 km². Forced Russia to divert forces, demonstrated AFU offensive initiative, and created leverage for ceasefire negotiations. <a href="https://understandingwar.org" target="_blank" rel="noopener">ISW →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2025 — DRONE ARMY DOCTRINE</div>
+      <div class="tl-title">Ukraine Formalizes World's Most Advanced Drone Force</div>
+      <div class="tl-desc">Defense Minister Fedorov announced strategic goal of eliminating 50,000 Russian personnel per month via drone. Drone interception rates reached 91% by Feb 2026. Ukraine approved Cyber Force legislation (Oct 2025) and Space Force (Dec 2025) establishment. <a href="https://www.csis.org/analysis/unpacking-ukraines-future-cyber-and-space-forces" target="_blank" rel="noopener">CSIS Analysis →</a></div>
+    </div>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Western Military Aid — Key Donors (2025)</h3>
+  <div class="aid-banner">
+    <div class="aid-card"><div class="aid-donor">🇺🇸 United States</div><div class="aid-systems">HIMARS, PATRIOT, M777, M1 Abrams, Bradley IFV, Stinger, Javelin, JDAM, NASAMS, AIM-120 AMRAAM</div><div class="aid-amount">~$31.7B (PDA since Aug 2021)</div></div>
+    <div class="aid-card"><div class="aid-donor">🇩🇪 Germany</div><div class="aid-systems">Leopard 2A6, Leopard 1A5, IRIS-T SLM/SLS, PzH 2000, Gepard SPAAG, Marder IFV, MARS II MLRS</div><div class="aid-amount">€28B+ committed</div></div>
+    <div class="aid-card"><div class="aid-donor">🇬🇧 United Kingdom</div><div class="aid-systems">Challenger 2 MBT, AS-90 howitzer, Storm Shadow cruise missiles, Harpoon naval missiles, Starstreak MANPADS</div><div class="aid-amount">£12B+</div></div>
+    <div class="aid-card"><div class="aid-donor">🇳🇱🇩🇰 Netherlands/Denmark</div><div class="aid-systems">F-16 Viper fighters (24+), Patriot batteries, Harpoon missiles, Stinger systems</div><div class="aid-amount">Multi-billion combined</div></div>
+    <div class="aid-card"><div class="aid-donor">🇫🇷 France</div><div class="aid-systems">CAESAR wheeled howitzer, AMX-10RC wheeled tank destroyer, SCALP-EG cruise missiles, Mirage-2000 committed</div><div class="aid-amount">€3B+</div></div>
+    <div class="aid-card"><div class="aid-donor">🇵🇱 Poland</div><div class="aid-systems">T-72, PT-91 MBT, BMP-1 IFV, Su-24 strike aircraft, MiG-29 fighters, Krab SPH</div><div class="aid-amount">~$4B+</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  03 — GROUND FORCE
+══════════════════════════════════════════ -->
+<section id="section-ground">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">03 //</span> Ground Force</div>
+  <h2 class="section-title">GROUND FORCES — <span class="highlight">ZSU</span></h2>
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚑ GROUND FORCE ASSESSMENT</div>
+    <p>The Ukrainian Ground Forces (ZSU) at ~612,000 active personnel constitute the largest ground force in Europe and the world's most combat-experienced conventional army. Organized into <strong class="critical">140-160 combined arms brigades</strong>, they operate along a 1,000km front line in Donetsk, Zaporizhzhia, Kherson, and Kharkiv regions. The ZSU has transitioned from Soviet organizational doctrine to NATO-standard battalion task forces and brigade combat teams, while simultaneously absorbing unprecedented quantities of Western armored vehicles, artillery, and support systems.</p>
+  </div>
+  <div class="equip-grid">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">Main Battle Tank</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1f347dc22e8cca81cc0f4d338b1900e63e7a923d.jpg" alt="Leopard 2 MBT delivered to Ukraine" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Leopard 2 MBT — Provided by Germany, Canada, Norway, Spain')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Leopard 2 A4/A5/A6</div>
+        <div class="equip-desc">Germany's primary MBT, provided by Germany, Canada, Norway, Spain, and others. Superior to Soviet-era T-72/T-80 in crew protection, fire control, and night-fighting capability. Combat losses to drone attacks have driven new camouflage and anti-drone cage designs.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Crew</span><span class="equip-spec-val">4</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Main Gun</span><span class="equip-spec-val">120mm Rheinmetall L/44</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Combat Weight</span><span class="equip-spec-val">62.3 tonnes (A6)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Max Speed</span><span class="equip-spec-val">72 km/h</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Qty Delivered</span><span class="equip-spec-val">~100+ (various variants)</span></div>
+        </div>
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance ↗</a>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">Infantry Fighting Vehicle</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/c6d3ce075d2cb8d6626a1e74185e2b299d2276af.jpg" alt="M2 Bradley IFV Ukraine combat operations" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'M2 Bradley IFV — U.S.-Supplied, 460+ delivered to Ukraine')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">M2 Bradley IFV</div>
+        <div class="equip-desc">U.S.-supplied Bradley infantry fighting vehicles have proven highly effective in Ukraine, with Ukrainian troops reporting significant life-saving capability. Over 460 delivered. The 25mm M242 Bushmaster cannon and TOW ATGM provide substantial firepower against infantry and light armor.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Crew + Soldiers</span><span class="equip-spec-val">3 + 6 dismounts</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Main Armament</span><span class="equip-spec-val">25mm M242 Bushmaster + TOW ATGM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Combat Weight</span><span class="equip-spec-val">27.6 tonnes</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Max Speed</span><span class="equip-spec-val">61 km/h road</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Qty Delivered</span><span class="equip-spec-val">460+ (USA)</span></div>
+        </div>
+        <a href="https://www.defense.gov/News/Releases/" target="_blank" rel="noopener" class="equip-link">DoD Arms Transfers ↗</a>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">Rocket Artillery</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/8c65000bab56b97f5e758fa79f477ba00b1118a5.jpg" alt="HIMARS M142 rocket launcher firing" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'M142 HIMARS — Precision MLRS providing deep-strike capability against Russian logistics')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">M142 HIMARS</div>
+        <div class="equip-desc">High Mobility Artillery Rocket System revolutionized Ukraine's deep-strike capability. GMLRS rockets (70km), extended range GMLRS (150km), and ATACMS (300km) enable precision strikes on Russian command nodes, ammunition depots, and logistics hubs far behind the front line. Credited with destroying hundreds of Russian ammunition dumps.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">GMLRS Range</span><span class="equip-spec-val">70 km (standard)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">ER GMLRS Range</span><span class="equip-spec-val">~150 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">ATACMS Range</span><span class="equip-spec-val">up to 300 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Reload Time</span><span class="equip-spec-val">&lt;5 min (one pod)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Qty Delivered</span><span class="equip-spec-val">~40+ systems (USA)</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/m31-guided-mlrs-rocket-gmlrs/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat ↗</a>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">Anti-Tank Missile</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/0771f67d208d2f0a0d137a12feeb7dca4d28ff0d.jpg" alt="Javelin anti-tank missile launcher soldier" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'FGM-148 Javelin — Fire-and-forget ATGM with top-attack capability')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">FGM-148 Javelin</div>
+        <div class="equip-desc">American fire-and-forget anti-tank missile with top-attack capability devastated Russian armor in early 2022. The "Saint Javelin" became a symbol of Ukraine's resistance. The CLU allows target acquisition before missile fire. Combined with FPV drone proliferation, anti-armor capability is now organic to every infantry squad.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">75–4,000 m</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Attack Mode</span><span class="equip-spec-val">Top-attack / Direct</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">Tandem shaped charge</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">IR imaging, fire-and-forget</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Qty Delivered</span><span class="equip-spec-val">8,500+ launchers / 30,000+ missiles</span></div>
+        </div>
+        <a href="https://www.defense.gov/News/Releases/" target="_blank" rel="noopener" class="equip-link">DoD Security Assistance ↗</a>
+      </div>
+    </div>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Ground Force Order of Battle (Major Systems)</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>System</th><th>Origin</th><th>Approx. Qty</th><th>Role</th><th>Notes</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>T-64BV/BVM</td><td>Soviet/Ukrainian</td><td>~800+</td><td>Main battle tank</td><td>Primary domestic tank; upgraded ERA and optics</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>T-72 (various)</td><td>Soviet/Polish donated</td><td>~400+</td><td>MBT</td><td>T-72B, T-72M1 from Poland, Czech Republic, others</td><td><a href="https://globalfirepower.com/country-military-strength-detail.php?country_id=ukraine" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Leopard 2 A4/A5/A6</td><td>Germany, Canada, Norway</td><td>~100+</td><td>MBT</td><td>Advanced fire control; losses to drone-guided ATGMs</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>M1 Abrams</td><td>USA</td><td>31</td><td>MBT</td><td>Temporarily pulled from front due to drone vulnerability; being re-integrated with drone countermeasures</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>M2 Bradley</td><td>USA</td><td>460+</td><td>IFV</td><td>Most effective Western IFV in Ukraine; 25mm Bushmaster + TOW</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Marder 1A3</td><td>Germany</td><td>100</td><td>IFV</td><td>20mm cannon; effective in trench warfare</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>BMP-1/2/3</td><td>Soviet legacy</td><td>1,500+</td><td>IFV</td><td>Primary domestic IFV fleet; significantly attrited</td><td><a href="https://globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>M142 HIMARS</td><td>USA</td><td>40+</td><td>Precision MLRS</td><td>Game-changing deep strike; destroyed 400+ ammo depots</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>M270 MLRS</td><td>USA/Germany/UK</td><td>~30+</td><td>MLRS</td><td>Dual-pod system; fires same GMLRS/ATACMS ammunition</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>CAESAR 155mm SPH</td><td>France</td><td>49+</td><td>Self-propelled howitzer</td><td>Wheeled; rapid deployment; fire-and-scoot doctrine</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>PzH 2000 155mm</td><td>Germany, Netherlands</td><td>~60+</td><td>Self-propelled howitzer</td><td>Highest rate of fire of any Western SPH; overheating issues resolved</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>M777 155mm</td><td>USA, Canada, Australia</td><td>200+</td><td>Towed howitzer</td><td>Air-deployable; precision Excalibur ammunition capability</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Javelin FGM-148</td><td>USA</td><td>8,500+ CLU</td><td>ATGM</td><td>Fire-and-forget top attack; standard issue at platoon level</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>NLAW</td><td>UK/Sweden</td><td>10,000+</td><td>Disposable ATGM</td><td>Predicted line-of-sight; single-shot; highly effective 2022</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  04 — NAVY
+══════════════════════════════════════════ -->
+<section id="section-navy">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">04 //</span> Naval Forces</div>
+  <h2 class="section-title">UKRAINIAN NAVY — <span class="highlight">VMS / BLACK SEA DOMAIN</span></h2>
+  <div class="intel-alert intel-alert-warn">
+    <div class="intel-alert-head">⚡ HISTORIC NAVAL INVERSION — ASYMMETRIC DOMINANCE</div>
+    <p>Ukraine's surface fleet was effectively eliminated in 2022, yet the Ukrainian Navy has achieved one of the most remarkable asymmetric naval successes in modern history. Through naval drone warfare, Ukraine has forced Russia's Black Sea Fleet — numerically vastly superior — to <strong class="critical">withdraw from Sevastopol</strong> and operate under constant threat of naval drone attack. A numerically inferior force has fundamentally constrained a peer adversary's naval operations, demonstrating that <strong class="critical">asymmetric innovation can negate conventional superiority.</strong></p>
+  </div>
+  <div class="equip-grid">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">Naval Drone USV</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/4ba2b559fcc44ba7eeb20e055260df2d4d3e3429.jpg" alt="Magura V7 naval drone Ukraine" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Magura V7.2 — Ukraine\'s operational naval drone, armed with missiles')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Magura V5/V7 Naval Drone</div>
+        <div class="equip-desc">Ukraine's primary operational naval unmanned surface vehicle, developed domestically by GUR Group 13. Has sunk or damaged over 20 Russian vessels including the landing ship Novocherkassk, patrol vessel Sergei Kotov, and repeatedly struck Crimea bridge. V7.2 variant carries cruise missiles.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Length</span><span class="equip-spec-val">5.5 m</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">320 kg explosive / missiles</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">800+ km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">42 knots (V7)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">~$250,000</span></div>
+        </div>
+        <a href="https://www.thedrive.com/the-war-zone" target="_blank" rel="noopener" class="equip-link">The War Zone ↗</a>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">Anti-Ship Missile</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/eac71cbab3d86618c1b33b2a48255a61eb64cd90.jpg" alt="R-360 Neptune anti-ship missile launch" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'R-360 Neptune Anti-Ship Missile — Sank Russian flagship Moskva April 2022')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">R-360 Neptune (Extended)</div>
+        <div class="equip-desc">Ukrainian-developed subsonic anti-ship cruise missile that sank the Russian Black Sea Fleet flagship Moskva in April 2022 — the most significant naval combat achievement of the conflict. Extended-range variant (Neptune-E) reportedly capable of 1,000+ km range, enabling strikes deep into Russia.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range (standard)</span><span class="equip-spec-val">280+ km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range (extended)</span><span class="equip-spec-val">~1,000 km (reported)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 0.8 subsonic</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">150 kg HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">INS + active radar terminal</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/neptune/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat ↗</a>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">Anti-Ship Missile</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/dc9e06d99f41dba6a17d70bee2005bcae286454a.jpg" alt="Ukraine Black Sea strikes map" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Black Sea Fleet Strike Campaign — Ukraine naval drone & missile attack trajectories')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">RGM-84 Harpoon</div>
+        <div class="equip-desc">U.S. and Danish-supplied Harpoon anti-ship missiles provided Ukraine a beyond-the-horizon strike capability against Russian Black Sea Fleet units. Used alongside Neptune in the multi-axis attack doctrine that has denied Russia safe naval operating zones in the northwestern Black Sea.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">130+ km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 0.72</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">221 kg semi-armor-piercing</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">INS + active radar seeker</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Qty</span><span class="equip-spec-val">Shore-based batteries (USA/Denmark)</span></div>
+        </div>
+        <a href="https://www.naval-technology.com/projects/harpoon/" target="_blank" rel="noopener" class="equip-link">Naval Technology ↗</a>
+      </div>
+    </div>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Naval Drone Campaign — Key Operational Successes</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Date</th><th>Target</th><th>Platform Used</th><th>Outcome</th><th>Strategic Impact</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>Apr 2022</td><td>RFS Moskva (Slava-class cruiser)</td><td>Neptune anti-ship missile (2× hits)</td><td>Ship sunk — total loss</td><td>First flagship lost in combat since WWII; Black Sea Fleet command disrupted</td><td><a href="https://www.bbc.com/news/world-europe-61103927" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Jul 2023</td><td>Kerch (Crimea) Bridge</td><td>Naval drone + Magura USV</td><td>Structural damage; traffic disrupted</td><td>Second strike on critical logistics artery to occupied Crimea</td><td><a href="https://www.thedrive.com/the-war-zone" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Sep 2023</td><td>Ropucha-class landing ship Minsk + Kilo-class submarine Rostov</td><td>Storm Shadow cruise missile</td><td>Both vessels severely damaged in Sevastopol drydock</td><td>Forced Russia to relocate Black Sea Fleet HQ from Sevastopol to Novorossiysk</td><td><a href="https://www.bbc.com/news/world-europe-66830400" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Feb 2024</td><td>Landing ship Caesar Kunikov</td><td>Magura V5 naval drone</td><td>Ship sunk</td><td>Demonstrated effective engagement of moving targets at 30+ knots</td><td><a href="https://www.thedrive.com/the-war-zone" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Mar 2024</td><td>Patrol vessel Sergei Kotov</td><td>Magura V5 naval drone (4-drone coordinated)</td><td>Ship sunk</td><td>First coordinated multi-drone naval swarm attack in combat history</td><td><a href="https://www.thedrive.com/the-war-zone" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Dec 2023</td><td>Landing ship Novocherkassk</td><td>Storm Shadow / Scalp air-launched cruise missile</td><td>Destroyed in Feodosia port</td><td>Eliminated key amphibious capability; strategic logistics disruption</td><td><a href="https://www.bbc.com/news/world-europe-67726068" target="_blank" rel="noopener">→</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  05 — AIR FORCE
+══════════════════════════════════════════ -->
+<section id="section-airforce">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">05 //</span> Air Force</div>
+  <h2 class="section-title">UKRAINIAN AIR FORCE — <span class="highlight">VPS</span></h2>
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚑ AIR FORCE ASSESSMENT</div>
+    <p>The Ukrainian Air Force (VPS) has undergone a <strong class="critical">fundamental platform and doctrine transformation</strong>, transitioning from a Soviet-legacy force to a NATO-integrated air power. The delivery of F-16 Vipers beginning in 2024, combined with PATRIOT, NASAMS, and IRIS-T air defense integration, has created a layered air defense architecture capable of contesting Russian air superiority. By February 2026, Ukrainian drone interception rates reached <strong class="critical">91%</strong> — up from 40% in early 2025 — demonstrating rapid system integration. The VPS operates mixed Soviet-legacy and Western platforms across 15+ operational air bases.</p>
+  </div>
+  <div class="equip-grid">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">4th Gen Fighter</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/37da55de95cc515fe9b9c0cc1bf07f19d1d17f35.jpg" alt="F-16 Viper delivered to Ukraine Air Force" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'F-16 Fighting Falcon (Viper) — Delivered from Netherlands, Denmark, Belgium, Poland')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">F-16 Fighting Falcon (Viper)</div>
+        <div class="equip-desc">NATO's primary multirole fighter brings AIM-120 AMRAAM BVR capability, advanced AN/APG-68 radar, JDAM precision strike, and Paveway II LGB delivery. Multiple tranches delivered from Denmark, Netherlands, Belgium, and Poland. A $310.5M FMS sustainment package ensures long-term operational viability.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Max Speed</span><span class="equip-spec-val">Mach 2.0+</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Combat Radius</span><span class="equip-spec-val">550 km (clean)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Primary A/A Missile</span><span class="equip-spec-val">AIM-120 AMRAAM (BVR)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Precision Strike</span><span class="equip-spec-val">JDAM, Paveway II, AGM-65</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Qty (Ukraine)</span><span class="equip-spec-val">~50 delivered (est. March 2026)</span></div>
+        </div>
+        <a href="https://www.state.gov/arms-transfers-and-security-assistance/" target="_blank" rel="noopener" class="equip-link">State Dept FMS ↗</a>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">Legacy Fighter</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/500902981428d4fdcf1470eaab5f0ff18d7a0b33.jpg" alt="Ukrainian Su-27 Flanker fighter jet" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Su-27 Flanker — Ukrainian legacy air superiority fighter, actively flying combat missions')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Su-27 Flanker / MiG-29 Fulcrum</div>
+        <div class="equip-desc">Soviet-era fighters that have conducted continuous combat since February 2022 despite severe attrition and parts shortages. Supplemented by aircraft from Poland, Slovakia, and other donors. Ukrainian pilots have achieved air-to-air kills against modern Russian aircraft using R-73 and Western AIM-9 missiles. Now being progressively replaced by F-16s.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Su-27 Max Speed</span><span class="equip-spec-val">Mach 2.35</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">MiG-29 Combat Radius</span><span class="equip-spec-val">~700 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Primary A/A Missile</span><span class="equip-spec-val">R-73, R-27, AIM-9 (modified)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">Operational but being phased out</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Est. Remaining</span><span class="equip-spec-val">~40-60 operational (combined)</span></div>
+        </div>
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="equip-link">IISS Military Balance ↗</a>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">Air Defense</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/cd6f0a3db030e4cd9304024a7b95fec7af700d4f.jpg" alt="PATRIOT missile defense batteries Ukraine winter" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'MIM-104 PATRIOT — Multi-national air defense backbone of Ukraine 2024-2026')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">MIM-104 PATRIOT PAC-2/3</div>
+        <div class="equip-desc">The backbone of Ukraine's high-altitude air defense. Multiple batteries provided by USA, Germany, Netherlands, and Romania have achieved extraordinary kill rates against Russian ballistic missiles and cruise missiles. Capable of engaging the Kinzhal hypersonic missile — a historic first. Achieving 91% drone interception rate by Feb 2026.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Intercept Altitude</span><span class="equip-spec-val">Up to 24 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">Up to 160 km (PAC-3 MSE)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Intercept Types</span><span class="equip-spec-val">TBM, ABM, aircraft, cruise missile</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Notable Achievement</span><span class="equip-spec-val">First Kinzhal intercept, May 2023</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Batteries Delivered</span><span class="equip-spec-val">7+ (USA, Germany, Netherlands, Romania)</span></div>
+        </div>
+        <a href="https://www.rand.org/pubs/research_reports/RRA2510-1.html" target="_blank" rel="noopener" class="equip-link">RAND Analysis ↗</a>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">Air Defense</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/67ada90892d21438d4f563a69353b7343063cbd0.jpg" alt="IRIS-T SLM air defense system Ukraine" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'IRIS-T SLM — German medium-range air defense system achieving over 90% kill rate in Ukraine')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">IRIS-T SLM/SLS</div>
+        <div class="equip-desc">German-supplied medium-range air defense system that has achieved remarkable operational success in Ukraine, reportedly intercepting over 90% of targets engaged. Fills the gap between MANPADS and PATRIOT systems. Multiple batteries delivered; Germany has expedited production and delivery.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Max Intercept Alt</span><span class="equip-spec-val">20 km (SLM)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">40 km (SLM)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Target Types</span><span class="equip-spec-val">Aircraft, cruise missiles, drones, TBM</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Kill Rate</span><span class="equip-spec-val">&gt;90% reported</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Batteries</span><span class="equip-spec-val">6+ SLM, 10+ SLS (Germany)</span></div>
+        </div>
+        <a href="https://www.airforce-technology.com/projects/iris-t/" target="_blank" rel="noopener" class="equip-link">Air Force Technology ↗</a>
+      </div>
+    </div>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Aircraft Inventory</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Aircraft</th><th>Qty (est.)</th><th>Role</th><th>Primary Weapon</th><th>Origin</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>F-16 Fighting Falcon</td><td>~50</td><td>Multirole fighter</td><td>AIM-120, JDAM, Paveway II</td><td>Netherlands, Denmark, Belgium, Poland</td><td><a href="https://www.state.gov" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Su-27 Flanker</td><td>~25</td><td>Air superiority</td><td>R-73, R-27ER, AIM-9M</td><td>Soviet/Ukrainian legacy + Polish donated</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>MiG-29 Fulcrum</td><td>~20</td><td>Multirole fighter</td><td>R-73, AGM-88 HARM, AIM-9</td><td>Soviet/Polish/Slovak donated</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Su-25 Frogfoot</td><td>~15</td><td>Close air support</td><td>R-60, rockets, bombs</td><td>Soviet/Ukrainian legacy</td><td><a href="https://www.iiss.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Su-24M Fencer</td><td>~10</td><td>Strike/recce</td><td>Storm Shadow, SCALP-EG, Kh-58U</td><td>Soviet/Ukrainian + French donated</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Mi-24 Hind</td><td>~30</td><td>Attack helicopter</td><td>AT-6 Spiral, rockets, 12.7mm</td><td>Soviet/Ukrainian legacy</td><td><a href="https://globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Mi-8/Mi-17</td><td>~60</td><td>Transport/assault</td><td>Troops, rockets</td><td>Soviet/Ukrainian + USA donated</td><td><a href="https://globalfirepower.com" target="_blank" rel="noopener">→</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  06 — MISSILE / ROCKET FORCE
+══════════════════════════════════════════ -->
+<section id="section-rocket">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">06 //</span> Missile &amp; Rocket Forces</div>
+  <h2 class="section-title">STRIKE CAPABILITIES — <span class="highlight">MISSILES &amp; LONG-RANGE FIRES</span></h2>
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚑ STRIKE FORCE ASSESSMENT</div>
+    <p>Ukraine has assembled a multi-layered long-range precision strike capability combining domestically developed and Western-supplied systems. The <strong class="critical">ATACMS (300km), Storm Shadow/SCALP-EG (550km), and extended-range Neptune (~1,000km)</strong> enable deep strikes into Russian-held territory and even into Russia proper. Ukraine's indigenous missile development program has accelerated dramatically under wartime pressure, with domestic long-range drones now capable of striking targets 1,000-1,500km inside Russia. This strike capability has destroyed critical Russian logistics infrastructure and degraded air force basing.</p>
+  </div>
+  <div class="equip-grid">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">ATACMS / Deep Strike</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/354829c11e8f44e1a9370338229d970befc97320.jpg" alt="MLRS deep strike system Ukraine" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'ATACMS fired from HIMARS/M270 — 300km precision strike capability against Russian rear areas')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">MGM-140 ATACMS</div>
+        <div class="equip-desc">Army Tactical Missile System providing 300km precision deep strike. First employed by Ukraine in Oct 2023, ATACMS has struck Russian air bases, logistic hubs, and Crimea targets. US authorization for use inside Russian territory (announced late 2024) significantly expanded Ukraine's strategic reach. Fired from HIMARS and M270 platforms.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">Up to 300 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead Options</span><span class="equip-spec-val">500 M74 submunitions or 227kg unitary HE</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">INS + GPS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">&lt;10 m (unitary warhead)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">First Use</span><span class="equip-spec-val">October 2023 (Ukraine)</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/atacms/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat ↗</a>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">Air-Launched Cruise Missile</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/36be0d9e851a3ef6d768e8bacca6dda207699d08.jpg" alt="Long-range missile launch Ukraine" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Storm Shadow / SCALP-EG Cruise Missile — 550km+ range deep strike from Su-24M')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Storm Shadow / SCALP-EG</div>
+        <div class="equip-desc">Anglo-French stealth cruise missiles provided by UK and France, carried on modified Su-24M aircraft. Have struck Sevastopol naval facilities, Russian command posts, and logistics infrastructure with high precision. Sub-sonic with terrain-following flight profile for low radar signature. Among Ukraine's most strategic assets.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">550+ km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 0.95</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">450 kg BROACH multi-stage</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">INS/GPS/DSMAC terrain following</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Platform</span><span class="equip-spec-val">Su-24M (modified for NATO weapons)</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/missile/storm-shadow/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat ↗</a>
+      </div>
+    </div>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Missile &amp; Strike System Inventory</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>System</th><th>Type</th><th>Range</th><th>Role</th><th>Warhead</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>ATACMS M39/M48</td><td>Surface-to-Surface TBM</td><td>up to 300 km</td><td>Deep strike, air base suppression</td><td>Submunition / 227kg unitary</td><td><a href="https://missilethreat.csis.org/missile/atacms/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Storm Shadow / SCALP-EG</td><td>Air-Launched Cruise Missile</td><td>550+ km</td><td>Deep strike, hardened target</td><td>450 kg BROACH</td><td><a href="https://missilethreat.csis.org/missile/storm-shadow/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>R-360 Neptune (extended)</td><td>Anti-Ship / Land Attack</td><td>~1,000 km (extended)</td><td>Naval strike, deep land attack</td><td>150 kg HE</td><td><a href="https://missilethreat.csis.org/missile/neptune/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Hrim-2 / Sapsan</td><td>Short-Range Ballistic Missile</td><td>~280 km</td><td>Theater strike</td><td>480 kg HE</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Brimstone 2 (UK)</td><td>Air-to-Surface Missile</td><td>~60 km (air)</td><td>Anti-armor, moving targets</td><td>Dual-mode tandem HEAT</td><td><a href="https://www.janes.com" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>AGM-88 HARM</td><td>Anti-Radiation Missile</td><td>~150 km</td><td>SEAD — destroy radar systems</td><td>66 kg WDU-21/B</td><td><a href="https://missilethreat.csis.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Domestic long-range drones</td><td>Strike UAV / loitering munition</td><td>1,000-1,500 km</td><td>Deep strike into Russia, oil refinery strikes</td><td>Explosive payload</td><td><a href="https://www.thedrive.com/the-war-zone" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>GMLRS/ER-GMLRS</td><td>Guided MLRS rocket</td><td>70 / 150 km</td><td>Precision fire, logistics strikes</td><td>90 kg HE unitary</td><td><a href="https://missilethreat.csis.org/missile/m31-guided-mlrs-rocket-gmlrs/" target="_blank" rel="noopener">→</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  07 — NUCLEAR POSTURE
+══════════════════════════════════════════ -->
+<section id="section-nuclear">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">07 //</span> Nuclear Posture</div>
+  <h2 class="section-title">NUCLEAR POSTURE — <span class="highlight">NON-NUCLEAR STATE UNDER THREAT</span></h2>
+  <div class="intel-alert intel-alert-warn">
+    <div class="intel-alert-head">⚠ CRITICAL NUCLEAR CONTEXT</div>
+    <p>Ukraine voluntarily surrendered the world's <strong class="critical">third-largest nuclear arsenal</strong> — approximately 1,900 strategic and 2,500 tactical nuclear warheads — in exchange for security guarantees under the 1994 Budapest Memorandum. The Russian invasion of 2022 represented a fundamental breach of those guarantees. Ukraine now operates as a non-nuclear state facing an adversary possessing the world's largest nuclear arsenal, including tactical nuclear weapons deployed to Belarus. This creates the defining strategic asymmetry: <strong class="critical">Ukraine can be threatened with nuclear escalation, but cannot reciprocate in kind.</strong> Russia has made multiple nuclear threats since 2022, and the absence of a credible Ukrainian deterrent is the central vulnerability of its strategic position.</p>
+  </div>
+  <div class="policy-quote">
+    "Ukraine gave up its nuclear weapons in exchange for security guarantees from Russia, the United States, and the United Kingdom. Russia has violated every one of those guarantees. Today's war is the price we paid for trusting them."
+    <span class="policy-quote-attr">— President Volodymyr Zelensky, Multiple addresses, 2022-2025 | <a href="https://www.president.gov.ua/en/speeches" target="_blank" rel="noopener">Office of the President →</a></span>
+  </div>
+  <div class="doctrine-grid">
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">HISTORICAL // BUDAPEST 1994</div>
+      <div class="doctrine-card-title">Budapest Memorandum</div>
+      <div class="doctrine-card-body">Ukraine relinquished 1,900 strategic and ~2,500 tactical nuclear warheads — the third-largest arsenal globally — to Russia for dismantlement. In exchange, the US, UK, and Russia signed the Budapest Memorandum providing security assurances including respect for Ukraine's territorial integrity. Russia violated these assurances in 2014 (Crimea) and 2022 (full invasion). <a href="https://www.armscontrol.org/factsheets/budapest-memorandum" target="_blank" rel="noopener" style="color:var(--color-blue)">Arms Control Association →</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">CURRENT STATUS</div>
+      <div class="doctrine-card-title">Non-Nuclear State</div>
+      <div class="doctrine-card-body">Ukraine possesses zero nuclear weapons. Its Zaporizhzhia Nuclear Power Plant — Europe's largest — has been under Russian military occupation since March 2022. The IAEA has maintained a presence at the plant but cannot guarantee its safety. Nuclear power provides ~55% of Ukraine's electricity generation under peacetime conditions.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">RUSSIAN NUCLEAR THREAT</div>
+      <div class="doctrine-card-title">Escalation Concern</div>
+      <div class="doctrine-card-body">Russia has deployed tactical nuclear weapons to Belarus (reported June 2023) and has made repeated nuclear threats in connection with Western arms deliveries and Ukrainian territorial advances. NATO has assessed that Russia maintains nuclear weapons on high readiness. The threshold for use remains ambiguous by Russian doctrine design. <a href="https://www.fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener" style="color:var(--color-blue)">FAS Nuclear Notebook →</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">NATO DETERRENCE</div>
+      <div class="doctrine-card-title">Umbrella &amp; Article 5</div>
+      <div class="doctrine-card-body">Ukraine does not benefit from NATO's nuclear deterrence umbrella or Article 5 collective defense guarantee. This is the fundamental argument for Ukrainian NATO membership. Until membership or equivalent security guarantees are achieved, Ukraine faces the nuclear threat gap that was the central argument behind Ukraine's 2022 NATO membership application. <a href="https://www.nato.int/en/what-we-do/partnerships-and-cooperation/relations-with-ukraine" target="_blank" rel="noopener" style="color:var(--color-blue)">NATO-Ukraine Relations →</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">ZAPORIZHZHIA NPP</div>
+      <div class="doctrine-card-title">Nuclear Facility Under Occupation</div>
+      <div class="doctrine-card-body">The Zaporizhzhia Nuclear Power Plant (6 VVER-1000 reactors, 5,700 MW capacity) has been under Russian military control since March 4, 2022. Russia has repeatedly used the plant as a military base and staged attacks from its grounds. The IAEA has documented numerous violations of nuclear safety standards. Risk of radiological incident assessed as elevated.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">FUTURE POSTURE</div>
+      <div class="doctrine-card-title">Security Guarantee Negotiations</div>
+      <div class="doctrine-card-body">In December 2025, President Zelensky indicated willingness to trade NATO membership aspirations for binding bilateral security guarantees from the US, EU, and UK comparable to Article 5. This represents a major strategic concession driven by US pressure. Negotiations ongoing in early 2026. <a href="https://www.aljazeera.com/news/2025/12/15/ukraine-drops-nato-bid-will-kyiv-get-security-guarantees-from-the-west" target="_blank" rel="noopener" style="color:var(--color-blue)">Al Jazeera Report →</a></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  08 — DRONE WARFARE & ADAPTIVE DEFENSE (SPECIAL)
+══════════════════════════════════════════ -->
+<section id="section-special">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">08 //</span> Special Capability</div>
+  <h2 class="section-title">DRONE WARFARE &amp; <span class="highlight">ADAPTIVE DEFENSE</span></h2>
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚑ DEFINING MILITARY INNOVATION — GLOBAL SIGNIFICANCE</div>
+    <p>Ukraine has become the <strong class="critical">world's foremost laboratory for drone warfare</strong>, pioneering technologies and tactics that are reshaping military doctrine globally. What began as commercial DJI conversions has evolved into AI-guided autonomous systems, naval drone fleets, long-range strike drones, and swarm tactics. Ukraine produces <strong class="critical">approximately 2 million FPV drones per year</strong> as of 2026, with Defense Minister Fedorov targeting the capacity to eliminate 50,000 Russian personnel per month. The innovations emerging from this conflict are being studied and adopted by every major military alliance.</p>
+  </div>
+  <div class="equip-grid">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">FPV Combat Drone</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/964222df4863f778f1c8d9ed30cc2b5b0b7f28ef.jpg" alt="Ukraine FPV drone types diagram" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'FPV Drone Taxonomy — CSIS Analysis of Ukrainian Combat Drone Types')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">FPV Kamikaze Drone</div>
+        <div class="equip-desc">First Person View drones equipped with shaped-charge warheads. The dominant tactical weapon of the Ukraine conflict — accounting for an estimated 30-40% of all vehicle kills. $300-500 per unit. Some variants use fiber-optic cables to defeat Russian electronic warfare. AI-assisted target recognition reduces pilot skill requirements. Production: ~2M/year.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Unit Cost</span><span class="equip-spec-val">$300–$500</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">RPG warhead or custom HEAT (250-700g)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Control</span><span class="equip-spec-val">FPV 5.8GHz / Fiber-optic / AI autonomous</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">~120 km/h</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Annual Production</span><span class="equip-spec-val">~2,000,000 (2025-26 target)</span></div>
+        </div>
+        <a href="https://www.csis.org/analysis/ukraines-future-vision-waging-ai-enabled-autonomous-warfare" target="_blank" rel="noopener" class="equip-link">CSIS Wadhwani AI ↗</a>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">ISR / Bomb Drone</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/dd3aebe96e678445e85ba6904e42f89ffb3e7c8b.jpg" alt="Ukraine quadcopter bomb-dropping drone" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Ukrainian Quadcopter Bomb Drone — Dropping modified grenades and 82mm mortars into Russian trenches')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Bomber / ISR Quadcopter</div>
+        <div class="equip-desc">Commercial and semi-commercial quadcopters adapted for bomb-dropping roles. Used to drop modified RPG grenades, 82mm mortars, and thermite munitions into Russian trenches and onto vehicles. ISR variants provide real-time reconnaissance enabling artillery fires and FPV guidance. Widely used by both sides; Ukraine maintains production and innovation edge.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">1-3 kg drop munitions</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Endurance</span><span class="equip-spec-val">20-35 min</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">Up to 10 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Munition Type</span><span class="equip-spec-val">VOG-17, VOG-25, RPG warhead drops</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Platform Base</span><span class="equip-spec-val">DJI Mavic, Autel EVO, custom builds</span></div>
+        </div>
+        <a href="https://ctc.westpoint.edu/moving-targets-implications-of-the-russo-ukrainian-war-for-drone-terrorism/" target="_blank" rel="noopener" class="equip-link">West Point CTC Analysis ↗</a>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">Long-Range Strike UAV</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/4ba2b559fcc44ba7eeb20e055260df2d4d3e3429.jpg" alt="Ukraine long-range drone system" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Ukrainian Long-Range Strike UAV Program — Strategic strikes 1,000-1,500km into Russia')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Shahed-type Interceptor / Domestic Long-Range UAV</div>
+        <div class="equip-desc">Ukraine has developed domestically produced long-range strike drones capable of hitting targets 1,000-1,500km inside Russia. Regular strikes on Russian oil refineries, energy infrastructure, and military bases have forced Russia to deploy air defense assets away from Ukraine. Domestic drone production has become a strategic industry with hundreds of companies involved.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">1,000–1,500 km</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Warhead</span><span class="equip-spec-val">~50 kg explosive</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Guidance</span><span class="equip-spec-val">GPS/INS + AI terminal</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Notable Targets</span><span class="equip-spec-val">Moscow, Engels AB, Saratov, Kazan refineries</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Strategic Effect</span><span class="equip-spec-val">Disrupted Russian oil revenue, EW deployment</span></div>
+        </div>
+        <a href="https://www.thedrive.com/the-war-zone" target="_blank" rel="noopener" class="equip-link">The War Zone ↗</a>
+      </div>
+    </div>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Ukraine's Three-Tier Deep Strike Drone Doctrine (2026)</h3>
+  <div class="doctrine-grid">
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">TIER 1 // 50-150 KM DEEP</div>
+      <div class="doctrine-card-title">Deep Logistics Interdiction</div>
+      <div class="doctrine-card-body">Long-range FPV and strike drones hunt Russian logistics infrastructure, ammunition warehouses, fuel depots, and command posts. Goal: deny resupply to front-line Russian units. ISW data confirms hundreds of Russian ammunition dumps destroyed using ATACMS and long-range drones combined. Drives Russian retreat from forward positions.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">TIER 2 // 25-50 KM DEEP</div>
+      <div class="doctrine-card-title">Tactical Support Elimination</div>
+      <div class="doctrine-card-body">Intermediate range drones target Russian EW systems, drone operators, forward HQs, and local ammunition and fuel stocks. By neutralizing the tactical support layer, Ukrainian forces create isolation zones where Russian front-line troops are cut off from resupply. This is the key enabler of Ukraine's 2026 tactical doctrine.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">TIER 3 // 0-25 KM FRONT LINE</div>
+      <div class="doctrine-card-title">Tactical Annihilation Zone</div>
+      <div class="doctrine-card-body">FPV drones and bombers create kill zones where Russian soldiers are too afraid to move. Fiber-optic FPVs defeat Russian electronic warfare. Artillery and drone strikes coordinate via real-time feeds from ISR drones. Russian units in this zone face total tactical isolation. Estimated 50,000 Russian personnel eliminated per month at peak (2026 target). <a href="https://themilitaryanalyst.com/2026/03/19/ukraines-2026-strategic-tactical-doctrine-is-game-changing/" target="_blank" rel="noopener" style="color:var(--color-blue)">Military Analyst →</a></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  09 — CYBER, SPACE & INFORMATION WARFARE
+══════════════════════════════════════════ -->
+<section id="section-cyber">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">09 //</span> Cyber, Space &amp; Information</div>
+  <h2 class="section-title">CYBER &amp; <span class="highlight">INFORMATION DOMAIN</span></h2>
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚑ CYBER DOMAIN ASSESSMENT</div>
+    <p>Ukraine has mounted one of the most effective cyber campaigns in conflict history, operating under near-daily Russian cyberattacks while simultaneously conducting offensive operations deep into Russian systems. The HUR (Military Intelligence) has conducted <strong class="critical">100+ major cyber operations</strong> since 2022, exfiltrating terabytes of classified Russian military data. Ukraine's parliament approved a dedicated <strong class="critical">Cyber Force</strong> legislation in October 2025, and a <strong class="critical">Space Force</strong> by December 2025, reflecting Ukraine's recognition of these domains as decisive warfighting environments. Despite a 70% surge in Russian cyberattacks in 2024, Ukraine's serious incident rate declined — evidence of world-class cyber resilience.</p>
+  </div>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Domain</th><th>Capability</th><th>Assessment</th><th>Key Units</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>Offensive Cyber</td><td>HUR-led operations against Russian military, industrial, banking systems</td><td><span style="color:var(--color-teal)">HIGH — Tier 1 globally in conflict context</span></td><td>HUR GUR, IT Army of Ukraine, Black Owl Team, Laska</td><td><a href="https://bindinghook.com/self-attribution-as-strategy-in-the-russo-ukrainian-war/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Defensive Cyber</td><td>CERT-UA, cloud migration (Microsoft, Google), NATO cyber assistance</td><td><span style="color:var(--color-teal)">HIGH — 70% attack increase absorbed w/ fewer serious incidents</span></td><td>CERT-UA, SBU Cyber, State Service for Special Communications</td><td><a href="https://www.csis.org/analysis/unpacking-ukraines-future-cyber-and-space-forces" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Intelligence Collection</td><td>Crimea occupation server hack (100TB+), Tupolev bomber data, Borei submarine docs</td><td><span style="color:var(--color-teal)">VERY HIGH — compromised tier-1 Russian defense secrets</span></td><td>HUR Main Directorate</td><td><a href="https://bindinghook.com/self-attribution-as-strategy-in-the-russo-ukrainian-war/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Space / ISR</td><td>Commercial satellite partnerships (Maxar, Planet, Capella, SpaceX Starlink)</td><td><span style="color:var(--color-gold)">MEDIUM-HIGH — dependent on commercial partners</span></td><td>Space Force (est. Dec 2025); commercial partnership program</td><td><a href="https://www.csis.org/analysis/unpacking-ukraines-future-cyber-and-space-forces" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Electronic Warfare</td><td>FPV drone EW vulnerability (fiber optic mitigation); Starlink jamming defense</td><td><span style="color:var(--color-gold)">MEDIUM — Russia has superiority; Ukraine adapting rapidly</span></td><td>ZSU EW units; partnership with NATO EW teams</td><td><a href="https://www.rand.org" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Information Operations</td><td>Strategic narrative management; global media engagement; Zelensky communications</td><td><span style="color:var(--color-teal)">EXCEPTIONAL — world's best wartime information campaign</span></td><td>President's Office; Ministry of Digital Transformation</td><td><a href="https://www.rand.org/pubs/research_reports" target="_blank" rel="noopener">→</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Confirmed Major Cyber Operations (HUR, 2022–2025)</h3>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2022 FEB — DEFENSIVE</div>
+      <div class="tl-title">Viasat Sabotage Response &amp; Cloud Migration</div>
+      <div class="tl-desc">Russia sabotaged Viasat satellite network on day one of invasion to disrupt Ukrainian military communications. Ukraine rapidly migrated government and military systems to cloud providers (Microsoft, Google, Amazon). Starlink deployment began within days. <a href="https://www.cisa.gov/advisory" target="_blank" rel="noopener">CISA Advisory →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2023-2025 — OFFENSIVE</div>
+      <div class="tl-title">Continuous HUR Offensive Campaign</div>
+      <div class="tl-desc">100+ high-level operations extracting classified material from Russian systems. Disrupted Russian C2 infrastructure. Paralyzed fuel card payment systems critical to Russian military logistics. Targeted Gazprom, Gaskar Group (UAV producer), TASS, RT. Kaspersky identified Black Owl team as "major threat." <a href="https://bindinghook.com/self-attribution-as-strategy-in-the-russo-ukrainian-war/" target="_blank" rel="noopener">Binding Hook Analysis →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">JUN 2025</div>
+      <div class="tl-title">Tupolev Strategic Bomber Developer Breached</div>
+      <div class="tl-desc">HUR publicly claimed responsibility for breaching Tupolev (Tu-160, Tu-95 developer), stealing 4.4GB of sensitive technical files and defacing the website. <a href="https://bindinghook.com/self-attribution-as-strategy-in-the-russo-ukrainian-war/" target="_blank" rel="noopener">Source →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">JUL 2025</div>
+      <div class="tl-title">100TB Crimea Occupation Administration Exfiltration</div>
+      <div class="tl-desc">HUR gained full access to Crimea occupation administration servers — one of the largest documented cyber exfiltrations in history. Over 100 terabytes of documents extracted over 2 days. Confirmed by Russian officials. <a href="https://bindinghook.com/self-attribution-as-strategy-in-the-russo-ukrainian-war/" target="_blank" rel="noopener">Source →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">AUG 2025</div>
+      <div class="tl-title">Borei-A Nuclear Submarine Combat Documents Released</div>
+      <div class="tl-desc">HUR released technical and operational documents — combat instructions, crew lists, procedures — for the recently commissioned Borei-A class SSBN K-555 Knyaz Pozharsky. Severely embarrassed Russia days after its commissioning ceremony attended by Putin. <a href="https://bindinghook.com/self-attribution-as-strategy-in-the-russo-ukrainian-war/" target="_blank" rel="noopener">Source →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">OCT 2025</div>
+      <div class="tl-title">Ukraine Cyber Force Legislation Approved</div>
+      <div class="tl-desc">Ukrainian parliament approved first reading of bill establishing dedicated Cyber Force — uniting offensive and defensive military cyber capabilities under a single command aligned with NATO standards. Formal establishment ongoing in early 2026. <a href="https://therecord.media/ukraine-takes-steps-dedicated-cyber-force" target="_blank" rel="noopener">The Record →</a></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  10 — ECONOMICS & DEFENSE INDUSTRY
+══════════════════════════════════════════ -->
+<section id="section-economy">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">10 //</span> Economics &amp; Defense Industry</div>
+  <h2 class="section-title">WARTIME ECONOMY &amp; <span class="highlight">DEFENSE INDUSTRIAL BASE</span></h2>
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚑ ECONOMIC ASSESSMENT</div>
+    <p>Ukraine's wartime economy has demonstrated <strong class="critical">extraordinary resilience</strong> under conditions no NATO economy has experienced since 1945. GDP contracted 29% in 2022 but stabilized and began growing again — approximately <strong class="critical">+3.4% in 2024</strong>. The 2026 defense budget of ~$120 billion (est. ~26% of GDP) is sustained through a combination of domestic revenue, international aid, and IMF/World Bank programs. Ukraine has developed a world-class drone manufacturing sector from near-zero in 2022, with hundreds of companies now producing systems that are reshaping global military doctrine. Infrastructure damage exceeds $400 billion.</p>
+  </div>
+  <div class="stat-bars">
+    <div class="stat-bar-row"><span class="stat-bar-label">Defense &amp; Security (% of budget)</span><div class="stat-bar-track"><div class="stat-fill" style="width:58%"></div></div><span class="stat-bar-val">~58%</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">Social Sector</span><div class="stat-bar-track"><div class="stat-fill" style="width:25%"></div></div><span class="stat-bar-val">~25%</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">Reconstruction &amp; Infrastructure</span><div class="stat-bar-track"><div class="stat-fill" style="width:10%"></div></div><span class="stat-bar-val">~10%</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">Debt Service</span><div class="stat-bar-track"><div class="stat-fill" style="width:7%"></div></div><span class="stat-bar-val">~7%</span></div>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Defense Industry Sectors</h3>
+  <div class="doctrine-grid">
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">SECTOR 01</div>
+      <div class="doctrine-card-title">Drone Manufacturing</div>
+      <div class="doctrine-card-body">Ukraine grew from zero to the world's most active drone combat producer in 36 months. 200+ companies now produce UAV systems. 2M FPV drones/year production capacity. Exports of drone technology and knowledge to NATO allies begun. Government "Drone Army" program directs civilian tech talent into defense production. <a href="https://www.csis.org/analysis/ukraines-future-vision-waging-ai-enabled-autonomous-warfare" target="_blank" rel="noopener" style="color:var(--color-blue)">CSIS →</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">SECTOR 02</div>
+      <div class="doctrine-card-title">Missile &amp; Munitions</div>
+      <div class="doctrine-card-body">Neptune anti-ship missile production expanded. Hrim-2 ballistic missile in development. Artillery shell production ramp-up (1M+ shells/year target with Czech-led initiative). Collaborative production agreements with UK (Brimstone), Poland (artillery ammunition), and Germany (155mm shells). <a href="https://www.rferl.org/a/ukraine-ammunition-production/32865777.html" target="_blank" rel="noopener" style="color:var(--color-blue)">RFE/RL →</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">SECTOR 03</div>
+      <div class="doctrine-card-title">Armored Vehicle Repair &amp; Production</div>
+      <div class="doctrine-card-body">Kharkiv Armored Plant (Malyshev) continues T-64 upgrade programs. Lviv Armor Plant producing and modifying vehicles. Repair depots across Western Ukraine sustaining NATO-supplied armor. Ukraine has mastered battlefield repair of every type of NATO-supplied vehicle under combat conditions — knowledge that will outlast the conflict.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">SECTOR 04</div>
+      <div class="doctrine-card-title">Electronic Warfare &amp; C4ISR</div>
+      <div class="doctrine-card-body">Domestic EW jamming development responding to Russian drone threats. Delta situational awareness system connecting NATO reconnaissance to Ukrainian command nodes. AI-assisted targeting integration across all services. Silicon Valley and Israeli tech industry partnerships providing software and hardware. <a href="https://www.c4isrnet.com/battlefield-tech/2025/01/03/ukraine-tactical-ai/" target="_blank" rel="noopener" style="color:var(--color-blue)">C4ISRNET →</a></div>
+    </div>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Macroeconomic Indicators</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Indicator</th><th>2021 (Pre-War)</th><th>2022</th><th>2023</th><th>2024 (est.)</th><th>2026 (est.)</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>GDP (USD billion)</td><td>$200.1B</td><td>$143.8B (–29%)</td><td>$149.3B (+4%)</td><td>$155B (+3.4%)</td><td>$165B (+3.5%)</td><td><a href="https://www.worldbank.org/en/country/ukraine" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Defense Budget</td><td>~$6B (3% GDP)</td><td>~$30B+</td><td>~$48B</td><td>~$75B</td><td>~$120B (est.)</td><td><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Inflation (CPI)</td><td>10.0%</td><td>26.6%</td><td>12.9%</td><td>~7%</td><td>~5% (est.)</td><td><a href="https://www.imf.org/en/countries/UKR" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>International Aid (total)</td><td>N/A</td><td>~$31B</td><td>~$97B</td><td>~$85B</td><td>Ongoing (€45B EU Facility)</td><td><a href="https://ukraine-support-tracker.eu" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Infrastructure Damage</td><td>N/A</td><td>~$100B+</td><td>~$250B+</td><td>~$400B+</td><td>Expanding</td><td><a href="https://www.worldbank.org/en/country/ukraine" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>External Debt (% GDP)</td><td>~50%</td><td>~81%</td><td>~88%</td><td>~84%</td><td>~75% (est.)</td><td><a href="https://www.imf.org/en/countries/UKR" target="_blank" rel="noopener">→</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  11 — POLITICAL LEADERSHIP & DOCTRINE
+══════════════════════════════════════════ -->
+<section id="section-political">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">11 //</span> Political Leadership</div>
+  <h2 class="section-title">POLITICAL LEADERSHIP &amp; <span class="highlight">COMMAND STRUCTURE</span></h2>
+  <figure class="inline-img">
+    <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/cece210249230e6e591bfe5e2dbf9f21ed89db49.jpg" alt="President Zelensky with AFU General Syrskyi and other Ukrainian leaders" width="1024" height="683" loading="lazy" onclick="openLightbox(this.src,'Ukrainian National Security Council — Zelensky, Syrskyi, and senior commanders')">
+    <figcaption>Ukraine's national security leadership structure: President Zelensky (CiC), Gen. Syrskyi (AFU Commander), and the National Security Council</figcaption>
+  </figure>
+  <div class="doctrine-grid">
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">CiC — PRESIDENT</div>
+      <div class="doctrine-card-title">Volodymyr Zelensky</div>
+      <div class="doctrine-card-body">President since 2019; former actor and comedian who became a wartime leader of historic stature. Refused evacuation offer on Feb 24, 2022 ("I need ammunition, not a ride"). Conducted over 400 video addresses to parliaments globally. Considered the most consequential wartime communicator since Churchill. Approval ratings sustained above 80% through most of the conflict. Term extended by martial law; elections suspended. <a href="https://www.president.gov.ua/en" target="_blank" rel="noopener" style="color:var(--color-blue)">Official Site →</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">AFU COMMANDER</div>
+      <div class="doctrine-card-title">General Oleksandr Syrskyi</div>
+      <div class="doctrine-card-body">Commander-in-Chief, Armed Forces of Ukraine since February 2024 (replacing General Zaluzhny). Commanded the successful 2022 Kyiv defense and Kharkiv counteroffensive. Known for systematic, attritional approach to command and willingness to accept high operational costs. Previously commanded Land Forces. Supervised the August 2024 Kursk incursion planning. <a href="https://www.zsu.gov.ua/en" target="_blank" rel="noopener" style="color:var(--color-blue)">ZSU Website →</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">DEFENSE MINISTRY</div>
+      <div class="doctrine-card-title">Rustem Umerov (Defense Minister)</div>
+      <div class="doctrine-card-body">Minister of Defense since September 2023. Crimean Tatar leader; oversaw military modernization and Western procurement acceleration. Led negotiations for F-16 deliveries, Cyber Force legislation, and Space Force establishment. Known for building partnerships with Silicon Valley defense tech. Previously State Property Fund Chairman.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">INTELLIGENCE (HUR)</div>
+      <div class="doctrine-card-title">Gen. Kyrylo Budanov</div>
+      <div class="doctrine-card-body">Chief of Military Intelligence (HUR) since 2020; survived multiple assassination attempts. The most operationally audacious Ukrainian commander — responsible for Kursk incursion planning, naval drone program, cyber operations against Russian systems, and special operations deep into Russia and Crimea. Predicted the full-scale invasion when Western intelligence was skeptical. <a href="https://gur.gov.ua/en/content/about-gur.html" target="_blank" rel="noopener" style="color:var(--color-blue)">HUR GUR Website →</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">DIGITAL MINISTRY</div>
+      <div class="doctrine-card-title">Mykhailo Fedorov</div>
+      <div class="doctrine-card-body">Deputy PM and Minister of Digital Transformation. Architect of Ukraine's Drone Army initiative, IT Army coordination, and digital government resilience. Responsible for the Diia app (mobile government services), which continued operating under wartime conditions. Drove Starlink deployment and Silicon Valley partnerships. <a href="https://www.kmu.gov.ua/en/ministers/mikhailo-fedorov" target="_blank" rel="noopener" style="color:var(--color-blue)">KMU Website →</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">SBU — SECURITY SERVICE</div>
+      <div class="doctrine-card-title">Vasyl Malyuk (SBU Chief)</div>
+      <div class="doctrine-card-body">Head of the Security Service of Ukraine (SBU) since August 2022. Oversaw major counterintelligence successes including identifying and removing Russian agents within Ukrainian state structures (including within SBU itself). Supervised the Ukrainian cyber team operations in coordination with HUR. <a href="https://www.sbu.gov.ua/en" target="_blank" rel="noopener" style="color:var(--color-blue)">SBU Website →</a></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  12 — GEOPOLITICAL STATUS & CEASEFIRE ANALYSIS
+══════════════════════════════════════════ -->
+<section id="section-geopolitical">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">12 //</span> Geopolitical Status</div>
+  <h2 class="section-title">GEOPOLITICAL STATUS &amp; <span class="highlight">CEASEFIRE ANALYSIS — 2026</span></h2>
+  <div class="intel-alert intel-alert-warn">
+    <div class="intel-alert-head">⚡ CURRENT STATUS — MARCH 2026 — ACTIVE CONFLICT / CEASEFIRE PRESSURE</div>
+    <p>As of March 2026, combat continues across the Donetsk, Zaporizhzhia, Kherson, and Kharkiv front lines. Preliminary ceasefire negotiations have been initiated under U.S. pressure, with President Trump administration officials (Envoy Keith Kellogg and Secretary Rubio) pushing for a 30-day ceasefire framework. Ukraine has accepted in principle with conditions; Russia has accepted nominal ceasefire in principle but continues offensive operations. The situation is fluid with <strong class="critical">multiple competing timelines and demands</strong>.</p>
+  </div>
+  <div class="policy-quote">
+    "We are not negotiating territory. We are negotiating a ceasefire that allows us to rebuild our forces. Any agreement that legitimizes Russian occupation of Ukrainian territory will not bring peace — it will invite the next war."
+    <span class="policy-quote-attr">— Senior Ukrainian official paraphrase, multiple public statements, early 2026</span>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-6) 0 var(--space-4)">Territorial Control Overview (March 2026)</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Oblast / Region</th><th>Pre-War Status</th><th>Current Status (Mar 2026)</th><th>Trend</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Autonomous Republic of Crimea</td><td>Ukraine</td><td>Russian occupation (since 2014)</td><td><span style="color:var(--color-error)">Occupied</span></td><td>Declared "annexed" by Russia; Black Sea Fleet relocated from Sevastopol under Ukrainian naval pressure</td></tr>
+        <tr><td>Donetsk Oblast</td><td>Ukraine (partial conflict zone since 2014)</td><td>~90% Russian-controlled</td><td><span style="color:var(--color-error)">Russian advance (slow)</span></td><td>Active intense combat; Russian advances measured in meters/day; massive casualties both sides</td></tr>
+        <tr><td>Luhansk Oblast</td><td>Ukraine (partial conflict since 2014)</td><td>~100% Russian-controlled</td><td><span style="color:var(--color-warning)">Stable Russian control</span></td><td>Fully occupied; Ukrainian guerrilla activity continues; Russian "annexation" not recognized internationally</td></tr>
+        <tr><td>Zaporizhzhia Oblast</td><td>Ukraine</td><td>~70% Russian-controlled</td><td><span style="color:var(--color-error)">Russian advance (slow)</span></td><td>Zaporizhzhia city (regional capital) remains Ukrainian; Zaporizhzhia NPP occupied by Russia</td></tr>
+        <tr><td>Kherson Oblast</td><td>Ukraine</td><td>Dnipro River divides: N bank Ukrainian, S bank Russian</td><td><span style="color:var(--color-teal)">Ukrainian ISR pressure across river</span></td><td>Kherson city liberated Nov 2022; river as LOC; constant drone/artillery exchanges</td></tr>
+        <tr><td>Kharkiv Oblast</td><td>Ukraine</td><td>~95% Ukrainian control (minor Russian incursions NE border)</td><td><span style="color:var(--color-teal)">Ukrainian defensive, stable</span></td><td>Kharkiv city (2nd largest) under rocket/missile attack but not occupied; Russian May 2024 Kharkiv push repelled</td></tr>
+        <tr><td>Kursk Oblast (Russia)</td><td>Russia</td><td>Limited Ukrainian positions (greatly reduced from Aug 2024 peak)</td><td><span style="color:var(--color-warning)">Ukrainian withdrawal pressure</span></td><td>August 2024: Ukraine held ~1,200 km²; by Mar 2026, most territory lost to Russian counterattack with North Korean troops</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Ceasefire &amp; Peace Negotiation Status (March 2026)</h3>
+  <div class="doctrine-grid">
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">US POSITION</div>
+      <div class="doctrine-card-title">Trump Administration — Pressure to Negotiate</div>
+      <div class="doctrine-card-body">The Trump administration has pushed aggressively for a ceasefire framework since January 2025. Envoy Keith Kellogg and Secretary Rubio have engaged both Kyiv and Moscow. In March 2025, the US brokered a preliminary 30-day ceasefire framework. Aid conditions have been used as leverage. US position is that a territorial settlement should reflect current lines of control, which Ukraine rejects as capitulation. <a href="https://www.politico.eu/article/us-peace-talks-ukraine-russia-ceasefire/" target="_blank" rel="noopener" style="color:var(--color-blue)">Politico →</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">UKRAINE POSITION</div>
+      <div class="doctrine-card-title">Conditional Acceptance — Zelensky Formula</div>
+      <div class="doctrine-card-body">Ukraine accepts ceasefire in principle with conditions: (1) International security guarantees (NATO-equivalent), (2) No recognition of Russian territorial gains, (3) War crimes accountability tribunal, (4) Continued military rearmament during ceasefire, (5) Ultimate sovereignty over all Ukrainian territory. Zelensky indicated willingness to delay (not abandon) NATO membership in exchange for binding security guarantees. <a href="https://www.president.gov.ua/en/speeches" target="_blank" rel="noopener" style="color:var(--color-blue)">President's Office →</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">RUSSIA POSITION</div>
+      <div class="doctrine-card-title">Nominal Acceptance — Continued Aggression</div>
+      <div class="doctrine-card-body">Russia has signaled nominal ceasefire acceptance while continuing offensive operations in Donetsk. Moscow's conditions include: formalization of territorial gains (4 oblasts + Crimea), prohibition on Ukrainian NATO membership, restrictions on AFU size and equipment, lifting of Western sanctions. ISW assesses Russia is using negotiations to consolidate positions and rearm while buying time. <a href="https://understandingwar.org" target="_blank" rel="noopener" style="color:var(--color-blue)">ISW Assessment →</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">EUROPEAN POSITION</div>
+      <div class="doctrine-card-title">Increased Defense Commitment + Ukraine Support</div>
+      <div class="doctrine-card-body">European response to ceasefire pressure has been increased Ukraine support. €45B Ukraine Facility (EU), UK's £12B+, Germany's €28B+. In March 2025, EU leaders committed to "coalition of the willing" peacekeeping force concept. NATO European members accelerating defense spending toward 3-5% GDP targets. EU membership negotiations accelerated (candidate status since 2022). <a href="https://ec.europa.eu/neighbourhood-enlargement/ukraine_en" target="_blank" rel="noopener" style="color:var(--color-blue)">EU Enlargement →</a></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+  FOOTER
+══════════════════════════════════════════ -->
+<!-- ======= 13 MILITARY DOCTRINE ======= -->
+<section id="section-doctrine">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">13 //</span> Military Doctrine</div>
+  <h2 class="section-title">UKRAINIAN MILITARY DOCTRINE &mdash; <span class="highlight">EVOLVING FRAMEWORK</span></h2>
+  <div class="intel-alert">
+    <div class="intel-alert-head">&#9872; DOCTRINE ASSESSMENT</div>
+    <p>Ukraine's military doctrine has undergone a <strong class="critical">total transformation</strong> from Soviet-legacy mass-attrition to a hybrid combining NATO combined-arms maneuver warfare with Ukrainian innovations. The <strong class="critical">Drone Army doctrine</strong> (formalized 2024), <strong class="critical">precision deep strike</strong> (HIMARS/ATACMS/Storm Shadow), and <strong class="critical">naval drone campaign</strong> are organic Ukrainian advances now influencing NATO doctrine globally. Ukraine is the world's first state to formally codify drone warfare, AI-assisted targeting, and autonomous systems into active military doctrine.</p>
+  </div>
+  <div class="doctrine-grid">
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">CONCEPT 01</div>
+      <div class="doctrine-card-title">Active Defense with Asymmetric Offensive</div>
+      <div class="doctrine-card-body">Ukraine combines defensive front anchoring with high-value asymmetric offensives: drone strikes, SOF operations, Kursk-type incursions. Resources prioritize deep strike over positional attrition against a numerically superior adversary. <a href="https://understandingwar.org" target="_blank" rel="noopener" style="color:var(--color-blue)">ISW &rarr;</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">CONCEPT 02</div>
+      <div class="doctrine-card-title">Drone Army Doctrine</div>
+      <div class="doctrine-card-body">World's first formally codified national drone warfare doctrine. Three-tier: FPV (0&ndash;25km), strike drones (25&ndash;150km), long-range UAVs (150km&ndash;1,500km). AI targeting, fiber-optic EW-defeat, 2M+ FPV/year production creates asymmetric attrition unmatched at equivalent cost. <a href="https://www.csis.org/analysis/ukraines-future-vision-waging-ai-enabled-autonomous-warfare" target="_blank" rel="noopener" style="color:var(--color-blue)">CSIS &rarr;</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">CONCEPT 03</div>
+      <div class="doctrine-card-title">Precision Deep Strike Interdiction</div>
+      <div class="doctrine-card-body">HIMARS/ATACMS, Storm Shadow, and long-range drones systematically degrade Russian logistics, C2 nodes, and air bases at operational depth. Strategy collapses Russian combat power over time rather than seeking linear breakthrough. Hundreds of ammunition depots destroyed. <a href="https://missilethreat.csis.org" target="_blank" rel="noopener" style="color:var(--color-blue)">CSIS Missile &rarr;</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">CONCEPT 04</div>
+      <div class="doctrine-card-title">NATO Integration</div>
+      <div class="doctrine-card-body">Full adoption of NATO fire support, logistics, C2, AJP/STANAG doctrine. AFU officers trained at NATO staff colleges. NATO interoperability enables seamless integration of all Allied-supplied systems across every branch of service. <a href="https://www.nato.int/en/what-we-do/partnerships-and-cooperation/relations-with-ukraine" target="_blank" rel="noopener" style="color:var(--color-blue)">NATO &rarr;</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">CONCEPT 05</div>
+      <div class="doctrine-card-title">Information Operations</div>
+      <div class="doctrine-card-body">Most effective wartime information campaign since WWII. Drone kills filmed and distributed; Russian losses publicly quantified daily; Zelensky's global communication maintains international support through year 4. Information operations are treated as a combat multiplier equal in priority to fires. <a href="https://bindinghook.com/self-attribution-as-strategy-in-the-russo-ukrainian-war/" target="_blank" rel="noopener" style="color:var(--color-blue)">Binding Hook &rarr;</a></div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">CONCEPT 06</div>
+      <div class="doctrine-card-title">Total Defense and National Resilience</div>
+      <div class="doctrine-card-body">Whole-of-society defense model: Territorial Defense Forces (130,000), civilian drone manufacturing networks, underground schools and hospitals, distributed power generation, digital government continuity (Diia app). Total war doctrine adapted for a functioning democracy under indefinite bombardment. <a href="https://www.rand.org" target="_blank" rel="noopener" style="color:var(--color-blue)">RAND &rarr;</a></div>
+    </div>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Strategic Goals &mdash; Milestone Timeline</h3>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">SHORT-TERM // 2026</div>
+      <div class="tl-title">Consolidate Defenses &mdash; Ceasefire on Favorable Terms</div>
+      <div class="tl-desc">Halt Russian advances in Donetsk. Achieve ceasefire preserving sovereignty and military capacity. Secure binding security guarantees equivalent to Article 5. Sustain 2M+ drone/year. Fully integrate F-16 fleet. <a href="https://www.president.gov.ua/en/speeches" target="_blank" rel="noopener">President's Office &rarr;</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">MID-TERM // 2027-2030</div>
+      <div class="tl-title">Rearmament and EU Integration</div>
+      <div class="tl-desc">Full NATO interoperability. Domestic arms production at NATO-standard scale. EU accession negotiations advance. Reconstruction of liberated territory. Standing AFU of 500,000 with full NATO-equipped ground force, 100+ F-16/Mirage 2000, indigenous precision strike at 1,500km. <a href="https://www.rand.org" target="_blank" rel="noopener">RAND &rarr;</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">LONG-TERM // 2030-2035</div>
+      <div class="tl-title">Full NATO Membership or Equivalent Deterrence</div>
+      <div class="tl-desc">Formal NATO membership or binding security guarantees creating effective Article 5 coverage. Full sovereignty recovery as strategic goal. Ukraine as a premier European military power and drone/AI technology exporter recognized globally. <a href="https://www.nato.int" target="_blank" rel="noopener">NATO &rarr;</a></div>
+    </div>
+  </div>
+  <div class="policy-quote">
+    "We will fight for every metre of our land. We are not afraid. We have already defended our sky, our sea, our ground. Now we are learning to defend the future &mdash; with drones, AI, space forces, and the strongest army in Europe."
+    <span class="policy-quote-attr">&mdash; President Volodymyr Zelensky, paraphrase of multiple 2025-2026 addresses | <a href="https://www.president.gov.ua/en/speeches" target="_blank" rel="noopener">Office of the President &rarr;</a></span>
+  </div>
+</div>
+</section>
+
+<!-- ======= 14 RISK ASSESSMENT ======= -->
+<section id="section-risk">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">14 //</span> Risk Assessment</div>
+  <h2 class="section-title">RISK ASSESSMENT &mdash; <span class="highlight">THREAT SCENARIOS</span></h2>
+  <div class="intel-alert intel-alert-warn">
+    <div class="intel-alert-head">&#9889; OVERALL RISK ASSESSMENT &mdash; MARCH 2026</div>
+    <p>Ukraine faces a <strong class="critical">complex multi-vector risk environment</strong> across military, political, economic, and nuclear dimensions. Primary risk remains <strong class="critical">Russian military escalation and attrition</strong>, with secondary risks including Western support erosion, adverse ceasefire terms creating conditions for a renewed Russian offensive within 3-5 years, and domestic political stress from prolonged mobilization. Nuclear escalation risk is <strong class="critical">LOW but non-negligible</strong> &mdash; the conflict has normalized previously escalatory thresholds.</p>
+  </div>
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="risk-level critical">CRITICAL RISK</div>
+      <div class="risk-title">Adverse Ceasefire Terms</div>
+      <div class="risk-body">A ceasefire legitimizing Russian territorial gains without international non-recognition, limiting AFU rearmament, or failing to provide binding security guarantees creates conditions for a renewed Russian offensive in 3-7 years. The 1994 Budapest Memorandum is the existential cautionary precedent. <a href="https://www.rand.org/pubs/research_reports/RRA2510-1.html" style="color:var(--color-blue)">RAND &rarr;</a></div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level critical">CRITICAL RISK</div>
+      <div class="risk-title">Western Aid Disruption</div>
+      <div class="risk-body">Ukraine's defense budget (~$120B) is approximately 50% funded by external donors. Sustained disruption of US, EU, or NATO military/financial assistance would rapidly degrade AFU capability. The Trump administration aid pause in 2025 demonstrated this vulnerability directly. EU states are accelerating direct support as a hedge. <a href="https://ukraine-support-tracker.eu" style="color:var(--color-blue)">Kiel Institute &rarr;</a></div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level high">HIGH RISK</div>
+      <div class="risk-title">North Korean Troop Escalation</div>
+      <div class="risk-body">10,000&ndash;12,000 DPRK troops deployed to the Kursk front by late 2024 with commitments to expand to 100,000. Formalizes a Russia-China-DPRK-Iran military axis. Substantial DPRK expansion significantly reduces Russia's manpower shortage constraint and extends combat sustainability. <a href="https://www.csis.org" style="color:var(--color-blue)">CSIS &rarr;</a></div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level high">HIGH RISK</div>
+      <div class="risk-title">Zaporizhzhia NPP Radiological Incident</div>
+      <div class="risk-body">Europe's largest nuclear power plant remains under Russian military occupation and is actively used as a military base. IAEA has documented continuous violations of nuclear safety standards since 2022. A radiological incident &mdash; intentional or accidental &mdash; would constitute a humanitarian and geopolitical catastrophe. <a href="https://www.iaea.org/newscenter/pressreleases" style="color:var(--color-blue)">IAEA &rarr;</a></div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level high">HIGH RISK</div>
+      <div class="risk-title">Mobilization Fatigue / Manpower</div>
+      <div class="risk-body">April 2024 mobilization law lowered conscription age to 25 and tightened exemptions. Enforcement challenges and societal tensions are documented. Russia's attrition strategy deliberately targets Ukraine's finite war-eligible male population. AFU casualty rates of 40,000&ndash;60,000 KIA/WIA/month (est.) are unsustainable without continued mobilization and NATO training throughput. <a href="https://www.rand.org" style="color:var(--color-blue)">RAND &rarr;</a></div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level medium">MEDIUM RISK</div>
+      <div class="risk-title">Nuclear Escalation (Tactical)</div>
+      <div class="risk-body">Assessed LOW probability but CATASTROPHIC consequence. Russia's ~2,000 tactical nuclear warheads and published doctrine permitting use against conventional threats creates a theoretical pathway. Assessed LOW-MEDIUM. Biden administration assessed risk at "unprecedented" levels in Oct 2022; subsequently decreased as Russian conventional setbacks increased. <a href="https://www.fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" style="color:var(--color-blue)">FAS &rarr;</a></div>
+    </div>
+  </div>
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;margin:var(--space-8) 0 var(--space-4)">Risk Probability Assessment (Analyst Consensus)</h3>
+  <div class="stat-bars">
+    <div class="stat-bar-row"><span class="stat-bar-label">Infrastructure Attacks Continue</span><div class="stat-bar-track"><div class="stat-fill" style="width:90%"></div></div><span class="stat-bar-val">VERY HIGH 90%</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">Adverse Ceasefire Terms</span><div class="stat-bar-track"><div class="stat-fill" style="width:72%"></div></div><span class="stat-bar-val">HIGH 72%</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">DPRK Troop Escalation</span><div class="stat-bar-track"><div class="stat-fill" style="width:62%"></div></div><span class="stat-bar-val">HIGH 62%</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">Western Aid Disruption (partial)</span><div class="stat-bar-track"><div class="stat-fill" style="width:48%"></div></div><span class="stat-bar-val">MEDIUM 48%</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">Zaporizhzhia Radiological Incident</span><div class="stat-bar-track"><div class="stat-fill" style="width:22%"></div></div><span class="stat-bar-val">LOW-MED 22%</span></div>
+    <div class="stat-bar-row"><span class="stat-bar-label">Nuclear Escalation Tactical</span><div class="stat-bar-track"><div class="stat-fill" style="width:8%"></div></div><span class="stat-bar-val">LOW 8%</span></div>
+  </div>
+</div>
+</section>
+
+<!-- ======= 15 PRIMARY SOURCES ======= -->
+<section id="section-sources">
+<div class="section-wrap">
+  <div class="section-label"><span class="section-num">15 //</span> Primary Sources</div>
+  <h2 class="section-title">AUTHORITATIVE <span class="highlight">SOURCE LIBRARY</span></h2>
+  <div class="intel-alert">
+    <div class="intel-alert-head">&#9872; CLASSIFICATION NOTICE</div>
+    <p>All data in this dossier is compiled from publicly available open-source intelligence (OSINT). No classified government data has been used. Sources include government reports, peer-reviewed think tank analysis, IAEA/UN documents, and credentialed defense publications. Where figures conflict, IISS Military Balance, RAND, or CSIS is treated as authoritative. All figures represent best-estimate assessments from cross-referenced multiple sources.</p>
+  </div>
+  <div class="sources-grid">
+    <div>
+      <div class="sources-col-title">US Government / NATO</div>
+      <div class="sources-list">
+        <a href="https://www.defense.gov/News/Releases/" target="_blank" rel="noopener">US DoD Security Assistance Releases</a>
+        <a href="https://www.state.gov/arms-transfers-and-security-assistance/" target="_blank" rel="noopener">US State Dept FMS / Security Assistance</a>
+        <a href="https://crsreports.congress.gov" target="_blank" rel="noopener">Congressional Research Service &mdash; Ukraine</a>
+        <a href="https://www.odni.gov/index.php/annual-threat-assessment" target="_blank" rel="noopener">ODNI Annual Threat Assessment</a>
+        <a href="https://www.nato.int/en/what-we-do/partnerships-and-cooperation/relations-with-ukraine" target="_blank" rel="noopener">NATO-Ukraine Relations &mdash; Official</a>
+        <a href="https://www.iaea.org/newscenter/pressreleases" target="_blank" rel="noopener">IAEA &mdash; Zaporizhzhia NPP</a>
+      </div>
+    </div>
+    <div>
+      <div class="sources-col-title">Think Tanks / Analysis</div>
+      <div class="sources-list">
+        <a href="https://understandingwar.org/regions/ukraine" target="_blank" rel="noopener">Institute for the Study of War (ISW)</a>
+        <a href="https://www.rand.org/pubs/research_reports/RRA2510-1.html" target="_blank" rel="noopener">RAND Corporation &mdash; Ukraine</a>
+        <a href="https://www.csis.org/programs/ukraine" target="_blank" rel="noopener">CSIS &mdash; Ukraine Program</a>
+        <a href="https://missilethreat.csis.org" target="_blank" rel="noopener">CSIS Missile Threat Database</a>
+        <a href="https://bindinghook.com" target="_blank" rel="noopener">Binding Hook &mdash; Cyber Analysis</a>
+        <a href="https://therecord.media" target="_blank" rel="noopener">The Record (Recorded Future)</a>
+      </div>
+    </div>
+    <div>
+      <div class="sources-col-title">Military Balance</div>
+      <div class="sources-list">
+        <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS Military Balance 2025/2026</a>
+        <a href="https://globalfirepower.com/country-military-strength-detail.php?country_id=ukraine" target="_blank" rel="noopener">Global Firepower &mdash; Ukraine</a>
+        <a href="https://www.janes.com" target="_blank" rel="noopener">Jane's Defence Weekly</a>
+        <a href="https://www.thedrive.com/the-war-zone" target="_blank" rel="noopener">The War Zone</a>
+        <a href="https://www.armscontrol.org/factsheets/budapest-memorandum" target="_blank" rel="noopener">Arms Control Assoc. &mdash; Budapest Memo</a>
+        <a href="https://www.fas.org/issues/nuclear-weapons/status-world-nuclear-forces/" target="_blank" rel="noopener">FAS Nuclear Notebook</a>
+      </div>
+    </div>
+    <div>
+      <div class="sources-col-title">Ukrainian Official</div>
+      <div class="sources-list">
+        <a href="https://www.president.gov.ua/en/speeches" target="_blank" rel="noopener">President of Ukraine &mdash; Official Speeches</a>
+        <a href="https://www.zsu.gov.ua/en" target="_blank" rel="noopener">Armed Forces of Ukraine</a>
+        <a href="https://gur.gov.ua/en/content/about-gur.html" target="_blank" rel="noopener">Military Intelligence (HUR/GUR)</a>
+        <a href="https://www.sbu.gov.ua/en" target="_blank" rel="noopener">Security Service of Ukraine (SBU)</a>
+        <a href="https://www.kmu.gov.ua/en" target="_blank" rel="noopener">Cabinet of Ministers of Ukraine</a>
+        <a href="https://www.mil.gov.ua/en/" target="_blank" rel="noopener">Ministry of Defense of Ukraine</a>
+      </div>
+    </div>
+    <div>
+      <div class="sources-col-title">News / Investigative</div>
+      <div class="sources-list">
+        <a href="https://www.bbc.com/news/world/europe" target="_blank" rel="noopener">BBC World &mdash; Ukraine Coverage</a>
+        <a href="https://www.rferl.org/ukraine" target="_blank" rel="noopener">Radio Free Europe/Radio Liberty</a>
+        <a href="https://www.kyivindependent.com" target="_blank" rel="noopener">Kyiv Independent</a>
+        <a href="https://www.c4isrnet.com" target="_blank" rel="noopener">C4ISRNET &mdash; Technology</a>
+        <a href="https://www.aljazeera.com/ukraine-russia-war/" target="_blank" rel="noopener">Al Jazeera &mdash; Ukraine-Russia War</a>
+        <a href="https://ukraine-support-tracker.eu" target="_blank" rel="noopener">Ukraine Support Tracker (Kiel)</a>
+      </div>
+    </div>
+    <div>
+      <div class="sources-col-title">Technical / Economic</div>
+      <div class="sources-list">
+        <a href="https://www.naval-technology.com" target="_blank" rel="noopener">Naval Technology</a>
+        <a href="https://www.airforce-technology.com" target="_blank" rel="noopener">Air Force Technology</a>
+        <a href="https://ausairpower.net" target="_blank" rel="noopener">Air Power Australia</a>
+        <a href="https://ctc.westpoint.edu" target="_blank" rel="noopener">West Point CTC</a>
+        <a href="https://www.worldbank.org/en/country/ukraine" target="_blank" rel="noopener">World Bank &mdash; Ukraine</a>
+        <a href="https://www.imf.org/en/countries/UKR" target="_blank" rel="noopener">IMF &mdash; Ukraine</a>
+      </div>
+    </div>
+  </div>
+  <div class="class-footer">
+    <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--color-teal);margin-bottom:var(--space-4)">GEOPOLITICAL INTELLIGENCE PLATFORM v2</div>
+    <div style="font-family:var(--font-mono);font-size:.75rem;letter-spacing:.15em;color:var(--color-text-muted);text-transform:uppercase;margin-bottom:var(--space-2)">DOSSIER A-03 &mdash; UKRAINE &mdash; ARMED FORCES INTELLIGENCE ASSESSMENT &mdash; MARCH 2026</div>
+    <div style="font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;color:var(--color-text-faint);text-transform:uppercase">CLASSIFICATION: UNCLASSIFIED &mdash; OPEN SOURCE INTELLIGENCE (OSINT) &mdash; FOR ANALYTICAL AND EDUCATIONAL PURPOSES ONLY</div>
+    <div style="font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;color:var(--color-text-faint);margin-top:var(--space-4);text-transform:uppercase">ALL DATA DERIVED FROM PUBLIC SOURCES &mdash; NO CLASSIFIED MATERIAL USED &mdash; ANALYSIS BY STRATINT GLOBAL &mdash; LEANDER TX</div>
+    <div style="margin-top:var(--space-6);display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
+      <a href="../china-dossier/china-dossier.html" style="font-family:var(--font-mono);font-size:.72rem;color:var(--color-blue);text-decoration:none;letter-spacing:.08em">A-01 China</a>
+      <a href="../taiwan-dossier/taiwan-dossier.html" style="font-family:var(--font-mono);font-size:.72rem;color:var(--color-blue);text-decoration:none;letter-spacing:.08em">A-02 Taiwan</a>
+      <a href="../russia-dossier/russia-dossier.html" style="font-family:var(--font-mono);font-size:.72rem;color:var(--color-blue);text-decoration:none;letter-spacing:.08em">A-05 Russia</a>
+      <a href="../north-korea-dossier/north-korea-dossier.html" style="font-family:var(--font-mono);font-size:.72rem;color:var(--color-blue);text-decoration:none;letter-spacing:.08em">A-06 DPRK</a>
+      <a href="../usa-dossier/usa-dossier.html" style="font-family:var(--font-mono);font-size:.72rem;color:var(--color-blue);text-decoration:none;letter-spacing:.08em">A-11 USA</a>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-seal">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="STRATINT seal">
+        <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+        <path d="M24 8 L28 20 L40 20 L30 28 L34 40 L24 32 L14 40 L18 28 L8 20 L20 20 Z" stroke="currentColor" stroke-width="1" fill="none" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="footer-text">
+      <div class="footer-title">STRATINT GLOBAL — COUNTRY DOSSIER A-03</div>
+      <div class="footer-sub">Ukraine · Armed Forces Assessment · Compiled: March 2026 · Classification: UNCLASSIFIED OPEN-SOURCE</div>
+    </div>
+    <div class="footer-links">
+      <a href="#hero" class="footer-nav-link">↑ TOP</a>
+      <a href="https://understandingwar.org" target="_blank" rel="noopener" class="footer-nav-link">ISW</a>
+      <a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener" class="footer-nav-link">IISS</a>
+      <a href="https://missilethreat.csis.org" target="_blank" rel="noopener" class="footer-nav-link">CSIS</a>
+      <a href="https://www.rand.org" target="_blank" rel="noopener" class="footer-nav-link">RAND</a>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:var(--space-6);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:.1em;">
+    ALL DATA COMPILED FROM PUBLICLY AVAILABLE OPEN-SOURCE INTELLIGENCE (OSINT) &mdash; FOR ANALYTICAL AND EDUCATIONAL PURPOSES &mdash; MARCH 2026
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════ LIGHTBOX ══════════════════════════════════════ -->
+<div id="lightbox" onclick="closeLightbox()" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <img id="lb-img" src="" alt="" loading="lazy">
+  <div id="lb-cap"></div>
+  <button id="lb-close" onclick="closeLightbox()" aria-label="Close image viewer">✕</button>
+</div>
+
+<script>
+// ── Theme toggle ─────────────────────────────────────
+(function(){
+  const r=document.documentElement;
+  const t=document.getElementById('theme-toggle');
+  let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+  r.setAttribute('data-theme',d);
+  function render(){
+    if(!t) return;
+    t.setAttribute('aria-label','Switch to '+(d==='dark'?'light':'dark')+' mode');
+    t.innerHTML=d==='dark'?
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>':
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+  render();
+  if(t) t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);render();});
+})();
+
+// ── Lightbox ─────────────────────────────────────────
+function openLightbox(src, caption){
+  const lb=document.getElementById('lightbox');
+  const img=document.getElementById('lb-img');
+  const cap=document.getElementById('lb-cap');
+  img.src=src; img.alt=caption||'';
+  cap.textContent=caption||'';
+  lb.classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function switchTab(e, id) {
+    const container = e.target.closest('.section-wrap') || document;
+    container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    e.target.classList.add('active');
+    const pane = document.getElementById(id);
+    if (pane) pane.classList.add('active');
+  }
+  function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeLightbox();});
+
+// ── Sidebar active section highlighting ──────────────
+(function(){
+  const sections=document.querySelectorAll('section[id]');
+  const navLinks=document.querySelectorAll('.sidebar-nav a');
+  function onScroll(){
+    let current='';
+    sections.forEach(s=>{
+      const rect=s.getBoundingClientRect();
+      if(rect.top<=120) current=s.id;
+    });
+    navLinks.forEach(a=>{
+      a.classList.toggle('active',a.getAttribute('href')==='#'+current);
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+
+// ── Mobile nav toggle ─────────────────────────────────
+(function(){
+  const btn=document.getElementById('mobile-nav-toggle');
+  const sidebar=document.querySelector('.sidebar');
+  if(!btn||!sidebar) return;
+  btn.addEventListener('click',()=>{
+    sidebar.classList.toggle('open');
+    btn.setAttribute('aria-expanded',sidebar.classList.contains('open'));
+  });
+})();
+
+// ── Scroll reveal ─────────────────────────────────────
+(function(){
+  if(!('IntersectionObserver' in window)) return;
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+  },{threshold:0.08});
+  document.querySelectorAll('.equip-card,.doctrine-card,.tl-item,.stat-bar-row,.aid-card').forEach(el=>{
+    el.classList.add('reveal');
+    obs.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
+<!-- NOTE: The above was incorrectly placed. The real file closes below in the actual sections. -->

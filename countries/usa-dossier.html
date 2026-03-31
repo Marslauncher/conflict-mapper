@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USA Military Dossier — A-11 | Geopolitical Intelligence Platform v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+/* ===== DESIGN TOKENS — USA NAVY BLUE ACCENT ===== */
+:root {
+  --color-bg: #0a0c10;
+  --color-surface: #0f1117;
+  --color-surface-2: #141820;
+  --color-surface-3: #1a2030;
+  --color-border: rgba(0,40,104,0.35);
+  --color-border-2: rgba(255,200,50,0.18);
+  --color-text: #dde2ec;
+  --color-text-muted: #8a94a8;
+  --color-text-faint: #4a5168;
+  --color-accent: #002868;
+  --color-accent-bright: #1a4ba8;
+  --color-accent-glow: rgba(26,75,168,0.18);
+  --color-red: #b22234;
+  --color-gold: #ffc832;
+  --color-teal: #2dd4bf;
+  --color-blue: #60a5fa;
+  --font-display: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+  --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
+  --space-5:1.25rem; --space-6:1.5rem; --space-8:2rem; --space-10:2.5rem;
+  --space-12:3rem; --space-16:4rem;
+  --radius-sm:4px; --radius-md:8px; --radius-lg:12px;
+  --transition: 0.18s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ===== BASE ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:60px}
+body{background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--color-blue);text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--color-accent-bright)}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--color-surface)}
+::-webkit-scrollbar-thumb{background:var(--color-accent);border-radius:3px}
+
+/* ===== STICKY NAV ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,12,16,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);display:flex;align-items:center;gap:0;height:52px;overflow-x:auto;white-space:nowrap;padding:0 var(--space-4)}
+.nav-logo{font-family:var(--font-display);font-size:.8rem;font-weight:700;color:var(--color-text-muted);letter-spacing:.15em;margin-right:var(--space-4);flex-shrink:0;text-transform:uppercase}
+.nav-logo span{color:var(--color-accent-bright)}
+.nav-link{font-family:var(--font-mono);font-size:.7rem;color:var(--color-text-muted);padding:0 var(--space-3);height:52px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;transition:all var(--transition);letter-spacing:.08em;text-transform:uppercase;flex-shrink:0}
+.nav-link:hover,.nav-link.active{color:var(--color-accent-bright);border-bottom-color:var(--color-accent-bright);background:var(--color-accent-glow)}
+
+/* ===== HERO ===== */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:80px var(--space-4) var(--space-16)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,40,104,0.22) 0%, transparent 65%), radial-gradient(ellipse 40% 40% at 80% 20%, rgba(178,34,52,0.10) 0%, transparent 60%), var(--color-bg);z-index:0}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,40,104,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0,40,104,0.07) 1px, transparent 1px);background-size:40px 40px;z-index:0}
+.hero-scanline{position:absolute;inset:0;background:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.04) 2px, rgba(0,0,0,.04) 4px);z-index:0;pointer-events:none}
+.hero-content{position:relative;z-index:1;text-align:center;max-width:900px}
+.hero-flag{font-size:5rem;margin-bottom:var(--space-4);filter:drop-shadow(0 0 20px rgba(0,40,104,.5))}
+.hero-eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.22em;color:var(--color-accent-bright);text-transform:uppercase;margin-bottom:var(--space-4);opacity:.85}
+.hero-title{font-family:var(--font-display);font-size:clamp(3rem,8vw,6rem);font-weight:700;line-height:1;letter-spacing:.04em;text-transform:uppercase;margin-bottom:var(--space-4)}
+.hero-title .native{display:block;font-size:clamp(1.2rem,3vw,2rem);color:var(--color-text-muted);margin-bottom:var(--space-2);font-weight:500}
+.highlight{color:var(--color-accent-bright)}
+.hero-subtitle{font-family:var(--font-display);font-size:clamp(1rem,2vw,1.25rem);color:var(--color-text-muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--space-4)}
+.hero-stamp{font-family:var(--font-mono);font-size:.72rem;color:var(--color-text-faint);letter-spacing:.12em;margin-bottom:var(--space-8)}
+.hero-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-8)}
+.hero-stat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4) var(--space-6);min-width:150px;text-align:center;position:relative;overflow:hidden}
+.hero-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg, var(--color-accent), var(--color-accent-bright))}
+.hero-stat-val{display:block;font-family:var(--font-display);font-size:1.7rem;font-weight:700;color:var(--color-text);line-height:1}
+.hero-stat-key{display:block;font-family:var(--font-mono);font-size:.65rem;color:var(--color-text-muted);letter-spacing:.12em;text-transform:uppercase;margin-top:var(--space-1)}
+.scroll-cue{font-family:var(--font-mono);font-size:.68rem;color:var(--color-text-faint);letter-spacing:.15em;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ===== SECTION STRUCTURE ===== */
+.section{padding:var(--space-16) var(--space-4)}
+.section:nth-child(even){background:linear-gradient(180deg, transparent 0%, rgba(0,40,104,0.03) 50%, transparent 100%)}
+.container{max-width:1100px;margin:0 auto}
+.section-header{margin-bottom:var(--space-8)}
+.section-eyebrow{font-family:var(--font-mono);font-size:.68rem;color:var(--color-accent-bright);letter-spacing:.2em;text-transform:uppercase;margin-bottom:var(--space-2)}
+.section-num{color:var(--color-accent-bright);font-family:var(--font-mono);font-size:.9rem;margin-right:var(--space-2);opacity:.7}
+.section-title{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text)}
+.section-title-line{width:60px;height:3px;background:linear-gradient(90deg, var(--color-accent), var(--color-accent-bright));margin-top:var(--space-3);border-radius:2px}
+.section-wrap{position:relative}
+.section-desc{color:var(--color-text-muted);max-width:72ch;margin-top:var(--space-3);line-height:1.7;font-size:.97rem}
+
+/* ===== INTEL ALERT ===== */
+.intel-alert{background:var(--color-surface-2);border-left:3px solid var(--color-accent-bright);border-radius:0 var(--radius-md) var(--radius-md) 0;padding:var(--space-4) var(--space-6);margin-bottom:var(--space-6);position:relative}
+.intel-alert-head{font-family:var(--font-mono);font-size:.72rem;color:var(--color-accent-bright);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-2)}
+.intel-alert p{color:var(--color-text-muted);font-size:.95rem;line-height:1.65}
+.intel-alert .critical{color:var(--color-gold);font-weight:600}
+.intel-alert-warn{border-left-color:var(--color-gold)}
+.intel-alert-warn .intel-alert-head{color:var(--color-gold)}
+
+/* ===== STAT BAR ===== */
+.stat-bars{display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-8)}
+.stat-item{display:flex;align-items:center;gap:var(--space-3)}
+.stat-label{font-family:var(--font-mono);font-size:.7rem;color:var(--color-text-muted);letter-spacing:.08em;width:130px;flex-shrink:0}
+.stat-bar{flex:1;height:8px;background:var(--color-surface-3);border-radius:4px;overflow:hidden}
+.stat-fill{height:100%;background:linear-gradient(90deg, var(--color-accent), var(--color-accent-bright));border-radius:4px;transition:none}
+.stat-val{font-family:var(--font-mono);font-size:.72rem;color:var(--color-text);width:70px;text-align:right;flex-shrink:0}
+
+/* ===== EQUIPMENT CARD ===== */
+.equip-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(300px,1fr));gap:var(--space-5);margin-bottom:var(--space-8)}
+.equip-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color var(--transition),transform var(--transition);display:flex;flex-direction:column}
+.equip-card:hover{border-color:var(--color-accent-bright);transform:translateY(-2px)}
+.equip-img-wrap{position:relative;overflow:hidden;aspect-ratio:16/9;background:var(--color-surface-2)}
+.equip-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:transform var(--transition)}
+.equip-img-wrap:hover img{transform:scale(1.04)}
+.equip-badge{position:absolute;top:var(--space-3);left:var(--space-3);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;background:rgba(0,40,104,0.85);color:var(--color-accent-bright);padding:var(--space-1) var(--space-2);border-radius:var(--radius-sm);text-transform:uppercase;z-index:2;border:1px solid rgba(26,75,168,0.4)}
+.equip-body{padding:var(--space-4);flex:1;display:flex;flex-direction:column}
+.equip-name{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);letter-spacing:.04em}
+.equip-desc{font-size:.875rem;color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3);flex:1}
+.equip-specs{display:flex;flex-direction:column;gap:var(--space-1);margin-bottom:var(--space-3)}
+.equip-spec{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.68rem;padding:var(--space-1) 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.equip-spec-key{color:var(--color-text-faint);text-transform:uppercase;letter-spacing:.06em}
+.equip-spec-val{color:var(--color-text-muted)}
+.equip-link{font-family:var(--font-mono);font-size:.65rem;color:var(--color-accent-bright);letter-spacing:.08em;display:inline-flex;align-items:center;gap:var(--space-1);text-transform:uppercase;padding-top:var(--space-2);border-top:1px solid var(--color-border)}
+
+/* ===== DATA TABLE ===== */
+.data-table-wrap{overflow-x:auto;margin-bottom:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-md)}
+.data-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.data-table thead{background:var(--color-surface-2)}
+.data-table th{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-bright);padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border)}
+.data-table td{padding:var(--space-3) var(--space-4);border-bottom:1px solid rgba(255,255,255,.04);color:var(--color-text-muted);vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(0,40,104,.08);color:var(--color-text)}
+.data-table td:first-child{color:var(--color-text);font-weight:500}
+.data-table a{font-family:var(--font-mono);font-size:.72rem;color:var(--color-accent-bright)}
+
+/* ===== TIMELINE ===== */
+.timeline{position:relative;padding-left:var(--space-8)}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(180deg, var(--color-accent), rgba(0,40,104,0.1))}
+.tl-item{position:relative;margin-bottom:var(--space-6)}
+.tl-dot{position:absolute;left:calc(-1 * var(--space-8) + 4px);top:6px;width:10px;height:10px;border-radius:50%;background:var(--color-accent-bright);border:2px solid var(--color-bg);box-shadow:0 0 8px rgba(26,75,168,.5)}
+.tl-year{font-family:var(--font-mono);font-size:.7rem;color:var(--color-accent-bright);letter-spacing:.1em;margin-bottom:var(--space-1)}
+.tl-title{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--color-text);margin-bottom:var(--space-1)}
+.tl-desc{font-size:.875rem;color:var(--color-text-muted);line-height:1.6}
+.tl-desc a{font-family:var(--font-mono);font-size:.72rem}
+
+/* ===== MAP ===== */
+.map-container{position:relative;margin-bottom:var(--space-4);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border);cursor:pointer}
+.map-img{width:100%;height:auto;display:block;transition:transform var(--transition)}
+.map-container:hover .map-img{transform:scale(1.02)}
+.map-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));padding:var(--space-4)}
+.map-caption{font-family:var(--font-mono);font-size:.7rem;color:rgba(255,255,255,.7);letter-spacing:.15em;text-transform:uppercase}
+.map-stats-row{display:flex;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-6)}
+.map-stat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);flex:1;min-width:120px}
+.map-stat-val{display:block;font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--color-accent-bright)}
+.map-stat-key{display:block;font-family:var(--font-mono);font-size:.62rem;color:var(--color-text-faint);letter-spacing:.1em;text-transform:uppercase;margin-top:var(--space-1)}
+
+/* ===== INLINE IMAGE ===== */
+.inline-img{margin:var(--space-6) 0;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border)}
+.inline-img img{width:100%;cursor:pointer}
+.inline-img figcaption{font-family:var(--font-mono);font-size:.68rem;color:var(--color-text-faint);padding:var(--space-2) var(--space-4);background:var(--color-surface);letter-spacing:.08em}
+
+/* ===== DOCTRINE CARDS ===== */
+.doctrine-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px,1fr));gap:var(--space-4);margin-bottom:var(--space-8)}
+.doctrine-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-5)}
+.doctrine-card-num{font-family:var(--font-mono);font-size:.65rem;color:var(--color-accent-bright);letter-spacing:.15em;margin-bottom:var(--space-2);text-transform:uppercase}
+.doctrine-card-title{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);letter-spacing:.04em}
+.doctrine-card-body{font-size:.875rem;color:var(--color-text-muted);line-height:1.6}
+
+/* ===== RISK TABS ===== */
+.tabs{margin-bottom:var(--space-8)}
+.tab-btns{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-4);border-bottom:1px solid var(--color-border);padding-bottom:var(--space-2)}
+.tab-btn{font-family:var(--font-mono);font-size:.68rem;color:var(--color-text-muted);padding:var(--space-2) var(--space-4);border-radius:var(--radius-sm);cursor:pointer;letter-spacing:.1em;text-transform:uppercase;transition:all var(--transition);border:1px solid transparent;background:none}
+.tab-btn:hover{color:var(--color-accent-bright);background:var(--color-accent-glow)}
+.tab-btn.active{color:var(--color-accent-bright);background:rgba(0,40,104,.2);border-color:var(--color-border)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* ===== POLICY QUOTE ===== */
+.policy-quote{background:var(--color-surface-2);border-left:3px solid var(--color-gold);border-radius:0 var(--radius-md) var(--radius-md) 0;padding:var(--space-5) var(--space-6);margin:var(--space-6) 0;font-style:italic;color:var(--color-text-muted);line-height:1.8;font-size:.97rem}
+.policy-quote-attr{display:block;margin-top:var(--space-3);font-style:normal;font-family:var(--font-mono);font-size:.7rem;color:var(--color-text-faint);letter-spacing:.08em}
+.policy-quote-attr a{color:var(--color-accent-bright);font-size:.7rem}
+
+/* ===== COLLAPSIBLE ===== */
+.collapsible{border:1px solid var(--color-border);border-radius:var(--radius-md);margin-bottom:var(--space-3);overflow:hidden}
+.collapsible-head{display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-5);cursor:pointer;background:var(--color-surface);font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--color-text);letter-spacing:.04em;transition:background var(--transition)}
+.collapsible-head:hover{background:var(--color-surface-2)}
+.collapsible-head .chev{transition:transform var(--transition);flex-shrink:0;color:var(--color-text-muted)}
+.collapsible-head.open .chev{transform:rotate(180deg)}
+.collapsible-body{max-height:0;overflow:hidden;transition:max-height .4s ease;background:var(--color-surface-2)}
+.collapsible-body.open{max-height:1000px}
+.collapsible-body-inner{padding:var(--space-5);font-size:.9rem;color:var(--color-text-muted);line-height:1.7}
+
+/* ===== SOURCES GRID ===== */
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px,1fr));gap:var(--space-4);margin-bottom:var(--space-8)}
+.source-cat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-5)}
+.source-cat-title{font-family:var(--font-mono);font-size:.7rem;color:var(--color-accent-bright);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-4);border-bottom:1px solid var(--color-border);padding-bottom:var(--space-2)}
+.source-item{margin-bottom:var(--space-3)}
+.source-item a{font-size:.9rem;color:var(--color-text-muted);display:block;transition:color var(--transition)}
+.source-item a:hover{color:var(--color-text)}
+.source-item-desc{font-family:var(--font-mono);font-size:.65rem;color:var(--color-text-faint);margin-top:var(--space-1);letter-spacing:.06em}
+
+/* ===== CLASSIFICATION FOOTER ===== */
+.classification-notice{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-5);text-align:center;margin-top:var(--space-8)}
+.classification-notice .class-stamp{font-family:var(--font-mono);font-size:.8rem;color:var(--color-accent-bright);letter-spacing:.2em;text-transform:uppercase;border:2px solid var(--color-accent-bright);display:inline-block;padding:var(--space-2) var(--space-6);margin-bottom:var(--space-3)}
+.classification-notice p{font-family:var(--font-mono);font-size:.7rem;color:var(--color-text-faint);line-height:1.6;max-width:70ch;margin:0 auto}
+
+/* ===== RATING BAR ===== */
+.rating-bar{display:flex;align-items:center;gap:var(--space-2);min-width:110px}
+.rating-fill{height:6px;background:linear-gradient(90deg, var(--color-accent), var(--color-accent-bright));border-radius:3px;flex:1}
+.rating-num{font-family:var(--font-mono);font-size:.68rem;color:var(--color-text-muted);flex-shrink:0;width:28px}
+
+/* ===== PROBABILITY BARS ===== */
+.prob-list{display:flex;flex-direction:column;gap:var(--space-4);margin-bottom:var(--space-6)}
+.prob-item{}
+.prob-label{font-family:var(--font-mono);font-size:.7rem;color:var(--color-text-muted);letter-spacing:.08em;margin-bottom:var(--space-1);display:flex;justify-content:space-between}
+.prob-bar{height:10px;background:var(--color-surface-3);border-radius:5px;overflow:hidden}
+.prob-fill{height:100%;background:linear-gradient(90deg, var(--color-accent), var(--color-accent-bright));border-radius:5px}
+.prob-fill.high{background:linear-gradient(90deg,#8b1c1c,var(--color-red))}
+.prob-fill.med{background:linear-gradient(90deg,#5c4a00,var(--color-gold))}
+.prob-fill.low{background:linear-gradient(90deg,#0c3520,var(--color-teal))}
+
+/* ===== 2-COLUMN GRID ===== */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-5)}
+@media(max-width:768px){.two-col,.three-col{grid-template-columns:1fr}}
+
+/* ===== FORCE PROJECTION TABLE ===== */
+.projection-table-wrap{overflow-x:auto;margin-top:var(--space-4)}
+.projection-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.projection-table th{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-bright);padding:var(--space-3) var(--space-4);text-align:left;background:var(--color-surface-2);border-bottom:1px solid var(--color-border)}
+.projection-table td{padding:var(--space-3) var(--space-4);border-bottom:1px solid rgba(255,255,255,.04);color:var(--color-text-muted);vertical-align:top}
+.projection-table tr:last-child td{border-bottom:none}
+.projection-table td:first-child{color:var(--color-text);font-family:var(--font-mono);font-size:.75rem}
+
+/* ===== LIGHTBOX ===== */
+.lightbox{display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:var(--space-8)}
+.lightbox.active{display:flex;flex-direction:column}
+.lightbox-img{max-width:90vw;max-height:80vh;object-fit:contain;border:1px solid var(--color-border);border-radius:var(--radius-md)}
+.lightbox-cap{font-family:var(--font-mono);font-size:.75rem;color:var(--color-text-muted);margin-top:var(--space-3);text-align:center;letter-spacing:.08em}
+.lightbox-close{position:absolute;top:var(--space-4);right:var(--space-4);cursor:pointer;color:var(--color-text-muted);background:var(--color-surface);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:color var(--transition)}
+.lightbox-close:hover{color:var(--color-text)}
+
+/* ===== FOOTER ===== */
+footer{background:var(--color-surface);border-top:1px solid var(--color-border);padding:var(--space-8) var(--space-4);text-align:center}
+footer .footer-logo{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--color-text-muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-2)}
+footer .footer-sub{font-family:var(--font-mono);font-size:.68rem;color:var(--color-text-faint);letter-spacing:.1em}
+
+/* ===== CYBER TABLE ===== */
+.cyber-table-wrap{overflow-x:auto;margin-bottom:var(--space-6)}
+.cyber-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.cyber-table th{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-bright);padding:var(--space-3) var(--space-4);text-align:left;background:var(--color-surface-2);border-bottom:1px solid var(--color-border)}
+.cyber-table td{padding:var(--space-3) var(--space-4);border-bottom:1px solid rgba(255,255,255,.04);color:var(--color-text-muted);vertical-align:top}
+.cyber-table tr:last-child td{border-bottom:none}
+.cyber-table td:first-child{color:var(--color-text);font-weight:600;font-size:.8rem}
+.capability-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:var(--space-1)}
+.cap-full{background:var(--color-accent-bright)}
+.cap-high{background:var(--color-teal)}
+.cap-med{background:var(--color-gold)}
+.cap-low{background:#e74c3c}
+.triad-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:var(--space-4);margin-bottom:var(--space-6)}
+.triad-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-5);position:relative;overflow:hidden}
+.triad-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg, var(--color-accent), var(--color-accent-bright))}
+.triad-leg{font-family:var(--font-mono);font-size:.65rem;color:var(--color-accent-bright);letter-spacing:.15em;text-transform:uppercase;margin-bottom:var(--space-2)}
+.triad-system{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--color-text);margin-bottom:var(--space-2)}
+.triad-detail{font-size:.875rem;color:var(--color-text-muted);line-height:1.6}
+.xref-links{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center;margin-top:var(--space-4);padding:var(--space-3) var(--space-4);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md)}
+.xref-label{font-family:var(--font-mono);font-size:.65rem;color:var(--color-text-faint);letter-spacing:.12em;text-transform:uppercase;flex-shrink:0}
+.xref-chip{font-family:var(--font-mono);font-size:.72rem;color:var(--color-accent-bright);background:var(--color-accent-glow);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:var(--space-1) var(--space-3);transition:all var(--transition)}
+.xref-chip:hover{background:rgba(0,40,104,.3);border-color:var(--color-accent-bright)}
+@media(max-width:640px){.hero-stats{flex-direction:column;align-items:center}.equip-grid{grid-template-columns:1fr}.doctrine-grid{grid-template-columns:1fr}.three-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">GIP v2 // <span>A-11</span></div>
+  <a class="nav-link" href="#section-map">01 GEO</a>
+  <a class="nav-link" href="#section-overview">02 OVERVIEW</a>
+  <a class="nav-link" href="#section-ground">03 ARMY</a>
+  <a class="nav-link" href="#section-navy">04 NAVY</a>
+  <a class="nav-link" href="#section-airforce">05 AIR FORCE</a>
+  <a class="nav-link" href="#section-rocket">06 MISSILES</a>
+  <a class="nav-link" href="#section-nuclear">07 NUCLEAR</a>
+  <a class="nav-link" href="#section-special">08 SOCOM</a>
+  <a class="nav-link" href="#section-cyber">09 CYBER/SPACE</a>
+  <a class="nav-link" href="#section-doctrine">10 DOCTRINE</a>
+  <a class="nav-link" href="#section-foreign">11 POLICY</a>
+  <a class="nav-link" href="#section-risk">12 RISK</a>
+  <a class="nav-link" href="#section-sources">13 SOURCES</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-scanline"></div>
+  <div class="hero-content">
+    <div class="hero-flag">🇺🇸</div>
+    <div class="hero-eyebrow">CLASSIFIED OPEN-SOURCE ANALYSIS // MARCH 2026 // A-11</div>
+    <h1 class="hero-title">
+      <span class="native">United States of America</span>
+      <span class="highlight">U.S.A.</span>
+    </h1>
+    <p class="hero-subtitle">FULL-SPECTRUM DOMINANCE & GLOBAL POWER PROJECTION</p>
+    <p class="hero-stamp">ARMY · NAVY · MARINE CORPS · AIR FORCE · SPACE FORCE · COAST GUARD</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-val">~1.34M</span><span class="hero-stat-key">Active Personnel</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">$886B+</span><span class="hero-stat-key">Defense Budget</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">5,177</span><span class="hero-stat-key">Nuclear Warheads</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">13</span><span class="hero-stat-key">Aircraft Carriers</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">~68</span><span class="hero-stat-key">Submarines (SSN/SSBN)</span></div>
+    </div>
+    <div class="scroll-cue">▼ SCROLL FOR FULL ASSESSMENT ▼</div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="Enlarged view">
+  <p class="lightbox-cap" id="lightbox-cap"></p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 01 — GEOGRAPHIC OVERVIEW                        -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-map">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 01</div>
+    <h2 class="section-title"><span class="section-num">01 //</span> Geographic Overview</h2>
+    <div class="section-title-line"></div>
+  </div>
+
+  <div class="map-container" onclick="openLightbox(this.querySelector('img').src,'United States — Topographic Relief Map showing CONUS, Alaska & Hawaii. Total area: 9.8M km²')">
+    <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/22e718f8d8faf8ea71c810a858b6dab5d38af7cf.jpg" alt="United States topographic relief map showing terrain and states" width="1200" height="800" loading="lazy">
+    <div class="map-overlay"><div class="map-caption">TOPOGRAPHIC OVERVIEW // CONTIGUOUS UNITED STATES + ALASKA + HAWAII</div></div>
+  </div>
+  <div class="map-stats-row">
+    <div class="map-stat"><span class="map-stat-val">9.83M km²</span><span class="map-stat-key">Total Land Area</span></div>
+    <div class="map-stat"><span class="map-stat-val">335M</span><span class="map-stat-key">Population</span></div>
+    <div class="map-stat"><span class="map-stat-val">19,924 km</span><span class="map-stat-key">Coastline</span></div>
+    <div class="map-stat"><span class="map-stat-val">2</span><span class="map-stat-key">Land Borders (CAN/MEX)</span></div>
+    <div class="map-stat"><span class="map-stat-val">50+</span><span class="map-stat-key">Nations w/ US Bases</span></div>
+    <div class="map-stat"><span class="map-stat-val">750+</span><span class="map-stat-key">Overseas Installations</span></div>
+  </div>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">⚑ STRATEGIC GEOGRAPHY ASSESSMENT</div>
+    <p>The United States possesses an <strong class="critical">unparalleled geographic position</strong>: bordered by two non-threatening neighbors, flanked by two vast oceans, and endowed with navigable inland waterways and abundant natural resources. This "continental fortress" foundation supports global force projection via 750+ overseas bases on 6 continents. Key strategic territories include <strong class="critical">Guam</strong> (second island chain anchor, 3,860 km from Taiwan), <strong class="critical">Hawaii</strong> (Pacific hub, Indo-PACOM HQ), and <strong class="critical">Alaska</strong> (Arctic gateway, NORAD co-command with Canada). The continental U.S. maintains 6 geographic combatant commands spanning every global region.</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">STRATEGIC GEOGRAPHY</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Feature</th><th>Significance</th></tr></thead>
+          <tbody>
+            <tr><td>Atlantic Ocean Eastern Flank</td><td>NATO commitment zone; carrier access to Europe/Middle East</td></tr>
+            <tr><td>Pacific Ocean Western Flank</td><td>Indo-Pacific theater; China containment via island chain strategy</td></tr>
+            <tr><td>Arctic North</td><td>New frontier; NORAD DEW line; emerging Russian/Chinese competition</td></tr>
+            <tr><td>Gulf of Mexico / Caribbean</td><td>2026 NDS "Western Hemisphere" priority; Monroe Doctrine enforcement zone</td></tr>
+            <tr><td>Hawaii (INDOPACOM HQ)</td><td>Pacific command hub; 3,860 km from US mainland, 6,150 km from China</td></tr>
+            <tr><td>Guam (Andersen AFB, NSA)</td><td>Second island chain anchor; B-52 forward base; submarine basing</td></tr>
+            <tr><td>Alaska (JBER, Ft. Wainwright)</td><td>Arctic access; F-35A deployment; Missile Defense Agency interceptors</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">COMBATANT COMMANDS</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Command</th><th>AOR</th></tr></thead>
+          <tbody>
+            <tr><td>INDOPACOM</td><td>Indo-Pacific — primary China competition theater</td></tr>
+            <tr><td>EUCOM</td><td>Europe — NATO, Russia deterrence, Ukraine support</td></tr>
+            <tr><td>CENTCOM</td><td>Middle East — Iran containment, counter-terrorism</td></tr>
+            <tr><td>NORTHCOM</td><td>North America — homeland defense, NORAD</td></tr>
+            <tr><td>SOUTHCOM</td><td>Latin America & Caribbean — 2026 NDS priority zone</td></tr>
+            <tr><td>AFRICOM</td><td>Africa — counter-terrorism, China/Russia competition</td></tr>
+            <tr><td>SOCOM</td><td>Global — special operations, 70K SOF worldwide</td></tr>
+            <tr><td>CYBERCOM</td><td>Global — cyber operations, offensive/defensive</td></tr>
+            <tr><td>SPACECOM</td><td>Space domain — satellite, GPS, ASAT deterrence</td></tr>
+            <tr><td>STRATCOM</td><td>Global — nuclear command and control</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-container" onclick="openLightbox(this.querySelector('img').src,'US Global Military Basing Network — 750+ overseas installations across 50+ nations on 6 continents')">
+    <img class="map-img" src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/c738582aad3327af764f9b00765c2651bdb0d13d.jpg" alt="World map showing US military bases abroad" width="900" height="600" loading="lazy">
+    <div class="map-overlay"><div class="map-caption">US GLOBAL MILITARY BASING NETWORK — 750+ OVERSEAS INSTALLATIONS</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 02 — MILITARY OVERVIEW                          -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-overview">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 02</div>
+    <h2 class="section-title"><span class="section-num">02 //</span> Military Overview</h2>
+    <div class="section-title-line"></div>
+  </div>
+
+  <figure class="inline-img">
+    <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a5486a62061c07ba1f30a35cfefed20165d2e5c2.jpg" alt="President Trump presiding over US military parade with tanks and troops" width="1500" height="1000" loading="lazy" onclick="openLightbox(this.src,'U.S. Military Parade — President Trump presiding over armed forces demonstration at the White House, 2025')">
+    <figcaption>ARMED FORCES DISPLAY // PRESIDENT TRUMP PRESIDING — WHITE HOUSE 2025</figcaption>
+  </figure>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">★ EXECUTIVE SUMMARY</div>
+    <p>The United States maintains the world's most powerful military apparatus, with an active force of approximately <strong class="critical">1.34 million personnel</strong> and total force (including reserve/guard) exceeding <strong class="critical">2.1 million</strong>. Defense spending exceeds <strong class="critical">$886 billion annually</strong> — more than the next 10 nations combined. The 2026 National Defense Strategy (NDS) pivots from Biden-era Indo-Pacific primacy toward <strong class="critical">homeland security and Western Hemisphere dominance</strong> as primary objectives, with the Indo-Pacific designated secondary priority. Concurrent nuclear triad modernization at <strong class="critical">$946 billion</strong> over the 2025–2034 decade underscores the commitment to strategic deterrence. Personnel expansion of <strong class="critical">30,000+ troops</strong> in FY2026 signals increased readiness posture under the Trump Administration.</p>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">SERVICE BRANCH STRENGTH (FY2026 AUTHORIZED)</h3>
+  <div class="stat-bars">
+    <div class="stat-item">
+      <span class="stat-label">ARMY</span>
+      <div class="stat-bar"><div class="stat-fill" style="width:34%"></div></div>
+      <span class="stat-val">452,000</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">NAVY</span>
+      <div class="stat-bar"><div class="stat-fill" style="width:25%"></div></div>
+      <span class="stat-val">334,600</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">AIR FORCE</span>
+      <div class="stat-bar"><div class="stat-fill" style="width:25%"></div></div>
+      <span class="stat-val">333,700</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">MARINE CORPS</span>
+      <div class="stat-bar"><div class="stat-fill" style="width:13%"></div></div>
+      <span class="stat-val">175,000</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">SPACE FORCE</span>
+      <div class="stat-bar"><div class="stat-fill" style="width:2%"></div></div>
+      <span class="stat-val">~9,400</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">COAST GUARD</span>
+      <div class="stat-bar"><div class="stat-fill" style="width:3%"></div></div>
+      <span class="stat-val">~43,000</span>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">RESERVE & GUARD COMPONENTS</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Component</th><th>FY2026 Strength</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td>Army National Guard</td><td>335,000</td><td>State militia, dual federal mission</td></tr>
+            <tr><td>Army Reserve</td><td>188,500</td><td>Force multiplier, contingency ops</td></tr>
+            <tr><td>Air National Guard</td><td>108,000</td><td>State-based air operations</td></tr>
+            <tr><td>Air Force Reserve</td><td>70,400</td><td>Air operations, logistics support</td></tr>
+            <tr><td>Naval Reserve</td><td>59,800</td><td>Fleet augmentation</td></tr>
+            <tr><td>Marine Corps Reserve</td><td>38,500</td><td>Expeditionary support, surge capacity</td></tr>
+            <tr><td><strong>TOTAL RESERVE/GUARD</strong></td><td><strong>~772,000</strong></td><td>Total force multiplier</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">DEFENSE BUDGET (FY2026)</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Category</th><th>Amount</th></tr></thead>
+          <tbody>
+            <tr><td>Base DoD Budget</td><td>$886B+ authorized</td></tr>
+            <tr><td>Nuclear Modernization (annual)</td><td>~$94B/year</td></tr>
+            <tr><td>Personnel Expansion (FY2026)</td><td>~$5–6B</td></tr>
+            <tr><td>R&D / Advanced Tech</td><td>~$130B</td></tr>
+            <tr><td>Operations & Maintenance</td><td>~$310B</td></tr>
+            <tr><td>% Federal Discretionary</td><td>~13–14%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-6);color:var(--color-text)">MILITARY MODERNIZATION TIMELINE</h3>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1947 — NATIONAL SECURITY ACT</div>
+      <div class="tl-title">Unification of the Military</div>
+      <div class="tl-desc">Creation of the Department of Defense, Joint Chiefs of Staff, and CIA. Established modern US national security architecture. <a href="https://history.defense.gov/Historical-Sources/National-Security-Act/" target="_blank" rel="noopener">DoD History →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1991 — OPERATION DESERT STORM</div>
+      <div class="tl-title">Validation of AirLand Battle Doctrine</div>
+      <div class="tl-desc">100-hour ground campaign liberated Kuwait, demonstrating transformation to precision-guided munitions and networked joint operations. Coalition forces suffered minimal casualties against numerically superior Iraqi force. <a href="https://history.army.mil/html/books/070/70-117-1/CMH_70-117-1.pdf" target="_blank" rel="noopener">Army History →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2001–2021 — GLOBAL WAR ON TERROR</div>
+      <div class="tl-title">Generation-Long Counterterrorism Operations</div>
+      <div class="tl-desc">Operations in Afghanistan (OEF), Iraq (OIF), Syria, and 80+ nations. Forged the world's most experienced all-volunteer professional military. Produced doctrine for counterinsurgency (FM 3-24), SOF-centric operations, and persistent ISR. <a href="https://www.defense.gov/Explore/Features/story/Article/2017405/20-years-after-9-11-a-look-at-the-military-then-and-now/" target="_blank" rel="noopener">DoD →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2018 — NATIONAL DEFENSE STRATEGY</div>
+      <div class="tl-title">Pivot to Great Power Competition</div>
+      <div class="tl-desc">Mattis NDS officially shifted US military focus from counterterrorism to China and Russia as "pacing threat" and "acute threat" respectively. Launched major procurement programs: B-21 Raider, Columbia-class SSBN, Sentinel ICBM. <a href="https://dod.defense.gov/Portals/1/Documents/pubs/2018-National-Defense-Strategy-Summary.pdf" target="_blank" rel="noopener">DoD NDS 2018 →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2019 — SPACE FORCE ESTABLISHED</div>
+      <div class="tl-title">Sixth Branch of the Armed Forces</div>
+      <div class="tl-desc">United States Space Force created as the first new military branch since 1947, recognizing space as a warfighting domain. Assumed USAF Space Command missions, satellite operations, and space launch capabilities. <a href="https://www.spaceforce.mil/About-Us/About-Space-Force/History/" target="_blank" rel="noopener">Space Force →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024–2025 — OPERATION EPIC FURY</div>
+      <div class="tl-title">Red Sea Combat Operations vs. Houthis</div>
+      <div class="tl-desc">US Navy deployed two carrier strike groups (USS Gerald R. Ford CVN-78, USS Abraham Lincoln CVN-72) for sustained Red Sea operations against Houthi missile/drone threats. Demonstrated evolving distributed CSG doctrine. <a href="https://www.defense.gov/Explore/News/Article/Article/3648753/" target="_blank" rel="noopener">DoD →</a></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2025 — FY2026 NDS RELEASE</div>
+      <div class="tl-title">Trump NDS: Western Hemisphere + Homeland Primary</div>
+      <div class="tl-desc">December 2025 NDS pivots strategy to homeland defense and Western Hemisphere as <em>primary</em> objectives, with Indo-Pacific as secondary priority. 30,000+ personnel expansion authorized. NATO commitment re-evaluated with spending thresholds. <a href="https://www.defense.gov/News/Releases/Release/Article/3901793/department-of-defense-releases-the-2025-national-defense-strategy/" target="_blank" rel="noopener">DoD →</a></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 03 — GROUND FORCE (U.S. ARMY)                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-ground">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 03</div>
+    <h2 class="section-title"><span class="section-num">03 //</span> U.S. Army & Ground Forces</h2>
+    <div class="section-title-line"></div>
+    <p class="section-desc">The U.S. Army maintains 454,000 active duty personnel organized into ~10 active divisions and 16 Armored Brigade Combat Teams (ABCTs). The force emphasizes modular, combined-arms BCTs capable of rapid global deployment. Current modernization prioritizes next-generation vehicles, long-range precision fires, and multi-domain operations against near-peer adversaries.</p>
+  </div>
+
+  <div class="equip-grid">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">MAIN BATTLE TANK</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3458269d61b9abddb3aca5a798afd11e8a5558e1.jpg" alt="M1A2 SEPv3 Abrams Main Battle Tank" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'M1A2 SEPv3 Abrams — U.S. Army primary main battle tank. Third-generation composite armor with TUSK urban kit.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">M1A2 SEPv3 Abrams</div>
+        <div class="equip-desc">Third-generation main battle tank with composite Chobham/depleted uranium armor, 120mm smoothbore cannon, and advanced networked battlefield management systems. SEPv3 variant adds improved power systems, Trophy Active Protection System compatibility, and enhanced situational awareness.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">~4,600 total (all variants)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Main Gun</span><span class="equip-spec-val">120mm M256 smoothbore</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Crew</span><span class="equip-spec-val">4 (Commander, Gunner, Loader, Driver)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Combat Weight</span><span class="equip-spec-val">73.6 tons</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">67 km/h (road)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Next-Gen</span><span class="equip-spec-val">M1E3 — 4 prototypes operational 2026</span></div>
+        </div>
+        <a href="https://www.army.mil/article/264069/abrams_tank" target="_blank" rel="noopener" class="equip-link">U.S. Army Official <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">PRECISION FIRE SYSTEM</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/8c65000bab56b97f5e758fa79f477ba00b1118a5.jpg" alt="HIMARS High Mobility Artillery Rocket System firing" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'M142 HIMARS — U.S. Army primary precision multiple-launch rocket system. Combat-proven in Ukraine, 300+km range.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">M142 HIMARS</div>
+        <div class="equip-desc">High Mobility Artillery Rocket System mounted on a 5-ton wheeled truck, providing C-130 transportable precision fires. Fires GMLRS rockets (70km), ATACMS missiles (300km), and the new PrSM (499km+). Combat-proven extensively in Ukraine and Operation Epic Fury against Houthi infrastructure.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">400+ (US Army + USMC)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Max Range</span><span class="equip-spec-val">499+ km (PrSM)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Payload</span><span class="equip-spec-val">6x GMLRS or 1x ATACMS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">&lt;5 meters (GMLRS)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Platform</span><span class="equip-spec-val">FMTV 5-ton wheeled truck</span></div>
+        </div>
+        <a href="https://missilethreat.csis.org/system/himars/" target="_blank" rel="noopener" class="equip-link">CSIS Missile Threat <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">SPECIAL FORCES</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/65dd1b1d097fa1cfeeaf108d1c4d372853054bff.jpg" alt="US Army Special Forces Green Berets training exercise" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'U.S. Army Special Forces — Green Berets conducting close-quarters battle training. 10,000 personnel in 5 Groups worldwide.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Army Special Forces (Green Berets)</div>
+        <div class="equip-desc">The 1st through 20th Special Forces Groups provide the U.S. military's primary unconventional warfare, foreign internal defense, and direct action capability. Organized into 12-man A-Teams (Operational Detachment Alpha), Green Berets operate across all geographic combatant commands with regional language and cultural expertise.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Strength</span><span class="equip-spec-val">~10,000 personnel, 5 active groups</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Primary Mission</span><span class="equip-spec-val">UW, FID, DA, SR, COIN</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Team Structure</span><span class="equip-spec-val">12-man ODA (A-Team)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Selection</span><span class="equip-spec-val">SFAS + Q-Course (12+ months)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Deployment</span><span class="equip-spec-val">Active in 60+ countries simultaneously</span></div>
+        </div>
+        <a href="https://www.soc.mil/USASFC/USASFC.html" target="_blank" rel="noopener" class="equip-link">USASFC Official <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">GROUND FORCE EQUIPMENT INVENTORY</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Platform</th><th>Inventory</th><th>Role</th><th>Status</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>M1A2 Abrams (all variants)</td><td>~4,600</td><td>Main Battle Tank</td><td>Operational; M1E3 prototypes in 2026</td><td><a href="https://www.globalfirepower.com/country-military-strength-detail.php?country_id=united-states-of-america" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>M2 Bradley IFV</td><td>~2,100</td><td>Infantry Fighting Vehicle</td><td>Operational; XM30 replacement in development</td><td><a href="https://www.army.mil/article/246037" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>AMPV (Armored Multi-Purpose Vehicle)</td><td>Fielding 2025–26</td><td>M113 Replacement</td><td>Production; multiple variants (medical, command, ammo)</td><td><a href="https://www.army.mil/article/250478" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>JLTV (Joint Light Tactical Vehicle)</td><td>10,000+ ordered</td><td>Light Protected Mobility</td><td>Active production; replacing Humvee</td><td><a href="https://asc.army.mil/web/portfolio-item/cs-css-joint-light-tactical-vehicle-jltv/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>M109A7 Paladin SPH</td><td>~2,000</td><td>Self-Propelled Howitzer (155mm)</td><td>Operational; 24km range, primary indirect fire</td><td><a href="https://www.army.mil/article/261013" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>M142 HIMARS</td><td>400+</td><td>Mobile Precision Fires</td><td>Operational; 70–499km range</td><td><a href="https://missilethreat.csis.org/system/himars/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>M270 MLRS</td><td>~600</td><td>Multiple Launch Rocket System</td><td>Operational; 300+km range</td><td><a href="https://missilethreat.csis.org/system/m270-mlrs/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Patriot (PAC-3 MSE)</td><td>~300 batteries</td><td>Theater Ballistic Missile Defense</td><td>Operational; deployed globally</td><td><a href="https://missilethreat.csis.org/system/patriot/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>THAAD</td><td>7 batteries</td><td>High-Altitude Area Defense</td><td>Operational; deployed CONUS, Guam, Korea, Middle East</td><td><a href="https://missilethreat.csis.org/system/thaad/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>UH-60 Black Hawk</td><td>~2,500</td><td>Utility Helicopter</td><td>Operational; primary medium-lift, all variants</td><td><a href="https://www.army.mil/article/246088" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>AH-64E Apache Guardian</td><td>~800</td><td>Attack Helicopter</td><td>Operational; Longbow radar, Hellfire/Stinger</td><td><a href="https://www.army.mil/apache" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>CH-47F Chinook</td><td>~450</td><td>Heavy-Lift Helicopter</td><td>Operational; 10-ton sling load capacity</td><td><a href="https://www.army.mil/chinook" target="_blank" rel="noopener">→</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="intel-alert intel-alert-warn">
+    <div class="intel-alert-head">⚠ ARMY MODERNIZATION ASSESSMENT</div>
+    <p>The U.S. Army maintains unmatched conventional superiority with advanced combined-arms capability. However, the transition to next-generation vehicles (M1E3 Abrams, XM30 IFV, AMPV) involves complex procurement timelines extending into the 2030s. The <strong class="critical">Next Generation Combat Vehicle (NGCV)</strong> program and long-range precision fires (PrSM, ERCA) are the highest-priority modernization investments for peer competition. Challenges include contested logistics in potential Pacific/European great power conflicts and THAAD battery allocation across multiple simultaneous crisis zones.</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 04 — U.S. NAVY                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-navy">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 04</div>
+    <h2 class="section-title"><span class="section-num">04 //</span> U.S. Navy</h2>
+    <div class="section-title-line"></div>
+    <p class="section-desc">The United States Navy operates 334,600 active duty personnel and ~295 deployable battle force ships. Anchored by 13 aircraft carriers (11 Nimitz-class + 2 Gerald R. Ford-class), the Navy maintains 11 carrier strike groups providing global power projection. Naval strategy increasingly emphasizes distributed maritime operations, submarine deterrence, and the emerging "Distributed Lethality" concept.</p>
+  </div>
+
+  <figure class="inline-img">
+    <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/59fab0b5b0d6657639e7d4f4c90162580bd43d09.jpg" alt="USS Gerald R Ford CVN-78 aircraft carrier at sea" width="1350" height="1080" loading="lazy" onclick="openLightbox(this.src,'USS Gerald R. Ford (CVN-78) — Lead ship of the Ford-class, commissioned 2017. Advanced electromagnetic aircraft launch system (EALS), 110,000 tons. Currently deployed Red Sea (Op Epic Fury).')">
+    <figcaption>USS GERALD R. FORD (CVN-78) — FORD-CLASS NUCLEAR CARRIER // OPERATION EPIC FURY DEPLOYMENT 2025–2026</figcaption>
+  </figure>
+
+  <div class="equip-grid">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">AIRCRAFT CARRIER</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/098cff9b954b26cbd453f1d46d3d4081ab5b417c.jpg" alt="USS Nimitz aircraft carrier flight operations South China Sea" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Nimitz-class carrier — 11 ships of this class remain the backbone of US carrier power. 101,500 tons, 65-70 aircraft per wing.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Nimitz-class CVN</div>
+        <div class="equip-desc">11 nuclear-powered supercarriers forming the backbone of US naval aviation. Each ship carries a carrier air wing of 65–70 aircraft across a 4.5-acre flight deck. Powered by two nuclear reactors providing unlimited range. Capable of sustained operations for 20+ years between refueling.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">11 in active service</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">101,500 tons full load</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Air Wing</span><span class="equip-spec-val">65–70 aircraft (F/A-18, EA-18G, E-2D, MH-60)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">30+ knots</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Crew</span><span class="equip-spec-val">~5,000 (ship + air wing)</span></div>
+        </div>
+        <a href="https://www.navy.mil/Resources/Fact-Files/Display-FactFiles/Article/2169779/aircraft-carriers-cvn/" target="_blank" rel="noopener" class="equip-link">US Navy Official <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">SSBN — NUCLEAR DETERRENT</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/b7694d1e92fc555b4631018691751d2e1258e10a.jpg" alt="Ohio class SSBN ballistic missile submarine surfacing" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Ohio-class SSBN — 14 boats, each carrying 24 Trident II D5 SLBMs. Cornerstone of survivable nuclear deterrence with continuous at-sea patrol posture.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Ohio-class SSBN</div>
+        <div class="equip-desc">14 ballistic missile submarines forming the sea-based leg of the nuclear triad — the most survivable strategic deterrent in existence. Each boat carries 24 Trident II D5 missiles with a range of 7,400+ km. Continuous at-sea patrols ensure 8–10 boats on alert at any given moment, guaranteeing assured second-strike.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">14 operational SSBNs</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Missiles</span><span class="equip-spec-val">24x Trident II D5 SLBMs each</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Range</span><span class="equip-spec-val">7,400+ km (Trident II)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">CEP</span><span class="equip-spec-val">&lt;90 meters</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Replacement</span><span class="equip-spec-val">Columbia-class (12 planned, 2030+)</span></div>
+        </div>
+        <a href="https://www.navy.mil/Resources/Fact-Files/Display-FactFiles/Article/2169735/ohio-class-submarines/" target="_blank" rel="noopener" class="equip-link">US Navy Official <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">ATTACK SUBMARINE</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/8df58014ec7837db00ed9af271f3a9dac4ec2f54.jpg" alt="Virginia class attack submarine at sea" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Virginia-class SSN — Primary US attack submarine, 65+ boats in service. Block V variant carries 40 Tomahawk missiles in Virginia Payload Module.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Virginia-class SSN</div>
+        <div class="equip-desc">The Virginia-class is the U.S. Navy's primary fast attack submarine, optimized for multi-mission operations in contested littoral and open-ocean environments. Block V variants feature the Virginia Payload Module (VPM) adding 40 additional Tomahawk cruise missile tubes, dramatically increasing strike capacity. Also serves as AUKUS technology baseline for Australia.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">65+ boats (production ongoing)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">25+ knots submerged</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Weapons</span><span class="equip-spec-val">Tomahawk, ADCAP torpedo, Harpoon</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Block V VPM</span><span class="equip-spec-val">+40 Tomahawk capacity</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Crew</span><span class="equip-spec-val">~135</span></div>
+        </div>
+        <a href="https://www.navy.mil/Resources/Fact-Files/Display-FactFiles/Article/2169687/submarine-force/" target="_blank" rel="noopener" class="equip-link">US Navy Official <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">GUIDED MISSILE DESTROYER</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/23760c47b1dbba0b383ed1e0ef4ab700ecc817e3.jpg" alt="Arleigh Burke class destroyer DDG-134" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'Arleigh Burke-class DDG — 65+ ships, the backbone of US surface warfare. 96-cell VLS, AN/SPY-1D phased array radar, capable of ballistic missile defense.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">Arleigh Burke-class DDG</div>
+        <div class="equip-desc">The world's most capable multi-mission surface combatant. The 65+ ship Arleigh Burke fleet forms the backbone of every carrier strike group and surface action group. Equipped with 96-cell Mk 41 VLS (Tomahawk, SM-2/3/6 missiles) and the AN/SPY-1D phased array radar providing theater ballistic missile defense. Continuously upgraded through Flight IIA and III variants.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Quantity</span><span class="equip-spec-val">65+ ships (more under construction)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">VLS Cells</span><span class="equip-spec-val">96 Mk 41 cells</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Radar</span><span class="equip-spec-val">AN/SPY-1D / SPY-6 (Flight III)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">30+ knots</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Displacement</span><span class="equip-spec-val">9,200 tons full load</span></div>
+        </div>
+        <a href="https://www.navsea.navy.mil/Home/Ship-Building/Programs/DDG-51-Arleigh-Burke/" target="_blank" rel="noopener" class="equip-link">NavSea Official <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">FLEET ORDER OF BATTLE (MARCH 2026)</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Class/Type</th><th>Hull Type</th><th>Qty</th><th>Key Capability</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>Nimitz-class</td><td>CVN</td><td>11</td><td>Nuclear carrier, 65-70 aircraft, 4.5-acre deck</td><td><a href="https://www.navy.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Gerald R. Ford-class</td><td>CVN</td><td>2 (CVN-78 & CVN-79)</td><td>Advanced EALS launch, enhanced power, reduced crew</td><td><a href="https://www.navsea.navy.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Ohio-class</td><td>SSBN</td><td>14</td><td>24x Trident II D5, continuous at-sea deterrence</td><td><a href="https://fas.org/issues/nuclear-weapons/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Virginia-class</td><td>SSN</td><td>65+ (construction ongoing)</td><td>Multi-mission, Block V VPM +40 Tomahawk</td><td><a href="https://www.navy.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Los Angeles-class</td><td>SSN</td><td>~30 (phasing out)</td><td>Legacy fast attack, being retired as Virginias deliver</td><td><a href="https://www.navy.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Columbia-class</td><td>SSBN</td><td>In development (12 planned)</td><td>Ohio replacement, 2030+ deployment, enhanced stealth</td><td><a href="https://www.navsea.navy.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Ticonderoga-class</td><td>CG</td><td>~22</td><td>Advanced air defense, 122 VLS, theater BMD</td><td><a href="https://www.navy.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Arleigh Burke-class</td><td>DDG</td><td>65+ (more in production)</td><td>Multi-mission, 96 VLS, Aegis BMD</td><td><a href="https://www.navsea.navy.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Zumwalt-class</td><td>DDG</td><td>3</td><td>Stealth design, EMRG experimental, hypersonics planned</td><td><a href="https://www.navsea.navy.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Constellation-class</td><td>FFG</td><td>In production (20 planned)</td><td>Next-gen frigate, ASW specialist, advanced modularity</td><td><a href="https://www.navsea.navy.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>America/Wasp-class</td><td>LHA/LHD</td><td>10 amphibious assault ships</td><td>F-35B/VSTOL carrier, MEU transport, 3,000 Marines</td><td><a href="https://www.navy.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>San Antonio-class</td><td>LPD</td><td>12</td><td>Amphibious transport dock, MEU support</td><td><a href="https://www.navy.mil" target="_blank" rel="noopener">→</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 05 — AIR FORCE                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-airforce">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 05</div>
+    <h2 class="section-title"><span class="section-num">05 //</span> U.S. Air Force</h2>
+    <div class="section-title-line"></div>
+    <p class="section-desc">The USAF operates the world's largest and most advanced air arm — 5,004+ total aircraft including 3,120+ combat aircraft. The force emphasizes fifth-generation dominance (F-22 Raptor, F-35A Lightning II), strategic bombing depth (B-52H, B-2A Spirit, B-21 Raider), and unmatched global airlift/aerial refueling capacity enabling worldwide power projection within 72 hours.</p>
+  </div>
+
+  <div class="equip-grid">
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">5TH-GEN FIGHTER</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/F-22_Raptor_edit1_%28cropped%29.jpg" alt="F-22 Raptor stealth air superiority fighter USAF" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'F-22A Raptor — USAF primary air superiority fighter. Supercruise capability, thrust vectoring, advanced AESA radar. Unmatched in air-to-air combat. 183 operational.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">F-22A Raptor</div>
+        <div class="equip-desc">The world's premier air superiority fighter, combining stealth, supercruise (supersonic flight without afterburner), thrust-vectoring maneuverability, and advanced AN/APG-77 AESA radar. Despite limited production (183 aircraft), the F-22 remains qualitatively unmatched in beyond-visual-range and within-visual-range combat. Deployed to Kadena (Japan) and other Indo-Pacific bases.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">183 operational</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 2.25 (Mach 1.82 supercruise)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">RCS</span><span class="equip-spec-val">&lt;0.0001 m² (estimated)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Weapons (A-A)</span><span class="equip-spec-val">AIM-120D AMRAAM, AIM-9X Sidewinder</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Weapons (A-G)</span><span class="equip-spec-val">2x GBU-32 JDAM, 8x GBU-39 SDB</span></div>
+        </div>
+        <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104505/f-22a-raptor/" target="_blank" rel="noopener" class="equip-link">USAF Fact Sheet <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">5TH-GEN MULTIROLE</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/F-35A_flight_%28cropped%29.jpg" alt="F-35A Lightning II stealth multirole fighter" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'F-35A Lightning II — Primary USAF multirole stealth fighter. 500+ delivered, 1,454 on order. Combines stealth, sensor fusion, and strike capability.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">F-35A Lightning II</div>
+        <div class="equip-desc">The cornerstone of USAF modernization — a stealthy, sensor-fused multirole fighter replacing the F-16 fleet. The F-35A combines low observability, advanced electronic warfare (AN/ASQ-239 suite), and the Distributed Aperture System (DAS) providing 360° situational awareness. More than 500 delivered to USAF, with 1,454 on order. Also operated by 15+ allies globally.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Inventory</span><span class="equip-spec-val">500+ delivered; 1,454 on order</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Speed</span><span class="equip-spec-val">Mach 1.6</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Radius</span><span class="equip-spec-val">1,093 km (combat)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Key Sensors</span><span class="equip-spec-val">APG-81 AESA, DAS, EOTS</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Variants</span><span class="equip-spec-val">F-35A (USAF), F-35B (USMC VSTOL), F-35C (USN carrier)</span></div>
+        </div>
+        <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/478441/f-35a-lightning-ii/" target="_blank" rel="noopener" class="equip-link">USAF Fact Sheet <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+
+    <div class="equip-card">
+      <div class="equip-img-wrap">
+        <span class="equip-badge">NEXT-GEN STEALTH BOMBER</span>
+        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1b2bacc2974706e3c54c8e560efaf193089e0a72.jpg" alt="B-21 Raider stealth bomber landing" width="400" height="250" loading="lazy" onclick="openLightbox(this.src,'B-21 Raider — Next-generation stealth strategic bomber from Northrop Grumman. 100+ planned. First flight December 2023. Production ramping at Palmdale, CA.')">
+      </div>
+      <div class="equip-body">
+        <div class="equip-name">B-21 Raider</div>
+        <div class="equip-desc">America's next-generation strategic stealth bomber, designed to penetrate advanced integrated air defense systems (IADS) deep into contested airspace. The B-21 replaces the B-1B and B-2A fleets, combining advanced low-observable technology, open-mission systems architecture, and nuclear/conventional dual capability. First flight December 2023; production ramping at Palmdale, CA. 100+ planned.</div>
+        <div class="equip-specs">
+          <div class="equip-spec"><span class="equip-spec-key">Status</span><span class="equip-spec-val">In production; 100+ planned</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Design</span><span class="equip-spec-val">Flying wing, low-observable</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Capability</span><span class="equip-spec-val">Nuclear + conventional, global reach</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Architecture</span><span class="equip-spec-val">Open Mission Systems (upgradeable)</span></div>
+          <div class="equip-spec"><span class="equip-spec-key">Bases</span><span class="equip-spec-val">Ellsworth AFB (primary), B-52 bases to follow</span></div>
+        </div>
+        <a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/3312458/b-21-raider/" target="_blank" rel="noopener" class="equip-link">USAF Fact Sheet <i data-lucide="external-link" style="width:12px;height:12px"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">AIRCRAFT INVENTORY (ACTIVE FORCE)</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Aircraft</th><th>Qty (Active)</th><th>Role</th><th>Primary Weapon/Capability</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>F-35A Lightning II</td><td>500+</td><td>5th-gen multirole stealth fighter</td><td>JDAM, AIM-120D, SDB II, nuclear capable (B61-12)</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/478441/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>F-22A Raptor</td><td>183</td><td>5th-gen air superiority</td><td>AIM-120D AMRAAM, AIM-9X, GBU-32 JDAM</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104505/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>F-16C/D Fighting Falcon</td><td>~900</td><td>4th-gen multirole fighter</td><td>AMRAAM, HARM, AGM-65 Maverick, JDAM</td><td><a href="https://www.af.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>F-15E Strike Eagle</td><td>~220</td><td>4th-gen deep strike</td><td>JASSM-ER, JDAM, AIM-120D; 23,000 lb payload</td><td><a href="https://www.af.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>F-15EX Eagle II</td><td>140+ on order</td><td>4th-gen advanced air superiority</td><td>12x air-to-air missiles, advanced EW suite (EPAWSS)</td><td><a href="https://www.af.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>A-10C Thunderbolt II</td><td>~280</td><td>Ground attack / CAS</td><td>GAU-8 30mm cannon, Maverick, JDAM</td><td><a href="https://www.af.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>B-52H Stratofortress</td><td>76</td><td>Strategic bomber (nuclear + conventional)</td><td>JASSM-ER (20+), CALCM, B61/B83 gravity bombs, Hypersonic</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104465/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>B-2A Spirit</td><td>19</td><td>Stealth strategic bomber</td><td>B61-12, B83, JDAM, JASSM; penetrating strike</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104465/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>B-21 Raider</td><td>In production (100+ planned)</td><td>Next-gen stealth bomber</td><td>Full spectrum nuclear/conventional, classified payloads</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/3312458/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>B-1B Lancer</td><td>45</td><td>Supersonic conventional bomber</td><td>JASSM-ER, JDAM; being replaced by B-21</td><td><a href="https://www.af.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>C-17A Globemaster III</td><td>~223</td><td>Strategic airlift</td><td>77-ton payload, intercontinental heavy lift</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104515/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>C-130J Hercules</td><td>~500</td><td>Tactical transport</td><td>Primary tactical airlift workhorse, global reach</td><td><a href="https://www.af.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>KC-135 Stratotanker</td><td>~400</td><td>Aerial refueling</td><td>Extends range of entire USAF/allied aircraft inventory</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104526/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>KC-46A Pegasus</td><td>100+ delivered</td><td>Next-gen aerial refueling</td><td>KC-135 replacement; boom + drogue; 212,000 lb fuel</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/478441/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>MQ-9 Reaper</td><td>~300+</td><td>UCAV / persistent ISR</td><td>Hellfire, GBU-12, 27+ hour endurance</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104470/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>RQ-4B Global Hawk</td><td>~50</td><td>High-alt ISR</td><td>Multi-intelligence (SIGINT, IMINT), 32+ hour endurance</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/104516/" target="_blank" rel="noopener">→</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 06 — MISSILE ARSENAL                            -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-rocket">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 06</div>
+    <h2 class="section-title"><span class="section-num">06 //</span> Missile Arsenal</h2>
+    <div class="section-title-line"></div>
+    <p class="section-desc">The United States maintains the most diverse and capable missile arsenal in the world, spanning tactical precision fires through intercontinental ballistic missiles. Ongoing development of hypersonic weapons (ARRW, LRHW, CPS) is a primary modernization priority for 2025–2030 across all services.</p>
+  </div>
+
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Missile / System</th><th>Type</th><th>Range</th><th>Platform</th><th>Inventory / Status</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>BGM-109 Tomahawk (Block V)</td><td>Land-attack cruise missile</td><td>1,600+ km</td><td>Navy ships/subs, some Air Force platforms</td><td>4,000+; Block V adds anti-ship capability</td><td><a href="https://missilethreat.csis.org/missile/tomahawk/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>AGM-158B/C JASSM-ER/XR</td><td>Air-launched cruise missile (stealthy)</td><td>925km (ER); 1,800km+ (XR)</td><td>B-52H, F-15E, F-35, B-21</td><td>3,000+; primary standoff strike</td><td><a href="https://missilethreat.csis.org/missile/jassm-er/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>AIM-120D AMRAAM</td><td>Beyond-visual-range air-to-air</td><td>180+ km</td><td>F-22, F-35, F-15, F-16</td><td>16,000+; primary air combat missile</td><td><a href="https://missilethreat.csis.org/missile/aim-120-amraam/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>AIM-9X Sidewinder Block II</td><td>Short-range air-to-air</td><td>35 km</td><td>All fighters/helicopters</td><td>Primary WVR air-to-air; off-boresight capable</td><td><a href="https://missilethreat.csis.org/missile/aim-9-sidewinder/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>AIM-174B Sea Viper</td><td>Extended-range air-to-air</td><td>400+ km</td><td>F/A-18E/F Super Hornet</td><td>SM-6 missile repurposed; 2025 combat debut</td><td><a href="https://www.thedrive.com/the-war-zone/aim-174b" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>SM-6 (RIM-174)</td><td>Ballistic missile defense / anti-ship</td><td>370+ km</td><td>DDG-51, CG-47 VLS</td><td>Primary dual-use: AMD + anti-ship targeting</td><td><a href="https://missilethreat.csis.org/system/sm-6/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>SM-3 Block IIA</td><td>Ballistic missile defense</td><td>Exoatmospheric</td><td>Aegis DDG/CG; Aegis Ashore</td><td>ICBM-class intercept capable (tested 2020)</td><td><a href="https://missilethreat.csis.org/system/sm-3/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>PrSM (Precision Strike Missile)</td><td>Ground-launched ballistic</td><td>499+ km (Increment 2: 1,000+km)</td><td>M142 HIMARS, M270 MLRS</td><td>Entering service 2025; China-focused</td><td><a href="https://missilethreat.csis.org/missile/precision-strike-missile/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>ATACMS (M39/M39A1)</td><td>Ground-launched ballistic</td><td>165–300 km</td><td>HIMARS, MLRS</td><td>Active; combat-proven in Ukraine/Red Sea ops</td><td><a href="https://missilethreat.csis.org/missile/atacms/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>AGM-183A ARRW</td><td>Air-launched hypersonic boost-glide</td><td>~1,600 km</td><td>B-52H</td><td>Full-rate production decision 2025; Mach 20</td><td><a href="https://missilethreat.csis.org/missile/arrw/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>LRHW Dark Eagle</td><td>Ground-launched hypersonic</td><td>2,700+ km</td><td>Army ground-based launcher</td><td>First batteries 2025–26; Pacific deployment</td><td><a href="https://missilethreat.csis.org/missile/dark-eagle/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>CPS (Conventional Prompt Strike)</td><td>Sea-launched hypersonic</td><td>Global</td><td>Virginia Block VI SSN, Zumwalt DDG</td><td>Conventional-only hypersonic; 2028 IOC</td><td><a href="https://missilethreat.csis.org/missile/conventional-prompt-strike/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Minuteman III ICBM</td><td>Intercontinental ballistic (nuclear)</td><td>13,000+ km</td><td>Underground silos (450 deployed)</td><td>450 deployed; Sentinel ICBM replaces 2030+</td><td><a href="https://missilethreat.csis.org/missile/lg-118a-peacekeeper/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>LGM-35A Sentinel</td><td>Next-gen ICBM (nuclear)</td><td>13,000+ km</td><td>Silos replacing Minuteman III</td><td>Development; IOC ~2029–2030; $125B program</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/2842726/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Trident II D5 SLBM</td><td>Submarine-launched ballistic (nuclear)</td><td>7,400+ km</td><td>Ohio-class SSBN (14 boats)</td><td>24 per boat × 14 boats; CEP &lt;90m</td><td><a href="https://missilethreat.csis.org/missile/trident-ii/" target="_blank" rel="noopener">→</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="intel-alert intel-alert-warn">
+    <div class="intel-alert-head">⚡ HYPERSONIC WEAPONS RACE — STATUS 2026</div>
+    <p>The U.S. has accelerated hypersonic weapon programs after initially falling behind China and Russia. The <strong class="critical">AGM-183A ARRW</strong> reached full-rate production decision in 2025, providing B-52H bombers a Mach 20+ strike capability. The Army's <strong class="critical">LRHW "Dark Eagle"</strong> batteries are deploying to the Pacific, directly countering China's DF-series ballistic missiles and filling the range gap created by the INF Treaty's collapse. The Navy's <strong class="critical">Conventional Prompt Strike (CPS)</strong> system for Virginia and Zumwalt-class hulls has an IOC of ~2028. These systems collectively close the hypersonic gap with China's arsenal within the next 24–36 months.</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 07 — NUCLEAR POSTURE                            -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-nuclear">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 07</div>
+    <h2 class="section-title"><span class="section-num">07 //</span> Nuclear Posture & Triad</h2>
+    <div class="section-title-line"></div>
+    <p class="section-desc">The United States maintains a nuclear arsenal of approximately 5,177 total warheads, with ~1,700 deployed on the strategic nuclear triad. A $946 billion modernization program over 2025–2034 is replacing all three legs of the triad simultaneously — a historically unprecedented undertaking.</p>
+  </div>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">☢ NUCLEAR FORCE OVERVIEW — MARCH 2026</div>
+    <p>Total arsenal: <strong class="critical">~5,177 warheads</strong> (FAS estimate, 2025). Deployed strategic: ~1,419. Deployed non-strategic: ~100 B61-3/4 bombs in Europe (NATO Nuclear Sharing). Reserve/awaiting dismantlement: ~3,618. New NPR guidance (2025 Trump NPR revision) emphasizes <strong class="critical">flexible response options</strong> and the resumption of low-yield nuclear weapons testing consideration. The 2025 NPR explicitly names China as a near-peer nuclear competitor, establishing a <strong class="critical">2-peer planning baseline</strong> requiring simultaneous deterrence of Russia and China — a first in US nuclear history.</p>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">NUCLEAR TRIAD — ALL THREE LEGS</h3>
+  <div class="triad-grid">
+    <div class="triad-card">
+      <div class="triad-leg">LEG 1 — ICBM (GROUND)</div>
+      <div class="triad-system">Minuteman III / Sentinel</div>
+      <div class="triad-detail">450 Minuteman III ICBMs in hardened silos across Wyoming, North Dakota, and Montana. Each armed with up to 3 W78 or W87 reentry vehicles (MIRV capable). 30-min flight time to Russia. Being replaced by LGM-35A Sentinel (~2029 IOC), a $125 billion program providing increased accuracy, reliability, and survivability.<br><br><strong>Key stats:</strong> 450 deployed silos | Range: 13,000+ km | W78 (335kt) or W87 (300kt) warheads | CEP ~90m</div>
+    </div>
+    <div class="triad-card">
+      <div class="triad-leg">LEG 2 — SLBM (SEA)</div>
+      <div class="triad-system">Ohio-class SSBN + Trident II D5</div>
+      <div class="triad-detail">14 Ohio-class SSBNs provide the most survivable leg. 8-10 boats at sea on alert at any given time. Each carries 24 Trident II D5 missiles with up to 8 W76-1 or W88 warheads (MIRV). Post-START ceilings limit to 24 missiles per boat. Columbia-class (12 planned) will replace Ohio beginning ~2031.<br><br><strong>Key stats:</strong> 14 SSBNs | 24 missiles each | Range: 7,400+ km | W76-1 (100kt) or W88 (475kt) | CEP &lt;90m</div>
+    </div>
+    <div class="triad-card">
+      <div class="triad-leg">LEG 3 — NUCLEAR BOMBER</div>
+      <div class="triad-system">B-52H + B-2A + B-21 Raider</div>
+      <div class="triad-detail">76x B-52H (with B61-12, B83, ALCM, JASSM-ER) + 19x B-2A Spirit (penetrating strike) + B-21 Raider entering service. The B61-12 tail-kit converts legacy gravity bombs into precision nuclear weapons. B-21 replaces B-2 and B-1B fleet with vastly improved survivability against modern IADS.<br><br><strong>Key stats:</strong> 76 B-52H + 19 B-2A + B-21 (100+ planned) | B61-12 (50kt dial-a-yield) | ALCM (200kt, 2,500km)</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">NUCLEAR MODERNIZATION PROGRAMS 2025–2034</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Program</th><th>Cost (10yr)</th><th>IOC</th><th>Purpose</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>LGM-35A Sentinel ICBM</td><td>~$125B</td><td>~2029–2030</td><td>Replace aging Minuteman III with advanced solid-fuel ICBM</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/2842726/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Columbia-class SSBN</td><td>~$110B (12 boats)</td><td>~2031 (USS Columbia)</td><td>Replace Ohio-class; advanced stealth, electric drive</td><td><a href="https://www.navsea.navy.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>B-21 Raider Bomber</td><td>~$80B+</td><td>Entering service 2025</td><td>Replace B-2A/B-1B; global penetrating strike</td><td><a href="https://www.af.mil/About-Us/Fact-Sheets/Display/Article/3312458/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>W93 Warhead</td><td>~$18B</td><td>~2030</td><td>New SLBM warhead (also serves UK); Navy sea leg upgrade</td><td><a href="https://www.energy.gov/nnsa" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>B61-12 Nuclear Bomb</td><td>~$13B</td><td>Deployed 2022–ongoing</td><td>Guided nuclear bomb; replaced B61-3/4/7/10 variants</td><td><a href="https://www.energy.gov/nnsa" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>LRSO (Air-Launched Cruise Missile)</td><td>~$30B</td><td>~2030</td><td>Replace aging AGM-86B ALCM on B-52H</td><td><a href="https://www.af.mil" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Nuclear Command/Control/Communications</td><td>~$50B</td><td>Ongoing</td><td>NC3 upgrade; secure comms, EHF satellite system</td><td><a href="https://www.defense.gov/Explore/Features/story/Article/2903591/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td><strong>TOTAL MODERNIZATION</strong></td><td><strong>~$946B (2025–2034)</strong></td><td>—</td><td>Entire triad + warheads + NC3 simultaneously</td><td><a href="https://www.cbo.gov/publication/60449" target="_blank" rel="noopener">CBO →</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 08 — SPECIAL OPERATIONS FORCES                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-special">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 08</div>
+    <h2 class="section-title"><span class="section-num">08 //</span> Special Operations Forces</h2>
+    <div class="section-title-line"></div>
+    <p class="section-desc">U.S. Special Operations Command (USSOCOM) headquartered at MacDill AFB, Florida oversees approximately 70,000 Special Operations Forces deployed across 70+ countries simultaneously. SOF provides the U.S. an unmatched capability for direct action, counterterrorism, unconventional warfare, and influence operations.</p>
+  </div>
+
+  <figure class="inline-img">
+    <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/193ada37b0530fab35f03bf12b9fa75e35ff5ba4.jpg" alt="US Special Operations Forces soldiers silhouetted at night" width="1500" height="1000" loading="lazy" onclick="openLightbox(this.src,'U.S. Special Operations Forces — Operators with advanced night-vision gear. 70,000 SOF personnel deployed across 70+ countries at any given time (USSOCOM).')">
+    <figcaption>U.S. SPECIAL OPERATIONS FORCES — 70,000 PERSONNEL DEPLOYED ACROSS 70+ NATIONS SIMULTANEOUSLY</figcaption>
+  </figure>
+
+  <div class="doctrine-grid">
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">ARMY — JSOC TIER 1</div>
+      <div class="doctrine-card-title">Delta Force (1st SFOD-D)</div>
+      <div class="doctrine-card-body">The U.S. Army's most elite Tier 1 direct action and counter-terrorism unit, operating under JSOC. Conducts hostage rescue, HVT capture/kill, and sensitive site exploitation globally. Classified manning (~1,000 operators). Selection via SFAS + 6-month OTC. Operators deploy under JSOC alongside SEAL Team Six (DEVGRU). Operates AC-130s, MH-60M Black Hawks, and classified platforms via SOAR support.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">NAVY — JSOC TIER 1</div>
+      <div class="doctrine-card-title">DEVGRU / SEAL Team Six</div>
+      <div class="doctrine-card-body">Naval Special Warfare Development Group — the Navy's Tier 1 counter-terrorism and special reconnaissance unit. Conducted Operation Neptune Spear (OBL raid, 2011). Operates in 4 assault squadrons, with specialized maritime, assault, and support elements. Selection from NSW community. Estimated ~300–400 assault operators. Primary seaborne, airborne, and urban counter-terrorism mission set.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">ARMY TIER 2</div>
+      <div class="doctrine-card-title">75th Ranger Regiment</div>
+      <div class="doctrine-card-body">The Army's premier direct action light infantry force, comprising 3 active battalions (~3,600 Rangers). Conducts airfield seizure, raid operations, and surge direct action in permissive and contested environments. The "Ranger Ready Force" maintains 18-hour global response. Not Tier 1, but provides JSOC with scalable assault capability and is the most tactically proficient conventional-caliber force in existence.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">AIR FORCE TIER 1</div>
+      <div class="doctrine-card-title">24th Special Operations Wing</div>
+      <div class="doctrine-card-body">Air Force SOF including combat controllers (CCT), special reconnaissance (SR), and AFSOC AC-130 gunship crews. Combat Controllers embed with Army SF and SEAL teams providing air traffic control and close air support in denied areas. The 160th SOAR (Night Stalkers) provides dedicated aviation support to all JSOC forces with MH-60M, MH-47G, and AH/MH-6M platforms.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">ARMY UW / FID</div>
+      <div class="doctrine-card-title">Special Forces (Green Berets)</div>
+      <div class="doctrine-card-body">1st through 20th Special Forces Groups — the backbone of US unconventional warfare (UW) and foreign internal defense (FID). Organized into 12-man ODAs with regional language and cultural expertise. 5 active groups (1st, 3rd, 5th, 7th, 10th SFG) aligned to all geographic commands. Conducted large-scale UW in Ukraine advisory mission.</div>
+    </div>
+    <div class="doctrine-card">
+      <div class="doctrine-card-num">NAVY SOF</div>
+      <div class="doctrine-card-title">SEAL Teams 1–10</div>
+      <div class="doctrine-card-body">Sea-Air-Land teams provide direct action, special reconnaissance, and counter-terrorism across maritime, riverine, and urban environments. 8 SEAL Teams plus DEVGRU and SEAL Delivery Vehicle Teams. ~2,700 operators in the Naval Special Warfare community. Extensively deployed to the Red Sea (Counter-Houthi operations), Philippines, and Baltic region 2025–2026.</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">SOCOM AIRCRAFT & SPECIALIZED PLATFORMS</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Platform</th><th>Unit</th><th>Role</th><th>Key Capability</th></tr></thead>
+      <tbody>
+        <tr><td>MH-60M Black Hawk</td><td>160th SOAR</td><td>Medium assault helicopter</td><td>Night operations, FRIES/SPIES, radar altimeter, 250km+ range</td></tr>
+        <tr><td>MH-47G Chinook</td><td>160th SOAR</td><td>Heavy assault helicopter</td><td>Long-range insertion, FLIR, extended fuel tanks, classified EW suite</td></tr>
+        <tr><td>AC-130J Ghostrider</td><td>AFSOC</td><td>Fixed-wing gunship / CAS</td><td>105mm howitzer, 30mm cannon, precision GPS bombs, persistent ISR</td></tr>
+        <tr><td>MC-130J Commando II</td><td>AFSOC</td><td>SOF tanker/infiltration</td><td>Low-level INS, aerial refueling of SOF helos, HAHO/HALO drop</td></tr>
+        <tr><td>EC-130H Compass Call</td><td>AFSOC</td><td>Electronic attack aircraft</td><td>Airborne EW platform; communications jamming, SEAD support</td></tr>
+        <tr><td>RQ-170 Sentinel</td><td>USAF/SOF ISR</td><td>Stealth UCAV ISR</td><td>Persistent overwatch; used in OBL raid 2011; still classified</td></tr>
+        <tr><td>MK V Special Operations Craft</td><td>NSW</td><td>High-speed maritime insertion</td><td>35+ knots, 750nm range, SEAL team insertion/extraction</td></tr>
+        <tr><td>SDV Mk 9</td><td>SDVT-1/2</td><td>Submarine-launched swimmer delivery</td><td>Clandestine maritime infiltration from SSN/SSBN</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 09 — CYBER & SPACE                              -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-cyber">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 09</div>
+    <h2 class="section-title"><span class="section-num">09 //</span> Cyber &amp; Space Capabilities</h2>
+    <div class="section-title-line"></div>
+    <p class="section-desc">The United States operates the world's most capable offensive and defensive cyber warfare apparatus, paired with the dominant space-based intelligence and communications architecture. CYBERCOM and SPACECOM were elevated to full Unified Combatant Commands in 2018 and 2019 respectively, reflecting domain maturity.</p>
+  </div>
+
+  <div class="two-col">
+    <figure class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/86f96bba93154d562e4d4e02d61174568393bf8c.jpg" alt="USCYBERCOM NSA Integrated Cyber Center Joint Operations Center" width="700" height="500" loading="lazy" onclick="openLightbox(this.src,'U.S. Cyber Command / NSA Integrated Cyber Center, Joint Operations Center (JOC) at Fort Meade, Maryland — the hub of US offensive and defensive cyber operations.')">
+      <figcaption>USCYBERCOM // NSA INTEGRATED CYBER CENTER — FORT MEADE, MD</figcaption>
+    </figure>
+    <figure class="inline-img">
+      <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/d9ee9d8845c5c09e8c826c3ff88a12daebe26d9a.jpg" alt="US Space Force GPS satellite launch SpaceX Falcon 9" width="700" height="500" loading="lazy" onclick="openLightbox(this.src,'U.S. Space Force GPS III satellite launched by SpaceX Falcon 9 — Cape Canaveral Space Force Station. GPS Block III offers 3× more accurate positioning and M-code anti-jam capability.')">
+      <figcaption>US SPACE FORCE // GPS III SATELLITE LAUNCH — CAPE CANAVERAL SPACE FORCE STATION</figcaption>
+    </figure>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">CYBER COMMAND STRUCTURE</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Organization</th><th>Role</th><th>Personnel</th><th>Key Capability</th></tr></thead>
+      <tbody>
+        <tr><td>U.S. Cyber Command (USCYBERCOM)</td><td>Unified Combatant Command (Cyber)</td><td>~6,200</td><td>Offensive cyber ops, persistent engagement doctrine</td></tr>
+        <tr><td>NSA/CSS</td><td>SIGINT + Cyber Security</td><td>~30,000 (classified)</td><td>Global SIGINT, classified collection, DHS Cybersecurity coordination</td></tr>
+        <tr><td>Cyber Mission Force (CMF)</td><td>133 cyber mission teams</td><td>6,200+ DoD civilians + military</td><td>National Cyber Mission Force, Cyber Protection Teams, CPTs</td></tr>
+        <tr><td>Cyber National Mission Force</td><td>CNMF — offensive/defensive ops</td><td>Classified</td><td>Strategic deterrence, offensive cyber effects (Stuxnet lineage)</td></tr>
+        <tr><td>Joint Force HQ-Cyber (x6)</td><td>Service cyber components</td><td>~35,000 total cyber warriors</td><td>Army, Navy, USAF, USMC, USCG, Coast Guard cyber forces</td></tr>
+        <tr><td>CISA (DHS)</td><td>Critical infrastructure defense</td><td>~3,000</td><td>US CI cyber defense; election security; private sector partnerships</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cyber-table-wrap">
+    <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">CYBER CAPABILITY ASSESSMENT</h3>
+    <table class="cyber-table">
+      <thead><tr><th>Domain</th><th>Capability Rating</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Offensive Cyber Operations</td>
+          <td><span class="capability-dot cap-full"></span> Full Spectrum</td>
+          <td>Persistent engagement; Volt Typhoon counter-ops; industrial control system attacks (Stuxnet precedent); nationwide grid disruption capability (vs. adversaries)</td>
+        </tr>
+        <tr>
+          <td>Defensive Cyber Operations</td>
+          <td><span class="capability-dot cap-full"></span> Full Spectrum</td>
+          <td>Einstein 3A, CDM program; classified perimeter defense for classified networks; USCYBERCOM + NSA dual-hat commander</td>
+        </tr>
+        <tr>
+          <td>SIGINT / Surveillance</td>
+          <td><span class="capability-dot cap-full"></span> Global Dominant</td>
+          <td>NSA XKeyscore, PRISM; Five Eyes intelligence-sharing; satellite SIGINT (NRO); submarine cable tapping capability</td>
+        </tr>
+        <tr>
+          <td>Space-Cyber Integration</td>
+          <td><span class="capability-dot cap-high"></span> Advanced</td>
+          <td>GPS jamming/spoofing detection; SATCOM cyber defense; link 16 encryption; Space ISR to cyber targeting pipeline</td>
+        </tr>
+        <tr>
+          <td>AI/ML Integration</td>
+          <td><span class="capability-dot cap-high"></span> Advanced</td>
+          <td>Project Maven AI targeting; JADC2 AI-assisted decision systems; NSA AI threat detection; CYBERCOM ML anomaly detection</td>
+        </tr>
+        <tr>
+          <td>Critical Infrastructure Protection</td>
+          <td><span class="capability-dot cap-med"></span> Contested</td>
+          <td>Volt Typhoon (PRC) pre-positioned in US infrastructure (2024–2025); CISA actively hunting; private-sector dependency remains vulnerability</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">SPACE FORCE CAPABILITIES</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>System / Program</th><th>Type</th><th>Status</th><th>Strategic Role</th></tr></thead>
+      <tbody>
+        <tr><td>GPS Block III (PNT)</td><td>Navigation Satellite System</td><td>Operational (31 satellites)</td><td>Global positioning for all US/allied forces; 3× improved accuracy; M-code anti-jam</td></tr>
+        <tr><td>AEHF (Advanced EHF)</td><td>Tactical/Strategic SATCOM</td><td>6 satellites operational</td><td>Nuclear command comms, classified military SATCOM</td></tr>
+        <tr><td>WGS (Wideband Global SATCOM)</td><td>Wideband SATCOM</td><td>10 operational</td><td>High-bandwidth data; video, intelligence, drone comms</td></tr>
+        <tr><td>SBIRS (Space-Based IR System)</td><td>Missile Warning (nuclear)</td><td>6 GEO + 2 HEO operational</td><td>ICBM/SLBM launch detection within 60 seconds</td></tr>
+        <tr><td>Next-Gen OPIR</td><td>Advanced missile warning</td><td>2026+ deployment</td><td>Replaces SBIRS; hypersonic weapon detection; proliferated LEO</td></tr>
+        <tr><td>NRO Imagery Satellites</td><td>Strategic ISR (classified)</td><td>Classified constellation</td><td>National Technical Means; IMINT/SIGINT/MASINT global coverage</td></tr>
+        <tr><td>Starlink (DoD contract)</td><td>Proliferated LEO SATCOM</td><td>~6,000+ satellites</td><td>Tactical comms resilience; JADC2 link; tested Ukraine 2022–25</td></tr>
+        <tr><td>X-37B Orbital Test Vehicle</td><td>Reusable unmanned spacecraft</td><td>7th mission ongoing (2024)</td><td>On-orbit technology test, classified payload, ASAT-adjacent capability</td></tr>
+        <tr><td>GSSAP (Geosynchronous Space Situational Awareness)</td><td>Space domain awareness</td><td>4 operational</td><td>Rendezvous and proximity operations near adversary GEO satellites</td></tr>
+        <tr><td>EGS (Future Space Architecture)</td><td>Proliferated LEO constellation</td><td>2027+ (SDA Tranche 1)</td><td>ISR, missile tracking, JADC2 data transport layer</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 10 — MILITARY DOCTRINE                         -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-doctrine">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 10</div>
+    <h2 class="section-title"><span class="section-num">10 //</span> Military Doctrine</h2>
+    <div class="section-title-line"></div>
+    <p class="section-desc">U.S. military doctrine evolved from Cold War NATO defense through post-9/11 counterterrorism to today's Multi-Domain Operations (MDO) and Joint All-Domain Command and Control (JADC2) framework designed for great power competition. The 2026 NDS emphasis on "integrated deterrence" shapes all operational concepts.</p>
+  </div>
+
+  <div class="tabs" id="doctrineTabs">
+    <div class="tab-btns">
+      <button class="tab-btn active" onclick="switchTab(event,'docJADC2')">JADC2</button>
+      <button class="tab-btn" onclick="switchTab(event,'docMDO')">MULTI-DOMAIN OPS</button>
+      <button class="tab-btn" onclick="switchTab(event,'docNuclear')">NUCLEAR POSTURE</button>
+      <button class="tab-btn" onclick="switchTab(event,'docSOF')">SOF DOCTRINE</button>
+      <button class="tab-btn" onclick="switchTab(event,'docNavy')">DISTRIBUTED MARITIME</button>
+    </div>
+    <div class="tab-pane active" id="docJADC2">
+      <div class="doctrine-card" style="margin-bottom:0">
+        <div class="doctrine-card-num">JOINT ALL-DOMAIN COMMAND AND CONTROL</div>
+        <div class="doctrine-card-title">JADC2 — The Overarching Operational Concept</div>
+        <div class="doctrine-card-body" style="font-size:.95rem;line-height:1.75">
+          <p style="margin-bottom:var(--space-3)">JADC2 is the Pentagon's overarching command and control concept linking sensors and shooters across all domains — land, sea, air, space, and cyberspace — into a single, AI-assisted decision network. The goal: any sensor feeding any shooter in milliseconds, regardless of service or domain. JADC2 represents a fundamental shift from service-centric stovepipes to a fully networked "kill web."</p>
+          <p style="margin-bottom:var(--space-3)"><strong style="color:var(--color-text)">Service implementations:</strong> Army's Project Convergence (ground sensor/effector integration), Air Force's Advanced Battle Management System (ABMS), Navy's Project Overmatch (maritime kill web). These feed into the classified Combined Joint All-Domain Command and Control (CJADC2) layer for multinational operations.</p>
+          <p><strong style="color:var(--color-text)">Status (2026):</strong> Partial operational capability across INDOPACOM. Full JADC2 fielding is estimated 2028–2030. The Pentagon's Defense Innovation Unit (DIU) and DARPA are driving accelerated AI/ML integration. Starlink plays a key tactical communications backbone role per Ukraine lessons.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="docMDO">
+      <div class="doctrine-card" style="margin-bottom:0">
+        <div class="doctrine-card-num">MULTI-DOMAIN OPERATIONS</div>
+        <div class="doctrine-card-title">Army FM 3-0 — Competing, Penetrating, Dis-Integration, Exploitation</div>
+        <div class="doctrine-card-body" style="font-size:.95rem;line-height:1.75">
+          <p style="margin-bottom:var(--space-3)">Multi-Domain Operations (MDO), as articulated in Army Field Manual 3-0 (2022), describes how U.S. forces will compete with near-peer adversaries across all domains simultaneously. MDO posits that future conflict will not be sequential (air supremacy → ground advance) but will require simultaneous operations in land, sea, air, space, and cyber domains to converge effects and overwhelm adversary decision cycles.</p>
+          <p style="margin-bottom:var(--space-3)"><strong style="color:var(--color-text)">The four MDO tenets:</strong> <em>Compete</em> (persistent presence/posture short of armed conflict), <em>Penetrate</em> (breach adversary Anti-Access/Area Denial [A2/AD] systems), <em>Dis-integrate</em> (break apart integrated defensive systems), <em>Exploit</em> (decisive action in created windows). This framework is explicitly designed to counter China's A2/AD strategy in the Indo-Pacific.</p>
+          <p><strong style="color:var(--color-text)">Pacific application:</strong> Long-Range Fires Battalions (HIMARS/PrSM) positioned on Philippine islands. INDOPACOM's "Archipelago Defense" places Army precision fires inside the second island chain to deny China maritime maneuver space.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="docNuclear">
+      <div class="doctrine-card" style="margin-bottom:0">
+        <div class="doctrine-card-num">NUCLEAR POSTURE REVIEW 2025</div>
+        <div class="doctrine-card-title">2-Peer Deterrence + Integrated Deterrence</div>
+        <div class="doctrine-card-body" style="font-size:.95rem;line-height:1.75">
+          <p style="margin-bottom:var(--space-3)">The 2025 Nuclear Posture Review (classified; summary declassified March 2026) establishes the first <strong style="color:var(--color-text)">two-peer nuclear deterrence baseline</strong> in US history, explicitly requiring simultaneous deterrence of Russia and China — each of which will field near-peer nuclear arsenals by the early 2030s.</p>
+          <p style="margin-bottom:var(--space-3)"><strong style="color:var(--color-text)">Key policy shifts:</strong> Retains "no first use" ambiguity (does not adopt formal NFU). New emphasis on flexible response options including low-yield nuclear weapons (W76-2 SLBM warhead, B61-12 dial-a-yield). Extended deterrence assurances to Japan, South Korea, and Australian partners reinforced. NATO nuclear sharing commitment maintained (B61-12 deployed to Aviano, Lakenheath, and 3 other European bases).</p>
+          <p><strong style="color:var(--color-text)">Concerns:</strong> The Congressional Budget Office projects $946 billion in nuclear modernization costs over the next decade, straining conventional procurement budgets. STRATCOM commander publicly noted in 2024 that current nuclear force posture was designed for a one-peer world.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="docSOF">
+      <div class="doctrine-card" style="margin-bottom:0">
+        <div class="doctrine-card-num">SPECIAL OPERATIONS DOCTRINE</div>
+        <div class="doctrine-card-title">SOF-Centric Operations & Persistent Engagement</div>
+        <div class="doctrine-card-body" style="font-size:.95rem;line-height:1.75">
+          <p style="margin-bottom:var(--space-3)">Twenty-plus years of GWOT forged a SOF-centric operational model centered on persistent F3EAD targeting cycles (Find, Fix, Finish, Exploit, Analyze, Disseminate). The JSOC Tier 1 direct action model — married to national intelligence (NSA/NGA feeds) and airpower (AC-130J, MQ-9) — became the US military's most reliable offensive tool.</p>
+          <p style="margin-bottom:var(--space-3)"><strong style="color:var(--color-text)">Current pivot:</strong> USSOCOM is transitioning from GWOT-era CT focus toward great power competition support: building partner nation capacity (FID/COIN), conducting Information Operations, and competing in the gray zone against Russian/Chinese influence operations.</p>
+          <p><strong style="color:var(--color-text)">Ukraine precedent:</strong> SOF-embedded advisory mission (classified, ~350+ total) provided Ukraine with targeting support, HIMARS training, Stinger/Javelin integration, and intelligence feeds that fundamentally altered the battlefield — all short of declared hostilities. This "advisory warfare" model is now doctrine.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="docNavy">
+      <div class="doctrine-card" style="margin-bottom:0">
+        <div class="doctrine-card-num">NAVAL DOCTRINE — DISTRIBUTED MARITIME OPERATIONS</div>
+        <div class="doctrine-card-title">DMO — From Concentrated to Distributed Lethality</div>
+        <div class="doctrine-card-body" style="font-size:.95rem;line-height:1.75">
+          <p style="margin-bottom:var(--space-3)">Distributed Maritime Operations (DMO) emerged from the recognition that concentrating 11 carriers in traditional CSG formations creates predictable, targetable formations vulnerable to China's DF-21D/DF-26 "carrier killer" anti-ship ballistic missiles. DMO disperses naval lethality across many smaller, harder-to-target platforms — including DDGs operating independently with long-range missiles, LCSs, unmanned surface vessels, and submarine forces.</p>
+          <p style="margin-bottom:var(--space-3)"><strong style="color:var(--color-text)">Key concept: "Distributed Lethality."</strong> Every surface combatant becomes a potential strike platform. DDG-51 Flight III ships receive SM-6 anti-ship capability. The Constellation-class FFG adds another ASW/anti-surface layer. USVN 38 (South Pacific) is experimenting with USV/UUV distributed strike formations.</p>
+          <p><strong style="color:var(--color-text)">Red Sea validation (2024–2026):</strong> Op Epic Fury tested CSG doctrine against saturation drone/missile attacks. Two CSGs expended ~$1.2B in SM-2/SM-6/SM-3 interceptors, prompting urgent review of sustainable intercept economics vs. adversary cheap drone saturation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 11 — FOREIGN POLICY & ALLIANCES                 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-foreign">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 11</div>
+    <h2 class="section-title"><span class="section-num">11 //</span> Foreign Policy &amp; Alliances</h2>
+    <div class="section-title-line"></div>
+    <p class="section-desc">Under the second Trump Administration, U.S. foreign policy has undergone a significant reorientation — from liberal internationalism toward transactional bilateralism, burdensharing demands on allies, and explicit "America First" prioritization of Western Hemisphere objectives.</p>
+  </div>
+
+  <div class="intel-alert intel-alert-warn">
+    <div class="intel-alert-head">⚑ TRUMP ADMINISTRATION FOREIGN POLICY — KEY PIVOTS (2025–2026)</div>
+    <p>The Trump Administration's foreign policy features several sharp departures from prior doctrine: <strong class="critical">NATO allies pressured to spend ≥5% GDP on defense</strong> (vs. 2% threshold), with Article 5 guarantees made explicitly conditional on compliance. <strong class="critical">Ukraine ceasefire negotiations</strong> led directly by U.S. as mediator (not party), with Zelenskyy invited to White House March 2025 — talks ongoing but fragile. <strong class="critical">Greenland acquisition rhetoric</strong> elevated, claiming national security imperative. <strong class="critical">Canada sovereignty rhetoric</strong> (51st state) creating bilateral friction. <strong class="critical">Panama Canal</strong> reassertion language in NDS. Simultaneously, <strong class="critical">Gulf state ties strengthened</strong> (Saudi Arabia mega-arms deal, UAE partnerships). Tariff-driven trade war with China continuing.</p>
+  </div>
+
+  <div class="policy-quote">
+    "Our alliances are not simply charity. The United States expects every NATO member to contribute meaningfully — those who fall short cannot expect unlimited guarantees."
+    <span class="policy-quote-attr">— Paraphrased from Trump Administration NDS 2025 summary, December 2025 | <a href="https://www.defense.gov/News/Releases/Release/Article/3901793/" target="_blank" rel="noopener">DoD Release →</a></span>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">KEY ALLIANCES & PARTNERSHIPS</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Alliance/Partnership</th><th>Scope</th><th>Current Status</th><th>Key Issue 2026</th></tr></thead>
+      <tbody>
+        <tr><td>NATO</td><td>32-member collective defense treaty</td><td>Active — under spending review pressure</td><td>Trump 5% GDP demand; Finland/Sweden integration; Baltic reinforcement</td></tr>
+        <tr><td>AUKUS</td><td>US-UK-Australia nuclear submarine + advanced tech</td><td>Active — Pillar I SSN program advancing</td><td>Virginia-class delivery schedule; submarine basing in WA; hypersonics</td></tr>
+        <tr><td>Five Eyes</td><td>SIGINT/HUMINT intelligence sharing (US, UK, Canada, AUS, NZ)</td><td>Active — cornerstone of US intelligence</td><td>Canada political friction; NZ China engagement concerns</td></tr>
+        <tr><td>Quad</td><td>US, Japan, India, Australia strategic dialogue</td><td>Active — enhanced after 2024</td><td>India non-alignment on Russia sanctions; China pressure on members</td></tr>
+        <tr><td>US-Japan MDA (Mutual Defense Treaty)</td><td>Article 5 collective defense; Okinawa basing</td><td>Active — strongest Indo-Pacific anchor</td><td>Expanded missile defense integration; GSOMIA sharing; Taiwan scenario planning</td></tr>
+        <tr><td>US-ROK Mutual Defense Treaty</td><td>Korea defense commitment; 28,500 US troops</td><td>Active</td><td>THAAD deployment politics; ROK nuclear option debate</td></tr>
+        <tr><td>US-Philippines Enhanced Defense Cooperation</td><td>EDCA bases expansion (9 bases)</td><td>Active — significantly expanded 2024–25</td><td>HIMARS deployment to Luzon; PrSM battery planning; IBIS stations</td></tr>
+        <tr><td>US-Israel MOU on QME</td><td>Qualitative Military Edge assurance</td><td>Active — F-35I, Arrow BMD, JDAM supply</td><td>Gaza operations military aid review; Article 2 certification debates</td></tr>
+        <tr><td>US-Saudi Arabia Security Framework</td><td>Regional security partnership</td><td>Enhanced under Trump 2.0</td><td>$142B mega-arms deal announced 2025; Saudi-Israel normalization</td></tr>
+        <tr><td>US-Taiwan Relations Act + Taiwan Relations</td><td>De facto defense commitment (unofficial)</td><td>Active — ambiguous by design</td><td>Strategic ambiguity vs. "strategic clarity" debate; arms deliveries expedited</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">FORCE PROJECTION: CURRENT DEPLOYMENTS (MARCH 2026)</h3>
+  <div class="projection-table-wrap">
+    <table class="projection-table">
+      <thead><tr><th>Region / Theater</th><th>Approximate Forces</th><th>Key Platforms</th><th>Mission</th></tr></thead>
+      <tbody>
+        <tr><td>EUROPE (EUCOM)</td><td>~120,000</td><td>M1 Abrams ABCTs, F-35A, Patriot, HIMARS</td><td>NATO deterrence vs. Russia; Ukraine advisory mission (classified)</td></tr>
+        <tr><td>MIDDLE EAST (CENTCOM)</td><td>~40,000</td><td>2x CSGs, A-10C, F-35A, THAAD, B-52H deployed rotation</td><td>Iran containment; counter-Houthi; Operation Epic Fury</td></tr>
+        <tr><td>INDO-PACIFIC (INDOPACOM)</td><td>~375,000</td><td>CVN, SSN, F-22A, F-35A, B-52H Guam rotations, THAAD Korea</td><td>China deterrence; Taiwan Strait stability; Korean Peninsula</td></tr>
+        <tr><td>CONUS / NORTHCOM</td><td>~800,000+ (total force)</td><td>GBMD interceptors Alaska, Air National Guard, NORAD</td><td>Homeland defense; Arctic; Missile defense</td></tr>
+        <tr><td>AFRICA (AFRICOM)</td><td>~6,000</td><td>JSOC teams, MQ-9 bases, C-130J</td><td>Counter-terrorism; counter-Wagner/Russian influence; C-ISIS</td></tr>
+        <tr><td>SOUTH AMERICA (SOUTHCOM)</td><td>~2,000 + advisors</td><td>P-8 Poseidon maritime patrol; Coast Guard cutters</td><td>Counter-narcotics; 2026 NDS Western Hemisphere primary mission</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 12 — RISK ANALYSIS                              -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-risk">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 12</div>
+    <h2 class="section-title"><span class="section-num">12 //</span> Risk Analysis &amp; Threat Assessment</h2>
+    <div class="section-title-line"></div>
+    <p class="section-desc">This section provides an analytical assessment of threats to U.S. national security, strategic vulnerabilities, and probability assessments for significant geopolitical scenarios through 2027. All assessments are based on publicly available intelligence community reporting and open-source analysis.</p>
+  </div>
+
+  <div class="intel-alert">
+    <div class="intel-alert-head">★ ANNUAL THREAT ASSESSMENT — MARCH 2026 SUMMARY (UNCLASSIFIED)</div>
+    <p>The U.S. Intelligence Community's 2026 Annual Threat Assessment (ATA) identifies <strong class="critical">China as the pacing threat</strong> and <strong class="critical">Russia as an acute threat</strong>. China's military modernization, economic coercion, and technology theft pose systemic challenges to U.S. global leadership. Russia's ongoing Ukraine war and nuclear posturing present near-term European destabilization risk. <strong class="critical">Iran</strong> continues proxy warfare via Houthis and Hezbollah. <strong class="critical">North Korea</strong> has further refined nuclear/missile capabilities including demonstrated ICBM accuracy improvements. Non-state threats — terrorism, cyberattack on critical infrastructure, biosecurity — remain persistent. Chinese <strong class="critical">Volt Typhoon</strong> pre-positioned malware in US critical infrastructure is assessed as an active operational-level threat.</p>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">SCENARIO PROBABILITY ASSESSMENT (12–24 MONTH HORIZON)</h3>
+  <div class="prob-list">
+    <div class="prob-item">
+      <div class="prob-label"><span>Taiwan Strait Military Incident (below armed conflict threshold)</span><span>55%</span></div>
+      <div class="prob-bar"><div class="prob-fill high" style="width:55%"></div></div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-label"><span>Major Cyber Attack on US Critical Infrastructure (confirmed attribution)</span><span>45%</span></div>
+      <div class="prob-bar"><div class="prob-fill high" style="width:45%"></div></div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-label"><span>Iran Nuclear Threshold Crossing (90% enrichment, weaponization start)</span><span>30%</span></div>
+      <div class="prob-bar"><div class="prob-fill med" style="width:30%"></div></div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-label"><span>NATO Article 5 Invocation (Baltic states incident)</span><span>15%</span></div>
+      <div class="prob-bar"><div class="prob-fill med" style="width:15%"></div></div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-label"><span>Korean Peninsula Military Escalation (DPRK provocation)</span><span>20%</span></div>
+      <div class="prob-bar"><div class="prob-fill med" style="width:20%"></div></div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-label"><span>Russia-Ukraine Ceasefire Agreement Holding 12+ Months</span><span>35%</span></div>
+      <div class="prob-bar"><div class="prob-fill low" style="width:35%"></div></div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-label"><span>Major Terrorist Attack on US Homeland (significant casualties)</span><span>18%</span></div>
+      <div class="prob-bar"><div class="prob-fill high" style="width:18%"></div></div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-label"><span>US-China Armed Conflict (direct military exchange, any level)</span><span>8%</span></div>
+      <div class="prob-bar"><div class="prob-fill low" style="width:8%"></div></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">STRATEGIC STRENGTHS</h3>
+      <div class="collapsible">
+        <div class="collapsible-head" onclick="toggleCollapse(this)">Global Power Projection <span class="chev" style="font-size:.8rem">▼</span></div>
+        <div class="collapsible-body"><div class="collapsible-body-inner">Unmatched ability to deploy major combat power to any region within 96 hours. 13 nuclear carriers, 11 CSGs, 750+ overseas bases, STRATCOM nuclear deterrence, and the world's largest strategic airlift fleet (C-17A, C-5M) ensure no adversary can deny U.S. access in the open ocean or major theaters. <a href="https://www.defense.gov" target="_blank" rel="noopener">DoD →</a></div></div>
+      </div>
+      <div class="collapsible">
+        <div class="collapsible-head" onclick="toggleCollapse(this)">Technological Superiority <span class="chev" style="font-size:.8rem">▼</span></div>
+        <div class="collapsible-body"><div class="collapsible-body-inner">F-35 5th gen production at scale, B-21 Raider entering service, Virginia-class SSN production ongoing, Advanced GPS/PNT systems, emerging hypersonic weapons, AI/ML integration (Project Maven, JADC2). DARPA + DIU maintain the most advanced military R&amp;D pipeline. Defense budget R&amp;D line >$130B/year. <a href="https://www.darpa.mil" target="_blank" rel="noopener">DARPA →</a></div></div>
+      </div>
+      <div class="collapsible">
+        <div class="collapsible-head" onclick="toggleCollapse(this)">Nuclear Deterrence <span class="chev" style="font-size:.8rem">▼</span></div>
+        <div class="collapsible-body"><div class="collapsible-body-inner">World's most survivable nuclear deterrent via 14 Ohio-class SSBNs at sea continuously. Triad modernization ($946B) ensures deterrence extends to 2070+. NC3 (Nuclear Command, Control & Communications) upgrades maintain assured second-strike credibility against any peer threat. <a href="https://www.cbo.gov/publication/60449" target="_blank" rel="noopener">CBO →</a></div></div>
+      </div>
+      <div class="collapsible">
+        <div class="collapsible-head" onclick="toggleCollapse(this)">Alliance Network <span class="chev" style="font-size:.8rem">▼</span></div>
+        <div class="collapsible-body"><div class="collapsible-body-inner">NATO (32 nations), Five Eyes intelligence sharing, AUKUS submarine partnership, Quad dialogue, Japan/Korea/Philippines bilateral treaties, and Gulf Cooperation Council partnerships provide a combined allied defense GDP exceeding 60% of global total — irreplaceable strategic multiplier. <a href="https://www.nato.int" target="_blank" rel="noopener">NATO →</a></div></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">STRATEGIC VULNERABILITIES</h3>
+      <div class="collapsible">
+        <div class="collapsible-head" onclick="toggleCollapse(this)">Shipbuilding Industrial Capacity <span class="chev" style="font-size:.8rem">▼</span></div>
+        <div class="collapsible-body"><div class="collapsible-body-inner">U.S. shipyards lag behind production requirements. Columbia-class SSBN program at risk of schedule delays. The U.S. produces ~5 ships/year of consequence; China produces 30–40. In a sustained high-end conventional conflict, ship replacement rates could not match attrition. Navy is at ~295 ships vs. a stated requirement of 355. <a href="https://www.crs.gov/reports/r44873" target="_blank" rel="noopener">CRS →</a></div></div>
+      </div>
+      <div class="collapsible">
+        <div class="collapsible-head" onclick="toggleCollapse(this)">Munitions Production Rates <span class="chev" style="font-size:.8rem">▼</span></div>
+        <div class="collapsible-body"><div class="collapsible-body-inner">Ukraine aid revealed critical gaps in U.S. munitions stockpiles — particularly 155mm shells, Stinger missiles, Javelin ATGMs, and SM-6 interceptors. Operation Epic Fury burned through >$1.2B in high-end missiles intercepting cheap Houthi drones. Defense Production Act activations ongoing but industrial base expansion takes 3–5 years. <a href="https://www.csis.org/analysis/empty-bins-a-munitions-crisis" target="_blank" rel="noopener">CSIS →</a></div></div>
+      </div>
+      <div class="collapsible">
+        <div class="collapsible-head" onclick="toggleCollapse(this)">CI Cyber Vulnerability (Volt Typhoon) <span class="chev" style="font-size:.8rem">▼</span></div>
+        <div class="collapsible-body"><div class="collapsible-body-inner">PRC-linked Volt Typhoon group has pre-positioned malware in U.S. electric grid, water utilities, ports, and telecommunications infrastructure — assessed as "living off the land" dormant implants for potential activation during a Taiwan conflict. CISA and NSA have issued emergency guidance; full remediation across private-sector owned infrastructure remains incomplete. <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-038a" target="_blank" rel="noopener">CISA →</a></div></div>
+      </div>
+      <div class="collapsible">
+        <div class="collapsible-head" onclick="toggleCollapse(this)">Alliance Cohesion Under Trump 2.0 <span class="chev" style="font-size:.8rem">▼</span></div>
+        <div class="collapsible-body"><div class="collapsible-body-inner">Trump's transactional approach to alliances — conditioning Article 5 on spending, bilateral tariff disputes with Canada/EU, Greenland rhetoric — introduces uncertainty into alliance reliability that adversaries can exploit through wedge strategies. NATO's political cohesion is functioning but strategic trust requires investment beyond defense spending metrics. <a href="https://www.rand.org" target="_blank" rel="noopener">RAND →</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-bottom:var(--space-4);color:var(--color-text)">THREAT MATRIX: PEER &amp; NEAR-PEER ADVERSARIES</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Adversary</th><th>Threat Level</th><th>Primary Domain(s)</th><th>Key Capability Concerns</th><th>Ref</th></tr></thead>
+      <tbody>
+        <tr><td>China (PRC)</td><td>🔴 Pacing Threat</td><td>Sea, Space, Cyber, Nuclear</td><td>DF-26 ASBM (carrier killer), PLAN fleet growth, ASAT, Volt Typhoon CI malware, PLA nuclear expansion to 1,500 warheads by 2035</td><td><a href="https://www.defense.gov/News/Reports/Report/Article/3189028/china-military-power-report-2023/" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Russia (RF)</td><td>🔴 Acute Threat</td><td>Nuclear, Land, Cyber, Space</td><td>Nuclear coercion, A2/AD in Baltic/Black Sea, Sandworm APT (Ukraine), ASAT capability, Arctic expansion</td><td><a href="https://www.dni.gov/files/ODNI/documents/assessments/ATA-2024-Unclassified-Report.pdf" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Iran</td><td>🟡 Regional Threat</td><td>Proxy Warfare, Missiles, Cyber</td><td>Houthi/Hezbollah/Hamas proxy constellation, Shaheed-136 drones (Russia supplied), nuclear threshold creep, Shahab-3 IRBM</td><td><a href="https://www.defense.gov" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>DPRK</td><td>🟡 Regional+Nuclear</td><td>Nuclear, Missiles, Cyber</td><td>Hwasong-18 ICBM (solid fuel, rapid launch), tactical nuclear doctrine, Lazarus Group cyber, munitions export to Russia</td><td><a href="https://www.armscontrol.org/factsheets/northkoreanuclear" target="_blank" rel="noopener">→</a></td></tr>
+        <tr><td>Non-State (ISIS/AQ nexus)</td><td>🟠 Persistent CT</td><td>Terrorism, Online</td><td>ISIS-K external operations planning, AQ reconstitution (HTS post-Syria), lone wolf radicalization via encrypted channels</td><td><a href="https://www.dni.gov/files/ODNI/documents/assessments/ATA-2024-Unclassified-Report.pdf" target="_blank" rel="noopener">→</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 13 — SOURCES & REFERENCES                       -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="section-sources">
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 13</div>
+    <h2 class="section-title"><span class="section-num">13 //</span> Sources &amp; References</h2>
+    <div class="section-title-line"></div>
+    <p class="section-desc">All intelligence and data in this dossier is derived from open-source materials. Primary sources include official U.S. government publications, defense think tanks, academic institutions, and verified news sources. Hyperlinked throughout the document; also consolidated below by category.</p>
+  </div>
+
+  <div class="sources-grid">
+    <div class="source-cat">
+      <div class="source-cat-title">Official U.S. Government</div>
+      <div class="source-item"><a href="https://www.defense.gov/News/Reports/Report/Article/3189028/" target="_blank" rel="noopener">DoD — National Defense Strategy 2025 (Summary)</a><div class="source-item-desc">UNCLASSIFIED SUMMARY // DECEMBER 2025</div></div>
+      <div class="source-item"><a href="https://www.af.mil/About-Us/Fact-Sheets/" target="_blank" rel="noopener">USAF Official Fact Sheets (all aircraft)</a><div class="source-item-desc">AIR FORCE // CONTINUOUSLY UPDATED</div></div>
+      <div class="source-item"><a href="https://www.navy.mil/Resources/Fact-Files/" target="_blank" rel="noopener">US Navy Fact Files (all ship classes)</a><div class="source-item-desc">DEPT. OF THE NAVY // CONTINUOUSLY UPDATED</div></div>
+      <div class="source-item"><a href="https://www.army.mil/" target="_blank" rel="noopener">U.S. Army Official Website</a><div class="source-item-desc">DEPARTMENT OF THE ARMY</div></div>
+      <div class="source-item"><a href="https://www.spaceforce.mil/" target="_blank" rel="noopener">U.S. Space Force — Official</a><div class="source-item-desc">UNITED STATES SPACE FORCE</div></div>
+      <div class="source-item"><a href="https://www.dni.gov/files/ODNI/documents/assessments/ATA-2024-Unclassified-Report.pdf" target="_blank" rel="noopener">DNI Annual Threat Assessment 2024–2026</a><div class="source-item-desc">OFFICE OF THE DIRECTOR OF NATIONAL INTELLIGENCE</div></div>
+      <div class="source-item"><a href="https://www.cbo.gov/publication/60449" target="_blank" rel="noopener">CBO — Nuclear Forces Cost Estimate (2025–2034)</a><div class="source-item-desc">CONGRESSIONAL BUDGET OFFICE // $946B NUCLEAR MODERNIZATION</div></div>
+    </div>
+
+    <div class="source-cat">
+      <div class="source-cat-title">Defense Think Tanks</div>
+      <div class="source-item"><a href="https://missilethreat.csis.org/" target="_blank" rel="noopener">CSIS Missile Threat — Complete missile database</a><div class="source-item-desc">CENTER FOR STRATEGIC & INTERNATIONAL STUDIES</div></div>
+      <div class="source-item"><a href="https://www.rand.org/topics/national-security.html" target="_blank" rel="noopener">RAND National Security Research</a><div class="source-item-desc">RAND CORPORATION — PEER-REVIEWED DEFENSE ANALYSIS</div></div>
+      <div class="source-item"><a href="https://fas.org/issues/nuclear-weapons/" target="_blank" rel="noopener">FAS — Nuclear Weapons Status Tracking</a><div class="source-item-desc">FEDERATION OF AMERICAN SCIENTISTS // ANNUAL WARHEAD COUNTS</div></div>
+      <div class="source-item"><a href="https://www.sipri.org/databases" target="_blank" rel="noopener">SIPRI Military Expenditure Database</a><div class="source-item-desc">STOCKHOLM INT'L PEACE RESEARCH INSTITUTE</div></div>
+      <div class="source-item"><a href="https://www.iiss.org/publications/the-military-balance/" target="_blank" rel="noopener">IISS Military Balance 2025–2026</a><div class="source-item-desc">INTERNATIONAL INSTITUTE FOR STRATEGIC STUDIES</div></div>
+      <div class="source-item"><a href="https://www.cna.org/reports" target="_blank" rel="noopener">CNA Defense Analysis</a><div class="source-item-desc">CENTER FOR NAVAL ANALYSES</div></div>
+    </div>
+
+    <div class="source-cat">
+      <div class="source-cat-title">News & Reporting</div>
+      <div class="source-item"><a href="https://www.defensenews.com/" target="_blank" rel="noopener">Defense News</a><div class="source-item-desc">PRIMARY TRADE PUBLICATION — ACQUISITION, PROGRAMS, POLICY</div></div>
+      <div class="source-item"><a href="https://www.thedrive.com/the-war-zone" target="_blank" rel="noopener">The War Zone (The Drive)</a><div class="source-item-desc">DETAILED OPERATIONAL + TACTICAL REPORTING</div></div>
+      <div class="source-item"><a href="https://breakingdefense.com/" target="_blank" rel="noopener">Breaking Defense</a><div class="source-item-desc">PENTAGON ACQUISITION AND POLICY REPORTING</div></div>
+      <div class="source-item"><a href="https://taskandpurpose.com/" target="_blank" rel="noopener">Task & Purpose</a><div class="source-item-desc">MILITARY PERSONNEL + OPERATIONAL REPORTING</div></div>
+      <div class="source-item"><a href="https://www.navytimes.com/" target="_blank" rel="noopener">Navy Times</a><div class="source-item-desc">FLEET NEWS, PERSONNEL, SHIPS</div></div>
+      <div class="source-item"><a href="https://www.defenseone.com/" target="_blank" rel="noopener">Defense One</a><div class="source-item-desc">POLICY AND TECHNOLOGY FOCUS</div></div>
+    </div>
+
+    <div class="source-cat">
+      <div class="source-cat-title">Open Source Intelligence</div>
+      <div class="source-item"><a href="https://www.globalfirepower.com/country-military-strength-detail.php?country_id=united-states-of-america" target="_blank" rel="noopener">Global Fire Power — US Military Ranking</a><div class="source-item-desc">AGGREGATE CAPABILITY INDEX + INVENTORY COUNTS</div></div>
+      <div class="source-item"><a href="https://www.globalsecurity.org/military/systems/" target="_blank" rel="noopener">GlobalSecurity.org — Systems Database</a><div class="source-item-desc">COMPREHENSIVE PLATFORM + DOCTRINE REFERENCE</div></div>
+      <div class="source-item"><a href="https://www.armscontrol.org/" target="_blank" rel="noopener">Arms Control Association</a><div class="source-item-desc">NUCLEAR POLICY + TREATY TRACKING</div></div>
+      <div class="source-item"><a href="https://www.airforcemag.com/" target="_blank" rel="noopener">Air Force Magazine</a><div class="source-item-desc">USAF OFFICIAL ASSOCIATION PUBLICATION</div></div>
+      <div class="source-item"><a href="https://www.janes.com/" target="_blank" rel="noopener">Jane's Defence Intelligence (Janes.com)</a><div class="source-item-desc">PREMIUM REFERENCE — GLOBAL MILITARY EQUIPMENT</div></div>
+      <div class="source-item"><a href="https://www.cisa.gov/" target="_blank" rel="noopener">CISA — Cyber Threat Advisories</a><div class="source-item-desc">CYBERSECURITY & INFRASTRUCTURE SECURITY AGENCY</div></div>
+    </div>
+  </div>
+
+  <div class="classification-notice">
+    <div class="class-stamp">UNCLASSIFIED // OPEN SOURCE</div>
+    <p>This dossier is compiled exclusively from publicly available, open-source information. It does not contain classified material and is intended for educational, analytical, and research purposes only. All assessments represent the author's analytical judgment based on publicly available intelligence community reporting and verified open-source data. No classified information was accessed or used in the preparation of this document. All figures are approximate and reflect best available public estimates as of March 2026. All hyperlinks link to publicly accessible sources.</p>
+    <p style="margin-top:var(--space-3);color:var(--color-text-faint);font-size:.65rem;font-family:var(--font-mono);letter-spacing:.1em">DOSSIER REFERENCE: A-11 // UNITED STATES // VERSION: 2.0 // ANALYST: GIP SYSTEM // DATE: MARCH 28, 2026</p>
+  </div>
+
+  <div class="xref-links">
+    <span class="xref-label">CROSS-REFERENCE:</span>
+    <a class="xref-chip" href="#section-nuclear">A-11 Nuclear Triad →</a>
+    <a class="xref-chip" href="#section-cyber">A-11 Cyber/Space →</a>
+    <a class="xref-chip" href="#section-doctrine">A-11 Doctrine →</a>
+    <a class="xref-chip" href="#section-risk">A-11 Risk Analysis →</a>
+    <span class="xref-chip">[RELATED: A-02 China Dossier]</span>
+    <span class="xref-chip">[RELATED: A-07 Russia Dossier]</span>
+    <span class="xref-chip">[RELATED: T-01 NATO Theater]</span>
+    <span class="xref-chip">[RELATED: T-04 Indo-Pacific Theater]</span>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">GEOPOLITICAL INTELLIGENCE PLATFORM v2 // DOSSIER A-11</div>
+  <div class="footer-sub">UNITED STATES OF AMERICA // OPEN SOURCE MILITARY ASSESSMENT // MARCH 2026</div>
+</footer>
+
+<script>
+// Lucide icons
+lucide.createIcons();
+
+// Lightbox
+function openLightbox(src, cap){
+  const lb=document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src=src;
+  document.getElementById('lightbox-cap').textContent=cap||'';
+  lb.classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow='';
+}
+document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLightbox()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox()});
+
+// Collapsible
+function toggleCollapse(head){
+  head.classList.toggle('open');
+  const body=head.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// Tabs
+function switchTab(e, paneId){
+  const container=e.target.closest('.tabs');
+  container.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  container.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById(paneId).classList.add('active');
+}
+
+// Nav active section tracking
+const navLinks=document.querySelectorAll('.nav-link');
+const sections=document.querySelectorAll('section[id]');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const id=entry.target.getAttribute('id');
+      navLinks.forEach(l=>{
+        l.classList.toggle('active',l.getAttribute('href')==='#'+id);
+      });
+    }
+  });
+},{rootMargin:'-50% 0px -50% 0px'});
+sections.forEach(s=>observer.observe(s));
+</script>
+</body>
+</html>

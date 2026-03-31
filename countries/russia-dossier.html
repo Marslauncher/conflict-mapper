@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A-05 Russia Strategic Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   A-05 RUSSIA DOSSIER — DESIGN TOKENS
+   Art direction: Military intelligence / Cold War noir
+   Palette: Deep crimson accent on near-black surfaces
+   Typography: Bebas Neue display + Inter body
+═══════════════════════════════════════════════════════════ */
+:root {
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+  --text-3xl:  clamp(2.5rem,   1rem    + 4vw,    5rem);
+  --text-hero: clamp(3rem,     0.5rem  + 7vw,    8rem);
+
+  --space-1:  0.25rem; --space-2:  0.5rem;  --space-3:  0.75rem;
+  --space-4:  1rem;    --space-5:  1.25rem; --space-6:  1.5rem;
+  --space-8:  2rem;    --space-10: 2.5rem;  --space-12: 3rem;
+  --space-16: 4rem;    --space-20: 5rem;    --space-24: 6rem;
+
+  /* MILITARY DARK PALETTE */
+  --color-bg:              #0a0a0b;
+  --color-surface:         #111113;
+  --color-surface-2:       #161618;
+  --color-surface-offset:  #1c1c1f;
+  --color-surface-offset-2: #222226;
+  --color-surface-dynamic: #2a2a2f;
+  --color-divider:         #222226;
+  --color-border:          #2e2e34;
+  --color-text:            #e8e8ec;
+  --color-text-muted:      #8a8a96;
+  --color-text-faint:      #4a4a55;
+  --color-text-inverse:    #0a0a0b;
+
+  /* CRIMSON PRIMARY */
+  --color-primary:         #CC0000;
+  --color-primary-hover:   #e60000;
+  --color-primary-active:  #ff1a1a;
+  --color-primary-dim:     #660000;
+  --color-primary-ghost:   rgba(204, 0, 0, 0.12);
+  --color-primary-ghost-2: rgba(204, 0, 0, 0.06);
+
+  /* SECONDARY — gold/amber for data */
+  --color-gold:            #c9982a;
+  --color-gold-dim:        rgba(201, 152, 42, 0.15);
+
+  /* STATUS */
+  --color-warning:         #d97706;
+  --color-success:         #16a34a;
+  --color-info:            #2563eb;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.6);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.7);
+  --shadow-crimson: 0 0 24px rgba(204,0,0,0.25);
+
+  --content-default: 1100px;
+  --content-wide: 1400px;
+  --font-display: 'Bebas Neue', 'Impact', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  --transition: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --nav-height: 60px;
+}
+
+/* ═══ RESET & BASE ═══ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 8px); -webkit-font-smoothing: antialiased; }
+body { min-height: 100dvh; font-family: var(--font-body); font-size: var(--text-base); color: var(--color-text); background: var(--color-bg); line-height: 1.6; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--color-primary); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--color-primary-active); }
+button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-height: 1.1; text-wrap: balance; }
+p, li { text-wrap: pretty; max-width: 70ch; }
+::selection { background: var(--color-primary-ghost); color: var(--color-text); }
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius-sm); }
+
+/* ═══ SCROLLBAR ═══ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: var(--color-primary-dim); border-radius: var(--radius-full); }
+
+/* ═══ STICKY NAV ═══ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-height);
+  background: rgba(10, 10, 11, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+  display: flex; align-items: center;
+}
+.nav-inner {
+  max-width: var(--content-wide);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  width: 100%;
+  display: flex; align-items: center; gap: var(--space-6);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+.nav-logo svg { flex-shrink: 0; }
+.nav-links {
+  display: flex; align-items: center; gap: var(--space-1);
+  overflow-x: auto; scrollbar-width: none; flex: 1;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-link {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  transition: color var(--transition), background var(--transition);
+}
+.nav-link:hover { color: var(--color-text); background: var(--color-surface-offset); }
+.nav-link.active { color: var(--color-primary); background: var(--color-primary-ghost); }
+.nav-class {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  background: var(--color-primary-ghost);
+  border: 1px solid var(--color-primary-dim);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.12em;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ═══ HERO ═══ */
+.hero {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--nav-height);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(204,0,0,0.08) 0%, transparent 70%),
+              linear-gradient(180deg, #0a0a0b 0%, #0f0808 50%, #0a0a0b 100%);
+  z-index: 0;
+}
+.hero-grid-overlay {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(204,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(204,0,0,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+}
+.hero-scan {
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  animation: scan 6s ease-in-out infinite;
+  z-index: 1;
+}
+@keyframes scan {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 0.3; }
+  100% { top: 100%; opacity: 0; }
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: var(--content-default);
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-6);
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-primary-dim);
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-ghost-2);
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+.hero-title {
+  font-size: var(--text-hero);
+  color: #fff;
+  margin-bottom: var(--space-4);
+  text-shadow: 0 0 60px rgba(204,0,0,0.3);
+}
+.hero-title span { color: var(--color-primary); }
+.hero-subtitle {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-8);
+}
+.hero-meta {
+  display: flex; align-items: center; justify-content: center;
+  gap: var(--space-6); flex-wrap: wrap;
+  margin-bottom: var(--space-10);
+}
+.hero-meta-item {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
+  display: flex; align-items: center; gap: var(--space-2);
+}
+.hero-meta-item::before { content: '//'; color: var(--color-primary); }
+.hero-map-img {
+  width: 100%; max-width: 800px;
+  margin: 0 auto var(--space-8);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  filter: saturate(0.4) brightness(0.7);
+  box-shadow: var(--shadow-crimson);
+}
+.hero-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  max-width: 800px; margin: 0 auto;
+}
+.hero-stat {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+}
+.hero-stat-val {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
+  display: block;
+}
+.hero-stat-lbl {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.hero-scroll {
+  position: absolute; bottom: var(--space-8); left: 50%; transform: translateX(-50%);
+  z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
+  font-size: var(--text-xs); color: var(--color-text-faint);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-6px); } }
+
+/* ═══ MAIN LAYOUT ═══ */
+main { padding-top: 0; }
+.section {
+  padding: clamp(var(--space-12), 6vw, var(--space-20)) var(--space-6);
+  border-top: 1px solid var(--color-divider);
+}
+.container { max-width: var(--content-default); margin: 0 auto; }
+.container-wide { max-width: var(--content-wide); margin: 0 auto; }
+
+/* ═══ SECTION HEADERS ═══ */
+.section-header {
+  display: flex; align-items: flex-start; gap: var(--space-4);
+  margin-bottom: var(--space-10);
+}
+.section-number {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  background: var(--color-primary-ghost);
+  border: 1px solid var(--color-primary-dim);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  margin-top: 6px;
+}
+.section-title { font-size: var(--text-3xl); color: var(--color-text); }
+.section-title em { color: var(--color-primary); font-style: normal; }
+.section-lead { color: var(--color-text-muted); max-width: 65ch; margin-top: var(--space-3); }
+
+/* ═══ DIVIDER ═══ */
+.crimson-line {
+  width: 48px; height: 3px;
+  background: var(--color-primary);
+  margin: var(--space-4) 0;
+}
+
+/* ═══ CARDS ═══ */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.card:hover { border-color: var(--color-primary-dim); box-shadow: var(--shadow-crimson); }
+.card-body { padding: var(--space-6); }
+.card-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+  letter-spacing: 0.05em;
+}
+.card-text { color: var(--color-text-muted); font-size: var(--text-sm); line-height: 1.7; }
+
+/* ═══ EQUIPMENT GRID ═══ */
+.equipment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+  gap: var(--space-5);
+}
+.equipment-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+.equipment-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-crimson);
+  transform: translateY(-2px);
+}
+.equipment-img-wrap {
+  position: relative; height: 200px; overflow: hidden;
+  background: var(--color-surface-offset);
+}
+.equipment-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(0.6) brightness(0.85);
+  transition: filter var(--transition), transform 400ms cubic-bezier(0.16,1,0.3,1);
+}
+.equipment-card:hover .equipment-img-wrap img { filter: saturate(0.9) brightness(1); transform: scale(1.04); }
+.equipment-img-label {
+  position: absolute; bottom: var(--space-3); left: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: rgba(204,0,0,0.85);
+  color: #fff;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.equipment-body { padding: var(--space-4) var(--space-5) var(--space-5); }
+.equipment-name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-text);
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-1);
+}
+.equipment-nato {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+.equipment-specs {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+.spec-item { font-size: var(--text-xs); }
+.spec-label { color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 0.08em; display: block; }
+.spec-value { color: var(--color-text-muted); font-family: var(--font-mono); }
+.spec-value.highlight { color: var(--color-primary); }
+
+/* ═══ TABS ═══ */
+.tabs-wrapper { }
+.tabs-bar {
+  display: flex; gap: var(--space-1);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-8);
+  overflow-x: auto; scrollbar-width: none;
+}
+.tabs-bar::-webkit-scrollbar { display: none; }
+.tab-btn {
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color var(--transition), border-color var(--transition);
+  margin-bottom: -1px;
+}
+.tab-btn:hover { color: var(--color-text); }
+.tab-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ═══ COLLAPSIBLE ═══ */
+.collapsible { border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: var(--space-3); }
+.collapsible-trigger {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-surface);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  letter-spacing: 0.05em;
+  color: var(--color-text);
+  transition: background var(--transition), color var(--transition);
+  text-align: left;
+}
+.collapsible-trigger:hover { background: var(--color-surface-2); color: var(--color-primary); }
+.collapsible-trigger[aria-expanded="true"] { color: var(--color-primary); border-bottom: 1px solid var(--color-border); }
+.collapsible-icon { transition: transform 300ms cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; }
+.collapsible-trigger[aria-expanded="true"] .collapsible-icon { transform: rotate(180deg); }
+.collapsible-body {
+  background: var(--color-surface-offset);
+  padding: 0 var(--space-6);
+  max-height: 0; overflow: hidden;
+  transition: max-height 400ms cubic-bezier(0.16,1,0.3,1), padding 300ms;
+}
+.collapsible-body.open {
+  max-height: 600px;
+  padding: var(--space-5) var(--space-6);
+}
+.collapsible-quote {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  border-left: 3px solid var(--color-primary);
+  padding-left: var(--space-4);
+  margin-bottom: var(--space-4);
+  line-height: 1.8;
+}
+.collapsible-attr {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  font-style: italic;
+}
+
+/* ═══ LIGHTBOX ═══ */
+.lightbox {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(0,0,0,0.92);
+  display: none; align-items: center; justify-content: center;
+  padding: var(--space-8);
+  backdrop-filter: blur(8px);
+}
+.lightbox.open { display: flex; }
+.lightbox-content {
+  position: relative; max-width: 1000px; width: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg), var(--shadow-crimson);
+}
+.lightbox-img { width: 100%; height: auto; max-height: 70vh; object-fit: cover; }
+.lightbox-caption {
+  padding: var(--space-4) var(--space-6);
+  display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4);
+}
+.lightbox-caption-text { }
+.lightbox-caption-name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+}
+.lightbox-caption-desc { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: var(--space-1); }
+.lightbox-close {
+  width: 36px; height: 36px; border-radius: var(--radius-full);
+  background: var(--color-surface-offset);
+  border: 1px solid var(--color-border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  transition: background var(--transition), color var(--transition);
+}
+.lightbox-close:hover { background: var(--color-primary-ghost); color: var(--color-primary); }
+
+/* ═══ THREAT LEVEL BADGE ═══ */
+.threat-badge {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+.threat-badge.critical { background: rgba(204,0,0,0.2); color: #ff6666; border: 1px solid rgba(204,0,0,0.4); }
+.threat-badge.high { background: rgba(217,119,6,0.2); color: #fbbf24; border: 1px solid rgba(217,119,6,0.4); }
+.threat-badge.moderate { background: rgba(37,99,235,0.2); color: #60a5fa; border: 1px solid rgba(37,99,235,0.4); }
+.threat-badge::before { content: '●'; animation: pulse-dot 2s infinite; }
+
+/* ═══ INFO GRID ═══ */
+.info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: var(--space-5); }
+
+/* ═══ DATA TABLE ═══ */
+.data-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.data-table th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+.data-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-divider);
+  color: var(--color-text-muted);
+  vertical-align: top;
+}
+.data-table tr:hover td { background: var(--color-surface-2); }
+.data-table td:first-child { color: var(--color-text); font-weight: 500; }
+.data-table .mono { font-family: var(--font-mono); color: var(--color-primary); }
+
+/* ═══ LEADER CARD ═══ */
+.leader-layout {
+  display: grid; grid-template-columns: 280px 1fr;
+  gap: var(--space-10); align-items: start;
+}
+.leader-photo-wrap {
+  position: relative;
+  background: var(--color-surface-offset);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--transition);
+}
+.leader-photo-wrap:hover { border-color: var(--color-primary); }
+.leader-photo-wrap img { width: 100%; height: 380px; object-fit: cover; filter: saturate(0.5) brightness(0.85); }
+.leader-photo-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: var(--space-6) var(--space-4) var(--space-4);
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+}
+.leader-name { font-family: var(--font-display); font-size: var(--text-xl); color: #fff; letter-spacing: 0.08em; }
+.leader-title-tag { font-size: var(--text-xs); color: var(--color-primary); font-family: var(--font-mono); }
+.leader-dossier { }
+.leader-fact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: var(--space-6); }
+.leader-fact {
+  background: var(--color-surface-offset);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+.leader-fact-label { font-size: var(--text-xs); color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-1); }
+.leader-fact-value { font-size: var(--text-sm); color: var(--color-text); }
+
+/* ═══ NUCLEAR DOCTRINE ═══ */
+.doctrine-change {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+.doctrine-box {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+}
+.doctrine-box.old { border-top: 3px solid var(--color-text-faint); opacity: 0.7; }
+.doctrine-box.new { border-top: 3px solid var(--color-primary); }
+.doctrine-box-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+.doctrine-box.old .doctrine-box-label { color: var(--color-text-faint); }
+.doctrine-box.new .doctrine-box-label { color: var(--color-primary); }
+
+/* ═══ CITATION CHIP ═══ */
+.cite-chip {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-primary);
+  background: var(--color-primary-ghost-2);
+  border: 1px solid var(--color-primary-dim);
+  border-radius: var(--radius-sm);
+  padding: 1px var(--space-2);
+  text-decoration: none;
+  transition: background var(--transition), border-color var(--transition);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.cite-chip:hover { background: var(--color-primary-ghost); border-color: var(--color-primary); }
+
+/* ═══ CYBER SECTION ═══ */
+.unit-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-5);
+}
+.unit-designation {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+  letter-spacing: 0.08em;
+}
+.unit-alias { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text-muted); }
+.unit-ops { margin-top: var(--space-4); }
+.unit-op-item {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+.unit-op-item:last-child { border-bottom: none; }
+.unit-op-year { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-primary); min-width: 48px; margin-top: 2px; }
+.unit-op-name { font-size: var(--text-sm); font-weight: 600; color: var(--color-text); }
+.unit-op-desc { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 2px; }
+
+/* ═══ FLEET LOSSES ═══ */
+.loss-timeline { position: relative; padding-left: var(--space-8); }
+.loss-timeline::before {
+  content: ''; position: absolute; left: 12px; top: 0; bottom: 0;
+  width: 1px; background: var(--color-primary-dim);
+}
+.loss-item { position: relative; margin-bottom: var(--space-6); }
+.loss-item::before {
+  content: ''; position: absolute; left: calc(-1 * var(--space-8) + 8px); top: 6px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 8px var(--color-primary);
+}
+.loss-date { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-primary); margin-bottom: var(--space-1); }
+.loss-ship { font-weight: 600; color: var(--color-text); font-size: var(--text-sm); }
+.loss-detail { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 2px; }
+
+/* ═══ POLICY SECTION ═══ */
+.policy-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.policy-header {
+  background: var(--color-primary-ghost-2);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-6);
+  display: flex; align-items: center; gap: var(--space-3);
+}
+.policy-header-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+}
+.policy-body { padding: var(--space-5) var(--space-6); }
+
+/* ═══ FADE-IN ANIMATIONS ═══ */
+.fade-in { opacity: 1; }
+@supports (animation-timeline: scroll()) {
+  .fade-in {
+    opacity: 0;
+    animation: reveal-fade linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 80%;
+  }
+}
+@keyframes reveal-fade { to { opacity: 1; } }
+
+/* ═══ FOOTER ═══ */
+footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-10) var(--space-6);
+  margin-top: var(--space-16);
+}
+.footer-inner {
+  max-width: var(--content-default); margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-4);
+  text-align: center;
+}
+.footer-class {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.footer-text { font-size: var(--text-xs); color: var(--color-text-faint); max-width: 55ch; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .leader-layout { grid-template-columns: 1fr; }
+  .leader-photo-wrap img { height: 280px; }
+  .doctrine-change { grid-template-columns: 1fr; }
+  .equipment-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+  .leader-fact-grid { grid-template-columns: 1fr; }
+  .equipment-specs { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ LIGHTBOX ═══════════ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="lightbox-content">
+    <img class="lightbox-img" id="lightbox-img" src="" alt="" loading="lazy">
+    <div class="lightbox-caption">
+      <div class="lightbox-caption-text">
+        <div class="lightbox-caption-name" id="lightbox-name"></div>
+        <div class="lightbox-caption-desc" id="lightbox-desc"></div>
+      </div>
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close image viewer">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo" aria-label="A-05 Russia Dossier home">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <polygon points="12,2 22,8 22,16 12,22 2,16 2,8" stroke="#CC0000" stroke-width="1.5" fill="rgba(204,0,0,0.1)"/>
+        <line x1="12" y1="2" x2="12" y2="22" stroke="#CC0000" stroke-width="1" opacity="0.5"/>
+        <line x1="2" y1="12" x2="22" y2="12" stroke="#CC0000" stroke-width="1" opacity="0.5"/>
+      </svg>
+      A-05
+    </a>
+    <div class="nav-links">
+      <a href="#geography" class="nav-link">Geography</a>
+      <a href="#leadership" class="nav-link">Leadership</a>
+      <a href="#nuclear" class="nav-link">Nuclear</a>
+      <a href="#forces" class="nav-link">Forces</a>
+      <a href="#aerospace" class="nav-link">Aerospace</a>
+      <a href="#naval" class="nav-link">Naval</a>
+      <a href="#srf" class="nav-link">SRF</a>
+      <a href="#cyber" class="nav-link">Cyber/EW</a>
+      <a href="#policy" class="nav-link">Doctrine</a>
+    </div>
+    <div class="nav-class">RUSSIA // A-05</div>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-scan"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Strategic Intelligence Dossier // A-05</div>
+    <h1 class="hero-title">RUSSIAN<br><span>FEDERATION</span></h1>
+    <p class="hero-subtitle">ПОЛНОЕ ДОСЬЕ — STRATEGIC ASSESSMENT</p>
+    <div class="hero-meta">
+      <span class="hero-meta-item">Updated March 2026</span>
+      <span class="hero-meta-item">Sources: CSIS / IISS / ISW / RAND</span>
+      <span class="hero-meta-item">Classification: Open Source</span>
+    </div>
+    <img class="hero-map-img"
+         src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/665145a2d464cc41f2e997a8b38ed1dda79133e2.jpg"
+         alt="Political and physical map of Russia" width="800" height="545" loading="eager">
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-val">17.1M</span>
+        <span class="hero-stat-lbl">km² — Largest Nation</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">5,889</span>
+        <span class="hero-stat-lbl">Nuclear Warheads</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">900K+</span>
+        <span class="hero-stat-lbl">Active Military</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">P5</span>
+        <span class="hero-stat-lbl">UNSC Veto Power</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <i data-lucide="chevron-down" width="16" height="16"></i>
+    Scroll
+  </div>
+</section>
+
+<!-- ═══════════ S1: GEOGRAPHY ═══════════ -->
+<section class="section" id="geography">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div>
+        <span class="section-number">S-01</span>
+        <h2 class="section-title">GEOGRAPHIC <em>OVERVIEW</em></h2>
+        <div class="crimson-line"></div>
+        <p class="section-lead">Russia spans 11 time zones across Eurasia, possessing extraordinary strategic depth, vast Arctic frontage, and resource wealth that shapes its geopolitical calculus.</p>
+      </div>
+    </div>
+    <div class="info-grid fade-in">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">STRATEGIC TERRAIN</div>
+          <p class="card-text">Russia's landmass — 17.1 million km² — provides unparalleled strategic depth exploited against Napoleonic and Nazi invasions alike. The North European Plain is the traditional invasion corridor; the Urals serve as an industrial redoubt. Siberia holds ~80% of Russia's hydrocarbon reserves and vast mineral deposits that underpin the defense-industrial base.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">ARCTIC FRONTIER</div>
+          <p class="card-text">Russia claims 1.2 million km² of additional Arctic continental shelf including the Lomonosov Ridge. The Northern Sea Route — increasingly navigable due to climate change — offers a strategic shipping lane shorter than the Suez Canal. Russia has dramatically expanded Arctic basing, reopening Soviet-era facilities at Tiksi, Naryan-Mar, and Wrangel Island.</p>
+          <span class="threat-badge high" style="margin-top: var(--space-3)">High Priority</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">BORDER COMPLEXITY</div>
+          <p class="card-text">Russia shares borders with 14 nations and maritime boundaries with the US and Japan. The 2014 annexation of Crimea and 2022 invasion have reshaped the strategic border with Ukraine. NATO's eastern flank now extends 1,300+ km closer to Russian territory following Finland's 2023 accession — a historic reversal of Russian buffer-state strategy.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">RESOURCE GEOGRAPHY</div>
+          <p class="card-text">Russia holds the world's largest natural gas reserves, second-largest coal reserves, and eighth-largest oil reserves. Its vast resource endowment funds defense spending but also creates structural dependencies on commodity prices. Sanctions since 2022 have disrupted export routes, accelerating a strategic pivot to Asian energy markets.</p>
+        </div>
+      </div>
+    </div>
+    <div class="fade-in" style="margin-top: var(--space-8)">
+      <table class="data-table">
+        <thead><tr>
+          <th>Region</th><th>Strategic Significance</th><th>Military Presence</th><th>Status</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Kaliningrad Oblast</td><td>NATO enclave; Baltic access; Iskander missiles</td><td>Baltic Fleet HQ, 11th Army Corps</td><td><span class="threat-badge critical">Forward</span></td></tr>
+          <tr><td>Crimea</td><td>Black Sea dominance; Naval HQ (pre-2024)</td><td>Contested; Black Sea Fleet degraded</td><td><span class="threat-badge high">Contested</span></td></tr>
+          <tr><td>Kola Peninsula</td><td>Northern Fleet SSBN bastion; ICBM corridors</td><td>Northern Fleet; 14th Army</td><td><span class="threat-badge critical">Bastion</span></td></tr>
+          <tr><td>Far East</td><td>Pacific Fleet; PRC border; Arctic gateway</td><td>Eastern Military District; Pacific Fleet</td><td><span class="threat-badge moderate">Active</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ S2: LEADERSHIP ═══════════ -->
+<section class="section" id="leadership">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div>
+        <span class="section-number">S-02</span>
+        <h2 class="section-title">LEADERSHIP &amp; <em>POLITICAL DOCTRINE</em></h2>
+        <div class="crimson-line"></div>
+        <p class="section-lead">Vladimir Putin, President since 2000 (with a 2008–2012 interval as PM), operates a personalist authoritarian system where strategic decisions concentrate in a small inner circle.</p>
+      </div>
+    </div>
+    <div class="leader-layout fade-in">
+      <div class="leader-photo-wrap" onclick="openLightbox('https://upload.wikimedia.org/wikipedia/commons/a/a9/Vladimir_Putin_official_portrait.jpg','Vladimir Vladimirovich Putin','President of the Russian Federation — b. October 7, 1952, Leningrad')" title="Click to enlarge">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Vladimir_Putin_official_portrait.jpg" alt="Official portrait of Vladimir Putin" width="280" height="380" loading="lazy">
+        <div class="photo-zoom-hint" style="position:absolute;top:var(--space-3);right:var(--space-3);background:rgba(204,0,0,0.7);border-radius:var(--radius-sm);padding:2px 6px;font-size:10px;font-family:var(--font-mono);color:#fff;letter-spacing:0.1em;">CLICK TO ENLARGE</div>
+        <div class="leader-photo-overlay">
+          <div class="leader-name">VLADIMIR PUTIN</div>
+          <div class="leader-title-tag">PRESIDENT // RF</div>
+        </div>
+      </div>
+      <div class="leader-dossier">
+        <span class="threat-badge critical" style="margin-bottom: var(--space-4)">Decision Authority — Absolute</span>
+        <p style="color: var(--color-text-muted); font-size: var(--text-sm); line-height: 1.8; margin-bottom: var(--space-4)">
+          Putin is a former KGB officer who rose through the St. Petersburg political machine under Anatoly Sobchak before being appointed FSB Director in 1998 and Prime Minister in 1999. His strategic worldview combines <em style="color:var(--color-text)">KGB-era statecraft</em>, <em style="color:var(--color-text)">Orthodox nationalist ideology</em>, and a conviction that Western liberal hegemony is an existential threat to Russian civilization. He has articulated this in extended essays, including the 2021 "On the Historical Unity of Russians and Ukrainians" which provided ideological scaffolding for the 2022 invasion.
+          <a href="https://carnegieendowment.org/emissary/2024/11/russia-nuclear-doctrine-update-weapons-use-sovereignty" target="_blank" rel="noopener noreferrer" class="cite-chip">Carnegie</a>
+        </p>
+        <p style="color: var(--color-text-muted); font-size: var(--text-sm); line-height: 1.8; margin-bottom: var(--space-6)">
+          The Security Council — chaired by Putin — is the effective decision-making body for national security. Nikolai Patrushev (former Secretary, now Presidential Advisor), Sergei Shoigu (former Defense Minister, now Security Council Secretary), and Valery Gerasimov (Chief of the General Staff) represent the key institutional nodes. Defense Minister Andrei Belousov, appointed 2024, signals an integration of economic and military planning unusual in Russian governance.
+        </p>
+        <div class="leader-fact-grid">
+          <div class="leader-fact">
+            <div class="leader-fact-label">Born</div>
+            <div class="leader-fact-value">October 7, 1952 — Leningrad, RSFSR</div>
+          </div>
+          <div class="leader-fact">
+            <div class="leader-fact-label">KGB Service</div>
+            <div class="leader-fact-value">1975–1991 // Foreign Intelligence, Dresden</div>
+          </div>
+          <div class="leader-fact">
+            <div class="leader-fact-label">President (Terms)</div>
+            <div class="leader-fact-value">2000–2008, 2012–present (2030 term expiry)</div>
+          </div>
+          <div class="leader-fact">
+            <div class="leader-fact-label">Ideology</div>
+            <div class="leader-fact-value">Sovereign democracy / Orthodox nationalism / Eurasianism</div>
+          </div>
+          <div class="leader-fact">
+            <div class="leader-fact-label">Key Advisors</div>
+            <div class="leader-fact-value">Patrushev, Shoigu, Gerasimov, Medvedev</div>
+          </div>
+          <div class="leader-fact">
+            <div class="leader-fact-label">Succession Risk</div>
+            <div class="leader-fact-value">Deliberately opaque — personalist system</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Political Doctrine Collapsibles -->
+    <div style="margin-top: var(--space-10);" class="fade-in">
+      <h3 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-text);letter-spacing:0.06em;margin-bottom:var(--space-5)">KEY POLITICAL DOCTRINE STATEMENTS</h3>
+      <div class="collapsible">
+        <button class="collapsible-trigger" aria-expanded="false" onclick="toggleCollapsible(this)">
+          <span>Putin on the "Russian World" (Russkiy Mir) — 2021</span>
+          <i data-lucide="chevron-down" class="collapsible-icon" width="18" height="18"></i>
+        </button>
+        <div class="collapsible-body">
+          <div class="collapsible-quote">"Russians and Ukrainians were one people — a single whole... I am confident that true sovereignty of Ukraine is possible only in partnership with Russia." — Vladimir Putin, essay "On the Historical Unity of Russians and Ukrainians," July 12, 2021</div>
+          <p class="collapsible-attr">Source: Kremlin.ru / Assessed as ideological foundation for 2022 invasion by ISW and RAND analysts</p>
+        </div>
+      </div>
+      <div class="collapsible">
+        <button class="collapsible-trigger" aria-expanded="false" onclick="toggleCollapsible(this)">
+          <span>Putin on Multipolarity &amp; "Collective West" — 2022 Valdai Speech</span>
+          <i data-lucide="chevron-down" class="collapsible-icon" width="18" height="18"></i>
+        </button>
+        <div class="collapsible-body">
+          <div class="collapsible-quote">"The Western hegemony in world affairs is coming to an end... A unipolar world is becoming a thing of the past. We are at a historical frontier." — Vladimir Putin, Valdai Discussion Club, October 27, 2022</div>
+          <p class="collapsible-attr">Source: Kremlin transcript / Core statement of Russian multipolar foreign policy doctrine</p>
+        </div>
+      </div>
+      <div class="collapsible">
+        <button class="collapsible-trigger" aria-expanded="false" onclick="toggleCollapsible(this)">
+          <span>Medvedev on Nuclear Thresholds — Post-Doctrine Update, Nov 2024</span>
+          <i data-lucide="chevron-down" class="collapsible-icon" width="18" height="18"></i>
+        </button>
+        <div class="collapsible-body">
+          <div class="collapsible-quote">"Russia's updated nuclear doctrine clearly shows... attacks with conventional weapons creating a critical threat to our sovereignty will be responded to... The West must understand this is not a bluff." — Dmitry Medvedev, Deputy Security Council Chairman, November 2024</div>
+          <p class="collapsible-attr">Source: Medvedev Telegram / European Leadership Network analysis</p>
+        </div>
+      </div>
+      <div class="collapsible">
+        <button class="collapsible-trigger" aria-expanded="false" onclick="toggleCollapsible(this)">
+          <span>Russia's National Security Strategy — Core Threats Declared (2021)</span>
+          <i data-lucide="chevron-down" class="collapsible-icon" width="18" height="18"></i>
+        </button>
+        <div class="collapsible-body">
+          <div class="collapsible-quote">"The United States and its allies seek to retain their dominance in world affairs, which is why they pursue a policy of containing Russia... The Russophobia being promoted by them is a form of aggressive nationalism and chauvinism." — Russian National Security Strategy, 2021, Article 12</div>
+          <p class="collapsible-attr">Source: Kremlin.ru official document / Translated by RAND Corporation</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ S3: NUCLEAR DOCTRINE ═══════════ -->
+<section class="section" id="nuclear" style="background: linear-gradient(180deg, var(--color-bg) 0%, rgba(204,0,0,0.04) 50%, var(--color-bg) 100%);">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div>
+        <span class="section-number">S-03</span>
+        <h2 class="section-title">NUCLEAR <em>DOCTRINE</em></h2>
+        <div class="crimson-line"></div>
+        <p class="section-lead">On November 18, 2024, Putin signed an executive order updating Russia's nuclear deterrence fundamentals — lowering the threshold for first use and expanding triggering conditions.</p>
+      </div>
+    </div>
+
+    <div class="doctrine-change fade-in">
+      <div class="doctrine-box old">
+        <div class="doctrine-box-label">// 2020 DOCTRINE (SUPERSEDED)</div>
+        <h3 style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--color-text-muted);margin-bottom:var(--space-4)">EXISTENTIAL THRESHOLD</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.8">Nuclear weapons could be used in response to conventional attack only if "the very existence of the state is threatened." High threshold, implied last resort.</p>
+        <ul style="margin-top:var(--space-4);padding-left:var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);line-height:2">
+          <li>Nuclear or WMD attack on Russia</li>
+          <li>Conventional attack threatening state existence</li>
+          <li>No sovereignty/territorial provisions</li>
+        </ul>
+      </div>
+      <div class="doctrine-box new">
+        <div class="doctrine-box-label">// NOV 19, 2024 UPDATE — ACTIVE</div>
+        <h3 style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--color-primary);margin-bottom:var(--space-4)">CRITICAL THREAT THRESHOLD</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.8">Nuclear response authorized for "aggression with conventional weapons creating a critical threat to Russia's sovereignty and/or territorial integrity." Significantly lower bar.
+          <a href="https://europeanleadershipnetwork.org/commentary/bluff-and-bluster-why-putin-revised-russias-nuclear-doctrine/" target="_blank" rel="noopener noreferrer" class="cite-chip">ELN</a>
+          <a href="https://carnegieendowment.org/emissary/2024/11/russia-nuclear-doctrine-update-weapons-use-sovereignty" target="_blank" rel="noopener noreferrer" class="cite-chip">Carnegie</a>
+        </p>
+        <ul style="margin-top:var(--space-4);padding-left:var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);line-height:2">
+          <li>Conventional attack threatening <em style="color:var(--color-primary)">sovereignty OR territory</em></li>
+          <li>Non-nuclear state attack with nuclear power "support" = joint attack</li>
+          <li>Launch-on-warning authorized for large-scale aerospace strikes</li>
+          <li>Attack on Russia by NATO member = aggression by full alliance</li>
+          <li>WMD use against Russian forces anywhere, including overseas</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top: var(--space-8);" class="fade-in">
+      <div class="unit-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4)">
+          <div>
+            <div style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-text);letter-spacing:0.06em">ANALYST ASSESSMENT</div>
+            <div style="font-size:var(--text-xs);color:var(--color-text-muted);font-family:var(--font-mono)">Carnegie Endowment / Stimson Center / European Leadership Network</div>
+          </div>
+          <span class="threat-badge high">Coercive Intent Assessed</span>
+        </div>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.8">The November 2024 update was timed precisely with the Biden administration's authorization of Ukrainian strikes into Russian territory using US-supplied ATACMS. Carnegie's Nicole Grajewski assessed the doctrine as "primarily coercive manipulation" rather than a genuine operational blueprint — Moscow's nuclear decisions "would likely not involve Putin carefully parsing doctrinal clauses." The Stimson Center concluded the US should maintain measured deterrence rather than radical strategy shifts in response.
+          <a href="https://www.stimson.org/2025/an-unreal-pain-russias-new-nuclear-doctrine-delivers-headlines-but-not-change/" target="_blank" rel="noopener noreferrer" class="cite-chip">Stimson</a>
+          <a href="https://carnegieendowment.org/emissary/2024/11/russia-nuclear-doctrine-update-weapons-use-sovereignty" target="_blank" rel="noopener noreferrer" class="cite-chip">Carnegie</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ S4: FORCES (TABS) ═══════════ -->
+<section class="section" id="forces">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div>
+        <span class="section-number">S-04</span>
+        <h2 class="section-title">MILITARY <em>FORCES</em></h2>
+        <div class="crimson-line"></div>
+        <p class="section-lead">Russia's armed forces comprise approximately 900,000+ active personnel across Ground Forces, Aerospace Forces, Navy, Strategic Rocket Forces, and National Guard. Select a branch below.</p>
+      </div>
+    </div>
+
+    <div class="tabs-wrapper fade-in">
+      <div class="tabs-bar" role="tablist" aria-label="Military branches">
+        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-ground" onclick="switchTab(this,'tab-ground')">Ground Forces</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-air" onclick="switchTab(this,'tab-air')" id="tab-air-link">Aerospace Forces</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-navy" onclick="switchTab(this,'tab-navy')">Naval Forces</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-srf" onclick="switchTab(this,'tab-srf')">Strategic Rocket Forces</button>
+      </div>
+
+      <!-- ── GROUND FORCES ── -->
+      <div class="tab-panel active" id="tab-ground" role="tabpanel">
+        <p style="color:var(--color-text-muted);font-size:var(--text-sm);line-height:1.8;margin-bottom:var(--space-8);max-width:75ch">Russia's Ground Forces form the largest component of the armed forces. The war in Ukraine has revealed significant attrition of Cold War-era equipment while forcing acceleration of T-90M production. The T-14 Armata remains in limited operational testing.
+          <a href="https://www.iiss.org/publications/military-balance" target="_blank" rel="noopener noreferrer" class="cite-chip">IISS Military Balance</a>
+        </p>
+        <div class="equipment-grid">
+          <div class="equipment-card" onclick="openLightbox('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/d3a56c225d02c40b25e3cd81110587acb3323072.jpg','T-14 Armata MBT','Fourth-generation main battle tank with unmanned turret and crew isolation — limited operational service as of 2024.')">
+            <div class="equipment-img-wrap">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/d3a56c225d02c40b25e3cd81110587acb3323072.jpg" alt="T-14 Armata main battle tank" width="340" height="200" loading="lazy">
+              <div class="equipment-img-label">MBT // 4th Gen</div>
+            </div>
+            <div class="equipment-body">
+              <div class="equipment-name">T-14 ARMATA</div>
+              <div class="equipment-nato">NATO: None Assigned // Object 148</div>
+              <div class="equipment-specs">
+                <div class="spec-item"><span class="spec-label">Main Gun</span><span class="spec-value">2A82-1M 125mm</span></div>
+                <div class="spec-item"><span class="spec-label">Max Speed</span><span class="spec-value highlight">90 km/h</span></div>
+                <div class="spec-item"><span class="spec-label">Protection</span><span class="spec-value">Malachit ERA + Afganit APS</span></div>
+                <div class="spec-item"><span class="spec-label">Crew</span><span class="spec-value highlight">3 (isolated capsule)</span></div>
+                <div class="spec-item"><span class="spec-label">Status</span><span class="spec-value">Limited trials 2024</span></div>
+                <div class="spec-item"><span class="spec-label">Range</span><span class="spec-value">500 km</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="equipment-card">
+            <div class="equipment-img-wrap" style="background:var(--color-surface-offset);display:flex;align-items:center;justify-content:center">
+              <svg width="120" height="120" viewBox="0 0 120 80" fill="none" aria-hidden="true">
+                <rect x="10" y="35" width="100" height="28" rx="4" fill="rgba(204,0,0,0.2)" stroke="#CC0000" stroke-width="1"/>
+                <rect x="30" y="20" width="55" height="20" rx="3" fill="rgba(204,0,0,0.15)" stroke="#CC0000" stroke-width="1"/>
+                <line x1="78" y1="25" x2="110" y2="23" stroke="#CC0000" stroke-width="2"/>
+                <circle cx="30" cy="63" r="10" fill="rgba(204,0,0,0.3)" stroke="#CC0000" stroke-width="1"/>
+                <circle cx="80" cy="63" r="10" fill="rgba(204,0,0,0.3)" stroke="#CC0000" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="equipment-body">
+              <div class="equipment-name">T-72B3 / T-90M</div>
+              <div class="equipment-nato">NATO: T-72 Ural (legacy) // Breakthrough-3</div>
+              <div class="equipment-specs">
+                <div class="spec-item"><span class="spec-label">Main Gun</span><span class="spec-value">2A46M-5 125mm</span></div>
+                <div class="spec-item"><span class="spec-label">T-90M Speed</span><span class="spec-value highlight">60 km/h</span></div>
+                <div class="spec-item"><span class="spec-label">Protection</span><span class="spec-value">Relikt ERA + Shtora EOCMDAS</span></div>
+                <div class="spec-item"><span class="spec-label">Quantity</span><span class="spec-value highlight">~12,000 (total fleet)</span></div>
+                <div class="spec-item"><span class="spec-label">Status</span><span class="spec-value">Primary Ukraine theater</span></div>
+                <div class="spec-item"><span class="spec-label">T-90M In Service</span><span class="spec-value">~500+</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="equipment-card" onclick="openLightbox('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/07cce5db68735b78bc0ca159602cd71667bf3951.jpg','S-400 Triumf Air Defense System','SA-21 Growler — long-range SAM with 400km engagement range against aircraft and ballistic targets.')">
+            <div class="equipment-img-wrap">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/07cce5db68735b78bc0ca159602cd71667bf3951.jpg" alt="S-400 Triumf surface-to-air missile system" width="340" height="200" loading="lazy">
+              <div class="equipment-img-label">SAM // Long Range</div>
+            </div>
+            <div class="equipment-body">
+              <div class="equipment-name">S-400 TRIUMF</div>
+              <div class="equipment-nato">NATO: SA-21 Growler // 55K6E System</div>
+              <div class="equipment-specs">
+                <div class="spec-item"><span class="spec-label">Range</span><span class="spec-value highlight">400 km (aircraft)</span></div>
+                <div class="spec-item"><span class="spec-label">Altitude</span><span class="spec-value">30 km max</span></div>
+                <div class="spec-item"><span class="spec-label">Missiles</span><span class="spec-value">40N6, 48N6, 9M96</span></div>
+                <div class="spec-item"><span class="spec-label">Targets Sim.</span><span class="spec-value highlight">Up to 80 simultaneous</span></div>
+                <div class="spec-item"><span class="spec-label">Operators</span><span class="spec-value">Russia + 6 export customers</span></div>
+                <div class="spec-item"><span class="spec-label">Successor</span><span class="spec-value">S-500 Prometheus</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="equipment-card">
+            <div class="equipment-img-wrap" style="background:var(--color-surface-offset);display:flex;align-items:center;justify-content:center">
+              <svg width="140" height="100" viewBox="0 0 140 80" fill="none" aria-hidden="true">
+                <rect x="5" y="40" width="130" height="18" rx="3" fill="rgba(204,0,0,0.15)" stroke="#CC0000" stroke-width="1"/>
+                <rect x="20" y="10" width="12" height="32" rx="2" fill="rgba(204,0,0,0.3)" stroke="#CC0000" stroke-width="1"/>
+                <rect x="50" y="10" width="12" height="32" rx="2" fill="rgba(204,0,0,0.3)" stroke="#CC0000" stroke-width="1"/>
+                <rect x="80" y="10" width="12" height="32" rx="2" fill="rgba(204,0,0,0.3)" stroke="#CC0000" stroke-width="1"/>
+                <rect x="110" y="10" width="12" height="32" rx="2" fill="rgba(204,0,0,0.3)" stroke="#CC0000" stroke-width="1"/>
+                <circle cx="30" cy="63" r="8" fill="rgba(204,0,0,0.2)" stroke="#CC0000"/>
+                <circle cx="100" cy="63" r="8" fill="rgba(204,0,0,0.2)" stroke="#CC0000"/>
+              </svg>
+            </div>
+            <div class="equipment-body">
+              <div class="equipment-name">S-500 PROMETHEUS</div>
+              <div class="equipment-nato">NATO: SA-X-28 // 55K6MA System</div>
+              <div class="equipment-specs">
+                <div class="spec-item"><span class="spec-label">ABM Range</span><span class="spec-value highlight">600 km</span></div>
+                <div class="spec-item"><span class="spec-label">AD Range</span><span class="spec-value">500 km</span></div>
+                <div class="spec-item"><span class="spec-label">Targets</span><span class="spec-value highlight">10 hypersonic simultaneously</span></div>
+                <div class="spec-item"><span class="spec-label">Capability</span><span class="spec-value">Intercepts HGVs at 7 km/s</span></div>
+                <div class="spec-item"><span class="spec-label">Status</span><span class="spec-value">Initial deployment 2021+</span></div>
+                <div class="spec-item"><span class="spec-label">Unique</span><span class="spec-value">Near-space intercept capability</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── AEROSPACE FORCES ── -->
+      <div class="tab-panel" id="tab-air" role="tabpanel">
+        <p style="color:var(--color-text-muted);font-size:var(--text-sm);line-height:1.8;margin-bottom:var(--space-8);max-width:75ch">The Russian Aerospace Forces (Vozdushno-Kosmicheskiye Sily) integrate strategic aviation, tactical aviation, air defense, and space forces. Ukraine operations have revealed significant guided munitions shortfalls, driving increased use of hypersonic weapons.
+          <a href="https://www.csis.org" target="_blank" rel="noopener noreferrer" class="cite-chip">CSIS</a>
+        </p>
+        <div class="equipment-grid">
+          <div class="equipment-card" onclick="openLightbox('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a050f5b7129bb1ade714191b6d05fe84b205b2cb.jpg','Su-57 Felon','Russia\'s first operational 5th-generation stealth multirole fighter. Limited production numbers remain a constraint.')">
+            <div class="equipment-img-wrap">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a050f5b7129bb1ade714191b6d05fe84b205b2cb.jpg" alt="Russian Su-57 stealth fighter aircraft" width="340" height="200" loading="lazy">
+              <div class="equipment-img-label">5th GEN // Stealth</div>
+            </div>
+            <div class="equipment-body">
+              <div class="equipment-name">SU-57 FELON</div>
+              <div class="equipment-nato">NATO: Felon // PAK FA / T-50</div>
+              <div class="equipment-specs">
+                <div class="spec-item"><span class="spec-label">Max Speed</span><span class="spec-value highlight">Mach 2 (2,600 km/h)</span></div>
+                <div class="spec-item"><span class="spec-label">Supercruise</span><span class="spec-value">Mach 1.3 (no afterburner)</span></div>
+                <div class="spec-item"><span class="spec-label">Range</span><span class="spec-value">3,500 km combat</span></div>
+                <div class="spec-item"><span class="spec-label">RCS</span><span class="spec-value highlight">~0.1–1 m² (estimated)</span></div>
+                <div class="spec-item"><span class="spec-label">In Service</span><span class="spec-value">~22 as of 2024</span></div>
+                <div class="spec-item"><span class="spec-label">Key Weapon</span><span class="spec-value">Kh-69 cruise missile</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="equipment-card">
+            <div class="equipment-img-wrap" style="background:var(--color-surface-offset);display:flex;align-items:center;justify-content:center">
+              <svg width="160" height="80" viewBox="0 0 160 80" fill="none" aria-hidden="true">
+                <polygon points="5,50 155,40 140,55 30,60" fill="rgba(204,0,0,0.15)" stroke="#CC0000" stroke-width="1"/>
+                <polygon points="80,40 120,20 130,40" fill="rgba(204,0,0,0.2)" stroke="#CC0000" stroke-width="1"/>
+                <polygon points="80,40 40,20 35,38" fill="rgba(204,0,0,0.2)" stroke="#CC0000" stroke-width="1"/>
+                <line x1="60" y1="47" x2="60" y2="65" stroke="#CC0000" stroke-width="1" opacity="0.5"/>
+                <line x1="100" y1="46" x2="100" y2="64" stroke="#CC0000" stroke-width="1" opacity="0.5"/>
+              </svg>
+            </div>
+            <div class="equipment-body">
+              <div class="equipment-name">SU-35S FLANKER-E</div>
+              <div class="equipment-nato">NATO: Flanker-E // T-10BM</div>
+              <div class="equipment-specs">
+                <div class="spec-item"><span class="spec-label">Max Speed</span><span class="spec-value highlight">Mach 2.25</span></div>
+                <div class="spec-item"><span class="spec-label">Range</span><span class="spec-value">3,600 km ferry</span></div>
+                <div class="spec-item"><span class="spec-label">Thrust Vector</span><span class="spec-value">3D TVC nozzles</span></div>
+                <div class="spec-item"><span class="spec-label">Radar</span><span class="spec-value highlight">Irbis-E PESA (400 km)</span></div>
+                <div class="spec-item"><span class="spec-label">In Service</span><span class="spec-value">~100+ active</span></div>
+                <div class="spec-item"><span class="spec-label">Role</span><span class="spec-value">Air superiority / multi-role</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="equipment-card" onclick="openLightbox('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5ebc10b9568a432ba7c5b889619318f7ace2048c.jpg','Tu-160M Blackjack','Upgraded supersonic strategic bomber — largest and heaviest combat aircraft ever built. Armed with Kinzhal and Kh-101 cruise missiles.')">
+            <div class="equipment-img-wrap">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5ebc10b9568a432ba7c5b889619318f7ace2048c.jpg" alt="Tu-160M strategic bomber aircraft" width="340" height="200" loading="lazy">
+              <div class="equipment-img-label">Strategic Bomber // Nuclear</div>
+            </div>
+            <div class="equipment-body">
+              <div class="equipment-name">TU-160M BLACKJACK</div>
+              <div class="equipment-nato">NATO: Blackjack // Product 70M</div>
+              <div class="equipment-specs">
+                <div class="spec-item"><span class="spec-label">Max Speed</span><span class="spec-value highlight">Mach 2.05 (2,220 km/h)</span></div>
+                <div class="spec-item"><span class="spec-label">Combat Range</span><span class="spec-value">12,300 km (unfueled)</span></div>
+                <div class="spec-item"><span class="spec-label">Payload</span><span class="spec-value highlight">45,000 kg</span></div>
+                <div class="spec-item"><span class="spec-label">Weapons</span><span class="spec-value">Kh-101/102, Kinzhal</span></div>
+                <div class="spec-item"><span class="spec-label">In Service</span><span class="spec-value">~16 (Tu-160M upgrade program)</span></div>
+                <div class="spec-item"><span class="spec-label">Role</span><span class="spec-value">Strategic nuclear/conventional</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="equipment-card">
+            <div class="equipment-img-wrap" style="background:var(--color-surface-offset);display:flex;align-items:center;justify-content:center">
+              <svg width="160" height="60" viewBox="0 0 160 60" fill="none" aria-hidden="true">
+                <path d="M 5 30 L 155 30" stroke="#CC0000" stroke-width="2"/>
+                <circle cx="5" cy="30" r="5" fill="rgba(204,0,0,0.5)"/>
+                <path d="M 60 30 L 80 5 L 100 30 L 80 22 Z" fill="rgba(204,0,0,0.25)" stroke="#CC0000" stroke-width="1"/>
+                <path d="M 100 30 L 110 38 L 155 36" stroke="#CC0000" stroke-width="1" stroke-dasharray="4 3"/>
+              </svg>
+            </div>
+            <div class="equipment-body">
+              <div class="equipment-name">KH-47M2 KINZHAL</div>
+              <div class="equipment-nato">Air-Launched Ballistic Missile</div>
+              <div class="equipment-specs">
+                <div class="spec-item"><span class="spec-label">Speed</span><span class="spec-value highlight">Mach 10 (est. max)</span></div>
+                <div class="spec-item"><span class="spec-label">Range</span><span class="spec-value">2,000 km (MiG-31 platform)</span></div>
+                <div class="spec-item"><span class="spec-label">Warhead</span><span class="spec-value">Conv. or nuclear (10–50 kt)</span></div>
+                <div class="spec-item"><span class="spec-label">Launch Platform</span><span class="spec-value highlight">MiG-31K, Tu-22M3, Su-34</span></div>
+                <div class="spec-item"><span class="spec-label">Operational</span><span class="spec-value">Since Dec 2017</span></div>
+                <div class="spec-item"><span class="spec-label">Ukraine Use</span><span class="spec-value">Intercepted by Patriot 2023</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="equipment-card" onclick="openLightbox('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1ef7c9a965c08958b6031874f96cdcc9d0073c29.jpg','3M22 Zircon Hypersonic Missile','Ship-launched scramjet-powered hypersonic cruise missile — Mach 8-9 speed renders most point-defense systems ineffective at engagement ranges.')">
+            <div class="equipment-img-wrap">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1ef7c9a965c08958b6031874f96cdcc9d0073c29.jpg" alt="Zircon hypersonic missile launch from Russian warship" width="340" height="200" loading="lazy">
+              <div class="equipment-img-label">Hypersonic // Mach 8+</div>
+            </div>
+            <div class="equipment-body">
+              <div class="equipment-name">3M22 ZIRCON</div>
+              <div class="equipment-nato">NATO: SS-N-33 // Tsirkon</div>
+              <div class="equipment-specs">
+                <div class="spec-item"><span class="spec-label">Speed</span><span class="spec-value highlight">Mach 8–9 (est.)</span></div>
+                <div class="spec-item"><span class="spec-label">Range</span><span class="spec-value">~1,000 km</span></div>
+                <div class="spec-item"><span class="spec-label">Propulsion</span><span class="spec-value">Scramjet</span></div>
+                <div class="spec-item"><span class="spec-label">Platforms</span><span class="spec-value highlight">Gorshkov FFG, Yasen-M SSN</span></div>
+                <div class="spec-item"><span class="spec-label">Warhead</span><span class="spec-value">Conv. or nuclear</span></div>
+                <div class="spec-item"><span class="spec-label">Operational</span><span class="spec-value">2022 (Admiral Gorshkov)</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NAVAL FORCES ── -->
+      <div class="tab-panel" id="tab-navy" role="tabpanel">
+        <p style="color:var(--color-text-muted);font-size:var(--text-sm);line-height:1.8;margin-bottom:var(--space-8);max-width:75ch">Russia's Navy operates four active fleets plus the Caspian Flotilla. The Black Sea Fleet has suffered catastrophic losses to Ukrainian drones and missiles since 2022, forcing the remaining fleet to retreat to Novorossiysk.
+          <a href="https://www.atlanticcouncil.org/blogs/ukrainealert/russias-black-sea-defeats-get-flushed-down-vladimir-putins-memory-hole/" target="_blank" rel="noopener noreferrer" class="cite-chip">Atlantic Council</a>
+          <a href="https://www.newsweek.com/russia-loses-black-sea-fleet-vessels-crimea-1931439" target="_blank" rel="noopener noreferrer" class="cite-chip">Newsweek</a>
+        </p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)">
+          <div>
+            <h3 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-text);letter-spacing:0.06em;margin-bottom:var(--space-5)">BLACK SEA FLEET LOSSES</h3>
+            <div class="loss-timeline">
+              <div class="loss-item">
+                <div class="loss-date">APRIL 2022</div>
+                <div class="loss-ship">Moskva (Slava-class cruiser)</div>
+                <div class="loss-detail">Flagship sunk by Neptune anti-ship missiles. ~40 crew killed.</div>
+              </div>
+              <div class="loss-item">
+                <div class="loss-date">SEPT 2023</div>
+                <div class="loss-ship">Rostov-on-Don (Kilo-class submarine)</div>
+                <div class="loss-detail">Damaged in drydock at Sevastopol. Storm Shadow strike.</div>
+              </div>
+              <div class="loss-item">
+                <div class="loss-date">MARCH 2024</div>
+                <div class="loss-ship">Sergey Kotov (Patrol ship)</div>
+                <div class="loss-detail">Sunk by Magura V5 USV drones. $65M vessel destroyed.</div>
+              </div>
+              <div class="loss-item">
+                <div class="loss-date">MAY 2024</div>
+                <div class="loss-ship">Tsyklon (Cruise missile ship)</div>
+                <div class="loss-detail">Last Kalibr carrier in Black Sea — destroyed Sevastopol.</div>
+              </div>
+              <div class="loss-item">
+                <div class="loss-date">2022–2024</div>
+                <div class="loss-ship">26+ vessels total</div>
+                <div class="loss-detail">UK MoD: ~⅓ of fleet damaged/destroyed. Fleet declared "functionally inactive" Spring 2024.</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-text);letter-spacing:0.06em;margin-bottom:var(--space-5)">FLEET ASSESSMENT</h3>
+            <table class="data-table">
+              <thead><tr><th>Fleet</th><th>Homeport</th><th>Threat Level</th></tr></thead>
+              <tbody>
+                <tr><td>Northern Fleet</td><td>Severomorsk (Kola)</td><td><span class="threat-badge critical">Tier 1</span></td></tr>
+                <tr><td>Pacific Fleet</td><td>Vladivostok</td><td><span class="threat-badge high">Tier 2</span></td></tr>
+                <tr><td>Baltic Fleet</td><td>Baltiysk</td><td><span class="threat-badge moderate">Tier 3</span></td></tr>
+                <tr><td>Black Sea Fleet</td><td>Novorossiysk (displaced)</td><td><span class="threat-badge high">Degraded</span></td></tr>
+              </tbody>
+            </table>
+            <div style="margin-top:var(--space-6)">
+              <div class="unit-card" onclick="openLightbox('https://i.namu.wiki/i/ZxFXVMRpCiBUxHXVlqNshhWzkhi9uZhhHiDv2eQgfZVHKVpcLWvLdeVPgpBmO394DQmMoDsW1HyadoHvOlWZHQ.webp','Yasen-class SSGN','Project 885/885M nuclear-powered attack submarine — regarded as one of the most capable SSGNs in the world, comparable to the US Virginia-class.')" style="cursor:pointer">
+                <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-3)">
+                  <span class="threat-badge critical">Northern Fleet Asset</span>
+                </div>
+                <div style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-text);letter-spacing:0.06em">YASEN-M CLASS</div>
+                <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-primary);margin-bottom:var(--space-4)">Project 885M // NATO: Severodvinsk // SSGN</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);font-size:var(--text-xs)">
+                  <div><span style="color:var(--color-text-faint);display:block;text-transform:uppercase;letter-spacing:0.08em">Displacement</span><span style="color:var(--color-text-muted);font-family:var(--font-mono)">13,800 tons submerged</span></div>
+                  <div><span style="color:var(--color-text-faint);display:block;text-transform:uppercase;letter-spacing:0.08em">Speed (max sub)</span><span style="color:var(--color-primary);font-family:var(--font-mono)">35 knots</span></div>
+                  <div><span style="color:var(--color-text-faint);display:block;text-transform:uppercase;letter-spacing:0.08em">VLS Cells</span><span style="color:var(--color-primary);font-family:var(--font-mono)">10 × VLS (885M)</span></div>
+                  <div><span style="color:var(--color-text-faint);display:block;text-transform:uppercase;letter-spacing:0.08em">Strike Weapons</span><span style="color:var(--color-text-muted);font-family:var(--font-mono)">Kalibr, Oniks, Zircon</span></div>
+                  <div><span style="color:var(--color-text-faint);display:block;text-transform:uppercase;letter-spacing:0.08em">In Service</span><span style="color:var(--color-text-muted);font-family:var(--font-mono)">5 commissioned (Jan 2025)</span></div>
+                  <div><span style="color:var(--color-text-faint);display:block;text-transform:uppercase;letter-spacing:0.08em">Planned Fleet</span><span style="color:var(--color-primary);font-family:var(--font-mono)">Full Yasen transition</span></div>
+                </div>
+                <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-3)">Click to view image // Source: USNI News, Naval Technology</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STRATEGIC ROCKET FORCES ── -->
+      <div class="tab-panel" id="tab-srf" role="tabpanel">
+        <p style="color:var(--color-text-muted);font-size:var(--text-sm);line-height:1.8;margin-bottom:var(--space-8);max-width:75ch">The Strategic Rocket Forces (RVSN) are Russia's ICBM force — the land leg of the nuclear triad. Analogous to the PLARF, the RVSN is a separate armed service under direct presidential command.
+          <a href="https://defensefeeds.com/military-tech/army/ballistic-missiles/rs-28-sarmat/" target="_blank" rel="noopener noreferrer" class="cite-chip">DefenseFeeds</a>
+        </p>
+        <div class="equipment-grid">
+          <div class="equipment-card" onclick="openLightbox('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/fc649c420a5dd4ca3ea47ca0bbe47d165a282c08.jpg','RS-28 Sarmat ICBM','Satan 2 — silo-launched heavy ICBM capable of carrying 10–15 MIRVs or Avangard hypersonic glide vehicles over 18,000 km range.')">
+            <div class="equipment-img-wrap">
+              <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/fc649c420a5dd4ca3ea47ca0bbe47d165a282c08.jpg" alt="RS-28 Sarmat ICBM launch from silo" width="340" height="200" loading="lazy">
+              <div class="equipment-img-label">ICBM // Heavy Silo</div>
+            </div>
+            <div class="equipment-body">
+              <div class="equipment-name">RS-28 SARMAT</div>
+              <div class="equipment-nato">NATO: SS-X-30 // "Satan 2"</div>
+              <div class="equipment-specs">
+                <div class="spec-item"><span class="spec-label">Range</span><span class="spec-value highlight">18,000 km (global)</span></div>
+                <div class="spec-item"><span class="spec-label">Launch Weight</span><span class="spec-value">208,100 kg</span></div>
+                <div class="spec-item"><span class="spec-label">Warheads</span><span class="spec-value highlight">10–15 MIRVs or Avangard HGV</span></div>
+                <div class="spec-item"><span class="spec-label">CEP</span><span class="spec-value">~500 m (est.)</span></div>
+                <div class="spec-item"><span class="spec-label">Operational</span><span class="spec-value">2023–2024 initial IOC</span></div>
+                <div class="spec-item"><span class="spec-label">Guidance</span><span class="spec-value">Inertial + GLONASS + Astro</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="equipment-card" onclick="openLightbox('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/93a4b9e41a7c6bce1d22dc8a2fdb6c7f3af21f9d.jpg','RS-24 Yars ICBM','Road-mobile and silo-based ICBM — the primary deployed ICBM of the Strategic Rocket Forces.')">
+            <div class="equipment-img-wrap" style="background:var(--color-surface-offset);display:flex;align-items:center;justify-content:center">
+              <svg width="180" height="100" viewBox="0 0 180 100" fill="none" aria-hidden="true">
+                <ellipse cx="90" cy="90" rx="70" ry="12" fill="rgba(204,0,0,0.1)" stroke="#CC0000" stroke-width="1" opacity="0.5"/>
+                <rect x="82" y="5" width="16" height="82" rx="4" fill="rgba(204,0,0,0.2)" stroke="#CC0000" stroke-width="1.5"/>
+                <polygon points="82,5 90,0 98,5" fill="rgba(204,0,0,0.6)" stroke="#CC0000" stroke-width="1"/>
+                <line x1="75" y1="35" x2="105" y2="35" stroke="#CC0000" stroke-width="0.5" opacity="0.4"/>
+                <line x1="75" y1="55" x2="105" y2="55" stroke="#CC0000" stroke-width="0.5" opacity="0.4"/>
+              </svg>
+            </div>
+            <div class="equipment-body">
+              <div class="equipment-name">RS-24 YARS</div>
+              <div class="equipment-nato">NATO: SS-29 // RT-24</div>
+              <div class="equipment-specs">
+                <div class="spec-item"><span class="spec-label">Range</span><span class="spec-value highlight">11,000+ km</span></div>
+                <div class="spec-item"><span class="spec-label">Warheads</span><span class="spec-value">4 × 300–500 kt MIRVs</span></div>
+                <div class="spec-item"><span class="spec-label">Basing</span><span class="spec-value highlight">Road-mobile + Silo</span></div>
+                <div class="spec-item"><span class="spec-label">Launch Weight</span><span class="spec-value">~49,600 kg</span></div>
+                <div class="spec-item"><span class="spec-label">In Service</span><span class="spec-value">Backbone since 2010</span></div>
+                <div class="spec-item"><span class="spec-label">Deployment</span><span class="spec-value">~150+ launchers</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="equipment-card">
+            <div class="equipment-img-wrap" style="background:var(--color-surface-offset);display:flex;align-items:center;justify-content:center">
+              <svg width="160" height="100" viewBox="0 0 160 100" fill="none" aria-hidden="true">
+                <path d="M 30 80 Q 40 40 80 10 Q 120 40 130 80" stroke="#CC0000" stroke-width="2" fill="rgba(204,0,0,0.1)"/>
+                <circle cx="80" cy="10" r="8" fill="rgba(204,0,0,0.5)" stroke="#CC0000" stroke-width="1.5"/>
+                <path d="M 80 80 L 50 90 L 80 85 L 110 90 Z" fill="rgba(204,0,0,0.3)" stroke="#CC0000" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="equipment-body">
+              <div class="equipment-name">RSM-56 BULAVA</div>
+              <div class="equipment-nato">NATO: SS-N-32 // SLBM</div>
+              <div class="equipment-specs">
+                <div class="spec-item"><span class="spec-label">Range</span><span class="spec-value highlight">8,300+ km</span></div>
+                <div class="spec-item"><span class="spec-label">Warheads</span><span class="spec-value">6 × 100–150 kt MIRVs</span></div>
+                <div class="spec-item"><span class="spec-label">Platform</span><span class="spec-value highlight">Borei-class SSBN</span></div>
+                <div class="spec-item"><span class="spec-label">Per Sub</span><span class="spec-value">16 missiles</span></div>
+                <div class="spec-item"><span class="spec-label">Operational</span><span class="spec-value">Since 2013</span></div>
+                <div class="spec-item"><span class="spec-label">Speed</span><span class="spec-value">Mach 6+ (reentry)</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:var(--space-8);">
+          <div class="unit-card">
+            <div style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-text);letter-spacing:0.06em;margin-bottom:var(--space-2)">NUCLEAR TRIAD STRUCTURE</div>
+            <table class="data-table" style="margin-top:var(--space-4)">
+              <thead><tr><th>Leg</th><th>System</th><th>Warheads (Est.)</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Land (ICBM)</td><td>RS-24 Yars, RS-28 Sarmat, RT-2PM2 Topol-M</td><td>~800</td><td><span class="threat-badge critical">Full Alert</span></td></tr>
+                <tr><td>Sea (SLBM)</td><td>Bulava (Borei-A SSBNs), Sineva (Delta-IV SSBNs)</td><td>~576</td><td><span class="threat-badge critical">Continuous Patrol</span></td></tr>
+                <tr><td>Air (Bomber)</td><td>Tu-160M, Tu-95MS (Kh-55/102/Kinzhal)</td><td>~580</td><td><span class="threat-badge high">Operational</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div><!-- end tabs-wrapper -->
+  </div>
+</section>
+
+<!-- ═══════════ S5: CYBER / EW ═══════════ -->
+<section class="section" id="cyber">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div>
+        <span class="section-number">S-05</span>
+        <h2 class="section-title">CYBER &amp; <em>ELECTRONIC WARFARE</em></h2>
+        <div class="crimson-line"></div>
+        <p class="section-lead">Russia's GRU (military intelligence) houses the world's most active state-sponsored cyber offensive capability, with Sandworm and APT28 operating across critical infrastructure targets globally.</p>
+      </div>
+    </div>
+    <div class="fade-in">
+      <div class="unit-card">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4)">
+          <div>
+            <div class="unit-designation">GRU UNIT 74455</div>
+            <div class="unit-alias">APT: "SANDWORM" // Voodoo Bear // Electrum // IRIDIUM</div>
+          </div>
+          <span class="threat-badge critical">Critical Infrastructure Threat</span>
+        </div>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-top:var(--space-4);line-height:1.8">Unit 74455, operating from the Khimki suburb of Moscow, is the GRU's most destructive cyberwarfare unit. It was responsible for NotPetya (2017) — the most economically destructive cyberattack in history at ~$10B in damages — as well as attacks on Ukraine's power grid (BlackEnergy 2015, Industroyer 2016), Olympic Destroyer (2018 Pyeongchang Games), and election interference operations.
+          <a href="https://henryjacksonsociety.org/wp-content/uploads/2026/01/HJS-Catching-Sandworm-%E2%80%93-Russia-Report.pdf" target="_blank" rel="noopener noreferrer" class="cite-chip">Henry Jackson Soc.</a>
+        </p>
+        <div class="unit-ops" style="margin-top:var(--space-5)">
+          <div class="unit-op-item">
+            <div class="unit-op-year">2015–16</div>
+            <div><div class="unit-op-name">BlackEnergy / Industroyer</div><div class="unit-op-desc">Knocked out ~230,000 Ukrainian homes — first confirmed power grid cyberattack in history</div></div>
+          </div>
+          <div class="unit-op-item">
+            <div class="unit-op-year">2017</div>
+            <div><div class="unit-op-name">NotPetya</div><div class="unit-op-desc">$10B global damage. Maersk, Merck, FedEx. Disguised as ransomware, was actually a wiper.</div></div>
+          </div>
+          <div class="unit-op-item">
+            <div class="unit-op-year">2022+</div>
+            <div><div class="unit-op-name">Industroyer2 / CaddyWiper</div><div class="unit-op-desc">Coordinated with missile strikes on Ukrainian infrastructure. Escalating ICS targeting.</div></div>
+          </div>
+          <div class="unit-op-item">
+            <div class="unit-op-year">2024</div>
+            <div><div class="unit-op-name">AcidPour / AcidRain</div><div class="unit-op-desc">Wiper campaigns against Ukrainian satcom and telecom infrastructure during offensive operations.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="unit-card" style="margin-top:var(--space-5)">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4)">
+          <div>
+            <div class="unit-designation">GRU UNIT 26165</div>
+            <div class="unit-alias">APT: "FANCY BEAR" // APT28 // Sofacy // Strontium // BlueDelta</div>
+          </div>
+          <span class="threat-badge high">Espionage + Election Ops</span>
+        </div>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-top:var(--space-4);line-height:1.8">Unit 26165 (85th GTsSS Main Special Service Center) is Russia's premier cyber espionage unit, responsible for breaches of the DNC (2016), WADA, the OSCE, the French election systems, and — continuously since 2022 — logistics firms and tech companies supporting Ukrainian aid delivery.
+          <a href="https://www.gov.uk/government/publications/profile-gru-cyber-and-hybrid-threat-operations/profile-gru-cyber-and-hybrid-threat-operations" target="_blank" rel="noopener noreferrer" class="cite-chip">UK GOV</a>
+          <a href="https://industrialcyber.co/cisa/russian-grus-unit-26165-conducts-two-year-cyber-espionage-on-logistics-tech-firms-using-ip-cameras-supply-chains/" target="_blank" rel="noopener noreferrer" class="cite-chip">ICS Cyber</a>
+        </p>
+        <div class="unit-ops" style="margin-top:var(--space-5)">
+          <div class="unit-op-item">
+            <div class="unit-op-year">2016</div>
+            <div><div class="unit-op-name">DNC / Podesta Hack</div><div class="unit-op-desc">Spearphishing exfiltrated 30,000+ Democratic Party documents; released via WikiLeaks</div></div>
+          </div>
+          <div class="unit-op-item">
+            <div class="unit-op-year">2017</div>
+            <div><div class="unit-op-name">Macron Campaign Breach</div><div class="unit-op-desc">9GB of data dumped 2 days before French presidential election</div></div>
+          </div>
+          <div class="unit-op-item">
+            <div class="unit-op-year">2024+</div>
+            <div><div class="unit-op-name">Ukraine Aid Supply Chain</div><div class="unit-op-desc">Compromised IP cameras at border crossings to track arms movements; targeted logistics firms across 9 NATO states</div></div>
+          </div>
+          <div class="unit-op-item">
+            <div class="unit-op-year">2025–26</div>
+            <div><div class="unit-op-name">Resumed High-End Malware</div><div class="unit-op-desc">ESET reports resumed long-term espionage ops against Ukrainian military using advanced UEFI implants</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:var(--space-6);" class="card">
+        <div class="card-body">
+          <div class="card-title">ELECTRONIC WARFARE CAPABILITY</div>
+          <p class="card-text">Russia fields the world's most sophisticated tactical EW ecosystem, including Krasukha-4 (anti-satellite/radar jamming), Murmansk-BN (strategic HF jamming range 5,000+ km), Moskva-1 (passive radar), and Richag-AV helicopter-borne EW pods. Ukraine theater has become a live test of Russian EW vs. Western countermeasures — results have been mixed, with Ukrainian adaptability consistently surprising Russian planners. Gerasimov has cited EW integration as a core lesson of the conflict.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ S6: FOREIGN POLICY ═══════════ -->
+<section class="section" id="policy">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div>
+        <span class="section-number">S-06</span>
+        <h2 class="section-title">FOREIGN POLICY <em>DOCTRINE</em></h2>
+        <div class="crimson-line"></div>
+        <p class="section-lead">Russia's strategic doctrine integrates Eurasianist ideology, near-abroad dominance, Arctic expansionism, and non-Western multilateral institutions — SCO and CSTO — to construct a counter-hegemonic bloc.</p>
+      </div>
+    </div>
+
+    <div class="info-grid fade-in">
+      <div class="policy-card">
+        <div class="policy-header">
+          <i data-lucide="globe" width="18" height="18" style="color:var(--color-primary)"></i>
+          <div class="policy-header-title">EURASIANISM</div>
+        </div>
+        <div class="policy-body">
+          <p class="card-text">Drawing on Aleksandr Dugin's Neo-Eurasian philosophy and earlier Eurasianist thinkers (Trubetzkoy, Savitsky), Putin's Russia rejects Western liberal universalism and asserts a distinct Eurasian civilizational identity. The ideology posits Russia as the natural center of a Eurasian heartland stretching from Lisbon to Vladivostok — antithetical to the "Atlanticist" (US-dominated) order. This provides the ideological foundation for anti-NATO posturing, the SCO, and the Eurasian Economic Union.</p>
+        </div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-header">
+          <i data-lucide="map-pin" width="18" height="18" style="color:var(--color-primary)"></i>
+          <div class="policy-header-title">NEAR ABROAD DOCTRINE</div>
+        </div>
+        <div class="policy-body">
+          <p class="card-text">Russia asserts a sphere of privileged interests across the 14 post-Soviet states — the "near abroad." This manifests as: frozen conflicts maintained as coercive levers (Transnistria, South Ossetia, Abkhazia, Nagorno-Karabakh until 2023); economic integration pressure via the Eurasian Economic Union; and military presence through CSTO. The 2022 invasion of Ukraine represents the most extreme expression of this doctrine, triggered by NATO's eastward expansion and Kyiv's Euro-Atlantic pivot.
+            <a href="https://eurasiacenter.hu/wp-content/uploads/2024/04/EC_2024_7-1.pdf" target="_blank" rel="noopener noreferrer" class="cite-chip">Eurasia Center</a>
+          </p>
+        </div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-header">
+          <i data-lucide="snowflake" width="18" height="18" style="color:var(--color-primary)"></i>
+          <div class="policy-header-title">ARCTIC CLAIMS</div>
+        </div>
+        <div class="policy-body">
+          <p class="card-text">Russia has submitted extended continental shelf claims to the UN Commission on the Limits of the Continental Shelf covering the Lomonosov Ridge, the Mendeleyev Ridge, and the Alpha Ridge — totaling ~1.2 million km² of additional Arctic seabed. These areas are believed to hold ~30% of the world's undiscovered natural gas and 13% of undiscovered oil. Russia has militarized the Arctic extensively: Arctic Command established 2014, six Arctic military bases reopened, Trefoil fortress operational (Franz Josef Land).</p>
+        </div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-header">
+          <i data-lucide="shield" width="18" height="18" style="color:var(--color-primary)"></i>
+          <div class="policy-header-title">SCO &amp; CSTO</div>
+        </div>
+        <div class="policy-body">
+          <p class="card-text">Putin views the Shanghai Cooperation Organization as "one of the key pillars of a fair, multipolar world order" and advocates building a "new architecture of Eurasian security" through SCO-CSTO-CIS integration — explicitly replacing "Europe-centric and Euro-Atlantic models." At the 2024 Astana summit, 92% of Russia's SCO trade was conducted in non-Western currencies. The CSTO — Russia's military alliance — lacks Chinese membership and serves as Moscow's primary military lever in Central Asia.
+            <a href="https://www.hudson.org/security-alliances/sino-russian-interactions-regarding-shanghai-cooperation-organization-richard-weitz" target="_blank" rel="noopener noreferrer" class="cite-chip">Hudson Institute</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Policy Quotes -->
+    <div style="margin-top:var(--space-10);" class="fade-in">
+      <h3 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-text);letter-spacing:0.06em;margin-bottom:var(--space-5)">DOCTRINE STATEMENTS — COLLAPSIBLE ARCHIVE</h3>
+      <div class="collapsible">
+        <button class="collapsible-trigger" aria-expanded="false" onclick="toggleCollapsible(this)">
+          <span>Putin on SCO Multipolarity — Astana Summit July 2024</span>
+          <i data-lucide="chevron-down" class="collapsible-icon" width="18" height="18"></i>
+        </button>
+        <div class="collapsible-body">
+          <div class="collapsible-quote">"[We advocate] creating a novel architecture in Eurasia of cooperation, indivisible security, and development... to replace the obsolete Eurocentric and Euro-Atlantic models that gave unilateral advantages only to individual states." — Vladimir Putin, SCO Astana Summit, July 2024</div>
+          <p class="collapsible-attr">Source: Kremlin transcript / Hudson Institute analysis</p>
+        </div>
+      </div>
+      <div class="collapsible">
+        <button class="collapsible-trigger" aria-expanded="false" onclick="toggleCollapsible(this)">
+          <span>Russia's 2023 Foreign Policy Concept — On the "World Majority"</span>
+          <i data-lucide="chevron-down" class="collapsible-icon" width="18" height="18"></i>
+        </button>
+        <div class="collapsible-body">
+          <div class="collapsible-quote">"Russia is an original state-civilization... is not hostile to the West... but considers unacceptable any attempts to impose Western 'rules-based order' on the rest of the world." — Russian Foreign Policy Concept, March 2023, Article 8</div>
+          <p class="collapsible-attr">Source: MFA Russia official document // Translation verified by RAND</p>
+        </div>
+      </div>
+      <div class="collapsible">
+        <button class="collapsible-trigger" aria-expanded="false" onclick="toggleCollapsible(this)">
+          <span>Gerasimov on Modern Warfare Integration — 2023 Military Thought</span>
+          <i data-lucide="chevron-down" class="collapsible-icon" width="18" height="18"></i>
+        </button>
+        <div class="collapsible-body">
+          <div class="collapsible-quote">"The role of non-military methods in achieving political and strategic objectives has grown considerably. In many cases, their effectiveness has exceeded the power of weapons." — General Valery Gerasimov, Military-Industrial Kurier, 2013 (the origin of "Gerasimov doctrine," widely mischaracterized in Western media)</div>
+          <p class="collapsible-attr">Source: Military-Industrial Kurier / ISW analysis clarifying the doctrine's actual meaning</p>
+        </div>
+      </div>
+      <div class="collapsible">
+        <button class="collapsible-trigger" aria-expanded="false" onclick="toggleCollapsible(this)">
+          <span>Russia's Arctic Strategy — Presidential Decree 2035</span>
+          <i data-lucide="chevron-down" class="collapsible-icon" width="18" height="18"></i>
+        </button>
+        <div class="collapsible-body">
+          <div class="collapsible-quote">"The state policy of the Russian Federation in the Arctic is aimed at... protecting national interests of the Russian Federation in the Arctic; developing the Arctic zone... ensuring military security, protection and defense of the state border." — Russian Arctic Strategy to 2035, approved March 2020</div>
+          <p class="collapsible-attr">Source: Kremlin official document / CSIS Arctic Security Initiative analysis</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Source attribution -->
+    <div style="margin-top:var(--space-10);padding:var(--space-6);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);" class="fade-in">
+      <div style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--color-text);letter-spacing:0.06em;margin-bottom:var(--space-4)">PRIMARY SOURCE CITATIONS</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--space-3)">
+        <a href="https://www.csis.org" target="_blank" rel="noopener noreferrer" class="cite-chip" style="font-size:var(--text-xs)">CSIS — Center for Strategic & Intl Studies</a>
+        <a href="https://www.iiss.org/publications/military-balance" target="_blank" rel="noopener noreferrer" class="cite-chip" style="font-size:var(--text-xs)">IISS — Military Balance 2024</a>
+        <a href="https://understandingwar.org" target="_blank" rel="noopener noreferrer" class="cite-chip" style="font-size:var(--text-xs)">ISW — Institute for Study of War</a>
+        <a href="https://www.bellingcat.com" target="_blank" rel="noopener noreferrer" class="cite-chip" style="font-size:var(--text-xs)">Bellingcat — OSINT Analysis</a>
+        <a href="https://www.rand.org" target="_blank" rel="noopener noreferrer" class="cite-chip" style="font-size:var(--text-xs)">RAND Corporation</a>
+        <a href="https://carnegieendowment.org" target="_blank" rel="noopener noreferrer" class="cite-chip" style="font-size:var(--text-xs)">Carnegie Endowment</a>
+        <a href="https://europeanleadershipnetwork.org" target="_blank" rel="noopener noreferrer" class="cite-chip" style="font-size:var(--text-xs)">European Leadership Network</a>
+        <a href="https://www.stimson.org" target="_blank" rel="noopener noreferrer" class="cite-chip" style="font-size:var(--text-xs)">Stimson Center</a>
+        <a href="https://news.usni.org" target="_blank" rel="noopener noreferrer" class="cite-chip" style="font-size:var(--text-xs)">USNI News — Naval Analysis</a>
+        <a href="https://www.nti.org" target="_blank" rel="noopener noreferrer" class="cite-chip" style="font-size:var(--text-xs)">NTI — Nuclear Threat Initiative</a>
+        <a href="https://www.hudson.org" target="_blank" rel="noopener noreferrer" class="cite-chip" style="font-size:var(--text-xs)">Hudson Institute</a>
+        <a href="https://www.gov.uk/government/organisations/ministry-of-defence" target="_blank" rel="noopener noreferrer" class="cite-chip" style="font-size:var(--text-xs)">UK Ministry of Defence</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-inner">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <polygon points="12,2 22,8 22,16 12,22 2,16 2,8" stroke="#CC0000" stroke-width="1.5" fill="rgba(204,0,0,0.1)"/>
+      <line x1="12" y1="2" x2="12" y2="22" stroke="#CC0000" stroke-width="1" opacity="0.5"/>
+      <line x1="2" y1="12" x2="22" y2="12" stroke="#CC0000" stroke-width="1" opacity="0.5"/>
+    </svg>
+    <div class="footer-class">A-05 // RUSSIAN FEDERATION STRATEGIC DOSSIER</div>
+    <div class="footer-text">This dossier is compiled from open-source intelligence including CSIS, IISS Military Balance, ISW, Bellingcat, RAND, Carnegie Endowment, NTI, and official governmental releases. All citations link to primary sources. Data reflects assessments current as of March 2026. All external links open in a new tab.</div>
+    <div style="font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint);letter-spacing:0.15em">OPEN SOURCE INTELLIGENCE // NOT CLASSIFIED // FOR EDUCATIONAL PURPOSES</div>
+  </div>
+</footer>
+
+<script>
+// ═══ INIT ICONS ═══
+document.addEventListener('DOMContentLoaded', () => {
+  lucide.createIcons();
+  initNav();
+});
+
+// ═══ ACTIVE NAV HIGHLIGHTING ═══
+function initNav() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => obs.observe(s));
+}
+
+// ═══ TABS ═══
+function switchTab(btn, panelId) {
+  // Deactivate all
+  btn.closest('.tabs-wrapper').querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+  btn.closest('.tabs-wrapper').querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  // Activate selected
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+  document.getElementById(panelId).classList.add('active');
+}
+
+// ═══ COLLAPSIBLE ═══
+function toggleCollapsible(trigger) {
+  const expanded = trigger.getAttribute('aria-expanded') === 'true';
+  trigger.setAttribute('aria-expanded', !expanded);
+  const body = trigger.nextElementSibling;
+  body.classList.toggle('open', !expanded);
+}
+
+// ═══ LIGHTBOX ═══
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lightbox-img');
+const lbName = document.getElementById('lightbox-name');
+const lbDesc = document.getElementById('lightbox-desc');
+
+function openLightbox(src, name, desc) {
+  lbImg.src = src;
+  lbImg.alt = name;
+  lbName.textContent = name;
+  lbDesc.textContent = desc;
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  lightbox.focus();
+}
+
+document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox(); });
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ═══ HERO SECTION NAV LINK ═══
+document.querySelector('.nav-logo').addEventListener('click', () => {
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+});
+</script>
+</body>
+</html>

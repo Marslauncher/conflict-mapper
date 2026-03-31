@@ -1,0 +1,1548 @@
+{
+  "feeds": [
+    {
+      "id": "bbc-top",
+      "url": "http://feeds.bbci.co.uk/news/rss.xml",
+      "name": "BBC News Top Stories",
+      "description": "World's most-followed broadcaster top headlines",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "bbc-world",
+      "url": "https://feeds.bbci.co.uk/news/world/rss.xml",
+      "name": "BBC World News",
+      "description": "BBC international edition world news",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "ap-world",
+      "url": "https://news.google.com/rss/search?q=when:24h+allinurl:apnews.com&hl=en-US&gl=US&ceid=US:en",
+      "name": "AP News Top Stories",
+      "description": "Associated Press wire service top stories",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "al-jazeera-world",
+      "url": "https://www.aljazeera.com/xml/rss/all.xml",
+      "name": "Al Jazeera English",
+      "description": "Global south-focused international news",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "reuters-world",
+      "url": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&hl=en-US&gl=US&ceid=US:en",
+      "name": "Reuters World News",
+      "description": "Reuters world news (workaround URL \u2014 may be intermittent)",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "guardian-world",
+      "url": "https://www.theguardian.com/world/rss",
+      "name": "The Guardian World",
+      "description": "The Guardian's international news coverage",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "nyt-world",
+      "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+      "name": "New York Times World",
+      "description": "NYT world news section",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "wapo-world",
+      "url": "https://feeds.washingtonpost.com/rss/world",
+      "name": "Washington Post World",
+      "description": "Washington Post international coverage",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "france24-world",
+      "url": "https://www.france24.com/en/rss",
+      "name": "France 24 English",
+      "description": "French public international broadcaster (English)",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "dw-world",
+      "url": "https://rss.dw.com/xml/rss-en-all",
+      "name": "Deutsche Welle World",
+      "description": "German public international broadcaster (English)",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "nhk-world",
+      "url": "https://www3.nhk.or.jp/rss/news/cat0.xml",
+      "name": "NHK World Japan",
+      "description": "Japan's public broadcaster with Asia focus",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "cnn-world",
+      "url": "http://rss.cnn.com/rss/edition_world.rss",
+      "name": "CNN World",
+      "description": "CNN international edition headlines",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "sky-news-world",
+      "url": "https://feeds.skynews.com/feeds/rss/world.xml",
+      "name": "Sky News World",
+      "description": "Sky News world news feed",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "abc-news-intl",
+      "url": "https://abcnews.go.com/abcnews/internationalheadlines",
+      "name": "ABC News International",
+      "description": "ABC News international headlines",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "nbc-news-world",
+      "url": "https://feeds.nbcnews.com/nbcnews/public/world",
+      "name": "NBC News World",
+      "description": "NBC News world news feed",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "pbs-news",
+      "url": "https://www.pbs.org/newshour/feeds/rss/world",
+      "name": "PBS NewsHour World",
+      "description": "PBS NewsHour world coverage",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "npr-news",
+      "url": "https://feeds.npr.org/1001/rss.xml",
+      "name": "NPR News",
+      "description": "US public radio news",
+      "category": "breaking",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "axios-world",
+      "url": "https://api.axios.com/feed",
+      "name": "Axios",
+      "description": "Smart-brevity US and world news",
+      "category": "breaking",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "wsj-world",
+      "url": "https://feeds.a.dj.com/rss/RSSWorldNews.xml",
+      "name": "Wall Street Journal World",
+      "description": "WSJ international news and markets",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "ft-world",
+      "url": "https://www.ft.com/world?format=rss",
+      "name": "Financial Times World",
+      "description": "FT global news and financial coverage",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "bloomberg-world",
+      "url": "https://feeds.bloomberg.com/markets/news.rss",
+      "name": "Bloomberg World",
+      "description": "Bloomberg global markets and news",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "propublica",
+      "url": "https://feeds.propublica.org/propublica/main",
+      "name": "ProPublica",
+      "description": "Investigative journalism in the public interest",
+      "category": "breaking",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "vox-world",
+      "url": "https://www.vox.com/rss/index.xml",
+      "name": "Vox",
+      "description": "Explanatory journalism covering geopolitics and policy",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "economist",
+      "url": "https://www.economist.com/international/rss.xml",
+      "name": "The Economist International",
+      "description": "In-depth analysis of global affairs",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "foreign-policy",
+      "url": "https://foreignpolicy.com/feed/",
+      "name": "Foreign Policy",
+      "description": "Premium foreign policy and international affairs analysis",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "foreign-affairs",
+      "url": "https://www.foreignaffairs.com/rss.xml",
+      "name": "Foreign Affairs",
+      "description": "Academic-grade geopolitical analysis (Council on Foreign Relations)",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "cfr-world",
+      "url": "https://www.cfr.org/feed",
+      "name": "Council on Foreign Relations",
+      "description": "CFR think-tank analysis and policy reports",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "war-on-rocks",
+      "url": "https://warontherocks.com/feed/",
+      "name": "War on the Rocks",
+      "description": "National security and strategy through a realist lens",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "global-security-review",
+      "url": "https://globalsecurityreview.com/feed",
+      "name": "Global Security Review",
+      "description": "Eurasian, European, and Asian security analysis",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "real-clear-defense",
+      "url": "https://realcleardefense.com/index.xml",
+      "name": "Real Clear Defense",
+      "description": "Defense and strategy analysis aggregator",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "the-diplomat",
+      "url": "https://thediplomat.com/feed/",
+      "name": "The Diplomat",
+      "description": "Asia-Pacific geopolitics and international relations",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "asia-times",
+      "url": "https://asiatimes.com/feed/",
+      "name": "Asia Times",
+      "description": "Asian geopolitics, economics, and regional affairs",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "rand-commentary",
+      "url": "https://www.rand.org/topics/international-affairs.xml",
+      "name": "RAND Commentary",
+      "description": "RAND Corporation policy research and commentary",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "csis-commentary",
+      "url": "https://www.csis.org/rss.xml",
+      "name": "CSIS Commentary",
+      "description": "Center for Strategic and International Studies analysis",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "bellingcat",
+      "url": "https://www.bellingcat.com/feed/",
+      "name": "Bellingcat",
+      "description": "Open source intelligence (OSINT) investigations",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "stratfor",
+      "url": "https://worldview.stratfor.com/feed",
+      "name": "Stratfor Worldview",
+      "description": "Geopolitical intelligence and forecasting (RSS discontinued)",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "lawfare",
+      "url": "https://www.lawfaremedia.org/feed",
+      "name": "Lawfare",
+      "description": "National security law and policy (RSS discontinued)",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "the-intercept",
+      "url": "https://theintercept.com/feed/?lang=en",
+      "name": "The Intercept",
+      "description": "National security, civil liberties, and surveillance investigations",
+      "category": "geopolitics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "middle-east-eye",
+      "url": "https://www.middleeasteye.net/rss",
+      "name": "Middle East Eye",
+      "description": "Independent Middle East and North Africa coverage",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "state-dept",
+      "url": "https://www.state.gov/rss-feeds/press-releases/",
+      "name": "US State Department",
+      "description": "Official US diplomatic press releases and statements",
+      "category": "geopolitics",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "defense-one",
+      "url": "https://defenseone.com/rss/all",
+      "name": "Defense One",
+      "description": "US national security and defense leadership coverage",
+      "category": "military",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "the-war-zone",
+      "url": "https://twz.com/feed",
+      "name": "The War Zone",
+      "description": "Military technology and strategy nexus",
+      "category": "military",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "breaking-defense",
+      "url": "https://breakingdefense.com/feed/",
+      "name": "Breaking Defense",
+      "description": "Global defense strategy and procurement news",
+      "category": "military",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "defence-blog",
+      "url": "https://defence-blog.com/feed/",
+      "name": "Defence Blog",
+      "description": "Global military developments and equipment news",
+      "category": "military",
+      "country": "global",
+      "language": "en",
+      "enabled": true,
+      "requiresUA": true
+    },
+    {
+      "id": "defense-news",
+      "url": "https://www.defensenews.com/arc/outboundfeeds/rss/",
+      "name": "Defense News",
+      "description": "Global defense community news and analysis",
+      "category": "military",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "naval-news",
+      "url": "https://navalnews.com/feed",
+      "name": "Naval News",
+      "description": "Naval defense technology and shipbuilding",
+      "category": "military",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "army-technology",
+      "url": "https://army-technology.com/feed",
+      "name": "Army Technology",
+      "description": "Land-based defense systems and technology",
+      "category": "military",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "task-and-purpose",
+      "url": "https://taskandpurpose.com/feed",
+      "name": "Task & Purpose",
+      "description": "Military and veteran community news",
+      "category": "military",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "uk-defence-journal",
+      "url": "https://ukdefencejournal.org.uk/feed",
+      "name": "UK Defence Journal",
+      "description": "UK and international defence news",
+      "category": "military",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "defense-scoop",
+      "url": "https://defensescoop.com/feed",
+      "name": "DefenseScoop",
+      "description": "US military technology acquisition and cybersecurity",
+      "category": "military",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "nineteen-forty-five",
+      "url": "https://19fortyfive.com/feed",
+      "name": "19FortyFive",
+      "description": "National security commentary and analysis",
+      "category": "military",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "military-leak",
+      "url": "https://militaryleak.com/feed",
+      "name": "MilitaryLeak",
+      "description": "Global military operations and equipment intelligence",
+      "category": "military",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "military-com",
+      "url": "https://www.military.com/rss/headlines",
+      "name": "Military.com",
+      "description": "US military community news and benefits",
+      "category": "military",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "army-times",
+      "url": "https://www.armytimes.com/arc/outboundfeeds/rss/",
+      "name": "Army Times",
+      "description": "US Army-specific news and policy",
+      "category": "military",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "naval-institute",
+      "url": "https://news.usni.org/feed",
+      "name": "USNI News",
+      "description": "US Naval Institute \u2014 naval and maritime news",
+      "category": "military",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "darpa",
+      "url": "https://www.darpa.mil/rss.xml",
+      "name": "DARPA",
+      "description": "US Defense Advanced Research Projects Agency official news",
+      "category": "military",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "pentagon-press",
+      "url": "https://www.defense.gov/DesktopModules/ArticleCS/RSS.ashx?ContentType=1&Site=945&max=10",
+      "name": "DoD / Pentagon Press Releases",
+      "description": "Official US Department of Defense press releases",
+      "category": "military",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "nato-news",
+      "url": "https://www.nato.int/cps/en/natolive/news.rss",
+      "name": "NATO Official News",
+      "description": "NATO alliance official news and statements (RSS discontinued)",
+      "category": "military",
+      "country": "nato",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "politico-natl-security",
+      "url": "https://rss.politico.com/defense.xml",
+      "name": "Politico National Security",
+      "description": "Politico's US national security and defense coverage",
+      "category": "military",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "national-defense-mag",
+      "url": "https://www.nationaldefensemagazine.org/articles.rss",
+      "name": "National Defense Magazine",
+      "description": "US defense industry technology and procurement",
+      "category": "military",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "aviation-week",
+      "url": "https://aviationweek.com/rss/all",
+      "name": "Aviation Week",
+      "description": "Aerospace and defense industry coverage",
+      "category": "military",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "quwa-defense",
+      "url": "https://quwa.org/feed",
+      "name": "Quwa Defense News",
+      "description": "Asia, Africa, and Middle East defense procurement",
+      "category": "military",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "meduza-russia",
+      "url": "https://meduza.io/rss/en/all",
+      "name": "Meduza",
+      "description": "Independent Russian-language journalism (English edition)",
+      "category": "breaking",
+      "country": "russia",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "kyiv-independent",
+      "url": "https://kyivindependent.com/feed/",
+      "name": "Kyiv Independent",
+      "description": "Independent English-language Ukrainian journalism (RSS discontinued)",
+      "category": "breaking",
+      "country": "ukraine",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "ukraine-pravda",
+      "url": "https://www.pravda.com.ua/eng/rss/view_news/",
+      "name": "Ukrainska Pravda",
+      "description": "Ukrainian news outlet \u2014 English edition",
+      "category": "breaking",
+      "country": "ukraine",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "south-china-morning-post",
+      "url": "https://www.scmp.com/rss/91/feed",
+      "name": "South China Morning Post",
+      "description": "Hong Kong-based English-language China and Asia coverage",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "taiwan-news",
+      "url": "https://focustaiwan.tw/rss/aipl.xml",
+      "name": "Taiwan News",
+      "description": "English-language Taiwan news and cross-strait affairs",
+      "category": "breaking",
+      "country": "taiwan",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "jerusalem-post",
+      "url": "https://www.jpost.com/Rss/RssFeedsHeadlines.aspx",
+      "name": "Jerusalem Post",
+      "description": "English-language Israeli news and Middle East affairs",
+      "category": "breaking",
+      "country": "israel",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "haaretz",
+      "url": "https://www.haaretz.com/cmlink/1.628765",
+      "name": "Haaretz",
+      "description": "Israeli liberal newspaper \u2014 English edition (RSS discontinued)",
+      "category": "breaking",
+      "country": "israel",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "times-of-india",
+      "url": "https://timesofindia.indiatimes.com/rssfeeds/296589292.cms",
+      "name": "Times of India",
+      "description": "India's largest English-language daily",
+      "category": "breaking",
+      "country": "india",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "the-print-india",
+      "url": "https://theprint.in/feed/",
+      "name": "The Print",
+      "description": "Indian news and policy analysis (RSS discontinued)",
+      "category": "geopolitics",
+      "country": "india",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "dawn-pakistan",
+      "url": "https://www.dawn.com/feeds/home",
+      "name": "Dawn",
+      "description": "Pakistan's leading English-language newspaper",
+      "category": "breaking",
+      "country": "pakistan",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "nk-news",
+      "url": "https://www.nknews.org/feed/",
+      "name": "NK News",
+      "description": "Specialist North Korea monitoring and analysis",
+      "category": "breaking",
+      "country": "north-korea",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "38-north",
+      "url": "https://www.38north.org/feed/",
+      "name": "38 North",
+      "description": "Stimson Center DPRK analysis and satellite imagery",
+      "category": "geopolitics",
+      "country": "north-korea",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "radio-free-europe",
+      "url": "https://www.rferl.org/api/",
+      "name": "Radio Free Europe / Radio Liberty",
+      "description": "US-funded independent journalism for authoritarian states",
+      "category": "breaking",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "india-strategic",
+      "url": "https://indiastrategic.in/feed",
+      "name": "India Strategic",
+      "description": "South Asian defence, aerospace, and geopolitics",
+      "category": "military",
+      "country": "india",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "sputnik-defense",
+      "url": "https://sputnikglobe.com/export/rss2/politics/index.xml",
+      "name": "Sputnik Politics",
+      "description": "Russian state media politics feed (use with source awareness)",
+      "category": "geopolitics",
+      "country": "russia",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "xinhua-world",
+      "url": "https://www.xinhuanet.com/english/rss/worldrss.xml",
+      "name": "Xinhua",
+      "description": "Chinese state news agency (use with source awareness)",
+      "category": "breaking",
+      "country": "china",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "global-times",
+      "url": "https://www.globaltimes.cn/rss/outbrain.xml",
+      "name": "Global Times",
+      "description": "Chinese state media opinion outlet (use with source awareness)",
+      "category": "geopolitics",
+      "country": "china",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "irna-iran",
+      "url": "https://en.irna.ir/rss",
+      "name": "IRNA",
+      "description": "Islamic Republic of Iran state news agency (use with source awareness)",
+      "category": "breaking",
+      "country": "iran",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "sci-daily-all",
+      "url": "https://www.sciencedaily.com/rss/all.xml",
+      "name": "ScienceDaily",
+      "description": "400+ topic science news from universities and research institutes",
+      "category": "science",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "nature-news",
+      "url": "https://www.nature.com/nature.rss",
+      "name": "Nature",
+      "description": "Premier peer-reviewed multidisciplinary science journal",
+      "category": "science",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "science-mag",
+      "url": "https://www.sciencemag.org/rss/news_current.xml",
+      "name": "Science Magazine",
+      "description": "AAAS flagship publication covering all sciences",
+      "category": "science",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "sci-am",
+      "url": "https://rss.sciam.com/ScientificAmerican-Global",
+      "name": "Scientific American",
+      "description": "Accessible expert science reporting",
+      "category": "science",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "new-scientist",
+      "url": "https://www.newscientist.com/feed/home",
+      "name": "New Scientist",
+      "description": "Weekly international science magazine",
+      "category": "science",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "phys-org",
+      "url": "https://phys.org/rss-feed/",
+      "name": "Phys.org",
+      "description": "Physics and general science news aggregator",
+      "category": "science",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "live-science",
+      "url": "https://www.livescience.com/feeds/all",
+      "name": "Live Science",
+      "description": "Accessible science and technology reporting",
+      "category": "science",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "pnas",
+      "url": "http://www.pnas.org/rss/current.xml",
+      "name": "PNAS",
+      "description": "Proceedings of the National Academy of Sciences",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "elife",
+      "url": "http://elife.elifesciences.org/rss/recent.xml",
+      "name": "eLife",
+      "description": "Open-access life sciences research journal",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "futurism",
+      "url": "https://futurism.com/feed",
+      "name": "Futurism",
+      "description": "Science and emerging technology journalism",
+      "category": "science",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "mit-tech-review",
+      "url": "https://www.technologyreview.com/feed/",
+      "name": "MIT Technology Review",
+      "description": "MIT-published research and technology innovation coverage",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "ars-technica",
+      "url": "http://feeds.arstechnica.com/arstechnica/index",
+      "name": "Ars Technica",
+      "description": "In-depth technical reporting and analysis",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "the-verge",
+      "url": "https://www.theverge.com/rss/index.xml",
+      "name": "The Verge",
+      "description": "Consumer and industry technology news",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "wired",
+      "url": "https://www.wired.com/feed/rss",
+      "name": "Wired",
+      "description": "Technology, science, culture, and business",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "wired-ai",
+      "url": "https://www.wired.com/feed/tag/ai/latest/rss",
+      "name": "Wired (AI)",
+      "description": "Wired's AI-specific news and analysis",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "engadget",
+      "url": "https://www.engadget.com/rss.xml",
+      "name": "Engadget",
+      "description": "Consumer electronics and technology products",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "techcrunch",
+      "url": "https://techcrunch.com/feed/",
+      "name": "TechCrunch",
+      "description": "Startups, venture capital, and product launches",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "the-register",
+      "url": "https://www.theregister.com/headlines.atom",
+      "name": "The Register",
+      "description": "Enterprise IT news with irreverent British tone",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "zdnet",
+      "url": "https://www.zdnet.com/news/rss.xml",
+      "name": "ZDNet",
+      "description": "Enterprise and business technology news",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "hacker-news-top",
+      "url": "https://hnrss.org/frontpage",
+      "name": "Hacker News Front Page",
+      "description": "Curated tech and startup news from the HN community",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "ieee-spectrum-all",
+      "url": "https://spectrum.ieee.org/feeds/feed.rss",
+      "name": "IEEE Spectrum",
+      "description": "IEEE's flagship publication covering all engineering disciplines",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "us-cyber-command",
+      "url": "https://www.cybercom.mil/Media/News/rss/",
+      "name": "US Cyber Command",
+      "description": "Official USCYBERCOM news releases (RSS discontinued)",
+      "category": "technology",
+      "country": "usa",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "krebs-security",
+      "url": "https://krebsonsecurity.com/feed/",
+      "name": "Krebs on Security",
+      "description": "Brian Krebs cybersecurity investigations",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "dark-reading",
+      "url": "https://www.darkreading.com/rss.xml",
+      "name": "Dark Reading",
+      "description": "Cybersecurity news and threat intelligence",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "eff",
+      "url": "https://www.eff.org/rss/updates.xml",
+      "name": "EFF",
+      "description": "Electronic Frontier Foundation \u2014 digital rights and cybersecurity",
+      "category": "technology",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "venturebeat-ai",
+      "url": "https://venturebeat.com/category/ai/feed/",
+      "name": "VentureBeat AI",
+      "description": "AI industry news for enterprise and developers",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "techcrunch-ai",
+      "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+      "name": "TechCrunch AI",
+      "description": "AI startups, products, and funding",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "mit-news-ai",
+      "url": "https://news.mit.edu/rss/feed",
+      "name": "MIT News (AI)",
+      "description": "Academic AI research from MIT",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "ai-news-dedicated",
+      "url": "https://www.artificialintelligence-news.com/feed/rss/",
+      "name": "AI News",
+      "description": "Dedicated artificial intelligence news site",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "google-research-blog",
+      "url": "https://research.google/blog/rss",
+      "name": "Google Research Blog",
+      "description": "Google AI and DeepMind research publications",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "deepmind-blog",
+      "url": "https://deepmind.google/blog/rss.xml",
+      "name": "Google DeepMind Blog",
+      "description": "Google DeepMind research updates and announcements",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "openai-blog",
+      "url": "https://openai.com/blog/rss.xml",
+      "name": "OpenAI Blog",
+      "description": "OpenAI product and research announcements",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "hugging-face-blog",
+      "url": "https://huggingface.co/blog/feed.xml",
+      "name": "Hugging Face Blog",
+      "description": "Open-source AI models, datasets, and community research",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "ieee-spectrum-ai",
+      "url": "https://spectrum.ieee.org/feeds/feed.rss",
+      "name": "IEEE Spectrum AI",
+      "description": "IEEE engineering perspective on artificial intelligence",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "the-register-ai",
+      "url": "https://www.theregister.com/software/ai_ml/headlines.atom",
+      "name": "The Register (AI/ML)",
+      "description": "Critical enterprise AI and machine learning coverage",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "sciencedaily-ai",
+      "url": "https://www.sciencedaily.com/rss/computers_math/artificial_intelligence.xml",
+      "name": "ScienceDaily (AI)",
+      "description": "Academic AI research digest from universities",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "last-week-in-ai",
+      "url": "https://lastweekin.ai/feed",
+      "name": "Last Week in AI",
+      "description": "Weekly curated AI news digest",
+      "category": "ai",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "arxiv-ai",
+      "url": "https://rss.arxiv.org/rss/cs.AI",
+      "name": "arXiv: Artificial Intelligence (cs.AI)",
+      "description": "Daily AI research preprints from arXiv",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "arxiv-ml",
+      "url": "https://rss.arxiv.org/rss/cs.LG",
+      "name": "arXiv: Machine Learning (cs.LG)",
+      "description": "Daily ML theory and applications preprints",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "arxiv-cv",
+      "url": "https://rss.arxiv.org/rss/cs.CV",
+      "name": "arXiv: Computer Vision (cs.CV)",
+      "description": "Daily computer vision and image processing preprints",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "arxiv-nlp",
+      "url": "https://rss.arxiv.org/rss/cs.CL",
+      "name": "arXiv: NLP / LLMs (cs.CL)",
+      "description": "Daily natural language processing and LLM preprints",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "arxiv-robotics",
+      "url": "https://rss.arxiv.org/rss/cs.RO",
+      "name": "arXiv: Robotics (cs.RO)",
+      "description": "Daily robotics research preprints from arXiv",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "ieee-spectrum-robotics",
+      "url": "https://spectrum.ieee.org/feeds/feed.rss",
+      "name": "IEEE Spectrum Robotics",
+      "description": "Engineering-grade robot coverage from IEEE",
+      "category": "robotics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "the-robot-report",
+      "url": "https://www.therobotreport.com/feed/",
+      "name": "The Robot Report",
+      "description": "Industrial robots, AI for robots, and mobile robotics",
+      "category": "robotics",
+      "country": "global",
+      "language": "en",
+      "enabled": true,
+      "requiresUA": true
+    },
+    {
+      "id": "mit-news-robotics",
+      "url": "https://news.mit.edu/rss/feed",
+      "name": "MIT News Robotics",
+      "description": "MIT robotics research and lab updates",
+      "category": "robotics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "sciencedaily-robotics",
+      "url": "https://www.sciencedaily.com/rss/computers_math/robotics.xml",
+      "name": "ScienceDaily Robotics",
+      "description": "Academic robotics research from universities",
+      "category": "robotics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "robotics-automation-news",
+      "url": "https://roboticsandautomationnews.com/feed/",
+      "name": "Robotics & Automation News",
+      "description": "Industrial automation and robotics industry news",
+      "category": "robotics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "techxplore-robotics",
+      "url": "https://techxplore.com/rss-feed/robotics-news/",
+      "name": "TechXplore Robotics",
+      "description": "Engineering and robotics technology coverage",
+      "category": "robotics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "asian-robotics-review",
+      "url": "https://asianroboticsreview.com/feed",
+      "name": "Asian Robotics Review",
+      "description": "Asia-Pacific robotics industry and market news",
+      "category": "robotics",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "space-com",
+      "url": "https://www.space.com/feeds/all",
+      "name": "Space.com",
+      "description": "Broad space news, missions, and astronomy",
+      "category": "spaceflight",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "space-news",
+      "url": "https://spacenews.com/feed/",
+      "name": "SpaceNews",
+      "description": "Space industry and policy news since 1989",
+      "category": "spaceflight",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "spaceflight-now",
+      "url": "https://spaceflightnow.com/feed",
+      "name": "Spaceflight Now",
+      "description": "Launch-by-launch mission coverage",
+      "category": "spaceflight",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "nasaspaceflight",
+      "url": "https://www.nasaspaceflight.com/feed/",
+      "name": "NASASpaceFlight.com",
+      "description": "Independent deep coverage of NASA and SpaceX",
+      "category": "spaceflight",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "nasa-news",
+      "url": "https://www.nasa.gov/rss/dyn/breaking_news.rss",
+      "name": "NASA Breaking News",
+      "description": "Official NASA press releases and mission news",
+      "category": "spaceflight",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "esa-news",
+      "url": "https://www.esa.int/rssfeed/TopNews",
+      "name": "European Space Agency",
+      "description": "ESA official news and mission updates",
+      "category": "spaceflight",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "universe-today",
+      "url": "https://www.universetoday.com/feed",
+      "name": "Universe Today",
+      "description": "Astronomy, space exploration, and cosmology",
+      "category": "spaceflight",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "space-force",
+      "url": "https://www.spaceforce.mil/RSS/",
+      "name": "US Space Force",
+      "description": "Official United States Space Force news (RSS discontinued)",
+      "category": "military",
+      "country": "usa",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "cbs-space",
+      "url": "https://www.cbsnews.com/latest/rss/space",
+      "name": "CBS News Space",
+      "description": "Mainstream broadcast space coverage",
+      "category": "spaceflight",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "ieee-spectrum-energy",
+      "url": "https://spectrum.ieee.org/feeds/feed.rss",
+      "name": "IEEE Spectrum Energy",
+      "description": "IEEE energy engineering and power systems",
+      "category": "engineering",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "ieee-spectrum-aerospace",
+      "url": "https://spectrum.ieee.org/feeds/feed.rss",
+      "name": "IEEE Spectrum Aerospace",
+      "description": "IEEE aerospace engineering and systems",
+      "category": "engineering",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "ieee-spectrum-transport",
+      "url": "https://spectrum.ieee.org/feeds/feed.rss",
+      "name": "IEEE Spectrum Transportation",
+      "description": "IEEE transportation systems and autonomous vehicles",
+      "category": "engineering",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "enr",
+      "url": "https://www.enr.com/rss/articles",
+      "name": "Engineering News-Record",
+      "description": "Construction and civil engineering since 1874",
+      "category": "engineering",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "design-news",
+      "url": "https://www.designnews.com/rss.xml",
+      "name": "Design News",
+      "description": "Mechanical and electronics design engineering (RSS discontinued)",
+      "category": "engineering",
+      "country": "global",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "clean-technica",
+      "url": "https://cleantechnica.com/feed",
+      "name": "CleanTechnica",
+      "description": "Clean energy, EVs, and sustainable technology",
+      "category": "engineering",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "sipri",
+      "url": "https://www.sipri.org/rss.xml",
+      "name": "SIPRI",
+      "description": "Stockholm International Peace Research Institute \u2014 arms and conflict data (RSS discontinued)",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "arms-control-assoc",
+      "url": "https://www.armscontrol.org/rss.xml",
+      "name": "Arms Control Association",
+      "description": "Nuclear policy, arms treaties, and nonproliferation",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "acled-data",
+      "url": "https://acleddata.com/feed/",
+      "name": "ACLED",
+      "description": "Armed Conflict Location & Event Data Project \u2014 real-time conflict data (RSS discontinued)",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "iiss",
+      "url": "https://www.iiss.org/rss",
+      "name": "IISS",
+      "description": "International Institute for Strategic Studies \u2014 Military Balance and analysis (RSS discontinued)",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "arxiv-astro",
+      "url": "https://rss.arxiv.org/rss/astro-ph",
+      "name": "arXiv: Astrophysics (astro-ph)",
+      "description": "Daily astrophysics and astronomy preprints",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "arxiv-cs-all",
+      "url": "https://rss.arxiv.org/rss/cs",
+      "name": "arXiv: Computer Science (all)",
+      "description": "All CS subfields \u2014 very high volume",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": false
+    },
+    {
+      "id": "jmlr",
+      "url": "https://www.jmlr.org/jmlr.xml",
+      "name": "Journal of Machine Learning Research",
+      "description": "Peer-reviewed ML research journal",
+      "category": "research",
+      "country": "global",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "politico-world",
+      "url": "https://rss.politico.com/politics-news.xml",
+      "name": "Politico",
+      "description": "US politics, policy, and international affairs",
+      "category": "geopolitics",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    },
+    {
+      "id": "hill-national-security",
+      "url": "https://thehill.com/rss/syndicator/19109",
+      "name": "The Hill National Security",
+      "description": "The Hill's national security and defense coverage",
+      "category": "military",
+      "country": "usa",
+      "language": "en",
+      "enabled": true
+    }
+  ],
+  "categories": [
+    "breaking",
+    "geopolitics",
+    "military",
+    "science",
+    "technology",
+    "ai",
+    "robotics",
+    "engineering",
+    "spaceflight",
+    "research"
+  ]
+}
