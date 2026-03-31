@@ -1,23 +1,37 @@
 # TAIWAN STRAIT ANALYSIS — System Prompt & Developer Guide
-## Conflict Mapper Platform | `pages/taiwan-strait.html` · `pages/taiwan-window-*.html`
+## Conflict Mapper Platform | `pages/taiwan-window-*.html` (Invasion Window Pages)
 
-> Use this document as a standalone system prompt when working on the China/Taiwan invasion window analysis pages. Paste the full contents into a new prompt window along with the specific window HTML file you want to modify.
+> **SCOPE CLARIFICATION (important):** This file covers ONLY the **four invasion window deep-dive pages** (`taiwan-window-apr-2026.html`, `taiwan-window-oct-2026.html`, `taiwan-window-apr-2027.html`, `taiwan-window-oct-2027.html`). The Taiwan Strait Watch **dashboard** (`taiwan-strait.html`) is now covered by a separate, dedicated prompt file: **`TAIWAN_STRAIT_WATCH_PROMPT.md`**.
+>
+> Use `TAIWAN_STRAIT_WATCH_PROMPT.md` when working on: the operational map, live API feeds, weather embeds, force comparison panel, situational status indicators, or the activity feed on `taiwan-strait.html`.
+>
+> Use this file (`TAIWAN_STRAIT_ANALYSIS_PROMPT.md`) when working on: environmental conditions, tidal windows, moon phase, force assessment capability matrices, scenario tabs, casualty estimates, probability gauges, escalation ladder, tech game-changers, or adding new invasion windows.
+
+Use this document as a standalone system prompt when working on the invasion window pages. Paste the full contents into a new prompt window along with the specific window HTML file you want to modify.
 
 ---
 
 ## 1. Page Structure Overview
 
-The Taiwan Strait module consists of **five HTML files**:
+### File Coverage Split
 
-| File | Role |
+| File | Covered By |
 |---|---|
-| `pages/taiwan-strait.html` | Hub page — overview map, status dashboard, links to 4 windows |
-| `pages/taiwan-window-apr-2026.html` | Deep dive: April 2026 invasion window |
-| `pages/taiwan-window-oct-2026.html` | Deep dive: October 2026 invasion window |
-| `pages/taiwan-window-apr-2027.html` | Deep dive: April 2027 invasion window |
-| `pages/taiwan-window-oct-2027.html` | Deep dive: October 2027 invasion window |
+| `pages/taiwan-strait.html` | **`TAIWAN_STRAIT_WATCH_PROMPT.md`** (NOT this file) |
+| `pages/taiwan-window-apr-2026.html` | **This file** (`TAIWAN_STRAIT_ANALYSIS_PROMPT.md`) |
+| `pages/taiwan-window-oct-2026.html` | **This file** |
+| `pages/taiwan-window-apr-2027.html` | **This file** |
+| `pages/taiwan-window-oct-2027.html` | **This file** |
+
+Separating coverage between these files allows you to:
+- Work on the live monitoring dashboard (taiwan-strait.html) without the bulk of invasion analysis content
+- Work on any invasion window deep-dive without the dashboard's map/API/feed code
 
 All 5 files are self-contained standalone HTML pages loaded inside the main shell's iframe. They do not share JS or CSS with `index.html`.
+
+### The Invasion Window Pages
+
+The four invasion window pages share identical HTML/CSS structure. Only the window-specific data differs:
 
 ---
 
@@ -519,4 +533,10 @@ The hub page (`taiwan-strait.html`) uses the standard global accent `#c41e3a` (c
 
 ---
 
-*This prompt covers `pages/taiwan-strait.html` and all four `pages/taiwan-window-*.html` files. Cross-reference `MAP_AND_FEED_PROMPT.md` for the news API integration, `NAVIGATION_SYSTEM_PROMPT.md` for the nav item that links to these pages, and `SITE_ARCHITECTURE_PROMPT.md` for the full platform overview.*
+*This prompt covers the four **invasion window** pages: `pages/taiwan-window-apr-2026.html`, `pages/taiwan-window-oct-2026.html`, `pages/taiwan-window-apr-2027.html`, and `pages/taiwan-window-oct-2027.html`.*
+
+*For the **Taiwan Strait Watch dashboard** (`pages/taiwan-strait.html`), use `TAIWAN_STRAIT_WATCH_PROMPT.md` instead.*
+
+*For the **INVASION_WINDOW_PROMPT.md**: a newer, more detailed version of this document that focuses on the complete window page rebuild pattern, including the equipment cards, countdown timer, and full section-by-section spec.*
+
+*Cross-reference `MAP_AND_FEED_PROMPT.md` for the news API integration, `NAVIGATION_SYSTEM_PROMPT.md` for the nav items linking to these pages, and `SITE_ARCHITECTURE_PROMPT.md` for the full platform overview.*

@@ -23,9 +23,13 @@ The platform runs as a **Node.js/Express backend** serving a **single-page appli
 
 ```
 conflict-mapper/
-├── server.js                  ← Express backend API server
+├── server.js                  ← Express backend API server (~1099 lines)
 ├── package.json               ← Node.js dependencies (express, cors, xml2js, uuid)
 ├── index.html                 ← Main SPA shell (nav, admin panel, iframe container)
+├── README.md                  ← GitHub README — features, setup, deployment, API reference
+├── Dockerfile                 ← node:20-alpine build for Docker deployment
+├── .dockerignore              ← Excludes node_modules, logs, generated reports
+├── LICENSE                    ← MIT License
 │
 ├── assets/
 │   ├── style.css              ← Shared design tokens and global CSS
@@ -36,14 +40,17 @@ conflict-mapper/
 │   ├── ai-providers.js        ← Multi-provider AI abstraction (Perplexity/OpenAI/Anthropic/Google/Ollama)
 │   ├── rss-engine.js          ← RSS/Atom fetcher, parser, deduplicator
 │   ├── feed-store.js          ← JSON file storage for articles, feeds, AI config, settings
-│   └── geocoder.js            ← Keyword-based geocoder (~400+ locations lookup table)
+│   ├── geocoder.js            ← Keyword-based geocoder (~370 locations lookup table)
+│   └── logger.js              ← Centralized logging: ring buffer (1000 entries) + file append + console
 │
 ├── data/                      ← Runtime data (auto-created, gitignore recommended)
 │   ├── articles.json          ← Cached RSS articles (up to 5,000 most recent)
 │   ├── flagged-articles.json  ← Analyst-flagged articles for AI analysis inclusion
-│   ├── feeds-config.json      ← RSS feed configuration (same as assets/ version but live-editable)
+│   ├── feeds-config.json      ← RSS feed configuration (153 feeds, 135 enabled, 18 disabled)
+│   ├── countries-config.json  ← Monitored countries and analysis topics (used by admin Countries/Topics tabs)
 │   ├── ai-config.json         ← AI provider selection and API keys
-│   └── settings.json          ← App settings (fetch interval, retention, etc.)
+│   ├── settings.json          ← App settings (fetch interval, retention, etc.)
+│   └── server.log             ← Append-only server log file (written by lib/logger.js)
 │
 ├── pages/
 │   ├── map-feed.html          ← Global RSS news map (Leaflet + MarkerCluster)
@@ -108,7 +115,7 @@ conflict-mapper/
 
 ## 3. Backend Server Architecture
 
-**File:** `server.js`  
+**File:** `server.js` (~1099 lines)  
 **Runtime:** Node.js 18+ (requires native `fetch`)  
 **Framework:** Express 5.x  
 **Port:** 5000 (configurable via `PORT` environment variable)
@@ -119,6 +126,12 @@ conflict-mapper/
 app.use(cors({ origin: true, credentials: true }));        // CORS — all origins (dev mode)
 app.use(bodyParser.json({ limit: '10mb' }));               // JSON body parsing
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use((req, res, next) => {                              // API request logger middleware
+  logger.info('api', `${req.method} ${req.path}`, {
+    body: req.method !== 'GET' ? req.body : undefined,
+  });
+  next();
+});
 app.use(express.static(path.join(__dirname), {             // Static file serving
   setHeaders: (res, filePath) => {
     res.removeHeader('X-Frame-Options');                   // Allow iframe embedding
@@ -128,13 +141,18 @@ app.use(express.static(path.join(__dirname), {             // Static file servin
 
 ### Route Organization
 
+**Total routes: 33**
+
 | Route Group | Prefix | Handlers |
 |---|---|---|
 | Feed management | `/api/feeds` | CRUD for feed config, bulk import, trigger fetch |
-| Article storage | `/api/articles` | Read articles, geo-articles, flag/unflag |
+| Article storage | `/api/articles` | Read articles (with pagination), geo-articles, flag/unflag |
 | AI configuration | `/api/ai` | Get/save config, test connection |
 | Analysis generation | `/api/analysis` | Generate reports (async), status polling, history |
+| Countries/Topics | `/api/countries`, `/api/topics` | CRUD for countries-config.json |
+| Report upload | `/api/upload/report` | Upload HTML report by type+slug |
 | Settings | `/api/settings` | Read/write app settings |
+| Logging | `/api/logs` | Get logs (filtered), clear memory buffer |
 | Status/health | `/api/status` | Server health check with stats |
 | Static fallback | `*` | Serves `index.html` for non-API, non-file routes |
 
@@ -348,6 +366,23 @@ GET  /api/status
   Response: { success, data: { server, version, uptime, stats, fetchStatus, analysisStatus } }
 ```
 
+### Logging (NEW)
+
+```
+GET  /api/logs?category=&level=&limit=&since=&search=
+  Response: { success, data: { logs[], total, stats, filters } }
+  Params:
+    category: one of api|rss|ai|analysis|system
+    level:    minimum level: debug|info|warn|error
+    limit:    max results (default 200, max 1000)
+    since:    ISO timestamp — only entries after this time
+    search:   text search in message field
+
+DELETE /api/logs
+  Response: { success, data: { cleared: number } }
+  (Clears in-memory ring buffer only — does NOT truncate data/server.log)
+```
+
 ---
 
 ## 7. Design System Summary
@@ -465,13 +500,53 @@ Static-only features (work without server):
 
 To serve as static only: `python3 -m http.server 8080` or any static web server.
 
-### Docker Deployment
+### Option A: Cloudflare Tunnel (Quick, Free, No Port Forwarding)
+
+```bash
+# Install cloudflared
+brew install cloudflared          # macOS
+# Linux:
+curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 \
+  -o cloudflared && chmod +x cloudflared && sudo mv cloudflared /usr/local/bin/
+
+# Quick tunnel (no account needed)
+node server.js &
+cloudflared tunnel --url http://localhost:5000
+# Gives you: https://random-words.trycloudflare.com
+
+# Permanent custom domain (Cloudflare account + domain required):
+cloudflared tunnel create conflictmapper
+cloudflared tunnel route dns conflictmapper yourdomain.com
+cloudflared tunnel run conflictmapper
+```
+
+### Option B: Railway.app (~$5/month, Recommended for Production)
+
+Auto-deploy on git push, built-in logs, auto-SSL, custom domain support.
+
+```bash
+# Push to GitHub first
+git init && git add -A && git commit -m "Initial commit"
+gh repo create conflict-mapper --public --push
+
+# Deploy: visit https://railway.app → New Project → Deploy from GitHub
+# Railway auto-detects Node.js and runs: npm install && node server.js
+
+# Add custom domain: Railway dashboard → Settings → Networking → Custom Domain
+# In DNS: add CNAME pointing to Railway-provided domain
+
+# Optionally set environment variables in Railway dashboard → Variables tab
+# e.g., PORT=5000
+```
+
+### Option C: Docker
 
 ```dockerfile
-FROM node:18-alpine
+# Dockerfile (included in repo root)
+FROM node:20-alpine
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --production
+RUN npm ci --production
 COPY . .
 EXPOSE 5000
 CMD ["node", "server.js"]
@@ -589,9 +664,20 @@ Each `.md` file in `docs/` is designed to be a **standalone system prompt** for 
 |---|---|
 | AI report generation, prompts, JSON schemas | `ANALYSIS_ENGINE_PROMPT.md` |
 | RSS feeds, geocoder, Leaflet maps | `MAP_AND_FEED_PROMPT.md` |
-| Taiwan Strait invasion windows | `TAIWAN_STRAIT_ANALYSIS_PROMPT.md` |
+| Taiwan Strait invasion windows (taiwan-window-*.html) | `TAIWAN_STRAIT_ANALYSIS_PROMPT.md` |
+| Taiwan Strait Watch dashboard (taiwan-strait.html) | `TAIWAN_STRAIT_WATCH_PROMPT.md` |
 | Admin panel, authentication, settings | `ADMIN_SETTINGS_PROMPT.md` |
 | Navigation, dropdowns, theme, welcome page | `NAVIGATION_SYSTEM_PROMPT.md` |
+| Logging system (lib/logger.js, /api/logs) | `LOGGING_SYSTEM_PROMPT.md` |
+| RSS engine internals (rss-engine.js) | `RSS_FEED_ENGINE_PROMPT.md` |
+| Article flagging pipeline (end-to-end) | `ARTICLE_FLAGGING_PROMPT.md` |
+| AI providers (ai-providers.js) | `AI_PROVIDERS_PROMPT.md` |
+| Geocoder internals (geocoder.js) | `GEOCODER_PROMPT.md` |
+| Express server (server.js) | `SERVER_BACKEND_PROMPT.md` |
+| Global map + feed page (map-feed.html) | `GLOBAL_MAP_FEED_PROMPT.md` |
+| Per-country news map (news-map.html) | `COUNTRY_NEWS_MAP_PROMPT.md` |
+| Historical reports browser (historical.html) | `HISTORICAL_REPORTS_PROMPT.md` |
+| Invasion window pages (taiwan-window-*.html) | `INVASION_WINDOW_PROMPT.md` |
 | Full system, cross-cutting changes | This file (`SITE_ARCHITECTURE_PROMPT.md`) |
 
 ### How to Use These Prompts
@@ -612,15 +698,18 @@ Open the relevant `.md` file, copy its full contents, and paste it as the first 
 - Nav editor in admin panel
 
 **Phase 2 (Shipped):**
-- RSS engine with 40+ feeds
+- RSS engine with 153 pre-configured feeds
 - Article store with 5,000-article cache
-- Keyword geocoder with 400+ locations
+- Keyword geocoder with ~370 locations
 - Leaflet global map with clustering
 - Per-country news maps
 - AI report generation pipeline (5 provider support)
 - Report archival system (current + historical)
 - Admin panel with full settings management
 - Article flagging system
+- Centralized logging system (lib/logger.js) with admin LOGS tab
+- Language detection and English-only analysis filtering
+- Country slug mapping fix for cross-feed article matching
 
 **Phase 3 (Shipped):**
 - Taiwan Strait invasion window analysis (4 windows)

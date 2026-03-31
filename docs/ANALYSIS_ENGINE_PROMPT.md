@@ -476,8 +476,11 @@ function parseAIJson(text) {
 ## 12. Troubleshooting
 
 ### Timeout / AI call never returns
-- Default AI timeout is 90 seconds (`AbortSignal.timeout(90000)`)
-- Local Ollama has a 3-minute timeout (`AbortSignal.timeout(180000)`)
+- Default AI POST timeout is **5 minutes** (`AbortSignal.timeout(300000)`) — Perplexity `sonar-pro` with web search and 80 articles can take 2–4 minutes
+- GET/test connection timeout is **1 minute** (`AbortSignal.timeout(60000)`)
+- Local Ollama has a **10-minute timeout** (`AbortSignal.timeout(600000)`) — local models are significantly slower
+- Frontend progress polling gives up after **10 minutes** — the server-side analysis continues even if the browser tab's polling stops
+- A full **Global + All Countries** run (via `POST /api/analysis/all`) can take **10–20 minutes** sequentially
 - **Fix:** Switch to a faster provider (Gemini Flash) or reduce `MAX_ARTICLES_FOR_PROMPT` to lower token count
 
 ### Bad JSON parse error
@@ -509,3 +512,142 @@ function parseAIJson(text) {
 ---
 
 *This prompt covers `lib/analysis-generator.js`, `lib/ai-providers.js`, and the report generation API routes in `server.js`. Cross-reference `MAP_AND_FEED_PROMPT.md` for article sourcing, `ADMIN_SETTINGS_PROMPT.md` for the generation UI, and `SITE_ARCHITECTURE_PROMPT.md` for the full system overview.*
+
+---
+
+## 13. How Flagged Articles Are Included in Analysis
+
+When `generateCountryAnalysis(slug)` builds the AI prompt, it calls both `getArticles()` for recent RSS articles **and** `getFlaggedArticles(slug)` for analyst-flagged items. Flagged articles are prepended to the user prompt as a **high-priority section**, bypassing the 72-hour recency filter.
+
+```js
+async function generateCountryAnalysis(slug, options = {}) {
+  const countryName = getCountryFromSlug(slug);
+  const articles    = gatherArticlesForPrompt(slug, countryName);  // recent 72h
+  const flagged     = feedStore.getFlaggedArticles(slug);           // no time limit
+
+  // Flagged section — prepended ABOVE recent articles
+  const flaggedSection = flagged.length > 0
+    ? `\n\n## ANALYST-FLAGGED ARTICLES (HIGH PRIORITY — include in analysis)\n` +
+      flagged.map(f => {
+        const a = f.article || {};
+        return `- [FLAGGED] ${a.title || f.articleId}` +
+               (a.source  ? ` (${a.source})`             : '') +
+               (a.pubDate ? ` — ${a.pubDate.slice(0,10)}` : '') +
+               (f.notes   ? `\n  Analyst note: ${f.notes}` : '');
+      }).join('\n')
+    : '';
+
+  const userPrompt = `Analyze intelligence for ${countryName}:${flaggedSection}\n\n## RECENT ARTICLES\n${articles}`;
+
+  const rawResponse = await provider.chat(COUNTRY_SYSTEM_PROMPT(countryName), userPrompt, { ... });
+  // ...
+}
+```
+
+**Key behaviors:**
+- Flagged articles from the specific country slug **and** global flags (`country === 'global'`) are both included
+- Analyst notes are passed verbatim to guide the AI's interpretation
+- The inline article snapshot stored at flag time is used — so even if `articles.json` is cleared, the flagged content remains available
+- For global analysis (`generateGlobalAnalysis`), all flagged articles across all countries are included
+
+---
+
+## 14. Language Filtering (English-Only by Default)
+
+The RSS engine attaches a `language` field (`'en'` or `'xx'`) to each article. The analysis engine filters out non-English articles before building the AI prompt, since the AI prompts are in English and non-English content degrades output quality.
+
+```js
+function gatherArticlesForPrompt(slug, countryName) {
+  const allArticles = feedStore.getArticles({
+    country:   countryName,
+    timeRange: 72,
+    limit:     MAX_ARTICLES_FOR_PROMPT * 2,  // over-fetch before language filter
+  });
+
+  // Filter to English-language articles only
+  const englishArticles = allArticles.filter(a => !a.language || a.language === 'en');
+
+  // Apply country slug matching if provided
+  const matched = slug
+    ? englishArticles.filter(a => articleMatchesSlug(a, slug))
+    : englishArticles;
+
+  return matched
+    .slice(0, MAX_ARTICLES_FOR_PROMPT)
+    .map(a => formatArticleForPrompt(a))
+    .join('\n');
+}
+```
+
+**Language detection** is a non-ASCII character ratio heuristic in `lib/rss-engine.js`. Articles with >30% non-ASCII characters are tagged `'xx'`. Feed configs can hardcode `"language": "en"` to skip detection for known-English feeds.
+
+To include non-English articles (e.g., for multilingual analysis):
+```js
+const englishArticles = allArticles;  // Remove the language filter
+```
+
+---
+
+## 15. Country Slug Mapping (`articleMatchesSlug`)
+
+The `articleMatchesSlug(article, slug)` function determines whether an article is relevant to a country by checking for matching terms in the article's `country` field. A `COUNTRY_SLUG_MAP` maps each slug to a list of terms that all indicate that country.
+
+```js
+const COUNTRY_SLUG_MAP = {
+  'usa':        ['United States', 'USA', 'America', 'Pentagon', 'White House', 'Washington', 'Biden', 'Trump', 'US '],
+  'russia':     ['Russia', 'Russian', 'Moscow', 'Kremlin', 'Putin'],
+  'china':      ['China', 'Chinese', 'Beijing', 'PRC', 'PLA', 'Xi Jinping', 'CPC'],
+  'ukraine':    ['Ukraine', 'Ukrainian', 'Kyiv', 'Zelensky'],
+  'taiwan':     ['Taiwan', 'Taiwanese', 'Taipei', 'ROC', 'ROCAF'],
+  'iran':       ['Iran', 'Iranian', 'Tehran', 'IRGC', 'Khamenei'],
+  'israel':     ['Israel', 'Israeli', 'Jerusalem', 'IDF', 'Netanyahu', 'Gaza', 'Hamas'],
+  'india':      ['India', 'Indian', 'New Delhi', 'Modi', 'BJP'],
+  'pakistan':   ['Pakistan', 'Pakistani', 'Islamabad'],
+  'north-korea':['North Korea', 'DPRK', 'Pyongyang', 'Kim Jong-un'],
+  'nato':       ['NATO', 'Alliance', 'Brussels', 'European defense'],
+};
+
+function articleMatchesSlug(article, slug) {
+  const terms = COUNTRY_SLUG_MAP[slug];
+  if (!terms) return false;
+  const text = `${article.country || ''} ${article.title || ''} ${article.description || ''}`.toLowerCase();
+  return terms.some(term => text.includes(term.toLowerCase()));
+}
+```
+
+**Why this matters:** The article's `country` field is set by the RSS feed config or the geocoder. A feed tagged `country: "global"` can still produce articles about the USA. The slug map catches these by scanning the article title and description, not just the country field.
+
+**Example fix:** Previously, the `usa` slug only matched `article.country === 'United States'`, missing articles from global feeds mentioning "Pentagon" or "White House". The slug map now catches all these cases.
+
+---
+
+## 16. Logging Integration
+
+All analysis operations are logged via `lib/logger.js`. Key log events:
+
+| Event | Category | Level | Message |
+|---|---|---|---|
+| Analysis started | `analysis` | `info` | `"Country analysis started: russia"` |
+| Analysis complete | `analysis` | `info` | `"Country analysis complete: russia"` |
+| Analysis failed | `analysis` | `error` | `"Country analysis error: russia — <msg>"` |
+| Global analysis started | `analysis` | `info` | `"Global analysis started"` |
+| Global analysis complete | `analysis` | `info` | `"Global analysis complete"` |
+| All countries started | `analysis` | `info` | `"All-countries analysis started: N countries"` |
+| JSON parse failed | `analysis` | `warn` | `"JSON parse failed, retrying with extraction"` |
+| No articles found | `analysis` | `warn` | `"No articles found for slug: iran"` |
+
+```js
+// In analysis-generator.js:
+const logger = require('./logger');
+
+async function generateCountryAnalysis(slug, options = {}) {
+  logger.info('analysis', `Country analysis started: ${slug}`);
+  try {
+    // ... generation logic ...
+    logger.info('analysis', `Country analysis complete: ${slug}`, { reportPath });
+  } catch (err) {
+    logger.error('analysis', `Country analysis error: ${slug} — ${err.message}`, { stack: err.stack });
+    throw err;
+  }
+}
+```

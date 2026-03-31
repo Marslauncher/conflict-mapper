@@ -491,3 +491,226 @@ merged = merged.filter(a => new Date(a.pubDate).getTime() > cutoff);
 ---
 
 *This prompt covers `lib/rss-engine.js`, `lib/feed-store.js`, `lib/geocoder.js`, and the Leaflet map pages. Cross-reference `ANALYSIS_ENGINE_PROMPT.md` for how articles are used by the AI, `ADMIN_SETTINGS_PROMPT.md` for the feed management UI, and `SITE_ARCHITECTURE_PROMPT.md` for the full system overview.*
+
+---
+
+## 11. Country Slug Mapping Fix (`COUNTRY_SLUG_MAP`)
+
+A bug existed where per-country article filtering only checked whether `article.country === getCountryFromSlug(slug)` (e.g., `article.country === 'United States'`). Articles from globally-tagged feeds that mentioned the USA — e.g., via "Pentagon", "White House", or "Washington" — were excluded from USA country analysis.
+
+**The fix:** A `COUNTRY_SLUG_MAP` constant in `lib/feed-store.js` (and mirrored in `lib/analysis-generator.js`) maps each country slug to a list of relevant search terms. The country filter now matches against these terms across the article's `country`, `title`, and `description` fields.
+
+```js
+// In lib/feed-store.js and lib/analysis-generator.js
+const COUNTRY_SLUG_MAP = {
+  'usa': [
+    'United States', 'USA', 'America', 'American',
+    'Pentagon', 'White House', 'Washington', 'Congress',
+    'Biden', 'Trump', 'US Army', 'US Navy', 'US Air Force',
+  ],
+  'russia': [
+    'Russia', 'Russian', 'Moscow', 'Kremlin', 'Putin',
+    'FSB', 'GRU', 'Rosneft', 'Gazprom', 'Wagner',
+  ],
+  'china': [
+    'China', 'Chinese', 'Beijing', 'PRC', 'PLA',
+    'Xi Jinping', 'CPC', 'PLAN', 'PLAAF', 'Hong Kong',
+  ],
+  'ukraine': [
+    'Ukraine', 'Ukrainian', 'Kyiv', 'Zelensky',
+    'Donbas', 'Crimea', 'Kharkiv', 'Kherson', 'Odessa',
+  ],
+  'taiwan': [
+    'Taiwan', 'Taiwanese', 'Taipei', 'ROC', 'ROCAF',
+    'Taiwan Strait', 'Tsai', 'Lai Ching-te',
+  ],
+  'iran': [
+    'Iran', 'Iranian', 'Tehran', 'IRGC', 'Khamenei',
+    'Rouhani', 'Raisi', 'Persian Gulf', 'JCPOA',
+  ],
+  'israel': [
+    'Israel', 'Israeli', 'Jerusalem', 'IDF', 'Netanyahu',
+    'Gaza', 'Hamas', 'West Bank', 'Tel Aviv', 'Hezbollah',
+  ],
+  'india': [
+    'India', 'Indian', 'New Delhi', 'Modi', 'BJP',
+    'Mumbai', 'Chennai', 'IAF', 'Indian Army', 'RAW',
+  ],
+  'pakistan': [
+    'Pakistan', 'Pakistani', 'Islamabad', 'Karachi',
+    'ISI', 'Lahore', 'COAS',
+  ],
+  'north-korea': [
+    'North Korea', 'DPRK', 'Pyongyang', 'Kim Jong-un',
+    'North Korean', 'Korean People\'s Army', 'KPA',
+  ],
+  'nato': [
+    'NATO', 'Alliance', 'Brussels', 'SHAPE',
+    'European defense', 'Article 5', 'Stoltenberg',
+  ],
+};
+```
+
+**How the filter is applied in `GET /api/articles?country=usa`:**
+
+```js
+function filterArticlesByCountry(articles, countryQuery) {
+  const slug = countryQuery.toLowerCase();
+  const terms = COUNTRY_SLUG_MAP[slug];
+
+  if (terms) {
+    // Use slug map for known countries — searches title/description/country field
+    return articles.filter(article => {
+      const text = `${article.country || ''} ${article.title || ''} ${article.description || ''}`;
+      return terms.some(term => text.toLowerCase().includes(term.toLowerCase()));
+    });
+  }
+
+  // Fallback: substring match on article.country for unknown slugs
+  return articles.filter(a =>
+    (a.country || '').toLowerCase().includes(slug)
+  );
+}
+```
+
+---
+
+## 12. Language Detection and Filtering
+
+The RSS engine attaches a `language` field to every article. This is computed by `detectLanguage()` in `lib/rss-engine.js` unless the feed config hardcodes `"language": "en"`.
+
+### Detection Algorithm
+
+Non-ASCII character ratio heuristic:
+
+```js
+function detectLanguage(text) {
+  const wordChars = text.replace(/[\s\p{P}\d]/gu, '');
+  if (wordChars.length === 0) return 'en';
+  let nonAscii = 0;
+  for (let i = 0; i < wordChars.length; i++) {
+    if (wordChars.charCodeAt(i) > 127) nonAscii++;
+  }
+  return (nonAscii / wordChars.length) > 0.30 ? 'xx' : 'en';
+}
+```
+
+- **`'en'`** — Article is in English (or has <30% non-ASCII characters)
+- **`'xx'`** — Article is in a non-English language (Chinese, Arabic, Russian, Korean, Japanese, Thai, etc.)
+
+### How Language Affects Article Display
+
+| Context | Behavior |
+|---|---|
+| Map display (`GET /api/articles/geo`) | All languages included by default |
+| Feed list (`GET /api/articles`) | All languages included unless `?language=en` is passed |
+| AI analysis prompt | English only — `language === 'xx'` articles are excluded |
+| Flagged articles | Not filtered — flagged articles always included regardless of language |
+
+### Forcing English on Known Feeds
+
+For feeds you know are always in English, hardcode in `feeds-config.json` to skip detection:
+
+```json
+{
+  "url": "https://feeds.bbci.co.uk/news/world/rss.xml",
+  "name": "BBC World News",
+  "language": "en"
+}
+```
+
+---
+
+## 13. The 153 Pre-Configured Feeds
+
+`data/feeds-config.json` ships with 153 pre-configured feed entries. Category distribution:
+
+| Category | Count | Coverage |
+|---|---|---|
+| `breaking` | ~35 | Major wire services, global breaking news |
+| `geopolitics` | ~25 | Diplomacy, international relations, think-tanks |
+| `military` | ~20 | Defense news, military analysis, procurement |
+| `ai` | ~15 | AI research, LLM releases, AI policy |
+| `technology` | ~15 | Tech industry, semiconductors, hardware |
+| `science` | ~12 | General science, physics, biology |
+| `spaceflight` | ~12 | Launch vehicles, satellites, NASA/SpaceX/ESA |
+| `robotics` | ~8 | Robotics systems, autonomous vehicles |
+| `engineering` | ~6 | Engineering, manufacturing, infrastructure |
+| `research` | ~5 | Academic papers, research institutions |
+
+**Total:** 153 feeds across 10 categories.
+
+The feed list is editable inline via the admin panel (name, category, country fields editable without a modal). See `ADMIN_SETTINGS_PROMPT.md` §15 for the UI implementation.
+
+### Adding Feeds in Bulk
+
+To expand the feed list, use the bulk import endpoint:
+
+```bash
+curl -X POST http://localhost:5000/api/feeds/import \
+  -H "Content-Type: application/json" \
+  -d '{ "feeds": [ { "url": "...", "name": "...", "category": "military", "country": "global" } ] }'
+```
+
+Duplicates are skipped by URL match.
+
+---
+
+## 14. Known Fixes & Correct Patterns (March 2026)
+
+### Fix 1: Geo Coordinate Access
+
+Articles store geographic coordinates in a nested `geo` object set by `lib/geocoder.js`:
+
+```js
+// Set by geocoder:
+article.geo = { lat: 39.91, lng: 116.39, country: 'China', place: 'Beijing', ... }
+```
+
+The map pages use **both** the nested and flat patterns for backward compatibility with any articles stored in the old flat format:
+
+```js
+// CORRECT pattern (used in both map-feed.html and news-map.html):
+const lat = article.lat || article.geo?.lat;
+const lng = article.lng || article.geo?.lng;
+
+// WRONG — breaks on articles that only have geo.lat:
+const lat = article.lat;   // may be undefined
+```
+
+When adding new map features that need coordinates, always use the `article.lat || article.geo?.lat` fallback pattern.
+
+---
+
+### Fix 2: Category Checkbox Values
+
+The sidebar category checkboxes filter articles by comparing `article.category` against the checkbox `value`. The `value` attributes must match the **article**-side category string, not the feed-side category.
+
+**Correct checkbox values** (as of current codebase):
+
+```html
+<input type="checkbox" value="breaking"     checked onchange="applyFilters()"> Breaking
+<input type="checkbox" value="geopolitics"  checked onchange="applyFilters()"> Geopolitics
+<input type="checkbox" value="military"     checked onchange="applyFilters()"> Military
+<input type="checkbox" value="political"    checked onchange="applyFilters()"> Political
+<input type="checkbox" value="technology"   checked onchange="applyFilters()"> Tech
+<input type="checkbox" value="general"      checked onchange="applyFilters()"> General
+```
+
+> **Note:** Feed configs use `"category": "geopolitical"` (with 'al') but articles normalize to `"geopolitics"` (without 'al'). The checkbox `value` must be `"geopolitics"` to match articles. If you add a new category, ensure the feed config value and the article-side value are consistent.
+
+---
+
+### Fix 3: SCMP Placeholder Removal
+
+The `pages/map-feed.html` file previously contained hardcoded SCMP demo articles as fallback data. This caused SCMP articles to always appear on the map even when no real articles were loaded. The fallback data was removed — the map now shows an empty state when no articles are available, which correctly prompts the user to fetch feeds.
+
+If rebuilding `map-feed.html`, do **not** include hardcoded fallback article objects. Use a proper empty state message instead:
+
+```js
+if (articles.length === 0) {
+  document.getElementById('article-list').innerHTML =
+    '<p class="empty-state">No articles yet. Go to Settings → RSS Feeds → Fetch All Now.</p>';
+  return;
+}
+```

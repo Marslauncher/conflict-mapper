@@ -134,14 +134,20 @@ The admin content area (`#admin-content`) is organized into accordion-style sect
 
 ### Section List (in order)
 
-| Section ID | Section Title | Purpose |
+The admin panel uses a sidebar-nav layout (not accordion). Each nav button shows a section via `showAdminSection(sectionId)`.
+
+| Section ID | Nav Button | Purpose |
 |---|---|---|
-| `admin-section-ai` | AI Configuration | Provider selection, API keys |
-| `admin-section-feeds` | RSS Feed Management | Add/remove/enable feeds |
-| `admin-section-reports` | Report Generation | Trigger analysis buttons |
-| `admin-section-flagged` | Flagged Articles | Review analyst-flagged articles |
-| `admin-section-nav` | Navigation Editor | Edit nav-config.json entries |
-| `admin-section-config` | Config Export/Import | Download/upload full config |
+| `section-ai` | AI Config | Provider selection, API keys, test connection |
+| `section-feeds` | RSS Feeds | Add/remove/enable feeds, trigger fetch |
+| `section-countries` | Countries | Add/edit/remove monitored countries, assign topics |
+| `section-topics` | Topics | Add/remove analysis topic tags |
+| `section-reports` | Reports | Trigger global/country/all analysis with progress tracking |
+| `section-flagged` | Flagged Articles | Review flagged articles with paginated audit log |
+| `section-nav` | Navigation | Edit nav-config.json entries |
+| `section-config` | Config Export/Import | Download/upload full config backup |
+| `section-diagnostics` | Diagnostics | Run full system health check |
+| `section-logs` | Logs | Terminal-style log viewer with filters |
 
 ---
 
@@ -521,3 +527,427 @@ The admin panel uses the same CSS custom properties as the main `index.html`. Ke
 ---
 
 *This prompt covers the admin panel embedded in `index.html`. Cross-reference `NAVIGATION_SYSTEM_PROMPT.md` for the nav editor, `ANALYSIS_ENGINE_PROMPT.md` for how report generation works, `MAP_AND_FEED_PROMPT.md` for feed management internals, and `SITE_ARCHITECTURE_PROMPT.md` for the full system overview.*
+
+---
+
+## 13. Bug Fix: Duplicate `testAIConnection` Function
+
+A critical bug existed in earlier versions of `index.html` where `testAIConnection` was defined twice — once near the AI config section and once further down in the admin panel JS block. This caused the second definition to silently override the first, making the test button call the wrong version (which lacked the `body` payload).
+
+**The fix:** Remove the duplicate definition entirely. Only one `testAIConnection` function should exist:
+
+```js
+// CORRECT — single definition with credentials in the body:
+async function testAIConnection() {
+  const provider = document.getElementById('ai-provider-select').value;
+  const apiKey   = document.getElementById('ai-api-key-input').value.trim();
+  const model    = document.getElementById('ai-model-input').value.trim();
+
+  const res = await fetch('/api/ai/test', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ provider, apiKey, model }),  // credentials in body
+  });
+  const data = await res.json();
+  showToast(
+    data.success
+      ? `Connected. Model: ${data.data.model}. Response: OK`
+      : `Error: ${data.data?.message || data.error}`,
+    !data.success
+  );
+}
+```
+
+**Why credentials must be in the body:** The `/api/ai/test` endpoint needs to test the credentials the user has *currently entered in the form*, not necessarily what is already saved in `data/ai-config.json`. Sending credentials in the request body allows testing before saving.
+
+**DOM element IDs that must match this function:**
+| ID | Element |
+|---|---|
+| `ai-provider-select` | Provider `<select>` dropdown |
+| `ai-api-key-input` | API key text input |
+| `ai-model-input` | Model name input |
+
+---
+
+## 14. LOGS Tab
+
+The admin panel has a **LOGS** section (7th admin section) providing a terminal-style log viewer for all server activity.
+
+### Section Entry
+
+```html
+<div class="admin-section" id="admin-section-logs">
+  <button class="admin-section-header" onclick="toggleAdminSection('admin-section-logs')">
+    <span class="admin-section-title">System Logs</span>
+    <svg class="admin-chevron">...</svg>
+  </button>
+  <div class="admin-section-body">
+    <!-- Log viewer -->
+  </div>
+</div>
+```
+
+### Log Viewer Layout
+
+```html
+<div class="log-controls">
+  <!-- Category filter buttons -->
+  <button class="log-filter-btn active" data-filter="">All</button>
+  <button class="log-filter-btn" data-filter="api">API</button>
+  <button class="log-filter-btn" data-filter="rss">RSS</button>
+  <button class="log-filter-btn" data-filter="ai">AI</button>
+  <button class="log-filter-btn" data-filter="analysis">Analysis</button>
+  <button class="log-filter-btn" data-filter="system">System</button>
+
+  <!-- Level filter -->
+  <select id="log-level-filter">
+    <option value="">All Levels</option>
+    <option value="warn">Warn+</option>
+    <option value="error">Errors Only</option>
+  </select>
+
+  <!-- Search -->
+  <input id="log-search" type="text" placeholder="Search logs..." class="admin-input">
+
+  <!-- Actions -->
+  <button class="btn btn-secondary btn-sm" onclick="clearLogs()">Clear</button>
+  <button class="btn btn-primary btn-sm"   onclick="refreshLogs()">Refresh</button>
+</div>
+
+<!-- Stats summary -->
+<div id="log-stats"><!-- Populated by JS --></div>
+
+<!-- Terminal-style log display -->
+<div id="log-terminal" style="
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  background: #060810;
+  color: #c8d0e0;
+  padding: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+  border-radius: 4px;
+"><!-- Log entries --></div>
+```
+
+### Log Entry Rendering
+
+```js
+function renderLogEntry(entry) {
+  const levelColors = {
+    info:  '#60a5fa',  // blue
+    warn:  '#f59e0b',  // amber
+    error: '#f87171',  // red
+    debug: '#6b7280',  // gray
+  };
+  const color = levelColors[entry.level] || '#c8d0e0';
+  return `<div class="log-line">
+    <span class="log-ts"  style="color:#4b5568">${entry.timestamp.slice(11,23)}</span>
+    <span class="log-lvl" style="color:${color};font-weight:bold">[${entry.level.toUpperCase().padEnd(5)}]</span>
+    <span class="log-cat" style="color:#7c9cbf">[${entry.category.padEnd(8)}]</span>
+    <span class="log-msg">${escHtml(entry.message)}</span>
+  </div>`;
+}
+```
+
+### Auto-Refresh Logic
+
+The log viewer refreshes every 30 seconds while the LOGS section is open:
+
+```js
+let logRefreshInterval = null;
+
+function startLogAutoRefresh() {
+  refreshLogs();
+  logRefreshInterval = setInterval(refreshLogs, 30000);
+}
+
+function stopLogAutoRefresh() {
+  if (logRefreshInterval) {
+    clearInterval(logRefreshInterval);
+    logRefreshInterval = null;
+  }
+}
+
+// Call startLogAutoRefresh() when section opens, stopLogAutoRefresh() when it closes
+```
+
+### API Calls
+
+```js
+async function refreshLogs() {
+  const category = activeLogFilter || '';
+  const level    = document.getElementById('log-level-filter').value;
+  const search   = document.getElementById('log-search').value.trim();
+
+  const params = new URLSearchParams();
+  if (category) params.set('category', category);
+  if (level)    params.set('level', level);
+  if (search)   params.set('search', search);
+  params.set('limit', '200');
+
+  const res  = await fetch('/api/logs?' + params.toString());
+  const data = await res.json();
+  renderLogs(data.data.logs);
+  renderLogStats(data.data.stats);
+}
+
+async function clearLogs() {
+  await fetch('/api/logs', { method: 'DELETE' });
+  refreshLogs();
+}
+```
+
+---
+
+## 15. Expanded RSS Feed Management (153 Feeds)
+
+The RSS feed section now manages **153 pre-configured feeds**. The admin UI has been updated to support inline editing and health status tracking.
+
+### Inline Editing
+
+Each feed row now supports inline editing of three fields without opening a separate modal:
+
+```html
+<div class="feed-row" data-id="{feed.id}">
+  <div class="feed-main">
+    <!-- Inline-editable fields -->
+    <input class="feed-name-edit"     value="{feed.name}"     onchange="saveFeedField('{feed.id}', 'name', this.value)">
+    <input class="feed-category-edit" value="{feed.category}" onchange="saveFeedField('{feed.id}', 'category', this.value)">
+    <input class="feed-country-edit"  value="{feed.country}"  onchange="saveFeedField('{feed.id}', 'country', this.value)">
+  </div>
+  <div class="feed-actions">
+    <label class="toggle">
+      <input type="checkbox" {feed.enabled ? 'checked' : ''} onchange="toggleFeed('{feed.id}', this.checked)">
+      <span class="toggle-slider"></span>
+    </label>
+    <button onclick="deleteFeed('{feed.id}')">✕</button>
+  </div>
+</div>
+```
+
+### Feed Health Status Tracking
+
+After each `POST /api/feeds/fetch` run, the server records per-feed health results. The feed list displays a health indicator:
+
+| Indicator | Meaning |
+|---|---|
+| 🟢 (green dot) | Last fetch succeeded — articles retrieved |
+| 🟡 (amber dot) | Last fetch succeeded but returned 0 articles |
+| 🔴 (red dot) | Last fetch failed (timeout, 404, parse error) |
+| ⚪ (gray dot) | Never fetched, or server just started |
+
+Health status is read from the `fetchStatus.lastResult.feedResults[]` array returned by `GET /api/feeds/fetch-status`.
+
+```js
+function getFeedHealth(feedId, feedResults) {
+  const result = feedResults?.find(r => r.feedId === feedId);
+  if (!result) return 'unknown';
+  if (result.error)          return 'error';
+  if (result.articles === 0) return 'empty';
+  return 'ok';
+}
+```
+
+### Category Distribution (153 feeds)
+
+| Category | Count |
+|---|---|
+| breaking | ~35 |
+| geopolitics | ~25 |
+| military | ~20 |
+| ai | ~15 |
+| technology | ~15 |
+| science | ~12 |
+| spaceflight | ~12 |
+| robotics | ~8 |
+| engineering | ~6 |
+| research | ~5 |
+
+---
+
+## 15. Countries Section
+
+Allows managing the `data/countries-config.json` file via the admin UI.
+
+### What It Does
+- Lists all monitored countries with name, slug, flag emoji, accent color, and assigned topics
+- **Add Country**: form with name, slug (auto-generated from name), flag, accent color hex, and multi-select topic checkboxes
+- **Edit Country**: inline edit row for name, flag, accent, topics
+- **Remove Country**: DELETE with confirmation dialog
+
+### API Calls
+```js
+// Load
+fetch('/api/countries')               // GET → { countries: [...], topics: [...] }
+
+// Add
+fetch('/api/countries', {
+  method: 'POST',
+  body: JSON.stringify({ name, slug, flag, accent, topics })
+})
+
+// Update
+fetch(`/api/countries/${slug}`, {
+  method: 'PUT',
+  body: JSON.stringify({ name, flag, accent, topics })
+})
+
+// Remove
+fetch(`/api/countries/${slug}`, { method: 'DELETE' })
+```
+
+### Important Notes
+- Adding a country here does **not** automatically add it to `COUNTRY_SLUGS` in `lib/analysis-generator.js` — that requires a code change
+- The countries list here controls what appears in the Countries section UI and in the per-country analysis trigger buttons
+- Slug must be URL-safe (lowercase, hyphens): `'north-korea'`, `'usa'`, `'china'`
+
+---
+
+## 16. Topics Section
+
+Manages analysis topic tags. Topics are referenced by country entries (countries have a `topics[]` array of topic IDs).
+
+### What It Does
+- Lists all topics with ID and display name
+- **Add Topic**: form with `id` (snake_case) and `name` (display)
+- **Remove Topic**: DELETE with confirmation
+
+### API Calls
+```js
+// Add
+fetch('/api/topics', { method: 'POST', body: JSON.stringify({ id, name }) })
+
+// Remove
+fetch(`/api/topics/${id}`, { method: 'DELETE' })
+
+// Load (via countries endpoint which returns both)
+fetch('/api/countries')  // → { countries: [...], topics: [...] }
+```
+
+---
+
+## 17. Diagnostics Section
+
+The **Diagnostics** tab runs a full system health check when the user clicks "Run Full Diagnostics".
+
+### What Gets Checked
+1. **AI Config** — Is a provider configured? Is an API key present? Can it connect?
+2. **RSS Feeds** — How many feeds are configured? How many are enabled? How many returned articles on the last fetch?
+3. **Article Store** — Total cached articles, geotagged count, oldest/newest timestamps
+4. **Reports** — Are global and country reports present? When were they last generated?
+5. **Server Health** — Memory usage, uptime, log count
+
+### HTML Structure
+```html
+<div class="admin-section" id="section-diagnostics">
+  <h2 class="admin-section-title">System Diagnostics</h2>
+  <button class="btn btn-primary" onclick="runDiagnostics()" id="diag-run-btn">
+    Run Full Diagnostics
+  </button>
+  <div id="diag-results"></div>
+</div>
+```
+
+### JavaScript Pattern
+```js
+async function runDiagnostics() {
+  const btn = document.getElementById('diag-run-btn');
+  btn.disabled = true;
+  btn.textContent = 'Running...';
+
+  try {
+    const [status, feeds, articles] = await Promise.all([
+      fetch('/api/status').then(r => r.json()),
+      fetch('/api/feeds').then(r => r.json()),
+      fetch('/api/articles?limit=1').then(r => r.json()),
+    ]);
+    // Render results into #diag-results
+    document.getElementById('diag-results').innerHTML = renderDiagResults({ status, feeds, articles });
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Run Full Diagnostics';
+  }
+}
+```
+
+---
+
+## 18. Flagged Articles Audit Log Pagination
+
+The **Flagged Articles** section includes a collapsible **Article Audit Log** panel that shows all cached articles (not just flagged ones) with pagination.
+
+### State Variables
+```js
+let auditPage       = 1;
+let auditPageSize   = 50;
+let auditTotalPages = 1;
+let auditData       = [];   // full loaded dataset
+let auditFiltered   = [];   // after search filter
+```
+
+### Pagination Controls
+```html
+<div id="audit-pagination">
+  <button id="audit-prev-btn" onclick="auditChangePage(-1)" disabled>← Prev</button>
+  <span id="audit-page-label">Page 1 of 1</span>
+  <button id="audit-next-btn" onclick="auditChangePage(1)" disabled>Next →</button>
+</div>
+```
+
+### Load Pattern
+```js
+async function loadAuditLog() {
+  const res = await fetch(`/api/articles?limit=0&language=all&page=${auditPage}&pageSize=${auditPageSize}`);
+  const json = await res.json();
+  auditData       = json.data.articles;
+  auditTotalPages = json.data.totalPages;
+  auditPage       = json.data.page;
+  document.getElementById('audit-total-count').textContent = json.data.total;
+  document.getElementById('audit-page-info').textContent = `Page ${auditPage}/${auditTotalPages}`;
+  renderAuditTable(auditData);
+  updateAuditPaginationButtons();
+}
+
+function auditChangePage(delta) {
+  auditPage = Math.max(1, Math.min(auditTotalPages, auditPage + delta));
+  loadAuditLog();
+}
+```
+
+---
+
+## 19. Updated API Endpoints (Full List)
+
+All admin panel API endpoints:
+
+| Method | Endpoint | Admin Section |
+|---|---|---|
+| `GET` | `/api/ai/config` | AI Configuration |
+| `POST` | `/api/ai/config` | AI Configuration |
+| `POST` | `/api/ai/test` | AI Configuration |
+| `GET` | `/api/feeds` | RSS Feed Management |
+| `POST` | `/api/feeds` | RSS Feed Management |
+| `DELETE` | `/api/feeds/:id` | RSS Feed Management |
+| `POST` | `/api/feeds/import` | RSS Feed Management |
+| `POST` | `/api/feeds/fetch` | RSS Feed Management |
+| `GET` | `/api/feeds/fetch-status` | RSS Feed Management |
+| `GET` | `/api/countries` | Countries & Topics |
+| `POST` | `/api/countries` | Countries |
+| `PUT` | `/api/countries/:slug` | Countries |
+| `DELETE` | `/api/countries/:slug` | Countries |
+| `POST` | `/api/topics` | Topics |
+| `DELETE` | `/api/topics/:id` | Topics |
+| `POST` | `/api/analysis/global` | Report Generation |
+| `POST` | `/api/analysis/country/:slug` | Report Generation |
+| `POST` | `/api/analysis/all-countries` | Report Generation |
+| `POST` | `/api/analysis/all` | Report Generation |
+| `GET` | `/api/analysis/status` | Report Generation |
+| `GET` | `/api/articles` | Flagged Articles (Audit Log) |
+| `GET` | `/api/articles/flagged` | Flagged Articles |
+| `DELETE` | `/api/articles/flag/:id` | Flagged Articles |
+| `GET` | `/api/settings` | Config Export/Import |
+| `POST` | `/api/settings` | Config Export/Import |
+| `GET` | `/api/status` | Diagnostics / Status |
+| `GET` | `/api/logs` | System Logs |
+| `DELETE` | `/api/logs` | System Logs |

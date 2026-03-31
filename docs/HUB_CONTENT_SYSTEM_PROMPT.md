@@ -1,22 +1,18 @@
-# HUB CONTENT SYSTEM — MODULAR SECTION ARCHITECTURE
-## Conflict Mapper Hub Pages | Reusable Architecture Pattern
-### Applies to: iran-war-analysis.html, nuclear-deep-dive.html, taiwan-strait.html, future hub pages
+# HUB CONTENT SYSTEM — Build Spec
+## Modular Section Architecture
+### Applies to: iran-war-analysis.html, nuclear-deep-dive.html, taiwan-strait.html, and all future hub pages
 
 ---
 
 ## Overview
 
-Hub pages are the deep-dive analysis pages in Conflict Mapper — long-form intelligence briefs covering a single topic in exhaustive detail. Each hub page uses a **modular section architecture** that allows individual sections to be updated independently without touching the rest of the page.
-
-This prompt defines the modular system, how to create new hub pages, and how to update individual sections within existing ones.
+Hub pages are long-form intelligence briefs covering a single topic in exhaustive detail. Each hub page uses a **modular section architecture** — every content section is a self-contained HTML block identified by `data-section`, `data-title`, and `data-last-updated` attributes.
 
 ---
 
-## Modular Section Architecture
+## Modular Section Pattern
 
-### Core Pattern
-
-Every content section in a hub page follows this structure:
+Every content section in a hub page follows this exact structure:
 
 ```html
 <section id="section-XX-slug" class="page-section [alt-bg]"
@@ -47,19 +43,19 @@ Every content section in a hub page follows this structure:
 | `id` | Anchor link target | `"section-03-hammer"` |
 | `class` | Styling + alternating backgrounds | `"page-section alt-bg"` |
 
-### Why Modular?
+### Section Alternation
+Odd sections use `page-section alt-bg`, even sections use `page-section`. This creates visual rhythm without heavy dividers. The hero section is NOT part of the numbered system.
 
-1. **Per-section updates**: When new intelligence arrives, update just one section without re-reading the entire 2000+ line page
-2. **Admin integration**: Future admin panel can display sections as a list, allowing editors to select and update individual modules
-3. **Diffing**: `data-last-updated` shows which sections are stale vs recently refreshed
-4. **Reordering**: Sections are self-contained — they can be reordered by changing IDs and renumbering
-5. **Templates**: New hub pages can be scaffolded by assembling section modules
+### Section Numbering
+- Zero-pad to two digits: `01`, `02`, … `15`
+- Sub-sections for related content: `10A`, `10B`
+- The hero/banner section is unnumbered — exists outside the modular system
 
 ---
 
 ## Required CSS
 
-Every hub page must include this CSS in its `<style>` block:
+Include in every hub page `<style>` block:
 
 ```css
 /* ── MODULAR SECTION SYSTEM ── */
@@ -67,7 +63,7 @@ Every hub page must include this CSS in its `<style>` block:
 .page-section + .page-section { border-top: 1px solid var(--border); }
 .page-section.alt-bg { background: var(--surface); }
 
-/* Section info badge — shows section number and last update date */
+/* Section badge — top-right corner, shows § number and last update date */
 .section-badge {
   position: absolute; top: var(--space-4); right: var(--space-6);
   display: flex; align-items: center; gap: 6px;
@@ -77,109 +73,33 @@ Every hub page must include this CSS in its `<style>` block:
   padding: 3px 8px; border-radius: var(--radius);
   pointer-events: none;
 }
-.section-badge .sb-num { color: var(--accent); }
+.section-badge .sb-num  { color: var(--accent); }
 .section-badge .sb-date { color: var(--text-faint); }
+
+/* Section header */
+.section-header { margin-bottom: var(--space-6); }
+.section-num {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--accent); letter-spacing: 0.1em;
+}
+.section-title {
+  font-family: var(--font-display); font-size: 2rem;
+  font-weight: 700; letter-spacing: 0.05em;
+  color: var(--text); margin-top: var(--space-1);
+}
+.section-title em { color: var(--accent); font-style: normal; }
 ```
 
-Mobile responsive rule (inside `@media (max-width: 768px)`):
+Mobile (inside `@media (max-width: 768px)`):
 ```css
 .section-badge { display: none; }
+.section-title { font-size: 1.5rem; }
 ```
 
 ---
 
-## Existing Hub Pages
+## Page Shell
 
-### 1. Iran War Analysis (`pages/iran-war-analysis.html`)
-**Sections:** 15 modular sections
-**Accent:** Desert Gold #C8962E / #E8B84B
-**Size:** ~2,800 lines / ~190KB
-
-| § | ID | Title | Content Type |
-|---|---|---|---|
-| 01 | overview | Executive Summary | Text + stat cards + red alert box |
-| 02 | timeline | Conflict Chronology | Day-by-day timeline cards |
-| 03 | map | Multi-Theater Overview | Leaflet map + base markers |
-| 04 | thinktanks | Think Tank Consensus | 17 institution cards with URLs |
-| 05 | iran-politics | Post-Decapitation Leadership | Leader cards + scenario tabs |
-| 06 | nuclear | Nuclear Stockpile Analysis | Facility status table + breakout chart |
-| 07 | weapons | Weapons Systems Analysis | 4-tab system (US/Iran/Israel/Proxy) |
-| 08 | losses | Battle Damage Assessment | Dual loss tables with costs |
-| 09 | forces | Ground Assault Planning | Force comparison + geography |
-| 10 | hormuz | Strait of Hormuz | Leaflet map + chokepoint analysis |
-| 11 | lebanon | Lebanon Ground Campaign | Timeline + casualty data |
-| 12 | taiwan | Impact on Taiwan Scenario | Munition depletion + deterrence |
-| 13 | economy | Global Economic Fallout | Oil prices + GDP + sectoral |
-| 14 | outlook | Endgame Analysis | Scenarios + probability ranking |
-| 15 | sources | Sources & Citations | 6-column grid, 40+ URLs |
-
-### 2. Nuclear Deep Dive (`pages/nuclear-deep-dive.html`)
-**Sections:** 8 modular sections
-**Accent:** Ember Red #ff4a1c
-**Size:** ~1,780 lines / ~143KB
-
-| § | ID | Title | Content Type |
-|---|---|---|---|
-| 01 | section-01-map | Nuclear Facilities Theater Map | Leaflet map + clickable popup info cards |
-| 02 | section-02-weapons | GBU-57 / MOP | Specs table + penetration chart + images |
-| 03 | section-03-hammer | Operation Midnight Hammer | Strike overview + flight profile + force comp |
-| 04 | section-04-facilities | Per-Site Facility Analysis | 11 facility cards with dual zoom maps |
-| 05 | section-05-timeline | Enrichment Progression Timeline | Chronological + status bars |
-| 06 | section-06-scenarios | Nuclear Breakout Scenarios | 3 scenario cards (worst/DOD/admin) |
-| 07 | section-07-reconstitution | Program Reconstitution Assessment | Capability bars + TESA bottleneck |
-| 08 | section-08-fallout | Radiological & Fallout Considerations | 2×2 grid of analysis cards |
-
-### 3. Taiwan Strait Watch (`pages/taiwan-strait.html`)
-**Sections:** 6 modular sections
-**Accent:** Teal #29b6f6 / Neon #00ffc8
-**Size:** ~1,420 lines / ~95KB
-
-| § | ID | Title | Content Type |
-|---|---|---|---|
-| 01 | section-01-map | Operational Map | Leaflet map + force positions |
-| 02 | section-02-weather | Weather & Sea State | Live conditions + 7-day forecast + Windy embed |
-| 03 | section-03-tides | Tide Charts & Landing Windows | SVG tide chart + beach windows |
-| 04 | section-04-forces | Force Comparison | PLA vs ROC vs US stat blocks |
-| 05 | section-05-assessment | Strategic Assessment | 4 analysis cards |
-| 06 | section-06-sidebar | Sidebar Panel | Status + invasion windows + intel feed + xref |
-
----
-
-## Creating a New Hub Page
-
-### Step 1: Choose the Topic and Accent Color
-
-Each hub page has its own accent color that matches the theater or subject. Examples:
-- Middle East / Iran: Desert Gold #C8962E
-- Nuclear weapons: Ember Red #ff4a1c
-- Taiwan / Pacific: Teal #29b6f6
-- Arctic: Ice Blue #4fc3f7
-- Cyber: Matrix Green #00ff41
-
-### Step 2: Plan Sections
-
-Before writing any HTML, define every section:
-```
-§ 01 — [slug] — [title] — [content type]
-§ 02 — [slug] — [title] — [content type]
-...
-```
-
-Common section types used across hubs:
-- **Theater Map** — Leaflet map with markers and popups
-- **Timeline / Chronology** — Ordered event cards with dates
-- **Force Comparison** — Side-by-side stat blocks
-- **Weapons / Platforms** — Tabbed specification cards
-- **Facility Analysis** — Cards with dual-zoom maps, coords, damage bars
-- **Scenario Analysis** — 2–3 color-coded cards (worst/baseline/best)
-- **Think Tank / Source Grid** — Institution cards with external links
-- **Economic Impact** — Charts, stat bars, sector breakdown
-- **Strategic Assessment** — Analysis text in 2-column card grid
-- **Sources / Citations** — Multi-column link grid
-
-### Step 3: Scaffold the Page
-
-Use the shared page shell:
 ```html
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
@@ -190,69 +110,166 @@ Use the shared page shell:
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<!-- Add Leaflet if maps are needed -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- Leaflet (include only if page uses maps) -->
+<link  rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Lucide icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
 <style>
 /* CSS variables, modular section CSS, page-specific styles */
 </style>
 </head>
 <body>
 <!-- Classification banner -->
-<!-- Top nav -->
-<!-- Hero section (NOT modular — always section 00) -->
+<div class="classification-banner">
+  ANALYTICAL INTELLIGENCE PRODUCT — OPEN SOURCE COMPILATION — NOT CLASSIFIED
+</div>
+<!-- Top nav (links to section anchors) -->
+<nav class="page-nav">
+  <a href="#section-01-slug">LABEL</a>
+  <!-- ... -->
+</nav>
+<!-- Hero section (NOT modular — always unnumbered) -->
+<section class="hero-section"><!-- ... --></section>
 <!-- Modular sections § 01 through § NN -->
 <!-- JavaScript at bottom -->
+<script>lucide.createIcons();</script>
 </body>
 </html>
 ```
 
-### Step 4: Build Section by Section
+---
 
-Each section is self-contained. Build and verify one section at a time. Alternate `page-section` and `page-section alt-bg` for visual rhythm.
+## Global CSS Variables (all hub pages)
 
-### Step 5: Wire Up Navigation
+```css
+:root {
+  /* Background layers */
+  --bg:        #0a0c10;
+  --surface:   #0d1117;
+  --surface-2: #161b22;
+  --surface-3: #1c2128;
 
-The top nav bar links to section anchors. Use the section IDs:
-```html
-<nav class="nav-links">
-  <a href="#section-01-map">MAP</a>
-  <a href="#section-02-timeline">TIMELINE</a>
-  ...
-</nav>
+  /* Text */
+  --text:       #e6edf3;
+  --text-dim:   #8b949e;
+  --text-faint: #484f58;
+
+  /* Borders */
+  --border:     #30363d;
+  --border-dim: #21262d;
+
+  /* Typography */
+  --font-display: 'Rajdhani', sans-serif;
+  --font-mono:    'Share Tech Mono', monospace;
+  --font-body:    'Inter', sans-serif;
+
+  /* Spacing scale */
+  --space-1: 4px;  --space-2: 8px;   --space-3: 12px;
+  --space-4: 16px; --space-5: 20px;  --space-6: 24px;
+  --space-8: 32px; --space-10: 40px; --space-12: 48px;
+
+  /* Radius */
+  --radius: 6px;
+
+  /* Accent: set per-page (examples below) */
+  --accent:       #C8962E;  /* Desert Gold — Iran War */
+  --accent-light: #E8B84B;
+}
 ```
+
+Per-page accent color examples:
+| Hub Page | Accent |
+|---|---|
+| Iran War Analysis | Desert Gold `#C8962E` / `#E8B84B` |
+| Nuclear Deep Dive | Ember Red `#ff4a1c` |
+| Taiwan Strait Watch | Teal `#29b6f6` / Neon `#00ffc8` |
+| Arctic | Ice Blue `#4fc3f7` |
+| Cyber | Matrix Green `#00ff41` |
 
 ---
 
-## Updating an Existing Section
+## Design Rules
 
-### Single Section Update Workflow
-
-1. **Identify the section** by its `data-section` number and `data-title`
-2. **Read only that section** — from the opening `<section>` tag to its closing `</section>`
-3. **Modify the content** inside the section
-4. **Update `data-last-updated`** on the section tag to today's date
-5. **Update the badge date** `<span class="sb-date">UPDATED YYYY-MM-DD</span>`
-6. **Write back** only the modified section
-
-### Example: Updating Iran War Timeline
-
-```
-Target: data-section="02" data-title="Conflict Chronology"
-Action: Add new timeline entry for today's events
-Update: data-last-updated="2026-04-01"
-Badge: UPDATED 2026-04-01
-```
-
-### Bulk Updates
-
-When updating multiple sections at once, update each section's `data-last-updated` and badge independently. Only sections that actually changed should get new dates.
+- **Background:** `#0a0c10` or `#0a0b0d`
+- **Fonts:** Rajdhani (display/headings), Share Tech Mono (labels, badges, mono text), Inter (body paragraphs)
+- **Icons:** Lucide via CDN
+- **Images:** `object-fit: contain` with `max-height` — **never** `object-fit: cover` with a fixed `height`
+- **Maps:** CartoDB Dark Matter for overview/operational maps; CartoDB Voyager for island/coastal detail; Esri World Imagery for satellite-detail zoom
+- **External links:** always `target="_blank"`
+- **Classification banner:** present on every hub page, text: `ANALYTICAL INTELLIGENCE PRODUCT — OPEN SOURCE COMPILATION — NOT CLASSIFIED`
 
 ---
 
-## Shared Content Components
+## Existing Hub Pages
 
-### Facility Card (used in Nuclear Deep Dive § 04)
+### 1. Iran War Analysis (`pages/iran-war-analysis.html`)
+**Accent:** Desert Gold `#C8962E`
+**Size:** ~3,960 lines
+
+| § | id | Title | Content Type |
+|---|---|---|---|
+| 01 | section-01-overview | Executive Summary | Text + stat cards + red alert box |
+| 02 | section-02-timeline | Conflict Timeline | Day-by-day alternating timeline cards |
+| 03 | section-03-map | Theater Map | Leaflet map, base/strike/front markers |
+| 04 | section-04-thinktanks | Think Tank Consensus | 17 institution cards |
+| 05 | section-05-politics | Post-Decapitation Leadership | Real photo leader cards + post-conflict scenario cards (Stimson/ESCP/ICDI sources) |
+| 06 | section-06-nuclear | Nuclear Program | Facility status + Deep Dive link card |
+| 07 | section-07-weapons | Weapons Platforms | 4 sub-sections (07-A/B/C/D), 39 equip cards total — no tabs |
+| 08 | section-08-losses | Equipment Losses | Dual tables (US vs Iran); E-3 AWACS, KC-135 updates; Day counter |
+| 09 | section-09-ground | Ground Assault Analysis | Force comparison + geography + objectives |
+| 10 | section-10-hormuz | Strait of Hormuz | Leaflet map + chokepoint + mine warfare zones |
+| 10A | section-10a-kharg | Kharg Island Assessment | Leaflet map, Truth Social quote, island profile, analyst cards, Snake Island comparison |
+| 10B | section-10b-targets | Ground Target Options | 8 target cards with mini Leaflet maps, feasibility ratings |
+| 11 | section-11-lebanon | Lebanon Front | IDF operations + Hezbollah + casualties |
+| 12 | section-12-taiwan | Taiwan Impact | Munition depletion + PLA lessons + deterrence |
+| 13 | section-13-economy | Economic Impact | Oil prices + GDP + supply chains |
+| 14 | section-14-outlook | Endgame Analysis | Scenario cards + probability ranking |
+| 15 | section-15-sources | Sources & Citations | 6-column grid, 40+ URLs |
+
+See `IRAN_WAR_ANALYSIS_PROMPT.md` for full build spec.
+See `WEAPONS_PLATFORMS_PROMPT.md` for §07 card inventory.
+See `GROUND_OPERATIONS_PROMPT.md` for §10A and §10B specs.
+
+---
+
+### 2. Nuclear Deep Dive (`pages/nuclear-deep-dive.html`)
+**Accent:** Ember Red `#ff4a1c`
+**Size:** ~1,970 lines
+
+| § | id | Title | Content Type |
+|---|---|---|---|
+| 01 | section-01-map | Nuclear Facilities Theater Map | Leaflet map, clickable facility popups |
+| 02 | section-02-weapons | GBU-57 / MOP | Specs table + penetration chart + images |
+| 03 | section-03-hammer | Operation Midnight Hammer | Strike overview + flight profile infographic + force composition |
+| 04 | section-04-facilities | Per-Site Facility Analysis | 14 facility cards with dual Leaflet maps |
+| 05 | section-05-timeline | Enrichment Progression Timeline | Chronological events + status bars |
+| 06 | section-06-scenarios | Nuclear Breakout Scenarios | 3 scenario cards (worst / DOD estimate / admin) |
+| 07 | section-07-reconstitution | Program Reconstitution Assessment | Capability bars + TESA bottleneck analysis |
+| 08 | section-08-fallout | Radiological & Fallout Considerations | 2×2 grid of analysis cards |
+
+See `NUCLEAR_DEEP_DIVE_PROMPT.md` for full build spec.
+
+---
+
+### 3. Taiwan Strait Watch (`pages/taiwan-strait.html`)
+**Accent:** Teal `#29b6f6` / Neon `#00ffc8`
+**Size:** ~1,420 lines
+
+| § | id | Title | Content Type |
+|---|---|---|---|
+| 01 | section-01-map | Operational Map | Leaflet map + force positions |
+| 02 | section-02-weather | Weather & Sea State | Live conditions + 7-day forecast + Windy embed |
+| 03 | section-03-tides | Tide Charts & Landing Windows | SVG tide chart + beach landing windows |
+| 04 | section-04-forces | Force Comparison | PLA vs ROC vs US stat blocks |
+| 05 | section-05-assessment | Strategic Assessment | 4 analysis cards |
+| 06 | section-06-sidebar | Sidebar Panel | Status + invasion windows + intel feed + xrefs |
+
+---
+
+## Shared Components
+
+### Facility Card (Nuclear Deep Dive §04)
 ```html
 <div class="facility-card status-[destroyed|damaged|hardening|active]" id="site-[slug]">
   <div class="fc-header">
@@ -279,88 +296,135 @@ When updating multiple sections at once, update each section's `data-last-update
       <div class="fc-sources">[Source links]</div>
     </div>
     <div class="fc-imagery">
-      <div class="fc-dual-maps">[Context + Detail Leaflet maps]</div>
-      <div class="fc-sat-img">[Satellite imagery]</div>
+      <div class="fc-dual-maps">
+        <!-- Context mini-map (CartoDB Dark Matter, zoom 10) -->
+        <!-- Detail mini-map (Esri satellite, zoom 15) -->
+      </div>
     </div>
   </div>
 </div>
 ```
 
-### Scenario Card (used in Nuclear Deep Dive § 06)
+### Scenario Card
 ```html
 <div class="scenario-card [worst|likely|best]">
   <div class="sc-label [class]">// LABEL</div>
   <div class="sc-title">TITLE</div>
-  <div class="sc-prob [class]">Timeline</div>
-  <p class="sc-desc">Description</p>
+  <div class="sc-prob [class]">Timeline / Probability</div>
+  <p class="sc-desc">Description paragraph</p>
 </div>
 ```
 
-### Think Tank Card (used in Iran War § 04)
+### Think Tank Card
 ```html
 <div class="tt-card">
-  <div class="tt-logo">[Institution icon]</div>
   <div class="tt-name">[Name]</div>
-  <div class="tt-assessment">[Key quote/finding]</div>
-  <a href="[URL]" target="_blank" class="tt-link">Read Analysis ↗</a>
+  <div class="tt-url"><a href="[URL]" target="_blank">[domain]</a></div>
+  <div class="tt-assessment">[Key quote or finding]</div>
+  <div class="tt-relevance">Relevance: [HIGH|MEDIUM]</div>
+</div>
+```
+
+### Equipment Card (Weapons §07)
+```html
+<div class="equip-card" id="equip-[slug]">
+  <div class="equip-img-wrap">
+    <img src="[URL]" alt="[NAME]" loading="lazy">
+  </div>
+  <div class="equip-body">
+    <div class="equip-name">[SYSTEM NAME]</div>
+    <div class="equip-desc">[Description]</div>
+    <div class="equip-specs">
+      <div class="spec-row"><span class="spec-label">RANGE</span><span class="spec-val">[value]</span></div>
+      <div class="spec-row"><span class="spec-label">PAYLOAD</span><span class="spec-val">[value]</span></div>
+      <div class="spec-row"><span class="spec-label">GUIDANCE</span><span class="spec-val">[value]</span></div>
+      <div class="spec-row"><span class="spec-label">TARGETS</span><span class="spec-val">[value]</span></div>
+    </div>
+  </div>
 </div>
 ```
 
 ---
 
-## Design Rules (ALL Hub Pages)
+## Map Configuration Patterns
 
-### Mandatory
-- Dark background: `#0a0c10` or `#0a0b0d`
-- Fonts: Rajdhani (display), Share Tech Mono (labels/mono), Inter (body) — Google Fonts CDN
-- Icons: Lucide via CDN
-- Images: `object-fit: contain` with `max-height` — NEVER `object-fit: cover` with fixed `height`
-- Leaflet maps: CartoDB Dark Matter for overview maps, Esri World Imagery for satellite detail maps
-- All external links: `target="_blank"`
-- Classification banner at top: `ANALYTICAL INTELLIGENCE PRODUCT — OPEN SOURCE COMPILATION — NOT CLASSIFIED`
+### Overview / Theater Map
+```javascript
+// CartoDB Dark Matter
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap contributors © CARTO', maxZoom: 19
+});
+```
 
-### Section Alternation
-Odd sections: `page-section alt-bg` (slightly lighter background)
-Even sections: `page-section` (default background)
-This creates visual rhythm without heavy dividers.
+### Coastal / Island Detail Map
+```javascript
+// CartoDB Voyager — better land/sea contrast for coastal operations
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap contributors © CARTO', maxZoom: 19
+});
+```
 
-### Section Numbering
-- Zero-pad to two digits: `01`, `02`, ... `15`
-- The hero section is NOT numbered — it exists outside the modular system
-- Section numbers appear in: `data-section`, badge `§ XX`, and header `XX // LABEL`
+### Context Mini-Map (facility cards, target cards)
+```javascript
+// CartoDB Dark Matter, zoom 10, disabled interactions
+const ctxMap = L.map(el, { zoomControl: false, dragging: false,
+                            scrollWheelZoom: false, doubleClickZoom: false });
+ctxMap.setView([lat, lng], 10);
+```
 
-### Responsive
-- All grids collapse to single column on mobile (`max-width: 768px`)
-- Section badges hidden on mobile
-- Maps get `min-height: 300px` on mobile
-- Font sizes reduced by ~15% on mobile
+### Satellite Detail Mini-Map
+```javascript
+// Esri World Imagery, zoom 15
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  attribution: '© Esri', maxZoom: 19
+});
+```
+
+---
+
+## Updating an Existing Section
+
+1. Identify the section by its `data-section` number and `data-title`
+2. Read only that section — from opening `<section>` to closing `</section>`
+3. Modify the content inside
+4. Update `data-last-updated` on the section tag to today's ISO date
+5. Update `<span class="sb-date">UPDATED YYYY-MM-DD</span>` to match
+6. Write back only the modified section — do not touch other sections
 
 ---
 
 ## Navigation Configuration
 
-Hub pages appear in the main site nav via `assets/nav-config.json`. When a hub page is part of a dropdown group:
+Hub pages appear in `assets/nav-config.json`:
 
 ```json
 {
   "label": "IRAN CONFLICT",
   "dropdown": true,
   "items": [
-    { "label": "War Analysis", "href": "/pages/iran-war-analysis.html", "icon": "swords" },
-    { "label": "Nuclear Deep Dive", "href": "/pages/nuclear-deep-dive.html", "icon": "atom" }
+    { "label": "War Analysis",     "href": "/pages/iran-war-analysis.html",  "icon": "swords" },
+    { "label": "Nuclear Deep Dive","href": "/pages/nuclear-deep-dive.html",  "icon": "atom"   }
   ]
 }
 ```
 
 ---
 
+## Responsive Breakpoints
+
+| Breakpoint | Behavior |
+|---|---|
+| `< 1280px` | 3-col grids → 2-col |
+| `< 1024px` | Narrower 2-col grids → 1-col |
+| `< 768px` | All grids → 1-col; section badges hidden; map `min-height: 300px` |
+| `< 480px` | Hero font sizes reduce ~15–20%; stat cards stack vertically |
+
+---
+
 ## Future: Admin Section Editor
 
-The modular architecture is designed to support a future admin interface where:
-1. Admin sees a list of all sections in a hub page (parsed from `data-section` and `data-title` attributes)
-2. Admin selects a section to update
-3. AI generates updated content for just that section
-4. Only the selected section's HTML is replaced; `data-last-updated` is set to today
-5. Other sections remain untouched
-
-This is not yet implemented but the data attributes are in place to support it.
+The `data-section` and `data-title` attributes support a future admin interface that:
+1. Lists all sections in a hub page as a selectable menu
+2. Allows editors to pick a section for AI-assisted update
+3. Replaces only the selected section's HTML and sets `data-last-updated` to today
+4. Leaves all other sections untouched
