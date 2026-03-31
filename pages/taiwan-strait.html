@@ -360,6 +360,28 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
   .metrics-bar { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* ── Page sections ── */
+.page-section { position: relative; }
+.page-section + .page-section { border-top: 1px solid rgba(255,255,255,0.05); }
+.page-section.alt-bg { background: rgba(15,17,20,0.6); }
+
+/* Section info badge */
+.section-badge {
+  position: absolute; top: var(--space-4, 16px); right: var(--space-6, 24px);
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em;
+  color: var(--text-faint); z-index: 10;
+  background: rgba(20,23,32,0.9); border: 1px solid rgba(255,255,255,0.07);
+  padding: 3px 8px; border-radius: 4px;
+  pointer-events: none;
+}
+.section-badge .sb-num { color: var(--accent); }
+.section-badge .sb-date { color: var(--text-faint); }
+
+@media (max-width: 768px) {
+  .section-badge { display: none; }
+}
+
 /* ── Leaflet custom ── */
 .leaflet-container { background: #0a0d12 !important; }
 .leaflet-popup-content-wrapper {
@@ -456,111 +478,134 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
     <div class="main-col-left">
 
       <!-- 1. OPERATIONAL MAP -->
-      <div class="section-title">Operational Map</div>
-      <div class="card" style="margin-bottom:16px">
-        <div class="card-header">
-          <div class="card-title">
-            <div class="card-icon" style="background:rgba(59,130,246,0.12)">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-            </div>
-            Taiwan Strait — Real-Time Theater
-          </div>
-          <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-faint)">Leaflet OSM · Interactive</span>
+      <section id="section-01-map" class="page-section" data-section="01" data-title="Operational Map" data-last-updated="2026-03-31">
+        <div class="section-badge">
+          <span class="sb-num">§ 01</span>
+          <span class="sb-date">UPDATED 2026-03-31</span>
         </div>
-        <div id="strait-map"></div>
-      </div>
+        <div class="section-title">Operational Map</div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <div class="card-title">
+              <div class="card-icon" style="background:rgba(59,130,246,0.12)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+              </div>
+              Taiwan Strait — Real-Time Theater
+            </div>
+            <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-faint)">Leaflet OSM · Interactive</span>
+          </div>
+          <div id="strait-map"></div>
+        </div>
+      </section>
 
       <!-- 2. WEATHER MAP -->
-      <div class="section-title">Weather &amp; Sea State</div>
-      <div class="conditions-grid">
-        <div class="condition-cell">
-          <div class="cond-label">Wind Speed</div>
-          <div class="cond-value">18 kt</div>
-          <div class="cond-sub">NE, Beaufort 4</div>
+      <section id="section-02-weather" class="page-section alt-bg" data-section="02" data-title="Weather &amp; Sea State" data-last-updated="2026-03-31">
+        <div class="section-badge">
+          <span class="sb-num">§ 02</span>
+          <span class="sb-date">UPDATED 2026-03-31</span>
         </div>
-        <div class="condition-cell">
-          <div class="cond-label">Wave Height</div>
-          <div class="cond-value">1.8 m</div>
-          <div class="cond-sub">Moderate swell</div>
+        <div class="section-title">Weather &amp; Sea State</div>
+        <div class="conditions-grid">
+          <div class="condition-cell">
+            <div class="cond-label">Wind Speed</div>
+            <div class="cond-value">18 kt</div>
+            <div class="cond-sub">NE, Beaufort 4</div>
+          </div>
+          <div class="condition-cell">
+            <div class="cond-label">Wave Height</div>
+            <div class="cond-value">1.8 m</div>
+            <div class="cond-sub">Moderate swell</div>
+          </div>
+          <div class="condition-cell">
+            <div class="cond-label">Visibility</div>
+            <div class="cond-value">12 km</div>
+            <div class="cond-sub">Partly cloudy</div>
+          </div>
+          <div class="condition-cell">
+            <div class="cond-label">Sea State</div>
+            <div class="cond-value amber">Rough</div>
+            <div class="cond-sub">Beaufort 4–5</div>
+          </div>
         </div>
-        <div class="condition-cell">
-          <div class="cond-label">Visibility</div>
-          <div class="cond-value">12 km</div>
-          <div class="cond-sub">Partly cloudy</div>
-        </div>
-        <div class="condition-cell">
-          <div class="cond-label">Sea State</div>
-          <div class="cond-value amber">Rough</div>
-          <div class="cond-sub">Beaufort 4–5</div>
-        </div>
-      </div>
 
-      <div class="weather-iframe-wrap">
-        <iframe
-          src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=6&overlay=wind&product=ecmwf&level=surface&lat=24&lon=121&detailLat=24&detailLon=121&marker=true"
-          width="100%" height="400" frameborder="0"
-          title="Taiwan Strait Wind Map (Windy.com)"
-          loading="lazy"
-        ></iframe>
-      </div>
+        <div class="weather-iframe-wrap">
+          <iframe
+            src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=6&overlay=wind&product=ecmwf&level=surface&lat=24&lon=121&detailLat=24&detailLon=121&marker=true"
+            width="100%" height="400" frameborder="0"
+            title="Taiwan Strait Wind Map (Windy.com)"
+            loading="lazy"
+          ></iframe>
+        </div>
 
-      <!-- 7-Day Forecast -->
-      <div class="card" style="margin-bottom:16px">
-        <div class="card-header">
-          <div class="card-title">7-Day Forecast — Taiwan Strait</div>
-          <span style="font-family:var(--font-mono);font-size:0.58rem;color:var(--text-faint)">ECMWF model</span>
+        <!-- 7-Day Forecast -->
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <div class="card-title">7-Day Forecast — Taiwan Strait</div>
+            <span style="font-family:var(--font-mono);font-size:0.58rem;color:var(--text-faint)">ECMWF model</span>
+          </div>
+          <div class="card-body" style="padding:0">
+            <table class="forecast-table">
+              <thead>
+                <tr>
+                  <th>Day</th><th>Condition</th><th>Wind</th><th>Wave Ht</th><th>Vis</th><th>Sea State</th>
+                </tr>
+              </thead>
+              <tbody id="forecast-tbody">
+                <!-- Generated by JS -->
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="card-body" style="padding:0">
-          <table class="forecast-table">
-            <thead>
-              <tr>
-                <th>Day</th><th>Condition</th><th>Wind</th><th>Wave Ht</th><th>Vis</th><th>Sea State</th>
-              </tr>
-            </thead>
-            <tbody id="forecast-tbody">
-              <!-- Generated by JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
+      </section>
 
       <!-- 3. TIDE CHARTS -->
-      <div class="section-title">Tide Charts &amp; Landing Windows</div>
-      <div class="card" style="margin-bottom:16px">
-        <div class="card-header">
-          <div class="card-title">
-            <div class="card-icon" style="background:rgba(59,130,246,0.12)">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M2 12h20M2 18h20M8 6h8M5 9h14"/></svg>
+      <section id="section-03-tides" class="page-section" data-section="03" data-title="Tide Charts &amp; Landing Windows" data-last-updated="2026-03-31">
+        <div class="section-badge">
+          <span class="sb-num">§ 03</span>
+          <span class="sb-date">UPDATED 2026-03-31</span>
+        </div>
+        <div class="section-title">Tide Charts &amp; Landing Windows</div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <div class="card-title">
+              <div class="card-icon" style="background:rgba(59,130,246,0.12)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M2 12h20M2 18h20M8 6h8M5 9h14"/></svg>
+              </div>
+              Spring/Neap Tide Cycle — March/April 2026
             </div>
-            Spring/Neap Tide Cycle — March/April 2026
+            <div style="display:flex;gap:8px;align-items:center">
+              <span id="moon-phase-badge" style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-muted)"></span>
+            </div>
           </div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <span id="moon-phase-badge" style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-muted)"></span>
+          <div class="card-body">
+            <div id="tide-svg-wrap"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+              <div>
+                <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-faint);text-transform:uppercase;margin-bottom:6px">Taoyuan Beach (Primary LZ)</div>
+                <div id="taoyuan-windows"></div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-faint);text-transform:uppercase;margin-bottom:6px">Hsinchu Beach</div>
+                <div id="hsinchu-windows"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="card-body">
-          <div id="tide-svg-wrap"></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
-            <div>
-              <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-faint);text-transform:uppercase;margin-bottom:6px">Taoyuan Beach (Primary LZ)</div>
-              <div id="taoyuan-windows"></div>
-            </div>
-            <div>
-              <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-faint);text-transform:uppercase;margin-bottom:6px">Hsinchu Beach</div>
-              <div id="hsinchu-windows"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </section>
 
       <!-- 4. FORCE COMPARISON -->
-      <div class="section-title">Force Comparison</div>
-      <div class="card" style="margin-bottom:16px">
-        <div class="card-header">
-          <div class="card-title">Order of Battle — Taiwan Strait Scenario</div>
-          <span style="font-family:var(--font-mono);font-size:0.58rem;color:var(--text-faint)">OSINT estimates · unclassified</span>
+      <section id="section-04-forces" class="page-section alt-bg" data-section="04" data-title="Force Comparison" data-last-updated="2026-03-31">
+        <div class="section-badge">
+          <span class="sb-num">§ 04</span>
+          <span class="sb-date">UPDATED 2026-03-31</span>
         </div>
-        <div class="card-body">
+        <div class="section-title">Force Comparison</div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <div class="card-title">Order of Battle — Taiwan Strait Scenario</div>
+            <span style="font-family:var(--font-mono);font-size:0.58rem;color:var(--text-faint)">OSINT estimates · unclassified</span>
+          </div>
+          <div class="card-body">
           <div class="force-grid">
             <!-- PLA -->
             <div class="force-card">
@@ -690,10 +735,16 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
           </div>
         </div>
       </div>
+      </section>
 
       <!-- 5. STRATEGIC ASSESSMENT -->
-      <div class="section-title">Strategic Assessment</div>
-      <div class="assessment-grid" style="margin-bottom:16px">
+      <section id="section-05-assessment" class="page-section" data-section="05" data-title="Strategic Assessment" data-last-updated="2026-03-31">
+        <div class="section-badge">
+          <span class="sb-num">§ 05</span>
+          <span class="sb-date">UPDATED 2026-03-31</span>
+        </div>
+        <div class="section-title">Strategic Assessment</div>
+        <div class="assessment-grid" style="margin-bottom:16px">
         <div class="assessment-card">
           <div class="assessment-header">
             <div class="assessment-icon" style="background:rgba(248,113,113,0.12)">
@@ -754,11 +805,17 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
           </div>
         </div>
       </div>
+      </section>
 
     </div><!-- /.main-col-left -->
 
     <!-- ── Right sidebar ── -->
     <div class="main-col-right">
+      <section id="section-06-sidebar" class="page-section" data-section="06" data-title="Sidebar" data-last-updated="2026-03-31">
+        <div class="section-badge">
+          <span class="sb-num">§ 06</span>
+          <span class="sb-date">UPDATED 2026-03-31</span>
+        </div>
       <div class="sidebar-sticky">
         <div class="sidebar-inner">
 
@@ -916,6 +973,7 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
 
         </div>
       </div>
+      </section>
     </div><!-- /.main-col-right -->
 
   </div><!-- /.main-grid -->

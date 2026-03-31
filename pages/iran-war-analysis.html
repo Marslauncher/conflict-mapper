@@ -354,6 +354,7 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
   .tl-item:nth-child(even) .tl-card{order:0;}
   .tl-item:nth-child(even) .tl-empty{display:none;}
   .tl-empty{display:none;}
+  .section-badge { display: none; }
 }
 
 /* Leaflet override for dark theme */
@@ -363,6 +364,24 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 .leaflet-popup-content{font-family:var(--font-mono);font-size:11px;color:var(--color-text-muted);}
 .leaflet-popup-content strong{color:var(--color-accent);font-family:var(--font-display);font-size:13px;}
 .leaflet-control-zoom a{background:var(--color-surface)!important;color:var(--color-accent)!important;border-color:var(--color-border)!important;}
+
+/* ── MODULAR SECTION ARCHITECTURE ───────────────────────── */
+.page-section { position: relative; }
+.page-section + .page-section { border-top: 1px solid var(--color-border); }
+.page-section.alt-bg { background: var(--color-surface); }
+
+/* Section info badge */
+.section-badge {
+  position: absolute; top: var(--space-4); right: var(--space-6);
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em;
+  color: var(--color-text-faint); z-index: 10;
+  background: var(--color-surface-2); border: 1px solid var(--color-border);
+  padding: 3px 8px; border-radius: var(--radius-sm);
+  pointer-events: none;
+}
+.section-badge .sb-num { color: var(--color-accent); }
+.section-badge .sb-date { color: var(--color-text-faint); }
 </style>
 </head>
 <body>
@@ -465,7 +484,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 </div>
 
 <!-- ════════════ SECTION 2: OVERVIEW ════════════ -->
-<section id="overview">
+<section id="overview" class="page-section alt-bg" data-section="01" data-title="Executive Summary" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 01</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -529,7 +549,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 
 
 <!-- ════════════ SECTION 3: TIMELINE ════════════ -->
-<section id="timeline">
+<section id="timeline" class="page-section" data-section="02" data-title="Conflict Chronology" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 02</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -713,7 +734,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 
 
 <!-- ════════════ SECTION 4: THEATER MAP ════════════ -->
-<section id="map">
+<section id="map" class="page-section alt-bg" data-section="03" data-title="Multi-Theater Overview" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 03</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -765,7 +787,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 
 
 <!-- ════════════ SECTION 5: THINK TANKS ════════════ -->
-<section id="thinktanks">
+<section id="thinktanks" class="page-section" data-section="04" data-title="Think Tank Consensus" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 04</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -959,7 +982,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 
 
 <!-- ════════════ SECTION 6: IRAN POLITICS ════════════ -->
-<section id="iran-politics">
+<section id="iran-politics" class="page-section alt-bg" data-section="05" data-title="Post-Decapitation Leadership" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 05</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -1130,7 +1154,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 
 
 <!-- ════════════ SECTION 7: NUCLEAR ANALYSIS ════════════ -->
-<section id="nuclear">
+<section id="nuclear" class="page-section" data-section="06" data-title="Nuclear Stockpile Analysis" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 06</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -1264,7 +1289,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 
 
 <!-- ════════════ SECTION 8: DRONE & MISSILE ARSENAL ════════════ -->
-<section id="weapons">
+<section id="weapons" class="page-section alt-bg" data-section="07" data-title="Weapons Systems Analysis" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 07</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -1607,7 +1633,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 
 
 <!-- ════════════ SECTION 11: EQUIPMENT LOSSES ════════════ -->
-<section id="losses">
+<section id="losses" class="page-section" data-section="08" data-title="Battle Damage Assessment" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 08</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -1774,7 +1801,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 </section>
 
 <!-- ════════════ SECTION 9: GROUND ASSAULT ANALYSIS ════════════ -->
-<section id="forces">
+<section id="forces" class="page-section alt-bg" data-section="09" data-title="Ground Assault Planning" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 09</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -1838,7 +1866,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 </section>
 
 <!-- ════════════ SECTION 10: HORMUZ ════════════ -->
-<section id="hormuz">
+<section id="hormuz" class="page-section" data-section="10" data-title="Strait of Hormuz" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 10</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -1911,7 +1940,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 
 
 <!-- ════════════ SECTION 13: LEBANON FRONT ════════════ -->
-<section id="lebanon">
+<section id="lebanon" class="page-section alt-bg" data-section="11" data-title="Lebanon Ground Campaign" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 11</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -1987,7 +2017,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 </section>
 
 <!-- ════════════ SECTION 14: TAIWAN IMPACT ════════════ -->
-<section id="taiwan">
+<section id="taiwan" class="page-section" data-section="12" data-title="Impact on Taiwan Scenario" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 12</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -2046,7 +2077,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 </section>
 
 <!-- ════════════ SECTION 15: ECONOMY ════════════ -->
-<section id="economy">
+<section id="economy" class="page-section alt-bg" data-section="13" data-title="Global Economic Fallout" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 13</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -2136,7 +2168,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 </section>
 
 <!-- ════════════ SECTION 16: OUTLOOK ════════════ -->
-<section id="outlook">
+<section id="outlook" class="page-section" data-section="14" data-title="Endgame Analysis" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 14</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
@@ -2245,7 +2278,8 @@ footer{border-top:1px solid var(--color-border);padding:var(--space-8) var(--spa
 
 
 <!-- ════════════ SECTION 17: SOURCES ════════════ -->
-<section id="sources">
+<section id="sources" class="page-section alt-bg" data-section="15" data-title="Sources &amp; Citations" data-last-updated="2026-03-31">
+<div class="section-badge"><span class="sb-num">§ 15</span><span class="sb-date">UPDATED 2026-03-31</span></div>
 <div class="section-wrap">
   <div class="section-header">
     <div>
