@@ -4113,7 +4113,17 @@ function pollReportStatus(label) {
 
         bar.style.width = pct + '%';
         pctEl.textContent = pct + '%';
-        detailEl.textContent = status.message || 'Processing...';
+
+        // Show per-report status if available (parallel generation)
+        if (status.reports && Object.keys(status.reports).length > 0) {
+          const lines = Object.entries(status.reports).map(([slug, r]) => {
+            if (r.done) return `${r.success ? '\u2705' : '\u274c'} ${slug}`;
+            return `\u23f3 ${slug}...`;
+          });
+          detailEl.innerHTML = `<span style="font-size:0.72rem;">${status.message || ''}</span><br><span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--color-text-muted);line-height:1.6;">${lines.join(' &nbsp;\u00b7&nbsp; ')}</span>`;
+        } else {
+          detailEl.textContent = status.message || 'Processing...';
+        }
 
         if (!status.running) {
           clearInterval(_rptPollingTimer);
@@ -4123,7 +4133,7 @@ function pollReportStatus(label) {
       }
     } catch(e) { /* ignore polling errors */ }
 
-    if (attempts > 300) { // 10 min timeout (AI analysis with web search can take 2-5 min)
+    if (attempts > 900) { // 30 min timeout (parallel deep-research runs can take 15-20 min)
       clearInterval(_rptPollingTimer);
       finishReportJob(label, false);
     }

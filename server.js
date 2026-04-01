@@ -656,9 +656,20 @@ app.post('/api/analysis/all-countries', asyncRoute(async (req, res) => {
   res.json({ success: true, data: { message: 'All-country analysis started', status: analysisStatus } });
 
   try {
+    // Track per-country status for parallel display
+    analysisStatus.reports = {};
+
     const result = await generator.generateAllCountries({}, (progress) => {
       analysisStatus.current = progress.current;
-      analysisStatus.message = `Generating ${progress.slug} (${progress.current}/${progress.total})...`;
+      if (progress.done) {
+        analysisStatus.reports[progress.slug] = { done: true, success: progress.success };
+        const doneCount = Object.values(analysisStatus.reports).filter(r => r.done).length;
+        analysisStatus.message = `${doneCount}/${progress.total} complete — ${progress.slug}: ${progress.success ? '✓' : '✗'}`;
+      } else {
+        analysisStatus.reports[progress.slug] = { done: false, started: Date.now() };
+        const inFlight = Object.entries(analysisStatus.reports).filter(([,r]) => !r.done).map(([s]) => s);
+        analysisStatus.message = `Generating in parallel: ${inFlight.join(', ')} (${analysisStatus.current}/${progress.total})`;
+      }
     });
 
     analysisStatus = {
@@ -708,10 +719,19 @@ app.post('/api/analysis/all', asyncRoute(async (req, res) => {
   res.json({ success: true, data: { message: 'Full analysis suite started', status: analysisStatus } });
 
   try {
+    analysisStatus.reports = { global: { done: false, started: Date.now() } };
+
     const result = await generator.generateAll({}, (progress) => {
       analysisStatus.phase   = progress.phase;
       analysisStatus.current = progress.current;
       analysisStatus.message = progress.message;
+      if (progress.slug) {
+        if (progress.message?.includes('✓') || progress.message?.includes('✗')) {
+          analysisStatus.reports[progress.slug] = { done: true, success: progress.message.includes('✓') };
+        } else {
+          analysisStatus.reports[progress.slug] = { done: false, started: Date.now() };
+        }
+      }
     });
 
     analysisStatus = {
