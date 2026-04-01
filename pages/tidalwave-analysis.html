@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIDALWAVE Analysis — Iran Conflict Impact on Global Oil Supply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+:root {
+  --bg: #0a0b0d;
+  --surface: #0f1114;
+  --surface-2: #141720;
+  --surface-3: #1a1f2e;
+  --border: rgba(255,255,255,0.07);
+  --border-accent: rgba(14,165,233,0.35);
+  --text: #d8dce8;
+  --text-muted: #7a8098;
+  --text-faint: #3a3f55;
+  --accent: #0ea5e9;
+  --accent-dim: rgba(14,165,233,0.12);
+  --accent-glow: rgba(14,165,233,0.35);
+  --amber: #f59e0b;
+  --amber-dim: rgba(245,158,11,0.12);
+  --amber-border: rgba(245,158,11,0.35);
+  --green: #3ddc84;
+  --green-dim: rgba(61,220,132,0.12);
+  --blue: #4a9eff;
+  --blue-dim: rgba(74,158,255,0.12);
+  --font-display: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-12: 3rem; --space-16: 4rem;
+  --radius: 4px; --radius-md: 6px; --radius-lg: 10px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.6);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 15px; line-height: 1.65; min-height: 100dvh; }
+img { display: block; max-width: 100%; height: auto; object-fit: contain; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: #2a2f40; border-radius: 3px; }
+
+/* ── CLASSIFICATION BANNER ── */
+.class-banner {
+  background: var(--accent); color: #fff; text-align: center;
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: bold;
+  letter-spacing: 0.2em; padding: 5px; line-height: 1;
+}
+
+/* ── TOP NAV ── */
+.top-nav {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(10,11,13,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-accent);
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: 0 var(--space-6); height: 56px;
+}
+.nav-logo { display: flex; align-items: center; gap: var(--space-2); margin-right: auto; }
+.nav-logo svg { color: var(--accent); }
+.nav-logo span { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.08em; color: var(--text); }
+.nav-links { display: flex; gap: 2px; overflow-x: auto; }
+.nav-links a {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em;
+  color: var(--text-muted); padding: 6px 10px; border-radius: var(--radius);
+  transition: all 0.2s; white-space: nowrap;
+}
+.nav-links a:hover { color: var(--accent); background: var(--accent-dim); text-decoration: none; }
+.nav-links a.back { color: var(--amber); }
+.nav-links a.back:hover { background: var(--amber-dim); }
+
+/* ── HERO ── */
+.hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(160deg, #0d1018 0%, #0a0b0d 60%);
+  border-bottom: 1px solid var(--border-accent);
+  padding: var(--space-12) var(--space-6);
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0; opacity: 0.03;
+  background: repeating-linear-gradient(0deg, transparent, transparent 39px, var(--accent) 39px, var(--accent) 40px),
+              repeating-linear-gradient(90deg, transparent, transparent 39px, var(--accent) 39px, var(--accent) 40px);
+}
+.hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+.hero-eyebrow { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.2em; margin-bottom: var(--space-3); }
+.hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.1; letter-spacing: 0.04em; color: #fff; margin-bottom: var(--space-4); }
+.hero h1 em { color: var(--accent); font-style: normal; }
+.hero-subtitle { font-family: var(--font-display); font-size: 1.2rem; font-weight: 500; color: var(--text-muted); letter-spacing: 0.06em; margin-bottom: var(--space-6); }
+.hero-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-bottom: var(--space-6); }
+.hero-badge { font-family: var(--font-mono); font-size: 0.68rem; padding: 4px 10px; border-radius: var(--radius); background: var(--surface-2); border: 1px solid var(--border); color: var(--text-muted); letter-spacing: 0.08em; }
+.hero-badge.accent { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+.hero-badge.amber { background: var(--amber-dim); border-color: var(--amber); color: var(--amber); }
+.hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--space-3); margin-top: var(--space-6); }
+.hero-stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); }
+.hero-stat .num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; color: var(--accent); line-height: 1; }
+.hero-stat .num.amber { color: var(--amber); }
+.hero-stat .lbl { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); margin-top: 4px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+.exec-summary { background: var(--surface-2); border: 1px solid var(--border-accent); border-radius: var(--radius-lg); padding: var(--space-6); margin-top: var(--space-8); }
+.exec-summary-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: var(--space-3); border-bottom: 1px solid var(--border-accent); padding-bottom: var(--space-2); }
+.exec-summary p { font-size: 0.93rem; color: var(--text-muted); margin-bottom: var(--space-3); line-height: 1.7; }
+.exec-summary p:last-child { margin-bottom: 0; }
+.exec-summary strong { color: var(--text); }
+
+/* ── MODULAR SECTION SYSTEM ── */
+.page-section { position: relative; }
+.page-section + .page-section { border-top: 1px solid var(--border); }
+.page-section.alt-bg { background: var(--surface); }
+
+.section-badge {
+  position: absolute; top: var(--space-4); right: var(--space-6);
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em;
+  color: var(--text-faint); z-index: 10;
+  background: var(--surface-2); border: 1px solid var(--border);
+  padding: 3px 8px; border-radius: var(--radius);
+  pointer-events: none;
+}
+.section-badge .sb-num { color: var(--accent); }
+.section-badge .sb-date { color: var(--text-faint); }
+
+.section { max-width: 1200px; margin: 0 auto; padding: var(--space-12) var(--space-6); }
+.section-header { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-8); }
+.section-num { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent); padding: 3px 8px; border-radius: var(--radius); letter-spacing: 0.1em; }
+.section-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; letter-spacing: 0.05em; color: #fff; }
+.section-title em { color: var(--accent); font-style: normal; }
+.divider { border: none; border-top: 1px solid var(--border); margin: var(--space-12) 0; }
+
+/* ── APPENDIX CARDS ── */
+.appendix-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
+.appendix-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: var(--space-6);
+  transition: border-color 0.3s; position: relative; overflow: hidden;
+}
+.appendix-card:hover { border-color: var(--border-accent); }
+.appendix-card-header { display: flex; align-items: flex-start; gap: var(--space-4); margin-bottom: var(--space-4); }
+.appendix-letter {
+  font-family: var(--font-display); font-size: 3.5rem; font-weight: 700;
+  color: var(--accent); line-height: 1; opacity: 0.25;
+  position: absolute; top: var(--space-3); right: var(--space-4);
+  pointer-events: none;
+}
+.appendix-num { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent); padding: 3px 8px; border-radius: var(--radius); letter-spacing: 0.1em; flex-shrink: 0; margin-top: 3px; }
+.appendix-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: #fff; letter-spacing: 0.04em; line-height: 1.3; }
+.appendix-finding {
+  background: var(--surface-2); border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: var(--space-3) var(--space-4); margin-bottom: var(--space-4);
+  font-size: 0.85rem; color: var(--text-muted); font-style: italic; line-height: 1.6;
+}
+.appendix-finding strong { color: var(--text); font-style: normal; }
+.appendix-body { font-size: 0.87rem; color: var(--text-muted); line-height: 1.65; margin-bottom: var(--space-4); }
+.appendix-body strong { color: var(--text); }
+.appendix-link { font-family: var(--font-mono); font-size: 0.62rem; color: var(--accent); padding: 3px 9px; border: 1px solid var(--accent); border-radius: var(--radius); display: inline-block; letter-spacing: 0.06em; transition: all 0.2s; }
+.appendix-link:hover { background: var(--accent-dim); text-decoration: none; }
+
+/* ── MAP ── */
+#hormuz-map { height: 520px; width: 100%; border-radius: var(--radius-lg); border: 1px solid var(--border-accent); overflow: hidden; }
+.map-legend { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
+.legend-item { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.06em; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── SECTION PROSE ── */
+.prose-block { margin-bottom: var(--space-8); }
+.prose-block h3 {
+  font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;
+  letter-spacing: 0.06em; color: var(--amber); margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2); border-bottom: 1px solid var(--amber-border);
+}
+.prose-block p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--space-3); line-height: 1.7; }
+.prose-block p strong { color: var(--text); }
+.prose-block p:last-child { margin-bottom: 0; }
+
+/* ── INTEL BOX ── */
+.intel-box {
+  background: var(--surface); border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg); padding: var(--space-6); margin-bottom: var(--space-5);
+}
+.intel-box.amber { border-color: var(--amber-border); }
+.intel-box-header { display: flex; align-items: flex-start; gap: var(--space-4); margin-bottom: var(--space-4); }
+.intel-box-num {
+  font-family: var(--font-display); font-size: 2.5rem; font-weight: 700;
+  color: var(--accent); line-height: 1; flex-shrink: 0; opacity: 0.7;
+}
+.intel-box.amber .intel-box-num { color: var(--amber); }
+.intel-box-titles { flex: 1; }
+.intel-box h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 2px; text-transform: uppercase; }
+.intel-box.amber h3 { color: var(--amber); }
+.intel-box p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: var(--space-3); line-height: 1.7; }
+.intel-box p:last-child { margin-bottom: 0; }
+.intel-box strong { color: var(--text); }
+
+/* ── ASSESSMENT TABLE ── */
+.assessment-table-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border-accent); }
+.assessment-table {
+  width: 100%; border-collapse: collapse; font-size: 0.84rem;
+}
+.assessment-table thead tr { background: rgba(14,165,233,0.12); }
+.assessment-table th {
+  font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent); padding: 12px 16px;
+  text-align: left; border-bottom: 1px solid var(--border-accent);
+  white-space: nowrap;
+}
+.assessment-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+.assessment-table tbody tr:nth-child(even) { background: var(--surface-2); }
+.assessment-table tbody tr:hover { background: var(--surface-3); }
+.assessment-table td { padding: 12px 16px; vertical-align: top; color: var(--text-muted); line-height: 1.55; }
+.assessment-table td:first-child { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text); letter-spacing: 0.04em; }
+.assessment-table td strong { color: var(--text); }
+.assessment-table td em { color: var(--accent); font-style: normal; }
+.assessment-table td .impact { color: var(--amber); font-weight: 500; font-size: 0.82rem; }
+
+/* ── STRATEGIC IMPLICATIONS CARDS ── */
+.implications-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-5); }
+.implication-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: var(--space-6);
+  border-left: 4px solid var(--accent); transition: border-color 0.3s;
+}
+.implication-card.amber { border-left-color: var(--amber); }
+.implication-card.blue { border-left-color: var(--blue); }
+.implication-card:hover { border-color: var(--border-accent); }
+.implication-card.amber:hover { border-color: var(--amber-border); }
+.implication-card h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; letter-spacing: 0.06em; color: var(--accent); margin-bottom: var(--space-4); }
+.implication-card.amber h3 { color: var(--amber); }
+.implication-card.blue h3 { color: var(--blue); }
+.implication-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--space-3); line-height: 1.7; }
+.implication-card p:last-child { margin-bottom: 0; }
+.implication-card strong { color: var(--text); }
+
+/* ── REFERENCE LIBRARY ── */
+.ref-category { margin-bottom: var(--space-8); }
+.ref-category-title {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2); border-bottom: 1px solid var(--border-accent);
+}
+.ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-3); }
+.ref-link-card {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: var(--space-3) var(--space-4);
+  transition: all 0.2s; text-decoration: none;
+}
+.ref-link-card:hover { border-color: var(--border-accent); background: var(--surface-3); text-decoration: none; }
+.ref-link-icon { color: var(--accent); flex-shrink: 0; margin-top: 2px; font-size: 0.65rem; font-family: var(--font-mono); }
+.ref-link-info { flex: 1; min-width: 0; }
+.ref-link-title { font-size: 0.82rem; color: var(--text); font-weight: 500; line-height: 1.4; margin-bottom: 2px; }
+.ref-link-meta { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-faint); letter-spacing: 0.04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ── FOOTNOTES ── */
+.footnotes-toggle {
+  display: flex; align-items: center; gap: var(--space-3); cursor: pointer;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: var(--space-3) var(--space-4);
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em;
+  color: var(--text-muted); transition: all 0.2s; margin-bottom: var(--space-4);
+  user-select: none;
+}
+.footnotes-toggle:hover { border-color: var(--border-accent); color: var(--accent); }
+.footnotes-toggle .ft-icon { transition: transform 0.3s; }
+.footnotes-toggle.open .ft-icon { transform: rotate(180deg); }
+.footnotes-body { display: none; }
+.footnotes-body.open { display: block; }
+.footnote-list { list-style: none; }
+.footnote-item {
+  display: flex; gap: var(--space-3); padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border); font-size: 0.82rem;
+}
+.footnote-item:last-child { border-bottom: none; }
+.fn-num { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent); flex-shrink: 0; width: 28px; padding-top: 2px; }
+.fn-text { color: var(--text-muted); line-height: 1.55; }
+.fn-text a { color: var(--accent); }
+
+/* ── CALLOUT ── */
+.callout { display: flex; gap: var(--space-3); background: var(--accent-dim); border: 1px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4); margin-top: var(--space-4); }
+.callout.amber { background: var(--amber-dim); border-color: var(--amber); }
+.callout-icon { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); flex-shrink: 0; padding-top: 2px; }
+.callout.amber .callout-icon { color: var(--amber); }
+.callout p { font-size: 0.85rem; color: var(--text); }
+.callout p strong { color: var(--accent); }
+.callout.amber p strong { color: var(--amber); }
+
+/* ── FOOTNOTE SUPERSCRIPTS ── */
+sup.fn-ref a { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent); vertical-align: super; line-height: 0; }
+sup.fn-ref a:hover { text-decoration: underline; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .appendix-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .assessment-table { font-size: 0.78rem; }
+  .assessment-table th, .assessment-table td { padding: 8px 10px; }
+  .ref-grid { grid-template-columns: 1fr; }
+  .section { padding: var(--space-8) var(--space-4); }
+}
+</style>
+</head>
+<body>
+
+<!-- Classification Banner -->
+<div class="class-banner">ANALYTICAL INTELLIGENCE PRODUCT — OPEN SOURCE COMPILATION — NOT CLASSIFIED</div>
+
+<!-- Top Nav -->
+<nav class="top-nav">
+  <div class="nav-logo">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="TIDALWAVE">
+      <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M2 10 Q5 6 8 10 Q11 14 14 10 Q17 6 18 10" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span>TIDALWAVE ANALYSIS</span>
+  </div>
+  <nav class="nav-links">
+    <a href="../index.html" class="back">← CONFLICT MAPPER</a>
+    <a href="#s01">§01 APPENDICES</a>
+    <a href="#s02">§02 HORMUZ</a>
+    <a href="#s03">§03 TW vs REALITY</a>
+    <a href="#s04">§04 MATRIX</a>
+    <a href="#s05">§05 IMPLICATIONS</a>
+    <a href="#s06">§06 REFERENCES</a>
+    <a href="#s07">§07 FOOTNOTES</a>
+  </nav>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">TIDALWAVE // ENERGY &amp; LOGISTICS ANALYSIS // MAR 2026</div>
+    <h1>TIDALWAVE <em>ANALYSIS</em></h1>
+    <div class="hero-subtitle">Iran Conflict Impact on Global Oil Supply &amp; Indo-Pacific Logistics</div>
+    <div class="hero-meta">
+      <span class="hero-badge accent">Heritage Foundation TIDALWAVE Project</span>
+      <span class="hero-badge">Published Jan 20, 2026</span>
+      <span class="hero-badge amber">Updated Mar 31, 2026</span>
+      <span class="hero-badge">Analyzed Against Conflict Conditions</span>
+    </div>
+
+    <!-- Download + external links row -->
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:var(--space-4);">
+      <a href="/assets/SR324_TIDALWAVE_REDACTED.pdf" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(14,165,233,0.12);border:1px solid rgba(14,165,233,0.4);border-radius:6px;color:#0ea5e9;font-family:'Share Tech Mono',monospace;font-size:0.75rem;letter-spacing:0.06em;text-decoration:none;margin-top:12px;transition:background 0.2s,border-color 0.2s;" onmouseover="this.style.background='rgba(14,165,233,0.22)';this.style.borderColor='rgba(14,165,233,0.7)'" onmouseout="this.style.background='rgba(14,165,233,0.12)';this.style.borderColor='rgba(14,165,233,0.4)'">
+        📄 DOWNLOAD FULL TIDALWAVE REPORT (PDF, 383 pages)
+      </a>
+      <a href="https://www.heritage.org/tidalwave" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:10px 16px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:6px;color:#f59e0b;font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:0.06em;text-decoration:none;margin-top:12px;transition:background 0.2s,border-color 0.2s;" onmouseover="this.style.background='rgba(245,158,11,0.18)';this.style.borderColor='rgba(245,158,11,0.6)'" onmouseout="this.style.background='rgba(245,158,11,0.08)';this.style.borderColor='rgba(245,158,11,0.3)'">
+        ↗ HERITAGE TIDALWAVE MAIN PAGE
+      </a>
+      <a href="https://www.heritage.org/tidalwave/appendices" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:10px 16px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:6px;color:#f59e0b;font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:0.06em;text-decoration:none;margin-top:12px;transition:background 0.2s,border-color 0.2s;" onmouseover="this.style.background='rgba(245,158,11,0.18)';this.style.borderColor='rgba(245,158,11,0.6)'" onmouseout="this.style.background='rgba(245,158,11,0.08)';this.style.borderColor='rgba(245,158,11,0.3)'">
+        ↗ APPENDICES INDEX
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">9</div>
+        <div class="lbl">Appendices</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num amber">8M</div>
+        <div class="lbl">BPD Disrupted</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">1.5B</div>
+        <div class="lbl">BBL China SPR</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num amber">95%</div>
+        <div class="lbl">Hormuz Reduction</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">~$126</div>
+        <div class="lbl">Peak Oil (Brent)</div>
+      </div>
+    </div>
+
+    <div class="exec-summary">
+      <div class="exec-summary-label">// EXECUTIVE SUMMARY</div>
+      <p>The Heritage Foundation's TIDALWAVE project — an AI-enabled simulation of a protracted U.S.–China conflict over Taiwan — constructed its fuel and logistics models against a set of baseline assumptions about global oil market conditions, China's strategic petroleum reserves, and chokepoint vulnerability. Since publication, the geopolitical landscape has shifted dramatically. On February 28, 2026, the United States and Israel struck Iran, triggering the closure of the Strait of Hormuz and what the International Energy Agency has characterized as the <strong>"largest supply disruption in the history of the global oil market."</strong> This analysis reviews each of the nine TIDALWAVE appendices (A through I), then examines how the unfolding Iran conflict and Hormuz crisis materially alters, validates, or overturns the report's key assumptions and judgments.<sup class="fn-ref"><a href="#fn1">[1]</a></sup><sup class="fn-ref"><a href="#fn2">[2]</a></sup></p>
+      <p>The short answer: the Iran crisis both vindicates TIDALWAVE's core thesis — that <strong>fuel logistics are a decisive wartime constraint</strong> — and simultaneously undermines several of its quantitative baselines, particularly regarding China's strategic petroleum reserve size, the sequencing of supply disruptions, and the bifurcation of U.S. military attention between the Indo-Pacific and the Middle East.</p>
+    </div>
+  </div>
+</section>
+
+<!-- §01 — TIDALWAVE APPENDIX SUMMARIES -->
+<section class="page-section alt-bg" id="s01" data-section="01" data-title="Heritage Foundation TIDALWAVE Appendices" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§01</span>
+    <span>TIDALWAVE APPENDICES</span>
+    <span class="sb-date">// 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§01</span>
+      <h2 class="section-title">Heritage Foundation <em>TIDALWAVE</em> Appendices</h2>
+    </div>
+
+    <div class="appendix-grid">
+
+      <!-- Appendix A -->
+      <div class="appendix-card">
+        <div class="appendix-letter">A</div>
+        <div class="appendix-card-header">
+          <span class="appendix-num">APP-A</span>
+          <div class="appendix-title">China's Redirection of Civilian Fuel</div>
+        </div>
+        <div class="appendix-finding">
+          Heritage judges with moderate confidence that China could redirect <strong>25–30% of its civilian fuel consumption — approximately 4.0 to 4.8 million barrels per day (bpd) — to military use under full wartime mobilization</strong>, with that redirection sustainable for 60 to 100 days before inducing "cumulative economic degradation, civil transportation paralysis, and rising social instability."
+        </div>
+        <div class="appendix-body">
+          China's total national demand baseline is approximately 16 million bpd, of which ~12.8 million bpd is civilian. The legal architecture enabling this is the National Defense Mobilization Law of 2010 and its 2020 amendments, which authorize the requisitioning of civilian fuel from state-owned enterprises like Sinopec and CNPC. The Military-Civil Fusion doctrine provides the coordination mechanism between those SOEs and the PLA.<sup class="fn-ref"><a href="#fn3">[3]</a></sup>
+          <br><br>
+          Heritage estimated China's Strategic Petroleum Reserve (SPR) at approximately <strong>684 million barrels of crude</strong>, with total storage capacity (including commercial stocks) potentially reaching 1.8 billion barrels. Each 300 million barrel increment was modeled to provide approximately 100 days of buffer coverage at a 3 million bpd net deficit rate. The alternative, pessimistic judgment was that redirection capability may be only 10–15% — yielding PLA fuel shortfalls within 30–45 days — if enforcement fails, reserves are smaller than reported, or civilian unrest constrains mobilization.<sup class="fn-ref"><a href="#fn3">[3]</a></sup>
+        </div>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-chinas-redirection-civilian-fuel" target="_blank" class="appendix-link">→ VIEW APPENDIX A</a>
+      </div>
+
+      <!-- Appendix B -->
+      <div class="appendix-card">
+        <div class="appendix-letter">B</div>
+        <div class="appendix-card-header">
+          <span class="appendix-num">APP-B</span>
+          <div class="appendix-title">F-76 Naval Distillate Throughput for U.S. Forces</div>
+        </div>
+        <div class="appendix-finding">
+          Heritage assessed that the United States could sustain a <strong>maximum wartime F-76 delivery throughput of approximately 265,000–280,000 bpd to operational end-users</strong> in a Taiwan conflict, under idealized conditions with no interdiction or battle damage.
+        </div>
+        <div class="appendix-body">
+          This estimate reflects three delivery routes: the primary U.S. sealift and Defense Fuel Supply Point (DFSP) network capped at ~200,000 bpd; bilateral access nodes at Subic Bay, Cam Ranh Bay, Port Blair, and Sabang adding 65,000–80,000 bpd; and prepositioned afloat assets excluded from the additive total. The modeled F-76 demand ceiling is approximately 370,000 bpd, creating a <strong>structural shortfall of ~90,000–105,000 bpd even under optimal conditions</strong>. The critical bottleneck is not upstream refinery or sealift capacity — both are sufficient — but <strong>at-sea replenishment capability</strong>, particularly the throughput limits of U.S. fleet oilers.<sup class="fn-ref"><a href="#fn4">[4]</a></sup>
+        </div>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-b-f-76-throughput-estimate-us-forces-taiwan-conflict-scenario" target="_blank" class="appendix-link">→ VIEW APPENDIX B</a>
+      </div>
+
+      <!-- Appendix C -->
+      <div class="appendix-card">
+        <div class="appendix-letter">C</div>
+        <div class="appendix-card-header">
+          <span class="appendix-num">APP-C</span>
+          <div class="appendix-title">Integrated Deployment Ratio and Timing</div>
+        </div>
+        <div class="appendix-finding">
+          Heritage assessed that approximately <strong>two-thirds of U.S. aircraft and surface naval combatants could be available for deployment within the first 15 days</strong> of a Taiwan conflict.
+        </div>
+        <div class="appendix-body">
+          Forward-based forces in Japan and Guam are assessed as combat-ready within Days 0–5; Hawaii and West Coast surge forces arrive Days 6–15; CONUS-based tactical aircraft and ships reach theater between Days 13–30. Approximately <strong>15–20% of aircraft and ships are assessed as non-deployable throughout a 365-day conflict</strong> due to depot-level maintenance cycles, nuclear refueling, and component shortfalls. This framework is premised on the United States not having a significant concurrent military operation consuming logistics lift and forward basing in another theater.<sup class="fn-ref"><a href="#fn5">[5]</a></sup>
+        </div>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-c-integrated-deployment-ratio-and-timing-us-aircraft-and-ships-taiwan-conflict-scenario" target="_blank" class="appendix-link">→ VIEW APPENDIX C</a>
+      </div>
+
+      <!-- Appendix D -->
+      <div class="appendix-card">
+        <div class="appendix-letter">D</div>
+        <div class="appendix-card-header">
+          <span class="appendix-num">APP-D</span>
+          <div class="appendix-title">Logistics and Survivability of U.S. Navy Replenishment Tankers</div>
+        </div>
+        <div class="appendix-finding">
+          Heritage assessed that U.S. F-76 fuel delivery is <strong>critically dependent on the survivability of underway replenishment assets</strong>, particularly Kaiser-class T-AO oilers.
+        </div>
+        <div class="appendix-body">
+          The Military Sealift Command operates 15 T-AOs, with 7–8 typically forward deployed, and can surge 12–15 replenishment vessels within 30–60 days based on historical precedents from Desert Storm and RIMPAC exercises. However, the <strong>loss of even 2–3 T-AOs would likely reduce daily throughput by 50,000–80,000 bpd</strong>, pushing sustained fuel delivery below 200,000 bpd. PLA doctrine (derived from <em>Science of Campaigns</em>) explicitly prioritizes strikes on logistics vessels, and PLA strike systems — including the DF-26 anti-ship ballistic missile, YJ-18 anti-ship cruise missiles, and PLAN submarines — are capable of targeting fleet oilers within the first island chain. Heritage models throughput degradation to 185,000–215,000 bpd with a 2–3 T-AO loss in the first 7–21 days of conflict.<sup class="fn-ref"><a href="#fn6">[6]</a></sup>
+        </div>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-d-logistics-and-survivability-us-navy-replenishment-tankers-taiwan-conflict" target="_blank" class="appendix-link">→ VIEW APPENDIX D</a>
+      </div>
+
+      <!-- Appendix E -->
+      <div class="appendix-card">
+        <div class="appendix-letter">E</div>
+        <div class="appendix-card-header">
+          <span class="appendix-num">APP-E</span>
+          <div class="appendix-title">PLAAF Top-Tier Bases for Taiwan Contingency</div>
+        </div>
+        <div class="appendix-finding">
+          Heritage identified <strong>21 PLAAF airfields as the top-tier basing network for a Taiwan contingency</strong>, based on hardened runway infrastructure, presence of J-20, J-16, Su-35, and H-6K/U units, and geographic proximity to Taiwan.
+        </div>
+        <div class="appendix-body">
+          The forward ring in Fujian and eastern Guangdong — including Longtian (~170 km from Taipei), Huian (~220 km), Shuimen (~250 km), and Zhangzhou (~400 km) — constitutes the hardened strike complex opposite Taiwan, while depth bases at Wuhu, Changxing, and Nanchang Xiangtang host J-20 and J-16 stealth reserves. Southern Theater assets at Suixi (Su-35), Foshan (J-20A), and Shaodong/Leiyang (H-6K bombers) extend southern-axis reach into the Philippine Sea and around the Bashi Channel. Northern Theater bases at Jining, Weifang, and Anshan host J-20 reserves that influence how many U.S./Japanese assets can concentrate on Taiwan versus Northeast Asia.<sup class="fn-ref"><a href="#fn7">[7]</a></sup>
+        </div>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-e-plaaf-top-tier-bases-taiwan-contingency" target="_blank" class="appendix-link">→ VIEW APPENDIX E</a>
+      </div>
+
+      <!-- Appendix F -->
+      <div class="appendix-card">
+        <div class="appendix-letter">F</div>
+        <div class="appendix-card-header">
+          <span class="appendix-num">APP-F</span>
+          <div class="appendix-title">PLA Fuel Reserve Inventory and Drawdown Logic</div>
+        </div>
+        <div class="appendix-finding">
+          Heritage assessed that <strong>PLA combined strategic and operational fuel reserves are likely sufficient to sustain major combat operations for multiple months</strong>.
+        </div>
+        <div class="appendix-body">
+          Theater-level "war readiness oil" at air bases, naval stations, and depots in the Eastern and Southern Theater Commands is estimated to hold <strong>5–10 million barrels of JP-8 and naval diesel</strong>, sufficient for one to two weeks of high-tempo operations without drawing on national reserves. Strategic ashore reserves include at least five major underground sites at Huangdao, Jinzhou, Zhanjiang, and Huizhou, with underground capacity approaching 130 million barrels. The PLA Navy's afloat replenishment fleet — nine Type 903/903A Fuchi-class and three Type 901 Fuyu-class ships — provides approximately <strong>1 million-plus barrels</strong> of mobile fuel reserves.<sup class="fn-ref"><a href="#fn8">[8]</a></sup>
+          <br><br>
+          The drawdown model distinguishes three degradation scenarios: a 20% daily shortfall is absorbable for 6–12 months; a 30% shortfall leads to collapse in 2–4 months; a <strong>50% shortfall (~112,500 bpd deficit) likely becomes unsustainable within 2–3 months</strong>, not because reserves run dry but because delivery infrastructure fails under attrition.
+        </div>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-f-pla-fuel-reserve-inventory-and-drawdown-logic" target="_blank" class="appendix-link">→ VIEW APPENDIX F</a>
+      </div>
+
+      <!-- Appendix G -->
+      <div class="appendix-card">
+        <div class="appendix-letter">G</div>
+        <div class="appendix-card-header">
+          <span class="appendix-num">APP-G</span>
+          <div class="appendix-title">Initial PLA Fuel System Sensitivity Analysis</div>
+        </div>
+        <div class="appendix-finding">
+          <strong>U.S. maritime interdiction is the single most powerful lever</strong>: 75% import denial causes fuel exhaustion by Day 155 in the high-scenario, compared to Day 562 with no interdiction — a ~400-day difference.
+        </div>
+        <div class="appendix-body">
+          U.S. refinery strikes are the second most decisive action: 30% refinery degradation accelerates exhaustion by ~228 days; 50% degradation causes collapse within 3 months. On the Chinese side, the three most important internal levers are: (1) <strong>civilian fuel redirection</strong> — increasing from 15% to 30% extends PLA endurance by approximately 6 months; (2) <strong>refinery output continuity</strong> — protecting refineries extends PLA sustainment by over three years; and (3) <strong>strategic reserve size</strong> — doubling reserves from 600 million to 1.2 billion barrels provides only a 3–4 month buffer. The key interaction finding is that maritime interdiction and refinery strikes compound each other. Port disruption alone does not cause collapse — it requires combination with interdiction or refinery attacks to become decisive.
+        </div>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-g-initial-pla-fuel-system-sensitivity-analysis" target="_blank" class="appendix-link">→ VIEW APPENDIX G</a>
+      </div>
+
+      <!-- Appendix H -->
+      <div class="appendix-card">
+        <div class="appendix-letter">H</div>
+        <div class="appendix-card-header">
+          <span class="appendix-num">APP-H</span>
+          <div class="appendix-title">Sustaining 900,000 bpd JP-8 Fuel Delivery in a Taiwan Conflict</div>
+        </div>
+        <div class="appendix-finding">
+          Heritage assessed that the United States and allies are <strong>unlikely to sustain the full 900,000 bpd JP-8 aviation fuel requirement across a 365-day Taiwan conflict without degradation</strong>. The sustainable estimate under optimal conditions is 600,000–700,000 bpd.
+        </div>
+        <div class="appendix-body">
+          Under wartime conditions involving PLA interdiction, contractor withdrawal, or political friction, throughput may fall to 500,000–600,000 bpd. The resultant <strong>shortfall of 200,000–400,000 bpd</strong> would necessitate strict sortie prioritization, drawdown of prepositioned reserves, and potential grounding of lower-tier missions. Route A (Andersen AFB and Kadena AB) is assessed as capable of 300,000–400,000 bpd initially but is <strong>"highly vulnerable to missile strikes, pipeline interdiction, and port chokepoint disruption."</strong> The overall conclusion: <strong>"fuel logistics — not aircraft losses — would likely be the gating constraint on U.S. and allied airpower tempo in a high-intensity Taiwan conflict."</strong><sup class="fn-ref"><a href="#fn9">[9]</a></sup>
+        </div>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-h-sustaining-900000-bpd-jp-8-fuel-delivery-taiwan-conflict" target="_blank" class="appendix-link">→ VIEW APPENDIX H</a>
+      </div>
+
+      <!-- Appendix I -->
+      <div class="appendix-card">
+        <div class="appendix-letter">I</div>
+        <div class="appendix-card-header">
+          <span class="appendix-num">APP-I</span>
+          <div class="appendix-title">U.S. Underway Replenishment Ship Capabilities and Constraints</div>
+        </div>
+        <div class="appendix-finding">
+          Appendix I reinforces the fleet oiler bottleneck finding, noting that the <strong>"thin, aging, and low-survivability CLF [combat logistics force] inventory likely makes at-sea fuel replenishment the primary throttle on sustained naval operations."</strong>
+        </div>
+        <div class="appendix-body">
+          Appendix I provides the full operational assessment of the U.S. Navy's underway replenishment fleet: T-AO Kaiser-class oilers, T-AO-205 John Lewis-class oilers, T-AKE dry cargo/ammunition ships, and CONSOL-capable commercial tankers. It evaluates fuel throughput capacity, survivability, reload infrastructure, and strategic limitations in a Taiwan conflict scenario. The John Lewis-class represents a next-generation improvement, but the fleet's total size and survivability in contested waters remain a structural constraint throughout all TIDALWAVE scenarios.<sup class="fn-ref"><a href="#fn10">[10]</a></sup><sup class="fn-ref"><a href="#fn11">[11]</a></sup>
+        </div>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-i-us-underway-replenishment-ship-capabilities-and-constraints" target="_blank" class="appendix-link">→ VIEW APPENDIX I</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- §02 — IRAN CONFLICT & HORMUZ CRISIS -->
+<section class="page-section" id="s02" data-section="02" data-title="The 2026 Iran Conflict & Strait of Hormuz Crisis" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§02</span>
+    <span>HORMUZ CRISIS</span>
+    <span class="sb-date">// 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§02</span>
+      <h2 class="section-title">The 2026 Iran Conflict &amp; <em>Strait of Hormuz Crisis</em></h2>
+    </div>
+
+    <div class="prose-block">
+      <h3>Scale of the Disruption</h3>
+      <p>On February 28, 2026, joint U.S.-Israeli strikes on Iran — including the killing of Supreme Leader Ayatollah Ali Khamenei — triggered an Iranian decision to close the Strait of Hormuz, the waterway through which approximately <strong>20% of the world's oil and significant LNG volumes</strong> transit daily. The Strait was formally closed on March 4, 2026. Tanker transits collapsed from over 150 vessels per day to a daily average of approximately 13 — a <strong>95% reduction</strong>. The IEA declared the Iran conflict was causing the <strong>"largest supply disruption in the history of the global oil market,"</strong> with global supply expected to plunge by 8 million bpd in March 2026 alone.<sup class="fn-ref"><a href="#fn12">[12]</a></sup><sup class="fn-ref"><a href="#fn13">[13]</a></sup><sup class="fn-ref"><a href="#fn14">[14]</a></sup><sup class="fn-ref"><a href="#fn1">[1]</a></sup></p>
+      <p>Brent crude surged past $100 per barrel on March 8 — the first time in four years — and reached a peak of approximately <strong>$126 per barrel</strong> before partially retreating. As of late March, Brent was trading around $88.9/barrel and WTI at approximately $84.9/barrel, following the IEA's announcement of the largest-ever coordinated strategic reserve release of 400 million barrels. Gulf producers (Kuwait, Iraq, Saudi Arabia, and UAE) collectively reduced output by a reported <strong>6.7 million bpd by March 10</strong> and at least <strong>10 million bpd by March 12</strong>. QatarEnergy declared force majeure on all LNG exports; on March 18, Iranian strikes hit Qatar's Ras Laffan LNG complex, causing a <strong>17% reduction in Qatar's LNG production capacity</strong> that analysts estimate will take 3–5 years to repair.<sup class="fn-ref"><a href="#fn15">[15]</a></sup><sup class="fn-ref"><a href="#fn1">[1]</a></sup><sup class="fn-ref"><a href="#fn12">[12]</a></sup></p>
+    </div>
+
+    <!-- Leaflet Map -->
+    <div id="hormuz-map"></div>
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#ef4444;"></div> Strait of Hormuz (CLOSED)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div> Strait of Malacca (Strategic Redirect)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f97316;"></div> Kharg Island, Iran (Primary Export Terminal)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#0ea5e9;"></div> Ras Laffan, Qatar (LNG Complex — Struck)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#a78bfa;"></div> Yanbu Terminal, Saudi Arabia (Bypass Route)</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="prose-block">
+      <h3>China as the Pivotal Energy Actor</h3>
+      <p>China, the world's largest crude oil importer at approximately 11.1 million bpd, is simultaneously the country most exposed to the Hormuz closure and the most effectively insulated from its immediate effects. <strong>Approximately 40–50% of China's crude oil imports transit the Strait of Hormuz</strong>. Yet China entered the crisis with an estimated <strong>1.39–1.5 billion barrels in strategic and commercial oil reserves</strong> — roughly 120–150 days of net imports at 2025 consumption levels — plus approximately 46 million barrels of Iranian crude held in floating storage off Dalian and Zhoushan.<sup class="fn-ref"><a href="#fn16">[16]</a></sup><sup class="fn-ref"><a href="#fn17">[17]</a></sup><sup class="fn-ref"><a href="#fn18">[18]</a></sup></p>
+      <p>In January–February 2026, China imported 96.93 million tons of crude oil — a <strong>16% increase from the same period the prior year</strong> — interpreted as deliberate pre-positioning ahead of anticipated Middle East escalation. Russia simultaneously set a record, shipping <strong>1.92 million bpd to China in February 2026</strong>, providing a Hormuz-independent supply stream. Saudi Arabia and the UAE retain pipeline capacity to reroute a combined <strong>5 million bpd via the Yanbu terminal</strong>, bypassing the strait. As a result, despite holding more at-risk Hormuz-dependent imports than India, South Korea, or Japan, China's Shanghai Index fell only 0.7% in the immediate aftermath of the conflict onset, compared to South Korea (-10.2%), Japan (-6.5%), and Taiwan (-3.8%).<sup class="fn-ref"><a href="#fn17">[17]</a></sup><sup class="fn-ref"><a href="#fn19">[19]</a></sup><sup class="fn-ref"><a href="#fn18">[18]</a></sup></p>
+    </div>
+
+    <div class="prose-block">
+      <h3>Iran's "Friendly Nations" Corridor</h3>
+      <p>Iran's Foreign Minister announced that "friendly nations" — specifically China, India, and Russia — are permitted to navigate through a designated "safe corridor" between Larak and Kish islands in Iranian territorial waters. The first Chinese oil tanker transited the Strait of Hormuz on March 23, 2026. This arrangement formalizes a geopolitical alignment: <strong>Iran is using access to its most strategically critical waterway to reward nations it perceives as ideological or economic partners</strong>, and to punish those aligned with the United States and Israel.<sup class="fn-ref"><a href="#fn20">[20]</a></sup><sup class="fn-ref"><a href="#fn14">[14]</a></sup></p>
+
+      <div class="callout amber">
+        <div class="callout-icon">⚠</div>
+        <p><strong>Strategic Significance:</strong> The "friendly nations" corridor arrangement means that any future U.S. leverage over China through chokepoint pressure must now account for Iran's willingness to selectively exempt Beijing from energy disruptions — a dynamic absent from TIDALWAVE's original baseline models.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §03 — TIDALWAVE vs REALITY -->
+<section class="page-section alt-bg" id="s03" data-section="03" data-title="How the Iran Conflict Changes the TIDALWAVE Analysis" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§03</span>
+    <span>TW VS REALITY</span>
+    <span class="sb-date">// 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§03</span>
+      <h2 class="section-title">How the Iran Conflict Changes the <em>TIDALWAVE Analysis</em></h2>
+    </div>
+
+    <!-- Point 1 -->
+    <div class="intel-box" id="intel1">
+      <div class="intel-box-header">
+        <div class="intel-box-num">1</div>
+        <div class="intel-box-titles">
+          <h3>China's Strategic Reserves: The Baseline Was Too Conservative</h3>
+        </div>
+      </div>
+      <p>TIDALWAVE's most consequential baseline error concerns the scale of China's strategic petroleum reserves. <strong>Appendix A estimated China's SPR at approximately 684 million barrels</strong>; Appendix G modeled the high scenario at 1.2 billion barrels. The actual figure, as confirmed by multiple sources during the crisis, appears to be approximately <strong>1.4–1.5 billion barrels</strong> of combined strategic and commercial reserves. This is roughly 3.6 times the size of the U.S. Strategic Petroleum Reserve.<sup class="fn-ref"><a href="#fn21">[21]</a></sup><sup class="fn-ref"><a href="#fn18">[18]</a></sup><sup class="fn-ref"><a href="#fn3">[3]</a></sup></p>
+      <p>In TIDALWAVE's Scenario A sensitivity analysis, a 1.2 billion barrel reserve extended PLA endurance to Day 562 under 75% import interdiction. A <strong>1.4–1.5 billion barrel reserve would extend this further, likely pushing endurance past Day 600</strong> under equivalent interdiction pressure. Critically, China also added approximately 400 million barrels to its reserves during 2025 alone — and if the current conflict forces China to draw on reserves rather than continue adding to them, it directly contradicts the five-year plan announced to expand strategic reserves, as analysts at the Irregular Warfare Center note. The implication: <strong>every barrel China burns to compensate for Hormuz-diverted supply is a barrel not available for a hypothetical Taiwan conflict's fuel endurance calculation.</strong><sup class="fn-ref"><a href="#fn22">[22]</a></sup></p>
+    </div>
+
+    <!-- Point 2 -->
+    <div class="intel-box amber" id="intel2">
+      <div class="intel-box-header">
+        <div class="intel-box-num">2</div>
+        <div class="intel-box-titles">
+          <h3>Hormuz is Closed by Iran, Not Blockaded by the U.S. Navy</h3>
+        </div>
+      </div>
+      <p>TIDALWAVE's Appendix G explicitly identified the Strait of Malacca as the primary U.S. chokepoint leverage point against China, assessing with <strong>high confidence</strong> that a blockade of Malacca "would very likely cut off China's crude oil supply line at its source." The assumption was that the U.S. Navy would be the interdicting force. In the current crisis, the Strait of Hormuz — not Malacca — is the disrupted chokepoint, and <strong>Iran is the actor closing it</strong>, not the United States.<sup class="fn-ref"><a href="#fn23">[23]</a></sup></p>
+      <p>This inversion changes the strategic calculus in several critical ways. China receives preferential corridor access through Hormuz as a "friendly nation," partially insulating it from the disruption. The Strait of Malacca is now absorbing diverted oil flows that would previously have transited Hormuz, increasing its throughput and highlighting the shift in energy trade geography. If the U.S. were to simultaneously pressure the Malacca Strait — either in the context of a Taiwan conflict or as escalatory leverage over China — it would face the double-bind of already having degraded Hormuz traffic through the Iran operation.<sup class="fn-ref"><a href="#fn24">[24]</a></sup><sup class="fn-ref"><a href="#fn20">[20]</a></sup><sup class="fn-ref"><a href="#fn17">[17]</a></sup></p>
+    </div>
+
+    <!-- Point 3 -->
+    <div class="intel-box" id="intel3">
+      <div class="intel-box-header">
+        <div class="intel-box-num">3</div>
+        <div class="intel-box-titles">
+          <h3>U.S. Military Attention and Capacity Is Bifurcated</h3>
+        </div>
+      </div>
+      <p>TIDALWAVE's Appendix C modeled U.S. force deployment on the assumption that the U.S. military's full logistical capacity would be oriented toward a Taiwan conflict. The current reality is that the United States is actively conducting military operations to reopen the Strait of Hormuz — a campaign begun on March 19, 2026. Major shipping firms including Maersk, CMA CGM, and Hapag-Lloyd have suspended operations through the strait, creating pressure on U.S. Navy escort capacity. The <strong>fleet oilers and sealift assets identified in Appendices B, D, and I as the critical bottleneck for a Taiwan operation are the same assets being consumed by Middle East operational demands.</strong><sup class="fn-ref"><a href="#fn12">[12]</a></sup><sup class="fn-ref"><a href="#fn17">[17]</a></sup><sup class="fn-ref"><a href="#fn5">[5]</a></sup></p>
+      <p>Defense News reported on March 19, 2026 that <strong>China has actually reduced PLA warplane sorties toward Taiwan since the Iran conflict began</strong>, with daily sortie counts falling from typically a dozen or more to as few as two or three on several days. Analysts attribute this to a political calculation: China likely does not want to provoke the United States while Trump is simultaneously managing the Iran war and scheduling a summit with Xi Jinping in late April. This suggests that the Iran conflict, paradoxically, has temporarily <em>reduced</em> the near-term Taiwan threat risk — but at the cost of consuming the very logistics assets TIDALWAVE identifies as already insufficient for sustained Indo-Pacific combat.<sup class="fn-ref"><a href="#fn25">[25]</a></sup></p>
+    </div>
+
+    <!-- Point 4 -->
+    <div class="intel-box amber" id="intel4">
+      <div class="intel-box-header">
+        <div class="intel-box-num">4</div>
+        <div class="intel-box-titles">
+          <h3>The JP-8 Supply Chain: New Pressure on Existing Shortfalls</h3>
+        </div>
+      </div>
+      <p>Appendix H found that the U.S. and allies could not sustain 900,000 bpd JP-8 across a 365-day Taiwan conflict, with a projected shortfall of 200,000–400,000 bpd. The Iran conflict adds two new pressures to this picture. First, <strong>jet fuel prices have surged more than 80% since the conflict began</strong>, increasing the cost of every sortie — including the gray-zone operations both sides conduct daily near Taiwan — and straining allied defense budgets. Second, the JP-8 supply chain depends on Middle Eastern refining output and tanker logistics networks that are now severely disrupted. <strong>Refinery capacity at risk exceeds 4 million bpd globally</strong> due to the Hormuz closure. If Gulf refineries — which process significant quantities of jet-grade kerosene exports — remain constrained into Q2 2026, the upstream JP-8 production base assumed in TIDALWAVE's logistics models becomes less reliable.<sup class="fn-ref"><a href="#fn13">[13]</a></sup><sup class="fn-ref"><a href="#fn9">[9]</a></sup><sup class="fn-ref"><a href="#fn25">[25]</a></sup></p>
+    </div>
+
+    <!-- Point 5 -->
+    <div class="intel-box" id="intel5">
+      <div class="intel-box-header">
+        <div class="intel-box-num">5</div>
+        <div class="intel-box-titles">
+          <h3>Allied Cooperation Under Fiscal and Energy Stress</h3>
+        </div>
+      </div>
+      <p>TIDALWAVE's Route B assessment in Appendix H projected that Japan, Australia, the Philippines, Singapore, and India could collectively deliver 200,000–300,000 bpd of JP-8, but noted "political volatility and limited infrastructure threaten its long-term reliability." The Iran crisis amplifies all of these risks. <strong>Japan's stock markets fell 6.5% in response to the Hormuz closure; South Korea — a key logistics node for U.S. forces — fell 10.2%.</strong> Every allied economy dependent on Middle Eastern energy imports is now managing its own supply crisis, fiscal strain, and political pressure to prioritize domestic energy security over U.S. basing support agreements. This materially increases the likelihood of the "political reversals" and "host-nation reversals" flagged in Appendix H as capable of reducing throughput by 30,000–70,000 bpd.<sup class="fn-ref"><a href="#fn18">[18]</a></sup><sup class="fn-ref"><a href="#fn9">[9]</a></sup></p>
+    </div>
+
+    <!-- Point 6 -->
+    <div class="intel-box amber" id="intel6">
+      <div class="intel-box-header">
+        <div class="intel-box-num">6</div>
+        <div class="intel-box-titles">
+          <h3>Taiwan's Own Energy Crisis</h3>
+        </div>
+      </div>
+      <p>Perhaps the most underappreciated dimension of the current disruption is its effect on <strong>Taiwan itself</strong>. Taiwan relies on imports for 95% of its energy needs, including over 99% of its oil and natural gas, and approximately <strong>70% of its crude oil comes from the Middle East</strong>. Taiwan holds approximately 150 days of oil in reserve but only <strong>11 days of natural gas inventory</strong> — far below South Korea and Japan. Qatar, which accounts for roughly a third of Taiwan's LNG imports, has declared force majeure and suspended exports; the Ras Laffan LNG complex damage may take 3–5 years to repair.<sup class="fn-ref"><a href="#fn26">[26]</a></sup><sup class="fn-ref"><a href="#fn1">[1]</a></sup></p>
+      <p>TIDALWAVE modeled Taiwan as the geographic objective of a Chinese invasion scenario. The current energy crisis reveals a parallel vulnerability: <strong>a prolonged Hormuz disruption could weaken Taiwan's economic and political resilience even without a shot being fired across the Taiwan Strait</strong>, constraining its ability to fund defense procurement and sustain public confidence ahead of any Chinese coercive pressure campaign. CSIS wargame analysis, cited in parallel ASPI research, found that natural gas runs out in Taiwan in approximately <strong>10 days of a blockade</strong> — a timeline the current crisis has now rendered acutely visible.<sup class="fn-ref"><a href="#fn27">[27]</a></sup></p>
+    </div>
+
+  </div>
+</section>
+
+<!-- §04 — REVISED ASSESSMENT MATRIX -->
+<section class="page-section" id="s04" data-section="04" data-title="Revised Assessment Matrix" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§04</span>
+    <span>ASSESSMENT MATRIX</span>
+    <span class="sb-date">// 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§04</span>
+      <h2 class="section-title">Revised <em>Assessment Matrix</em></h2>
+    </div>
+
+    <div class="assessment-table-wrap">
+      <table class="assessment-table">
+        <thead>
+          <tr>
+            <th>TIDALWAVE Assumption</th>
+            <th>Original Baseline</th>
+            <th>Current Reality (Mar 2026)</th>
+            <th>Impact on TIDALWAVE Judgments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>China SPR volume</td>
+            <td>684M barrels (Appendix A); 1.2B high scenario (Appendix G)</td>
+            <td>~1.4–1.5B barrels confirmed<sup class="fn-ref"><a href="#fn21">[21]</a></sup><sup class="fn-ref"><a href="#fn18">[18]</a></sup></td>
+            <td><span class="impact">Extends PLA endurance beyond Day 562 modeled max; civilian redirection window narrows</span></td>
+          </tr>
+          <tr>
+            <td>Primary chokepoint</td>
+            <td>Strait of Malacca (US leverage)</td>
+            <td>Strait of Hormuz (closed by Iran)</td>
+            <td><span class="impact">China has friendly corridor; Malacca gaining strategic importance</span></td>
+          </tr>
+          <tr>
+            <td>U.S. military focus</td>
+            <td>Full attention to Indo-Pacific</td>
+            <td>Bifurcated: Iran + Taiwan</td>
+            <td><span class="impact">Logistics assets under concurrent demand; Appendix C deployment timelines compromised</span></td>
+          </tr>
+          <tr>
+            <td>Allied political reliability (Route B)</td>
+            <td>Uncertain but assumed cooperative</td>
+            <td>All allies under economic stress from oil shock</td>
+            <td><span class="impact">Increases risk of host-nation reversals flagged in Appendices B/H</span></td>
+          </tr>
+          <tr>
+            <td>JP-8 supply chain integrity</td>
+            <td>Assumed intact</td>
+            <td>Refinery capacity at risk 4M+ bpd; jet fuel +80%<sup class="fn-ref"><a href="#fn13">[13]</a></sup><sup class="fn-ref"><a href="#fn25">[25]</a></sup></td>
+            <td><span class="impact">Upstream production assumptions less reliable; cost burden increases</span></td>
+          </tr>
+          <tr>
+            <td>Taiwan as passive scenario target</td>
+            <td>Modeled as invasion objective only</td>
+            <td>Now experiencing its own energy crisis</td>
+            <td><span class="impact">Weakens Taiwan's political/economic resilience independently</span></td>
+          </tr>
+          <tr>
+            <td>PLA gray-zone activity</td>
+            <td>Ongoing pressure assumed constant</td>
+            <td>Reduced sorties since Feb 28<sup class="fn-ref"><a href="#fn25">[25]</a></sup></td>
+            <td><span class="impact">Short-term deescalation, but long-term strategic opportunity if US distracted</span></td>
+          </tr>
+          <tr>
+            <td>China's import dependency</td>
+            <td>~70.9% of consumption from imports</td>
+            <td>Diversification to Russia accelerating; EV rollout compressing demand</td>
+            <td><span class="impact">Long-term import dependency trending down; war window may narrow</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- §05 — STRATEGIC IMPLICATIONS -->
+<section class="page-section alt-bg" id="s05" data-section="05" data-title="Strategic Implications" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§05</span>
+    <span>STRATEGIC IMPLICATIONS</span>
+    <span class="sb-date">// 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§05</span>
+      <h2 class="section-title">Strategic <em>Implications</em></h2>
+    </div>
+
+    <div class="implications-grid">
+
+      <div class="implication-card">
+        <h3>China Is a Net Beneficiary of the Iran Crisis — For Now</h3>
+        <p>China entered the Hormuz crisis better positioned than any other major oil importer: larger reserves, preferential corridor access, a record Russian pipeline supply, and the political capital of being publicly neutral while privately pressuring Iran to keep Chinese tankers moving. The crisis has, in the short term, demonstrated the resilience of China's multi-year energy security investment strategy and validated the warning in TIDALWAVE's executive summary that <strong>Beijing was deliberately stockpiling toward conflict readiness.</strong><sup class="fn-ref"><a href="#fn28">[28]</a></sup><sup class="fn-ref"><a href="#fn29">[29]</a></sup><sup class="fn-ref"><a href="#fn20">[20]</a></sup><sup class="fn-ref"><a href="#fn22">[22]</a></sup><sup class="fn-ref"><a href="#fn21">[21]</a></sup></p>
+        <p>However, the crisis is not costless. China's <strong>$89 billion in Middle Eastern infrastructure investments (2019–2024)</strong> — including stakes in Qatar's North Field LNG expansion — have been damaged by Iranian strikes. Chinese goods shipments through the Strait of Hormuz have been paralyzed alongside oil flows, affecting manufacturing supply chains. And most critically, <strong>every barrel of oil China burns now to compensate for Hormuz disruption is unavailable for the Taiwan conflict scenario modeled in TIDALWAVE.</strong><sup class="fn-ref"><a href="#fn29">[29]</a></sup></p>
+      </div>
+
+      <div class="implication-card amber">
+        <h3>The TIDALWAVE Vulnerability Thesis Becomes More Urgent, Not Less</h3>
+        <p>The report's core conclusion — that U.S. fuel logistics, not combat power, is the binding constraint in an Indo-Pacific conflict — is reinforced by current events. The Iran conflict has demonstrated in real-time that a single maritime chokepoint closure can paralyze 20% of global oil supply within days. If the United States is managing a Middle East military campaign while preparing for an Indo-Pacific contingency, <strong>the fleet oiler and sealift capacity identified in Appendices B, D, and I as structurally insufficient is now even more strained.</strong> Heritage's own follow-up report, "Build the Golden Fleet" (March 24, 2026), reiterates the finding that the Combat Logistics Force is the primary throttle on sustained naval operations — a vulnerability that has not been addressed in the months since TIDALWAVE's publication.<sup class="fn-ref"><a href="#fn30">[30]</a></sup><sup class="fn-ref"><a href="#fn11">[11]</a></sup></p>
+      </div>
+
+      <div class="implication-card blue">
+        <h3>The Malacca Chokepoint Becomes More, Not Less, Critical</h3>
+        <p>The Hormuz disruption has re-routed energy flows toward the Strait of Malacca, which is now carrying a higher proportion of global energy trade. Nearly 80% of China's oil imports, including all Malacca-transitable supply, must pass through this chokepoint. TIDALWAVE identified Malacca interdiction as the single most powerful strategic lever against China's fuel endurance — assessed with high confidence that closure "would very likely cut off China's crude oil supply line at its source." As Hormuz becomes a contested, disrupted corridor, Malacca's strategic importance increases further. Any U.S. strategic planner considering leverage over China must now account for the fact that China has demonstrated it can weather a Hormuz disruption for months; <strong>the Malacca leverage point is the one China has not yet been forced to test.</strong><sup class="fn-ref"><a href="#fn23">[23]</a></sup><sup class="fn-ref"><a href="#fn24">[24]</a></sup></p>
+
+        <div class="callout">
+          <div class="callout-icon">→</div>
+          <p><strong>Key Analytical Finding:</strong> As Hormuz-dependent flows divert through Malacca, the strait's strategic importance to any future Taiwan contingency escalates in direct proportion to the duration of the current Hormuz crisis.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- §06 — REFERENCE LIBRARY -->
+<section class="page-section" id="s06" data-section="06" data-title="Consolidated Reference Library" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§06</span>
+    <span>REFERENCE LIBRARY</span>
+    <span class="sb-date">// 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§06</span>
+      <h2 class="section-title">Consolidated <em>Reference Library</em></h2>
+    </div>
+
+    <!-- Heritage Foundation TIDALWAVE Primary Sources -->
+    <div class="ref-category">
+      <div class="ref-category-title">Heritage Foundation TIDALWAVE — Primary Sources</div>
+      <div class="ref-grid">
+        <a href="https://www.heritage.org/tidalwave" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">TIDALWAVE Main Page</div>
+            <div class="ref-link-meta">heritage.org // Jan 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/introduction/foreword" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">TIDALWAVE Foreword</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/introduction/executive-summary" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">TIDALWAVE Executive Summary</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/chapters/chapter-1-patterns-and-precedent" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Chapter 1: Patterns and Precedent</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/chapters/chapter-2-methodology" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Chapter 2: Methodology</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/chapters/chapter-3-assessing-the-prc-military-fuel-system" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Chapter 3: PRC Military Fuel System</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/chapters/chapter-4-assessing-the-prc-military-munitions-system" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Chapter 4: PRC Munitions System</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/chapters/chapter-6-assessing-the-us-indo-pacific-munitions-system" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Chapter 6: U.S. Indo-Pacific Munitions</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/chapters/chapter-7-conclusions-and-recommendations" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Chapter 7: Conclusions &amp; Recommendations</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/appendices" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Appendices Index</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-chinas-redirection-civilian-fuel" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Appendix A: China's Redirection of Civilian Fuel</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-b-f-76-throughput-estimate-us-forces-taiwan-conflict-scenario" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Appendix B: F-76 Throughput Estimate</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-c-integrated-deployment-ratio-and-timing-us-aircraft-and-ships-taiwan-conflict-scenario" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Appendix C: Integrated Deployment Ratio</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-d-logistics-and-survivability-us-navy-replenishment-tankers-taiwan-conflict" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Appendix D: Navy Replenishment Tankers</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-e-plaaf-top-tier-bases-taiwan-contingency" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Appendix E: PLAAF Top-Tier Bases</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-f-pla-fuel-reserve-inventory-and-drawdown-logic" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Appendix F: PLA Fuel Reserve &amp; Drawdown Logic</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-g-initial-pla-fuel-system-sensitivity-analysis" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Appendix G: PLA Fuel System Sensitivity Analysis</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-h-sustaining-900000-bpd-jp-8-fuel-delivery-taiwan-conflict" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Appendix H: 900,000 bpd JP-8 Fuel Delivery</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/tidalwave/appendices/appendix-i-us-underway-replenishment-ship-capabilities-and-constraints" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Appendix I: U.S. UNREP Ship Capabilities</div>
+            <div class="ref-link-meta">heritage.org // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/press/heritage-unveils-tidalwave-landmark-report-exposes-vulnerabilities-us-china-conflict" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Heritage Press Release</div>
+            <div class="ref-link-meta">heritage.org // Jan 19, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.heritage.org/defense/report/build-the-golden-fleet" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Build the Golden Fleet (follow-up)</div>
+            <div class="ref-link-meta">heritage.org // Mar 24, 2026</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 2026 Iran Conflict Sources -->
+    <div class="ref-category">
+      <div class="ref-category-title">2026 Iran Conflict — News, Analysis &amp; Official Sources</div>
+      <div class="ref-grid">
+        <a href="https://en.wikipedia.org/wiki/2026_Strait_of_Hormuz_crisis" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Wikipedia: 2026 Strait of Hormuz Crisis</div>
+            <div class="ref-link-meta">wikipedia.org // Mar 2026</div>
+          </div>
+        </a>
+        <a href="https://en.wikipedia.org/wiki/Economic_impact_of_the_2026_Iran_war" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Wikipedia: Economic Impact of 2026 Iran War</div>
+            <div class="ref-link-meta">wikipedia.org // Mar 2026</div>
+          </div>
+        </a>
+        <a href="https://www.politico.com/news/2026/03/12/iran-war-oil-market-disruption-00824791" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">IEA: Largest Oil Supply Disruption in History</div>
+            <div class="ref-link-meta">politico.com // Mar 12, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.lloydslist.com/LL1156616/Iran-conflict-causing-largest-supply-disruption-in-oil-market-history" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Lloyd's List: 8M bpd Supply Plunge</div>
+            <div class="ref-link-meta">lloydslist.com // Mar 12, 2026</div>
+          </div>
+        </a>
+        <a href="https://finance.yahoo.com/news/iran-war-causing-largest-disruption-150037762.html" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Yahoo Finance: IEA Report</div>
+            <div class="ref-link-meta">finance.yahoo.com // Mar 12, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.weforum.org/stories/2026/03/iran-conflict-disrupts-oil-and-gas-supply-top-energy-stories-march-2026/" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">World Economic Forum: Iran Conflict Disrupts Energy</div>
+            <div class="ref-link-meta">weforum.org // Mar 19, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.dallasfed.org/research/economics/2026/0320" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Dallas Fed: Hormuz Closure Macroeconomic Effects</div>
+            <div class="ref-link-meta">dallasfed.org // Mar 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.reuters.com/business/energy/global-energy-costs-soar-iran-crisis-disrupts-shipping-oil-gas-production-2026-03-03/" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Reuters: Iran Crisis Disrupts Shipping &amp; Production</div>
+            <div class="ref-link-meta">reuters.com // Mar 3, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.reuters.com/business/energy/ceraweek-oil-execs-warn-long-term-damage-iran-war-us-downplays-crisis-2026-03-23/" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Reuters: Oil Execs Warn Long-Term Damage (CERAWeek)</div>
+            <div class="ref-link-meta">reuters.com // Mar 23, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.npr.org/2026/03/02/nx-s1-5732287/iran-war-oil-gasoline-prices" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">NPR: Oil Prices Surge, Iran War Day 3</div>
+            <div class="ref-link-meta">npr.org // Mar 2, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.cnbc.com/2026/03/11/iran-ships-oil-china-strait-hormuz-closure-.html" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">CNBC: Iran Sends Oil to China Through Hormuz</div>
+            <div class="ref-link-meta">cnbc.com // Mar 10, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.cnbc.com/2026/03/28/iran-war-oil-companies-price-gas-diesel-strait-hormuz.html" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">CNBC: Oil CEOs Assess Iran War Disruption</div>
+            <div class="ref-link-meta">cnbc.com // Mar 28, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.cnbc.com/2026/03/02/iran-strikes-oil-energy-china.html" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">CNBC: What China Is Thinking About Iran Strikes</div>
+            <div class="ref-link-meta">cnbc.com // Mar 2, 2026</div>
+          </div>
+        </a>
+        <a href="https://seekingalpha.com/news/4570000-oil-industry-executives-paint-grim-picture-of-iran-war-supply-disruption" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Seeking Alpha: Oil Industry Executives Grim Picture</div>
+            <div class="ref-link-meta">seekingalpha.com // Mar 28, 2026</div>
+          </div>
+        </a>
+        <a href="https://about.bnef.com/insights/commodities/oil-can-hit-91-a-barrel-in-late-2026-on-iran-disruption/" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">BNEF: Oil Could Hit $91/Barrel on Iran Disruption</div>
+            <div class="ref-link-meta">bnef.com // Jan 15, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.csis.org/analysis/if-trump-strikes-iran-mapping-oil-disruption-scenarios" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">CSIS: Mapping Oil Disruption Scenarios</div>
+            <div class="ref-link-meta">csis.org // Feb 17, 2026</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- China Energy Security Sources -->
+    <div class="ref-category">
+      <div class="ref-category-title">China Energy Security — Analysis Sources</div>
+      <div class="ref-grid">
+        <a href="https://www.abc.net.au/news/2026-03-31/strait-of-hormuz-iran-russia-india-china-oil-trade/106510800" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">ABC Australia: China Keeps Iranian Oil Moving</div>
+            <div class="ref-link-meta">abc.net.au // Mar 30, 2026</div>
+          </div>
+        </a>
+        <a href="https://thediplomat.com/2026/03/the-strait-of-hormuz-is-burning-but-china-is-not-panicking/" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">The Diplomat: Hormuz Burning, China Not Panicking</div>
+            <div class="ref-link-meta">thediplomat.com // Mar 26, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.politico.com/news/2026/03/02/iran-us-strikes-china-oil-supply-charts-00806415" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Politico: 5 Charts Show China's Oil Dilemma</div>
+            <div class="ref-link-meta">politico.com // Mar 2, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.oxfordenergy.org/wpcms/wp-content/uploads/2026/03/Comment-Turmoil-in-the-Middle-East.pdf" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Oxford Energy: Hormuz Disruption &amp; China (PDF)</div>
+            <div class="ref-link-meta">oxfordenergy.org // Feb 28, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.trtworld.com/article/efd4d6c7d253" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">TRT World: China Withstanding Hormuz Closure</div>
+            <div class="ref-link-meta">trtworld.com // Mar 24, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.instituteforenergyresearch.org/international-issues/china-is-affected-by-the-iran-conflict-in-multiple-ways/" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Institute for Energy Research: China Affected Multiple Ways</div>
+            <div class="ref-link-meta">instituteforenergyresearch.org // Mar 10, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.lemonde.fr/en/economy/article/2026/03/03/asian-oil-imports-threatened-as-traffic-halts-in-the-strait-of-hormuz_67510" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Le Monde: Asian Oil Imports Threatened</div>
+            <div class="ref-link-meta">lemonde.fr // Mar 3, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.aa.com.tr/en/asia-pacific/energy-flow-disruption-amid-strait-of-hormuz-risks-losses-for-china-asia/3880504" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Anadolu Agency: Energy Flow Disruption China</div>
+            <div class="ref-link-meta">aa.com.tr // Mar 25, 2026</div>
+          </div>
+        </a>
+        <a href="https://oilprice.com/Geopolitics/Middle-East/China-Warns-of-Uncontrollable-Escalation-as-Hormuz-Crisis-Deepens.html" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">OilPrice.com: China Warns Uncontrollable Escalation</div>
+            <div class="ref-link-meta">oilprice.com // Mar 23, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.energypolicy.columbia.edu/implications-of-the-conflict-in-the-middle-east-for-chinas-energy-security/" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Columbia SIPA: Hormuz &amp; China Energy Security</div>
+            <div class="ref-link-meta">energypolicy.columbia.edu // Mar 3, 2026</div>
+          </div>
+        </a>
+        <a href="https://en.sedaily.com/international/2026/03/11/china-weathers-hormuz-crisis-with-oil-reserves-coal" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Seoul Economic Daily: China Weathers Crisis</div>
+            <div class="ref-link-meta">sedaily.com // Mar 10, 2026</div>
+          </div>
+        </a>
+        <a href="https://irregularwarfarecenter.org/publications/insights/the-current-fight-with-iran-and-chinas-dependance-on-imported-oil/" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Irregular Warfare Center: China's Oil Dependence &amp; Iran</div>
+            <div class="ref-link-meta">irregularwarfarecenter.org // Mar 24, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/posts/hurobin_energymarkets-oilandgas-supplychain-activity-7437057221420806144-Bb4T" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">LinkedIn/Kpler: China Oil Imports Hormuz Collapse</div>
+            <div class="ref-link-meta">linkedin.com // Mar 9, 2026</div>
+          </div>
+        </a>
+        <a href="https://theconversation.com/from-the-strait-of-hormuz-to-malacca-global-trade-relies-almost-entirely-on-these-five-narrow-waterways" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">The Conversation: Global Trade Chokepoints</div>
+            <div class="ref-link-meta">theconversation.com // Jan 30, 2026</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Taiwan Energy & Defense Sources -->
+    <div class="ref-category">
+      <div class="ref-category-title">Taiwan Energy &amp; Defense — Analysis Sources</div>
+      <div class="ref-grid">
+        <a href="https://www.atlanticcouncil.org/blogs/energysource/the-iran-war-tests-taiwans-energy-resilience/" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Atlantic Council: Iran War Tests Taiwan Energy Resilience</div>
+            <div class="ref-link-meta">atlanticcouncil.org // Mar 18, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.aspistrategist.org.au/holding-out-taiwan-urgently-needs-more-energy-storage-and-generation/" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">ASPI: Taiwan Urgently Needs Energy Storage</div>
+            <div class="ref-link-meta">aspistrategist.org.au // Mar 15, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.defensenews.com/global/asia-pacific/2026/03/20/oil-prices-fear-of-trump-china-mysteriously-reduced-warplane-activity" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Defense News: China Reduces Warplane Activity</div>
+            <div class="ref-link-meta">defensenews.com // Mar 19, 2026</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Secondary Defense & Strategic Analysis -->
+    <div class="ref-category">
+      <div class="ref-category-title">Secondary Defense &amp; Strategic Analysis</div>
+      <div class="ref-grid">
+        <a href="https://www.scmp.com/news/china/military/article/3341565/would-chinese-or-us-supply-lines-be-more-vulnerable-pacific-conflict" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">South China Morning Post: Supply Line Vulnerabilities</div>
+            <div class="ref-link-meta">scmp.com // Jan 27, 2026</div>
+          </div>
+        </a>
+        <a href="https://amac.us/newsline/national-security/shocking-new-ai-driven-u-s-china-war-game-was-so-accurate" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">AMAC: AI-Driven War Game Report</div>
+            <div class="ref-link-meta">amac.us // Feb 5, 2026</div>
+          </div>
+        </a>
+        <a href="https://www.reddit.com/r/LessCredibleDefence/comments/1qig2nj/tidalwave_strategic_exploitation_and_sustainment/" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Reddit/LessCredibleDefence: TIDALWAVE Thread</div>
+            <div class="ref-link-meta">reddit.com // Jan 20, 2026</div>
+          </div>
+        </a>
+        <a href="https://nsp.nanet.go.kr/plan/main/detail.do?nationalPlanControlNo=PLAN0000059931" target="_blank" class="ref-link-card">
+          <span class="ref-link-icon">→</span>
+          <div class="ref-link-info">
+            <div class="ref-link-title">Korea National Assembly Library: TIDALWAVE Full Text</div>
+            <div class="ref-link-meta">nanet.go.kr // 2026</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- §07 — FOOTNOTES -->
+<section class="page-section alt-bg" id="s07" data-section="07" data-title="Footnotes" data-last-updated="2026-03-31">
+  <div class="section-badge">
+    <span class="sb-num">§07</span>
+    <span>FOOTNOTES</span>
+    <span class="sb-date">// 2026-03-31</span>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§07</span>
+      <h2 class="section-title">Numbered <em>References</em></h2>
+    </div>
+
+    <div class="footnotes-toggle" id="fn-toggle" onclick="toggleFootnotes()">
+      <span>▼</span>
+      <span class="ft-icon">EXPAND REFERENCES [1–30]</span>
+    </div>
+
+    <div class="footnotes-body open" id="fn-body">
+      <ol class="footnote-list">
+        <li class="footnote-item" id="fn1">
+          <span class="fn-num">[1]</span>
+          <span class="fn-text"><a href="https://en.wikipedia.org/wiki/Economic_impact_of_the_2026_Iran_war" target="_blank">Economic impact of the 2026 Iran war — Wikipedia</a>. The 2026 Iran war, including the closure of the Strait of Hormuz, has led to what the International Energy Agency characterized as the largest supply disruption in the history of the global oil market.</span>
+        </li>
+        <li class="footnote-item" id="fn2">
+          <span class="fn-num">[2]</span>
+          <span class="fn-text"><a href="https://www.heritage.org/tidalwave" target="_blank">TIDALWAVE | The Heritage Foundation</a>. TIDALWAVE is a progressive Artificial Intelligence–enabled model and computer simulation to simulate a U.S.–China conflict over Taiwan.</span>
+        </li>
+        <li class="footnote-item" id="fn3">
+          <span class="fn-num">[3]</span>
+          <span class="fn-text"><a href="https://www.heritage.org/tidalwave/appendices/appendix-chinas-redirection-civilian-fuel" target="_blank">Appendix A: China's Redirection of Civilian Fuel — Heritage Foundation</a>. Heritage judges with moderate confidence that China would likely be able to redirect 25 percent to 30 percent of its civilian fuel to military use.</span>
+        </li>
+        <li class="footnote-item" id="fn4">
+          <span class="fn-num">[4]</span>
+          <span class="fn-text"><a href="https://www.heritage.org/tidalwave/appendices/appendix-b-f-76-throughput-estimate-us-forces-taiwan-conflict-scenario" target="_blank">Appendix B: F-76 Throughput Estimate for U.S. Forces in Taiwan Conflict — Heritage Foundation</a>. Heritage judges that the United States and its allies could likely sustain a maximum wartime F-76 delivery throughput of approximately 265,000–280,000 bpd.</span>
+        </li>
+        <li class="footnote-item" id="fn5">
+          <span class="fn-num">[5]</span>
+          <span class="fn-text"><a href="https://www.heritage.org/tidalwave/appendices/appendix-c-integrated-deployment-ratio-and-timing-us-aircraft-and-ships-taiwan-conflict-scenario" target="_blank">Appendix C: Integrated Deployment Ratio and Timing — Heritage Foundation</a>. Structured methodology to model when and how much of the U.S. military force can be deployed in a Taiwan conflict.</span>
+        </li>
+        <li class="footnote-item" id="fn6">
+          <span class="fn-num">[6]</span>
+          <span class="fn-text"><a href="https://www.heritage.org/tidalwave/appendices/appendix-d-logistics-and-survivability-us-navy-replenishment-tankers-taiwan-conflict" target="_blank">Appendix D: Logistics and Survivability of U.S. Navy Replenishment Tankers — Heritage Foundation</a>. Heritage assesses that U.S. Navy F-76 fuel delivery during a high-intensity Taiwan conflict is critically dependent on the survivability of underway replenishment assets.</span>
+        </li>
+        <li class="footnote-item" id="fn7">
+          <span class="fn-num">[7]</span>
+          <span class="fn-text"><a href="https://www.heritage.org/tidalwave/appendices/appendix-e-plaaf-top-tier-bases-taiwan-contingency" target="_blank">Appendix E: PLAAF Top-Tier Bases for Taiwan Contingency — Heritage Foundation</a>. Coordinates and runway data for individual PLAAF airfields from a consolidated PLAAF airbase list.</span>
+        </li>
+        <li class="footnote-item" id="fn8">
+          <span class="fn-num">[8]</span>
+          <span class="fn-text"><a href="https://www.heritage.org/tidalwave/appendices/appendix-f-pla-fuel-reserve-inventory-and-drawdown-logic" target="_blank">Appendix F: PLA Fuel Reserve Inventory and Drawdown Logic — Heritage Foundation</a>. Heritage assesses that the PLA's combined strategic and operational fuel reserves are likely sufficient to sustain major combat operations for multiple months.</span>
+        </li>
+        <li class="footnote-item" id="fn9">
+          <span class="fn-num">[9]</span>
+          <span class="fn-text"><a href="https://www.heritage.org/tidalwave/appendices/appendix-h-sustaining-900000-bpd-jp-8-fuel-delivery-taiwan-conflict" target="_blank">Appendix H: Sustaining 900,000 bpd JP-8 Fuel Delivery in a Taiwan Conflict — Heritage Foundation</a>. Heritage assesses with moderate confidence that the United States and its Indo-Pacific allies cannot sustain the full 900,000 bpd JP-8 aviation fuel requirement.</span>
+        </li>
+        <li class="footnote-item" id="fn10">
+          <span class="fn-num">[10]</span>
+          <span class="fn-text"><a href="https://www.heritage.org/tidalwave/appendices/appendix-i-us-underway-replenishment-ship-capabilities-and-constraints" target="_blank">Appendix I: U.S. Underway Replenishment Ship Capabilities and Constraints — Heritage Foundation</a>. Full operational assessment of the U.S. Navy's underway replenishment fleet.</span>
+        </li>
+        <li class="footnote-item" id="fn11">
+          <span class="fn-num">[11]</span>
+          <span class="fn-text"><a href="https://www.heritage.org/defense/report/build-the-golden-fleet" target="_blank">To Build the Golden Fleet — Heritage Foundation</a>. The Secretary of the Navy should host a Survivability Review Group and present a budget request to Congress. Published Mar 24, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn12">
+          <span class="fn-num">[12]</span>
+          <span class="fn-text"><a href="https://en.wikipedia.org/wiki/2026_Strait_of_Hormuz_crisis" target="_blank">2026 Strait of Hormuz Crisis — Wikipedia</a>. Amid fears of prolonged supply shortages, oil prices surged faster than during any other conflict in history.</span>
+        </li>
+        <li class="footnote-item" id="fn13">
+          <span class="fn-num">[13]</span>
+          <span class="fn-text"><a href="https://www.lloydslist.com/LL1156616/Iran-conflict-causing-largest-supply-disruption-in-oil-market-history" target="_blank">Iran conflict causing 'largest supply disruption' in oil market history — Lloyd's List</a>. Supply is expected to plunge by as much as 8m barrels per day in March, the International Energy Agency reported. Mar 12, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn14">
+          <span class="fn-num">[14]</span>
+          <span class="fn-text"><a href="https://www.aa.com.tr/en/asia-pacific/energy-flow-disruption-amid-strait-of-hormuz-risks-losses-for-china-asia/3880504" target="_blank">Energy flow disruption amid Strait of Hormuz risks losses for China, Asia — Anadolu Agency</a>. The regional turmoil is expected to have a negative impact on global economic growth. Iran has restricted access. Mar 25, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn15">
+          <span class="fn-num">[15]</span>
+          <span class="fn-text"><a href="https://www.cnbc.com/2026/03/11/iran-ships-oil-china-strait-hormuz-closure-.html" target="_blank">Iran sends millions of oil barrels to China through Strait of Hormuz even as war chokes the waterway — CNBC</a>. Iran has persistently transported substantial quantities of crude oil through the Strait of Hormuz to China. Mar 10, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn16">
+          <span class="fn-num">[16]</span>
+          <span class="fn-text"><a href="https://www.trtworld.com/article/efd4d6c7d253" target="_blank">China well-placed to withstand Hormuz closure aftershocks — TRT World</a>. Iran has effectively blocked the Strait of Hormuz. Almost 40 percent of China's crude imports historically transited the strait. Mar 24, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn17">
+          <span class="fn-num">[17]</span>
+          <span class="fn-text"><a href="https://www.linkedin.com/posts/hurobin_energymarkets-oilandgas-supplychain-activity-7437057221420806144-Bb4T" target="_blank">China's Oil Imports Through Hormuz Strait Collapse — LinkedIn/Kpler</a>. China imports 11.1 million barrels of crude oil daily. About 45% moves through the Strait of Hormuz. Mar 9, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn18">
+          <span class="fn-num">[18]</span>
+          <span class="fn-text"><a href="https://en.sedaily.com/international/2026/03/11/china-weathers-hormuz-crisis-with-oil-reserves-coal" target="_blank">China Weathers Hormuz Crisis With Oil Reserves, Coal, Renewables — Seoul Economic Daily</a>. China's strategic petroleum reserves are estimated at approximately 1.4 billion barrels — about 3.6 times the size of the U.S. SPR. Mar 10, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn19">
+          <span class="fn-num">[19]</span>
+          <span class="fn-text"><a href="https://www.energypolicy.columbia.edu/implications-of-the-conflict-in-the-middle-east-for-chinas-energy-security/" target="_blank">Implications of the Conflict in the Middle East for China's Energy Security — Columbia SIPA</a>. Although 45–50 percent of China's crude oil imports transit the Strait of Hormuz, China is well-prepared for the shock. Mar 3, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn20">
+          <span class="fn-num">[20]</span>
+          <span class="fn-text"><a href="https://www.abc.net.au/news/2026-03-31/strait-of-hormuz-iran-russia-india-china-oil-trade/106510800" target="_blank">China keeps Iranian oil moving through Hormuz as war reshapes energy trade — ABC Australia</a>. About 20 per cent of global oil supply normally passes through this narrow corridor. Mar 30, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn21">
+          <span class="fn-num">[21]</span>
+          <span class="fn-text"><a href="https://oilprice.com/Geopolitics/Middle-East/China-Warns-of-Uncontrollable-Escalation-as-Hormuz-Crisis-Deepens.html" target="_blank">China Warns of "Uncontrollable" Escalation as Hormuz Crisis Deepens — OilPrice.com</a>. China warns the Hormuz crisis could spiral into an uncontrollable regional conflict threatening global energy security. Mar 23, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn22">
+          <span class="fn-num">[22]</span>
+          <span class="fn-text"><a href="https://irregularwarfarecenter.org/publications/insights/the-current-fight-with-iran-and-chinas-dependance-on-imported-oil/" target="_blank">The Current Fight with Iran and China's Dependance on Imported Oil — Irregular Warfare Center</a>. If the PRC chose to use its reserves, the 400 million barrels added in 2025 would fill the Strait of Hormuz supply gap. Mar 24, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn23">
+          <span class="fn-num">[23]</span>
+          <span class="fn-text"><a href="https://www.heritage.org/tidalwave/chapters/chapter-3-assessing-the-prc-military-fuel-system" target="_blank">Chapter 3: Assessing the PRC Military Fuel System — Heritage Foundation</a>. Heritage judges that China's military fuel system has a highly centralized logistical architecture with both vulnerabilities and resilience.</span>
+        </li>
+        <li class="footnote-item" id="fn24">
+          <span class="fn-num">[24]</span>
+          <span class="fn-text"><a href="https://theconversation.com/from-the-strait-of-hormuz-to-malacca-global-trade-relies-almost-entirely-on-these-five-narrow-waterways" target="_blank">From the strait of Hormuz to Malacca, global trade relies almost entirely on these five narrow waterways — The Conversation</a>. The vital strait of Hormuz has been effectively closed to shipping since the start of the conflict. Jan 30, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn25">
+          <span class="fn-num">[25]</span>
+          <span class="fn-text"><a href="https://www.defensenews.com/global/asia-pacific/2026/03/20/oil-prices-fear-of-trump-china-mysteriously-reduced-warplane-activity-near-taiwan/" target="_blank">Oil prices, fear of Trump? China mysteriously reduced warplane activity near Taiwan — Defense News</a>. Analysts are puzzled by a recent decrease in Chinese warplane sorties toward Taiwan. Mar 19, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn26">
+          <span class="fn-num">[26]</span>
+          <span class="fn-text"><a href="https://www.atlanticcouncil.org/blogs/energysource/the-iran-war-tests-taiwans-energy-resilience/" target="_blank">The Iran war tests Taiwan's energy resilience — Atlantic Council</a>. To address the supply shortfall the war has created, Taiwan has assured the public that it has about 150 days of oil in reserve but only 11 days of natural gas. Mar 18, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn27">
+          <span class="fn-num">[27]</span>
+          <span class="fn-text"><a href="https://www.aspistrategist.org.au/holding-out-taiwan-urgently-needs-more-energy-storage-and-generation/" target="_blank">Holding out: Taiwan urgently needs more energy storage and generation — ASPI Strategist</a>. Taiwan can't just drill deeper for domestic oil and gas as the United States could, or switch on idle nuclear power plants. Mar 15, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn28">
+          <span class="fn-num">[28]</span>
+          <span class="fn-text"><a href="https://www.heritage.org/tidalwave/introduction/executive-summary" target="_blank">Executive Summary — TIDALWAVE, Heritage Foundation</a>. TIDALWAVE examined two primary systems that will affect the ability of the United States to project and sustain military power in a conflict with China.</span>
+        </li>
+        <li class="footnote-item" id="fn29">
+          <span class="fn-num">[29]</span>
+          <span class="fn-text"><a href="https://www.instituteforenergyresearch.org/international-issues/china-is-affected-by-the-iran-conflict-in-multiple-ways/" target="_blank">China Is Affected by the Iran Conflict in Multiple Ways — Institute for Energy Research</a>. A loss of Iranian oil would force China to find other sources that would be much more expensive than Iranian oil. Mar 10, 2026.</span>
+        </li>
+        <li class="footnote-item" id="fn30">
+          <span class="fn-num">[30]</span>
+          <span class="fn-text"><a href="https://www.politico.com/news/2026/03/12/iran-war-oil-market-disruption-00824791" target="_blank">Iran war is the largest oil supply disruption in history, report finds — Politico</a>. The U.S.-Israeli war with Iran has triggered the largest supply disruption in global oil market history. Mar 12, 2026.</span>
+        </li>
+      </ol>
+    </div>
+
+    <div style="margin-top: var(--space-8); font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-faint); text-align: center; letter-spacing: 0.06em;">
+      Report compiled March 31, 2026. All Heritage Foundation TIDALWAVE appendix content cited from primary sources at heritage.org/tidalwave. Iran conflict data reflects the situation as reported through March 30–31, 2026.
+    </div>
+  </div>
+</section>
+
+<!-- Leaflet Map Script -->
+<script>
+  // Initialize Hormuz/Middle East energy corridor map
+  const map = L.map('hormuz-map', {
+    center: [24, 65],
+    zoom: 4,
+    zoomControl: true,
+    scrollWheelZoom: true
+  });
+
+  // CartoDB Dark tiles
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  // Custom marker function
+  function makeMarker(color, size) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="
+        width: ${size || 14}px; height: ${size || 14}px;
+        background: ${color};
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.4);
+        box-shadow: 0 0 12px ${color}, 0 0 24px ${color}55;
+        position: relative;
+      "></div>`,
+      iconSize: [size || 14, size || 14],
+      iconAnchor: [(size || 14)/2, (size || 14)/2]
+    });
+  }
+
+  // Strait of Hormuz — RED — CLOSED
+  L.marker([26.5, 56.3], { icon: makeMarker('#ef4444', 18) })
+    .addTo(map)
+    .bindPopup(`
+      <div style="font-family: 'Share Tech Mono', monospace; background: #0f1114; color: #d8dce8; padding: 10px; min-width: 200px;">
+        <div style="color: #ef4444; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">STRAIT OF HORMUZ</div>
+        <div style="font-size: 0.65rem; color: #7a8098; margin-bottom: 6px;">26.5°N, 56.3°E</div>
+        <div style="background: rgba(239,68,68,0.15); border: 1px solid #ef4444; padding: 4px 8px; border-radius: 3px; font-size: 0.7rem; color: #ef4444; margin-bottom: 6px;">CLOSED — 95% REDUCTION</div>
+        <div style="font-size: 0.75rem; color: #a0a8c0;">Formally closed March 4, 2026. 20% of global oil supply. Tanker transits collapsed from 150+/day to ~13/day.</div>
+      </div>
+    `, { className: 'dark-popup' });
+
+  // Strait of Malacca — YELLOW — Strategic Redirect
+  L.marker([1.4, 103.8], { icon: makeMarker('#f59e0b', 16) })
+    .addTo(map)
+    .bindPopup(`
+      <div style="font-family: 'Share Tech Mono', monospace; background: #0f1114; color: #d8dce8; padding: 10px; min-width: 200px;">
+        <div style="color: #f59e0b; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">STRAIT OF MALACCA</div>
+        <div style="font-size: 0.65rem; color: #7a8098; margin-bottom: 6px;">1.4°N, 103.8°E</div>
+        <div style="background: rgba(245,158,11,0.15); border: 1px solid #f59e0b; padding: 4px 8px; border-radius: 3px; font-size: 0.7rem; color: #f59e0b; margin-bottom: 6px;">STRATEGIC REDIRECT — ELEVATED TRAFFIC</div>
+        <div style="font-size: 0.75rem; color: #a0a8c0;">TIDALWAVE's primary U.S. leverage chokepoint. Now absorbing diverted Hormuz flows. 80% of China's oil must pass through.</div>
+      </div>
+    `, { className: 'dark-popup' });
+
+  // Kharg Island Iran — ORANGE
+  L.marker([29.23, 50.32], { icon: makeMarker('#f97316', 14) })
+    .addTo(map)
+    .bindPopup(`
+      <div style="font-family: 'Share Tech Mono', monospace; background: #0f1114; color: #d8dce8; padding: 10px; min-width: 200px;">
+        <div style="color: #f97316; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">KHARG ISLAND, IRAN</div>
+        <div style="font-size: 0.65rem; color: #7a8098; margin-bottom: 6px;">29.23°N, 50.32°E</div>
+        <div style="background: rgba(249,115,22,0.15); border: 1px solid #f97316; padding: 4px 8px; border-radius: 3px; font-size: 0.7rem; color: #f97316; margin-bottom: 6px;">PRIMARY EXPORT TERMINAL</div>
+        <div style="font-size: 0.75rem; color: #a0a8c0;">Iran's primary crude oil export terminal. Handles ~90% of Iranian oil exports. Flows continued for "friendly nations" post-closure.</div>
+      </div>
+    `, { className: 'dark-popup' });
+
+  // Ras Laffan Qatar — CYAN/BLUE — STRUCK
+  L.marker([25.93, 51.53], { icon: makeMarker('#0ea5e9', 14) })
+    .addTo(map)
+    .bindPopup(`
+      <div style="font-family: 'Share Tech Mono', monospace; background: #0f1114; color: #d8dce8; padding: 10px; min-width: 200px;">
+        <div style="color: #0ea5e9; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">RAS LAFFAN LNG COMPLEX, QATAR</div>
+        <div style="font-size: 0.65rem; color: #7a8098; margin-bottom: 6px;">25.93°N, 51.53°E</div>
+        <div style="background: rgba(239,68,68,0.15); border: 1px solid #ef4444; padding: 4px 8px; border-radius: 3px; font-size: 0.7rem; color: #ef4444; margin-bottom: 6px;">STRUCK — MAR 18, 2026</div>
+        <div style="font-size: 0.75rem; color: #a0a8c0;">Iranian strikes caused 17% reduction in Qatar's LNG production capacity. Analysts estimate 3–5 years to repair. Force majeure declared.</div>
+      </div>
+    `, { className: 'dark-popup' });
+
+  // Yanbu Terminal Saudi Arabia — PURPLE — Bypass Route
+  L.marker([24.1, 38.1], { icon: makeMarker('#a78bfa', 14) })
+    .addTo(map)
+    .bindPopup(`
+      <div style="font-family: 'Share Tech Mono', monospace; background: #0f1114; color: #d8dce8; padding: 10px; min-width: 200px;">
+        <div style="color: #a78bfa; font-size: 0.8rem; font-weight: bold; margin-bottom: 4px;">YANBU TERMINAL, SAUDI ARABIA</div>
+        <div style="font-size: 0.65rem; color: #7a8098; margin-bottom: 6px;">24.1°N, 38.1°E</div>
+        <div style="background: rgba(167,139,250,0.15); border: 1px solid #a78bfa; padding: 4px 8px; border-radius: 3px; font-size: 0.7rem; color: #a78bfa; margin-bottom: 6px;">BYPASS ROUTE — 5M BPD CAPACITY</div>
+        <div style="font-size: 0.75rem; color: #a0a8c0;">Saudi Arabia and UAE retain pipeline capacity to reroute ~5 million bpd via Yanbu terminal on Red Sea, bypassing the Strait of Hormuz.</div>
+      </div>
+    `, { className: 'dark-popup' });
+
+  // Add chokepoint zone overlay for Hormuz
+  L.circle([26.5, 56.3], {
+    color: '#ef4444',
+    fillColor: '#ef4444',
+    fillOpacity: 0.08,
+    radius: 150000,
+    weight: 1
+  }).addTo(map);
+
+  // Add a subtle arc/line suggesting flow diversion (Hormuz → Malacca)
+  // Waypoints along the route
+  const flowPath = [
+    [26.5, 56.3],   // Hormuz
+    [22.0, 60.0],   // Gulf of Oman
+    [15.0, 65.0],   // Arabian Sea
+    [8.0, 77.0],    // India SW coast
+    [3.0, 90.0],    // Bay of Bengal
+    [1.4, 103.8]    // Malacca
+  ];
+
+  L.polyline(flowPath, {
+    color: '#f59e0b',
+    weight: 1.5,
+    opacity: 0.4,
+    dashArray: '6, 8'
+  }).addTo(map);
+
+  // Footnote toggle
+  function toggleFootnotes() {
+    const toggle = document.getElementById('fn-toggle');
+    const body = document.getElementById('fn-body');
+    toggle.classList.toggle('open');
+    body.classList.toggle('open');
+    const icon = toggle.querySelector('.ft-icon');
+    const arrow = toggle.querySelector('span:first-child');
+    if (body.classList.contains('open')) {
+      icon.textContent = 'COLLAPSE REFERENCES [1–30]';
+      arrow.textContent = '▲';
+    } else {
+      icon.textContent = 'EXPAND REFERENCES [1–30]';
+      arrow.textContent = '▼';
+    }
+  }
+
+  // Override the inline onclick to also handle body display (body starts open, make it togglable)
+  // Footnotes start open — toggle collapses
+  document.getElementById('fn-body').classList.add('open');
+  document.getElementById('fn-toggle').classList.add('open');
+</script>
+
+<!-- Style Leaflet popups dark -->
+<style>
+.leaflet-popup-content-wrapper {
+  background: #0f1114 !important;
+  border: 1px solid rgba(14,165,233,0.3) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.8) !important;
+  padding: 0 !important;
+}
+.leaflet-popup-content { margin: 0 !important; }
+.leaflet-popup-tip { background: #0f1114 !important; }
+.leaflet-popup-close-button { color: #7a8098 !important; top: 6px !important; right: 6px !important; }
+.leaflet-popup-close-button:hover { color: #0ea5e9 !important; }
+</style>
+
+</body>
+</html>
