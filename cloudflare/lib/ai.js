@@ -7,6 +7,39 @@ const PROVIDERS = [
 ];
 
 const AI_CONFIG_KV_KEY = 'ai:config:v1';
+const AI_MODELS_CACHE_PREFIX = 'ai:models:v1:';
+const AI_MODELS_CACHE_TTL_SECONDS = 6 * 60 * 60;
+
+const FALLBACK_MODELS = {
+  perplexity: [
+    { id: 'sonar-pro', name: 'sonar-pro' },
+    { id: 'sonar', name: 'sonar' },
+    { id: 'sonar-deep-research', name: 'sonar-deep-research' },
+  ],
+  openrouter: [
+    { id: 'openai/gpt-4o-mini', name: 'OpenAI: GPT-4o Mini' },
+    { id: 'anthropic/claude-sonnet-4', name: 'Anthropic: Claude Sonnet 4' },
+    { id: 'google/gemini-2.0-flash-001', name: 'Google: Gemini 2.0 Flash' },
+  ],
+  openai: [
+    { id: 'gpt-4o', name: 'gpt-4o' },
+    { id: 'gpt-4o-mini', name: 'gpt-4o-mini' },
+    { id: 'gpt-4.1', name: 'gpt-4.1' },
+  ],
+  anthropic: [
+    { id: 'claude-sonnet-4-20250514', name: 'Claude Sonnet 4' },
+    { id: 'claude-opus-4-20250514', name: 'Claude Opus 4' },
+    { id: 'claude-3-5-haiku-20241022', name: 'Claude 3.5 Haiku' },
+  ],
+  google: [
+    { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash' },
+    { id: 'gemini-1.5-pro', name: 'Gemini 1.5 Pro' },
+    { id: 'gemini-1.5-flash', name: 'Gemini 1.5 Flash' },
+  ],
+  local: [
+    { id: 'llama3.1', name: 'llama3.1' },
+  ],
+};
 
 export function listProviders() {
   return PROVIDERS;
@@ -152,6 +185,39 @@ export async function testAIConnection(env, override = {}) {
   }
 }
 
+export async function listAIModels(env, override = {}) {
+  const config = await getEffectiveAIConfig(env);
+  const provider = override.provider || config.provider;
+  const providerConfig = {
+    ...(config.providers[provider] || {}),
+    ...(override.apiKey ? { apiKey: override.apiKey } : {}),
+    ...(override.baseUrl ? { baseUrl: override.baseUrl } : {}),
+  };
+  const cacheKey = `${AI_MODELS_CACHE_PREFIX}${provider}`;
+
+  if (!override.apiKey && env.CONFIG_KV) {
+    const cached = await env.CONFIG_KV.get(cacheKey);
+    if (cached) {
+      return { provider, source: 'cache', models: JSON.parse(cached) };
+    }
+  }
+
+  try {
+    const models = await fetchProviderModels(provider, providerConfig);
+    if (models.length > 0 && !override.apiKey && env.CONFIG_KV) {
+      await env.CONFIG_KV.put(cacheKey, JSON.stringify(models), { expirationTtl: AI_MODELS_CACHE_TTL_SECONDS });
+    }
+    return { provider, source: 'provider', models };
+  } catch (err) {
+    return {
+      provider,
+      source: 'fallback',
+      error: err.message,
+      models: FALLBACK_MODELS[provider] || [],
+    };
+  }
+}
+
 export async function generateReportText(env, systemPrompt, userPrompt) {
   const config = await getEffectiveAIConfig(env);
   const providerConfig = config.providers[config.provider];
@@ -203,6 +269,91 @@ async function callModel(provider, config, prompt, options = {}) {
   if (provider === 'anthropic') return callAnthropic(config, prompt, options);
   if (provider === 'google') return callGoogle(config, prompt, options);
   return callOpenAICompatible(config, prompt, options);
+}
+
+async function fetchProviderModels(provider, config) {
+  if (provider === 'openrouter') return fetchOpenRouterModels(config);
+  if (provider === 'openai') return fetchOpenAIModels(config);
+  if (provider === 'anthropic') return fetchAnthropicModels(config);
+  if (provider === 'google') return fetchGoogleModels(config);
+  if (provider === 'local') return fetchLocalModels(config);
+
+  // Perplexity does not expose a stable public model-list endpoint in this app.
+  return FALLBACK_MODELS[provider] || [];
+}
+
+async function fetchOpenRouterModels(config) {
+  const response = await fetch(`${config.baseUrl || 'https://openrouter.ai/api/v1'}/models`, {
+    headers: {
+      accept: 'application/json',
+      ...(config.apiKey ? { authorization: `Bearer ${config.apiKey}` } : {}),
+      ...(config.headers || {}),
+    },
+  });
+  if (!response.ok) throw new Error(`Model list HTTP ${response.status}: ${await response.text()}`);
+  const data = await response.json();
+  return (data.data || []).map((model) => ({
+    id: model.id,
+    name: model.name || model.id,
+    description: model.description || '',
+    contextLength: model.context_length || model.contextLength || null,
+    pricing: model.pricing || null,
+  })).filter((model) => model.id);
+}
+
+async function fetchOpenAIModels(config) {
+  if (!config.apiKey) throw new Error('OpenAI API key required to list models');
+  const response = await fetch(`${config.baseUrl || 'https://api.openai.com/v1'}/models`, {
+    headers: { authorization: `Bearer ${config.apiKey}` },
+  });
+  if (!response.ok) throw new Error(`Model list HTTP ${response.status}: ${await response.text()}`);
+  const data = await response.json();
+  return (data.data || [])
+    .map((model) => ({ id: model.id, name: model.id, owner: model.owned_by || '' }))
+    .filter((model) => model.id)
+    .sort((a, b) => a.id.localeCompare(b.id));
+}
+
+async function fetchAnthropicModels(config) {
+  if (!config.apiKey) throw new Error('Anthropic API key required to list models');
+  const response = await fetch(`${config.baseUrl || 'https://api.anthropic.com'}/v1/models`, {
+    headers: {
+      'x-api-key': config.apiKey,
+      'anthropic-version': '2023-06-01',
+    },
+  });
+  if (!response.ok) throw new Error(`Model list HTTP ${response.status}: ${await response.text()}`);
+  const data = await response.json();
+  return (data.data || []).map((model) => ({
+    id: model.id,
+    name: model.display_name || model.id,
+    createdAt: model.created_at || null,
+  })).filter((model) => model.id);
+}
+
+async function fetchGoogleModels(config) {
+  if (!config.apiKey) throw new Error('Google API key required to list models');
+  const response = await fetch(`${config.baseUrl || 'https://generativelanguage.googleapis.com'}/v1beta/models?pageSize=1000&key=${encodeURIComponent(config.apiKey)}`);
+  if (!response.ok) throw new Error(`Model list HTTP ${response.status}: ${await response.text()}`);
+  const data = await response.json();
+  return (data.models || []).map((model) => ({
+    id: (model.name || '').replace(/^models\//, ''),
+    name: model.displayName || model.baseModelId || model.name,
+    description: model.description || '',
+    inputTokenLimit: model.inputTokenLimit || null,
+    outputTokenLimit: model.outputTokenLimit || null,
+    supportedGenerationMethods: model.supportedGenerationMethods || [],
+  })).filter((model) => model.id && model.supportedGenerationMethods.includes('generateContent'));
+}
+
+async function fetchLocalModels(config) {
+  const response = await fetch(`${config.baseUrl || 'http://localhost:11434/v1'}/models`);
+  if (!response.ok) throw new Error(`Model list HTTP ${response.status}: ${await response.text()}`);
+  const data = await response.json();
+  return (data.data || []).map((model) => ({
+    id: model.id,
+    name: model.id,
+  })).filter((model) => model.id);
 }
 
 async function callOpenAICompatible(config, prompt, options) {

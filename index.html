@@ -2158,7 +2158,11 @@
                   </div>
                   <div class="form-field">
                     <label class="form-label" for="ai-model">Model Name</label>
-                    <input class="form-input" type="text" id="ai-model" placeholder="e.g. sonar-pro or openai/gpt-4o-mini">
+                    <div class="input-with-btn">
+                      <input class="form-input" type="text" id="ai-model" list="ai-model-options" placeholder="e.g. sonar-pro or openai/gpt-4o-mini">
+                      <button class="toggle-vis-btn" onclick="loadAIModels(true)" type="button">Models</button>
+                    </div>
+                    <datalist id="ai-model-options"></datalist>
                   </div>
                 </div>
 
@@ -3073,8 +3077,10 @@ async function init() {
   // Show/hide base URL field when provider changes
   document.getElementById('ai-provider').addEventListener('change', function() {
     updateAIProviderFields();
+    loadAIModels(false);
   });
   updateAIProviderFields();
+  loadAIModels(false);
 }
 
 /* ── Config loading ─────────────────────────────────────── */
@@ -3840,6 +3846,56 @@ function updateAIProviderFields() {
   if (baseUrlInput && !baseUrlInput.value) baseUrlInput.placeholder = defaults.baseUrl;
   if (baseUrlField) baseUrlField.style.display = defaults.showBaseUrl ? 'block' : 'none';
   if (instructions) instructions.style.display = 'none';
+}
+
+async function loadAIModels(showStatus = false) {
+  const provider = document.getElementById('ai-provider')?.value || 'perplexity';
+  const apiKey = document.getElementById('ai-api-key')?.value || '';
+  const baseUrl = document.getElementById('ai-base-url')?.value || '';
+  const modelInput = document.getElementById('ai-model');
+  const optionsEl = document.getElementById('ai-model-options');
+  const result = document.getElementById('ai-test-result');
+  if (!optionsEl) return;
+
+  if (showStatus && result) {
+    result.style.display = 'block';
+    result.style.color = '';
+    result.textContent = 'Loading available models...';
+  }
+
+  try {
+    const res = await fetch('/api/ai/models', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ provider, apiKey, baseUrl })
+    });
+    const data = await res.json();
+    if (!res.ok || !data.success) throw new Error(data.error || 'Failed to load models');
+
+    const models = data.data?.models || [];
+    optionsEl.innerHTML = models.slice(0, 500).map((model) => {
+      const label = model.name && model.name !== model.id ? `${model.name} (${model.id})` : model.id;
+      return `<option value="${escHtml(model.id)}" label="${escHtml(label)}"></option>`;
+    }).join('');
+
+    if (modelInput && !modelInput.value && models.length > 0) {
+      modelInput.placeholder = models[0].id;
+    }
+
+    if (showStatus && result) {
+      const source = data.data?.source || 'provider';
+      const suffix = data.data?.error ? `; fallback used: ${data.data.error}` : '';
+      result.textContent = `Loaded ${models.length} model option(s) from ${source}${suffix}`;
+      result.style.color = source === 'fallback' ? '#facc15' : '#4ade80';
+    }
+  } catch (err) {
+    const defaults = AI_PROVIDER_DEFAULTS[provider] ? [AI_PROVIDER_DEFAULTS[provider].model] : [];
+    optionsEl.innerHTML = defaults.map((id) => `<option value="${escHtml(id)}"></option>`).join('');
+    if (showStatus && result) {
+      result.textContent = 'Could not load models: ' + err.message;
+      result.style.color = '#f87171';
+    }
+  }
 }
 
 function toggleApiKeyVisibility() {

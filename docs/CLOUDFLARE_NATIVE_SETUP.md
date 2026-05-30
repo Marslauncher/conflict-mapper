@@ -141,10 +141,14 @@ Save a provider key from the deployed app:
 3. Select a provider, for example `OpenRouter`.
 4. Enter a model, for example `openai/gpt-4o-mini`.
 5. Paste the provider API key.
-6. Click `Test Connection`.
-7. Click `Save AI Config`.
+6. Click `Models` to load the latest model list from the selected provider.
+7. Select or type the model ID.
+8. Click `Test Connection`.
+9. Click `Save AI Config`.
 
 The key is encrypted server-side and stored in `CONFIG_KV`; it is not written to the static site or browser storage.
+
+The Model Name field uses `/api/ai/models`. The endpoint queries live provider model-list APIs when available, caches saved-provider lookups in KV for six hours, and falls back to curated defaults if a provider does not expose model discovery or credentials are missing.
 
 Trigger a report manually from the Pages API:
 
