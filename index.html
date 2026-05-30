@@ -2020,6 +2020,7 @@
             <p class="auth-subtitle">Restricted — Authentication Required</p>
           </div>
           <form class="auth-form" id="auth-form" autocomplete="off">
+            <input type="text" name="username" value="admin" autocomplete="username" hidden>
             <div>
               <label class="form-label" for="admin-password">Access Code</label>
               <input
@@ -2047,6 +2048,10 @@
             <button class="btn btn-secondary btn-sm" id="admin-save-btn">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
               Save Changes
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="logoutAdmin()" type="button">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              Log Out
             </button>
             <button class="btn btn-ghost btn-sm" onclick="closeAdmin()">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -2144,6 +2149,7 @@
                     <label class="form-label" for="ai-provider">Provider</label>
                     <select class="form-select" id="ai-provider">
                       <option value="perplexity">Perplexity</option>
+                      <option value="openrouter">OpenRouter</option>
                       <option value="openai">OpenAI</option>
                       <option value="anthropic">Anthropic (Claude)</option>
                       <option value="google">Google (Gemini)</option>
@@ -2152,7 +2158,7 @@
                   </div>
                   <div class="form-field">
                     <label class="form-label" for="ai-model">Model Name</label>
-                    <input class="form-input" type="text" id="ai-model" placeholder="e.g. llama-3.1-sonar-large-128k-online">
+                    <input class="form-input" type="text" id="ai-model" placeholder="e.g. sonar-pro or openai/gpt-4o-mini">
                   </div>
                 </div>
 
@@ -2180,6 +2186,7 @@
                   </button>
                 </div>
                 <div id="ai-test-result" style="margin-top:var(--space-3);font-family:var(--font-mono);font-size:0.68rem;color:var(--color-text-faint);display:none;"></div>
+                <div id="ai-save-instructions" style="margin-top:var(--space-3);font-family:var(--font-mono);font-size:0.66rem;color:var(--color-text-faint);display:none;white-space:pre-wrap;background:var(--color-surface-2);border:1px solid var(--color-border-dim);border-radius:var(--radius-sm);padding:var(--space-3);"></div>
               </div>
             </div>
 
@@ -2881,6 +2888,17 @@
             <div class="admin-section" id="section-diagnostics">
               <h2 class="admin-section-title">System Diagnostics</h2>
               <p class="admin-section-desc">Automated health check of all platform components</p>
+              <div style="display:grid;grid-template-columns:minmax(220px,1fr) auto auto;gap:var(--space-2);align-items:end;margin-bottom:var(--space-4)">
+                <div>
+                  <label class="form-label" for="diag-api-base">API Base URL</label>
+                  <input class="form-input" type="url" id="diag-api-base" placeholder="Same origin or https://your-tunnel.trycloudflare.com">
+                </div>
+                <button class="btn btn-secondary" onclick="saveDiagnosticsApiBase()" type="button">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg>
+                  Save
+                </button>
+                <button class="btn btn-ghost" onclick="resetDiagnosticsApiBase()" type="button">Same Origin</button>
+              </div>
               <div style="margin-bottom:var(--space-4)">
                 <button class="btn btn-primary" onclick="runDiagnostics()" id="diag-run-btn">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -2897,24 +2915,25 @@
               <div class="password-form">
                 <div class="config-card-title" style="margin-bottom:var(--space-1)">Change Access Code</div>
                 <div class="config-card-desc" style="margin-bottom:var(--space-4)">
-                  Updates the password stored in nav-config.json. Export config to persist.
+                  Updates the access code stored in this browser.
                 </div>
-                <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+                <form id="password-change-form" autocomplete="off" style="display:flex;flex-direction:column;gap:var(--space-3)" onsubmit="changePassword(event)">
+                  <input type="text" name="username" value="admin" autocomplete="username" hidden>
                   <div>
                     <label class="form-label" for="pw-current">Current Code</label>
-                    <input class="form-input" type="password" id="pw-current" placeholder="Current access code">
+                    <input class="form-input" type="password" id="pw-current" placeholder="Current access code" autocomplete="current-password" required>
                   </div>
                   <div>
                     <label class="form-label" for="pw-new">New Code</label>
-                    <input class="form-input" type="password" id="pw-new" placeholder="New access code">
+                    <input class="form-input" type="password" id="pw-new" placeholder="New access code" autocomplete="new-password" required>
                   </div>
                   <div>
                     <label class="form-label" for="pw-confirm">Confirm New Code</label>
-                    <input class="form-input" type="password" id="pw-confirm" placeholder="Confirm new access code">
+                    <input class="form-input" type="password" id="pw-confirm" placeholder="Confirm new access code" autocomplete="new-password" required>
                   </div>
                   <p class="auth-error" id="pw-error"></p>
-                  <button class="btn btn-primary" onclick="changePassword()">Update Access Code</button>
-                </div>
+                  <button class="btn btn-primary" type="submit">Update Access Code</button>
+                </form>
               </div>
             </div>
 
@@ -2960,6 +2979,10 @@ let _storedConfig = null;
 let _storedTheme = null;
 let _rptPollingTimer = null;
 let _rptRunning = false;
+
+const STORAGE_CONFIG_KEY = 'conflictMapper.navConfig.v1';
+const STORAGE_THEME_KEY = 'conflictMapper.theme.v1';
+const STORAGE_DIAG_API_BASE_KEY = 'conflictMapper.diagnostics.apiBase.v1';
 
 /* ── Country data ───────────────────────────────────────── */
 const COUNTRIES = [
@@ -3044,24 +3067,40 @@ async function init() {
   renderWelcomeCards();
   updateStatTime();
   setupEvents();
+  initDiagnosticsSettings();
   updateConfigPreview();
 
   // Show/hide base URL field when provider changes
   document.getElementById('ai-provider').addEventListener('change', function() {
-    const baseUrlField = document.getElementById('ai-base-url-field');
-    baseUrlField.style.display = this.value === 'local' ? 'block' : 'none';
+    updateAIProviderFields();
   });
+  updateAIProviderFields();
 }
 
 /* ── Config loading ─────────────────────────────────────── */
 function loadStoredConfig() {
   if (_storedConfig) return _storedConfig;
+  try {
+    const raw = localStorage.getItem(STORAGE_CONFIG_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || !Array.isArray(parsed.nav)) return null;
+    _storedConfig = parsed;
+    return JSON.parse(JSON.stringify(parsed));
+  } catch(e) {
+    return null;
+  }
   return null;
 }
 
 function saveConfig(config) {
   _storedConfig = JSON.parse(JSON.stringify(config));
   navConfig = config;
+  try {
+    localStorage.setItem(STORAGE_CONFIG_KEY, JSON.stringify(_storedConfig));
+  } catch(e) {
+    showToast('Config saved for this tab only', true);
+  }
   updateConfigPreview();
 }
 
@@ -3074,7 +3113,12 @@ async function fetchConfig() {
 }
 
 function getThemePref() {
-  return _storedTheme;
+  if (_storedTheme) return _storedTheme;
+  try {
+    return localStorage.getItem(STORAGE_THEME_KEY);
+  } catch(e) {
+    return null;
+  }
 }
 
 /* ── Theme ──────────────────────────────────────────────── */
@@ -3091,6 +3135,9 @@ function setTheme(theme) {
     btn.setAttribute('aria-label', 'Switch to dark mode');
   }
   _storedTheme = theme;
+  try {
+    localStorage.setItem(STORAGE_THEME_KEY, theme);
+  } catch(e) {}
 }
 
 function toggleTheme() {
@@ -3447,6 +3494,20 @@ function setSessionAuth(val) {
   adminAuthenticated = val;
 }
 
+function logoutAdmin() {
+  setSessionAuth(false);
+  document.getElementById('admin-content').classList.remove('visible');
+  document.getElementById('admin-auth').classList.remove('hidden');
+  const authError = document.getElementById('auth-error');
+  if (authError) authError.classList.remove('visible');
+  const passwordInput = document.getElementById('admin-password');
+  if (passwordInput) {
+    passwordInput.value = '';
+    passwordInput.focus();
+  }
+  showToast('Logged out');
+}
+
 /* ── Auth form ──────────────────────────────────────────── */
 document.getElementById('auth-form').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -3756,6 +3817,31 @@ function updateConfigPreview() {
 }
 
 /* ── AI Config ──────────────────────────────────────────── */
+const AI_PROVIDER_DEFAULTS = {
+  perplexity: { model: 'sonar-pro', apiPlaceholder: 'pplx-...', baseUrl: 'https://api.perplexity.ai', showBaseUrl: false },
+  openrouter: { model: 'openai/gpt-4o-mini', apiPlaceholder: 'sk-or-...', baseUrl: 'https://openrouter.ai/api/v1', showBaseUrl: true },
+  openai: { model: 'gpt-4o', apiPlaceholder: 'sk-...', baseUrl: 'https://api.openai.com/v1', showBaseUrl: false },
+  anthropic: { model: 'claude-sonnet-4-20250514', apiPlaceholder: 'sk-ant-...', baseUrl: 'https://api.anthropic.com', showBaseUrl: false },
+  google: { model: 'gemini-2.0-flash', apiPlaceholder: 'AIza...', baseUrl: 'https://generativelanguage.googleapis.com', showBaseUrl: false },
+  local: { model: 'llama3.1', apiPlaceholder: 'optional', baseUrl: 'http://localhost:11434/v1', showBaseUrl: true },
+};
+
+function updateAIProviderFields() {
+  const provider = document.getElementById('ai-provider')?.value || 'perplexity';
+  const defaults = AI_PROVIDER_DEFAULTS[provider] || AI_PROVIDER_DEFAULTS.perplexity;
+  const modelInput = document.getElementById('ai-model');
+  const apiKeyInput = document.getElementById('ai-api-key');
+  const baseUrlInput = document.getElementById('ai-base-url');
+  const baseUrlField = document.getElementById('ai-base-url-field');
+  const instructions = document.getElementById('ai-save-instructions');
+
+  if (modelInput && !modelInput.value) modelInput.placeholder = defaults.model;
+  if (apiKeyInput) apiKeyInput.placeholder = defaults.apiPlaceholder;
+  if (baseUrlInput && !baseUrlInput.value) baseUrlInput.placeholder = defaults.baseUrl;
+  if (baseUrlField) baseUrlField.style.display = defaults.showBaseUrl ? 'block' : 'none';
+  if (instructions) instructions.style.display = 'none';
+}
+
 function toggleApiKeyVisibility() {
   const input = document.getElementById('ai-api-key');
   const btn = document.querySelector('.toggle-vis-btn');
@@ -3800,6 +3886,11 @@ async function testAIConnection() {
 }
 
 async function saveAIConfig() {
+  const instructions = document.getElementById('ai-save-instructions');
+  if (instructions) {
+    instructions.style.display = 'block';
+    instructions.textContent = 'Saving encrypted provider configuration...';
+  }
   try {
     const provider = document.getElementById('ai-provider')?.value;
     const apiKey = document.getElementById('ai-api-key')?.value;
@@ -3810,14 +3901,21 @@ async function saveAIConfig() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ provider, apiKey, model, baseUrl })
     });
+    const data = await res.json().catch(() => ({}));
     if (res.ok) {
-      showToast('AI configuration saved');
+      const message = data.data?.message || 'AI configuration saved';
+      showToast(message);
+      if (instructions) {
+        instructions.textContent = `${message}\n\nProvider: ${provider}\nModel: ${model || AI_PROVIDER_DEFAULTS[provider]?.model || 'provider default'}\nStorage: Cloudflare KV encrypted with AI_CONFIG_ENCRYPTION_KEY`;
+      }
     } else {
-      const data = await res.json().catch(() => ({}));
       throw new Error(data.error || 'Failed to save');
     }
   } catch(err) {
-    showToast('Saved locally (API: ' + err.message + ')', false);
+    showToast('AI config not saved: ' + err.message, true);
+    if (instructions) {
+      instructions.textContent = `AI config was not saved.\n\n${err.message}\n\nBootstrap once with:\nnpx wrangler pages secret put AI_CONFIG_ENCRYPTION_KEY --project-name conflict-mapper\ncd workers/report-cron && npx wrangler secret put AI_CONFIG_ENCRYPTION_KEY`;
+    }
   }
 }
 
@@ -4243,7 +4341,8 @@ async function unflagArticle(id) {
 }
 
 /* ── Password change ────────────────────────────────────── */
-function changePassword() {
+function changePassword(event) {
+  if (event) event.preventDefault();
   const current = document.getElementById('pw-current').value;
   const next = document.getElementById('pw-new').value;
   const confirm = document.getElementById('pw-confirm').value;
@@ -4589,6 +4688,92 @@ function updateStatTime() {
 }
 
 /* ── System Diagnostics ─────────────────────────────────── */
+function initDiagnosticsSettings() {
+  const input = document.getElementById('diag-api-base');
+  if (input) input.value = getDiagnosticsApiBase();
+}
+
+function normalizeDiagnosticsApiBase(value) {
+  const trimmed = String(value || '').trim().replace(/\/+$/, '');
+  if (!trimmed) return '';
+  const url = new URL(trimmed, window.location.origin);
+  if (!['http:', 'https:'].includes(url.protocol)) {
+    throw new Error('API Base URL must use HTTP or HTTPS');
+  }
+  return url.origin === window.location.origin && url.pathname === '/' ? '' : url.href.replace(/\/+$/, '');
+}
+
+function getDiagnosticsApiBase() {
+  try {
+    return localStorage.getItem(STORAGE_DIAG_API_BASE_KEY) || '';
+  } catch(e) {
+    return '';
+  }
+}
+
+function saveDiagnosticsApiBase() {
+  try {
+    const input = document.getElementById('diag-api-base');
+    const base = normalizeDiagnosticsApiBase(input ? input.value : '');
+    localStorage.setItem(STORAGE_DIAG_API_BASE_KEY, base);
+    if (input) input.value = base;
+    showToast(base ? 'Diagnostics API base saved' : 'Diagnostics using same origin');
+  } catch(err) {
+    showToast(err.message, true);
+  }
+}
+
+function resetDiagnosticsApiBase() {
+  try {
+    localStorage.removeItem(STORAGE_DIAG_API_BASE_KEY);
+  } catch(e) {}
+  const input = document.getElementById('diag-api-base');
+  if (input) input.value = '';
+  showToast('Diagnostics using same origin');
+}
+
+function diagnosticsApiUrl(path) {
+  const input = document.getElementById('diag-api-base');
+  let base = getDiagnosticsApiBase();
+  if (input && input.value.trim() && input.value.trim().replace(/\/+$/, '') !== base) {
+    base = normalizeDiagnosticsApiBase(input.value);
+  }
+  return base ? `${base}${path}` : path;
+}
+
+function isHtmlResponse(text) {
+  return /^\s*(<!doctype\s+html|<html|<head|<body)/i.test(text || '');
+}
+
+async function fetchDiagnosticsJson(path, options = {}) {
+  const url = diagnosticsApiUrl(path);
+  const res = await fetch(url, options);
+  const contentType = res.headers.get('content-type') || '';
+  const body = await res.text();
+
+  if (!contentType.includes('application/json')) {
+    const target = getDiagnosticsApiBase() || window.location.origin;
+    const message = isHtmlResponse(body)
+      ? `Backend API unavailable at ${target}; received HTML instead of JSON`
+      : `Expected JSON from ${path}; received ${contentType || 'unknown content type'}`;
+    const err = new Error(message);
+    err.backendUnavailable = isHtmlResponse(body);
+    err.status = res.status;
+    throw err;
+  }
+
+  let data;
+  try {
+    data = body ? JSON.parse(body) : {};
+  } catch(err) {
+    const parseErr = new Error(`Invalid JSON from ${path}: ${err.message}`);
+    parseErr.status = res.status;
+    throw parseErr;
+  }
+
+  return { res, data };
+}
+
 async function runDiagnostics() {
   const btn = document.getElementById('diag-run-btn');
   const container = document.getElementById('diag-results');
@@ -4597,14 +4782,14 @@ async function runDiagnostics() {
   if (btn) { btn.disabled = true; btn.textContent = '⏳ Running...'; }
 
   const tests = [
-    { name: 'Server Status',      fn: diagServerStatus },
-    { name: 'AI Provider Config', fn: diagAIConfig },
-    { name: 'AI Connection',      fn: diagAIConnection },
-    { name: 'RSS Feed Config',    fn: diagRSSConfig },
-    { name: 'RSS Feed Articles',  fn: diagRSSArticles },
-    { name: 'Geocoding',          fn: diagGeocoding },
-    { name: 'Report Engine',      fn: diagReportEngine },
-    { name: 'Logging System',     fn: diagLogging },
+    { name: 'Server Status',      fn: diagServerStatus, requiresApi: true },
+    { name: 'AI Provider Config', fn: diagAIConfig, requiresApi: true },
+    { name: 'AI Connection',      fn: diagAIConnection, requiresApi: true },
+    { name: 'RSS Feed Config',    fn: diagRSSConfig, requiresApi: true },
+    { name: 'RSS Feed Articles',  fn: diagRSSArticles, requiresApi: true },
+    { name: 'Geocoding',          fn: diagGeocoding, requiresApi: true },
+    { name: 'Report Engine',      fn: diagReportEngine, requiresApi: true },
+    { name: 'Logging System',     fn: diagLogging, requiresApi: true },
     { name: 'Static Files',       fn: diagStaticFiles },
     { name: 'Pages',              fn: diagPages },
   ];
@@ -4614,8 +4799,17 @@ async function runDiagnostics() {
     '<div id="diag-summary" style="margin-top:var(--space-4)"></div>';
 
   let passed = 0;
+  let skipped = 0;
+  let backendUnavailable = false;
+  let backendMessage = '';
 
   for (let i = 0; i < tests.length; i++) {
+    if (backendUnavailable && tests[i].requiresApi) {
+      skipped++;
+      updateDiagCard(i, 'skip', backendMessage, 0);
+      continue;
+    }
+
     updateDiagCard(i, 'running', 'Testing...', null);
     const t0 = performance.now();
     let result;
@@ -4626,6 +4820,11 @@ async function runDiagnostics() {
     }
     const ms = Math.round(performance.now() - t0);
     if (result.pass) passed++;
+    if (result.skip) skipped++;
+    if (result.backendUnavailable) {
+      backendUnavailable = true;
+      backendMessage = result.message;
+    }
     updateDiagCard(i, result.pass ? 'pass' : (result.skip ? 'skip' : 'fail'), result.message, ms);
   }
 
@@ -4633,7 +4832,8 @@ async function runDiagnostics() {
   const summaryEl = document.getElementById('diag-summary');
   if (summaryEl) {
     const allPassed = passed === tests.length;
-    const color = allPassed ? '#4ade80' : (passed >= tests.length * 0.7 ? '#facc15' : '#f87171');
+    const failed = tests.length - passed - skipped;
+    const color = allPassed ? '#4ade80' : (failed === 0 ? '#facc15' : '#f87171');
     summaryEl.innerHTML = `
       <div style="
         border:1px solid ${color}33;
@@ -4644,13 +4844,13 @@ async function runDiagnostics() {
         align-items:center;
         gap:var(--space-4);
       ">
-        <div style="font-size:2.2rem;line-height:1">${allPassed ? '✅' : (passed >= tests.length * 0.7 ? '⚠️' : '❌')}</div>
+        <div style="font-size:2.2rem;line-height:1">${allPassed ? '✅' : (failed === 0 ? '⚠️' : '❌')}</div>
         <div>
           <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:${color};letter-spacing:0.06em">
-            ${passed} / ${tests.length} PASSED
+            ${passed} / ${tests.length} PASSED${skipped ? ` · ${skipped} SKIPPED` : ''}
           </div>
           <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--color-text-faint);margin-top:2px">
-            ${allPassed ? 'All systems operational' : `${tests.length - passed} check(s) failed — review details above`}
+            ${allPassed ? 'All systems operational' : `${failed} check(s) failed — review details above`}
           </div>
         </div>
       </div>
@@ -4713,17 +4913,24 @@ function diagStatusBadge(status) {
 
 /* Diagnostic test functions */
 async function diagServerStatus() {
-  const res = await fetch('/api/status');
-  const data = await res.json();
-  if (data.success || res.ok) return { pass: true, message: 'Server is online and responding' };
+  try {
+    const { res, data } = await fetchDiagnosticsJson('/api/status');
+    if (data.success || res.ok) return { pass: true, message: 'Server is online and responding' };
+  } catch(err) {
+    const msg = err.message || 'Backend API unavailable';
+    return {
+      pass: false,
+      message: msg,
+      backendUnavailable: !!err.backendUnavailable || /failed to fetch|networkerror|load failed/i.test(msg),
+    };
+  }
   return { pass: false, message: 'Server returned non-success response' };
 }
 
 async function diagAIConfig() {
-  const res = await fetch('/api/ai/config');
+  const { res, data } = await fetchDiagnosticsJson('/api/ai/config');
   if (!res.ok) return { pass: false, message: `HTTP ${res.status}` };
-  const data = await res.json();
-  const cfg = data.data || data;
+  const cfg = data.data?.config || data.config || data.data || data;
   const provider = cfg.provider || cfg.activeProvider || '';
   const hasKey = !!(cfg.apiKey || cfg.api_key || (cfg.providers && cfg.providers[provider]?.apiKey));
   if (provider && hasKey) return { pass: true, message: `Provider: ${provider} — API key configured` };
@@ -4732,27 +4939,24 @@ async function diagAIConfig() {
 }
 
 async function diagAIConnection() {
-  const res = await fetch('/api/ai/test', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+  const { res, data } = await fetchDiagnosticsJson('/api/ai/test', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
   if (!res.ok) return { pass: false, message: `HTTP ${res.status}` };
-  const data = await res.json();
   const inner = data.data || data;
   if (data.success || inner.success) return { pass: true, message: inner.message || data.message || 'AI connection verified' };
   return { pass: false, message: inner.message || data.error || 'AI test failed' };
 }
 
 async function diagRSSConfig() {
-  const res = await fetch('/api/feeds');
+  const { res, data } = await fetchDiagnosticsJson('/api/feeds');
   if (!res.ok) return { pass: false, message: `HTTP ${res.status}` };
-  const data = await res.json();
   const feeds = data.data?.feeds || data.feeds || (Array.isArray(data) ? data : []);
   if (feeds.length > 0) return { pass: true, message: `${feeds.length} feeds configured` };
   return { pass: false, message: 'No feeds configured' };
 }
 
 async function diagRSSArticles() {
-  const res = await fetch('/api/articles?limit=1');
+  const { res, data } = await fetchDiagnosticsJson('/api/articles?limit=1');
   if (!res.ok) return { pass: false, message: `HTTP ${res.status}` };
-  const data = await res.json();
   const total = data.data?.total || data.total || 0;
   const articles = data.data?.articles || data.articles || (Array.isArray(data) ? data : []);
   const count = total || articles.length;
@@ -4761,28 +4965,25 @@ async function diagRSSArticles() {
 }
 
 async function diagGeocoding() {
-  const res = await fetch('/api/articles/geo?limit=5');
+  const { res, data } = await fetchDiagnosticsJson('/api/articles/geo?limit=5');
   if (!res.ok) return { pass: false, message: `HTTP ${res.status}` };
-  const data = await res.json();
   const articles = data.data?.articles || data.articles || (Array.isArray(data) ? data : []);
-  const geoCount = articles.filter(a => a.lat && a.lng).length;
+  const geoCount = articles.filter(a => (a.lat && a.lng) || (a.geo?.lat && a.geo?.lng)).length;
   if (geoCount > 0) return { pass: true, message: `${geoCount} geo-tagged articles found` };
   return { pass: false, message: 'No geo-tagged articles — geocoding may not have run' };
 }
 
 async function diagReportEngine() {
-  const res = await fetch('/api/analysis/status');
+  const { res, data } = await fetchDiagnosticsJson('/api/analysis/status');
   if (!res.ok) return { pass: false, message: `HTTP ${res.status}` };
-  const data = await res.json();
   const status = data.data || data;
   const phase = status.phase || status.status || 'idle';
   return { pass: true, message: `Report engine responding — phase: ${phase}` };
 }
 
 async function diagLogging() {
-  const res = await fetch('/api/logs?limit=1');
+  const { res, data } = await fetchDiagnosticsJson('/api/logs?limit=1');
   if (!res.ok) return { pass: false, message: `HTTP ${res.status}` };
-  const data = await res.json();
   const logs = data.data?.logs || data.logs || (Array.isArray(data) ? data : []);
   return { pass: true, message: `Logging system active — ${data.data?.total || logs.length} entries` };
 }

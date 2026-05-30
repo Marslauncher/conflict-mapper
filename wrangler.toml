@@ -1,0 +1,20 @@
+name = "conflict-mapper"
+compatibility_date = "2026-05-28"
+pages_build_output_dir = "."
+
+[vars]
+AI_PROVIDER = "perplexity"
+OPENROUTER_MODEL = "openai/gpt-4o-mini"
+
+[[r2_buckets]]
+binding = "REPORTS_BUCKET"
+bucket_name = "conflict-mapper-reports"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "conflict-mapper"
+database_id = "49aa99f0-ce33-4e72-86eb-c709af61997d"
+
+[[kv_namespaces]]
+binding = "CONFIG_KV"
+id = "63dfed85005a469dbdde825124751ac9"

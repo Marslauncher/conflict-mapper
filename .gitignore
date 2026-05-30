@@ -1,3 +1,6 @@
 data/server.log
 data/ai-config.json
 assets/SR324_TIDALWAVE_REDACTED.pdf
+workers/report-cron/wrangler.toml
+.dev.vars*
+.env*

@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"No automated test suite configured\" && exit 0",
+    "start": "node server.js",
+    "cf:pages:dev": "npx wrangler pages dev .",
+    "cf:d1:migrate:remote": "npx wrangler d1 migrations apply conflict-mapper --remote",
+    "cf:cron:dev": "cd workers/report-cron && npx wrangler dev --test-scheduled",
+    "cf:cron:deploy": "cd workers/report-cron && npx wrangler deploy"
   },
   "keywords": [],
   "author": "",
