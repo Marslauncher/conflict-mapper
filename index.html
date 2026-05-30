@@ -2159,7 +2159,7 @@
                   <div class="form-field">
                     <label class="form-label" for="ai-model">Model Name</label>
                     <div class="input-with-btn">
-                      <input class="form-input" type="text" id="ai-model" list="ai-model-options" placeholder="e.g. sonar-pro or openai/gpt-4o-mini">
+                      <input class="form-input" type="text" id="ai-model" list="ai-model-options" placeholder="e.g. sonar-pro or anthropic/claude-sonnet-4">
                       <button class="toggle-vis-btn" onclick="loadAIModels(true)" type="button">Models</button>
                     </div>
                     <datalist id="ai-model-options"></datalist>
@@ -3825,12 +3825,28 @@ function updateConfigPreview() {
 /* ── AI Config ──────────────────────────────────────────── */
 const AI_PROVIDER_DEFAULTS = {
   perplexity: { model: 'sonar-pro', apiPlaceholder: 'pplx-...', baseUrl: 'https://api.perplexity.ai', showBaseUrl: false },
-  openrouter: { model: 'openai/gpt-4o-mini', apiPlaceholder: 'sk-or-...', baseUrl: 'https://openrouter.ai/api/v1', showBaseUrl: true },
+  openrouter: { model: 'anthropic/claude-sonnet-4', apiPlaceholder: 'sk-or-...', baseUrl: 'https://openrouter.ai/api/v1', showBaseUrl: true },
   openai: { model: 'gpt-4o', apiPlaceholder: 'sk-...', baseUrl: 'https://api.openai.com/v1', showBaseUrl: false },
   anthropic: { model: 'claude-sonnet-4-20250514', apiPlaceholder: 'sk-ant-...', baseUrl: 'https://api.anthropic.com', showBaseUrl: false },
   google: { model: 'gemini-2.0-flash', apiPlaceholder: 'AIza...', baseUrl: 'https://generativelanguage.googleapis.com', showBaseUrl: false },
   local: { model: 'llama3.1', apiPlaceholder: 'optional', baseUrl: 'http://localhost:11434/v1', showBaseUrl: true },
 };
+
+async function readApiJson(res, endpointLabel) {
+  const contentType = res.headers.get('content-type') || '';
+  const text = await res.text();
+  if (!contentType.includes('application/json')) {
+    const looksHtml = /^\s*(<!doctype\s+html|<html|<head|<body)/i.test(text);
+    throw new Error(looksHtml
+      ? `${endpointLabel} returned HTML instead of JSON. Cloudflare Pages is likely serving the static site because the latest Functions deployment is not active. Redeploy after pushing functions/api changes.`
+      : `${endpointLabel} returned ${contentType || 'unknown content type'} instead of JSON.`);
+  }
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch (err) {
+    throw new Error(`${endpointLabel} returned invalid JSON: ${err.message}`);
+  }
+}
 
 function updateAIProviderFields() {
   const provider = document.getElementById('ai-provider')?.value || 'perplexity';
@@ -3869,7 +3885,7 @@ async function loadAIModels(showStatus = false) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ provider, apiKey, baseUrl })
     });
-    const data = await res.json();
+    const data = await readApiJson(res, '/api/ai/models');
     if (!res.ok || !data.success) throw new Error(data.error || 'Failed to load models');
 
     const models = data.data?.models || [];
@@ -3927,7 +3943,7 @@ async function testAIConnection() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ provider, apiKey, model, baseUrl })
     });
-    const data = await res.json();
+    const data = await readApiJson(res, '/api/ai/test');
 
     if (res.ok && (data.success || data.ok)) {
       if (badge) { badge.className = 'status-badge connected'; badge.textContent = 'Connected'; }
@@ -3957,8 +3973,8 @@ async function saveAIConfig() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ provider, apiKey, model, baseUrl })
     });
-    const data = await res.json().catch(() => ({}));
-    if (res.ok) {
+    const data = await readApiJson(res, '/api/ai/config').catch((err) => ({ error: err.message }));
+    if (res.ok && !data.error) {
       const message = data.data?.message || 'AI configuration saved';
       showToast(message);
       if (instructions) {

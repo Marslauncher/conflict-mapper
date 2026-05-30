@@ -1,6 +1,6 @@
 const PROVIDERS = [
   { id: 'perplexity', name: 'Perplexity', defaultModel: 'sonar-pro' },
-  { id: 'openrouter', name: 'OpenRouter', defaultModel: 'openai/gpt-4o-mini' },
+  { id: 'openrouter', name: 'OpenRouter', defaultModel: 'anthropic/claude-sonnet-4' },
   { id: 'openai', name: 'OpenAI', defaultModel: 'gpt-4o' },
   { id: 'anthropic', name: 'Anthropic Claude', defaultModel: 'claude-sonnet-4-20250514' },
   { id: 'google', name: 'Google Gemini', defaultModel: 'gemini-2.0-flash' },
@@ -15,10 +15,12 @@ const FALLBACK_MODELS = {
     { id: 'sonar-pro', name: 'sonar-pro' },
     { id: 'sonar', name: 'sonar' },
     { id: 'sonar-deep-research', name: 'sonar-deep-research' },
+    { id: 'sonar-reasoning-pro', name: 'sonar-reasoning-pro' },
   ],
   openrouter: [
-    { id: 'openai/gpt-4o-mini', name: 'OpenAI: GPT-4o Mini' },
     { id: 'anthropic/claude-sonnet-4', name: 'Anthropic: Claude Sonnet 4' },
+    { id: 'openai/gpt-4o', name: 'OpenAI: GPT-4o' },
+    { id: 'openai/gpt-4o-mini', name: 'OpenAI: GPT-4o Mini' },
     { id: 'google/gemini-2.0-flash-001', name: 'Google: Gemini 2.0 Flash' },
   ],
   openai: [
@@ -57,7 +59,7 @@ export function getAIConfig(env) {
       },
       openrouter: {
         apiKey: env.OPENROUTER_API_KEY || '',
-        model: env.OPENROUTER_MODEL || 'openai/gpt-4o-mini',
+        model: env.OPENROUTER_MODEL || 'anthropic/claude-sonnet-4',
         baseUrl: env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
         headers: {
           ...(env.OPENROUTER_SITE_URL ? { 'HTTP-Referer': env.OPENROUTER_SITE_URL } : {}),
@@ -195,6 +197,10 @@ export async function listAIModels(env, override = {}) {
   };
   const cacheKey = `${AI_MODELS_CACHE_PREFIX}${provider}`;
 
+  if (provider === 'perplexity') {
+    return { provider, source: 'curated', models: FALLBACK_MODELS.perplexity };
+  }
+
   if (!override.apiKey && env.CONFIG_KV) {
     const cached = await env.CONFIG_KV.get(cacheKey);
     if (cached) {
@@ -224,7 +230,7 @@ export async function generateReportText(env, systemPrompt, userPrompt) {
   if (!providerConfig?.apiKey) {
     throw new Error(`No API key configured for provider "${config.provider}"`);
   }
-  return callModel(config.provider, providerConfig, `${systemPrompt}\n\n${userPrompt}`, { maxTokens: 12000 });
+  return callModel(config.provider, providerConfig, `${systemPrompt}\n\n${userPrompt}`, { maxTokens: 20000 });
 }
 
 async function importEncryptionKey(secret) {
@@ -266,6 +272,7 @@ function base64ToBytes(value) {
 }
 
 async function callModel(provider, config, prompt, options = {}) {
+  if (provider === 'perplexity') return callPerplexity(config, prompt, options);
   if (provider === 'anthropic') return callAnthropic(config, prompt, options);
   if (provider === 'google') return callGoogle(config, prompt, options);
   return callOpenAICompatible(config, prompt, options);
@@ -356,6 +363,50 @@ async function fetchLocalModels(config) {
   })).filter((model) => model.id);
 }
 
+function buildPerplexityUrl(baseUrl = 'https://api.perplexity.ai') {
+  const trimmed = baseUrl.replace(/\/+$/, '');
+  if (trimmed.endsWith('/v1/sonar')) return trimmed;
+  if (trimmed.endsWith('/v1')) return `${trimmed}/sonar`;
+  return `${trimmed}/v1/sonar`;
+}
+
+async function readProviderJson(response, providerName) {
+  const text = await response.text();
+  let data = {};
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch (err) {
+    throw new Error(`${providerName} returned a non-JSON response (${response.status}): ${text.slice(0, 180)}`);
+  }
+
+  if (!response.ok) {
+    const message = data?.error?.message || data?.error || data?.message || text || `HTTP ${response.status}`;
+    throw new Error(`${providerName} HTTP ${response.status}: ${typeof message === 'string' ? message : JSON.stringify(message)}`);
+  }
+  return data;
+}
+
+async function callPerplexity(config, prompt, options) {
+  const response = await fetch(buildPerplexityUrl(config.baseUrl), {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      authorization: `Bearer ${config.apiKey}`,
+    },
+    body: JSON.stringify({
+      model: config.model || 'sonar-pro',
+      messages: [{ role: 'user', content: prompt }],
+      max_tokens: options.maxTokens || 8000,
+      temperature: 0.2,
+    }),
+  });
+
+  const data = await readProviderJson(response, 'Perplexity');
+  const content = data?.choices?.[0]?.message?.content || data?.choices?.[0]?.delta?.content;
+  if (!content) throw new Error('Perplexity returned an empty response');
+  return content;
+}
+
 async function callOpenAICompatible(config, prompt, options) {
   const response = await fetch(`${config.baseUrl}/chat/completions`, {
     method: 'POST',
@@ -372,8 +423,7 @@ async function callOpenAICompatible(config, prompt, options) {
     }),
   });
 
-  if (!response.ok) throw new Error(`AI HTTP ${response.status}: ${await response.text()}`);
-  const data = await response.json();
+  const data = await readProviderJson(response, 'AI provider');
   const content = data?.choices?.[0]?.message?.content;
   if (!content) throw new Error('AI provider returned an empty response');
   return content;
@@ -394,8 +444,7 @@ async function callAnthropic(config, prompt, options) {
     }),
   });
 
-  if (!response.ok) throw new Error(`AI HTTP ${response.status}: ${await response.text()}`);
-  const data = await response.json();
+  const data = await readProviderJson(response, 'Anthropic');
   const content = data?.content?.[0]?.text;
   if (!content) throw new Error('AI provider returned an empty response');
   return content;
@@ -414,8 +463,7 @@ async function callGoogle(config, prompt, options) {
     }),
   });
 
-  if (!response.ok) throw new Error(`AI HTTP ${response.status}: ${await response.text()}`);
-  const data = await response.json();
+  const data = await readProviderJson(response, 'Google');
   const content = data?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!content) throw new Error('AI provider returned an empty response');
   return content;

@@ -4,7 +4,7 @@ pages_build_output_dir = "."
 
 [vars]
 AI_PROVIDER = "perplexity"
-OPENROUTER_MODEL = "openai/gpt-4o-mini"
+OPENROUTER_MODEL = "anthropic/claude-sonnet-4"
 
 [[r2_buckets]]
 binding = "REPORTS_BUCKET"

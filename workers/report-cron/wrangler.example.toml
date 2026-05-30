@@ -24,6 +24,6 @@ database_id = "REPLACE_WITH_D1_DATABASE_ID"
 
 [vars]
 AI_PROVIDER = "perplexity"
-OPENROUTER_MODEL = "openai/gpt-4o-mini"
+OPENROUTER_MODEL = "anthropic/claude-sonnet-4"
 STATIC_SITE_BASE_URL = "https://conflict-mapper.pages.dev"
 REPORT_COUNTRIES = "usa,china,russia,ukraine,taiwan,iran,israel,india,pakistan,north-korea,nato"
