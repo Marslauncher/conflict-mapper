@@ -387,18 +387,24 @@ async function readProviderJson(response, providerName) {
 }
 
 async function callPerplexity(config, prompt, options) {
+  const model = config.model || 'sonar-pro';
+  const isDeepResearch = model.includes('deep-research');
+  const body = {
+    model,
+    messages: [{ role: 'user', content: prompt }],
+    max_tokens: Math.max(16, options.maxTokens || 8000),
+  };
+  if (!isDeepResearch) {
+    body.temperature = 0.2;
+  }
+
   const response = await fetch(buildPerplexityUrl(config.baseUrl), {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
       authorization: `Bearer ${config.apiKey}`,
     },
-    body: JSON.stringify({
-      model: config.model || 'sonar-pro',
-      messages: [{ role: 'user', content: prompt }],
-      max_tokens: options.maxTokens || 8000,
-      temperature: 0.2,
-    }),
+    body: JSON.stringify(body),
   });
 
   const data = await readProviderJson(response, 'Perplexity');
