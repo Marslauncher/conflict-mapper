@@ -244,7 +244,7 @@ export async function generateReportText(env, systemPrompt, userPrompt) {
     throw new Error(`No API key configured for provider "${config.provider}"`);
   }
   const maxTokens = resolveReportMaxTokens(env, config.provider, providerConfig.model);
-  const timeoutMs = resolveReportTimeoutMs(env);
+  const timeoutMs = resolveReportTimeoutMs(env, config.provider);
   return callModel(config.provider, providerConfig, `${systemPrompt}\n\n${userPrompt}`, { maxTokens, timeoutMs, reportGeneration: true });
 }
 
@@ -271,9 +271,14 @@ function resolveReportMaxTokens(env, provider, model = '') {
   return 12000;
 }
 
-function resolveReportTimeoutMs(env) {
+function resolveReportTimeoutMs(env, provider = '') {
   const configured = Number(env.REPORT_AI_TIMEOUT_MS || 0);
-  return Number.isFinite(configured) && configured >= 5000 ? Math.floor(configured) : 55000;
+  const providerMinimum = provider === 'perplexity' ? 45000 : 5000;
+  const fallback = provider === 'perplexity' ? 45000 : 55000;
+  if (Number.isFinite(configured) && configured >= 5000) {
+    return Math.max(Math.floor(configured), providerMinimum);
+  }
+  return fallback;
 }
 
 async function importEncryptionKey(secret) {

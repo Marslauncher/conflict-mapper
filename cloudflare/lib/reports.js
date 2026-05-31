@@ -5,7 +5,7 @@ const REPORT_LOGS_KEY = 'analysis:logs:v1';
 const DEFAULT_STATUS_STALE_MINUTES = 5;
 const PROMPT_STORAGE_PREFIX = 'prompts/';
 const REPORT_ARTICLE_LIMIT = 80;
-const DEFAULT_REPORT_AI_ARTICLE_LIMIT = 40;
+const DEFAULT_REPORT_AI_ARTICLE_LIMIT = 32;
 
 const COUNTRY_LABELS = {
   usa: 'United States',
@@ -524,6 +524,13 @@ function describeReportFailure(err) {
       type: 'ai_model_settings',
       message,
       mitigation: 'The selected model rejected the token settings. Choose a standard chat/report model or reduce requested output size.',
+    };
+  }
+  if (lower.includes('timed out') || lower.includes('timeout')) {
+    return {
+      type: 'ai_timeout',
+      message,
+      mitigation: 'The AI provider did not return before the report timeout. Reduce REPORT_AI_ARTICLE_LIMIT, increase REPORT_AI_TIMEOUT_MS, or use a faster provider/model.',
     };
   }
   if (lower.includes('<!doctype') || lower.includes('not valid json')) {
