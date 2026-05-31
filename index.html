@@ -197,6 +197,10 @@
   border-radius: var(--radius-sm);
   background: var(--color-surface-2);
   border: 1px solid var(--color-border-dim);
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
 }
 .nav-preview-article:hover {
   border-color: var(--color-accent);
@@ -3364,7 +3368,12 @@ const DEFAULT_CONFIG = {
       preview: {
         country: "taiwan",
         title: "China/Taiwan Watch",
-        image: "screenshots/final-taiwan-strait.png"
+        image: "screenshots/final-taiwan-strait.png",
+        items: [
+          { label: "China/Taiwan Watch", subtitle: "Live threat dashboard", target: "pages/taiwan-strait.html", image: "screenshots/final-taiwan-strait.png" },
+          { label: "April 2026 Window", subtitle: "Taiwan scenario", target: "pages/taiwan-window-apr-2026.html", image: "screenshots/final-taiwan-apr2026-hero.png" },
+          { label: "October 2026 Window", subtitle: "Taiwan scenario", target: "pages/taiwan-window-oct-2026.html", image: "screenshots/fix-taiwan-hero.png" }
+        ]
       }
     },
     {
@@ -3374,7 +3383,11 @@ const DEFAULT_CONFIG = {
       preview: {
         country: "iran",
         title: "Iran Conflict Watch",
-        image: "assets/MidnightHammerFlightProfile-7.jpg"
+        image: "assets/MidnightHammerFlightProfile-7.jpg",
+        items: [
+          { label: "War Analysis", subtitle: "Comprehensive coverage", target: "pages/iran-war-analysis.html", image: "screenshots/iran-war-hero.png" },
+          { label: "Nuclear Deep Dive", subtitle: "Nuclear program assessment", target: "pages/nuclear-deep-dive.html", image: "assets/MidnightHammerFlightProfile-7.jpg" }
+        ]
       },
       items: [
         { label: "War Analysis", subtitle: "Comprehensive Coverage", target: "pages/iran-war-analysis.html" },
@@ -3503,20 +3516,31 @@ function normalizeNavConfig(config) {
     if (item.label === 'China/Taiwan Watch') {
       return {
         ...item,
-        preview: item.preview || {
+        preview: {
+          ...(item.preview || {}),
           country: 'taiwan',
           title: 'China/Taiwan Watch',
           image: 'screenshots/final-taiwan-strait.png',
+          items: item.preview?.items?.length ? item.preview.items : [
+            { label: 'China/Taiwan Watch', subtitle: 'Live threat dashboard', target: 'pages/taiwan-strait.html', image: 'screenshots/final-taiwan-strait.png' },
+            { label: 'April 2026 Window', subtitle: 'Taiwan scenario', target: 'pages/taiwan-window-apr-2026.html', image: 'screenshots/final-taiwan-apr2026-hero.png' },
+            { label: 'October 2026 Window', subtitle: 'Taiwan scenario', target: 'pages/taiwan-window-oct-2026.html', image: 'screenshots/fix-taiwan-hero.png' },
+          ],
         },
       };
     }
     if (item.label === 'Iran Conflict') {
       return {
         ...item,
-        preview: item.preview || {
+        preview: {
+          ...(item.preview || {}),
           country: 'iran',
           title: 'Iran Conflict Watch',
           image: 'assets/MidnightHammerFlightProfile-7.jpg',
+          items: item.preview?.items?.length ? item.preview.items : [
+            { label: 'War Analysis', subtitle: 'Comprehensive coverage', target: 'pages/iran-war-analysis.html', image: 'screenshots/iran-war-hero.png' },
+            { label: 'Nuclear Deep Dive', subtitle: 'Nuclear program assessment', target: 'pages/nuclear-deep-dive.html', image: 'assets/MidnightHammerFlightProfile-7.jpg' },
+          ],
         },
       };
     }
@@ -3688,51 +3712,31 @@ function renderNavPreview(item) {
   if (!item?.preview) return '';
   const preview = item.preview;
   const image = preview.image || '';
+  const entries = Array.isArray(preview.items) && preview.items.length
+    ? preview.items
+    : [{ label: preview.title || item.label, subtitle: 'Open page', target: item.target || '', image }];
   return `
-    <div class="nav-preview-card" data-preview-country="${escHtml(preview.country || '')}" data-preview-image="${escHtml(image)}">
+    <div class="nav-preview-card">
       <div class="nav-preview-hero" style="background-image:url('${escHtml(image)}')">
         <div class="nav-preview-title">${escHtml(preview.title || item.label)}</div>
       </div>
       <div class="nav-preview-list">
-        <div class="nav-preview-meta">Loading latest articles...</div>
+        ${entries.map(entry => `
+          <button class="nav-preview-article" type="button" onclick="loadContent('${escHtml(entry.target || item.target || '')}', this)">
+            <span class="nav-preview-thumb" style="${entry.image ? `background-image:url('${escHtml(entry.image)}');background-size:cover;background-position:center;` : ''}"></span>
+            <span>
+              <span class="nav-preview-article-title">${escHtml(entry.label || 'Open page')}</span>
+              <span class="nav-preview-meta">${escHtml(entry.subtitle || 'Static page')}</span>
+            </span>
+          </button>
+        `).join('')}
       </div>
     </div>
   `;
 }
 
 function attachNavPreviewHandlers() {
-  document.querySelectorAll('.nav-preview-card[data-preview-country]').forEach(card => {
-    const navItem = card.closest('.nav-item');
-    if (!navItem) return;
-    navItem.addEventListener('mouseenter', () => loadNavPreviewArticles(card), { once: true });
-    navItem.addEventListener('focusin', () => loadNavPreviewArticles(card), { once: true });
-  });
-}
-
-async function loadNavPreviewArticles(card) {
-  if (!card || card.dataset.loaded === 'true') return;
-  const country = card.dataset.previewCountry || '';
-  const image = card.dataset.previewImage || '';
-  const list = card.querySelector('.nav-preview-list');
-  if (!country || !list) return;
-  card.dataset.loaded = 'true';
-  try {
-    const res = await fetch(`/api/articles?country=${encodeURIComponent(country)}&limit=3`);
-    const data = await res.json();
-    const articles = data.data?.articles || data.articles || [];
-    if (!articles.length) throw new Error('No articles');
-    list.innerHTML = articles.slice(0, 3).map(article => `
-      <a class="nav-preview-article" href="${escHtml(article.link || article.url || '#')}" target="_blank" rel="noopener">
-        <span class="nav-preview-thumb" style="${image ? `background-image:url('${escHtml(image)}');background-size:cover;background-position:center;` : ''}"></span>
-        <span>
-          <span class="nav-preview-article-title">${escHtml(article.title || 'Untitled article')}</span>
-          <span class="nav-preview-meta">${escHtml(article.source || 'Unknown')} · ${formatRelativeTime(article.pubDate || article.publishedAt)}</span>
-        </span>
-      </a>
-    `).join('');
-  } catch (_) {
-    list.innerHTML = '<div class="nav-preview-meta">No live articles available yet.</div>';
-  }
+  // Static nav preview cards are rendered directly from nav-config.
 }
 
 /* Toggle nested country sub-menu */

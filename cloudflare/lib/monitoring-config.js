@@ -5,7 +5,7 @@ const MONITORING_CONFIG_KEY = 'monitoring:config:v1';
 export const DEFAULT_TOPICS = [
   { id: 'breaking', name: 'Breaking News', keywords: ['breaking', 'urgent', 'live updates'] },
   { id: 'geopolitics', name: 'Geopolitics', keywords: ['geopolitics', 'foreign policy', 'diplomacy', 'sanctions', 'treaty', 'summit'] },
-  { id: 'military', name: 'Military', keywords: ['military', 'missile', 'drone', 'troops', 'airstrike', 'warship', 'navy', 'army', 'air force', 'defense', 'defence'] },
+  { id: 'military', name: 'Military', keywords: ['military', 'missile', 'drone', 'troops', 'marines', 'airstrike', 'warship', 'navy', 'army', 'air force', 'submarine', 'ammunition', 'munitions', 'defense', 'defence'] },
   { id: 'political', name: 'Political', keywords: ['election', 'parliament', 'president', 'minister', 'government', 'coup', 'protest'] },
   { id: 'economic', name: 'Economic Security', keywords: ['market', 'trade', 'tariff', 'supply chain', 'shipping', 'oil', 'gas', 'energy', 'sanctions'] },
   { id: 'cyber', name: 'Cybersecurity', keywords: ['cyber', 'ransomware', 'malware', 'hack', 'breach', 'espionage', 'zero-day'] },
@@ -108,6 +108,7 @@ export function articleMatchesMonitoringConfig(article, config) {
     .map((tag) => String(tag).toLowerCase())
     .filter((tag) => tag && tag !== category));
   if (isLowSignalNoise(contentText, category, tags)) return false;
+  if (!hasOperationalSignal(contentText, category, tags)) return false;
   const topicMap = getTopicKeywordMap(config);
   const country = findMatchingCountry(text, config);
   const countryTopicIds = country?.topics?.length
@@ -115,19 +116,36 @@ export function articleMatchesMonitoringConfig(article, config) {
     : Array.from(new Set((config.countries || []).flatMap((item) => item.topics || [])));
 
   for (const topicId of countryTopicIds) {
-    if (topicId !== 'breaking' && tags.has(topicId)) return true;
-    if ((topicMap[topicId] || []).some((term) => topicTermMatches(contentText, term))) return true;
+    if (topicId !== 'breaking' && signalTagMatches(topicId, tags)) return true;
+    if (topicKeywordsMatch(topicId, topicMap[topicId] || [], contentText)) return true;
   }
   return false;
 }
 
 function isLowSignalNoise(text, category, tags) {
   const value = String(text || '').toLowerCase();
-  const hasSecuritySignal = /(\bwar\b|\bmilitary\b|\bmissile\b|\bweapon\b|\bairstrike\b|\bnuclear\b|\bterror\b|\bsanction\b|\bcyberattack\b|\bcritical infrastructure\b|\btaiwan strait\b|\biran\b|\bukraine\b|\brussia\b|\bgaza\b|\bnato\b|\bdrone\b|\bnaval\b|\bsubmarine\b|\bmunitions?\b|\bfrontline\b|\bescalat|\bgeopolitic|\bdefen[cs]e\b|\barmy\b|\bnavy\b|\bair force\b)/.test(value);
-  if (hasSecuritySignal) return false;
-  if (tags.has('military') || tags.has('conflict') || tags.has('cyber') || tags.has('infrastructure') || tags.has('nuclear')) return false;
-  if (category === 'military' || category === 'conflict' || category === 'cyber' || category === 'infrastructure' || category === 'nuclear') return false;
-  return /(\bcelebrity\b|\bentertainment\b|\bsports?\b|\broyal\b|\bfashion\b|\bhome loan\b|\bcash back\b|\bcredit card\b|\bhoroscope\b|\bnicola sturgeon\b|\bfirst minister\b|\bfederal judge\b|\bastronaut\b|\bmoon mission\b|\bceos?\b.*\bresign|\bresign.*\bceos?\b|\bscandal\b|\bembezzlement\b)/.test(value);
+  if (/(\btop photos?\b|\bphoto gallery\b|\bgallery was curated\b|\bmessi\b|\bchampions league\b|\bformula one\b|\bf1\b|\bshoe pads?\b|\bhandcrafted\b|\binspired by son\b|\bhome loan\b|\bcash back\b|\bcredit card\b|\bhoroscope\b)/.test(value)) return true;
+  if (hasOperationalSignal(value, category, tags)) return false;
+  return /(\bcelebrity\b|\bentertainment\b|\bsports?\b|\broyal\b|\bfashion\b|\bhome loan\b|\bcash back\b|\bcredit card\b|\bhoroscope\b|\bnicola sturgeon\b|\bfirst minister\b|\bfederal judge\b|\bastronaut\b|\bmoon mission\b|\bworld health organization\b|\bebola\b|\bchampions league\b|\bfootball\b|\bsoccer\b|\bceos?\b.*\bresign|\bresign.*\bceos?\b|\bscandal\b|\bembezzlement\b)/.test(value);
+}
+
+function hasOperationalSignal(text, category, tags) {
+  const value = String(text || '').toLowerCase();
+  return /(\bwar\b|\bwars\b|\banti-war\b|\barmed conflict\b|\bfrontline\b|\bbattlefield\b|\bcombat\b|\bfighting\b|\bceasefire\b|\binvasion\b|\bincursion\b|\bescalat|\bmilitary\b|\bmissiles?\b|\bweapons?\b|\bmunitions?\b|\bairstrike\b|\bstrikes?\b|\bdrone\b|\bwarship\b|\bnaval\b|\bsubmarine\b|\btroops?\b|\bmarine corps\b|\bu\.?s\.?\s+marines?\b|\bmarines?\s+(arrive|deploy|deployed|forces?|troops?)\b|\barmy\b|\bnavy\b|\bair force\b|\bdefen[cs]e minister\b|\bdefen[cs]e ministry\b|\bdefen[cs]e department\b|\bdefen[cs]e procurement\b|\bdefen[cs]e spending\b|\bdefen[cs]e budget\b|\bnato\b|\balliance\b|\bnuclear\b|\buranium\b|\benrichment\b|\biaea\b|\bwarhead\b|\bterror\b|\binsurgent\b|\bisis\b|\bal qaeda\b|\bhezbollah\b|\bhouthi\b|\bhamas\b|\bsanctions?\b|\bembargo\b|\bexport controls?\b|\bcyberattack\b|\bransomware\b|\bmalware\b|\bespionage\b|\bintelligence\b|\bnational security\b|\bsecurity council\b|\bsecurity talks\b|\bcritical infrastructure\b|\bpower grid\b|\bpipeline\b|\bsubsea cable\b|\bshipping lane\b|\bsea lane\b|\bshadow fleet\b|\bstrait\b|\bred sea\b|\bblack sea\b|\bsouth china sea\b|\btaiwan strait\b|\bgaza\b|\bcrimea\b|\btehran\b|\bpyongyang\b|\bindo-pacific\b|\bgeopolitic|\bforeign policy\b|\bdiplomac|\bnegotiations?\b|\bpeace talks\b|\bthink tank\b|\bsecurity brief\b|\bweapons? procurement\b|\bindustrial base\b|\bshipbuilding\b|\bammunition\b|\bmunitions\b)/.test(value);
+}
+
+function signalTagMatches(topicId, tags) {
+  if (['breaking', 'political', 'economic', 'science', 'technology', 'ai', 'research'].includes(topicId)) return false;
+  return tags.has(topicId);
+}
+
+function topicKeywordsMatch(topicId, keywords, text) {
+  if (['breaking', 'political', 'economic', 'science', 'technology', 'ai', 'research'].includes(topicId)) {
+    return keywords
+      .filter((term) => !['breaking', 'urgent', 'live updates', 'election', 'parliament', 'president', 'minister', 'government', 'market', 'trade', 'research', 'report', 'analysis', 'study', 'model'].includes(String(term).toLowerCase()))
+      .some((term) => topicTermMatches(text, term));
+  }
+  return keywords.some((term) => topicTermMatches(text, term));
 }
 
 export function findMatchingCountry(text, config) {
@@ -158,9 +176,6 @@ function articleContentText(article) {
   return [
     article.title,
     article.description,
-    article.source,
-    article.geo?.place,
-    article.geo?.country,
   ].filter(Boolean).join(' ').toLowerCase();
 }
 

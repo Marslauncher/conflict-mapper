@@ -574,20 +574,23 @@ html, body {
 .leaflet-control-attribution a { color: rgba(255,255,255,0.4) !important; }
 
 /* Marker cluster customization */
-.marker-cluster-small,
-.marker-cluster-medium,
-.marker-cluster-large {
-  background: rgba(196,30,58,0.2) !important;
-  border: 2px solid rgba(196,30,58,0.5) !important;
+.time-cluster {
+  background: color-mix(in srgb, var(--cluster-color, #c41e3a) 24%, transparent) !important;
+  border: 2px solid color-mix(in srgb, var(--cluster-color, #c41e3a) 70%, transparent) !important;
+  border-radius: 50%;
 }
-.marker-cluster-small div,
-.marker-cluster-medium div,
-.marker-cluster-large div {
-  background: rgba(196,30,58,0.8) !important;
+.time-cluster div {
+  background: var(--cluster-color, #c41e3a) !important;
   color: #fff !important;
   font-family: var(--font-mono) !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--cluster-color, #c41e3a) 20%, transparent);
 }
+.time-cluster.age-hour { --cluster-color: #ef4444; }
+.time-cluster.age-day { --cluster-color: #f97316; }
+.time-cluster.age-week { --cluster-color: #eab308; }
+.time-cluster.age-month { --cluster-color: #86efac; }
+.time-cluster.age-archive { --cluster-color: #166534; }
 
 /* Popup styling */
 .leaflet-popup-content-wrapper {
@@ -650,10 +653,49 @@ html, body {
   border: 1px solid rgba(196,30,58,0.55) !important;
   border-radius: var(--radius) !important;
   box-shadow: 0 8px 24px rgba(0,0,0,0.55) !important;
-  max-width: 320px;
-  white-space: normal;
+  width: 270px;
+  max-width: 270px;
+  padding: 8px 10px !important;
+  white-space: normal !important;
+  line-height: 1.25;
+  pointer-events: auto;
 }
 .article-tooltip::before { border-top-color: rgba(196,30,58,0.55) !important; }
+.article-map-label {
+  width: 220px;
+  max-width: 220px;
+  border-color: var(--age-border, rgba(196,30,58,0.7)) !important;
+  background: rgba(15,18,25,0.92) !important;
+}
+.article-map-label.age-hour { --age-border: #ef4444; }
+.article-map-label.age-day { --age-border: #f97316; }
+.article-map-label.age-week { --age-border: #eab308; }
+.article-map-label.age-month { --age-border: #86efac; }
+.article-map-label.age-archive { --age-border: #166534; }
+.article-map-label .tooltip-summary,
+.article-map-label .tooltip-meta {
+  display: none;
+}
+.article-map-label.expanded,
+.article-map-label:hover {
+  z-index: 99999 !important;
+}
+.article-map-label.expanded .tooltip-summary,
+.article-map-label.expanded .tooltip-meta,
+.article-map-label:hover .tooltip-summary,
+.article-map-label:hover .tooltip-meta {
+  display: block;
+}
+.article-map-label .tooltip-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.article-map-label.expanded .tooltip-title,
+.article-map-label:hover .tooltip-title {
+  display: block;
+}
 .tooltip-title {
   font-family: var(--font-display);
   font-size: 0.86rem;
@@ -1102,6 +1144,14 @@ const CAT_COLORS = {
   conflict:    '#c41e3a',
 };
 
+const AGE_COLORS = {
+  hour: '#ef4444',
+  day: '#f97316',
+  week: '#eab308',
+  month: '#86efac',
+  archive: '#166534',
+};
+
 /* ── Init ── */
 function initMap() {
   map = L.map('map', {
@@ -1123,7 +1173,8 @@ function initMap() {
   markersLayer = L.markerClusterGroup({
     showCoverageOnHover: false,
     maxClusterRadius: 50,
-    spiderfyOnMaxZoom: true
+    spiderfyOnMaxZoom: true,
+    iconCreateFunction: buildClusterIcon
   });
   map.addLayer(markersLayer);
   map.on('move zoom moveend zoomend', scheduleVisibleArticleUpdate);
@@ -1482,7 +1533,8 @@ function updateMapMarkers() {
 
   geoArticles.forEach(article => {
     const { lat, lng } = getGeoCoords(article);
-    const color = CAT_COLORS[article.category || 'general'] || CAT_COLORS.general;
+    const color = getArticleAgeColor(article);
+    const ageBucket = getArticleAgeBucket(article);
     const key = articleKey(article);
     const marker = L.circleMarker([lat, lng], {
       radius: 9,
@@ -1496,20 +1548,26 @@ function updateMapMarkers() {
     marker._cmBaseStyle = { radius: 9, fillColor: color, color: '#05070a', weight: 2, fillOpacity: 0.8 };
     marker._cmHighlightStyle = { radius: 13, fillColor: color, color: '#ffffff', weight: 3, fillOpacity: 1 };
     marker._cmArticleKey = key;
+    marker._cmArticle = article;
     marker.on('click', () => showStoryCard(article));
     marker.on('mouseover', () => {
       highlightFeedArticle(key, true);
       highlightMarker(marker, true);
+      setTooltipExpanded(marker, true);
     });
     marker.on('mouseout', () => {
       highlightFeedArticle(key, false);
       highlightMarker(marker, false);
+      setTooltipExpanded(marker, false);
     });
     marker.bindTooltip(buildTooltip(article), {
-      direction: 'top',
-      sticky: true,
+      direction: 'right',
+      offset: [14, 0],
+      permanent: true,
+      sticky: false,
       opacity: 0.98,
-      className: 'article-tooltip',
+      interactive: true,
+      className: `article-tooltip article-map-label age-${ageBucket}`,
     });
     marker.bindPopup(buildPopup(article), { maxWidth: 300, minWidth: 240 });
     articleMarkers.set(key, marker);
@@ -1521,6 +1579,50 @@ function updateMapMarkers() {
 
   // Update stat
   document.getElementById('stat-geo').textContent = geoArticles.length;
+}
+
+function buildClusterIcon(cluster) {
+  const markers = cluster.getAllChildMarkers ? cluster.getAllChildMarkers() : [];
+  const articles = markers.map(marker => marker._cmArticle).filter(Boolean);
+  const newest = articles.reduce((best, article) => {
+    const time = articleTimeValue(article);
+    return time > articleTimeValue(best) ? article : best;
+  }, null);
+  const ageBucket = getArticleAgeBucket(newest);
+  const count = cluster.getChildCount();
+  const size = count >= 100 ? 54 : count >= 10 ? 46 : 38;
+  return L.divIcon({
+    html: `<div style="width:${size - 10}px;height:${size - 10}px;line-height:${size - 10}px;border-radius:50%;text-align:center">${count}</div>`,
+    className: `marker-cluster time-cluster age-${ageBucket}`,
+    iconSize: [size, size],
+  });
+}
+
+function getArticleAgeBucket(article) {
+  const time = articleTimeValue(article);
+  if (!time) return 'archive';
+  const ageMs = Date.now() - time;
+  if (ageMs <= 60 * 60 * 1000) return 'hour';
+  if (ageMs <= 24 * 60 * 60 * 1000) return 'day';
+  if (ageMs <= 7 * 24 * 60 * 60 * 1000) return 'week';
+  if (ageMs <= 30 * 24 * 60 * 60 * 1000) return 'month';
+  return 'archive';
+}
+
+function getArticleAgeColor(article) {
+  return AGE_COLORS[getArticleAgeBucket(article)] || AGE_COLORS.archive;
+}
+
+function articleTimeValue(article) {
+  const value = article?.pubDate || article?.publishedAt || article?.fetchedAt;
+  const time = value ? new Date(value).getTime() : 0;
+  return Number.isFinite(time) ? time : 0;
+}
+
+function setTooltipExpanded(marker, expanded) {
+  const tooltip = marker?.getTooltip?.();
+  const element = tooltip?.getElement?.();
+  if (element) element.classList.toggle('expanded', expanded);
 }
 
 function getGeoCoords(a) {

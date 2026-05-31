@@ -134,7 +134,27 @@
       "preview": {
         "country": "taiwan",
         "title": "China/Taiwan Watch",
-        "image": "screenshots/final-taiwan-strait.png"
+        "image": "screenshots/final-taiwan-strait.png",
+        "items": [
+          {
+            "label": "China/Taiwan Watch",
+            "subtitle": "Live threat dashboard",
+            "target": "pages/taiwan-strait.html",
+            "image": "screenshots/final-taiwan-strait.png"
+          },
+          {
+            "label": "April 2026 Window",
+            "subtitle": "Taiwan scenario",
+            "target": "pages/taiwan-window-apr-2026.html",
+            "image": "screenshots/final-taiwan-apr2026-hero.png"
+          },
+          {
+            "label": "October 2026 Window",
+            "subtitle": "Taiwan scenario",
+            "target": "pages/taiwan-window-oct-2026.html",
+            "image": "screenshots/fix-taiwan-hero.png"
+          }
+        ]
       }
     },
     {
@@ -144,7 +164,21 @@
       "preview": {
         "country": "iran",
         "title": "Iran Conflict Watch",
-        "image": "assets/MidnightHammerFlightProfile-7.jpg"
+        "image": "assets/MidnightHammerFlightProfile-7.jpg",
+        "items": [
+          {
+            "label": "War Analysis",
+            "subtitle": "Comprehensive coverage",
+            "target": "pages/iran-war-analysis.html",
+            "image": "screenshots/iran-war-hero.png"
+          },
+          {
+            "label": "Nuclear Deep Dive",
+            "subtitle": "Nuclear program assessment",
+            "target": "pages/nuclear-deep-dive.html",
+            "image": "assets/MidnightHammerFlightProfile-7.jpg"
+          }
+        ]
       },
       "items": [
         {
