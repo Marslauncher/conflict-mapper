@@ -5,6 +5,7 @@ const REPORT_LOGS_KEY = 'analysis:logs:v1';
 const DEFAULT_STATUS_STALE_MINUTES = 5;
 const PROMPT_STORAGE_PREFIX = 'prompts/';
 const REPORT_ARTICLE_LIMIT = 80;
+const DEFAULT_REPORT_AI_ARTICLE_LIMIT = 40;
 
 const COUNTRY_LABELS = {
   usa: 'United States',
@@ -251,12 +252,14 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       limit: REPORT_ARTICLE_LIMIT,
     });
     const selectedArticles = selection.articles;
+    const aiArticles = selectedArticles.slice(0, getReportAiArticleLimit(env, selectedArticles.length));
     await appendReportLog(env, {
       message: `Selected ${selectedArticles.length} source articles`,
       details: {
         scope,
         slug: normalizedSlug,
         selectedArticles: selectedArticles.length,
+        aiArticles: aiArticles.length,
         availableArticles: articles.length,
         excludedLowRelevance: selection.excludedLowRelevance,
         excludedStale: selection.excludedStale,
@@ -277,7 +280,15 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
     await appendReportLog(env, {
       category: 'ai',
       message: `Calling AI provider ${provider}${model ? ` / ${model}` : ''}`,
-      details: { scope, slug: normalizedSlug, provider, model, promptId, selectedArticles: selectedArticles.length },
+      details: {
+        scope,
+        slug: normalizedSlug,
+        provider,
+        model,
+        promptId,
+        selectedArticles: selectedArticles.length,
+        aiArticles: aiArticles.length,
+      },
     });
     let aiText = '';
     let aiFallback = false;
@@ -286,7 +297,7 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
         scope,
         slug: normalizedSlug,
         title,
-        articles: selectedArticles,
+        articles: aiArticles,
         promptId,
       });
       aiText = await generateReportText(
@@ -328,13 +339,31 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
         level: 'warn',
         category: 'analysis',
         message: 'Using deterministic fallback report renderer',
-        details: { scope, slug: normalizedSlug, provider, model, promptId, selectedArticles: selectedArticles.length },
+        details: {
+          scope,
+          slug: normalizedSlug,
+          provider,
+          model,
+          promptId,
+          selectedArticles: selectedArticles.length,
+          aiArticles: aiArticles.length,
+        },
       });
     }
     await appendReportLog(env, {
       category: 'ai',
       message: aiFallback ? 'Fallback report body generated' : 'AI provider returned report body',
-      details: { scope, slug: normalizedSlug, provider, model, promptId, bodyCharacters: aiText.length, aiFallback },
+      details: {
+        scope,
+        slug: normalizedSlug,
+        provider,
+        model,
+        promptId,
+        selectedArticles: selectedArticles.length,
+        aiArticles: aiArticles.length,
+        bodyCharacters: aiText.length,
+        aiFallback,
+      },
     });
 
     await setReportStatus(env, {
@@ -595,6 +624,14 @@ function selectReportArticles(articles, { scope = 'global', slug = 'global', lim
     excludedLowRelevance: scored.filter((item) => !selectedSet.has(item.article) && item.score.value < fallbackThreshold).length,
     excludedStale: scored.filter((item) => !selectedSet.has(item.article) && item.ageDays > fallbackMaxAge).length,
   };
+}
+
+function getReportAiArticleLimit(env, selectedCount = REPORT_ARTICLE_LIMIT) {
+  const configured = Number(env.REPORT_AI_ARTICLE_LIMIT || 0);
+  const limit = Number.isFinite(configured) && configured > 0
+    ? configured
+    : DEFAULT_REPORT_AI_ARTICLE_LIMIT;
+  return Math.min(Math.max(12, Math.floor(limit)), REPORT_ARTICLE_LIMIT, Math.max(1, selectedCount));
 }
 
 function pickRankedArticles(scored, { limit, minScore, maxAgeDays }) {

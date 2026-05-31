@@ -71,6 +71,7 @@ Set:
 | `NVIDIA_MODEL` | variable | `nvidia/llama-3.3-nemotron-super-49b-v1` |
 | `REPORT_STATUS_STALE_MINUTES` | variable | `5` |
 | `REPORT_AI_TIMEOUT_MS` | variable | `25000` |
+| `REPORT_AI_ARTICLE_LIMIT` | variable | `40` |
 | `ALLOW_REPORT_FALLBACK` | variable | `true` |
 | `PERPLEXITY_API_KEY` | secret, optional fallback | only needed if you do not save it from the app |
 | `OPENROUTER_API_KEY` | secret, optional fallback | only needed if you do not save it from the app |
@@ -186,7 +187,7 @@ RSS ingestion now loads the monitored Countries and Topics from `CONFIG_KV`, tra
 
 The Settings -> Logs page and `/api/logs` expose queued/running/failed report phases plus RSS fetch progress. If report generation fails before calling the AI provider, the log entry includes a mitigation field, for example missing D1 migrations or Cloudflare bindings.
 
-Single-report generation runs inside the request instead of relying on a long background Pages `waitUntil` job. `REPORT_AI_TIMEOUT_MS` prevents stalled provider calls. If `ALLOW_REPORT_FALLBACK=true`, a provider failure or timeout is logged and the app still writes a source-based fallback report to D1/R2 so storage, archives, and review links complete. `REPORT_STATUS_STALE_MINUTES=5` clears abandoned statuses quickly if an older deployment left `running: true` in KV.
+Single-report generation runs inside the request instead of relying on a long background Pages `waitUntil` job. `REPORT_AI_TIMEOUT_MS` prevents stalled provider calls. `REPORT_AI_ARTICLE_LIMIT` controls how many top-ranked articles are sent to the AI provider; the report still archives and links the full selected source set, but a smaller AI working set keeps Sonar-Pro and similar models from timing out. If `ALLOW_REPORT_FALLBACK=true`, a provider failure or timeout is logged and the app still writes a source-based fallback report to D1/R2 so storage, archives, and review links complete. `REPORT_STATUS_STALE_MINUTES=5` clears abandoned statuses quickly if an older deployment left `running: true` in KV.
 
 The Settings -> AI Prompts page reads `/api/prompts/reports` and shows editable Global, Country, and China/Taiwan Watch prompt templates for external model runs. Each template can be copied, duplicated, downloaded as a local `.md` prompt file, or saved to Cloudflare R2 under `prompts/*.md`.
 
