@@ -4028,7 +4028,7 @@ async function readApiJson(res, endpointLabel) {
   if (!contentType.includes('application/json')) {
     const looksHtml = /^\s*(<!doctype\s+html|<html|<head|<body)/i.test(text);
     throw new Error(looksHtml
-      ? `${endpointLabel} returned HTML instead of JSON. Cloudflare Pages is likely serving the static site because the latest Functions deployment is not active. Redeploy after pushing functions/api changes.`
+      ? `${endpointLabel} returned HTML instead of JSON. Check /api/status; this usually means a Pages Function runtime error or stale deployment.`
       : `${endpointLabel} returned ${contentType || 'unknown content type'} instead of JSON.`);
   }
   try {

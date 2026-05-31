@@ -1126,7 +1126,9 @@ async function fetchAllFeeds(options = {}) {
   const btn = document.getElementById('fetch-btn');
   if (btn && !options.silent) { btn.textContent = 'Fetching...'; btn.disabled = true; }
   try {
-    const params = options.fast ? '?limitFeeds=25&maxItemsPerFeed=8' : '';
+    const params = options.fast
+      ? '?limitFeeds=4&maxItemsPerFeed=3&translationLimit=2'
+      : '?limitFeeds=6&maxItemsPerFeed=4&translationLimit=4';
     const res = await fetch('/api/feeds/fetch' + params, { method: 'POST' });
     const data = await readApiJson(res, '/api/feeds/fetch');
     if (!res.ok || data.success === false) throw new Error(data.error || `HTTP ${res.status}`);
@@ -1145,7 +1147,7 @@ async function readApiJson(res, endpointLabel) {
   if (!contentType.includes('application/json')) {
     const looksHtml = /^\s*(<!doctype\s+html|<html|<head|<body)/i.test(text);
     throw new Error(looksHtml
-      ? `${endpointLabel} returned HTML instead of JSON. Cloudflare Pages Functions are not active in this deployment.`
+      ? `${endpointLabel} returned HTML instead of JSON. Check /api/status; this usually means a Pages Function runtime error or stale deployment.`
       : `${endpointLabel} returned ${contentType || 'unknown content type'} instead of JSON.`);
   }
   return text ? JSON.parse(text) : {};

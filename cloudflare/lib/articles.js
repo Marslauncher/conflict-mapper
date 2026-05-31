@@ -132,26 +132,39 @@ export async function loadArticles(context, { country = '', limit = 200, geoOnly
   };
 }
 
-export async function refreshArticles(context, { limitFeeds = 50, maxItemsPerFeed = 20 } = {}) {
+export async function refreshArticles(context, {
+  limitFeeds = 6,
+  maxItemsPerFeed = 4,
+  translationLimit = null,
+  reprocessExisting = false,
+} = {}) {
   if (!context.env.CONFIG_KV) throw new Error('CONFIG_KV binding is required to persist fetched articles');
 
   const feedsPayload = await readAssetJson(context, '/data/feeds-config.json', { feeds: [] });
   const monitoringConfig = await loadMonitoringConfig(context);
+  const safeLimitFeeds = Math.max(1, Math.min(readPositiveInt(limitFeeds, 6), 120));
+  const safeMaxItems = Math.max(1, Math.min(readPositiveInt(maxItemsPerFeed, 4), 25));
+  const configuredTranslationLimit = readNonNegativeInt(context.env.RSS_TRANSLATION_LIMIT, DEFAULT_TRANSLATION_LIMIT);
+  const safeTranslationLimit = translationLimit === null
+    ? configuredTranslationLimit
+    : Math.min(configuredTranslationLimit, readNonNegativeInt(translationLimit, 4));
   const enabledFeeds = (feedsPayload.feeds || [])
     .filter((feed) => feed?.enabled !== false && feed.url)
-    .slice(0, Math.max(1, Math.min(limitFeeds, 120)));
+    .slice(0, safeLimitFeeds);
   const before = await loadArticleSet(context);
   const fetchedAt = new Date().toISOString();
   const nextArticles = [];
   const feedResults = [];
   const translationState = {
     enabled: context.env.TRANSLATE_RSS_ARTICLES !== 'false',
-    remaining: readPositiveInt(context.env.RSS_TRANSLATION_LIMIT, DEFAULT_TRANSLATION_LIMIT),
+    remaining: safeTranslationLimit,
     translated: 0,
     failed: 0,
     skipped: 0,
   };
-  const existing = await reprocessExistingArticles(before.articles || [], monitoringConfig, translationState);
+  const existing = reprocessExisting
+    ? await reprocessExistingArticles(before.articles || [], monitoringConfig, translationState)
+    : preserveExistingArticles(before.articles || []);
 
   await setArticleFetchStatus(context.env, {
     running: true,
@@ -162,13 +175,19 @@ export async function refreshArticles(context, { limitFeeds = 50, maxItemsPerFee
   await appendReportLog(context.env, {
     category: 'rss',
     message: `RSS fetch started for ${enabledFeeds.length} feeds`,
-    details: { limitFeeds: enabledFeeds.length, maxItemsPerFeed, existingArticles: existing.length },
+    details: {
+      limitFeeds: enabledFeeds.length,
+      maxItemsPerFeed: safeMaxItems,
+      translationLimit: safeTranslationLimit,
+      reprocessExisting,
+      existingArticles: existing.length,
+    },
   });
 
   for (const feed of enabledFeeds) {
     try {
       const result = await fetchFeedArticles(feed, {
-        maxItemsPerFeed,
+        maxItemsPerFeed: safeMaxItems,
         fetchedAt,
         monitoringConfig,
         translationState,
@@ -370,6 +389,12 @@ function normalizeExistingArticles(articles, monitoringConfig) {
   return result;
 }
 
+function preserveExistingArticles(articles) {
+  return (articles || [])
+    .filter((article) => article && (article.title || article.description || article.link))
+    .slice(0, 5000);
+}
+
 async function reprocessExistingArticles(articles, monitoringConfig, translationState) {
   const result = [];
   for (const article of articles || []) {
@@ -497,6 +522,11 @@ function decodeEntities(value) {
 function readPositiveInt(value, fallback) {
   const parsed = Number(value);
   return Number.isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : fallback;
+}
+
+function readNonNegativeInt(value, fallback) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed >= 0 ? Math.floor(parsed) : fallback;
 }
 
 async function maybeTranslateArticle(title, description, translationState) {
