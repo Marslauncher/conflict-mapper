@@ -103,7 +103,7 @@ export async function loadArticleSet(context) {
     const payload = JSON.parse(raw);
     const kvArticles = normalizeArticlesPayload(payload);
     const articles = kvArticles.length
-      ? kvArticles
+      ? filterCachedArticles(kvArticles, monitoringConfig)
       : normalizeExistingArticles(staticArticles, monitoringConfig);
     return {
       articles,
@@ -118,6 +118,13 @@ export async function loadArticleSet(context) {
       source: 'static-asset',
     };
   }
+}
+
+function filterCachedArticles(articles, monitoringConfig) {
+  return (articles || [])
+    .filter((article) => article && (article.title || article.description || article.link))
+    .filter((article) => articleMatchesMonitoringConfig(article, monitoringConfig))
+    .slice(0, 5000);
 }
 
 export async function loadArticles(context, { country = '', limit = 200, geoOnly = false } = {}) {

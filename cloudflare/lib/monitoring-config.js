@@ -107,6 +107,7 @@ export function articleMatchesMonitoringConfig(article, config) {
   const tags = new Set((article.tags || [])
     .map((tag) => String(tag).toLowerCase())
     .filter((tag) => tag && tag !== category));
+  if (isLowSignalNoise(contentText, category, tags)) return false;
   const topicMap = getTopicKeywordMap(config);
   const country = findMatchingCountry(text, config);
   const countryTopicIds = country?.topics?.length
@@ -118,6 +119,15 @@ export function articleMatchesMonitoringConfig(article, config) {
     if ((topicMap[topicId] || []).some((term) => topicTermMatches(contentText, term))) return true;
   }
   return false;
+}
+
+function isLowSignalNoise(text, category, tags) {
+  const value = String(text || '').toLowerCase();
+  const hasSecuritySignal = /(\bwar\b|\bmilitary\b|\bmissile\b|\bweapon\b|\bairstrike\b|\bnuclear\b|\bterror\b|\bsanction\b|\bcyberattack\b|\bcritical infrastructure\b|\btaiwan strait\b|\biran\b|\bukraine\b|\brussia\b|\bgaza\b|\bnato\b|\bdrone\b|\bnaval\b|\bsubmarine\b|\bmunitions?\b|\bfrontline\b|\bescalat|\bgeopolitic|\bdefen[cs]e\b|\barmy\b|\bnavy\b|\bair force\b)/.test(value);
+  if (hasSecuritySignal) return false;
+  if (tags.has('military') || tags.has('conflict') || tags.has('cyber') || tags.has('infrastructure') || tags.has('nuclear')) return false;
+  if (category === 'military' || category === 'conflict' || category === 'cyber' || category === 'infrastructure' || category === 'nuclear') return false;
+  return /(\bcelebrity\b|\bentertainment\b|\bsports?\b|\broyal\b|\bfashion\b|\bhome loan\b|\bcash back\b|\bcredit card\b|\bhoroscope\b|\bnicola sturgeon\b|\bfirst minister\b|\bfederal judge\b|\bastronaut\b|\bmoon mission\b|\bceos?\b.*\bresign|\bresign.*\bceos?\b|\bscandal\b|\bembezzlement\b)/.test(value);
 }
 
 export function findMatchingCountry(text, config) {
