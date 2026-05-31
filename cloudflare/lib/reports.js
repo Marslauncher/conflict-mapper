@@ -1,6 +1,9 @@
 import { generateReportText, getEffectiveAIConfig } from './ai.js';
 import { filterArticles } from './static-data.js';
 
+const REPORT_STATUS_KEY = 'analysis:status';
+const REPORT_LOGS_KEY = 'analysis:logs:v1';
+
 const COUNTRY_LABELS = {
   usa: 'United States',
   china: 'China',
@@ -25,6 +28,15 @@ export function reportPaths(scope, slug = 'global') {
     };
   }
 
+  if (scope === 'watch') {
+    return {
+      currentKey: `reports/watches/${slug}/current/report.html`,
+      currentPath: `/reports/watches/${slug}/current/report.html`,
+      historicalPrefix: `reports/watches/${slug}/historical`,
+      publicHistoricalPrefix: `/reports/watches/${slug}/historical`,
+    };
+  }
+
   return {
     currentKey: `reports/countries/${slug}/current/report.html`,
     currentPath: `/reports/countries/${slug}/current/report.html`,
@@ -35,42 +47,80 @@ export function reportPaths(scope, slug = 'global') {
 
 export async function getReportStatus(env) {
   if (!env.CONFIG_KV) return { running: false, phase: 'unconfigured', message: 'CONFIG_KV binding missing' };
-  const raw = await env.CONFIG_KV.get('analysis:status');
+  const raw = await env.CONFIG_KV.get(REPORT_STATUS_KEY);
   return raw ? JSON.parse(raw) : { running: false, phase: 'idle', message: 'Idle' };
 }
 
 export async function setReportStatus(env, status) {
   if (!env.CONFIG_KV) return;
-  await env.CONFIG_KV.put('analysis:status', JSON.stringify({
+  await env.CONFIG_KV.put(REPORT_STATUS_KEY, JSON.stringify({
     updatedAt: new Date().toISOString(),
     ...status,
   }));
 }
 
+export async function appendReportLog(env, entry) {
+  if (!env.CONFIG_KV) return;
+  const raw = await env.CONFIG_KV.get(REPORT_LOGS_KEY);
+  let logs = [];
+  try {
+    logs = raw ? JSON.parse(raw) : [];
+  } catch (_) {
+    logs = [];
+  }
+  logs.unshift({
+    timestamp: new Date().toISOString(),
+    level: entry.level || 'info',
+    category: entry.category || 'analysis',
+    message: entry.message || '',
+    ...(entry.details ? { details: entry.details } : {}),
+  });
+  await env.CONFIG_KV.put(REPORT_LOGS_KEY, JSON.stringify(logs.slice(0, 250)));
+}
+
+export async function listReportLogs(env, limit = 100) {
+  if (!env.CONFIG_KV) return [];
+  const raw = await env.CONFIG_KV.get(REPORT_LOGS_KEY);
+  try {
+    const logs = raw ? JSON.parse(raw) : [];
+    return logs.slice(0, Math.max(1, Math.min(Number(limit) || 100, 250)));
+  } catch (_) {
+    return [];
+  }
+}
+
 export async function listReportMetadata(env, { scope = 'global', slug = 'global', limit = 50 } = {}) {
   if (!env.DB) return [];
-  const result = await env.DB.prepare(`
-    SELECT id, scope, slug, title, public_path AS publicPath, generated_at AS generatedAt,
-           report_date AS reportDate, is_current AS isCurrent, provider, model, status
-    FROM reports
-    WHERE scope = ?1 AND slug = ?2
-    ORDER BY is_current DESC, generated_at DESC
-    LIMIT ?3
-  `).bind(scope, slug, limit).all();
-  return result.results || [];
+  try {
+    const result = await env.DB.prepare(`
+      SELECT id, scope, slug, title, public_path AS publicPath, generated_at AS generatedAt,
+             report_date AS reportDate, is_current AS isCurrent, provider, model, status
+      FROM reports
+      WHERE scope = ?1 AND slug = ?2
+      ORDER BY is_current DESC, generated_at DESC
+      LIMIT ?3
+    `).bind(scope, slug, limit).all();
+    return result.results || [];
+  } catch (_) {
+    return [];
+  }
 }
 
 export async function getCurrentReportMetadata(env, scope, slug = 'global') {
   if (!env.DB) return null;
-  const result = await env.DB.prepare(`
-    SELECT id, scope, slug, title, storage_key AS storageKey, public_path AS publicPath,
-           generated_at AS generatedAt, report_date AS reportDate, provider, model, status
-    FROM reports
-    WHERE scope = ?1 AND slug = ?2 AND is_current = 1
-    ORDER BY generated_at DESC
-    LIMIT 1
-  `).bind(scope, slug).first();
-  return result || null;
+  try {
+    const result = await env.DB.prepare(`
+      SELECT id, scope, slug, title, storage_key AS storageKey, public_path AS publicPath,
+             generated_at AS generatedAt, report_date AS reportDate, provider, model, status
+      FROM reports
+      WHERE scope = ?1 AND slug = ?2 AND is_current = 1
+      ORDER BY generated_at DESC
+      LIMIT 1
+    `).bind(scope, slug).first();
+    return result || null;
+  } catch (_) {
+    return null;
+  }
 }
 
 export async function generateAndStoreReport(env, { scope = 'global', slug = 'global', articles = [] } = {}) {
@@ -78,34 +128,80 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
   const normalizedSlug = scope === 'global' ? 'global' : slug;
   const title = scope === 'global'
     ? `Global Intelligence Report - ${startedAt.slice(0, 10)}`
-    : `${COUNTRY_LABELS[normalizedSlug] || normalizedSlug.toUpperCase()} Intelligence Report - ${startedAt.slice(0, 10)}`;
+    : scope === 'watch'
+      ? `${watchTitle(normalizedSlug)} - ${startedAt.slice(0, 10)}`
+      : `${COUNTRY_LABELS[normalizedSlug] || normalizedSlug.toUpperCase()} Intelligence Report - ${startedAt.slice(0, 10)}`;
 
   await setReportStatus(env, {
     running: true,
     phase: 'generating',
+    progress: 5,
     scope,
     slug: normalizedSlug,
     message: `Generating ${title}`,
     startedAt,
   });
+  await appendReportLog(env, { message: `Queued ${title}`, details: { scope, slug: normalizedSlug } });
 
   try {
     if (!env.REPORTS_BUCKET) throw new Error('REPORTS_BUCKET binding missing');
     if (!env.DB) throw new Error('DB binding missing');
 
+    await setReportStatus(env, {
+      running: true,
+      phase: 'selecting_articles',
+      progress: 20,
+      scope,
+      slug: normalizedSlug,
+      message: 'Selecting source articles',
+      startedAt,
+    });
     const selectedArticles = filterArticles(articles, {
-      country: scope === 'country' ? normalizedSlug : '',
+      country: scope === 'country' || scope === 'watch' ? normalizedSlug : '',
       limit: 80,
     });
+    await appendReportLog(env, {
+      message: `Selected ${selectedArticles.length} source articles`,
+      details: { scope, slug: normalizedSlug },
+    });
 
+    await setReportStatus(env, {
+      running: true,
+      phase: 'ai_generation',
+      progress: 35,
+      scope,
+      slug: normalizedSlug,
+      message: 'Calling configured AI provider',
+      startedAt,
+    });
     const aiText = await generateReportText(
       env,
-      buildSystemPrompt(),
+      buildSystemPrompt(scope),
       buildUserPrompt({ scope, slug: normalizedSlug, title, articles: selectedArticles }),
     );
+    await appendReportLog(env, { message: 'AI provider returned report body', details: { scope, slug: normalizedSlug } });
+
+    await setReportStatus(env, {
+      running: true,
+      phase: 'rendering',
+      progress: 70,
+      scope,
+      slug: normalizedSlug,
+      message: 'Rendering report HTML',
+      startedAt,
+    });
     const html = renderReportHtml({ title, scope, slug: normalizedSlug, body: aiText, articles: selectedArticles });
     const paths = reportPaths(scope, normalizedSlug);
 
+    await setReportStatus(env, {
+      running: true,
+      phase: 'storing',
+      progress: 85,
+      scope,
+      slug: normalizedSlug,
+      message: 'Archiving current report and writing R2 object',
+      startedAt,
+    });
     await archiveCurrentReport(env, scope, normalizedSlug, paths);
 
     await env.REPORTS_BUCKET.put(paths.currentKey, html, {
@@ -141,11 +237,16 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
     await setReportStatus(env, {
       running: false,
       phase: 'complete',
+      progress: 100,
       scope,
       slug: normalizedSlug,
       message: `Generated ${title}`,
       lastRun: new Date().toISOString(),
       lastResult: { id: currentId, path: paths.currentPath, articleCount: selectedArticles.length },
+    });
+    await appendReportLog(env, {
+      message: `Generated ${title}`,
+      details: { id: currentId, path: paths.currentPath, articleCount: selectedArticles.length },
     });
 
     return { id: currentId, title, path: paths.currentPath, articleCount: selectedArticles.length };
@@ -153,10 +254,16 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
     await setReportStatus(env, {
       running: false,
       phase: 'failed',
+      progress: 100,
       scope,
       slug: normalizedSlug,
       message: err.message,
       lastRun: new Date().toISOString(),
+    });
+    await appendReportLog(env, {
+      level: 'error',
+      message: `Report generation failed: ${err.message}`,
+      details: { scope, slug: normalizedSlug },
     });
     throw err;
   }
@@ -184,7 +291,15 @@ async function archiveCurrentReport(env, scope, slug, paths) {
   }
 }
 
-function buildSystemPrompt() {
+function watchTitle(slug) {
+  if (slug === 'taiwan') return 'China/Taiwan Threat Watch';
+  return `${COUNTRY_LABELS[slug] || slug.toUpperCase()} Threat Watch`;
+}
+
+function buildSystemPrompt(scope = 'global') {
+  const watchInstruction = scope === 'watch'
+    ? '- This is a threat watch product. Emphasize warning indicators, likely escalation paths, PLA/ROC/US/Japan posture, maritime/air activity, cyber/economic pressure, and collection gaps.\n'
+    : '';
   return `You are the Conflict Mapper intelligence report engine. Write in the style of a daily OSINT watch-center product for enterprise infrastructure, security, and executive risk teams.
 
 The target product is a compact but dense intelligence brief, not a narrative essay and not a generic news summary. Prioritize crisp assessments, operational consequences, and monitorable indicators.
@@ -199,6 +314,7 @@ Hard requirements:
 - Use the exact section structure below and preserve the class names because the renderer styles them.
 - Do not invent exact casualty figures, classified intelligence, or unsupported claims.
 - Keep paragraphs tight. The reference style is dense, direct, and scannable.
+${watchInstruction}
 
 Use this HTML structure:
 <div class="exec-summary">
@@ -288,18 +404,28 @@ function buildUserPrompt({ scope, slug, title, articles }) {
       }).join('\n\n')
     : 'No recent articles were available. Use only cautious, general assessment language.';
 
-  return `Create a Conflict Mapper intelligence report body for: ${title}
-
-Scope: ${scope === 'global' ? 'global' : `country/${slug}`}
-
-The report must match the historical Conflict Mapper report style:
-- Short classification-style executive summary.
-- 5-7 Global Trends cards, ranked by impact.
+  const scopeLine = scope === 'global' ? 'global' : scope === 'watch' ? `watch/${slug}` : `country/${slug}`;
+  const sectionTarget = scope === 'watch'
+    ? `- 5-7 Watch Trends ranked by threat relevance.
+- 6-10 Breaking Developments focused on China/Taiwan and related regional security signals.
+- 6-10 Warning Indicators and Areas of Concern.
+- Regional Assessments by theater: Taiwan Strait, South China Sea, Japan/Ryukyu arc, Philippines, US Indo-Pacific posture, cyber/information operations.
+- One Near-Term Outlook paragraph covering 30-90 days.
+- 8-12 Watch List indicators suitable for alerting/monitoring dashboards.`
+    : `- 5-7 Global Trends cards, ranked by impact.
 - 6-10 Breaking Developments from the newest/highest-signal source articles.
 - 6-10 Areas of Concern with risk badges.
 - Regional Assessments by theater: europe, middle east, asia pacific, africa, americas, arctic when source material supports them.
 - One Near-Term Outlook paragraph covering 30-90 days.
-- 6-10 Watch List indicators suitable for alerting/monitoring dashboards.
+- 6-10 Watch List indicators suitable for alerting/monitoring dashboards.`;
+
+  return `Create a Conflict Mapper intelligence report body for: ${title}
+
+Scope: ${scopeLine}
+
+The report must match the historical Conflict Mapper report style:
+- Short classification-style executive summary.
+${sectionTarget}
 
 Analytic emphasis:
 - Geopolitical escalation pathways
@@ -328,9 +454,12 @@ function renderReportHtml({ title, body, articles }) {
   const generatedDate = new Date(generatedAt);
   const displayTitle = escapeHtml(title).replace(' - ', ' &mdash; ');
   const sanitizedBody = sanitizeReportHtml(stripCodeFence(body));
+  const mapMarkers = buildMapMarkers(articles);
+  const topicLinks = buildTopicLinks(title, articles);
   const sourceList = articles.slice(0, 20).map((article) => (
     `<li><a href="${escapeAttr(article.link || '#')}" rel="noopener noreferrer">${escapeHtml(article.title || 'Untitled')}</a> <span>${escapeHtml(article.source || '')}</span></li>`
   )).join('');
+  const topicList = topicLinks.map((link) => `<a class="topic-link" href="${escapeAttr(link.href)}" rel="noopener noreferrer">${escapeHtml(link.label)}</a>`).join('');
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -340,6 +469,7 @@ function renderReportHtml({ title, body, articles }) {
   <title>${escapeHtml(title)}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQPD+0DgM52rONKgrLqMEw3u96rBKUE=" crossorigin="">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -532,6 +662,33 @@ function renderReportHtml({ title, body, articles }) {
     .source-list { padding-left:20px; }
     .source-list li { padding:8px 0; color:#c8d0dc; border-bottom:1px solid rgba(255,255,255,.05); }
     .source-list span { color:#8a94a8; margin-left:8px; }
+    .article-map {
+      height:360px;
+      border:1px solid rgba(0,200,180,.2);
+      border-radius:6px;
+      overflow:hidden;
+      background:#05070a;
+    }
+    .leaflet-container { background:#05070a; font-family:'Inter', system-ui, sans-serif; }
+    .leaflet-popup-content-wrapper, .leaflet-popup-tip { background:#111722; color:#dde2ec; }
+    .leaflet-popup-content a { color:#7dd3fc; }
+    .topic-grid {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      padding:16px;
+    }
+    .topic-link {
+      display:inline-flex;
+      border:1px solid rgba(0,200,180,.18);
+      background:rgba(0,200,180,.07);
+      border-radius:4px;
+      padding:8px 10px;
+      font-family:'Share Tech Mono', monospace;
+      font-size:11px;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+    }
     .generated-stamp {
       margin-top:48px;
       padding-top:16px;
@@ -562,6 +719,14 @@ function renderReportHtml({ title, body, articles }) {
 
   ${sanitizedBody}
 
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Source Map</span>
+      <span class="section-label">${mapMarkers.length} GEO-TAGGED ITEMS</span>
+    </div>
+    <div id="report-map" class="article-map"></div>
+  </div>
+
   <div class="section sources">
     <div class="section-header">
       <span class="section-title">Source Articles</span>
@@ -572,11 +737,95 @@ function renderReportHtml({ title, body, articles }) {
     </div>
   </div>
 
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Further Reading</span>
+      <span class="section-label">TOPIC LINKS</span>
+    </div>
+    <div class="panel">
+      <div class="topic-grid">${topicList}</div>
+    </div>
+  </div>
+
   <div class="generated-stamp">
     CONFLICT MAPPER - AUTO-GENERATED INTELLIGENCE BRIEF // ${escapeHtml(generatedDate.toUTCString())} // CLOUDFLARE R2/D1 BACKED // AI-ASSISTED ANALYSIS
   </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    const reportMarkers = ${safeJson(mapMarkers)};
+    const mapEl = document.getElementById('report-map');
+    if (mapEl && window.L) {
+      const map = L.map(mapEl, { scrollWheelZoom: false, worldCopyJump: true }).setView([20, 0], 2);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 8,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+      const points = [];
+      for (const marker of reportMarkers) {
+        const lat = Number(marker.lat);
+        const lng = Number(marker.lng);
+        if (!Number.isFinite(lat) || !Number.isFinite(lng)) continue;
+        points.push([lat, lng]);
+        L.circleMarker([lat, lng], {
+          radius: 7,
+          color: '#00c8b4',
+          fillColor: '#00c8b4',
+          fillOpacity: 0.75,
+          weight: 1
+        }).addTo(map).bindPopup(
+          '<strong>' + escapePopup(marker.title) + '</strong><br>' +
+          '<span>' + escapePopup(marker.place || marker.country || 'Location') + '</span><br>' +
+          '<a href="' + encodeURI(marker.link || '#') + '" target="_blank" rel="noopener noreferrer">Open source</a>'
+        );
+      }
+      if (points.length > 1) map.fitBounds(points, { padding: [28, 28] });
+      if (points.length === 1) map.setView(points[0], 5);
+    }
+    function escapePopup(value) {
+      return String(value || '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    }
+  </script>
 </body>
 </html>`;
+}
+
+function buildMapMarkers(articles) {
+  return articles
+    .map((article) => ({
+      lat: Number(article.lat ?? article.geo?.lat),
+      lng: Number(article.lng ?? article.geo?.lng),
+      title: String(article.title || 'Untitled').slice(0, 160),
+      link: article.link || '#',
+      source: article.source || '',
+      place: article.geo?.place || article.location || '',
+      country: article.country || article.geo?.country || '',
+    }))
+    .filter((marker) => Number.isFinite(marker.lat) && Number.isFinite(marker.lng))
+    .slice(0, 60);
+}
+
+function safeJson(value) {
+  return JSON.stringify(value).replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
+}
+
+function buildTopicLinks(title, articles) {
+  const topics = new Set();
+  topics.add(title.replace(/\s+-\s+.+$/, ''));
+  for (const article of articles.slice(0, 30)) {
+    for (const tag of article.tags || []) topics.add(tag);
+    if (article.category) topics.add(article.category);
+    if (article.geo?.place) topics.add(article.geo.place);
+  }
+
+  const values = Array.from(topics)
+    .map((topic) => String(topic || '').trim())
+    .filter((topic) => topic.length > 2)
+    .slice(0, 14);
+
+  return values.map((topic) => ({
+    label: topic,
+    href: `https://news.google.com/search?q=${encodeURIComponent(`${topic} geopolitics security`)}`,
+  }));
 }
 
 function stripCodeFence(value) {

@@ -5,6 +5,7 @@ pages_build_output_dir = "."
 [vars]
 AI_PROVIDER = "perplexity"
 OPENROUTER_MODEL = "anthropic/claude-sonnet-4"
+NVIDIA_MODEL = "nvidia/llama-3.3-nemotron-super-49b-v1"
 
 [[r2_buckets]]
 binding = "REPORTS_BUCKET"

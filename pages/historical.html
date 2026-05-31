@@ -410,7 +410,7 @@ html, body {
       <button class="viewer-back" onclick="closeViewer()">← Back</button>
       <div class="viewer-title" id="viewer-title">Loading report...</div>
     </div>
-    <iframe id="report-iframe" title="Historical report viewer" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+    <iframe id="report-iframe" title="Historical report viewer"></iframe>
   </div>
 
   <!-- Sidebar / main content -->
@@ -521,20 +521,23 @@ async function loadReports() {
   try {
     let endpoint;
     if (isGlobal) {
-      endpoint = '/api/analysis/history/global';
+      endpoint = '/api/reports?scope=global&slug=global';
     } else if (countrySlug) {
-      endpoint = `/api/analysis/history/country/${countrySlug}`;
+      endpoint = `/api/reports?scope=country&slug=${encodeURIComponent(countrySlug)}`;
     } else {
-      endpoint = '/api/analysis/history';
+      endpoint = '/api/reports';
     }
 
     const res = await fetch(endpoint);
     if (!res.ok) throw new Error('API unavailable');
     const data = await res.json();
-    allReports = Array.isArray(data) ? data : (data.reports || []);
+    const reports = Array.isArray(data)
+      ? data
+      : (data.data?.reports || data.reports || []);
+    allReports = reports.map(normalizeReport).filter(r => r.path && r.path !== '#');
   } catch(e) {
-    // Generate mock historical reports for demo
-    allReports = generateMockReports();
+    allReports = [];
+    console.warn('[Historical Reports] failed to load report list', e);
   }
 
   updateStats();
@@ -659,6 +662,10 @@ function renderReportCard(report) {
 /* ── Open/close report viewer ── */
 function openReport(report) {
   const url = report.path || report.url || buildReportPath(report);
+  if (!url || url === '#') {
+    alert('This report entry does not have a readable report path.');
+    return;
+  }
   const date = new Date(report.generatedAt || report.date || Date.now());
   const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const title = report.type === 'global'
@@ -685,6 +692,19 @@ function buildReportPath(report) {
   } else {
     return `../reports/countries/${report.country}/${report.id || formatDatePath(report.date)}/report.html`;
   }
+}
+
+function normalizeReport(report) {
+  const publicPath = report.publicPath || report.path || report.url || '';
+  return {
+    ...report,
+    type: report.type || report.scope || (report.country || report.slug ? 'country' : 'global'),
+    country: report.country || (report.scope === 'country' ? report.slug : ''),
+    path: publicPath,
+    publicPath,
+    generatedAt: report.generatedAt || report.generated_at || report.uploaded || report.reportDate || report.date,
+    size: report.size || report.contentLength || 0,
+  };
 }
 
 function formatDatePath(dateStr) {

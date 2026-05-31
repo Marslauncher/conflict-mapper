@@ -297,10 +297,10 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="filter-row">
         <span class="filter-label">Time</span>
         <select class="filter-select" id="filter-time" onchange="applyFilters()">
-          <option value="24h" selected>Last 24 hours</option>
+          <option value="24h">Last 24 hours</option>
           <option value="7d">Last 7 days</option>
           <option value="30d">Last 30 days</option>
-          <option value="all">All time</option>
+          <option value="all" selected>All time</option>
         </select>
       </div>
       <div>
@@ -311,6 +311,9 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
           <label class="cat-check"><input type="checkbox" value="military" checked onchange="applyFilters()"> 🟠 Military</label>
           <label class="cat-check"><input type="checkbox" value="political" checked onchange="applyFilters()"> 🟡 Political</label>
           <label class="cat-check"><input type="checkbox" value="technology" checked onchange="applyFilters()"> 🔵 Tech</label>
+          <label class="cat-check"><input type="checkbox" value="economic" checked onchange="applyFilters()"> 🟢 Economic</label>
+          <label class="cat-check"><input type="checkbox" value="research" checked onchange="applyFilters()"> 🟣 Research</label>
+          <label class="cat-check"><input type="checkbox" value="conflict" checked onchange="applyFilters()"> 🔴 Conflict</label>
           <label class="cat-check"><input type="checkbox" value="general" checked onchange="applyFilters()"> ⚪ General</label>
         </div>
       </div>
@@ -516,7 +519,7 @@ function getActiveCategories() {
 }
 
 function getTimeFilter() {
-  const val = document.getElementById('filter-time')?.value || '24h';
+  const val = document.getElementById('filter-time')?.value || 'all';
   if (val === 'all') return null;
   const units = { '1h': 3600000, '6h': 21600000, '24h': 86400000, '7d': 604800000, '30d': 2592000000 };
   return Date.now() - (units[val] || units['24h']);

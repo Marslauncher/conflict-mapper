@@ -1,5 +1,5 @@
 import { generateAndStoreReport, setReportStatus } from '../../../cloudflare/lib/reports.js';
-import { normalizeArticlesPayload, readRemoteJson } from '../../../cloudflare/lib/static-data.js';
+import { loadArticleSet, refreshArticles } from '../../../cloudflare/lib/articles.js';
 import { jsonResponse } from '../../../cloudflare/lib/http.js';
 
 const DEFAULT_COUNTRIES = [
@@ -41,18 +41,36 @@ async function runDailyReports(env, trigger) {
   });
 
   const staticBaseUrl = env.STATIC_SITE_BASE_URL || 'https://conflict-mapper.pages.dev';
-  const payload = await readRemoteJson(staticBaseUrl, '/data/articles.json', { articles: [] });
-  const articles = normalizeArticlesPayload(payload);
+  const articleContext = createArticleContext(env, staticBaseUrl);
+  if (env.FETCH_FEEDS_BEFORE_REPORTS !== 'false') {
+    try {
+      await refreshArticles(articleContext, {
+        limitFeeds: Number(env.REPORT_FEED_LIMIT || 80),
+        maxItemsPerFeed: Number(env.REPORT_FEED_ITEMS_PER_FEED || 20),
+      });
+    } catch (err) {
+      await setReportStatus(env, {
+        running: true,
+        phase: 'scheduled-feed-warning',
+        message: `Feed refresh failed; using existing article cache: ${err.message}`,
+        startedAt,
+      });
+    }
+  }
+
+  const payload = await loadArticleSet(articleContext);
+  const articles = payload.articles;
   const countries = (env.REPORT_COUNTRIES || DEFAULT_COUNTRIES.join(','))
     .split(',')
     .map((item) => item.trim())
     .filter(Boolean);
 
   const results = [];
-  results.push(await generateAndStoreReport(env, { scope: 'global', slug: 'global', articles }));
+  results.push(await runReport(env, { scope: 'global', slug: 'global', articles }));
+  results.push(await runReport(env, { scope: 'watch', slug: 'taiwan', articles }));
 
   for (const slug of countries) {
-    results.push(await generateAndStoreReport(env, { scope: 'country', slug, articles }));
+    results.push(await runReport(env, { scope: 'country', slug, articles }));
   }
 
   await setReportStatus(env, {
@@ -64,4 +82,36 @@ async function runDailyReports(env, trigger) {
   });
 
   return results;
+}
+
+async function runReport(env, job) {
+  try {
+    return {
+      success: true,
+      ...(await generateAndStoreReport(env, job)),
+    };
+  } catch (err) {
+    return {
+      success: false,
+      scope: job.scope,
+      slug: job.slug,
+      error: err.message,
+    };
+  }
+}
+
+function createArticleContext(env, staticBaseUrl) {
+  const cleanBase = String(staticBaseUrl || '').replace(/\/+$/, '');
+  return {
+    request: new Request(`${cleanBase}/`),
+    env: {
+      ...env,
+      ASSETS: {
+        fetch(request) {
+          const url = new URL(request.url);
+          return fetch(new Request(`${cleanBase}${url.pathname}${url.search}`, request));
+        },
+      },
+    },
+  };
 }

@@ -2153,6 +2153,7 @@
                       <option value="openai">OpenAI</option>
                       <option value="anthropic">Anthropic (Claude)</option>
                       <option value="google">Google (Gemini)</option>
+                      <option value="nvidia">NVIDIA NIM</option>
                       <option value="local">Local (Ollama / LMStudio)</option>
                     </select>
                   </div>
@@ -2735,6 +2736,28 @@
                       Generate All
                     </button>
                   </div>
+                </div>
+              </div>
+
+              <!-- R2 Storage Browser -->
+              <div class="admin-card" style="margin-top:var(--space-5)">
+                <div class="admin-card-header">
+                  <div class="admin-card-icon" style="background:rgba(34,197,94,0.12)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>
+                  </div>
+                  <div>
+                    <div class="admin-card-title">Report Storage</div>
+                    <div class="admin-card-subtitle" id="rpt-storage-summary">Browse Cloudflare R2 report objects</div>
+                  </div>
+                  <div style="margin-left:auto">
+                    <button class="btn btn-secondary btn-sm" onclick="loadReportStorage()">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                      Refresh
+                    </button>
+                  </div>
+                </div>
+                <div id="rpt-storage-list" style="margin-top:var(--space-3);font-family:var(--font-mono);font-size:0.68rem;color:var(--color-text-muted)">
+                  Open the Reports section to load R2 objects.
                 </div>
               </div>
             </div>
@@ -3548,6 +3571,7 @@ function showAdminSection(id, btn) {
   if (id === 'config-io') updateConfigPreview();
   if (id === 'rss-feeds') loadFeedsConfig();
   if (id === 'flagged') loadFlaggedArticles();
+  if (id === 'reports') loadReportStorage();
   if (id === 'logs') startLogsPolling();
   else stopLogsPolling();
 }
@@ -3829,6 +3853,7 @@ const AI_PROVIDER_DEFAULTS = {
   openai: { model: 'gpt-4o', apiPlaceholder: 'sk-...', baseUrl: 'https://api.openai.com/v1', showBaseUrl: false },
   anthropic: { model: 'claude-sonnet-4-20250514', apiPlaceholder: 'sk-ant-...', baseUrl: 'https://api.anthropic.com', showBaseUrl: false },
   google: { model: 'gemini-2.0-flash', apiPlaceholder: 'AIza...', baseUrl: 'https://generativelanguage.googleapis.com', showBaseUrl: false },
+  nvidia: { model: 'nvidia/llama-3.3-nemotron-super-49b-v1', apiPlaceholder: 'nvapi-...', baseUrl: 'https://integrate.api.nvidia.com/v1', showBaseUrl: true },
   local: { model: 'llama3.1', apiPlaceholder: 'optional', baseUrl: 'http://localhost:11434/v1', showBaseUrl: true },
 };
 
@@ -4228,16 +4253,18 @@ async function startReportJob(type, label) {
       : `/api/analysis/${type}`;
       
     const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
-    
-    if (res.ok) {
-      // Start polling
-      pollReportStatus(label);
-    } else {
-      throw new Error(`HTTP ${res.status}`);
-    }
+    const data = await readApiJson(res, endpoint);
+    if (!res.ok || data.success === false) throw new Error(data.error || `HTTP ${res.status}`);
+    pollReportStatus(label);
   } catch(e) {
-    // Simulate progress for demo
-    simulateReportProgress(label);
+    _rptRunning = false;
+    document.querySelectorAll('.rpt-trigger-btn').forEach(b => b.disabled = false);
+    jobStatus.className = 'status-badge disconnected';
+    jobStatus.textContent = 'Failed';
+    progressBar.style.width = '100%';
+    jobPct.textContent = '0%';
+    jobDetail.textContent = e.message || 'Report generation request failed.';
+    showToast(e.message || 'Report generation failed', true);
   }
 }
 
@@ -4277,8 +4304,7 @@ function pollReportStatus(label) {
         const pctEl = document.getElementById('rpt-job-pct');
         const detailEl = document.getElementById('rpt-job-detail');
 
-        // Calculate percentage from current/total
-        let pct = 5;
+        let pct = Number(status.progress || 0) || 5;
         if (status.total > 0) {
           pct = Math.round((status.current / status.total) * 100);
         }
@@ -4314,7 +4340,7 @@ function pollReportStatus(label) {
   }, 2000);
 }
 
-function finishReportJob(label, success) {
+async function finishReportJob(label, success) {
   _rptRunning = false;
   document.querySelectorAll('.rpt-trigger-btn').forEach(b => b.disabled = false);
 
@@ -4328,8 +4354,18 @@ function finishReportJob(label, success) {
     pctEl.textContent = '100%';
     jobStatus.className = 'status-badge connected';
     jobStatus.textContent = 'Complete';
-    detailEl.textContent = 'Report generated successfully.';
+    const statusRes = await fetch('/api/analysis/status').catch(() => null);
+    let linkHtml = '';
+    if (statusRes && statusRes.ok) {
+      const statusJson = await statusRes.json().catch(() => ({}));
+      const resultPath = statusJson.data?.lastResult?.path;
+      if (resultPath) {
+        linkHtml = ` <a href="${escHtml(resultPath)}" target="_blank" rel="noopener noreferrer" style="color:var(--color-info)">Open report</a>`;
+      }
+    }
+    detailEl.innerHTML = `Report generated successfully.${linkHtml}`;
     showToast(`${label} — complete`);
+    loadReportStorage();
   } else {
     jobStatus.className = 'status-badge disconnected';
     jobStatus.textContent = 'Failed';
@@ -4341,6 +4377,51 @@ function finishReportJob(label, success) {
     document.getElementById('rpt-active-job').style.display = 'none';
     bar.style.width = '0%';
   }, 5000);
+}
+
+async function loadReportStorage() {
+  const summary = document.getElementById('rpt-storage-summary');
+  const list = document.getElementById('rpt-storage-list');
+  if (!summary || !list) return;
+  summary.textContent = 'Loading Cloudflare R2 report objects...';
+  list.innerHTML = '<div style="padding:var(--space-3);color:var(--color-text-faint)">Loading...</div>';
+
+  try {
+    const res = await fetch('/api/storage/reports?prefix=reports/&limit=200');
+    const data = await readApiJson(res, '/api/storage/reports');
+    if (!res.ok || data.success === false) throw new Error(data.error || `HTTP ${res.status}`);
+    const objects = data.data?.objects || [];
+    const totalBytes = objects.reduce((sum, object) => sum + Number(object.size || 0), 0);
+    summary.textContent = `${objects.length} objects - ${formatBytes(totalBytes)} in R2`;
+
+    if (!objects.length) {
+      list.innerHTML = '<div style="padding:var(--space-3);color:var(--color-text-faint)">No R2 report objects found. Generate a report to populate storage.</div>';
+      return;
+    }
+
+    list.innerHTML = `
+      <div style="border:1px solid var(--color-border-dim);border-radius:var(--radius-sm);overflow:hidden">
+        ${objects.map((object) => `
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 90px 150px;gap:var(--space-3);align-items:center;padding:var(--space-3);border-bottom:1px solid var(--color-border-dim)">
+            <a href="${escHtml(object.path)}" target="_blank" rel="noopener noreferrer" style="color:var(--color-info);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escHtml(object.key)}</a>
+            <span>${formatBytes(object.size || 0)}</span>
+            <span>${object.uploaded ? new Date(object.uploaded).toLocaleString() : '-'}</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } catch (err) {
+    summary.textContent = 'R2 storage browser unavailable';
+    list.innerHTML = `<div style="padding:var(--space-3);color:var(--color-error)">Failed to load storage: ${escHtml(err.message)}</div>`;
+  }
+}
+
+function formatBytes(bytes) {
+  const value = Number(bytes || 0);
+  if (!value) return '0 B';
+  const units = ['B', 'KB', 'MB', 'GB'];
+  const i = Math.min(Math.floor(Math.log(value) / Math.log(1024)), units.length - 1);
+  return `${(value / Math.pow(1024, i)).toFixed(i === 0 ? 0 : 1)} ${units[i]}`;
 }
 
 /* ── Flagged Articles ───────────────────────────────────── */

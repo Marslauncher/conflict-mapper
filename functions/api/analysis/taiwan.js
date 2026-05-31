@@ -1,16 +1,19 @@
 import { errorResponse, jsonResponse } from '../../../cloudflare/lib/http.js';
-import { generateAndStoreReport } from '../../../cloudflare/lib/reports.js';
 import { loadArticleSet } from '../../../cloudflare/lib/articles.js';
+import { generateAndStoreReport } from '../../../cloudflare/lib/reports.js';
 
 export async function onRequestPost(context) {
   try {
     const payload = await loadArticleSet(context);
-    const articles = payload.articles;
-    context.waitUntil(generateAndStoreReport(context.env, { scope: 'global', slug: 'global', articles }).catch(() => {}));
+    context.waitUntil(generateAndStoreReport(context.env, {
+      scope: 'watch',
+      slug: 'taiwan',
+      articles: payload.articles,
+    }).catch(() => {}));
     return jsonResponse({
       success: true,
       data: {
-        message: 'Global report generation queued',
+        message: 'China/Taiwan threat watch generation queued',
         statusUrl: '/api/analysis/status',
       },
     }, { status: 202 });

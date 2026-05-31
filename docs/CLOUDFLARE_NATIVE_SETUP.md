@@ -5,7 +5,7 @@ This repo now includes a Cloudflare-native backend path:
 - Pages Functions serve `/api/*`.
 - R2 stores generated HTML reports.
 - D1 stores current and historical report metadata.
-- KV stores runtime status and lightweight settings.
+- KV stores runtime status, encrypted AI settings, report logs, and fetched RSS articles.
 - A separate Worker runs the daily cron job.
 
 ## 1. Deploy The Code
@@ -68,11 +68,13 @@ Set:
 | `AI_CONFIG_ENCRYPTION_KEY` | secret | long random value; required for saving keys from the app |
 | `PERPLEXITY_MODEL` | variable | `sonar-pro` |
 | `OPENROUTER_MODEL` | variable | `openai/gpt-4o-mini` |
+| `NVIDIA_MODEL` | variable | `nvidia/llama-3.3-nemotron-super-49b-v1` |
 | `PERPLEXITY_API_KEY` | secret, optional fallback | only needed if you do not save it from the app |
 | `OPENROUTER_API_KEY` | secret, optional fallback | only needed if you do not save it from the app |
 | `OPENAI_API_KEY` | secret, optional fallback | only needed if you do not save it from the app |
 | `ANTHROPIC_API_KEY` | secret, optional fallback | only needed if you do not save it from the app |
 | `GOOGLE_API_KEY` | secret, optional fallback | only needed if you do not save it from the app |
+| `NVIDIA_API_KEY` | secret, optional fallback | only needed if you do not save it from the app |
 
 `AI_CONFIG_ENCRYPTION_KEY` is the bootstrap secret that lets the app save provider API keys securely. The admin Settings UI sends provider config to `/api/ai/config`; the Pages Function encrypts the API key with this secret and stores the ciphertext in `CONFIG_KV`. Cloudflare environment secrets remain supported as fallback/default values.
 
@@ -103,6 +105,7 @@ Edit `workers/report-cron/wrangler.toml`:
 - Replace `REPLACE_WITH_KV_NAMESPACE_ID`.
 - Replace `REPLACE_WITH_D1_DATABASE_ID`.
 - Confirm `STATIC_SITE_BASE_URL = "https://conflict-mapper.pages.dev"`.
+- Leave `FETCH_FEEDS_BEFORE_REPORTS = "true"` if the cron job should refresh RSS into KV before generating reports.
 - Adjust the cron expression if needed.
 
 Add the same encryption secret to the Worker so scheduled reports can read the saved provider config:
@@ -121,7 +124,7 @@ cd workers/report-cron
 npx wrangler secret put OPENROUTER_API_KEY
 ```
 
-The default cron is `15 8 * * *`, which runs daily at 08:15 UTC.
+The default cron is `15 8 * * *`, which runs daily at 08:15 UTC. It refreshes the RSS article cache, then generates the global report, the China/Taiwan watch report, and all configured country reports.
 
 ## 6. Verify
 
@@ -132,6 +135,7 @@ curl https://conflict-mapper.pages.dev/api/status
 curl https://conflict-mapper.pages.dev/api/feeds
 curl https://conflict-mapper.pages.dev/api/articles?limit=1
 curl https://conflict-mapper.pages.dev/api/reports?scope=global
+curl https://conflict-mapper.pages.dev/api/storage/reports?prefix=reports/
 ```
 
 Save a provider key from the deployed app:
@@ -155,8 +159,18 @@ Trigger a report manually from the Pages API:
 ```bash
 curl -X POST https://conflict-mapper.pages.dev/api/analysis/global
 curl -X POST https://conflict-mapper.pages.dev/api/analysis/country/taiwan
+curl -X POST https://conflict-mapper.pages.dev/api/analysis/taiwan
 curl https://conflict-mapper.pages.dev/api/analysis/status
 ```
+
+Fetch RSS feeds into the Cloudflare KV article cache:
+
+```bash
+curl -X POST "https://conflict-mapper.pages.dev/api/feeds/fetch?limitFeeds=50&maxItemsPerFeed=20"
+curl "https://conflict-mapper.pages.dev/api/articles/geo?limit=25"
+```
+
+The admin Reports section now includes a Report Storage browser backed by `/api/storage/reports`, so generated R2 objects can be reviewed from the Settings UI.
 
 Test the cron Worker manually:
 

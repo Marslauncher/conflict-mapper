@@ -36,13 +36,17 @@ export function filterArticles(articles, { country = '', limit = 200, geoOnly = 
   const countryFilter = String(country || '').toLowerCase();
 
   if (countryFilter && countryFilter !== 'global') {
+    const aliases = countryAliases(countryFilter);
     result = result.filter((article) => {
       const fields = [
         article.country,
         article.geo?.country,
+        article.geo?.place,
         article.title,
+        article.description,
+        ...(Array.isArray(article.tags) ? article.tags : []),
       ].filter(Boolean).join(' ').toLowerCase();
-      return fields.includes(countryFilter);
+      return aliases.some((alias) => fields.includes(alias));
     });
   }
 
@@ -62,6 +66,23 @@ export function filterArticles(articles, { country = '', limit = 200, geoOnly = 
 
   if (limit > 0) result = result.slice(0, limit);
   return result;
+}
+
+function countryAliases(slug) {
+  const map = {
+    usa: ['usa', 'united states', 'u.s.', 'america', 'washington'],
+    china: ['china', 'chinese', 'beijing', 'pla'],
+    russia: ['russia', 'russian', 'moscow'],
+    ukraine: ['ukraine', 'kyiv'],
+    taiwan: ['taiwan', 'taipei', 'taiwan strait'],
+    iran: ['iran', 'tehran'],
+    israel: ['israel', 'gaza', 'tel aviv', 'jerusalem'],
+    india: ['india', 'new delhi'],
+    pakistan: ['pakistan', 'islamabad'],
+    'north-korea': ['north korea', 'dprk', 'pyongyang'],
+    nato: ['nato', 'brussels'],
+  };
+  return map[slug] || [slug.replace(/-/g, ' '), slug];
 }
 
 export function normalizeArticlesPayload(payload) {

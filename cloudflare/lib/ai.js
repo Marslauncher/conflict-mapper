@@ -4,6 +4,7 @@ const PROVIDERS = [
   { id: 'openai', name: 'OpenAI', defaultModel: 'gpt-4o' },
   { id: 'anthropic', name: 'Anthropic Claude', defaultModel: 'claude-sonnet-4-20250514' },
   { id: 'google', name: 'Google Gemini', defaultModel: 'gemini-2.0-flash' },
+  { id: 'nvidia', name: 'NVIDIA NIM', defaultModel: 'nvidia/llama-3.3-nemotron-super-49b-v1' },
 ];
 
 const AI_CONFIG_KV_KEY = 'ai:config:v1';
@@ -37,6 +38,13 @@ const FALLBACK_MODELS = {
     { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash' },
     { id: 'gemini-1.5-pro', name: 'Gemini 1.5 Pro' },
     { id: 'gemini-1.5-flash', name: 'Gemini 1.5 Flash' },
+  ],
+  nvidia: [
+    { id: 'nvidia/llama-3.3-nemotron-super-49b-v1', name: 'NVIDIA: Llama 3.3 Nemotron Super 49B' },
+    { id: 'nvidia/nemotron-3-super-120b-a12b', name: 'NVIDIA: Nemotron 3 Super 120B A12B' },
+    { id: 'meta/llama-3.3-70b-instruct', name: 'Meta: Llama 3.3 70B Instruct' },
+    { id: 'meta/llama-3.1-70b-instruct', name: 'Meta: Llama 3.1 70B Instruct' },
+    { id: 'deepseek-ai/deepseek-v4-pro', name: 'DeepSeek: V4 Pro' },
   ],
   local: [
     { id: 'llama3.1', name: 'llama3.1' },
@@ -80,6 +88,11 @@ export function getAIConfig(env) {
         apiKey: env.GOOGLE_API_KEY || '',
         model: env.GOOGLE_MODEL || 'gemini-2.0-flash',
         baseUrl: env.GOOGLE_BASE_URL || 'https://generativelanguage.googleapis.com',
+      },
+      nvidia: {
+        apiKey: env.NVIDIA_API_KEY || '',
+        model: env.NVIDIA_MODEL || 'nvidia/llama-3.3-nemotron-super-49b-v1',
+        baseUrl: env.NVIDIA_BASE_URL || 'https://integrate.api.nvidia.com/v1',
       },
     },
   };
@@ -283,6 +296,7 @@ async function fetchProviderModels(provider, config) {
   if (provider === 'openai') return fetchOpenAIModels(config);
   if (provider === 'anthropic') return fetchAnthropicModels(config);
   if (provider === 'google') return fetchGoogleModels(config);
+  if (provider === 'nvidia') return fetchOpenAIModels(config);
   if (provider === 'local') return fetchLocalModels(config);
 
   // Perplexity does not expose a stable public model-list endpoint in this app.
