@@ -3,7 +3,8 @@ import { filterArticles } from './static-data.js';
 
 const REPORT_STATUS_KEY = 'analysis:status';
 const REPORT_LOGS_KEY = 'analysis:logs:v1';
-const DEFAULT_STATUS_STALE_MINUTES = 90;
+const DEFAULT_STATUS_STALE_MINUTES = 5;
+const PROMPT_STORAGE_PREFIX = 'prompts/';
 
 const COUNTRY_LABELS = {
   usa: 'United States',
@@ -193,7 +194,7 @@ export async function getCurrentReportMetadata(env, scope, slug = 'global') {
   }
 }
 
-export async function generateAndStoreReport(env, { scope = 'global', slug = 'global', articles = [] } = {}) {
+export async function generateAndStoreReport(env, { scope = 'global', slug = 'global', articles = [], promptId = '' } = {}) {
   const startedAt = new Date().toISOString();
   const normalizedSlug = scope === 'global' ? 'global' : slug;
   const title = scope === 'global'
@@ -256,15 +257,22 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
     await appendReportLog(env, {
       category: 'ai',
       message: `Calling AI provider ${provider}${model ? ` / ${model}` : ''}`,
-      details: { scope, slug: normalizedSlug, provider, model, selectedArticles: selectedArticles.length },
+      details: { scope, slug: normalizedSlug, provider, model, promptId, selectedArticles: selectedArticles.length },
     });
     let aiText = '';
     let aiFallback = false;
     try {
+      const prompts = await resolveGenerationPrompts(env, {
+        scope,
+        slug: normalizedSlug,
+        title,
+        articles: selectedArticles,
+        promptId,
+      });
       aiText = await generateReportText(
         env,
-        buildSystemPrompt(scope),
-        buildUserPrompt({ scope, slug: normalizedSlug, title, articles: selectedArticles }),
+        prompts.systemPrompt,
+        prompts.userPrompt,
       );
     } catch (err) {
       const allowFallback = env.ALLOW_REPORT_FALLBACK !== 'false';
@@ -273,7 +281,7 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
         level: 'error',
         category: 'ai',
         message: `AI provider failed: ${failure.message}`,
-        details: { scope, slug: normalizedSlug, provider, model, mitigation: failure.mitigation, type: failure.type },
+        details: { scope, slug: normalizedSlug, provider, model, promptId, mitigation: failure.mitigation, type: failure.type },
       });
       if (!allowFallback) throw err;
 
@@ -300,13 +308,13 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
         level: 'warn',
         category: 'analysis',
         message: 'Using deterministic fallback report renderer',
-        details: { scope, slug: normalizedSlug, provider, model, selectedArticles: selectedArticles.length },
+        details: { scope, slug: normalizedSlug, provider, model, promptId, selectedArticles: selectedArticles.length },
       });
     }
     await appendReportLog(env, {
       category: 'ai',
       message: aiFallback ? 'Fallback report body generated' : 'AI provider returned report body',
-      details: { scope, slug: normalizedSlug, provider, model, bodyCharacters: aiText.length, aiFallback },
+      details: { scope, slug: normalizedSlug, provider, model, promptId, bodyCharacters: aiText.length, aiFallback },
     });
 
     await setReportStatus(env, {
@@ -379,7 +387,7 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       startedAt.slice(0, 10),
       provider,
       model,
-      JSON.stringify({ articleCount: selectedArticles.length, aiFallback }),
+      JSON.stringify({ articleCount: selectedArticles.length, aiFallback, promptId }),
     ).run();
     await appendReportLog(env, {
       message: 'D1 report metadata written',
@@ -394,14 +402,14 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       slug: normalizedSlug,
       message: `Generated ${title}`,
       lastRun: new Date().toISOString(),
-      lastResult: { id: currentId, path: paths.currentPath, articleCount: selectedArticles.length, aiFallback },
+      lastResult: { id: currentId, path: paths.currentPath, articleCount: selectedArticles.length, aiFallback, promptId },
     });
     await appendReportLog(env, {
       message: `Generated ${title}`,
-      details: { id: currentId, path: paths.currentPath, articleCount: selectedArticles.length, aiFallback },
+      details: { id: currentId, path: paths.currentPath, articleCount: selectedArticles.length, aiFallback, promptId },
     });
 
-    return { id: currentId, title, path: paths.currentPath, articleCount: selectedArticles.length, aiFallback };
+    return { id: currentId, title, path: paths.currentPath, articleCount: selectedArticles.length, aiFallback, promptId };
   } catch (err) {
     const failure = describeReportFailure(err);
     await setReportStatus(env, {
@@ -738,6 +746,221 @@ export function getReportPromptTemplates() {
       ],
     };
   });
+}
+
+export async function listReportPromptTemplates(env) {
+  const builtin = getReportPromptTemplates().map((template) => ({
+    ...template,
+    source: 'builtin',
+    saved: false,
+    storageKey: '',
+  }));
+  const stored = await listStoredPromptTemplates(env);
+  return [...stored, ...builtin];
+}
+
+export async function saveReportPromptTemplate(env, input = {}) {
+  if (!env.REPORTS_BUCKET) throw new Error('REPORTS_BUCKET binding missing');
+  const filename = sanitizePromptFilename(input.filename || input.label || 'custom-report-prompt.md');
+  const storageKey = `${PROMPT_STORAGE_PREFIX}${filename}`;
+  const id = promptIdFromFilename(filename);
+  const label = String(input.label || filename.replace(/\.md$/i, '').replace(/[-_]+/g, ' ')).trim();
+  const scope = String(input.scope || 'global').trim();
+  const slug = String(input.slug || (scope === 'global' ? 'global' : 'usa')).trim();
+  const title = String(input.title || `${label} - YYYY-MM-DD`).trim();
+  const fullPrompt = String(input.fullPrompt || input.prompt || '').trim();
+  if (!fullPrompt) throw new Error('Prompt text is required');
+
+  const markdown = buildStoredPromptMarkdown({
+    id,
+    label,
+    filename,
+    scope,
+    slug,
+    title,
+    importNotes: Array.isArray(input.importNotes) ? input.importNotes : [],
+    fullPrompt,
+  });
+
+  await env.REPORTS_BUCKET.put(storageKey, markdown, {
+    httpMetadata: { contentType: 'text/markdown; charset=utf-8' },
+    customMetadata: { id, label, scope, slug, title, type: 'report-prompt' },
+  });
+
+  return {
+    id,
+    label,
+    filename,
+    scope,
+    slug,
+    title,
+    fullPrompt,
+    source: 'r2',
+    saved: true,
+    storageKey,
+    path: `/storage/${storageKey}`,
+    importNotes: Array.isArray(input.importNotes) ? input.importNotes : [],
+  };
+}
+
+async function resolveGenerationPrompts(env, { scope, slug, title, articles, promptId = '' }) {
+  if (!promptId) {
+    return {
+      systemPrompt: buildSystemPrompt(scope),
+      userPrompt: buildUserPrompt({ scope, slug, title, articles }),
+    };
+  }
+
+  const template = await getReportPromptTemplate(env, promptId);
+  if (!template) {
+    await appendReportLog(env, {
+      level: 'warn',
+      category: 'ai',
+      message: `Selected prompt template not found; using built-in prompt: ${promptId}`,
+      details: { promptId, scope, slug },
+    });
+    return {
+      systemPrompt: buildSystemPrompt(scope),
+      userPrompt: buildUserPrompt({ scope, slug, title, articles }),
+    };
+  }
+
+  const dynamicPrompt = buildUserPrompt({ scope, slug, title, articles });
+  const sourceArticles = buildSourceArticleBlock(articles);
+  const templated = applyPromptPlaceholders(template.fullPrompt || '', {
+    title,
+    scope,
+    slug,
+    sourceArticles,
+    dynamicPrompt,
+  });
+
+  if (templated !== (template.fullPrompt || '') || /\{\{DYNAMIC_REPORT_REQUEST\}\}/.test(template.fullPrompt || '')) {
+    return { systemPrompt: '', userPrompt: templated };
+  }
+
+  return {
+    systemPrompt: templated,
+    userPrompt: dynamicPrompt,
+  };
+}
+
+async function getReportPromptTemplate(env, promptId) {
+  const id = String(promptId || '').trim();
+  if (!id) return null;
+  const all = await listReportPromptTemplates(env);
+  return all.find((template) => template.id === id || template.filename === id || template.storageKey === id) || null;
+}
+
+async function listStoredPromptTemplates(env) {
+  if (!env.REPORTS_BUCKET) return [];
+  const result = await env.REPORTS_BUCKET.list({ prefix: PROMPT_STORAGE_PREFIX, limit: 1000 });
+  const templates = [];
+  for (const object of result.objects || []) {
+    if (!object.key.endsWith('.md')) continue;
+    const stored = await env.REPORTS_BUCKET.get(object.key);
+    if (!stored) continue;
+    const text = await stored.text();
+    templates.push(parseStoredPromptMarkdown(text, object));
+  }
+  return templates.sort((a, b) => a.label.localeCompare(b.label));
+}
+
+function parseStoredPromptMarkdown(text, object) {
+  const filename = object.key.replace(PROMPT_STORAGE_PREFIX, '');
+  const id = promptIdFromFilename(filename);
+  const lines = String(text || '').split(/\r?\n/);
+  const heading = lines.find((line) => /^#\s+/.test(line))?.replace(/^#\s+/, '').replace(/\s+Prompt$/i, '').trim();
+  const scope = findMarkdownMeta(lines, 'Scope') || object.customMetadata?.scope || 'global';
+  const slug = findMarkdownMeta(lines, 'Slug') || object.customMetadata?.slug || (scope === 'global' ? 'global' : 'usa');
+  const title = findMarkdownMeta(lines, 'Default title') || object.customMetadata?.title || `${heading || id} - YYYY-MM-DD`;
+  const fullPromptMarker = lines.findIndex((line) => /^##\s+Full Prompt\s*$/i.test(line));
+  const fullPrompt = fullPromptMarker >= 0
+    ? lines.slice(fullPromptMarker + 1).join('\n').trim()
+    : String(text || '').trim();
+  const label = object.customMetadata?.label || heading || filename.replace(/\.md$/i, '').replace(/[-_]+/g, ' ');
+
+  return {
+    id,
+    label,
+    filename,
+    scope,
+    slug,
+    title,
+    fullPrompt,
+    source: 'r2',
+    saved: true,
+    storageKey: object.key,
+    path: `/storage/${object.key}`,
+    uploaded: object.uploaded?.toISOString?.() || object.uploaded || null,
+    size: object.size || 0,
+    importNotes: [
+      'Saved prompt template loaded from Cloudflare R2.',
+      'Use placeholders {{REPORT_TITLE}}, {{REPORT_SCOPE}}, {{REPORT_SLUG}}, {{SOURCE_ARTICLES}}, or {{DYNAMIC_REPORT_REQUEST}} for dynamic report context.',
+    ],
+  };
+}
+
+function buildStoredPromptMarkdown(template) {
+  return `# ${template.label} Prompt
+
+Scope: ${template.scope}
+Slug: ${template.slug}
+Default title: ${template.title}
+
+## Import Notes
+${(template.importNotes || []).map((note) => `- ${note}`).join('\n') || '- Saved Cloudflare report prompt template.'}
+
+## Full Prompt
+
+${template.fullPrompt}
+`;
+}
+
+function findMarkdownMeta(lines, key) {
+  const prefix = `${key}:`.toLowerCase();
+  const line = lines.find((item) => item.toLowerCase().startsWith(prefix));
+  return line ? line.slice(prefix.length).trim() : '';
+}
+
+function sanitizePromptFilename(value) {
+  const base = String(value || 'custom-report-prompt.md')
+    .trim()
+    .replace(/^\/+/, '')
+    .replace(/^prompts\//i, '')
+    .replace(/[^a-zA-Z0-9._-]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^\.+/, '')
+    .slice(0, 120) || 'custom-report-prompt.md';
+  return base.toLowerCase().endsWith('.md') ? base : `${base}.md`;
+}
+
+function promptIdFromFilename(filename) {
+  return String(filename || '')
+    .replace(/^prompts\//i, '')
+    .replace(/\.md$/i, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '') || 'custom-report-prompt';
+}
+
+function applyPromptPlaceholders(prompt, { title, scope, slug, sourceArticles, dynamicPrompt }) {
+  return String(prompt || '')
+    .replaceAll('{{REPORT_TITLE}}', title)
+    .replaceAll('{{REPORT_SCOPE}}', scope)
+    .replaceAll('{{REPORT_SLUG}}', slug)
+    .replaceAll('{{SOURCE_ARTICLES}}', sourceArticles)
+    .replaceAll('{{DYNAMIC_REPORT_REQUEST}}', dynamicPrompt);
+}
+
+function buildSourceArticleBlock(articles = []) {
+  return articles.length
+    ? articles.map((article, index) => {
+        const date = article.pubDate ? new Date(article.pubDate).toISOString().slice(0, 10) : 'unknown-date';
+        return `[${index + 1}] ${date} | ${article.source || 'unknown source'}\nTitle: ${article.title}\nSummary: ${(article.description || '').slice(0, 500)}\nURL: ${article.link || 'n/a'}`;
+      }).join('\n\n')
+    : 'No recent articles were available.';
 }
 
 function generateFallbackReportBody({ title, scope, slug, articles, error }) {

@@ -1,4 +1,4 @@
-import { errorResponse, jsonResponse } from '../../../cloudflare/lib/http.js';
+import { errorResponse, jsonResponse, readJsonRequest } from '../../../cloudflare/lib/http.js';
 import { loadArticleSet } from '../../../cloudflare/lib/articles.js';
 import { appendReportLog, generateAndStoreReport, setReportStatus } from '../../../cloudflare/lib/reports.js';
 
@@ -12,11 +12,12 @@ const JOBS = [
 export async function onRequestPost(context) {
   try {
     const payload = await loadArticleSet(context);
+    const body = await readJsonRequest(context.request);
     await appendReportLog(context.env, {
       message: 'All-report batch queued from API request',
-      details: { jobs: JOBS.length, articleCount: payload.articles.length },
+      details: { jobs: JOBS.length, articleCount: payload.articles.length, promptId: body.promptId || '' },
     });
-    context.waitUntil(runAllBatch(context.env, payload.articles));
+    context.waitUntil(runAllBatch(context.env, payload.articles, body.promptId || ''));
     return jsonResponse({
       success: true,
       data: {
@@ -29,7 +30,7 @@ export async function onRequestPost(context) {
   }
 }
 
-async function runAllBatch(env, articles) {
+async function runAllBatch(env, articles, promptId = '') {
   const reports = {};
   for (let i = 0; i < JOBS.length; i++) {
     const job = JOBS[i];
@@ -45,7 +46,7 @@ async function runAllBatch(env, articles) {
       reports,
     });
     try {
-      const result = await generateAndStoreReport(env, { ...job, articles });
+      const result = await generateAndStoreReport(env, { ...job, articles, promptId });
       reports[key] = { done: true, success: true, path: result.path };
       await appendReportLog(env, {
         message: `Batch report complete: ${key}`,

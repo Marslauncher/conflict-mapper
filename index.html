@@ -2091,7 +2091,7 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
               Reports
             </button>
-            <button class="admin-nav-item" data-section="reports" onclick="showAdminSection('reports', this)">
+            <button class="admin-nav-item" data-section="storage" onclick="showAdminSection('storage', this)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>
               Storage
             </button>
@@ -2219,6 +2219,9 @@
                   </div>
                   <div style="margin-left:auto;display:flex;gap:var(--space-2)">
                     <button class="btn btn-secondary btn-sm" onclick="loadPromptTemplates(true)">Refresh</button>
+                    <button class="btn btn-secondary btn-sm" onclick="createPromptTemplate()">New</button>
+                    <button class="btn btn-secondary btn-sm" onclick="duplicatePromptTemplate()">Duplicate</button>
+                    <button class="btn btn-green btn-sm" onclick="savePromptTemplateToCloudflare()">Save to R2</button>
                     <button class="btn btn-primary btn-sm" onclick="copyPromptTemplate()">Copy Prompt</button>
                     <button class="btn btn-secondary btn-sm" onclick="downloadPromptTemplate()">Download .md</button>
                     <button class="btn btn-secondary btn-sm" onclick="downloadAllPromptTemplates()">Download All</button>
@@ -2231,6 +2234,26 @@
                       <option value="">Loading templates...</option>
                     </select>
                   </div>
+                  <div class="form-field">
+                    <label class="form-label" for="prompt-template-filename">Cloudflare Filename</label>
+                    <input class="form-input" id="prompt-template-filename" placeholder="custom-report-prompt.md" autocomplete="off" spellcheck="false">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-field">
+                    <label class="form-label" for="prompt-template-label">Template Label</label>
+                    <input class="form-input" id="prompt-template-label" placeholder="Custom Report Prompt">
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="prompt-template-scope">Default Scope</label>
+                    <select class="form-select" id="prompt-template-scope">
+                      <option value="global">Global</option>
+                      <option value="country">Country</option>
+                      <option value="watch">Watch</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
                   <div class="form-field">
                     <label class="form-label">Import Notes</label>
                     <div id="prompt-import-notes" style="min-height:42px;font-family:var(--font-mono);font-size:0.66rem;color:var(--color-text-muted);line-height:1.6;background:var(--color-surface-2);border:1px solid var(--color-border-dim);border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3)">Select a prompt template.</div>
@@ -2524,6 +2547,32 @@
                 </div>
               </div>
 
+              <div class="admin-card" style="margin-bottom:var(--space-5)">
+                <div class="admin-card-header">
+                  <div class="admin-card-icon" style="background:rgba(168,85,247,0.12)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>
+                  </div>
+                  <div>
+                    <div class="admin-card-title">Report Prompt Selection</div>
+                    <div class="admin-card-subtitle">Prompt used by Global, Country, Watch, and batch report generation</div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-field" style="margin-bottom:0">
+                    <label class="form-label" for="rpt-prompt-select">Prompt Template</label>
+                    <select class="form-select" id="rpt-prompt-select">
+                      <option value="">Built-in prompt for selected report type</option>
+                    </select>
+                  </div>
+                  <div class="form-field" style="margin-bottom:0">
+                    <label class="form-label">Prompt Notes</label>
+                    <div style="min-height:42px;font-family:var(--font-mono);font-size:0.66rem;color:var(--color-text-muted);line-height:1.6;background:var(--color-surface-2);border:1px solid var(--color-border-dim);border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3)">
+                      Choose a saved prompt template here before clicking Generate. Blank uses the built-in prompt matched to the report type.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <!-- Global Analysis -->
               <div class="admin-card">
                 <div class="admin-card-header">
@@ -2785,25 +2834,32 @@
                 </div>
               </div>
 
-              <!-- R2 Storage Browser -->
-              <div class="admin-card" style="margin-top:var(--space-5)">
+            </div>
+
+            <!-- Storage Section -->
+            <div class="admin-section" id="section-storage">
+              <h2 class="admin-section-title">Cloudflare Storage</h2>
+              <p class="admin-section-desc">Browse all objects saved in the Cloudflare R2 bucket, including reports, archives, and prompt templates.</p>
+
+              <div class="admin-card">
                 <div class="admin-card-header">
                   <div class="admin-card-icon" style="background:rgba(34,197,94,0.12)">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>
                   </div>
                   <div>
-                    <div class="admin-card-title">Report Storage</div>
-                    <div class="admin-card-subtitle" id="rpt-storage-summary">Browse Cloudflare R2 report objects</div>
+                    <div class="admin-card-title">R2 Object Browser</div>
+                    <div class="admin-card-subtitle" id="storage-summary">Browse Cloudflare R2 objects</div>
                   </div>
-                  <div style="margin-left:auto">
-                    <button class="btn btn-secondary btn-sm" onclick="loadReportStorage()">
+                  <div style="margin-left:auto;display:flex;gap:var(--space-2);align-items:center">
+                    <input class="form-input" id="storage-prefix" value="" placeholder="prefix, e.g. reports/ or prompts/" style="width:260px;padding:var(--space-2) var(--space-3)">
+                    <button class="btn btn-secondary btn-sm" onclick="loadStorageObjects()">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                       Refresh
                     </button>
                   </div>
                 </div>
-                <div id="rpt-storage-list" style="margin-top:var(--space-3);font-family:var(--font-mono);font-size:0.68rem;color:var(--color-text-muted)">
-                  Open the Reports section to load R2 objects.
+                <div id="storage-object-list" style="margin-top:var(--space-3);font-family:var(--font-mono);font-size:0.68rem;color:var(--color-text-muted)">
+                  Open the Storage section to load R2 objects.
                 </div>
               </div>
             </div>
@@ -3041,6 +3097,67 @@
 ═══════════════════════════════════════════════════════════ -->
 <script>
 'use strict';
+
+const API_TRACE_KEY = 'conflict-mapper:api-trace:v1';
+const API_TRACE_LIMIT = 250;
+
+function readApiTrace() {
+  try {
+    return JSON.parse(localStorage.getItem(API_TRACE_KEY) || '[]');
+  } catch (_) {
+    return [];
+  }
+}
+
+function writeApiTrace(entries) {
+  try {
+    localStorage.setItem(API_TRACE_KEY, JSON.stringify(entries.slice(0, API_TRACE_LIMIT)));
+  } catch (_) {}
+}
+
+function recordApiTrace(entry) {
+  writeApiTrace([{
+    timestamp: new Date().toISOString(),
+    category: 'api',
+    level: entry.level || 'info',
+    message: entry.message || '',
+    details: entry.details || {},
+  }, ...readApiTrace()]);
+}
+
+const nativeFetch = window.fetch.bind(window);
+window.fetch = async (input, init = {}) => {
+  const started = performance.now();
+  const url = typeof input === 'string' ? input : input?.url || String(input);
+  const method = (init.method || (typeof input !== 'string' && input?.method) || 'GET').toUpperCase();
+  try {
+    const response = await nativeFetch(input, init);
+    const durationMs = Math.round(performance.now() - started);
+    if (url.includes('/api/') || url.includes('/reports/') || url.includes('/storage/')) {
+      recordApiTrace({
+        level: response.ok ? 'info' : 'warn',
+        message: `${method} ${url} -> ${response.status}`,
+        details: {
+          method,
+          url,
+          status: response.status,
+          ok: response.ok,
+          contentType: response.headers.get('content-type') || '',
+          durationMs,
+        },
+      });
+    }
+    return response;
+  } catch (err) {
+    const durationMs = Math.round(performance.now() - started);
+    recordApiTrace({
+      level: 'error',
+      message: `${method} ${url} failed: ${err.message}`,
+      details: { method, url, durationMs },
+    });
+    throw err;
+  }
+};
 
 /* ── State ──────────────────────────────────────────────── */
 let navConfig = null;
@@ -3618,7 +3735,8 @@ function showAdminSection(id, btn) {
   if (id === 'rss-feeds') loadFeedsConfig();
   if (id === 'ai-prompts') loadPromptTemplates();
   if (id === 'flagged') loadFlaggedArticles();
-  if (id === 'reports') loadReportStorage();
+  if (id === 'reports') loadPromptTemplates();
+  if (id === 'storage') loadStorageObjects();
   if (id === 'logs') startLogsPolling();
   else stopLogsPolling();
 }
@@ -4299,7 +4417,12 @@ async function startReportJob(type, label) {
       ? `/api/analysis/${type}`
       : `/api/analysis/${type}`;
       
-    const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+    const promptId = document.getElementById('rpt-prompt-select')?.value || '';
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ promptId }),
+    });
     const data = await readApiJson(res, endpoint);
     if (!res.ok || data.success === false) throw new Error(data.error || `HTTP ${res.status}`);
     pollReportStatus(label);
@@ -4412,7 +4535,7 @@ async function finishReportJob(label, success, status = null) {
     }
     detailEl.innerHTML = `Report generated successfully.${linkHtml}`;
     showToast(`${label} — complete`);
-    loadReportStorage();
+    loadStorageObjects({ silent: true });
   } else {
     jobStatus.className = 'status-badge disconnected';
     jobStatus.textContent = 'Failed';
@@ -4454,6 +4577,50 @@ async function loadReportStorage() {
             <a href="${escHtml(object.path)}" target="_blank" rel="noopener noreferrer" style="color:var(--color-info);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escHtml(object.key)}</a>
             <span>${formatBytes(object.size || 0)}</span>
             <span>${object.uploaded ? new Date(object.uploaded).toLocaleString() : '-'}</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } catch (err) {
+    summary.textContent = 'R2 storage browser unavailable';
+    list.innerHTML = `<div style="padding:var(--space-3);color:var(--color-error)">Failed to load storage: ${escHtml(err.message)}</div>`;
+  }
+}
+
+async function loadStorageObjects(options = {}) {
+  const summary = document.getElementById('storage-summary');
+  const list = document.getElementById('storage-object-list');
+  if (!summary || !list) return;
+  const prefix = document.getElementById('storage-prefix')?.value || '';
+  if (!options.silent) {
+    summary.textContent = 'Loading Cloudflare R2 objects...';
+    list.innerHTML = '<div style="padding:var(--space-3);color:var(--color-text-faint)">Loading...</div>';
+  }
+
+  try {
+    const res = await fetch(`/api/storage/files?prefix=${encodeURIComponent(prefix)}&limit=500`);
+    const data = await readApiJson(res, '/api/storage/files');
+    if (!res.ok || data.success === false) throw new Error(data.error || `HTTP ${res.status}`);
+    const objects = data.data?.objects || [];
+    const totalBytes = objects.reduce((sum, object) => sum + Number(object.size || 0), 0);
+    summary.textContent = `${objects.length} objects - ${formatBytes(totalBytes)}${prefix ? ` under ${prefix}` : ' in R2'}`;
+
+    if (!objects.length) {
+      list.innerHTML = '<div style="padding:var(--space-3);color:var(--color-text-faint)">No R2 objects found for this prefix.</div>';
+      return;
+    }
+
+    list.innerHTML = `
+      <div style="border:1px solid var(--color-border-dim);border-radius:var(--radius-sm);overflow:hidden">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) 90px 170px 90px;gap:var(--space-3);align-items:center;padding:var(--space-2) var(--space-3);background:var(--color-surface-2);color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.08em">
+          <span>Object Key</span><span>Size</span><span>Uploaded</span><span>Open</span>
+        </div>
+        ${objects.map((object) => `
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 90px 170px 90px;gap:var(--space-3);align-items:center;padding:var(--space-3);border-top:1px solid var(--color-border-dim)">
+            <span title="${escHtml(object.key)}" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--color-text)">${escHtml(object.key)}</span>
+            <span>${formatBytes(object.size || 0)}</span>
+            <span>${object.uploaded ? new Date(object.uploaded).toLocaleString() : '-'}</span>
+            <a href="${escHtml(object.path || object.downloadPath || '#')}" target="_blank" rel="noopener noreferrer" style="color:var(--color-info)">Open</a>
           </div>
         `).join('')}
       </div>
@@ -4760,6 +4927,7 @@ async function loadPromptTemplates(force = false) {
   const status = document.getElementById('prompt-status-label');
   const select = document.getElementById('prompt-template-select');
   if (!force && _promptTemplates.length) {
+    syncReportPromptSelect();
     renderPromptTemplate();
     return;
   }
@@ -4767,13 +4935,14 @@ async function loadPromptTemplates(force = false) {
   try {
     const res = await fetch('/api/prompts/reports');
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
+    const data = await readApiJson(res, '/api/prompts/reports');
     _promptTemplates = data.data?.templates || [];
     if (select) {
       select.innerHTML = _promptTemplates.map((template) => (
-        `<option value="${escHtml(template.id)}">${escHtml(template.label)}</option>`
+        `<option value="${escHtml(template.id)}">${escHtml(template.label)}${template.saved ? ' (saved)' : ''}</option>`
       )).join('');
     }
+    syncReportPromptSelect();
     if (status) status.textContent = `${_promptTemplates.length} templates available`;
     renderPromptTemplate();
   } catch (err) {
@@ -4788,6 +4957,9 @@ function renderPromptTemplate() {
   const select = document.getElementById('prompt-template-select');
   const output = document.getElementById('prompt-template-output');
   const notes = document.getElementById('prompt-import-notes');
+  const filename = document.getElementById('prompt-template-filename');
+  const label = document.getElementById('prompt-template-label');
+  const scope = document.getElementById('prompt-template-scope');
   if (!select || !output) return;
   saveCurrentPromptTemplateEdit();
   const template = _promptTemplates.find((item) => item.id === select.value) || _promptTemplates[0];
@@ -4800,11 +4972,24 @@ function renderPromptTemplate() {
   select.value = template.id;
   _activePromptTemplateId = template.id;
   output.value = _promptTemplateEdits[template.id] ?? template.fullPrompt ?? '';
+  if (filename) filename.value = template.filename || `${template.id || 'custom-report'}-prompt.md`;
+  if (label) label.value = template.label || '';
+  if (scope) scope.value = template.scope || 'global';
   if (notes) {
     notes.innerHTML = (template.importNotes || [])
       .map((note) => `<div>• ${escHtml(note)}</div>`)
       .join('') || 'Return the report HTML fragment and import it as a static report body.';
   }
+}
+
+function syncReportPromptSelect() {
+  const select = document.getElementById('rpt-prompt-select');
+  if (!select) return;
+  const current = select.value;
+  select.innerHTML = '<option value="">Built-in prompt for selected report type</option>' + _promptTemplates.map((template) => (
+    `<option value="${escHtml(template.id)}">${escHtml(template.label)}${template.saved ? ' (saved)' : ''}</option>`
+  )).join('');
+  if (current && _promptTemplates.some((template) => template.id === current)) select.value = current;
 }
 
 function markPromptTemplateEdited() {
@@ -4841,6 +5026,104 @@ ${(template.importNotes || []).map((note) => `- ${note}`).join('\n') || '- Retur
 
 ${promptText}
 `;
+}
+
+function createPromptTemplate() {
+  saveCurrentPromptTemplateEdit();
+  const id = `custom-${Date.now()}`;
+  const template = {
+    id,
+    label: 'Custom Report Prompt',
+    filename: `custom-report-prompt-${new Date().toISOString().slice(0, 10)}.md`,
+    scope: 'global',
+    slug: 'global',
+    title: 'Custom Intelligence Report - YYYY-MM-DD',
+    fullPrompt: 'Write a Conflict Mapper report body.\n\nUse {{DYNAMIC_REPORT_REQUEST}} to insert the live report request and source articles.',
+    importNotes: ['New unsaved prompt template. Click Save to R2 to persist it in Cloudflare storage.'],
+    source: 'local',
+    saved: false,
+  };
+  _promptTemplates.unshift(template);
+  _promptTemplateEdits[id] = template.fullPrompt;
+  const select = document.getElementById('prompt-template-select');
+  if (select) {
+    select.innerHTML = _promptTemplates.map((item) => `<option value="${escHtml(item.id)}">${escHtml(item.label)}${item.saved ? ' (saved)' : ''}</option>`).join('');
+    select.value = id;
+  }
+  syncReportPromptSelect();
+  renderPromptTemplate();
+}
+
+function duplicatePromptTemplate() {
+  const current = getSelectedPromptTemplate();
+  if (!current) return createPromptTemplate();
+  saveCurrentPromptTemplateEdit();
+  const id = `${current.id || 'prompt'}-copy-${Date.now()}`;
+  const template = {
+    ...current,
+    id,
+    label: `${current.label || 'Prompt'} Copy`,
+    filename: `${(current.filename || `${current.id || 'prompt'}.md`).replace(/\.md$/i, '')}-copy.md`,
+    fullPrompt: getPromptTemplateText(current),
+    source: 'local',
+    saved: false,
+    storageKey: '',
+  };
+  _promptTemplates.unshift(template);
+  _promptTemplateEdits[id] = template.fullPrompt;
+  const select = document.getElementById('prompt-template-select');
+  if (select) {
+    select.innerHTML = _promptTemplates.map((item) => `<option value="${escHtml(item.id)}">${escHtml(item.label)}${item.saved ? ' (saved)' : ''}</option>`).join('');
+    select.value = id;
+  }
+  syncReportPromptSelect();
+  renderPromptTemplate();
+}
+
+async function savePromptTemplateToCloudflare() {
+  const template = getSelectedPromptTemplate();
+  if (!template) { showToast('No prompt loaded', true); return; }
+  const filename = document.getElementById('prompt-template-filename')?.value || template.filename;
+  const label = document.getElementById('prompt-template-label')?.value || template.label;
+  const scope = document.getElementById('prompt-template-scope')?.value || template.scope || 'global';
+  const fullPrompt = getPromptTemplateText(template);
+  if (!fullPrompt.trim()) { showToast('Prompt text is empty', true); return; }
+
+  try {
+    const res = await fetch('/api/prompts/reports', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        filename,
+        label,
+        scope,
+        slug: template.slug || (scope === 'global' ? 'global' : 'usa'),
+        title: template.title || `${label} - YYYY-MM-DD`,
+        fullPrompt,
+        importNotes: template.importNotes || [],
+      }),
+    });
+    const data = await readApiJson(res, '/api/prompts/reports');
+    if (!res.ok || data.success === false) throw new Error(data.error || `HTTP ${res.status}`);
+    const saved = data.data?.template;
+    if (saved) {
+      const index = _promptTemplates.findIndex((item) => item.id === template.id);
+      if (index >= 0) _promptTemplates.splice(index, 1, saved);
+      else _promptTemplates.unshift(saved);
+      _promptTemplateEdits[saved.id] = saved.fullPrompt;
+      _activePromptTemplateId = saved.id;
+      const select = document.getElementById('prompt-template-select');
+      if (select) {
+        select.innerHTML = _promptTemplates.map((item) => `<option value="${escHtml(item.id)}">${escHtml(item.label)}${item.saved ? ' (saved)' : ''}</option>`).join('');
+        select.value = saved.id;
+      }
+      syncReportPromptSelect();
+      renderPromptTemplate();
+    }
+    showToast('Prompt saved to Cloudflare R2');
+  } catch (err) {
+    showToast(err.message || 'Prompt save failed', true);
+  }
 }
 
 async function copyPromptTemplate() {
@@ -4936,8 +5219,11 @@ async function fetchLogs() {
   try {
     const res = await fetch('/api/logs?limit=250');
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    _logsRaw = data.data?.logs || data.logs || (Array.isArray(data) ? data : []);
+    const data = await readApiJson(res, `/api/countries/${slug}`);
+    _logsRaw = [
+      ...(data.data?.logs || data.logs || (Array.isArray(data) ? data : [])),
+      ...readApiTrace(),
+    ].sort((a, b) => new Date(b.timestamp || b.ts || 0).getTime() - new Date(a.timestamp || a.ts || 0).getTime());
     filterLogs();
     const lastEl = document.getElementById('log-last-updated');
     if (lastEl) lastEl.textContent = 'Updated ' + new Date().toLocaleTimeString();
@@ -4991,6 +5277,7 @@ function filterLogs() {
 
 function clearLogs() {
   _logsRaw = [];
+  writeApiTrace([]);
   const output = document.getElementById('log-output');
   if (output) output.innerHTML = '<div style="color:var(--color-text-faint);text-align:center;padding:40px 0">Logs cleared.</div>';
   const countEl = document.getElementById('log-count-label');
@@ -5347,11 +5634,26 @@ async function diagPages() {
 /* ── Countries & Topics ─────────────────────────────────── */
 let _countriesData = [];
 let _topicsData = [];
+const DEFAULT_TOPIC_FALLBACK = [
+  { id: 'breaking', name: 'Breaking News' },
+  { id: 'geopolitics', name: 'Geopolitics' },
+  { id: 'military', name: 'Military' },
+  { id: 'political', name: 'Political' },
+  { id: 'economic', name: 'Economic Security' },
+  { id: 'cyber', name: 'Cybersecurity' },
+  { id: 'infrastructure', name: 'Critical Infrastructure' },
+  { id: 'maritime', name: 'Maritime Security' },
+  { id: 'energy', name: 'Energy Security' },
+  { id: 'nuclear', name: 'Nuclear / WMD' },
+  { id: 'technology', name: 'Technology' },
+  { id: 'ai', name: 'Artificial Intelligence' },
+  { id: 'research', name: 'Think Tank / Research' },
+];
 
 async function loadCountries() {
   try {
     const res = await fetch('/api/countries');
-    const data = await res.json();
+    const data = await readApiJson(res, '/api/countries');
     _countriesData = data.data?.countries || [];
     _topicsData = data.data?.topics || [];
     renderCountriesList();
@@ -5361,8 +5663,21 @@ async function loadCountries() {
     if (cl) cl.textContent = `${_countriesData.length} countries configured`;
     if (tl) tl.textContent = `${_topicsData.length} topics configured`;
   } catch(e) {
+    _topicsData = DEFAULT_TOPIC_FALLBACK;
+    _countriesData = COUNTRIES.map((country) => ({
+      name: country.label,
+      slug: country.slug,
+      flag: country.flag,
+      accent: '#c41e3a',
+      topics: DEFAULT_TOPIC_FALLBACK.map((topic) => topic.id),
+    }));
+    renderCountriesList();
+    renderTopicsList();
     const cl = document.getElementById('countries-count-label');
-    if (cl) cl.textContent = 'API not available';
+    const tl = document.getElementById('topics-count-label');
+    if (cl) cl.textContent = `Fallback: ${_countriesData.length} countries (API unavailable)`;
+    if (tl) tl.textContent = `Fallback: ${_topicsData.length} topics (API unavailable)`;
+    showToast(e.message || 'Countries API unavailable; showing fallback topics', true);
   }
 }
 
@@ -5471,7 +5786,7 @@ function editCountry(slug) {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name: newName || c.name, flag: newFlag || c.flag, accent: newAccent || c.accent })
-  }).then(r => r.json()).then(data => {
+  }).then(r => readApiJson(r, `/api/countries/${slug}`)).then(data => {
     if (!data.success) { showToast(data.error || 'Failed to update', true); return; }
     Object.assign(c, { name: newName || c.name, flag: newFlag || c.flag, accent: newAccent || c.accent });
     renderCountriesList();
@@ -5507,7 +5822,7 @@ async function addTopic() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, name })
     });
-    const data = await res.json();
+    const data = await readApiJson(res, '/api/topics');
     if (!data.success) { showToast(data.error || 'Failed to add topic', true); return; }
     _topicsData = data.data || _topicsData;
     renderTopicsList();
@@ -5520,7 +5835,7 @@ async function removeTopic(id, name) {
   if (!confirm(`Remove topic "${name}"? This cannot be undone.`)) return;
   try {
     const res = await fetch(`/api/topics/${id}`, { method: 'DELETE' });
-    const data = await res.json();
+    const data = await readApiJson(res, `/api/topics/${id}`);
     if (!data.success) { showToast(data.error || 'Failed to remove', true); return; }
     _topicsData = data.data || _topicsData.filter(t => t.id !== id);
     renderTopicsList();

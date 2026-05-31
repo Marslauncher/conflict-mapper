@@ -945,6 +945,55 @@ html, body {
 <script>
 'use strict';
 
+const API_TRACE_KEY = 'conflict-mapper:api-trace:v1';
+const API_TRACE_LIMIT = 250;
+
+function readApiTrace() {
+  try {
+    return JSON.parse(localStorage.getItem(API_TRACE_KEY) || '[]');
+  } catch (_) {
+    return [];
+  }
+}
+
+function recordApiTrace(entry) {
+  try {
+    localStorage.setItem(API_TRACE_KEY, JSON.stringify([{
+      timestamp: new Date().toISOString(),
+      category: 'api',
+      level: entry.level || 'info',
+      message: entry.message || '',
+      details: entry.details || {},
+    }, ...readApiTrace()].slice(0, API_TRACE_LIMIT)));
+  } catch (_) {}
+}
+
+const nativeFetch = window.fetch.bind(window);
+window.fetch = async (input, init = {}) => {
+  const started = performance.now();
+  const url = typeof input === 'string' ? input : input?.url || String(input);
+  const method = (init.method || (typeof input !== 'string' && input?.method) || 'GET').toUpperCase();
+  try {
+    const response = await nativeFetch(input, init);
+    const durationMs = Math.round(performance.now() - started);
+    if (url.includes('/api/') || url.includes('/reports/') || url.includes('/storage/')) {
+      recordApiTrace({
+        level: response.ok ? 'info' : 'warn',
+        message: `${method} ${url} -> ${response.status}`,
+        details: { method, url, status: response.status, ok: response.ok, contentType: response.headers.get('content-type') || '', durationMs },
+      });
+    }
+    return response;
+  } catch (err) {
+    recordApiTrace({
+      level: 'error',
+      message: `${method} ${url} failed: ${err.message}`,
+      details: { method, url, durationMs: Math.round(performance.now() - started) },
+    });
+    throw err;
+  }
+};
+
 /* ── State ── */
 let map, markersLayer, heatLayer;
 let allArticles = [];
@@ -1029,12 +1078,12 @@ async function loadArticles(options = {}) {
     let feedArticles = [];
 
     if (geoRes.ok) {
-      const data = await geoRes.json();
+      const data = await readApiJson(geoRes, '/api/articles/geo');
       geoArticles = data.data?.articles || data.articles || (Array.isArray(data) ? data : []);
     }
 
     if (feedRes.ok) {
-      const data = await feedRes.json();
+      const data = await readApiJson(feedRes, '/api/articles');
       feedArticles = data.data?.articles || data.articles || (Array.isArray(data) ? data : []);
     }
 
@@ -1079,14 +1128,27 @@ async function fetchAllFeeds(options = {}) {
   try {
     const params = options.fast ? '?limitFeeds=25&maxItemsPerFeed=8' : '';
     const res = await fetch('/api/feeds/fetch' + params, { method: 'POST' });
-    const data = await res.json();
+    const data = await readApiJson(res, '/api/feeds/fetch');
+    if (!res.ok || data.success === false) throw new Error(data.error || `HTTP ${res.status}`);
     if (!options.silent) showToast(data.message || 'Feeds fetched');
     await loadArticles({ alertOnNew: !!options.alertOnNew, silent: !!options.silent });
   } catch(e) {
-    if (!options.silent) showToast('API not available - using demo data', true);
+    if (!options.silent) showToast(e.message || 'API not available - using demo data', true);
   } finally {
     if (btn && !options.silent) { btn.textContent = 'Fetch Feeds'; btn.disabled = false; }
   }
+}
+
+async function readApiJson(res, endpointLabel) {
+  const contentType = res.headers.get('content-type') || '';
+  const text = await res.text();
+  if (!contentType.includes('application/json')) {
+    const looksHtml = /^\s*(<!doctype\s+html|<html|<head|<body)/i.test(text);
+    throw new Error(looksHtml
+      ? `${endpointLabel} returned HTML instead of JSON. Cloudflare Pages Functions are not active in this deployment.`
+      : `${endpointLabel} returned ${contentType || 'unknown content type'} instead of JSON.`);
+  }
+  return text ? JSON.parse(text) : {};
 }
 
 function toggleFeedWatch() {

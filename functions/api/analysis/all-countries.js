@@ -1,4 +1,4 @@
-import { errorResponse, jsonResponse } from '../../../cloudflare/lib/http.js';
+import { errorResponse, jsonResponse, readJsonRequest } from '../../../cloudflare/lib/http.js';
 import { loadArticleSet } from '../../../cloudflare/lib/articles.js';
 import { appendReportLog, generateAndStoreReport, setReportStatus } from '../../../cloudflare/lib/reports.js';
 
@@ -7,11 +7,12 @@ const COUNTRY_SLUGS = ['usa', 'china', 'russia', 'ukraine', 'taiwan', 'iran', 'i
 export async function onRequestPost(context) {
   try {
     const payload = await loadArticleSet(context);
+    const body = await readJsonRequest(context.request);
     await appendReportLog(context.env, {
       message: 'All-country batch queued from API request',
-      details: { countries: COUNTRY_SLUGS.length, articleCount: payload.articles.length },
+      details: { countries: COUNTRY_SLUGS.length, articleCount: payload.articles.length, promptId: body.promptId || '' },
     });
-    context.waitUntil(runCountryBatch(context.env, payload.articles));
+    context.waitUntil(runCountryBatch(context.env, payload.articles, body.promptId || ''));
     return jsonResponse({
       success: true,
       data: {
@@ -24,7 +25,7 @@ export async function onRequestPost(context) {
   }
 }
 
-async function runCountryBatch(env, articles) {
+async function runCountryBatch(env, articles, promptId = '') {
   const reports = {};
   for (let i = 0; i < COUNTRY_SLUGS.length; i++) {
     const slug = COUNTRY_SLUGS[i];
@@ -39,7 +40,7 @@ async function runCountryBatch(env, articles) {
       reports,
     });
     try {
-      const result = await generateAndStoreReport(env, { scope: 'country', slug, articles });
+      const result = await generateAndStoreReport(env, { scope: 'country', slug, articles, promptId });
       reports[slug] = { done: true, success: true, path: result.path };
       await appendReportLog(env, {
         message: `Country batch report complete: ${slug}`,
