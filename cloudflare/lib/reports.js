@@ -321,22 +321,84 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
 
     return { id: currentId, title, path: paths.currentPath, articleCount: selectedArticles.length };
   } catch (err) {
+    const failure = describeReportFailure(err);
     await setReportStatus(env, {
       running: false,
       phase: 'failed',
       progress: 100,
       scope,
       slug: normalizedSlug,
-      message: err.message,
+      message: failure.message,
+      mitigation: failure.mitigation,
+      errorType: failure.type,
       lastRun: new Date().toISOString(),
     });
     await appendReportLog(env, {
       level: 'error',
-      message: `Report generation failed: ${err.message}`,
-      details: { scope, slug: normalizedSlug },
+      message: `Report generation failed: ${failure.message}`,
+      details: { scope, slug: normalizedSlug, mitigation: failure.mitigation, type: failure.type },
     });
     throw err;
   }
+}
+
+function describeReportFailure(err) {
+  const message = err?.message || String(err || 'Unknown report generation error');
+  const lower = message.toLowerCase();
+  if (lower.includes('reports_bucket')) {
+    return {
+      type: 'cloudflare_binding',
+      message,
+      mitigation: 'Bind the R2 bucket as REPORTS_BUCKET in Cloudflare Pages production settings and redeploy.',
+    };
+  }
+  if (lower.includes('db binding')) {
+    return {
+      type: 'cloudflare_binding',
+      message,
+      mitigation: 'Bind the D1 database as DB in Cloudflare Pages production settings, apply migrations, and redeploy.',
+    };
+  }
+  if (lower.includes('no such table') || lower.includes('d1_error')) {
+    return {
+      type: 'd1_schema',
+      message,
+      mitigation: 'Run the D1 migrations against the production database, then retry generation.',
+    };
+  }
+  if (lower.includes('api key') || lower.includes('unauthorized') || lower.includes('401')) {
+    return {
+      type: 'ai_credentials',
+      message,
+      mitigation: 'Open Settings > AI Config, save the provider API key, run Test Connection, then retry the report.',
+    };
+  }
+  if (lower.includes('429') || lower.includes('rate limit') || lower.includes('quota')) {
+    return {
+      type: 'ai_quota',
+      message,
+      mitigation: 'The AI provider rejected the request due to quota or rate limits. Check provider billing/limits or select a different model.',
+    };
+  }
+  if (lower.includes('max_tokens') || lower.includes('max token')) {
+    return {
+      type: 'ai_model_settings',
+      message,
+      mitigation: 'The selected model rejected the token settings. Choose a standard chat/report model or reduce requested output size.',
+    };
+  }
+  if (lower.includes('<!doctype') || lower.includes('not valid json')) {
+    return {
+      type: 'unexpected_html_response',
+      message,
+      mitigation: 'An API call returned an HTML error page instead of JSON. Check the endpoint URL, Cloudflare bindings, and provider/model selection.',
+    };
+  }
+  return {
+    type: 'unknown',
+    message,
+    mitigation: 'Review the latest analysis log entry, verify Cloudflare bindings and AI provider config, then retry.',
+  };
 }
 
 async function archiveCurrentReport(env, scope, slug, paths) {

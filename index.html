@@ -2278,7 +2278,7 @@
                   </div>
                   <div class="form-field" style="margin-bottom:0">
                     <label class="form-label">Topic ID</label>
-                    <input class="form-input" type="text" id="new-topic-id" placeholder="e.g., cybersecurity">
+                    <input class="form-input" type="text" id="new-topic-id" placeholder="e.g., cybersecurity" autocomplete="off" autocapitalize="none" spellcheck="false">
                   </div>
                 </div>
                 <div style="margin-top:var(--space-4)">
@@ -4369,7 +4369,8 @@ async function finishReportJob(label, success, status = null) {
   } else {
     jobStatus.className = 'status-badge disconnected';
     jobStatus.textContent = 'Failed';
-    detailEl.textContent = status?.message || 'Report generation failed. Check server logs.';
+    const mitigation = status?.mitigation ? ` Mitigation: ${status.mitigation}` : '';
+    detailEl.textContent = `${status?.message || 'Report generation failed. Check server logs.'}${mitigation}`;
     showToast('Report generation failed', true);
   }
 

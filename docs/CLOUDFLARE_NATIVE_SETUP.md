@@ -178,6 +178,8 @@ curl -X POST "https://conflict-mapper.pages.dev/api/feeds/fetch?limitFeeds=50&ma
 curl "https://conflict-mapper.pages.dev/api/articles/geo?limit=25"
 ```
 
+RSS ingestion now loads the monitored Countries and Topics from `CONFIG_KV`, translates non-English article titles/summaries to English when `TRANSLATE_RSS_ARTICLES=true`, filters out articles that do not match monitored topics, and geotags articles to the closest known city, chokepoint, or major place reference instead of falling back to one global coordinate.
+
 The admin Reports section now includes a Report Storage browser backed by `/api/storage/reports`, so generated R2 objects can be reviewed from the Settings UI.
 
 Test the cron Worker manually:

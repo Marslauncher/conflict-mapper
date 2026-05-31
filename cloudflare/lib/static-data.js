@@ -54,7 +54,9 @@ export function filterArticles(articles, { country = '', limit = 200, geoOnly = 
     result = result.filter((article) => {
       const lat = article.lat ?? article.geo?.lat;
       const lng = article.lng ?? article.geo?.lng;
-      return Number.isFinite(Number(lat)) && Number.isFinite(Number(lng));
+      return lat !== null && lat !== undefined && lat !== ''
+        && lng !== null && lng !== undefined && lng !== ''
+        && Number.isFinite(Number(lat)) && Number.isFinite(Number(lng));
     });
   }
 

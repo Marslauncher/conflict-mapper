@@ -1,26 +1,69 @@
 import { filterArticles, normalizeArticlesPayload, readAssetJson } from './static-data.js';
+import {
+  articleMatchesMonitoringConfig,
+  findMatchingCountry,
+  loadMonitoringConfig,
+} from './monitoring-config.js';
 
 const ARTICLES_KV_KEY = 'articles:v1';
 const ARTICLE_FETCH_STATUS_KEY = 'articles:fetch:status';
 const MAX_FEED_BYTES = 2_000_000;
+const DEFAULT_TRANSLATION_LIMIT = 80;
 
 const GEO_PLACES = [
-  { terms: ['taiwan strait', 'taiwan', 'taipei'], place: 'Taiwan', country: 'Taiwan', lat: 23.7, lng: 121.0 },
-  { terms: ['china', 'beijing', 'pla ', 'chinese'], place: 'China', country: 'China', lat: 35.86, lng: 104.19 },
-  { terms: ['united states', 'u.s.', ' us ', 'usa', 'washington'], place: 'United States', country: 'United States', lat: 38.9, lng: -77.03 },
-  { terms: ['russia', 'moscow', 'russian'], place: 'Russia', country: 'Russia', lat: 55.76, lng: 37.62 },
-  { terms: ['ukraine', 'kyiv', 'odessa', 'odesa'], place: 'Ukraine', country: 'Ukraine', lat: 49.0, lng: 31.0 },
-  { terms: ['iran', 'tehran'], place: 'Iran', country: 'Iran', lat: 32.43, lng: 53.69 },
-  { terms: ['israel', 'jerusalem', 'tel aviv', 'gaza'], place: 'Israel/Gaza', country: 'Israel', lat: 31.5, lng: 34.75 },
-  { terms: ['north korea', 'pyongyang', 'dprk'], place: 'North Korea', country: 'North Korea', lat: 40.34, lng: 127.51 },
-  { terms: ['south korea', 'seoul'], place: 'South Korea', country: 'South Korea', lat: 36.5, lng: 127.8 },
-  { terms: ['japan', 'tokyo', 'okinawa'], place: 'Japan', country: 'Japan', lat: 36.2, lng: 138.25 },
-  { terms: ['philippines', 'manila', 'luzon'], place: 'Philippines', country: 'Philippines', lat: 12.88, lng: 121.77 },
-  { terms: ['india', 'new delhi'], place: 'India', country: 'India', lat: 20.59, lng: 78.96 },
-  { terms: ['pakistan', 'islamabad'], place: 'Pakistan', country: 'Pakistan', lat: 30.38, lng: 69.35 },
-  { terms: ['nato', 'brussels'], place: 'NATO / Brussels', country: 'Belgium', lat: 50.85, lng: 4.35 },
-  { terms: ['red sea', 'yemen', 'houthi'], place: 'Red Sea / Yemen', country: 'Yemen', lat: 15.55, lng: 48.5 },
-  { terms: ['black sea', 'crimea'], place: 'Black Sea', country: 'Ukraine', lat: 44.4, lng: 34.0 },
+  { terms: ['naha', 'okinawa'], place: 'Okinawa / Naha', country: 'Japan', lat: 26.2124, lng: 127.6792 },
+  { terms: ['amami'], place: 'Amami Islands', country: 'Japan', lat: 28.3772, lng: 129.4937 },
+  { terms: ['kyushu', 'fukuoka'], place: 'Kyushu / Fukuoka', country: 'Japan', lat: 33.5902, lng: 130.4017 },
+  { terms: ['kanto', 'tokyo'], place: 'Tokyo / Kanto', country: 'Japan', lat: 35.6762, lng: 139.6503 },
+  { terms: ['kinmen'], place: 'Kinmen', country: 'Taiwan', lat: 24.4368, lng: 118.3186 },
+  { terms: ['matsu islands', 'matsu'], place: 'Matsu Islands', country: 'Taiwan', lat: 26.1605, lng: 119.9499 },
+  { terms: ['kaohsiung'], place: 'Kaohsiung', country: 'Taiwan', lat: 22.6273, lng: 120.3014 },
+  { terms: ['taipei'], place: 'Taipei', country: 'Taiwan', lat: 25.033, lng: 121.5654 },
+  { terms: ['taiwan strait'], place: 'Taiwan Strait', country: 'Taiwan', lat: 24.2, lng: 119.8 },
+  { terms: ['taiwan'], place: 'Taiwan', country: 'Taiwan', lat: 23.7, lng: 121.0 },
+  { terms: ['beijing'], place: 'Beijing', country: 'China', lat: 39.9042, lng: 116.4074 },
+  { terms: ['shanghai'], place: 'Shanghai', country: 'China', lat: 31.2304, lng: 121.4737 },
+  { terms: ['hong kong'], place: 'Hong Kong', country: 'China', lat: 22.3193, lng: 114.1694 },
+  { terms: ['guangdong'], place: 'Guangdong', country: 'China', lat: 23.379, lng: 113.7633 },
+  { terms: ['pla ', 'people\'s liberation army', 'china', 'chinese'], place: 'China', country: 'China', lat: 35.86, lng: 104.19 },
+  { terms: ['washington dc', 'washington, d.c.', 'pentagon'], place: 'Washington DC', country: 'United States', lat: 38.9072, lng: -77.0369 },
+  { terms: ['norfolk'], place: 'Norfolk', country: 'United States', lat: 36.8508, lng: -76.2859 },
+  { terms: ['san diego'], place: 'San Diego', country: 'United States', lat: 32.7157, lng: -117.1611 },
+  { terms: ['united states', 'u.s.', ' usa ', 'america'], place: 'United States', country: 'United States', lat: 38.9, lng: -77.03 },
+  { terms: ['moscow'], place: 'Moscow', country: 'Russia', lat: 55.7558, lng: 37.6173 },
+  { terms: ['st petersburg', 'saint petersburg'], place: 'Saint Petersburg', country: 'Russia', lat: 59.9311, lng: 30.3609 },
+  { terms: ['russia', 'russian'], place: 'Russia', country: 'Russia', lat: 55.76, lng: 37.62 },
+  { terms: ['kyiv', 'kiev'], place: 'Kyiv', country: 'Ukraine', lat: 50.4501, lng: 30.5234 },
+  { terms: ['odesa', 'odessa'], place: 'Odesa', country: 'Ukraine', lat: 46.4825, lng: 30.7233 },
+  { terms: ['kharkiv'], place: 'Kharkiv', country: 'Ukraine', lat: 49.9935, lng: 36.2304 },
+  { terms: ['ukraine'], place: 'Ukraine', country: 'Ukraine', lat: 49.0, lng: 31.0 },
+  { terms: ['tehran'], place: 'Tehran', country: 'Iran', lat: 35.6892, lng: 51.389 },
+  { terms: ['strait of hormuz', 'hormuz'], place: 'Strait of Hormuz', country: 'Iran', lat: 26.5667, lng: 56.25 },
+  { terms: ['iran'], place: 'Iran', country: 'Iran', lat: 32.43, lng: 53.69 },
+  { terms: ['jerusalem'], place: 'Jerusalem', country: 'Israel', lat: 31.7683, lng: 35.2137 },
+  { terms: ['tel aviv'], place: 'Tel Aviv', country: 'Israel', lat: 32.0853, lng: 34.7818 },
+  { terms: ['gaza'], place: 'Gaza', country: 'Palestinian Territories', lat: 31.5017, lng: 34.4668 },
+  { terms: ['israel'], place: 'Israel', country: 'Israel', lat: 31.5, lng: 34.75 },
+  { terms: ['pyongyang'], place: 'Pyongyang', country: 'North Korea', lat: 39.0392, lng: 125.7625 },
+  { terms: ['north korea', 'dprk'], place: 'North Korea', country: 'North Korea', lat: 40.34, lng: 127.51 },
+  { terms: ['seoul'], place: 'Seoul', country: 'South Korea', lat: 37.5665, lng: 126.978 },
+  { terms: ['south korea'], place: 'South Korea', country: 'South Korea', lat: 36.5, lng: 127.8 },
+  { terms: ['japan'], place: 'Japan', country: 'Japan', lat: 36.2, lng: 138.25 },
+  { terms: ['manila'], place: 'Manila', country: 'Philippines', lat: 14.5995, lng: 120.9842 },
+  { terms: ['luzon'], place: 'Luzon', country: 'Philippines', lat: 16.0, lng: 121.0 },
+  { terms: ['philippines'], place: 'Philippines', country: 'Philippines', lat: 12.88, lng: 121.77 },
+  { terms: ['new delhi'], place: 'New Delhi', country: 'India', lat: 28.6139, lng: 77.209 },
+  { terms: ['india'], place: 'India', country: 'India', lat: 20.59, lng: 78.96 },
+  { terms: ['islamabad'], place: 'Islamabad', country: 'Pakistan', lat: 33.6844, lng: 73.0479 },
+  { terms: ['pakistan'], place: 'Pakistan', country: 'Pakistan', lat: 30.38, lng: 69.35 },
+  { terms: ['brussels'], place: 'NATO / Brussels', country: 'Belgium', lat: 50.85, lng: 4.35 },
+  { terms: ['nato'], place: 'NATO / Brussels', country: 'Belgium', lat: 50.85, lng: 4.35 },
+  { terms: ['bab el-mandeb', 'bab al-mandab'], place: 'Bab el-Mandeb', country: 'Yemen', lat: 12.5833, lng: 43.3333 },
+  { terms: ['suez canal', 'suez'], place: 'Suez Canal', country: 'Egypt', lat: 30.5852, lng: 32.2654 },
+  { terms: ['red sea'], place: 'Red Sea', country: 'Red Sea', lat: 20.0, lng: 38.0 },
+  { terms: ['yemen', 'houthi'], place: 'Yemen', country: 'Yemen', lat: 15.55, lng: 48.5 },
+  { terms: ['black sea'], place: 'Black Sea', country: 'Black Sea', lat: 44.4, lng: 34.0 },
+  { terms: ['crimea'], place: 'Crimea', country: 'Ukraine', lat: 45.3, lng: 34.4 },
   { terms: ['south china sea', 'spratly', 'scarborough'], place: 'South China Sea', country: 'China', lat: 12.0, lng: 114.0 },
   { terms: ['arctic', 'greenland'], place: 'Arctic', country: 'Arctic', lat: 75.0, lng: -42.0 },
   { terms: ['europe', 'eu ', 'european'], place: 'Europe', country: 'Europe', lat: 50.1, lng: 14.4 },
@@ -81,14 +124,22 @@ export async function refreshArticles(context, { limitFeeds = 50, maxItemsPerFee
   if (!context.env.CONFIG_KV) throw new Error('CONFIG_KV binding is required to persist fetched articles');
 
   const feedsPayload = await readAssetJson(context, '/data/feeds-config.json', { feeds: [] });
+  const monitoringConfig = await loadMonitoringConfig(context);
   const enabledFeeds = (feedsPayload.feeds || [])
     .filter((feed) => feed?.enabled !== false && feed.url)
     .slice(0, Math.max(1, Math.min(limitFeeds, 120)));
   const before = await loadArticleSet(context);
-  const existing = before.articles || [];
+  const existing = (before.articles || []).filter((article) => articleMatchesMonitoringConfig(article, monitoringConfig));
   const fetchedAt = new Date().toISOString();
   const nextArticles = [];
   const feedResults = [];
+  const translationState = {
+    enabled: context.env.TRANSLATE_RSS_ARTICLES !== 'false',
+    remaining: readPositiveInt(context.env.RSS_TRANSLATION_LIMIT, DEFAULT_TRANSLATION_LIMIT),
+    translated: 0,
+    failed: 0,
+    skipped: 0,
+  };
 
   await setArticleFetchStatus(context.env, {
     running: true,
@@ -99,9 +150,19 @@ export async function refreshArticles(context, { limitFeeds = 50, maxItemsPerFee
 
   for (const feed of enabledFeeds) {
     try {
-      const items = await fetchFeedArticles(feed, { maxItemsPerFeed, fetchedAt });
-      nextArticles.push(...items);
-      feedResults.push({ id: feed.id || feed.name || feed.url, ok: true, count: items.length });
+      const result = await fetchFeedArticles(feed, {
+        maxItemsPerFeed,
+        fetchedAt,
+        monitoringConfig,
+        translationState,
+      });
+      nextArticles.push(...result.articles);
+      feedResults.push({
+        id: feed.id || feed.name || feed.url,
+        ok: true,
+        count: result.articles.length,
+        ...result.stats,
+      });
     } catch (err) {
       feedResults.push({ id: feed.id || feed.name || feed.url, ok: false, error: err.message });
     }
@@ -124,17 +185,30 @@ export async function refreshArticles(context, { limitFeeds = 50, maxItemsPerFee
     lastFetch: fetchedAt,
     articles: merged,
     feedResults: feedResults.slice(0, 200),
+    monitoring: {
+      countries: monitoringConfig.countries.length,
+      topics: monitoringConfig.topics.length,
+    },
+    translation: {
+      enabled: translationState.enabled,
+      translated: translationState.translated,
+      failed: translationState.failed,
+      skipped: translationState.skipped,
+    },
   }));
 
   await setArticleFetchStatus(context.env, {
     running: false,
     phase: 'complete',
-    message: `Fetched ${nextArticles.length} articles from ${enabledFeeds.length} feeds`,
+    message: `Fetched ${nextArticles.length} topic-matched articles from ${enabledFeeds.length} feeds`,
     lastFetch: fetchedAt,
     checkedFeeds: enabledFeeds.length,
     totalFeeds: enabledFeeds.length,
     articlesAdded: nextArticles.length,
     totalArticles: merged.length,
+    translatedArticles: translationState.translated,
+    unmatchedArticles: feedResults.reduce((sum, item) => sum + Number(item.skippedUnmatched || 0), 0),
+    feedFailures: feedResults.filter((item) => !item.ok).length,
   });
 
   return {
@@ -160,7 +234,7 @@ async function setArticleFetchStatus(env, status) {
   }));
 }
 
-async function fetchFeedArticles(feed, { maxItemsPerFeed, fetchedAt }) {
+async function fetchFeedArticles(feed, { maxItemsPerFeed, fetchedAt, monitoringConfig, translationState }) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort('timeout'), 12000);
   try {
@@ -178,27 +252,44 @@ async function fetchFeedArticles(feed, { maxItemsPerFeed, fetchedAt }) {
 
     const text = await response.text();
     if (text.length > MAX_FEED_BYTES) throw new Error(`Feed too large: ${text.length} bytes`);
-    return parseFeedXml(text, feed, { maxItemsPerFeed, fetchedAt });
+    return parseFeedXml(text, feed, { maxItemsPerFeed, fetchedAt, monitoringConfig, translationState });
   } finally {
     clearTimeout(timer);
   }
 }
 
-async function parseFeedXml(xml, feed, { maxItemsPerFeed, fetchedAt }) {
+async function parseFeedXml(xml, feed, { maxItemsPerFeed, fetchedAt, monitoringConfig, translationState }) {
   const itemSegments = extractSegments(xml, 'item');
   const entrySegments = itemSegments.length ? [] : extractSegments(xml, 'entry');
   const segments = (itemSegments.length ? itemSegments : entrySegments).slice(0, maxItemsPerFeed);
   const articles = [];
+  const stats = {
+    parsed: 0,
+    skippedInvalid: 0,
+    skippedUnmatched: 0,
+    translated: 0,
+    geotagged: 0,
+  };
 
   for (const segment of segments) {
-    const title = cleanText(readTag(segment, 'title'));
-    const description = cleanText(readTag(segment, 'description') || readTag(segment, 'summary') || readTag(segment, 'content:encoded') || readTag(segment, 'content'));
+    stats.parsed += 1;
+    const rawTitle = cleanText(readTag(segment, 'title'));
+    const rawDescription = cleanText(readTag(segment, 'description') || readTag(segment, 'summary') || readTag(segment, 'content:encoded') || readTag(segment, 'content'));
     const link = cleanText(readTag(segment, 'link')) || readAtomLink(segment) || feed.url;
-    if (!title || !link) continue;
+    if (!rawTitle || !link) {
+      stats.skippedInvalid += 1;
+      continue;
+    }
 
     const pubDate = normalizeDate(readTag(segment, 'pubDate') || readTag(segment, 'published') || readTag(segment, 'updated') || fetchedAt);
+    const translated = await maybeTranslateArticle(rawTitle, rawDescription, translationState);
+    const title = translated.title;
+    const description = translated.description;
     const combined = `${title} ${description}`;
     const geo = geotagArticle(combined, feed.country);
+    if (geo?.lat && geo?.lng) stats.geotagged += 1;
+    if (translated.translated) stats.translated += 1;
+    const matchedCountry = findMatchingCountry(combined, monitoringConfig);
     const article = {
       id: await articleId(link, title),
       title,
@@ -208,15 +299,26 @@ async function parseFeedXml(xml, feed, { maxItemsPerFeed, fetchedAt }) {
       source: feed.name || feed.id || new URL(feed.url).hostname,
       sourceUrl: feed.url,
       category: classifyArticle(combined, feed.category),
-      country: normalizeCountrySlug(geo?.country || feed.country || 'global'),
+      country: normalizeCountrySlug(geo?.country || matchedCountry?.slug || feed.country || 'global'),
       geo,
       tags: buildTags(combined, feed.category),
       fetchedAt,
+      language: translated.language,
+      translated: translated.translated,
+      ...(translated.translated ? {
+        originalTitle: rawTitle,
+        originalDescription: rawDescription,
+      } : {}),
     };
+
+    if (!articleMatchesMonitoringConfig(article, monitoringConfig)) {
+      stats.skippedUnmatched += 1;
+      continue;
+    }
     articles.push(article);
   }
 
-  return articles;
+  return { articles, stats };
 }
 
 function extractSegments(xml, tagName) {
@@ -265,6 +367,74 @@ function decodeEntities(value) {
   });
 }
 
+function readPositiveInt(value, fallback) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : fallback;
+}
+
+async function maybeTranslateArticle(title, description, translationState) {
+  const language = detectArticleLanguage(`${title} ${description}`);
+  if (!translationState?.enabled || language === 'en') {
+    return { title, description, language, translated: false };
+  }
+
+  if (translationState.remaining <= 0) {
+    translationState.skipped += 1;
+    return { title, description, language, translated: false, skipped: 'translation_limit' };
+  }
+
+  translationState.remaining -= 1;
+  try {
+    const translatedTitle = await translateTextToEnglish(title);
+    const translatedDescription = description ? await translateTextToEnglish(description.slice(0, 1600)) : '';
+    const nextTitle = translatedTitle || title;
+    const nextDescription = translatedDescription || description;
+    const changed = nextTitle !== title || nextDescription !== description;
+    if (changed) translationState.translated += 1;
+    return {
+      title: nextTitle,
+      description: nextDescription,
+      language,
+      translated: changed,
+    };
+  } catch (_) {
+    translationState.failed += 1;
+    return { title, description, language, translated: false, translationError: true };
+  }
+}
+
+function detectArticleLanguage(text) {
+  const value = String(text || '');
+  if (/[\u3040-\u30ff]/.test(value)) return 'ja';
+  if (/[\u4e00-\u9fff]/.test(value)) return 'zh';
+  if (/[\uac00-\ud7af]/.test(value)) return 'ko';
+  if (/[\u0400-\u04ff]/.test(value)) return 'ru';
+  if (/[\u0600-\u06ff]/.test(value)) return 'ar';
+  return 'en';
+}
+
+async function translateTextToEnglish(text) {
+  const value = String(text || '').trim();
+  if (!value) return '';
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort('timeout'), 5000);
+  try {
+    const response = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(value)}`, {
+      headers: { accept: 'application/json' },
+      signal: controller.signal,
+    });
+    if (!response.ok) throw new Error(`translate HTTP ${response.status}`);
+    const data = await response.json();
+    return (data?.[0] || [])
+      .map((part) => Array.isArray(part) ? part[0] : '')
+      .filter(Boolean)
+      .join('')
+      .trim();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function normalizeDate(value) {
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? new Date().toISOString() : date.toISOString();
@@ -298,9 +468,9 @@ function classifyArticle(text, fallback = 'breaking') {
 }
 
 function geotagArticle(text, fallbackCountry = 'global') {
-  const value = ` ${String(text || '').toLowerCase()} `;
+  const value = normalizeSearchText(text);
   for (const place of GEO_PLACES) {
-    if (place.terms.some((term) => value.includes(` ${term.toLowerCase()} `) || value.includes(term.toLowerCase()))) {
+    if (place.terms.some((term) => hasSearchTerm(value, term))) {
       return {
         lat: place.lat,
         lng: place.lng,
@@ -313,7 +483,7 @@ function geotagArticle(text, fallbackCountry = 'global') {
 
   const normalized = normalizeCountrySlug(fallbackCountry);
   if (normalized && normalized !== 'global') {
-    const fallback = GEO_PLACES.find((place) => normalizeCountrySlug(place.country) === normalized);
+    const fallback = GEO_PLACES.find((place) => normalizeCountrySlug(place.country) === normalized && place.confidence !== 0);
     if (fallback) {
       return {
         lat: fallback.lat,
@@ -325,13 +495,7 @@ function geotagArticle(text, fallbackCountry = 'global') {
     }
   }
 
-  return {
-    lat: 20,
-    lng: 0,
-    place: 'Global',
-    country: 'global',
-    confidence: 0.25,
-  };
+  return null;
 }
 
 function buildTags(text, fallback) {
@@ -345,12 +509,35 @@ function buildTags(text, fallback) {
     iran: ['iran', 'tehran'],
     israel: ['israel', 'gaza'],
     cyber: ['cyber', 'ransomware', 'malware'],
-    maritime: ['shipping', 'vessel', 'port', 'sea'],
+    infrastructure: ['power grid', 'telecom', 'subsea cable', 'pipeline', 'port', 'rail', 'airport'],
+    maritime: ['shipping', 'vessel', 'port', 'sea', 'strait', 'red sea', 'black sea', 'south china sea'],
+    energy: ['oil', 'gas', 'lng', 'pipeline', 'refinery', 'electricity'],
+    nuclear: ['nuclear', 'uranium', 'iaea', 'warhead'],
+    terrorism: ['terror', 'insurgent', 'isis', 'al qaeda', 'hezbollah', 'houthi', 'hamas'],
     ai: [' ai ', 'artificial intelligence', 'semiconductor', 'chip'],
+    robotics: ['robot', 'robotics', 'autonomous', 'unmanned', 'uav', 'uas'],
   })) {
     if (terms.some((term) => value.includes(term))) tags.add(tag);
   }
   return Array.from(tags).slice(0, 8);
+}
+
+function normalizeSearchText(value) {
+  return ` ${String(value || '')
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[^\p{L}\p{N}.]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()} `;
+}
+
+function hasSearchTerm(normalizedText, term) {
+  const normalizedTerm = normalizeSearchText(term).trim();
+  if (!normalizedTerm) return false;
+  if (/^[a-z0-9.]+$/i.test(normalizedTerm)) {
+    return normalizedText.includes(` ${normalizedTerm} `);
+  }
+  return normalizedText.includes(normalizedTerm);
 }
 
 function normalizeCountrySlug(value) {
