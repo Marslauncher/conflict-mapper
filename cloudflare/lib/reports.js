@@ -5,7 +5,7 @@ const REPORT_LOGS_KEY = 'analysis:logs:v1';
 const DEFAULT_STATUS_STALE_MINUTES = 5;
 const PROMPT_STORAGE_PREFIX = 'prompts/';
 const REPORT_ARTICLE_LIMIT = 80;
-const DEFAULT_REPORT_AI_ARTICLE_LIMIT = 32;
+const DEFAULT_REPORT_AI_ARTICLE_LIMIT = 24;
 
 const COUNTRY_LABELS = {
   usa: 'United States',

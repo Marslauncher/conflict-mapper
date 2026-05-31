@@ -262,7 +262,10 @@ function normalizeReportProviderConfig(provider, providerConfig) {
 
 function resolveReportMaxTokens(env, provider, model = '') {
   const configured = Number(env.REPORT_MAX_TOKENS || 0);
-  if (Number.isFinite(configured) && configured >= 1024) return Math.floor(configured);
+  if (Number.isFinite(configured) && configured >= 1024) {
+    const requested = Math.floor(configured);
+    return provider === 'perplexity' ? Math.min(requested, 6000) : requested;
+  }
   const modelId = String(model || '').toLowerCase();
   if (provider === 'perplexity') return modelId.includes('deep-research') ? 8000 : 6000;
   if (provider === 'google') return 8192;
@@ -273,8 +276,8 @@ function resolveReportMaxTokens(env, provider, model = '') {
 
 function resolveReportTimeoutMs(env, provider = '') {
   const configured = Number(env.REPORT_AI_TIMEOUT_MS || 0);
-  const providerMinimum = provider === 'perplexity' ? 45000 : 5000;
-  const fallback = provider === 'perplexity' ? 45000 : 55000;
+  const providerMinimum = provider === 'perplexity' ? 75000 : 5000;
+  const fallback = provider === 'perplexity' ? 75000 : 55000;
   if (Number.isFinite(configured) && configured >= 5000) {
     return Math.max(Math.floor(configured), providerMinimum);
   }
