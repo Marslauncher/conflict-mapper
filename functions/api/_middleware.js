@@ -40,6 +40,7 @@ export async function onRequest(context) {
 }
 
 function queueApiLog(context, entry) {
+  if (context.env.ENABLE_API_TRACE_LOGS !== 'true') return;
   const path = entry.details?.path || '';
   if (QUIET_PATHS.has(path)) return;
   const payload = appendReportLog(context.env, {

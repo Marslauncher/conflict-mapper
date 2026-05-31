@@ -326,10 +326,14 @@ export async function getArticleFetchStatus(env) {
 
 async function setArticleFetchStatus(env, status) {
   if (!env.CONFIG_KV) return;
-  await env.CONFIG_KV.put(ARTICLE_FETCH_STATUS_KEY, JSON.stringify({
-    updatedAt: new Date().toISOString(),
-    ...status,
-  }));
+  try {
+    await env.CONFIG_KV.put(ARTICLE_FETCH_STATUS_KEY, JSON.stringify({
+      updatedAt: new Date().toISOString(),
+      ...status,
+    }));
+  } catch (err) {
+    console.warn(`Article fetch status write skipped: ${err.message}`);
+  }
 }
 
 async function fetchFeedArticles(feed, { maxItemsPerFeed, fetchedAt, monitoringConfig, translationState }) {

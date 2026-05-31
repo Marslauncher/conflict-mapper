@@ -33,10 +33,12 @@ export async function onRequestPost(context) {
       category: 'rss',
       message: `RSS fetch failed: ${err.message}`,
       details: {
-        mitigation: 'Use smaller limitFeeds/maxItemsPerFeed values or run the larger refresh from the cron Worker.',
+        mitigation: 'Use smaller limitFeeds/maxItemsPerFeed values, wait for the Cloudflare KV daily write quota to reset, or move the article cache to D1/R2 for high-frequency imports.',
       },
     });
-    return errorResponse(err.message, err.status || 500);
+    return errorResponse(err.message, err.status || 500, {
+      mitigation: 'Use smaller limitFeeds/maxItemsPerFeed values, wait for the Cloudflare KV daily write quota to reset, or move the article cache to D1/R2 for high-frequency imports.',
+    });
   }
 }
 

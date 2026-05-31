@@ -83,7 +83,7 @@ export async function getReportStatus(env) {
         lastUpdatedAt: status.updatedAt,
       },
     };
-    await env.CONFIG_KV.put(REPORT_STATUS_KEY, JSON.stringify(staleStatus));
+    await safeKvPut(env.CONFIG_KV, REPORT_STATUS_KEY, JSON.stringify(staleStatus));
     await appendReportLog(env, {
       level: 'warn',
       message: staleStatus.message,
@@ -97,7 +97,7 @@ export async function getReportStatus(env) {
 
 export async function setReportStatus(env, status) {
   if (!env.CONFIG_KV) return;
-  await env.CONFIG_KV.put(REPORT_STATUS_KEY, JSON.stringify({
+  await safeKvPut(env.CONFIG_KV, REPORT_STATUS_KEY, JSON.stringify({
     updatedAt: new Date().toISOString(),
     ...status,
   }));
@@ -133,21 +133,35 @@ function getStatusStaleMinutes(env) {
 
 export async function appendReportLog(env, entry) {
   if (!env.CONFIG_KV) return;
-  const raw = await env.CONFIG_KV.get(REPORT_LOGS_KEY);
-  let logs = [];
   try {
-    logs = raw ? JSON.parse(raw) : [];
-  } catch (_) {
-    logs = [];
+    const raw = await env.CONFIG_KV.get(REPORT_LOGS_KEY);
+    let logs = [];
+    try {
+      logs = raw ? JSON.parse(raw) : [];
+    } catch (_) {
+      logs = [];
+    }
+    logs.unshift({
+      timestamp: new Date().toISOString(),
+      level: entry.level || 'info',
+      category: entry.category || 'analysis',
+      message: entry.message || '',
+      ...(entry.details ? { details: entry.details } : {}),
+    });
+    await safeKvPut(env.CONFIG_KV, REPORT_LOGS_KEY, JSON.stringify(logs.slice(0, 250)));
+  } catch (err) {
+    console.warn(`Report log write skipped: ${err.message}`);
   }
-  logs.unshift({
-    timestamp: new Date().toISOString(),
-    level: entry.level || 'info',
-    category: entry.category || 'analysis',
-    message: entry.message || '',
-    ...(entry.details ? { details: entry.details } : {}),
-  });
-  await env.CONFIG_KV.put(REPORT_LOGS_KEY, JSON.stringify(logs.slice(0, 250)));
+}
+
+async function safeKvPut(kv, key, value, options) {
+  try {
+    await kv.put(key, value, options);
+    return true;
+  } catch (err) {
+    console.warn(`KV write skipped for ${key}: ${err.message}`);
+    return false;
+  }
 }
 
 export async function listReportLogs(env, limit = 100) {
