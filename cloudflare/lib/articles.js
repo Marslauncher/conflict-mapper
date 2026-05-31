@@ -102,7 +102,9 @@ export async function loadArticleSet(context) {
   try {
     const payload = JSON.parse(raw);
     const kvArticles = normalizeArticlesPayload(payload);
-    const articles = normalizeExistingArticles(kvArticles.length ? kvArticles : staticArticles, monitoringConfig);
+    const articles = kvArticles.length
+      ? kvArticles
+      : normalizeExistingArticles(staticArticles, monitoringConfig);
     return {
       articles,
       lastFetch: payload.lastFetch || staticPayload.lastFetch || null,

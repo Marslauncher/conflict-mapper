@@ -1,10 +1,10 @@
-import { generateReportText, getEffectiveAIConfig } from './ai.js';
-import { filterArticles } from './static-data.js';
+import { generateReportText, getEffectiveAIConfig, getReportGenerationModel } from './ai.js';
 
 const REPORT_STATUS_KEY = 'analysis:status';
 const REPORT_LOGS_KEY = 'analysis:logs:v1';
 const DEFAULT_STATUS_STALE_MINUTES = 5;
 const PROMPT_STORAGE_PREFIX = 'prompts/';
+const REPORT_ARTICLE_LIMIT = 80;
 
 const COUNTRY_LABELS = {
   usa: 'United States',
@@ -220,7 +220,21 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
     await ensureReportSchema(env);
     const config = await getEffectiveAIConfig(env);
     const provider = config.provider;
-    const model = config.providers[provider]?.model || '';
+    const configuredModel = config.providers[provider]?.model || '';
+    const model = getReportGenerationModel(provider, configuredModel);
+    if (model !== configuredModel) {
+      await appendReportLog(env, {
+        level: 'warn',
+        category: 'ai',
+        message: `Using ${model} for live report generation instead of ${configuredModel}`,
+        details: {
+          provider,
+          configuredModel,
+          reportModel: model,
+          mitigation: 'Deep-research models are too slow for synchronous Cloudflare Pages report requests. Use sonar-pro for live generation.',
+        },
+      });
+    }
 
     await setReportStatus(env, {
       running: true,
@@ -231,10 +245,12 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       message: 'Selecting source articles',
       startedAt,
     });
-    const selectedArticles = filterArticles(articles, {
-      country: scope === 'country' || scope === 'watch' ? normalizedSlug : '',
-      limit: 80,
+    const selection = selectReportArticles(articles, {
+      scope,
+      slug: normalizedSlug,
+      limit: REPORT_ARTICLE_LIMIT,
     });
+    const selectedArticles = selection.articles;
     await appendReportLog(env, {
       message: `Selected ${selectedArticles.length} source articles`,
       details: {
@@ -242,6 +258,10 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
         slug: normalizedSlug,
         selectedArticles: selectedArticles.length,
         availableArticles: articles.length,
+        excludedLowRelevance: selection.excludedLowRelevance,
+        excludedStale: selection.excludedStale,
+        newestArticle: selectedArticles[0]?.pubDate || null,
+        oldestArticle: selectedArticles[selectedArticles.length - 1]?.pubDate || null,
       },
     });
 
@@ -527,6 +547,182 @@ function watchTitle(slug) {
   return `${COUNTRY_LABELS[slug] || slug.toUpperCase()} Threat Watch`;
 }
 
+function selectReportArticles(articles, { scope = 'global', slug = 'global', limit = REPORT_ARTICLE_LIMIT } = {}) {
+  const input = Array.isArray(articles) ? articles : [];
+  const now = Date.now();
+  const scored = input
+    .map((article) => ({
+      article,
+      score: reportArticleScore(article, { scope, slug, now }),
+      ageDays: articleAgeDays(article, now),
+      storyKey: reportStoryKey(article),
+    }))
+    .filter((item) => scope === 'global' || item.score.countryMatch);
+
+  const primaryMaxAge = scope === 'global' ? 21 : 45;
+  const fallbackMaxAge = scope === 'global' ? 60 : 90;
+  const primaryThreshold = scope === 'global' ? 12 : 8;
+  const fallbackThreshold = scope === 'global' ? 8 : 5;
+
+  let selected = pickRankedArticles(scored, {
+    limit,
+    minScore: primaryThreshold,
+    maxAgeDays: primaryMaxAge,
+  });
+
+  if (selected.length < Math.min(24, limit)) {
+    selected = pickRankedArticles(scored, {
+      limit,
+      minScore: fallbackThreshold,
+      maxAgeDays: fallbackMaxAge,
+    });
+  }
+
+  if (selected.length < Math.min(12, limit)) {
+    selected = pickRankedArticles(scored, {
+      limit,
+      minScore: 1,
+      maxAgeDays: 180,
+    });
+  }
+
+  const selectedSet = new Set(selected.map((item) => item.article));
+  return {
+    articles: selected.map((item) => ({
+      ...item.article,
+      relevanceScore: item.score.value,
+    })),
+    excludedLowRelevance: scored.filter((item) => !selectedSet.has(item.article) && item.score.value < fallbackThreshold).length,
+    excludedStale: scored.filter((item) => !selectedSet.has(item.article) && item.ageDays > fallbackMaxAge).length,
+  };
+}
+
+function pickRankedArticles(scored, { limit, minScore, maxAgeDays }) {
+  const seenStories = new Set();
+  return scored
+    .filter((item) => item.score.value >= minScore && item.ageDays <= maxAgeDays)
+    .sort((a, b) => b.score.value - a.score.value
+      || new Date(b.article.pubDate || 0).getTime() - new Date(a.article.pubDate || 0).getTime())
+    .filter((item) => {
+      if (!item.storyKey) return true;
+      if (seenStories.has(item.storyKey)) return false;
+      seenStories.add(item.storyKey);
+      return true;
+    })
+    .slice(0, Math.max(1, limit));
+}
+
+function reportArticleScore(article, { scope, slug, now }) {
+  const text = reportSearchText(article);
+  const ageDays = articleAgeDays(article, now);
+  const category = String(article.category || '').toLowerCase();
+  const source = String(article.source || '').toLowerCase();
+  const tags = (article.tags || []).map((tag) => String(tag).toLowerCase());
+  let value = 0;
+
+  if (ageDays <= 1) value += 12;
+  else if (ageDays <= 3) value += 10;
+  else if (ageDays <= 7) value += 8;
+  else if (ageDays <= 14) value += 5;
+  else if (ageDays <= 30) value += 2;
+  else if (ageDays > 90) value -= 18;
+  else if (ageDays > 45) value -= 8;
+
+  const weightedTerms = [
+    [/(\bwar\b|\binvasion\b|\bescalat|\bairstrike\b|\bmissile\b|\bdrone\b|\bartillery\b|\bshelling\b|\boffensive\b|\bfrontline\b|\bstrike\b)/, 10],
+    [/(\bmilitary\b|\btroops?\b|\bforce posture\b|\bnaval\b|\bwarship\b|\bsubmarine\b|\bweapons?\b|\bdefen[cs]e\b|\bprocurement\b|\bmunitions?\b)/, 8],
+    [/(\bnuclear\b|\buranium\b|\biaea\b|\bwmd\b|\balliance\b|\bnato\b|\bsanctions?\b|\bexport controls?\b)/, 8],
+    [/(\bcyberattack\b|\bransomware\b|\bmalware\b|\bzero-day\b|\bsabotage\b|\bcritical infrastructure\b|\bpower grid\b|\btelecom\b|\bsubsea cable\b|\bpipeline\b|\bport\b)/, 7],
+    [/(\btaiwan strait\b|\bsouth china sea\b|\bred sea\b|\bblack sea\b|\bstrait of hormuz\b|\bgaza\b|\biran\b|\bisrael\b|\bukraine\b|\brussia\b|\bchina\b|\bnorth korea\b|\bhouthi\b|\bhezbollah\b|\bhamas\b)/, 7],
+    [/(\bthink tank\b|\breport\b|\banalysis\b|\bbriefing\b|\bcsis\b|\brusi\b|\brand\b|\bisw\b|\biiss\b|\batlantic council\b|\barms control\b)/, 4],
+  ];
+  for (const [regex, weight] of weightedTerms) {
+    if (regex.test(text)) value += weight;
+  }
+
+  if (['military', 'conflict', 'geopolitics', 'cyber', 'infrastructure', 'nuclear', 'terrorism', 'maritime', 'energy'].includes(category)) value += 7;
+  else if (['political', 'economic', 'technology', 'breaking'].includes(category)) value += 3;
+
+  if (tags.some((tag) => ['military', 'conflict', 'geopolitics', 'cyber', 'infrastructure', 'nuclear', 'terrorism', 'maritime', 'energy', 'taiwan', 'china', 'russia', 'ukraine', 'iran', 'israel'].includes(tag))) {
+    value += 4;
+  }
+
+  if (/(semiconductor|chip|export control|rare earth|supply chain|shipping lane|maritime|defence industrial|defense industrial)/.test(text)) {
+    value += 6;
+  }
+
+  if (/(defence|defense|military|war|arms control|foreign affairs|csis|rusi|rand|isw|iiss|atlantic council|reuters|associated press|bbc world|al jazeera|france 24|financial times world|south china morning post)/.test(source)) {
+    value += 3;
+  }
+
+  const hardSignal = hasHardSecuritySignal(text);
+  const noiseTerms = /(\bcelebrity\b|\bentertainment\b|\bsports?\b|\broyal\b|\bfashion\b|\bhome loan\b|\bcash back\b|\bcredit card\b|\bhoroscope\b|\bnicola sturgeon\b|\bfirst minister\b|\bfederal judge\b|\bastronaut\b|\bmoon mission\b|\bceos?\b.*\bresign|\bresign.*\bceos?\b)/;
+  if (noiseTerms.test(text) && !hasHardSecuritySignal(text)) value -= 18;
+  if (scope === 'global' && !hardSignal && !/(semiconductor|chip|export control|supply chain|shipping|sanctions?|think tank|arms control|foreign policy|defen[cs]e industrial)/.test(text)) {
+    value -= 10;
+  }
+
+  const countryMatch = scope === 'global' || reportCountryAliases(slug).some((alias) => text.includes(alias));
+  if (scope !== 'global' && countryMatch) value += 8;
+
+  return { value, countryMatch };
+}
+
+function hasHardSecuritySignal(text) {
+  return /(\bwar\b|\bmilitary\b|\bmissile\b|\bweapon\b|\bairstrike\b|\bnuclear\b|\bterror\b|\bsanction\b|\bcyberattack\b|\bcritical infrastructure\b|\btaiwan strait\b|\biran\b|\bukraine\b|\brussia\b|\bgaza\b|\bnato\b|\bdrone\b|\bnaval\b|\bsubmarine\b|\bmunitions?\b|\bfrontline\b)/.test(text);
+}
+
+function reportSearchText(article) {
+  return ` ${[
+    article.title,
+    article.description,
+    article.source,
+    article.category,
+    article.country,
+    article.geo?.place,
+    article.geo?.country,
+    ...(article.tags || []),
+  ].filter(Boolean).join(' ').toLowerCase()} `;
+}
+
+function articleAgeDays(article, now = Date.now()) {
+  const time = article.pubDate ? new Date(article.pubDate).getTime() : 0;
+  if (!Number.isFinite(time) || time <= 0) return 3650;
+  return Math.max(0, (now - time) / 86_400_000);
+}
+
+function reportStoryKey(article) {
+  const value = String(article.title || article.link || '').toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/https?:\/\/\S+/g, ' ')
+    .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!value) return '';
+  const stop = new Set(['the', 'and', 'for', 'with', 'from', 'that', 'this', 'into', 'over', 'after', 'before', 'says', 'said', 'new', 'live', 'news', 'update', 'updates', 'analysis', 'report', 'a', 'an', 'to', 'of', 'in', 'on', 'as', 'by', 'at', 'is', 'are', 'be', 'was', 'were']);
+  const tokens = value.split(' ').filter((token) => token.length > 2 && !stop.has(token)).slice(0, 18);
+  return tokens.length < 3 ? value.slice(0, 100) : tokens.sort().slice(0, 12).join('|');
+}
+
+function reportCountryAliases(slug) {
+  const normalized = String(slug || '').toLowerCase();
+  const map = {
+    usa: [' usa ', ' us ', 'united states', 'u.s.', 'u.s', 'america', 'washington', 'pentagon'],
+    china: ['china', 'chinese', 'beijing', 'pla'],
+    russia: ['russia', 'russian', 'moscow'],
+    ukraine: ['ukraine', 'kyiv', 'kiev'],
+    taiwan: ['taiwan', 'taipei', 'taiwan strait'],
+    iran: ['iran', 'tehran'],
+    israel: ['israel', 'gaza', 'tel aviv', 'jerusalem'],
+    india: ['india', 'new delhi'],
+    pakistan: ['pakistan', 'islamabad'],
+    'north-korea': ['north korea', 'dprk', 'pyongyang'],
+    nato: ['nato', 'brussels', 'alliance'],
+  };
+  return map[normalized] || [normalized.replace(/-/g, ' '), normalized];
+}
+
 export function buildSystemPrompt(scope = 'global') {
   const watchInstruction = scope === 'watch'
     ? '- This is a threat watch product. Emphasize warning indicators, likely escalation paths, PLA/ROC/US/Japan posture, maritime/air activity, cyber/economic pressure, and collection gaps.\n'
@@ -541,7 +737,7 @@ Hard requirements:
 - Distinguish reported facts from analytic assessment.
 - Include risk severity labels from this exact set: CRITICAL, HIGH, MEDIUM, LOW.
 - Include trajectory labels from this exact set: ESCALATING, STABLE, DE-ESCALATING.
-- Write 1,200-2,200 words unless source material is sparse.
+- Write 1,800-3,200 words unless source material is sparse. Favor depth, cited analytic detail, and operational implications over short summaries.
 - Use the exact section structure below and preserve the class names because the renderer styles them.
 - Do not invent exact casualty figures, classified intelligence, or unsupported claims.
 - Keep paragraphs tight. The reference style is dense, direct, and scannable.
@@ -643,12 +839,12 @@ export function buildUserPrompt({ scope, slug, title, articles }) {
 - Regional Assessments by theater: Taiwan Strait, South China Sea, Japan/Ryukyu arc, Philippines, US Indo-Pacific posture, cyber/information operations.
 - One Near-Term Outlook paragraph covering 30-90 days.
 - 8-12 Watch List indicators suitable for alerting/monitoring dashboards.`
-    : `- 5-7 Global Trends cards, ranked by impact.
-- 6-10 Breaking Developments from the newest/highest-signal source articles.
-- 6-10 Areas of Concern with risk badges.
+    : `- 7-10 Global Trends cards, ranked by impact.
+- 8-12 Breaking Developments from the newest/highest-signal source articles.
+- 8-12 Areas of Concern with risk badges.
 - Regional Assessments by theater: europe, middle east, asia pacific, africa, americas, arctic when source material supports them.
-- One Near-Term Outlook paragraph covering 30-90 days.
-- 6-10 Watch List indicators suitable for alerting/monitoring dashboards.`;
+- One detailed Near-Term Outlook section covering 30-90 days.
+- 8-12 Watch List indicators suitable for alerting/monitoring dashboards.`;
 
   return `Create a Conflict Mapper intelligence report body for: ${title}
 
@@ -665,6 +861,8 @@ Analytic emphasis:
 - Supply chain and sanctions exposure
 - Actionable indicators for monitoring dashboards and daily watchlists
 - Cross-theater interaction, e.g. how Middle East escalation affects energy, shipping, cyber, and domestic security
+- Ignore domestic political personality stories, celebrity/legal items, consumer-finance stories, lifestyle/science features, and generic politics unless they have a direct conflict, escalation, military, sanctions, cyber, infrastructure, weapons, or geopolitical-security implication.
+- Do not elevate a story just because it is recent; prioritize recent high-signal global security developments.
 
 Formatting requirements:
 - Return HTML only.

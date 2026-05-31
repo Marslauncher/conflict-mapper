@@ -239,13 +239,25 @@ export async function listAIModels(env, override = {}) {
 
 export async function generateReportText(env, systemPrompt, userPrompt) {
   const config = await getEffectiveAIConfig(env);
-  const providerConfig = config.providers[config.provider];
+  const providerConfig = normalizeReportProviderConfig(config.provider, config.providers[config.provider]);
   if (!providerConfig?.apiKey) {
     throw new Error(`No API key configured for provider "${config.provider}"`);
   }
   const maxTokens = resolveReportMaxTokens(env, config.provider, providerConfig.model);
   const timeoutMs = resolveReportTimeoutMs(env);
-  return callModel(config.provider, providerConfig, `${systemPrompt}\n\n${userPrompt}`, { maxTokens, timeoutMs });
+  return callModel(config.provider, providerConfig, `${systemPrompt}\n\n${userPrompt}`, { maxTokens, timeoutMs, reportGeneration: true });
+}
+
+export function getReportGenerationModel(provider, model = '') {
+  const value = String(model || '');
+  if (provider === 'perplexity' && value.includes('deep-research')) return 'sonar-pro';
+  return value;
+}
+
+function normalizeReportProviderConfig(provider, providerConfig) {
+  if (!providerConfig) return providerConfig;
+  const model = getReportGenerationModel(provider, providerConfig.model);
+  return model === providerConfig.model ? providerConfig : { ...providerConfig, model };
 }
 
 function resolveReportMaxTokens(env, provider, model = '') {

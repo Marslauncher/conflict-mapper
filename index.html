@@ -5219,7 +5219,7 @@ async function fetchLogs() {
   try {
     const res = await fetch('/api/logs?limit=250');
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await readApiJson(res, `/api/countries/${slug}`);
+    const data = await readApiJson(res, '/api/logs');
     _logsRaw = [
       ...(data.data?.logs || data.logs || (Array.isArray(data) ? data : [])),
       ...readApiTrace(),
