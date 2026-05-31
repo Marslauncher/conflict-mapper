@@ -216,6 +216,10 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
   try {
     if (!env.REPORTS_BUCKET) throw new Error('REPORTS_BUCKET binding missing');
     if (!env.DB) throw new Error('DB binding missing');
+    await ensureReportSchema(env);
+    const config = await getEffectiveAIConfig(env);
+    const provider = config.provider;
+    const model = config.providers[provider]?.model || '';
 
     await setReportStatus(env, {
       running: true,
@@ -232,7 +236,12 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
     });
     await appendReportLog(env, {
       message: `Selected ${selectedArticles.length} source articles`,
-      details: { scope, slug: normalizedSlug },
+      details: {
+        scope,
+        slug: normalizedSlug,
+        selectedArticles: selectedArticles.length,
+        availableArticles: articles.length,
+      },
     });
 
     await setReportStatus(env, {
@@ -244,12 +253,21 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       message: 'Calling configured AI provider',
       startedAt,
     });
+    await appendReportLog(env, {
+      category: 'ai',
+      message: `Calling AI provider ${provider}${model ? ` / ${model}` : ''}`,
+      details: { scope, slug: normalizedSlug, provider, model, selectedArticles: selectedArticles.length },
+    });
     const aiText = await generateReportText(
       env,
       buildSystemPrompt(scope),
       buildUserPrompt({ scope, slug: normalizedSlug, title, articles: selectedArticles }),
     );
-    await appendReportLog(env, { message: 'AI provider returned report body', details: { scope, slug: normalizedSlug } });
+    await appendReportLog(env, {
+      category: 'ai',
+      message: 'AI provider returned report body',
+      details: { scope, slug: normalizedSlug, provider, model, bodyCharacters: aiText.length },
+    });
 
     await setReportStatus(env, {
       running: true,
@@ -262,6 +280,10 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
     });
     const html = renderReportHtml({ title, scope, slug: normalizedSlug, body: aiText, articles: selectedArticles });
     const paths = reportPaths(scope, normalizedSlug);
+    await appendReportLog(env, {
+      message: 'Rendered report HTML',
+      details: { scope, slug: normalizedSlug, htmlCharacters: html.length, currentKey: paths.currentKey },
+    });
 
     await setReportStatus(env, {
       running: true,
@@ -272,15 +294,31 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       message: 'Archiving current report and writing R2 object',
       startedAt,
     });
+    await appendReportLog(env, {
+      message: 'Archiving previous report and writing current R2 object',
+      details: { scope, slug: normalizedSlug, currentKey: paths.currentKey },
+    });
     await archiveCurrentReport(env, scope, normalizedSlug, paths);
 
     await env.REPORTS_BUCKET.put(paths.currentKey, html, {
       httpMetadata: { contentType: 'text/html; charset=utf-8' },
       customMetadata: { scope, slug: normalizedSlug, generatedAt: startedAt },
     });
+    await appendReportLog(env, {
+      message: 'R2 report object written',
+      details: { scope, slug: normalizedSlug, currentKey: paths.currentKey, bytes: html.length },
+    });
 
-    const config = await getEffectiveAIConfig(env);
     const currentId = crypto.randomUUID();
+    await setReportStatus(env, {
+      running: true,
+      phase: 'writing_metadata',
+      progress: 92,
+      scope,
+      slug: normalizedSlug,
+      message: 'Writing D1 report metadata',
+      startedAt,
+    });
     await env.DB.prepare(`
       UPDATE reports SET is_current = 0
       WHERE scope = ?1 AND slug = ?2 AND is_current = 1
@@ -299,10 +337,14 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       paths.currentPath,
       startedAt,
       startedAt.slice(0, 10),
-      config.provider,
-      config.providers[config.provider]?.model || '',
+      provider,
+      model,
       JSON.stringify({ articleCount: selectedArticles.length }),
     ).run();
+    await appendReportLog(env, {
+      message: 'D1 report metadata written',
+      details: { scope, slug: normalizedSlug, id: currentId, path: paths.currentPath },
+    });
 
     await setReportStatus(env, {
       running: false,
@@ -359,7 +401,7 @@ function describeReportFailure(err) {
       mitigation: 'Bind the D1 database as DB in Cloudflare Pages production settings, apply migrations, and redeploy.',
     };
   }
-  if (lower.includes('no such table') || lower.includes('d1_error')) {
+  if (lower.includes('no such table') || lower.includes('d1_error') || lower.includes('reports table missing')) {
     return {
       type: 'd1_schema',
       message,
@@ -423,12 +465,21 @@ async function archiveCurrentReport(env, scope, slug, paths) {
   }
 }
 
+async function ensureReportSchema(env) {
+  const row = await env.DB.prepare(`
+    SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'reports'
+  `).first();
+  if (!row?.name) {
+    throw new Error('D1 reports table missing. Run the production D1 migrations before generating reports.');
+  }
+}
+
 function watchTitle(slug) {
   if (slug === 'taiwan') return 'China/Taiwan Threat Watch';
   return `${COUNTRY_LABELS[slug] || slug.toUpperCase()} Threat Watch`;
 }
 
-function buildSystemPrompt(scope = 'global') {
+export function buildSystemPrompt(scope = 'global') {
   const watchInstruction = scope === 'watch'
     ? '- This is a threat watch product. Emphasize warning indicators, likely escalation paths, PLA/ROC/US/Japan posture, maritime/air activity, cyber/economic pressure, and collection gaps.\n'
     : '';
@@ -528,7 +579,7 @@ Use this HTML structure:
 </div>`;
 }
 
-function buildUserPrompt({ scope, slug, title, articles }) {
+export function buildUserPrompt({ scope, slug, title, articles }) {
   const articleText = articles.length
     ? articles.map((article, index) => {
         const date = article.pubDate ? new Date(article.pubDate).toISOString().slice(0, 10) : 'unknown-date';
@@ -579,6 +630,71 @@ Formatting requirements:
 Source articles:
 
 ${articleText}`;
+}
+
+export function getReportPromptTemplates() {
+  const date = 'YYYY-MM-DD';
+  const sampleDate = '2026-01-01';
+  const sampleArticles = [
+    {
+      pubDate: `${sampleDate}T00:00:00.000Z`,
+      source: 'Source Name',
+      title: 'Source article headline goes here',
+      description: 'One to three sentence source summary, preferably translated to English and preserving operationally relevant detail.',
+      link: 'https://example.com/source-article',
+    },
+    {
+      pubDate: `${sampleDate}T00:00:00.000Z`,
+      source: 'Second Source',
+      title: 'Second source article headline goes here',
+      description: 'Additional source summary used for cross-checking and citations.',
+      link: 'https://example.com/second-source',
+    },
+  ];
+  const templates = [
+    {
+      id: 'global',
+      label: 'Global Analysis Report',
+      scope: 'global',
+      slug: 'global',
+      title: `Global Intelligence Report - ${date}`,
+    },
+    {
+      id: 'country',
+      label: 'Country Dossier Report',
+      scope: 'country',
+      slug: 'usa',
+      title: `United States Intelligence Report - ${date}`,
+    },
+    {
+      id: 'watch-taiwan',
+      label: 'China/Taiwan Threat Watch',
+      scope: 'watch',
+      slug: 'taiwan',
+      title: `China/Taiwan Threat Watch - ${date}`,
+    },
+  ];
+
+  return templates.map((template) => {
+    const systemPrompt = buildSystemPrompt(template.scope);
+    const userPrompt = buildUserPrompt({
+      scope: template.scope,
+      slug: template.slug,
+      title: template.title,
+      articles: sampleArticles,
+    });
+    return {
+      ...template,
+      systemPrompt,
+      userPrompt,
+      fullPrompt: `${systemPrompt}\n\n${userPrompt}`,
+      importNotes: [
+        'Return only the HTML body fragment requested by the prompt.',
+        'Save the generated fragment inside the existing report HTML wrapper or use the app report renderer.',
+        'Preserve citation numbers in bracket form and include source URLs in the Source Articles section.',
+      ],
+    };
+  });
 }
 
 function renderReportHtml({ title, body, articles }) {

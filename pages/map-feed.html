@@ -838,8 +838,8 @@ function initMap() {
 async function loadArticles() {
   try {
     const [geoRes, feedRes] = await Promise.all([
-      fetch('/api/articles/geo'),
-      fetch('/api/articles?limit=100')
+      fetch('/api/articles/geo?limit=5000'),
+      fetch('/api/articles?limit=5000')
     ]);
 
     let geoArticles = [];
@@ -855,12 +855,14 @@ async function loadArticles() {
       feedArticles = data.data?.articles || data.articles || (Array.isArray(data) ? data : []);
     }
 
-    // Merge: use feedArticles as base, enrich with geo data
-    const geoMap = {};
-    geoArticles.forEach(a => { if (a.id) geoMap[a.id] = a; });
+    const articleMap = new Map();
+    feedArticles.forEach(a => { if (a.id) articleMap.set(a.id, a); });
+    geoArticles.forEach(a => {
+      if (!a.id) return;
+      articleMap.set(a.id, { ...(articleMap.get(a.id) || {}), ...a });
+    });
 
-    // If feed API worked, use it; else use geo articles
-    allArticles = feedArticles.length ? feedArticles.map(a => ({ ...a, ...(geoMap[a.id] || {}) })) : geoArticles;
+    allArticles = articleMap.size ? Array.from(articleMap.values()) : geoArticles;
 
     if (!allArticles.length) {
       // Use mock data for demo
@@ -957,14 +959,11 @@ function updateMapMarkers() {
   markersLayer.clearLayers();
 
   const geoArticles = filteredArticles.filter(a => {
-    const lat = a.lat || a.geo?.lat;
-    const lng = a.lng || a.geo?.lng;
-    return lat && lng && lat !== 0 && lng !== 0;
+    return !!getGeoCoords(a);
   });
 
   geoArticles.forEach(article => {
-    const lat = article.lat || article.geo?.lat;
-    const lng = article.lng || article.geo?.lng;
+    const { lat, lng } = getGeoCoords(article);
     const color = CAT_COLORS[article.category || 'general'] || CAT_COLORS.general;
     const marker = L.circleMarker([lat, lng], {
       radius: 7,
@@ -987,9 +986,9 @@ function updateMapMarkers() {
 }
 
 function getGeoCoords(a) {
-  const lat = a.lat || a.geo?.lat;
-  const lng = a.lng || a.geo?.lng;
-  return (lat && lng && lat !== 0 && lng !== 0) ? { lat, lng } : null;
+  const lat = Number(a.lat ?? a.geo?.lat);
+  const lng = Number(a.lng ?? a.geo?.lng);
+  return Number.isFinite(lat) && Number.isFinite(lng) && !(lat === 0 && lng === 0) ? { lat, lng } : null;
 }
 
 function buildPopup(article) {
@@ -1003,7 +1002,7 @@ function buildPopup(article) {
     </div>
     <div style="font-size:0.7rem;color:#888;margin-bottom:8px">${timeAgo(article.pubDate || article.publishedAt)}</div>
     <div class="popup-actions">
-      ${article.url ? `<a href="${escHtml(article.url)}" target="_blank" rel="noopener" class="popup-btn primary" style="text-decoration:none">Read →</a>` : ''}
+      ${(article.link || article.url) ? `<a href="${escHtml(article.link || article.url)}" target="_blank" rel="noopener" class="popup-btn primary" style="text-decoration:none">Read →</a>` : ''}
       <button class="popup-btn" onclick="openFlagModal(${JSON.stringify({ id: article.id, title: article.title }).replace(/"/g, '&quot;')})">⚑ Flag</button>
     </div>
   `;
@@ -1026,8 +1025,9 @@ function toggleHeatmap() {
 function updateHeatmap() {
   if (heatLayer) map.removeLayer(heatLayer);
   const points = filteredArticles
-    .filter(a => (a.lat || a.geo?.lat) && (a.lng || a.geo?.lng))
-    .map(a => [a.lat || a.geo?.lat, a.lng || a.geo?.lng, 0.5]);
+    .map(getGeoCoords)
+    .filter(Boolean)
+    .map(({ lat, lng }) => [lat, lng, 0.5]);
 
   if (points.length && typeof L.heatLayer === 'function') {
     heatLayer = L.heatLayer(points, {
@@ -1093,9 +1093,9 @@ function updateFeedList() {
 }
 
 function focusArticle(article) {
-  const lat = article.lat || article.geo?.lat;
-  const lng = article.lng || article.geo?.lng;
-  if (lat && lng) {
+  const coords = getGeoCoords(article);
+  if (coords) {
+    const { lat, lng } = coords;
     map.setView([lat, lng], 6, { animate: true });
   }
 }
@@ -1103,7 +1103,7 @@ function focusArticle(article) {
 /* ── Stats ── */
 function updateStats() {
   document.getElementById('stat-total').textContent = filteredArticles.length;
-  document.getElementById('stat-geo').textContent = filteredArticles.filter(a => (a.lat || a.geo?.lat) && (a.lng || a.geo?.lng)).length;
+  document.getElementById('stat-geo').textContent = filteredArticles.filter(a => getGeoCoords(a)).length;
   const sources = new Set(filteredArticles.map(a => a.source).filter(Boolean));
   document.getElementById('stat-sources').textContent = sources.size;
 }

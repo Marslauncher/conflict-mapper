@@ -1,6 +1,6 @@
 import { errorResponse, jsonResponse } from '../../../cloudflare/lib/http.js';
 import { loadArticleSet } from '../../../cloudflare/lib/articles.js';
-import { generateAndStoreReport, setReportStatus } from '../../../cloudflare/lib/reports.js';
+import { appendReportLog, generateAndStoreReport, setReportStatus } from '../../../cloudflare/lib/reports.js';
 
 const JOBS = [
   { scope: 'global', slug: 'global' },
@@ -12,6 +12,10 @@ const JOBS = [
 export async function onRequestPost(context) {
   try {
     const payload = await loadArticleSet(context);
+    await appendReportLog(context.env, {
+      message: 'All-report batch queued from API request',
+      details: { jobs: JOBS.length, articleCount: payload.articles.length },
+    });
     context.waitUntil(runAllBatch(context.env, payload.articles));
     return jsonResponse({
       success: true,
@@ -43,8 +47,17 @@ async function runAllBatch(env, articles) {
     try {
       const result = await generateAndStoreReport(env, { ...job, articles });
       reports[key] = { done: true, success: true, path: result.path };
+      await appendReportLog(env, {
+        message: `Batch report complete: ${key}`,
+        details: { key, path: result.path, articleCount: result.articleCount },
+      });
     } catch (err) {
       reports[key] = { done: true, success: false, error: err.message };
+      await appendReportLog(env, {
+        level: 'error',
+        message: `Batch report failed: ${key}: ${err.message}`,
+        details: { key },
+      });
     }
   }
 

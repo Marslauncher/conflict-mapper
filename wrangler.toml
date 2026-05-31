@@ -9,6 +9,7 @@ NVIDIA_MODEL = "nvidia/llama-3.3-nemotron-super-49b-v1"
 REPORT_STATUS_STALE_MINUTES = "90"
 TRANSLATE_RSS_ARTICLES = "true"
 RSS_TRANSLATION_LIMIT = "80"
+REPORT_MAX_TOKENS = "12000"
 
 [[r2_buckets]]
 binding = "REPORTS_BUCKET"

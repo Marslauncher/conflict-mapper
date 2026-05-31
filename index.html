@@ -2071,6 +2071,10 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
               AI Config
             </button>
+            <button class="admin-nav-item" data-section="ai-prompts" onclick="showAdminSection('ai-prompts', this)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>
+              AI Prompts
+            </button>
             <button class="admin-nav-item" data-section="countries" onclick="showAdminSection('countries', this)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
               Countries
@@ -2192,6 +2196,42 @@
                 </div>
                 <div id="ai-test-result" style="margin-top:var(--space-3);font-family:var(--font-mono);font-size:0.68rem;color:var(--color-text-faint);display:none;"></div>
                 <div id="ai-save-instructions" style="margin-top:var(--space-3);font-family:var(--font-mono);font-size:0.66rem;color:var(--color-text-faint);display:none;white-space:pre-wrap;background:var(--color-surface-2);border:1px solid var(--color-border-dim);border-radius:var(--radius-sm);padding:var(--space-3);"></div>
+              </div>
+            </div>
+
+            <!-- AI Prompts Section -->
+            <div class="admin-section" id="section-ai-prompts">
+              <h2 class="admin-section-title">AI Prompt Templates</h2>
+              <p class="admin-section-desc">Copy the report-generation prompts used by Conflict Mapper for external AI runs and static report imports.</p>
+
+              <div class="admin-card">
+                <div class="admin-card-header">
+                  <div class="admin-card-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>
+                  </div>
+                  <div>
+                    <div class="admin-card-title">Report Prompt Library</div>
+                    <div class="admin-card-subtitle" id="prompt-status-label">Loading...</div>
+                  </div>
+                  <div style="margin-left:auto;display:flex;gap:var(--space-2)">
+                    <button class="btn btn-secondary btn-sm" onclick="loadPromptTemplates(true)">Refresh</button>
+                    <button class="btn btn-primary btn-sm" onclick="copyPromptTemplate()">Copy Prompt</button>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-field">
+                    <label class="form-label" for="prompt-template-select">Report Type</label>
+                    <select class="form-select" id="prompt-template-select" onchange="renderPromptTemplate()">
+                      <option value="">Loading templates...</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label">Import Notes</label>
+                    <div id="prompt-import-notes" style="min-height:42px;font-family:var(--font-mono);font-size:0.66rem;color:var(--color-text-muted);line-height:1.6;background:var(--color-surface-2);border:1px solid var(--color-border-dim);border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3)">Select a prompt template.</div>
+                  </div>
+                </div>
+                <label class="form-label" for="prompt-template-output">Full System + User Prompt</label>
+                <textarea class="form-input" id="prompt-template-output" readonly spellcheck="false" style="min-height:520px;font-family:var(--font-mono);font-size:0.68rem;line-height:1.55;white-space:pre;resize:vertical"></textarea>
               </div>
             </div>
 
@@ -3570,6 +3610,7 @@ function showAdminSection(id, btn) {
   if (btn) btn.classList.add('active');
   if (id === 'config-io') updateConfigPreview();
   if (id === 'rss-feeds') loadFeedsConfig();
+  if (id === 'ai-prompts') loadPromptTemplates();
   if (id === 'flagged') loadFlaggedArticles();
   if (id === 'reports') loadReportStorage();
   if (id === 'logs') startLogsPolling();
@@ -4698,6 +4739,70 @@ async function runCountryAnalysis() {
   const slug = sel.value;
   if (!slug) { showToast('Select a country first', true); return; }
   await runAnalysis('/api/analysis/country/' + slug, 'Country Analysis: ' + slug.toUpperCase());
+}
+
+/* ── Prompt library ─────────────────────────────────────── */
+let _promptTemplates = [];
+
+async function loadPromptTemplates(force = false) {
+  const status = document.getElementById('prompt-status-label');
+  const select = document.getElementById('prompt-template-select');
+  if (!force && _promptTemplates.length) {
+    renderPromptTemplate();
+    return;
+  }
+  if (status) status.textContent = 'Loading prompt templates...';
+  try {
+    const res = await fetch('/api/prompts/reports');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    _promptTemplates = data.data?.templates || [];
+    if (select) {
+      select.innerHTML = _promptTemplates.map((template) => (
+        `<option value="${escHtml(template.id)}">${escHtml(template.label)}</option>`
+      )).join('');
+    }
+    if (status) status.textContent = `${_promptTemplates.length} templates available`;
+    renderPromptTemplate();
+  } catch (err) {
+    if (status) status.textContent = 'Prompt API unavailable';
+    if (select) select.innerHTML = '<option value="">Prompt API unavailable</option>';
+    const output = document.getElementById('prompt-template-output');
+    if (output) output.value = `Unable to load /api/prompts/reports\n\n${err.message}`;
+  }
+}
+
+function renderPromptTemplate() {
+  const select = document.getElementById('prompt-template-select');
+  const output = document.getElementById('prompt-template-output');
+  const notes = document.getElementById('prompt-import-notes');
+  if (!select || !output) return;
+  const template = _promptTemplates.find((item) => item.id === select.value) || _promptTemplates[0];
+  if (!template) {
+    output.value = '';
+    if (notes) notes.textContent = 'No prompt template loaded.';
+    return;
+  }
+  select.value = template.id;
+  output.value = template.fullPrompt || '';
+  if (notes) {
+    notes.innerHTML = (template.importNotes || [])
+      .map((note) => `<div>• ${escHtml(note)}</div>`)
+      .join('') || 'Return the report HTML fragment and import it as a static report body.';
+  }
+}
+
+async function copyPromptTemplate() {
+  const output = document.getElementById('prompt-template-output');
+  if (!output?.value) { showToast('No prompt loaded', true); return; }
+  try {
+    await navigator.clipboard.writeText(output.value);
+    showToast('Prompt copied');
+  } catch (_) {
+    output.focus();
+    output.select();
+    showToast('Prompt selected for copy');
+  }
 }
 
 /* ── Confirm async helper ────────────────────────────────── */

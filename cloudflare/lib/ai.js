@@ -243,7 +243,19 @@ export async function generateReportText(env, systemPrompt, userPrompt) {
   if (!providerConfig?.apiKey) {
     throw new Error(`No API key configured for provider "${config.provider}"`);
   }
-  return callModel(config.provider, providerConfig, `${systemPrompt}\n\n${userPrompt}`, { maxTokens: 20000 });
+  const maxTokens = resolveReportMaxTokens(env, config.provider, providerConfig.model);
+  return callModel(config.provider, providerConfig, `${systemPrompt}\n\n${userPrompt}`, { maxTokens });
+}
+
+function resolveReportMaxTokens(env, provider, model = '') {
+  const configured = Number(env.REPORT_MAX_TOKENS || 0);
+  if (Number.isFinite(configured) && configured >= 1024) return Math.floor(configured);
+  const modelId = String(model || '').toLowerCase();
+  if (provider === 'perplexity') return modelId.includes('deep-research') ? 8000 : 6000;
+  if (provider === 'google') return 8192;
+  if (provider === 'nvidia') return 8192;
+  if (provider === 'anthropic') return 12000;
+  return 12000;
 }
 
 async function importEncryptionKey(secret) {

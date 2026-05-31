@@ -180,6 +180,10 @@ curl "https://conflict-mapper.pages.dev/api/articles/geo?limit=25"
 
 RSS ingestion now loads the monitored Countries and Topics from `CONFIG_KV`, translates non-English article titles/summaries to English when `TRANSLATE_RSS_ARTICLES=true`, filters out articles that do not match monitored topics, and geotags articles to the closest known city, chokepoint, or major place reference instead of falling back to one global coordinate.
 
+The Settings -> Logs page and `/api/logs` expose queued/running/failed report phases plus RSS fetch progress. If report generation fails before calling the AI provider, the log entry includes a mitigation field, for example missing D1 migrations or Cloudflare bindings.
+
+The Settings -> AI Prompts page reads `/api/prompts/reports` and shows copyable Global, Country, and China/Taiwan Watch prompt templates for external model runs.
+
 The admin Reports section now includes a Report Storage browser backed by `/api/storage/reports`, so generated R2 objects can be reviewed from the Settings UI.
 
 Test the cron Worker manually:

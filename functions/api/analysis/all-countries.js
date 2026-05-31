@@ -1,12 +1,16 @@
 import { errorResponse, jsonResponse } from '../../../cloudflare/lib/http.js';
 import { loadArticleSet } from '../../../cloudflare/lib/articles.js';
-import { generateAndStoreReport, setReportStatus } from '../../../cloudflare/lib/reports.js';
+import { appendReportLog, generateAndStoreReport, setReportStatus } from '../../../cloudflare/lib/reports.js';
 
 const COUNTRY_SLUGS = ['usa', 'china', 'russia', 'ukraine', 'taiwan', 'iran', 'israel', 'india', 'pakistan', 'north-korea', 'nato'];
 
 export async function onRequestPost(context) {
   try {
     const payload = await loadArticleSet(context);
+    await appendReportLog(context.env, {
+      message: 'All-country batch queued from API request',
+      details: { countries: COUNTRY_SLUGS.length, articleCount: payload.articles.length },
+    });
     context.waitUntil(runCountryBatch(context.env, payload.articles));
     return jsonResponse({
       success: true,
@@ -37,8 +41,17 @@ async function runCountryBatch(env, articles) {
     try {
       const result = await generateAndStoreReport(env, { scope: 'country', slug, articles });
       reports[slug] = { done: true, success: true, path: result.path };
+      await appendReportLog(env, {
+        message: `Country batch report complete: ${slug}`,
+        details: { slug, path: result.path, articleCount: result.articleCount },
+      });
     } catch (err) {
       reports[slug] = { done: true, success: false, error: err.message };
+      await appendReportLog(env, {
+        level: 'error',
+        message: `Country batch report failed: ${slug}: ${err.message}`,
+        details: { slug },
+      });
     }
   }
 

@@ -4,6 +4,7 @@ import {
   findMatchingCountry,
   loadMonitoringConfig,
 } from './monitoring-config.js';
+import { appendReportLog } from './reports.js';
 
 const ARTICLES_KV_KEY = 'articles:v1';
 const ARTICLE_FETCH_STATUS_KEY = 'articles:fetch:status';
@@ -11,6 +12,10 @@ const MAX_FEED_BYTES = 2_000_000;
 const DEFAULT_TRANSLATION_LIMIT = 80;
 
 const GEO_PLACES = [
+  { terms: ['沖縄', '那覇', 'naha', 'okinawa'], place: 'Okinawa / Naha', country: 'Japan', lat: 26.2124, lng: 127.6792 },
+  { terms: ['奄美', 'amami'], place: 'Amami Islands', country: 'Japan', lat: 28.3772, lng: 129.4937 },
+  { terms: ['九州', '福岡', 'kyushu', 'fukuoka'], place: 'Kyushu / Fukuoka', country: 'Japan', lat: 33.5902, lng: 130.4017 },
+  { terms: ['関東', '東京', 'kanto', 'tokyo'], place: 'Tokyo / Kanto', country: 'Japan', lat: 35.6762, lng: 139.6503 },
   { terms: ['naha', 'okinawa'], place: 'Okinawa / Naha', country: 'Japan', lat: 26.2124, lng: 127.6792 },
   { terms: ['amami'], place: 'Amami Islands', country: 'Japan', lat: 28.3772, lng: 129.4937 },
   { terms: ['kyushu', 'fukuoka'], place: 'Kyushu / Fukuoka', country: 'Japan', lat: 33.5902, lng: 130.4017 },
@@ -73,10 +78,12 @@ const GEO_PLACES = [
 export async function loadArticleSet(context) {
   const staticPayload = await readAssetJson(context, '/data/articles.json', { articles: [] });
   const staticArticles = normalizeArticlesPayload(staticPayload);
+  const monitoringConfig = await loadMonitoringConfig(context);
 
   if (!context.env.CONFIG_KV) {
+    const articles = normalizeExistingArticles(staticArticles, monitoringConfig);
     return {
-      articles: staticArticles,
+      articles,
       lastFetch: staticPayload.lastFetch || null,
       source: 'static-asset',
     };
@@ -84,8 +91,9 @@ export async function loadArticleSet(context) {
 
   const raw = await context.env.CONFIG_KV.get(ARTICLES_KV_KEY);
   if (!raw) {
+    const articles = normalizeExistingArticles(staticArticles, monitoringConfig);
     return {
-      articles: staticArticles,
+      articles,
       lastFetch: staticPayload.lastFetch || null,
       source: 'static-asset',
     };
@@ -94,14 +102,16 @@ export async function loadArticleSet(context) {
   try {
     const payload = JSON.parse(raw);
     const kvArticles = normalizeArticlesPayload(payload);
+    const articles = normalizeExistingArticles(kvArticles.length ? kvArticles : staticArticles, monitoringConfig);
     return {
-      articles: kvArticles.length ? kvArticles : staticArticles,
+      articles,
       lastFetch: payload.lastFetch || staticPayload.lastFetch || null,
       source: kvArticles.length ? 'config-kv' : 'static-asset',
     };
   } catch (_) {
+    const articles = normalizeExistingArticles(staticArticles, monitoringConfig);
     return {
-      articles: staticArticles,
+      articles,
       lastFetch: staticPayload.lastFetch || null,
       source: 'static-asset',
     };
@@ -129,7 +139,6 @@ export async function refreshArticles(context, { limitFeeds = 50, maxItemsPerFee
     .filter((feed) => feed?.enabled !== false && feed.url)
     .slice(0, Math.max(1, Math.min(limitFeeds, 120)));
   const before = await loadArticleSet(context);
-  const existing = (before.articles || []).filter((article) => articleMatchesMonitoringConfig(article, monitoringConfig));
   const fetchedAt = new Date().toISOString();
   const nextArticles = [];
   const feedResults = [];
@@ -140,12 +149,18 @@ export async function refreshArticles(context, { limitFeeds = 50, maxItemsPerFee
     failed: 0,
     skipped: 0,
   };
+  const existing = await reprocessExistingArticles(before.articles || [], monitoringConfig, translationState);
 
   await setArticleFetchStatus(context.env, {
     running: true,
     startedAt: fetchedAt,
     message: `Fetching ${enabledFeeds.length} RSS feeds`,
     checkedFeeds: 0,
+  });
+  await appendReportLog(context.env, {
+    category: 'rss',
+    message: `RSS fetch started for ${enabledFeeds.length} feeds`,
+    details: { limitFeeds: enabledFeeds.length, maxItemsPerFeed, existingArticles: existing.length },
   });
 
   for (const feed of enabledFeeds) {
@@ -174,6 +189,17 @@ export async function refreshArticles(context, { limitFeeds = 50, maxItemsPerFee
       checkedFeeds: feedResults.length,
       totalFeeds: enabledFeeds.length,
     });
+    if (feedResults.length === enabledFeeds.length || feedResults.length % 10 === 0) {
+      await appendReportLog(context.env, {
+        category: 'rss',
+        message: `RSS fetch progress ${feedResults.length}/${enabledFeeds.length}`,
+        details: {
+          accepted: nextArticles.length,
+          unmatched: feedResults.reduce((sum, item) => sum + Number(item.skippedUnmatched || 0), 0),
+          failures: feedResults.filter((item) => !item.ok).length,
+        },
+      });
+    }
   }
 
   const merged = dedupeArticles([...nextArticles, ...existing])
@@ -209,6 +235,18 @@ export async function refreshArticles(context, { limitFeeds = 50, maxItemsPerFee
     translatedArticles: translationState.translated,
     unmatchedArticles: feedResults.reduce((sum, item) => sum + Number(item.skippedUnmatched || 0), 0),
     feedFailures: feedResults.filter((item) => !item.ok).length,
+  });
+  await appendReportLog(context.env, {
+    category: 'rss',
+    message: `RSS fetch complete: ${nextArticles.length} topic-matched articles`,
+    details: {
+      feedsChecked: enabledFeeds.length,
+      totalArticles: merged.length,
+      translatedArticles: translationState.translated,
+      translationFailures: translationState.failed,
+      unmatchedArticles: feedResults.reduce((sum, item) => sum + Number(item.skippedUnmatched || 0), 0),
+      feedFailures: feedResults.filter((item) => !item.ok).length,
+    },
   });
 
   return {
@@ -319,6 +357,93 @@ async function parseFeedXml(xml, feed, { maxItemsPerFeed, fetchedAt, monitoringC
   }
 
   return { articles, stats };
+}
+
+function normalizeExistingArticles(articles, monitoringConfig) {
+  const result = [];
+  for (const article of articles || []) {
+    const normalized = normalizeExistingArticle(article, monitoringConfig);
+    if (normalized && articleMatchesMonitoringConfig(normalized, monitoringConfig)) result.push(normalized);
+  }
+  return result;
+}
+
+async function reprocessExistingArticles(articles, monitoringConfig, translationState) {
+  const result = [];
+  for (const article of articles || []) {
+    const translated = article.translated
+      ? { title: article.title, description: article.description || '', language: article.language || 'en', translated: true }
+      : await maybeTranslateArticle(article.title || '', article.description || '', translationState);
+    const normalized = normalizeExistingArticle({
+      ...article,
+      title: translated.title || article.title,
+      description: translated.description || article.description,
+      language: translated.language || article.language,
+      translated: translated.translated || article.translated || false,
+      ...(translated.translated ? {
+        originalTitle: article.originalTitle || article.title,
+        originalDescription: article.originalDescription || article.description,
+      } : {}),
+    }, monitoringConfig);
+    if (normalized && articleMatchesMonitoringConfig(normalized, monitoringConfig)) result.push(normalized);
+  }
+  return result;
+}
+
+function normalizeExistingArticle(article, monitoringConfig) {
+  if (!article) return null;
+  const title = cleanText(article.title || article.headline || '');
+  const description = cleanText(article.description || article.summary || '');
+  const link = article.link || article.url || article.href || '';
+  if (!title && !description) return null;
+
+  const combined = `${title} ${description} ${article.geo?.place || ''} ${article.geo?.country || ''}`;
+  const freshGeo = geotagArticle(combined, article.country || article.geo?.country || 'global');
+  const existingGeo = validNonGenericGeo(article.geo) ? article.geo : null;
+  const geo = freshGeo || existingGeo;
+  const matchedCountry = findMatchingCountry(combined, monitoringConfig);
+  const category = classifyArticle(combined, article.category);
+  const tags = Array.from(new Set([
+    ...buildTags(combined, category),
+    ...((article.tags || []).filter(Boolean)),
+  ])).slice(0, 12);
+
+  return {
+    ...article,
+    title,
+    description,
+    link,
+    url: article.url || link,
+    pubDate: normalizeDate(article.pubDate || article.publishedAt || article.date || article.fetchedAt || new Date().toISOString()),
+    source: article.source || article.feed || 'Unknown',
+    category,
+    country: normalizeCountrySlug(geo?.country || matchedCountry?.slug || article.country || 'global'),
+    geo,
+    tags,
+    language: article.language || detectArticleLanguage(combined),
+  };
+}
+
+function validNonGenericGeo(geo) {
+  if (!geo) return false;
+  const lat = Number(geo.lat);
+  const lng = Number(geo.lng);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return false;
+  if (lat === 0 && lng === 0) return false;
+  if (String(geo.country || '').toLowerCase() === 'global') return false;
+  const place = String(geo.place || '').toLowerCase();
+  const country = String(geo.country || '').toLowerCase();
+  const confidence = Number(geo.confidence ?? 0.72);
+  const genericPlaces = new Set([
+    'global', 'world', 'united states', 'china', 'russia', 'ukraine', 'iran', 'israel',
+    'north korea', 'south korea', 'japan', 'philippines', 'india', 'pakistan', 'europe',
+    'middle east', 'yemen', 'lebanon', 'belgium', 'american', 'chinese', 'german', 'ukrainian',
+    'iranian', 'indian', 'israeli', 'hezbollah', 'houthi', 'hamas', 'nato / brussels',
+  ]);
+  if (confidence < 0.6) return false;
+  if (genericPlaces.has(place)) return false;
+  if (place && country && place === country) return false;
+  return true;
 }
 
 function extractSegments(xml, tagName) {
@@ -469,33 +594,35 @@ function classifyArticle(text, fallback = 'breaking') {
 
 function geotagArticle(text, fallbackCountry = 'global') {
   const value = normalizeSearchText(text);
+  let best = null;
   for (const place of GEO_PLACES) {
-    if (place.terms.some((term) => hasSearchTerm(value, term))) {
-      return {
-        lat: place.lat,
-        lng: place.lng,
-        place: place.place,
-        country: place.country,
-        confidence: 0.72,
-      };
+    if (isGenericGeoPlace(place)) continue;
+    for (const term of place.terms) {
+      if (!hasSearchTerm(value, term)) continue;
+      const score = normalizeSearchText(term).trim().length;
+      if (!best || score > best.score) best = { place, score };
     }
   }
-
-  const normalized = normalizeCountrySlug(fallbackCountry);
-  if (normalized && normalized !== 'global') {
-    const fallback = GEO_PLACES.find((place) => normalizeCountrySlug(place.country) === normalized && place.confidence !== 0);
-    if (fallback) {
-      return {
-        lat: fallback.lat,
-        lng: fallback.lng,
-        place: fallback.place,
-        country: fallback.country,
-        confidence: 0.45,
-      };
-    }
+  if (best) {
+    return {
+      lat: best.place.lat,
+      lng: best.place.lng,
+      place: best.place.place,
+      country: best.place.country,
+      confidence: 0.82,
+    };
   }
 
   return null;
+}
+
+function isGenericGeoPlace(place) {
+  const generic = new Set([
+    'taiwan', 'china', 'united states', 'russia', 'ukraine', 'iran', 'israel',
+    'north korea', 'south korea', 'japan', 'philippines', 'india', 'pakistan',
+    'yemen', 'lebanon', 'belgium', 'europe', 'middle east',
+  ]);
+  return generic.has(String(place.place || '').toLowerCase());
 }
 
 function buildTags(text, fallback) {
