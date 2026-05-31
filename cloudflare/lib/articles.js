@@ -7,6 +7,7 @@ import {
 import { appendReportLog } from './reports.js';
 
 const ARTICLES_KV_KEY = 'articles:v1';
+const ARTICLES_R2_KEY = 'articles/cache.json';
 const ARTICLE_FETCH_STATUS_KEY = 'articles:fetch:status';
 const MAX_FEED_BYTES = 2_000_000;
 const DEFAULT_TRANSLATION_LIMIT = 80;
@@ -79,18 +80,9 @@ export async function loadArticleSet(context) {
   const staticPayload = await readAssetJson(context, '/data/articles.json', { articles: [] });
   const staticArticles = normalizeArticlesPayload(staticPayload);
   const monitoringConfig = await loadMonitoringConfig(context);
+  const storedPayload = await readStoredArticlePayload(context);
 
-  if (!context.env.CONFIG_KV) {
-    const articles = normalizeExistingArticles(staticArticles, monitoringConfig);
-    return {
-      articles,
-      lastFetch: staticPayload.lastFetch || null,
-      source: 'static-asset',
-    };
-  }
-
-  const raw = await context.env.CONFIG_KV.get(ARTICLES_KV_KEY);
-  if (!raw) {
+  if (!storedPayload) {
     const articles = normalizeExistingArticles(staticArticles, monitoringConfig);
     return {
       articles,
@@ -100,7 +92,7 @@ export async function loadArticleSet(context) {
   }
 
   try {
-    const payload = JSON.parse(raw);
+    const payload = storedPayload.payload;
     const kvArticles = normalizeArticlesPayload(payload);
     const articles = kvArticles.length
       ? filterCachedArticles(kvArticles, monitoringConfig)
@@ -108,7 +100,7 @@ export async function loadArticleSet(context) {
     return {
       articles,
       lastFetch: payload.lastFetch || staticPayload.lastFetch || null,
-      source: kvArticles.length ? 'config-kv' : 'static-asset',
+      source: kvArticles.length ? storedPayload.source : 'static-asset',
     };
   } catch (_) {
     const articles = normalizeExistingArticles(staticArticles, monitoringConfig);
@@ -118,6 +110,55 @@ export async function loadArticleSet(context) {
       source: 'static-asset',
     };
   }
+}
+
+async function readStoredArticlePayload(context) {
+  const env = context.env || {};
+
+  if (env.REPORTS_BUCKET) {
+    try {
+      const object = await env.REPORTS_BUCKET.get(ARTICLES_R2_KEY);
+      if (object) {
+        return {
+          payload: JSON.parse(await object.text()),
+          source: 'r2',
+        };
+      }
+    } catch (err) {
+      console.warn(`R2 article cache read skipped: ${err.message}`);
+    }
+  }
+
+  if (env.CONFIG_KV) {
+    try {
+      const raw = await env.CONFIG_KV.get(ARTICLES_KV_KEY);
+      if (raw) {
+        return {
+          payload: JSON.parse(raw),
+          source: 'config-kv',
+        };
+      }
+    } catch (err) {
+      console.warn(`KV article cache read skipped: ${err.message}`);
+    }
+  }
+
+  return null;
+}
+
+async function writeArticlePayload(env, payload) {
+  const body = JSON.stringify(payload);
+  if (env.REPORTS_BUCKET) {
+    await env.REPORTS_BUCKET.put(ARTICLES_R2_KEY, body, {
+      httpMetadata: { contentType: 'application/json; charset=utf-8' },
+    });
+    return 'r2';
+  }
+  if (env.CONFIG_KV) {
+    await env.CONFIG_KV.put(ARTICLES_KV_KEY, body);
+    return 'config-kv';
+  }
+  throw new Error('REPORTS_BUCKET or CONFIG_KV binding is required to persist fetched articles');
 }
 
 function filterCachedArticles(articles, monitoringConfig) {
@@ -149,7 +190,9 @@ export async function refreshArticles(context, {
   concurrency = 1,
   reprocessExisting = false,
 } = {}) {
-  if (!context.env.CONFIG_KV) throw new Error('CONFIG_KV binding is required to persist fetched articles');
+  if (!context.env.CONFIG_KV && !context.env.REPORTS_BUCKET) {
+    throw new Error('REPORTS_BUCKET or CONFIG_KV binding is required to persist fetched articles');
+  }
 
   const feedsPayload = await readAssetJson(context, '/data/feeds-config.json', { feeds: [] });
   const monitoringConfig = await loadMonitoringConfig(context);
@@ -257,7 +300,7 @@ export async function refreshArticles(context, {
     .sort((a, b) => new Date(b.pubDate || 0).getTime() - new Date(a.pubDate || 0).getTime())
     .slice(0, 5000);
 
-  await context.env.CONFIG_KV.put(ARTICLES_KV_KEY, JSON.stringify({
+  const storageSource = await writeArticlePayload(context.env, {
     version: 1,
     lastFetch: fetchedAt,
     articles: merged,
@@ -272,7 +315,7 @@ export async function refreshArticles(context, {
       failed: translationState.failed,
       skipped: translationState.skipped,
     },
-  }));
+  });
 
   await setArticleFetchStatus(context.env, {
     running: false,
@@ -289,6 +332,7 @@ export async function refreshArticles(context, {
     translatedArticles: translationState.translated,
     unmatchedArticles: feedResults.reduce((sum, item) => sum + Number(item.skippedUnmatched || 0), 0),
     feedFailures: feedResults.filter((item) => !item.ok).length,
+    storageSource,
   });
   await appendReportLog(context.env, {
     category: 'rss',
@@ -303,6 +347,7 @@ export async function refreshArticles(context, {
       translationFailures: translationState.failed,
       unmatchedArticles: feedResults.reduce((sum, item) => sum + Number(item.skippedUnmatched || 0), 0),
       feedFailures: feedResults.filter((item) => !item.ok).length,
+      storageSource,
     },
   });
 
@@ -313,6 +358,7 @@ export async function refreshArticles(context, {
     totalEnabledFeeds: allEnabledFeeds.length,
     batchOffset: safeBatchOffset,
     concurrency: safeConcurrency,
+    storageSource,
     feedResults,
     lastFetch: fetchedAt,
   };
