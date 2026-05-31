@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News Library - Conflict Mapper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --bg: #0a0c10;
+  --surface: #12151c;
+  --surface-2: #191e29;
+  --surface-3: #222838;
+  --border: rgba(255,255,255,0.11);
+  --border-dim: rgba(255,255,255,0.06);
+  --accent: #c41e3a;
+  --accent-dim: rgba(196,30,58,0.12);
+  --text: #e8eaf0;
+  --text-muted: rgba(232,234,240,0.62);
+  --text-faint: rgba(232,234,240,0.36);
+  --green: #22c55e;
+  --amber: #f59e0b;
+  --font-display: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 70% -20%, rgba(196,30,58,0.10), transparent 34%), var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+}
+.library-shell { max-width: 1480px; margin: 0 auto; padding: 34px 28px 56px; }
+.page-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.page-title {
+  margin: 8px 0 6px;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 4vw, 4.4rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.page-subtitle {
+  max-width: 860px;
+  margin: 0 0 24px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.4fr) repeat(4, minmax(140px, 1fr));
+  gap: 10px;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.field { display: flex; flex-direction: column; gap: 5px; }
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+.input, .select {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border-dim);
+  border-radius: 5px;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 9px 10px;
+  outline: none;
+}
+.input:focus, .select:focus { border-color: var(--accent); }
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.stat-card {
+  background: linear-gradient(180deg, var(--surface), rgba(18,21,28,0.86));
+  border: 1px solid var(--border-dim);
+  border-radius: 8px;
+  padding: 14px;
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.stat-label {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+.group { margin-top: 18px; }
+.group-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.group-title::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: var(--border-dim);
+}
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+.article-card {
+  min-height: 178px;
+  background: var(--surface);
+  border: 1px solid var(--border-dim);
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.16s ease, transform 0.16s ease, background 0.16s ease;
+}
+.article-card:hover {
+  border-color: rgba(196,30,58,0.58);
+  background: var(--surface-2);
+  transform: translateY(-1px);
+}
+.article-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.article-summary {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+.pill {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: var(--surface-3);
+}
+.pill.topic { color: #fda4af; background: rgba(196,30,58,0.16); }
+.pill.region { color: #93c5fd; background: rgba(59,130,246,0.16); }
+.empty {
+  padding: 34px;
+  text-align: center;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-dim);
+  border-radius: 8px;
+}
+.top-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.btn {
+  border: 1px solid var(--border-dim);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.btn:hover { color: var(--text); border-color: var(--accent); background: var(--accent-dim); }
+@media (max-width: 900px) {
+  .toolbar, .stats-row { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 620px) {
+  .library-shell { padding: 24px 16px 40px; }
+  .toolbar, .stats-row, .article-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<main class="library-shell">
+  <div class="page-kicker">Conflict Mapper RSS Archive</div>
+  <h1 class="page-title">News Library</h1>
+  <p class="page-subtitle">Browse the live RSS article cache by date, region, topic, and country. Results are sorted newest first and link directly to source reporting.</p>
+  <div class="top-actions">
+    <a class="btn" href="map-feed.html">Open Map Feed</a>
+    <button class="btn" type="button" onclick="loadArticles()">Refresh Library</button>
+  </div>
+
+  <section class="toolbar" aria-label="News library filters">
+    <div class="field">
+      <label class="label" for="filter-search">Search</label>
+      <input class="input" id="filter-search" placeholder="headline, source, keyword" oninput="renderLibrary()">
+    </div>
+    <div class="field">
+      <label class="label" for="filter-date">Date</label>
+      <select class="select" id="filter-date" onchange="renderLibrary()">
+        <option value="all">All dates</option>
+        <option value="24h">Last 24 hours</option>
+        <option value="7d">Last 7 days</option>
+        <option value="30d">Last 30 days</option>
+      </select>
+    </div>
+    <div class="field">
+      <label class="label" for="filter-region">Region</label>
+      <select class="select" id="filter-region" onchange="renderLibrary()">
+        <option value="">All regions</option>
+      </select>
+    </div>
+    <div class="field">
+      <label class="label" for="filter-topic">Topic</label>
+      <select class="select" id="filter-topic" onchange="renderLibrary()">
+        <option value="">All topics</option>
+      </select>
+    </div>
+    <div class="field">
+      <label class="label" for="filter-country">Country</label>
+      <select class="select" id="filter-country" onchange="renderLibrary()">
+        <option value="">All countries</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="stats-row" aria-label="Library statistics">
+    <div class="stat-card"><div class="stat-value" id="stat-total">-</div><div class="stat-label">Matching Articles</div></div>
+    <div class="stat-card"><div class="stat-value" id="stat-sources">-</div><div class="stat-label">Sources</div></div>
+    <div class="stat-card"><div class="stat-value" id="stat-regions">-</div><div class="stat-label">Regions</div></div>
+    <div class="stat-card"><div class="stat-value" id="stat-topics">-</div><div class="stat-label">Topics</div></div>
+  </section>
+
+  <section id="library-results">
+    <div class="empty">Loading article cache...</div>
+  </section>
+</main>
+
+<script>
+'use strict';
+
+let allArticles = [];
+let renderLimit = 300;
+let lastFilterSignature = '';
+
+async function loadArticles() {
+  const target = document.getElementById('library-results');
+  target.innerHTML = '<div class="empty">Loading article cache...</div>';
+  try {
+    const res = await fetch('/api/articles?limit=5000');
+    const payload = await readJsonResponse(res, '/api/articles');
+    allArticles = payload.data?.articles || payload.articles || [];
+  } catch (err) {
+    try {
+      const res = await fetch('../data/articles.json');
+      const payload = await res.json();
+      allArticles = payload.articles || [];
+    } catch (_) {
+      target.innerHTML = `<div class="empty">${escapeHtml(err.message || 'Unable to load article cache')}</div>`;
+      return;
+    }
+  }
+  populateFilters();
+  renderLibrary();
+}
+
+async function readJsonResponse(res, label) {
+  const text = await res.text();
+  const contentType = res.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    throw new Error(`${label} returned ${contentType || 'non-JSON content'}`);
+  }
+  return text ? JSON.parse(text) : {};
+}
+
+function populateFilters() {
+  setOptions('filter-region', uniqueValues(allArticles.map(regionForArticle)));
+  setOptions('filter-topic', uniqueValues(allArticles.flatMap(topicValues)));
+  setOptions('filter-country', uniqueValues(allArticles.map(countryForArticle)));
+}
+
+function setOptions(id, values) {
+  const select = document.getElementById(id);
+  const current = select.value;
+  const first = select.options[0].outerHTML;
+  select.innerHTML = first + values.map(value => `<option value="${escapeHtml(value)}">${escapeHtml(titleCase(value))}</option>`).join('');
+  if (values.includes(current)) select.value = current;
+}
+
+function renderLibrary() {
+  const filtered = filterArticles(allArticles);
+  const signature = currentFilterSignature();
+  if (signature !== lastFilterSignature) {
+    renderLimit = 300;
+    lastFilterSignature = signature;
+  }
+  updateStats(filtered);
+  const target = document.getElementById('library-results');
+  if (!filtered.length) {
+    target.innerHTML = '<div class="empty">No articles match the current filters.</div>';
+    return;
+  }
+  const visible = filtered.slice(0, renderLimit);
+  const groups = groupByDate(visible);
+  target.innerHTML = Object.entries(groups).map(([date, articles]) => `
+    <section class="group">
+      <div class="group-title">${escapeHtml(date)} <span style="color:var(--text-faint);font-size:0.8rem">${articles.length}</span></div>
+      <div class="article-grid">
+        ${articles.map(renderArticleCard).join('')}
+      </div>
+    </section>
+  `).join('') + (filtered.length > visible.length ? `
+    <div style="display:flex;justify-content:center;margin-top:22px">
+      <button class="btn" type="button" onclick="loadMoreArticles()">Load More (${visible.length} of ${filtered.length})</button>
+    </div>
+  ` : '');
+}
+
+function loadMoreArticles() {
+  renderLimit += 300;
+  renderLibrary();
+}
+
+function filterArticles(articles) {
+  const query = document.getElementById('filter-search').value.trim().toLowerCase();
+  const dateFilter = document.getElementById('filter-date').value;
+  const region = document.getElementById('filter-region').value;
+  const topic = document.getElementById('filter-topic').value;
+  const country = document.getElementById('filter-country').value;
+  const since = sinceTime(dateFilter);
+
+  return [...articles].filter(article => {
+    const pubTime = dateValue(article);
+    if (since && (!pubTime || pubTime < since)) return false;
+    if (region && regionForArticle(article) !== region) return false;
+    if (topic && !topicValues(article).includes(topic)) return false;
+    if (country && countryForArticle(article) !== country) return false;
+    if (query) {
+      const haystack = [article.title, article.description, article.source, article.category, article.country, article.geo?.place, ...(article.tags || [])]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+      if (!haystack.includes(query)) return false;
+    }
+    return true;
+  }).sort((a, b) => dateValue(b) - dateValue(a));
+}
+
+function currentFilterSignature() {
+  return JSON.stringify({
+    q: document.getElementById('filter-search').value.trim(),
+    d: document.getElementById('filter-date').value,
+    r: document.getElementById('filter-region').value,
+    t: document.getElementById('filter-topic').value,
+    c: document.getElementById('filter-country').value,
+  });
+}
+
+function renderArticleCard(article) {
+  const link = article.link || article.url || '#';
+  const desc = article.description || article.summary || '';
+  const summary = desc.length > 210 ? `${desc.slice(0, 207)}...` : desc;
+  return `
+    <a class="article-card" href="${escapeHtml(link)}" target="_blank" rel="noopener">
+      <div class="article-title">${escapeHtml(article.title || 'Untitled article')}</div>
+      ${summary ? `<div class="article-summary">${escapeHtml(summary)}</div>` : ''}
+      <div class="meta">
+        <span class="pill topic">${escapeHtml(article.category || 'general')}</span>
+        <span class="pill">${escapeHtml(article.source || 'unknown source')}</span>
+        <span class="pill region">${escapeHtml(regionForArticle(article) || 'unresolved')}</span>
+        <span class="pill">${escapeHtml(timeAgo(article.pubDate || article.publishedAt))}</span>
+      </div>
+    </a>
+  `;
+}
+
+function updateStats(articles) {
+  document.getElementById('stat-total').textContent = articles.length;
+  document.getElementById('stat-sources').textContent = uniqueValues(articles.map(a => a.source)).length;
+  document.getElementById('stat-regions').textContent = uniqueValues(articles.map(regionForArticle)).length;
+  document.getElementById('stat-topics').textContent = uniqueValues(articles.flatMap(topicValues)).length;
+}
+
+function groupByDate(articles) {
+  return articles.reduce((acc, article) => {
+    const date = dateValue(article) ? new Date(dateValue(article)).toLocaleDateString(undefined, {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    }) : 'Unknown date';
+    acc[date] = acc[date] || [];
+    acc[date].push(article);
+    return acc;
+  }, {});
+}
+
+function topicValues(article) {
+  return uniqueValues([article.category, ...(Array.isArray(article.tags) ? article.tags : [])]
+    .filter(Boolean)
+    .map(value => String(value).toLowerCase()));
+}
+
+function regionForArticle(article) {
+  return String(article.geo?.place || article.geo?.country || article.region || article.country || 'unresolved').toLowerCase();
+}
+
+function countryForArticle(article) {
+  return String(article.country || article.geo?.country || 'unresolved').toLowerCase();
+}
+
+function uniqueValues(values) {
+  return [...new Set(values.filter(Boolean).map(value => String(value).trim()).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b));
+}
+
+function sinceTime(value) {
+  const now = Date.now();
+  const map = { '24h': 86400000, '7d': 604800000, '30d': 2592000000 };
+  return map[value] ? now - map[value] : null;
+}
+
+function dateValue(article) {
+  const value = article.pubDate || article.publishedAt || article.fetchedAt;
+  const time = value ? new Date(value).getTime() : 0;
+  return Number.isFinite(time) ? time : 0;
+}
+
+function timeAgo(value) {
+  const time = value ? new Date(value).getTime() : 0;
+  if (!time) return 'unknown';
+  const diff = Date.now() - time;
+  if (diff < 3600000) return `${Math.max(1, Math.floor(diff / 60000))}m ago`;
+  if (diff < 86400000) return `${Math.floor(diff / 3600000)}h ago`;
+  return `${Math.floor(diff / 86400000)}d ago`;
+}
+
+function titleCase(value) {
+  return String(value || '').replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+window.addEventListener('DOMContentLoaded', loadArticles);
+</script>
+</body>
+</html>

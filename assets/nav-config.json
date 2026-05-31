@@ -11,6 +11,12 @@
       "icon": "map"
     },
     {
+      "label": "News Library",
+      "type": "link",
+      "target": "pages/news-library.html",
+      "icon": "newspaper"
+    },
+    {
       "label": "Global Analysis",
       "type": "link",
       "target": "reports/global/current/report.html",
@@ -124,12 +130,22 @@
       "label": "China/Taiwan Watch",
       "type": "link",
       "target": "pages/taiwan-strait.html",
-      "icon": "eye"
+      "icon": "eye",
+      "preview": {
+        "country": "taiwan",
+        "title": "China/Taiwan Watch",
+        "image": "screenshots/final-taiwan-strait.png"
+      }
     },
     {
       "label": "Iran Conflict",
       "type": "dropdown",
       "icon": "flame",
+      "preview": {
+        "country": "iran",
+        "title": "Iran Conflict Watch",
+        "image": "assets/MidnightHammerFlightProfile-7.jpg"
+      },
       "items": [
         {
           "label": "War Analysis",

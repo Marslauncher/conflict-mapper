@@ -100,9 +100,9 @@
 .nav-link,
 .nav-dropdown-trigger {
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-text-muted);
   padding: 0 var(--space-3);
@@ -129,6 +129,98 @@
 .nav-link.active {
   color: var(--color-accent);
   border-bottom-color: var(--color-accent);
+}
+
+.nav-preview-card {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 360px;
+  max-width: min(360px, calc(100vw - 32px));
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-dropdown);
+  padding: var(--space-3);
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition);
+}
+.nav-item:hover .nav-preview-card,
+.nav-item:focus-within .nav-preview-card {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.nav-preview-hero {
+  min-height: 92px;
+  border-radius: var(--radius-sm);
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--color-border-dim);
+  margin-bottom: var(--space-3);
+  position: relative;
+  overflow: hidden;
+}
+.nav-preview-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,12,16,0.15), rgba(10,12,16,0.78));
+}
+.nav-preview-title {
+  position: absolute;
+  left: var(--space-3);
+  right: var(--space-3);
+  bottom: var(--space-2);
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.nav-preview-list {
+  display: grid;
+  gap: var(--space-2);
+}
+.nav-preview-article {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: var(--space-2);
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-text);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-dim);
+}
+.nav-preview-article:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-dim);
+}
+.nav-preview-thumb {
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, rgba(196,30,58,0.6), rgba(245,158,11,0.35));
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.nav-preview-article-title {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.18;
+}
+.nav-preview-meta {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
 }
 
 .nav-link-icon {
@@ -910,6 +1002,7 @@
   padding: var(--space-4);
   position: relative;
   overflow: hidden;
+  text-align: left;
 }
 .welcome-stat::after {
   content: '';
@@ -932,6 +1025,71 @@
   color: var(--color-text-faint);
   text-transform: uppercase;
   margin-top: var(--space-1);
+}
+.welcome-stat-trigger {
+  all: unset;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+.welcome-stat-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 50;
+  min-width: 260px;
+  max-height: 330px;
+  overflow-y: auto;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-dropdown);
+  padding: var(--space-2);
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition);
+}
+.welcome-stat:hover,
+.welcome-stat:focus-within {
+  overflow: visible;
+  border-color: var(--color-accent);
+  background: var(--color-surface-2);
+}
+.welcome-stat:hover .welcome-stat-menu,
+.welcome-stat:focus-within .welcome-stat-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.welcome-stat-link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-2);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+.welcome-stat-link:hover {
+  background: var(--color-accent-dim);
+  color: var(--color-text);
+}
+.welcome-stat-link small {
+  color: var(--color-text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -1963,24 +2121,7 @@
       </div>
 
       <!-- Stats bar -->
-      <div class="welcome-stats" aria-label="Platform statistics">
-        <div class="welcome-stat">
-          <div class="stat-val">11</div>
-          <div class="stat-key">Country Dossiers</div>
-        </div>
-        <div class="welcome-stat">
-          <div class="stat-val">7</div>
-          <div class="stat-key">Theater Reports</div>
-        </div>
-        <div class="welcome-stat">
-          <div class="stat-val">18</div>
-          <div class="stat-key">Intel Reports</div>
-        </div>
-        <div class="welcome-stat">
-          <div class="stat-val" id="stat-time">—</div>
-          <div class="stat-key">Last Updated</div>
-        </div>
-      </div>
+      <div class="welcome-stats" id="welcome-stats" aria-label="Platform statistics"></div>
 
       <!-- Country dossiers -->
       <div class="welcome-section">
@@ -3197,6 +3338,7 @@ const DEFAULT_CONFIG = {
   theme: "dark",
   nav: [
     { label: "Map & Feed", type: "link", target: "pages/map-feed.html", icon: "map" },
+    { label: "News Library", type: "link", target: "pages/news-library.html", icon: "newspaper" },
     { label: "Global Analysis", type: "link", target: "reports/global/current/report.html", icon: "globe" },
     {
       label: "Country Dossiers", type: "dropdown-nested", icon: "flag",
@@ -3214,7 +3356,31 @@ const DEFAULT_CONFIG = {
         { label: "Cyber & Asymmetric", subtitle: "Domain B-07", target: "theaters/cyber-asymmetric.html" }
       ]
     },
-    { label: "China/Taiwan Watch", type: "link", target: "pages/taiwan-strait.html", icon: "eye" }
+    {
+      label: "China/Taiwan Watch",
+      type: "link",
+      target: "pages/taiwan-strait.html",
+      icon: "eye",
+      preview: {
+        country: "taiwan",
+        title: "China/Taiwan Watch",
+        image: "screenshots/final-taiwan-strait.png"
+      }
+    },
+    {
+      label: "Iran Conflict",
+      type: "dropdown",
+      icon: "flame",
+      preview: {
+        country: "iran",
+        title: "Iran Conflict Watch",
+        image: "assets/MidnightHammerFlightProfile-7.jpg"
+      },
+      items: [
+        { label: "War Analysis", subtitle: "Comprehensive Coverage", target: "pages/iran-war-analysis.html" },
+        { label: "Nuclear Deep Dive", subtitle: "Nuclear Program Assessment", target: "pages/nuclear-deep-dive.html" }
+      ]
+    }
   ]
 };
 
@@ -3225,6 +3391,7 @@ const ICONS = {
   flag: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>`,
   crosshair: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>`,
   eye: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  newspaper: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 22h14a2 2 0 0 0 2-2V7H4v15Z"/><path d="M16 2v5"/><path d="M8 2v5"/><path d="M3 7h18"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>`,
   flame: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
   chevron: `<svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>`,
   chevronRight: `<svg class="nested-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>`,
@@ -3249,6 +3416,7 @@ async function init() {
   } else {
     navConfig = await fetchConfig();
   }
+  navConfig = normalizeNavConfig(navConfig);
 
   const savedTheme = getThemePref();
   setTheme(savedTheme || navConfig.theme || 'dark');
@@ -3302,6 +3470,60 @@ async function fetchConfig() {
     if (res.ok) return await res.json();
   } catch(e) {}
   return JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+}
+
+function normalizeNavConfig(config) {
+  const next = JSON.parse(JSON.stringify(config || DEFAULT_CONFIG));
+  next.nav = Array.isArray(next.nav) ? next.nav : [];
+
+  if (!next.nav.some(item => item.label === 'News Library')) {
+    const mapIdx = next.nav.findIndex(item => item.label === 'Map & Feed');
+    next.nav.splice(mapIdx >= 0 ? mapIdx + 1 : 0, 0, {
+      label: 'News Library',
+      type: 'link',
+      target: 'pages/news-library.html',
+      icon: 'newspaper',
+    });
+  }
+
+  if (!next.nav.some(item => item.label === 'Iran Conflict')) {
+    const watchIdx = next.nav.findIndex(item => item.label === 'China/Taiwan Watch');
+    next.nav.splice(watchIdx >= 0 ? watchIdx + 1 : next.nav.length, 0, {
+      label: 'Iran Conflict',
+      type: 'dropdown',
+      icon: 'flame',
+      items: [
+        { label: 'War Analysis', subtitle: 'Comprehensive Coverage', target: 'pages/iran-war-analysis.html' },
+        { label: 'Nuclear Deep Dive', subtitle: 'Nuclear Program Assessment', target: 'pages/nuclear-deep-dive.html' },
+      ],
+    });
+  }
+
+  next.nav = next.nav.map(item => {
+    if (item.label === 'China/Taiwan Watch') {
+      return {
+        ...item,
+        preview: item.preview || {
+          country: 'taiwan',
+          title: 'China/Taiwan Watch',
+          image: 'screenshots/final-taiwan-strait.png',
+        },
+      };
+    }
+    if (item.label === 'Iran Conflict') {
+      return {
+        ...item,
+        preview: item.preview || {
+          country: 'iran',
+          title: 'Iran Conflict Watch',
+          image: 'assets/MidnightHammerFlightProfile-7.jpg',
+        },
+      };
+    }
+    return item;
+  });
+
+  return next;
 }
 
 function getThemePref() {
@@ -3429,6 +3651,7 @@ function renderNav() {
             </button>
           `).join('')}
         </div>
+        ${renderNavPreview(item)}
       `;
       const trigger = el.querySelector('.nav-dropdown-trigger');
       trigger.addEventListener('click', (e) => {
@@ -3450,13 +3673,66 @@ function renderNav() {
           ${item.icon ? ICONS[item.icon] || '' : ''}
           <span>${escHtml(item.label)}</span>
         </button>
+        ${renderNavPreview(item)}
       `;
     }
 
     container.appendChild(el);
   });
 
+  attachNavPreviewHandlers();
   renderMobileDrawer();
+}
+
+function renderNavPreview(item) {
+  if (!item?.preview) return '';
+  const preview = item.preview;
+  const image = preview.image || '';
+  return `
+    <div class="nav-preview-card" data-preview-country="${escHtml(preview.country || '')}" data-preview-image="${escHtml(image)}">
+      <div class="nav-preview-hero" style="background-image:url('${escHtml(image)}')">
+        <div class="nav-preview-title">${escHtml(preview.title || item.label)}</div>
+      </div>
+      <div class="nav-preview-list">
+        <div class="nav-preview-meta">Loading latest articles...</div>
+      </div>
+    </div>
+  `;
+}
+
+function attachNavPreviewHandlers() {
+  document.querySelectorAll('.nav-preview-card[data-preview-country]').forEach(card => {
+    const navItem = card.closest('.nav-item');
+    if (!navItem) return;
+    navItem.addEventListener('mouseenter', () => loadNavPreviewArticles(card), { once: true });
+    navItem.addEventListener('focusin', () => loadNavPreviewArticles(card), { once: true });
+  });
+}
+
+async function loadNavPreviewArticles(card) {
+  if (!card || card.dataset.loaded === 'true') return;
+  const country = card.dataset.previewCountry || '';
+  const image = card.dataset.previewImage || '';
+  const list = card.querySelector('.nav-preview-list');
+  if (!country || !list) return;
+  card.dataset.loaded = 'true';
+  try {
+    const res = await fetch(`/api/articles?country=${encodeURIComponent(country)}&limit=3`);
+    const data = await res.json();
+    const articles = data.data?.articles || data.articles || [];
+    if (!articles.length) throw new Error('No articles');
+    list.innerHTML = articles.slice(0, 3).map(article => `
+      <a class="nav-preview-article" href="${escHtml(article.link || article.url || '#')}" target="_blank" rel="noopener">
+        <span class="nav-preview-thumb" style="${image ? `background-image:url('${escHtml(image)}');background-size:cover;background-position:center;` : ''}"></span>
+        <span>
+          <span class="nav-preview-article-title">${escHtml(article.title || 'Untitled article')}</span>
+          <span class="nav-preview-meta">${escHtml(article.source || 'Unknown')} · ${formatRelativeTime(article.pubDate || article.publishedAt)}</span>
+        </span>
+      </a>
+    `).join('');
+  } catch (_) {
+    list.innerHTML = '<div class="nav-preview-meta">No live articles available yet.</div>';
+  }
 }
 
 /* Toggle nested country sub-menu */
@@ -3540,6 +3816,7 @@ function renderMobileDrawer() {
 /* ── Welcome cards ──────────────────────────────────────── */
 function renderWelcomeCards() {
   if (!navConfig) return;
+  renderWelcomeStats();
 
   const countrySection = navConfig.nav.find(n => n.type === 'dropdown-nested');
   const theaterSection = navConfig.nav.find(n => n.type === 'dropdown' && n.label === 'Theater Analysis');
@@ -3571,6 +3848,94 @@ function renderWelcomeCards() {
       </button>
     `).join('');
   }
+}
+
+function renderWelcomeStats() {
+  const container = document.getElementById('welcome-stats');
+  if (!container || !navConfig) return;
+  const countrySection = navConfig.nav.find(n => n.type === 'dropdown-nested');
+  const theaterSection = navConfig.nav.find(n => n.type === 'dropdown' && n.label === 'Theater Analysis');
+  const countries = countrySection?.countries || COUNTRIES;
+  const theaters = theaterSection?.items || [];
+  const intelLinks = getIntelReportLinks();
+  const latestLinks = getLatestUpdateLinks(countries);
+
+  const stats = [
+    {
+      value: countries.length,
+      label: 'Country Dossiers',
+      links: countries.map(c => ({ label: c.label, meta: 'Dossier', target: `countries/${c.slug}-dossier.html` })),
+    },
+    {
+      value: theaters.length,
+      label: 'Theater Reports',
+      links: theaters.map(t => ({ label: stripEmoji(t.label), meta: t.subtitle || 'Theater', target: t.target })),
+    },
+    {
+      value: intelLinks.length,
+      label: 'Intel Reports',
+      links: intelLinks,
+    },
+    {
+      value: '<span id="stat-time">-</span>',
+      label: 'Last Updated',
+      links: latestLinks,
+      rawValue: true,
+    },
+  ];
+
+  container.innerHTML = stats.map(stat => `
+    <div class="welcome-stat">
+      <button class="welcome-stat-trigger" type="button" aria-haspopup="true">
+        <div class="stat-val">${stat.rawValue ? stat.value : escHtml(stat.value)}</div>
+        <div class="stat-key">${escHtml(stat.label)}</div>
+      </button>
+      <div class="welcome-stat-menu" role="menu" aria-label="${escHtml(stat.label)} links">
+        ${stat.links.map(link => `
+          <button class="welcome-stat-link" type="button" role="menuitem" onclick="loadContent('${escHtml(link.target)}', this)">
+            <span>${escHtml(link.label)}</span>
+            ${link.meta ? `<small>${escHtml(link.meta)}</small>` : ''}
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function getIntelReportLinks() {
+  return [
+    { label: 'Global Analysis', meta: 'Current', target: 'reports/global/current/report.html' },
+    { label: 'News Library', meta: 'RSS Archive', target: 'pages/news-library.html' },
+    { label: 'Map & Feed', meta: 'Live OSINT', target: 'pages/map-feed.html' },
+    { label: 'China/Taiwan Watch', meta: 'Threat Watch', target: 'pages/taiwan-strait.html' },
+    { label: 'Iran War Analysis', meta: 'Conflict', target: 'pages/iran-war-analysis.html' },
+    { label: 'Nuclear Deep Dive', meta: 'Iran', target: 'pages/nuclear-deep-dive.html' },
+    { label: 'TIDALWAVE Analysis', meta: 'Oil Supply', target: 'pages/tidalwave-analysis.html' },
+    { label: 'Historical Archive', meta: 'Reports', target: 'pages/historical.html' },
+    { label: 'Taiwan Window Apr 2026', meta: 'Scenario', target: 'pages/taiwan-window-apr-2026.html' },
+    { label: 'Taiwan Window Oct 2026', meta: 'Scenario', target: 'pages/taiwan-window-oct-2026.html' },
+    { label: 'Taiwan Window Apr 2027', meta: 'Scenario', target: 'pages/taiwan-window-apr-2027.html' },
+    { label: 'Taiwan Window Oct 2027', meta: 'Scenario', target: 'pages/taiwan-window-oct-2027.html' },
+    { label: 'USA Current Report', meta: 'Country', target: 'reports/countries/usa/current/report.html' },
+    { label: 'China Current Report', meta: 'Country', target: 'reports/countries/china/current/report.html' },
+    { label: 'Russia Current Report', meta: 'Country', target: 'reports/countries/russia/current/report.html' },
+    { label: 'Ukraine Current Report', meta: 'Country', target: 'reports/countries/ukraine/current/report.html' },
+    { label: 'Iran Current Report', meta: 'Country', target: 'reports/countries/iran/current/report.html' },
+    { label: 'Taiwan Current Report', meta: 'Country', target: 'reports/countries/taiwan/current/report.html' },
+  ];
+}
+
+function getLatestUpdateLinks(countries) {
+  return [
+    { label: 'Global Current Report', meta: 'Latest', target: 'reports/global/current/report.html' },
+    { label: 'Global Historical Archive', meta: 'Archive', target: 'pages/historical.html' },
+    { label: 'News Library', meta: 'Newest RSS', target: 'pages/news-library.html' },
+    ...countries.slice(0, 8).map(c => ({
+      label: `${c.label} Current Report`,
+      meta: 'Current',
+      target: `reports/countries/${c.slug}/current/report.html`,
+    })),
+  ];
 }
 
 /* ── Content loading ────────────────────────────────────── */
@@ -5307,6 +5672,20 @@ function stripEmoji(label) {
     .replace(/^(\uD83C[\uDDE6-\uDDFF]\uD83C[\uDDE6-\uDDFF])\s*/, '')
     .replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{27BF}\s]+/u, '')
     .trim();
+}
+
+function formatRelativeTime(value) {
+  const time = value instanceof Date ? value.getTime() : new Date(value || 0).getTime();
+  if (!Number.isFinite(time) || !time) return 'unknown';
+  const diff = Date.now() - time;
+  if (diff < 60000) return 'just now';
+  if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
+  if (diff < 86400000) return `${Math.floor(diff / 3600000)}h ago`;
+  return `${Math.floor(diff / 86400000)}d ago`;
+}
+
+function timeAgo(value) {
+  return formatRelativeTime(value);
 }
 
 function updateStatTime() {

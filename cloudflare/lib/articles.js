@@ -145,6 +145,8 @@ export async function refreshArticles(context, {
   limitFeeds = 6,
   maxItemsPerFeed = 4,
   translationLimit = null,
+  batchOffset = 0,
+  concurrency = 1,
   reprocessExisting = false,
 } = {}) {
   if (!context.env.CONFIG_KV) throw new Error('CONFIG_KV binding is required to persist fetched articles');
@@ -153,13 +155,15 @@ export async function refreshArticles(context, {
   const monitoringConfig = await loadMonitoringConfig(context);
   const safeLimitFeeds = Math.max(1, Math.min(readPositiveInt(limitFeeds, 6), 120));
   const safeMaxItems = Math.max(1, Math.min(readPositiveInt(maxItemsPerFeed, 4), 25));
+  const safeConcurrency = Math.max(1, Math.min(readPositiveInt(concurrency, 1), 6));
+  const safeBatchOffset = Math.max(0, readNonNegativeInt(batchOffset, 0));
   const configuredTranslationLimit = readNonNegativeInt(context.env.RSS_TRANSLATION_LIMIT, DEFAULT_TRANSLATION_LIMIT);
   const safeTranslationLimit = translationLimit === null
     ? configuredTranslationLimit
     : Math.min(configuredTranslationLimit, readNonNegativeInt(translationLimit, 4));
-  const enabledFeeds = (feedsPayload.feeds || [])
-    .filter((feed) => feed?.enabled !== false && feed.url)
-    .slice(0, safeLimitFeeds);
+  const allEnabledFeeds = (feedsPayload.feeds || [])
+    .filter((feed) => feed?.enabled !== false && feed.url);
+  const enabledFeeds = allEnabledFeeds.slice(safeBatchOffset, safeBatchOffset + safeLimitFeeds);
   const before = await loadArticleSet(context);
   const fetchedAt = new Date().toISOString();
   const nextArticles = [];
@@ -186,6 +190,9 @@ export async function refreshArticles(context, {
     message: `RSS fetch started for ${enabledFeeds.length} feeds`,
     details: {
       limitFeeds: enabledFeeds.length,
+      batchOffset: safeBatchOffset,
+      totalEnabledFeeds: allEnabledFeeds.length,
+      concurrency: safeConcurrency,
       maxItemsPerFeed: safeMaxItems,
       translationLimit: safeTranslationLimit,
       reprocessExisting,
@@ -193,31 +200,44 @@ export async function refreshArticles(context, {
     },
   });
 
-  for (const feed of enabledFeeds) {
-    try {
-      const result = await fetchFeedArticles(feed, {
-        maxItemsPerFeed: safeMaxItems,
-        fetchedAt,
-        monitoringConfig,
-        translationState,
-      });
-      nextArticles.push(...result.articles);
-      feedResults.push({
-        id: feed.id || feed.name || feed.url,
-        ok: true,
-        count: result.articles.length,
-        ...result.stats,
-      });
-    } catch (err) {
-      feedResults.push({ id: feed.id || feed.name || feed.url, ok: false, error: err.message });
-    }
+  for (let index = 0; index < enabledFeeds.length; index += safeConcurrency) {
+    const batch = enabledFeeds.slice(index, index + safeConcurrency);
+    const results = await Promise.all(batch.map(async (feed) => {
+      try {
+        const result = await fetchFeedArticles(feed, {
+          maxItemsPerFeed: safeMaxItems,
+          fetchedAt,
+          monitoringConfig,
+          translationState,
+        });
+        return { feed, result };
+      } catch (err) {
+        return { feed, error: err };
+      }
+    }));
 
+    for (const item of results) {
+      if (item.error) {
+        feedResults.push({ id: item.feed.id || item.feed.name || item.feed.url, ok: false, error: item.error.message });
+      } else {
+        nextArticles.push(...item.result.articles);
+        feedResults.push({
+          id: item.feed.id || item.feed.name || item.feed.url,
+          ok: true,
+          count: item.result.articles.length,
+          ...item.result.stats,
+        });
+      }
+    }
     await setArticleFetchStatus(context.env, {
       running: true,
       startedAt: fetchedAt,
       message: `Fetched ${feedResults.length}/${enabledFeeds.length} feeds`,
       checkedFeeds: feedResults.length,
       totalFeeds: enabledFeeds.length,
+      totalEnabledFeeds: allEnabledFeeds.length,
+      batchOffset: safeBatchOffset,
+      concurrency: safeConcurrency,
     });
     if (feedResults.length === enabledFeeds.length || feedResults.length % 10 === 0) {
       await appendReportLog(context.env, {
@@ -227,6 +247,7 @@ export async function refreshArticles(context, {
           accepted: nextArticles.length,
           unmatched: feedResults.reduce((sum, item) => sum + Number(item.skippedUnmatched || 0), 0),
           failures: feedResults.filter((item) => !item.ok).length,
+          concurrency: safeConcurrency,
         },
       });
     }
@@ -260,6 +281,9 @@ export async function refreshArticles(context, {
     lastFetch: fetchedAt,
     checkedFeeds: enabledFeeds.length,
     totalFeeds: enabledFeeds.length,
+    totalEnabledFeeds: allEnabledFeeds.length,
+    batchOffset: safeBatchOffset,
+    concurrency: safeConcurrency,
     articlesAdded: nextArticles.length,
     totalArticles: merged.length,
     translatedArticles: translationState.translated,
@@ -271,6 +295,9 @@ export async function refreshArticles(context, {
     message: `RSS fetch complete: ${nextArticles.length} topic-matched articles`,
     details: {
       feedsChecked: enabledFeeds.length,
+      totalEnabledFeeds: allEnabledFeeds.length,
+      batchOffset: safeBatchOffset,
+      concurrency: safeConcurrency,
       totalArticles: merged.length,
       translatedArticles: translationState.translated,
       translationFailures: translationState.failed,
@@ -283,6 +310,9 @@ export async function refreshArticles(context, {
     articlesAdded: nextArticles.length,
     totalArticles: merged.length,
     feedsChecked: enabledFeeds.length,
+    totalEnabledFeeds: allEnabledFeeds.length,
+    batchOffset: safeBatchOffset,
+    concurrency: safeConcurrency,
     feedResults,
     lastFetch: fetchedAt,
   };

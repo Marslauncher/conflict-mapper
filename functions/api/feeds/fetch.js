@@ -8,11 +8,15 @@ export async function onRequestPost(context) {
     const limitFeeds = boundedInt(url.searchParams.get('limitFeeds'), 6, 1, 30);
     const maxItemsPerFeed = boundedInt(url.searchParams.get('maxItemsPerFeed'), 4, 1, 12);
     const translationLimit = boundedInt(url.searchParams.get('translationLimit'), 4, 0, 40);
+    const batchOffset = boundedInt(url.searchParams.get('batchOffset'), 0, 0, 500);
+    const concurrency = boundedInt(url.searchParams.get('concurrency'), 1, 1, 6);
     const reprocessExisting = url.searchParams.get('reprocessExisting') === '1';
     const result = await refreshArticles(context, {
       limitFeeds,
       maxItemsPerFeed,
       translationLimit,
+      batchOffset,
+      concurrency,
       reprocessExisting,
     });
     return jsonResponse({

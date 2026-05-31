@@ -76,6 +76,7 @@ html, body {
 .sidebar {
   width: var(--sidebar-w);
   min-width: 280px;
+  max-width: min(720px, 58vw);
   background: var(--surface);
   border-right: 1px solid var(--border);
   display: flex;
@@ -85,6 +86,13 @@ html, body {
   position: relative;
   z-index: 10;
   overflow: hidden;
+}
+.sidebar.feed-strip-hidden .sidebar-feed {
+  display: none;
+}
+.sidebar.feed-strip-hidden .region-panel {
+  flex: 1;
+  max-height: none;
 }
 .sidebar.collapsed {
   width: 0;
@@ -246,7 +254,11 @@ html, body {
   transition: background var(--transition);
   position: relative;
 }
-.article-item:hover { background: var(--accent-dim); }
+.article-item:hover,
+.article-item.marker-hovered {
+  background: var(--accent-dim);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
 
 .article-title {
   font-family: var(--font-display);
@@ -422,7 +434,11 @@ html, body {
   border-bottom: 1px solid var(--border-dim);
   cursor: pointer;
 }
-.region-item:hover { background: var(--accent-dim); }
+.region-item:hover,
+.region-item.marker-hovered {
+  background: var(--accent-dim);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
 .region-item-title {
   font-family: var(--font-display);
   font-size: 0.76rem;
@@ -484,6 +500,20 @@ html, body {
   transition: background var(--transition), color var(--transition);
 }
 .sidebar-toggle:hover { background: var(--surface-3); color: var(--text); }
+.sidebar-resize-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 7px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 19;
+  background: transparent;
+}
+.sidebar-resize-handle:hover,
+.sidebar.resizing .sidebar-resize-handle {
+  background: linear-gradient(90deg, transparent, rgba(196,30,58,0.28));
+}
 
 /* ── Map Area ── */
 .map-area {
@@ -614,6 +644,36 @@ html, body {
 }
 .popup-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 .popup-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.article-tooltip {
+  background: rgba(18,21,28,0.97) !important;
+  color: var(--text) !important;
+  border: 1px solid rgba(196,30,58,0.55) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.55) !important;
+  max-width: 320px;
+  white-space: normal;
+}
+.article-tooltip::before { border-top-color: rgba(196,30,58,0.55) !important; }
+.tooltip-title {
+  font-family: var(--font-display);
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 5px;
+}
+.tooltip-summary {
+  font-size: 0.68rem;
+  line-height: 1.35;
+  color: var(--text-muted);
+}
+.tooltip-meta {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
 
 /* ── Buttons ── */
 .btn {
@@ -756,6 +816,7 @@ html, body {
     <button class="sidebar-toggle" id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar">
       <span id="toggle-arrow">◀</span>
     </button>
+    <div class="sidebar-resize-handle" id="sidebar-resize-handle" aria-hidden="true"></div>
 
     <!-- Header -->
     <div class="sidebar-header">
@@ -832,6 +893,7 @@ html, body {
       <button class="btn btn-primary btn-sm" onclick="refreshFeed()" id="refresh-btn">↻ Refresh</button>
       <button class="btn btn-secondary btn-sm" onclick="fetchAllFeeds()" id="fetch-btn">Fetch Feeds</button>
       <button class="btn btn-secondary btn-sm" onclick="toggleFeedWatch()" id="feed-watch-btn">Auto Watch</button>
+      <button class="btn btn-secondary btn-sm" onclick="toggleArticleStrip()" id="feed-strip-btn">Hide Feed</button>
     </div>
 
     <!-- Selected story -->
@@ -1000,6 +1062,7 @@ let allArticles = [];
 let filteredArticles = [];
 let storyGroups = [];
 let filteredGroups = [];
+let articleMarkers = new Map();
 let currentMapLayer = 'dark';
 let heatmapOn = false;
 let pendingFlag = null;
@@ -1010,6 +1073,8 @@ let seenStoryKeys = new Set();
 let alertArticles = [];
 let firstArticleLoad = true;
 let alertAudioCtx = null;
+let visibleUpdateTimer = null;
+let feedStripVisible = true;
 
 const TILE_LAYERS = {
   dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
@@ -1061,8 +1126,9 @@ function initMap() {
     spiderfyOnMaxZoom: true
   });
   map.addLayer(markersLayer);
-  map.on('moveend zoomend', updateRegionList);
+  map.on('move zoom moveend zoomend', scheduleVisibleArticleUpdate);
 
+  initSidebarResize();
   loadArticles();
 }
 
@@ -1127,8 +1193,8 @@ async function fetchAllFeeds(options = {}) {
   if (btn && !options.silent) { btn.textContent = 'Fetching...'; btn.disabled = true; }
   try {
     const params = options.fast
-      ? '?limitFeeds=4&maxItemsPerFeed=3&translationLimit=2'
-      : '?limitFeeds=6&maxItemsPerFeed=4&translationLimit=4';
+      ? '?limitFeeds=8&maxItemsPerFeed=3&translationLimit=2&concurrency=3'
+      : '?limitFeeds=24&maxItemsPerFeed=5&translationLimit=8&concurrency=4';
     const res = await fetch('/api/feeds/fetch' + params, { method: 'POST' });
     const data = await readApiJson(res, '/api/feeds/fetch');
     if (!res.ok || data.success === false) throw new Error(data.error || `HTTP ${res.status}`);
@@ -1289,8 +1355,7 @@ function applyFilters() {
   filteredArticles = filteredGroups.map(group => group.primary);
 
   updateMapMarkers();
-  updateFeedList();
-  updateRegionList();
+  updateVisibleArticlePanels();
   updateStats();
 }
 
@@ -1409,6 +1474,7 @@ function sortNewest(articles) {
 /* ── Map markers ── */
 function updateMapMarkers() {
   markersLayer.clearLayers();
+  articleMarkers.clear();
 
   const geoArticles = filteredArticles.filter(a => {
     return !!getGeoCoords(a);
@@ -1417,17 +1483,36 @@ function updateMapMarkers() {
   geoArticles.forEach(article => {
     const { lat, lng } = getGeoCoords(article);
     const color = CAT_COLORS[article.category || 'general'] || CAT_COLORS.general;
+    const key = articleKey(article);
     const marker = L.circleMarker([lat, lng], {
-      radius: 7,
+      radius: 9,
       fillColor: color,
-      color: '#000',
-      weight: 1,
+      color: '#05070a',
+      weight: 2,
       opacity: 0.9,
       fillOpacity: 0.8
     });
 
+    marker._cmBaseStyle = { radius: 9, fillColor: color, color: '#05070a', weight: 2, fillOpacity: 0.8 };
+    marker._cmHighlightStyle = { radius: 13, fillColor: color, color: '#ffffff', weight: 3, fillOpacity: 1 };
+    marker._cmArticleKey = key;
     marker.on('click', () => showStoryCard(article));
+    marker.on('mouseover', () => {
+      highlightFeedArticle(key, true);
+      highlightMarker(marker, true);
+    });
+    marker.on('mouseout', () => {
+      highlightFeedArticle(key, false);
+      highlightMarker(marker, false);
+    });
+    marker.bindTooltip(buildTooltip(article), {
+      direction: 'top',
+      sticky: true,
+      opacity: 0.98,
+      className: 'article-tooltip',
+    });
     marker.bindPopup(buildPopup(article), { maxWidth: 300, minWidth: 240 });
+    articleMarkers.set(key, marker);
     markersLayer.addLayer(marker);
   });
 
@@ -1461,6 +1546,46 @@ function buildPopup(article) {
       <button class="popup-btn" onclick="openFlagModal(${JSON.stringify({ id: article.id, title: article.title }).replace(/"/g, '&quot;')})">⚑ Flag</button>
     </div>
   `;
+}
+
+function buildTooltip(article) {
+  const description = article.description || article.summary || '';
+  const preview = description.length > 190 ? `${description.slice(0, 187)}...` : description;
+  return `
+    <div class="tooltip-title">${escHtml(article.title || 'Untitled')}</div>
+    ${preview ? `<div class="tooltip-summary">${escHtml(preview)}</div>` : ''}
+    <div class="tooltip-meta">${escHtml(article.source || 'Unknown source')} · ${timeAgo(article.pubDate || article.publishedAt)}${article.geo?.place ? ` · ${escHtml(article.geo.place)}` : ''}</div>
+  `;
+}
+
+function articleKey(article) {
+  return String(article?.id || article?.storyKey || article?.link || article?.url || article?.title || '').replace(/\s+/g, '-');
+}
+
+function highlightMarker(marker, active) {
+  if (!marker?.setStyle) return;
+  marker.setStyle(active ? marker._cmHighlightStyle : marker._cmBaseStyle);
+  if (active && marker.bringToFront) marker.bringToFront();
+}
+
+function highlightArticleMarker(key, active) {
+  const marker = articleMarkers.get(String(key || ''));
+  if (!marker) return;
+  highlightMarker(marker, active);
+  if (active && marker.openTooltip) marker.openTooltip();
+  if (!active && marker.closeTooltip) marker.closeTooltip();
+}
+
+function highlightFeedArticle(key, active) {
+  const safeKey = String(key || '');
+  document.querySelectorAll(`[data-article-key="${cssEscapeValue(safeKey)}"]`).forEach(el => {
+    el.classList.toggle('marker-hovered', active);
+  });
+}
+
+function cssEscapeValue(value) {
+  if (window.CSS?.escape) return CSS.escape(value);
+  return String(value).replace(/"/g, '\\"');
 }
 
 /* ── Heatmap ── */
@@ -1518,19 +1643,21 @@ function resetMapView() {
 function updateFeedList() {
   const container = document.getElementById('article-feed');
   if (!container) return;
+  if (!feedStripVisible) return;
+  const visibleArticles = getVisibleArticles();
 
-  if (!filteredArticles.length) {
-    container.innerHTML = `<div class="empty-feed">No articles match current filters.<br>Try expanding time range or categories.</div>`;
+  if (!visibleArticles.length) {
+    container.innerHTML = `<div class="empty-feed">No geotagged articles are visible in this map view.<br>Move or zoom the map, or expand filters.</div>`;
     return;
   }
 
-  // Sort newest first
-  const sorted = sortNewest(filteredArticles);
+  const sorted = sortNewest(visibleArticles);
+  const rendered = sorted.slice(0, 250);
 
   container.innerHTML = `
-    <div class="feed-section-label">Live Articles (${sorted.length})</div>
-    ${sorted.map(a => `
-      <div class="article-item" onclick="focusArticle(${JSON.stringify(a).replace(/"/g, '&quot;')})">
+    <div class="feed-section-label">Visible Articles (${sorted.length}${sorted.length > rendered.length ? `, showing newest ${rendered.length}` : ''})</div>
+    ${rendered.map(a => `
+      <div class="article-item" data-article-key="${escHtml(articleKey(a))}" onclick="focusArticle(${JSON.stringify(a).replace(/"/g, '&quot;')})">
         <button class="flag-btn" title="Flag for analysis" onclick="event.stopPropagation(); openFlagModal(${JSON.stringify({ id: a.id, title: a.title }).replace(/"/g, '&quot;')})">⚑</button>
         <div class="article-title">${escHtml(a.title || 'Untitled')}</div>
         <div class="article-meta">
@@ -1541,7 +1668,9 @@ function updateFeedList() {
         </div>
       </div>
     `).join('')}
+    ${sorted.length > rendered.length ? '<div class="empty-feed" style="padding:12px">Zoom into an area to narrow the visible article strip.</div>' : ''}
   `;
+  attachArticleHoverHandlers(container);
 }
 
 function focusArticle(article) {
@@ -1595,22 +1724,55 @@ function updateRegionList() {
   const list = document.getElementById('region-article-list');
   const label = document.getElementById('region-count-label');
   if (!list || !label || !map) return;
-  const bounds = map.getBounds();
-  const visible = sortNewest(filteredArticles.filter(article => {
-    const coords = getGeoCoords(article);
-    return coords && bounds.contains([coords.lat, coords.lng]);
-  }));
+  const visible = getVisibleArticles();
   label.textContent = `${visible.length} article${visible.length === 1 ? '' : 's'} in current map view`;
   if (!visible.length) {
     list.innerHTML = '<div class="empty-feed" style="padding:12px">No geotagged articles in the visible map area.</div>';
     return;
   }
-  list.innerHTML = visible.slice(0, 80).map(article => `
-    <div class="region-item" onclick="focusArticle(${JSON.stringify(article).replace(/"/g, '&quot;')})">
+  list.innerHTML = visible.slice(0, 100).map(article => `
+    <div class="region-item" data-article-key="${escHtml(articleKey(article))}" onclick="focusArticle(${JSON.stringify(article).replace(/"/g, '&quot;')})">
       <div class="region-item-title">${escHtml(article.title || 'Untitled')}</div>
       <div class="region-item-meta">${escHtml(article.source || 'Unknown')} · ${timeAgo(article.pubDate || article.publishedAt)}${article.geo?.place ? ` · ${escHtml(article.geo.place)}` : ''}</div>
     </div>
   `).join('');
+  attachArticleHoverHandlers(list);
+}
+
+function getVisibleArticles() {
+  if (!map) return sortNewest(filteredArticles.filter(getGeoCoords));
+  const bounds = map.getBounds();
+  return sortNewest(filteredArticles.filter(article => {
+    const coords = getGeoCoords(article);
+    return coords && bounds.contains([coords.lat, coords.lng]);
+  }));
+}
+
+function updateVisibleArticlePanels() {
+  updateRegionList();
+  updateFeedList();
+}
+
+function scheduleVisibleArticleUpdate() {
+  clearTimeout(visibleUpdateTimer);
+  visibleUpdateTimer = setTimeout(updateVisibleArticlePanels, 120);
+}
+
+function attachArticleHoverHandlers(container) {
+  container.querySelectorAll('[data-article-key]').forEach(el => {
+    const key = el.getAttribute('data-article-key');
+    el.addEventListener('mouseenter', () => highlightArticleMarker(key, true));
+    el.addEventListener('mouseleave', () => highlightArticleMarker(key, false));
+  });
+}
+
+function toggleArticleStrip() {
+  feedStripVisible = !feedStripVisible;
+  const sidebar = document.getElementById('sidebar');
+  const btn = document.getElementById('feed-strip-btn');
+  sidebar?.classList.toggle('feed-strip-hidden', !feedStripVisible);
+  if (btn) btn.textContent = feedStripVisible ? 'Hide Feed' : 'Show Feed';
+  updateVisibleArticlePanels();
 }
 
 /* ── Stats ── */
@@ -1659,6 +1821,36 @@ async function submitFlag() {
 
 /* ── Sidebar toggle ── */
 let sidebarOpen = true;
+function initSidebarResize() {
+  const sidebar = document.getElementById('sidebar');
+  const handle = document.getElementById('sidebar-resize-handle');
+  if (!sidebar || !handle) return;
+  let startX = 0;
+  let startWidth = 0;
+
+  const onMove = (event) => {
+    const next = Math.max(280, Math.min(720, startWidth + event.clientX - startX));
+    sidebar.style.width = `${next}px`;
+    document.documentElement.style.setProperty('--sidebar-w', `${next}px`);
+    if (map) map.invalidateSize();
+  };
+  const onUp = () => {
+    sidebar.classList.remove('resizing');
+    window.removeEventListener('pointermove', onMove);
+    window.removeEventListener('pointerup', onUp);
+  };
+
+  handle.addEventListener('pointerdown', (event) => {
+    if (!sidebarOpen) return;
+    event.preventDefault();
+    startX = event.clientX;
+    startWidth = sidebar.getBoundingClientRect().width;
+    sidebar.classList.add('resizing');
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp, { once: true });
+  });
+}
+
 document.getElementById('sidebar-toggle').addEventListener('click', () => {
   sidebarOpen = !sidebarOpen;
   document.getElementById('sidebar').classList.toggle('collapsed', !sidebarOpen);
