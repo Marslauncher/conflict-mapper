@@ -4328,7 +4328,7 @@ function pollReportStatus(label) {
         if (!status.running) {
           clearInterval(_rptPollingTimer);
           const success = status.phase === 'complete' || (status.lastResult && status.lastResult.success);
-          finishReportJob(label, success);
+          finishReportJob(label, success, status);
         }
       }
     } catch(e) { /* ignore polling errors */ }
@@ -4340,7 +4340,7 @@ function pollReportStatus(label) {
   }, 2000);
 }
 
-async function finishReportJob(label, success) {
+async function finishReportJob(label, success, status = null) {
   _rptRunning = false;
   document.querySelectorAll('.rpt-trigger-btn').forEach(b => b.disabled = false);
 
@@ -4369,7 +4369,7 @@ async function finishReportJob(label, success) {
   } else {
     jobStatus.className = 'status-badge disconnected';
     jobStatus.textContent = 'Failed';
-    detailEl.textContent = 'Report generation failed. Check server logs.';
+    detailEl.textContent = status?.message || 'Report generation failed. Check server logs.';
     showToast('Report generation failed', true);
   }
 

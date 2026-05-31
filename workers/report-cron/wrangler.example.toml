@@ -31,3 +31,4 @@ REPORT_COUNTRIES = "usa,china,russia,ukraine,taiwan,iran,israel,india,pakistan,n
 FETCH_FEEDS_BEFORE_REPORTS = "true"
 REPORT_FEED_LIMIT = "80"
 REPORT_FEED_ITEMS_PER_FEED = "20"
+REPORT_STATUS_STALE_MINUTES = "90"

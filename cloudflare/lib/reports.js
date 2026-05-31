@@ -3,6 +3,7 @@ import { filterArticles } from './static-data.js';
 
 const REPORT_STATUS_KEY = 'analysis:status';
 const REPORT_LOGS_KEY = 'analysis:logs:v1';
+const DEFAULT_STATUS_STALE_MINUTES = 90;
 
 const COUNTRY_LABELS = {
   usa: 'United States',
@@ -48,7 +49,48 @@ export function reportPaths(scope, slug = 'global') {
 export async function getReportStatus(env) {
   if (!env.CONFIG_KV) return { running: false, phase: 'unconfigured', message: 'CONFIG_KV binding missing' };
   const raw = await env.CONFIG_KV.get(REPORT_STATUS_KEY);
-  return raw ? JSON.parse(raw) : { running: false, phase: 'idle', message: 'Idle' };
+  if (!raw) return { running: false, phase: 'idle', message: 'Idle' };
+
+  let status;
+  try {
+    status = JSON.parse(raw);
+  } catch (err) {
+    return {
+      running: false,
+      phase: 'invalid_status',
+      message: `Stored report status is invalid JSON: ${err.message}`,
+    };
+  }
+
+  if (isStaleRunningStatus(env, status)) {
+    const now = new Date().toISOString();
+    const staleAfterMinutes = getStatusStaleMinutes(env);
+    const staleStatus = {
+      ...status,
+      updatedAt: now,
+      running: false,
+      phase: 'stale',
+      progress: 100,
+      staleAt: now,
+      message: `Previous ${status.scope || 'analysis'} job for ${status.slug || 'unknown'} was marked stale after ${staleAfterMinutes} minutes without a status update.`,
+      staleJob: {
+        phase: status.phase,
+        scope: status.scope,
+        slug: status.slug,
+        startedAt: status.startedAt,
+        lastUpdatedAt: status.updatedAt,
+      },
+    };
+    await env.CONFIG_KV.put(REPORT_STATUS_KEY, JSON.stringify(staleStatus));
+    await appendReportLog(env, {
+      level: 'warn',
+      message: staleStatus.message,
+      details: staleStatus.staleJob,
+    });
+    return staleStatus;
+  }
+
+  return status;
 }
 
 export async function setReportStatus(env, status) {
@@ -57,6 +99,34 @@ export async function setReportStatus(env, status) {
     updatedAt: new Date().toISOString(),
     ...status,
   }));
+}
+
+export async function resetReportStatus(env, reason = 'Manual report status reset') {
+  const next = {
+    running: false,
+    phase: 'idle',
+    progress: 0,
+    message: reason,
+    resetAt: new Date().toISOString(),
+  };
+  await setReportStatus(env, next);
+  await appendReportLog(env, {
+    level: 'warn',
+    message: reason,
+  });
+  return getReportStatus(env);
+}
+
+function isStaleRunningStatus(env, status) {
+  if (!status?.running) return false;
+  const lastUpdate = new Date(status.updatedAt || status.startedAt || 0).getTime();
+  if (!Number.isFinite(lastUpdate) || lastUpdate <= 0) return false;
+  return Date.now() - lastUpdate > getStatusStaleMinutes(env) * 60 * 1000;
+}
+
+function getStatusStaleMinutes(env) {
+  const configured = Number(env.REPORT_STATUS_STALE_MINUTES || 0);
+  return Number.isFinite(configured) && configured > 0 ? configured : DEFAULT_STATUS_STALE_MINUTES;
 }
 
 export async function appendReportLog(env, entry) {

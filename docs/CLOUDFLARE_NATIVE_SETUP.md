@@ -163,6 +163,14 @@ curl -X POST https://conflict-mapper.pages.dev/api/analysis/taiwan
 curl https://conflict-mapper.pages.dev/api/analysis/status
 ```
 
+If a previous deployment left a stale `running: true` status in KV, clear it:
+
+```bash
+curl -X POST https://conflict-mapper.pages.dev/api/analysis/status
+```
+
+The status endpoint also auto-marks running jobs stale when they have not updated for `REPORT_STATUS_STALE_MINUTES` minutes.
+
 Fetch RSS feeds into the Cloudflare KV article cache:
 
 ```bash
