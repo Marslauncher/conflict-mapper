@@ -258,15 +258,55 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       message: `Calling AI provider ${provider}${model ? ` / ${model}` : ''}`,
       details: { scope, slug: normalizedSlug, provider, model, selectedArticles: selectedArticles.length },
     });
-    const aiText = await generateReportText(
-      env,
-      buildSystemPrompt(scope),
-      buildUserPrompt({ scope, slug: normalizedSlug, title, articles: selectedArticles }),
-    );
+    let aiText = '';
+    let aiFallback = false;
+    try {
+      aiText = await generateReportText(
+        env,
+        buildSystemPrompt(scope),
+        buildUserPrompt({ scope, slug: normalizedSlug, title, articles: selectedArticles }),
+      );
+    } catch (err) {
+      const allowFallback = env.ALLOW_REPORT_FALLBACK !== 'false';
+      const failure = describeReportFailure(err);
+      await appendReportLog(env, {
+        level: 'error',
+        category: 'ai',
+        message: `AI provider failed: ${failure.message}`,
+        details: { scope, slug: normalizedSlug, provider, model, mitigation: failure.mitigation, type: failure.type },
+      });
+      if (!allowFallback) throw err;
+
+      aiFallback = true;
+      await setReportStatus(env, {
+        running: true,
+        phase: 'fallback_rendering',
+        progress: 58,
+        scope,
+        slug: normalizedSlug,
+        message: 'AI provider failed; rendering deterministic source-based report',
+        mitigation: failure.mitigation,
+        errorType: failure.type,
+        startedAt,
+      });
+      aiText = generateFallbackReportBody({
+        title,
+        scope,
+        slug: normalizedSlug,
+        articles: selectedArticles,
+        error: failure.message,
+      });
+      await appendReportLog(env, {
+        level: 'warn',
+        category: 'analysis',
+        message: 'Using deterministic fallback report renderer',
+        details: { scope, slug: normalizedSlug, provider, model, selectedArticles: selectedArticles.length },
+      });
+    }
     await appendReportLog(env, {
       category: 'ai',
-      message: 'AI provider returned report body',
-      details: { scope, slug: normalizedSlug, provider, model, bodyCharacters: aiText.length },
+      message: aiFallback ? 'Fallback report body generated' : 'AI provider returned report body',
+      details: { scope, slug: normalizedSlug, provider, model, bodyCharacters: aiText.length, aiFallback },
     });
 
     await setReportStatus(env, {
@@ -339,7 +379,7 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       startedAt.slice(0, 10),
       provider,
       model,
-      JSON.stringify({ articleCount: selectedArticles.length }),
+      JSON.stringify({ articleCount: selectedArticles.length, aiFallback }),
     ).run();
     await appendReportLog(env, {
       message: 'D1 report metadata written',
@@ -354,14 +394,14 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       slug: normalizedSlug,
       message: `Generated ${title}`,
       lastRun: new Date().toISOString(),
-      lastResult: { id: currentId, path: paths.currentPath, articleCount: selectedArticles.length },
+      lastResult: { id: currentId, path: paths.currentPath, articleCount: selectedArticles.length, aiFallback },
     });
     await appendReportLog(env, {
       message: `Generated ${title}`,
-      details: { id: currentId, path: paths.currentPath, articleCount: selectedArticles.length },
+      details: { id: currentId, path: paths.currentPath, articleCount: selectedArticles.length, aiFallback },
     });
 
-    return { id: currentId, title, path: paths.currentPath, articleCount: selectedArticles.length };
+    return { id: currentId, title, path: paths.currentPath, articleCount: selectedArticles.length, aiFallback };
   } catch (err) {
     const failure = describeReportFailure(err);
     await setReportStatus(env, {
@@ -655,6 +695,7 @@ export function getReportPromptTemplates() {
     {
       id: 'global',
       label: 'Global Analysis Report',
+      filename: 'global-analysis-report-prompt.md',
       scope: 'global',
       slug: 'global',
       title: `Global Intelligence Report - ${date}`,
@@ -662,6 +703,7 @@ export function getReportPromptTemplates() {
     {
       id: 'country',
       label: 'Country Dossier Report',
+      filename: 'country-dossier-report-prompt.md',
       scope: 'country',
       slug: 'usa',
       title: `United States Intelligence Report - ${date}`,
@@ -669,6 +711,7 @@ export function getReportPromptTemplates() {
     {
       id: 'watch-taiwan',
       label: 'China/Taiwan Threat Watch',
+      filename: 'china-taiwan-watch-prompt.md',
       scope: 'watch',
       slug: 'taiwan',
       title: `China/Taiwan Threat Watch - ${date}`,
@@ -695,6 +738,138 @@ export function getReportPromptTemplates() {
       ],
     };
   });
+}
+
+function generateFallbackReportBody({ title, scope, slug, articles, error }) {
+  const sourceArticles = articles.slice(0, 18);
+  const topArticles = sourceArticles.length ? sourceArticles : [{
+    title: 'No topic-matched RSS articles were available for this generation run',
+    source: 'Conflict Mapper',
+    description: 'The report engine completed, but the feed cache did not provide current source material for this scope.',
+    pubDate: new Date().toISOString(),
+    category: 'system',
+  }];
+  const scopeName = scope === 'global'
+    ? 'global'
+    : scope === 'watch'
+      ? watchTitle(slug)
+      : (COUNTRY_LABELS[slug] || slug.replace(/-/g, ' '));
+  const citations = topArticles.map((_, index) => `[${index + 1}]`).slice(0, 8).join(', ');
+  const errorLine = error
+    ? `Configured AI generation was unavailable for this run (${escapeHtml(error)}). The engine produced this deterministic source-based report so storage, archives, and review workflows still complete.`
+    : 'The engine produced this deterministic source-based report from the current RSS article cache.';
+  const categoryCounts = countBy(topArticles, (article) => article.category || 'general');
+  const regionCounts = countBy(topArticles, (article) => article.geo?.place || article.geo?.country || article.country || 'unresolved');
+  const primaryCategories = Object.entries(categoryCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([category, count]) => `${escapeHtml(category)} (${count})`)
+    .join(' · ') || 'none';
+  const primaryRegions = Object.entries(regionCounts)
+    .filter(([region]) => region !== 'unresolved')
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([region, count]) => `${escapeHtml(region)} (${count})`)
+    .join(' · ') || 'No precise geotags available';
+
+  const trends = topArticles.slice(0, 7).map((article, index) => {
+    const risk = riskForArticle(article, index);
+    const trajectory = index < 2 ? 'escalating' : 'stable';
+    return `<div class="trend-card">
+      <div class="trend-card-head">
+        <h3><span class="trend-rank">#${index + 1}</span>${escapeHtml(article.title || 'Untitled source item')}</h3>
+        <div class="badge-row">
+          <span class="risk-badge risk-${risk.toLowerCase()}">${risk}</span>
+          <span class="risk-badge trajectory-${trajectory}">${trajectory.toUpperCase()}</span>
+        </div>
+      </div>
+      <p>${escapeHtml(article.description || 'Source item requires analyst review for operational relevance.')} [${index + 1}]</p>
+      <div class="regions-line">REGIONS: ${escapeHtml(article.geo?.place || article.geo?.country || article.country || scopeName)} · SOURCE: ${escapeHtml(article.source || 'unknown')}</div>
+    </div>`;
+  }).join('');
+
+  const developments = topArticles.slice(0, 10).map((article, index) => {
+    const date = article.pubDate ? new Date(article.pubDate).toISOString().slice(0, 10) : 'unknown-date';
+    return `<div class="feed-row">
+      <div class="feed-meta"><span class="breaking-dot">◉ ${escapeHtml(article.category || 'UPDATE').toUpperCase()}</span><span>${date}</span><span>${escapeHtml(article.source || 'unknown source')}</span></div>
+      <div class="feed-title">${escapeHtml(article.title || 'Untitled source item')}</div>
+      <div class="feed-summary">${escapeHtml(article.description || 'No summary was available from the feed parser.')} [${index + 1}]</div>
+    </div>`;
+  }).join('');
+
+  const risks = topArticles.slice(0, 8).map((article, index) => {
+    const risk = riskForArticle(article, index);
+    const location = article.geo?.place || article.geo?.country || article.country || scopeName;
+    return `<div class="risk-row">
+      <span class="risk-badge risk-${risk.toLowerCase()}">${risk}</span>
+      <div><div class="risk-location">${escapeHtml(location)}</div><div class="risk-detail">${escapeHtml(riskDetailForArticle(article, scopeName))} [${index + 1}]</div></div>
+    </div>`;
+  }).join('');
+
+  const theaters = Object.entries(regionCounts)
+    .filter(([region]) => region !== 'unresolved')
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([region, count]) => `<div class="theater-row"><div class="theater-name">${escapeHtml(region)}</div><div class="theater-assessment">${count} topic-matched source item${count === 1 ? '' : 's'} currently map to this area. Review newest articles for escalation, infrastructure exposure, force posture changes, and secondary effects.</div></div>`)
+    .join('') || `<div class="theater-row"><div class="theater-name">${escapeHtml(scopeName)}</div><div class="theater-assessment">No precise regional clustering was available. Improve geotagging coverage by validating article place extraction and RSS source metadata.</div></div>`;
+
+  const watchItems = topArticles.slice(0, 10).map((article, index) => {
+    const place = article.geo?.place || article.geo?.country || article.country || scopeName;
+    return `<div class="watch-row"><span>◆</span><span>Monitor ${escapeHtml(place)} for follow-on reporting linked to "${escapeHtml(shortTitle(article.title))}" [${index + 1}]</span></div>`;
+  }).join('');
+
+  return `<div class="exec-summary">
+  <strong>EXECUTIVE SUMMARY</strong>
+  ${errorLine} Current ${escapeHtml(scopeName)} source coverage includes ${topArticles.length} article${topArticles.length === 1 ? '' : 's'} across ${escapeHtml(primaryCategories)}. Highest-signal reporting clusters around ${primaryRegions}. Analyst review should prioritize escalation indicators, operational infrastructure impacts, and cross-source validation using ${citations || 'the Source Articles section'}.
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">${scope === 'watch' ? 'Watch Trends' : 'Global Trends'}</span>
+    <span class="section-label">SOURCE-BASED FALLBACK</span>
+  </div>
+  ${trends}
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Breaking Developments</span>
+    <span class="section-label">LATEST FEED CACHE</span>
+  </div>
+  <div class="panel">${developments}</div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Areas of Concern</span>
+    <span class="section-label">RISK ASSESSMENT</span>
+  </div>
+  <div class="panel">${risks}</div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Regional Assessments</span>
+    <span class="section-label">BY GEOTAG</span>
+  </div>
+  <div class="panel">${theaters}</div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Near-Term Outlook</span>
+    <span class="section-label">30-90 DAY FORECAST</span>
+  </div>
+  <div class="outlook-box">Expect reporting volume and cross-source confirmation to determine whether these signals mature into persistent operational risk. Continue monitoring for repeated references to force posture, infrastructure disruption, cyber activity, shipping/logistics effects, sanctions exposure, and official government warnings. This fallback report should be replaced by a provider-generated analytic report once the AI credential or model issue is resolved.</div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Watch List</span>
+    <span class="section-label">ITEMS TO MONITOR</span>
+  </div>
+  <div class="panel watch-panel">${watchItems}</div>
+</div>`;
 }
 
 function renderReportHtml({ title, body, articles }) {
@@ -1074,6 +1249,38 @@ function buildTopicLinks(title, articles) {
     label: topic,
     href: `https://news.google.com/search?q=${encodeURIComponent(`${topic} geopolitics security`)}`,
   }));
+}
+
+function countBy(items, fn) {
+  const counts = {};
+  for (const item of items) {
+    const key = String(fn(item) || 'unknown').trim() || 'unknown';
+    counts[key] = (counts[key] || 0) + 1;
+  }
+  return counts;
+}
+
+function riskForArticle(article, index = 0) {
+  const text = `${article.title || ''} ${article.description || ''} ${article.category || ''}`.toLowerCase();
+  if (/(nuclear|missile|airstrike|invasion|war|attack|killed|evacuation|emergency|critical infrastructure|cyberattack|explosion)/.test(text)) {
+    return index < 3 ? 'HIGH' : 'MEDIUM';
+  }
+  if (/(military|sanction|shipping|energy|semiconductor|supply chain|protest|border|drone|naval)/.test(text)) {
+    return 'MEDIUM';
+  }
+  return 'LOW';
+}
+
+function riskDetailForArticle(article, scopeName) {
+  const category = article.category || 'general';
+  const source = article.source || 'unknown source';
+  const base = article.description || article.title || 'Source item requires analyst review.';
+  return `${source} reporting in the ${category} category may affect ${scopeName} risk posture. ${base}`.slice(0, 360);
+}
+
+function shortTitle(title) {
+  const value = String(title || 'source item').trim();
+  return value.length > 86 ? `${value.slice(0, 83)}...` : value;
 }
 
 function stripCodeFence(value) {

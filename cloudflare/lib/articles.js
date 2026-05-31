@@ -120,10 +120,12 @@ export async function loadArticleSet(context) {
 
 export async function loadArticles(context, { country = '', limit = 200, geoOnly = false } = {}) {
   const payload = await loadArticleSet(context);
-  const articles = filterArticles(payload.articles, { country, limit, geoOnly });
+  const dedupedArticles = dedupeArticles(payload.articles || []);
+  const articles = filterArticles(dedupedArticles, { country, limit, geoOnly });
   return {
     articles,
-    total: payload.articles.length,
+    total: dedupedArticles.length,
+    rawTotal: payload.articles.length,
     returned: articles.length,
     lastFetch: payload.lastFetch,
     source: payload.source,
@@ -572,15 +574,64 @@ async function articleId(link, title) {
 }
 
 function dedupeArticles(articles) {
-  const seen = new Set();
+  const seenExact = new Set();
+  const groupsByStory = new Map();
   const result = [];
-  for (const article of articles) {
+  const sorted = [...articles].sort((a, b) => new Date(b.pubDate || 0).getTime() - new Date(a.pubDate || 0).getTime());
+
+  for (const article of sorted) {
     const key = String(article.link || article.id || article.title || '').toLowerCase();
-    if (!key || seen.has(key)) continue;
-    seen.add(key);
-    result.push(article);
+    if (!key || seenExact.has(key)) continue;
+    seenExact.add(key);
+
+    const storyKey = articleStoryKey(article);
+    const existing = storyKey ? groupsByStory.get(storyKey) : null;
+    if (existing) {
+      existing.additionalReporting = [
+        ...(existing.additionalReporting || []),
+        compactArticleReference(article),
+      ].slice(0, 12);
+      continue;
+    }
+
+    const primary = { ...article };
+    if (storyKey) groupsByStory.set(storyKey, primary);
+    result.push(primary);
   }
   return result;
+}
+
+function articleStoryKey(article) {
+  const title = String(article.title || '').toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/https?:\/\/\S+/g, ' ')
+    .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!title) return '';
+
+  const stop = new Set([
+    'the', 'and', 'for', 'with', 'from', 'that', 'this', 'into', 'over', 'after', 'before',
+    'says', 'said', 'new', 'live', 'news', 'update', 'updates', 'analysis', 'report',
+    'a', 'an', 'to', 'of', 'in', 'on', 'as', 'by', 'at', 'is', 'are', 'be', 'was', 'were',
+  ]);
+  const tokens = title.split(' ')
+    .filter((token) => token.length > 2 && !stop.has(token))
+    .slice(0, 16);
+  if (tokens.length < 3) return title.slice(0, 90);
+  return tokens.sort().slice(0, 12).join('|');
+}
+
+function compactArticleReference(article) {
+  return {
+    id: article.id || '',
+    title: article.title || '',
+    source: article.source || '',
+    link: article.link || article.url || '',
+    pubDate: article.pubDate || article.publishedAt || '',
+    category: article.category || '',
+  };
 }
 
 function classifyArticle(text, fallback = 'breaking') {

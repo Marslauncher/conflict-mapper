@@ -69,6 +69,8 @@ Set:
 | `PERPLEXITY_MODEL` | variable | `sonar-pro` |
 | `OPENROUTER_MODEL` | variable | `openai/gpt-4o-mini` |
 | `NVIDIA_MODEL` | variable | `nvidia/llama-3.3-nemotron-super-49b-v1` |
+| `REPORT_AI_TIMEOUT_MS` | variable | `55000` |
+| `ALLOW_REPORT_FALLBACK` | variable | `true` |
 | `PERPLEXITY_API_KEY` | secret, optional fallback | only needed if you do not save it from the app |
 | `OPENROUTER_API_KEY` | secret, optional fallback | only needed if you do not save it from the app |
 | `OPENAI_API_KEY` | secret, optional fallback | only needed if you do not save it from the app |
@@ -182,9 +184,11 @@ RSS ingestion now loads the monitored Countries and Topics from `CONFIG_KV`, tra
 
 The Settings -> Logs page and `/api/logs` expose queued/running/failed report phases plus RSS fetch progress. If report generation fails before calling the AI provider, the log entry includes a mitigation field, for example missing D1 migrations or Cloudflare bindings.
 
-The Settings -> AI Prompts page reads `/api/prompts/reports` and shows copyable Global, Country, and China/Taiwan Watch prompt templates for external model runs.
+Report generation uses `REPORT_AI_TIMEOUT_MS` to prevent stalled provider calls. If `ALLOW_REPORT_FALLBACK=true`, a provider failure or timeout is logged and the app still writes a source-based fallback report to D1/R2 so storage, archives, and review links complete.
 
-The admin Reports section now includes a Report Storage browser backed by `/api/storage/reports`, so generated R2 objects can be reviewed from the Settings UI.
+The Settings -> AI Prompts page reads `/api/prompts/reports` and shows editable Global, Country, and China/Taiwan Watch prompt templates for external model runs. Each template can be copied or downloaded as a local `.md` prompt file.
+
+The admin Reports/Storage section includes a Report Storage browser backed by `/api/storage/reports`, so generated R2 objects can be reviewed from the Settings UI.
 
 Test the cron Worker manually:
 

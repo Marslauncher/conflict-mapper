@@ -324,6 +324,144 @@ html, body {
   line-height: 1.6;
 }
 
+.story-card,
+.region-panel {
+  margin: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--surface-2), rgba(18,21,28,0.94));
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.story-card { display: none; }
+.story-card.visible { display: block; }
+.story-card-head,
+.region-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--border-dim);
+}
+.story-card-title {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+}
+.story-card-close {
+  margin-left: auto;
+  background: none;
+  border: 1px solid var(--border-dim);
+  border-radius: 4px;
+  color: var(--text-faint);
+  cursor: pointer;
+  padding: 2px 6px;
+}
+.story-card-body {
+  padding: 10px;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.story-card-meta,
+.additional-link-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.story-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.additional-reporting {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-dim);
+}
+.additional-reporting-title,
+.region-panel-title {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.additional-link {
+  display: block;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border-dim);
+  color: var(--text);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  line-height: 1.25;
+}
+.additional-link:hover { color: var(--accent); }
+.region-panel {
+  max-height: 190px;
+  display: flex;
+  flex-direction: column;
+}
+.region-list {
+  overflow-y: auto;
+  padding: 4px 0;
+}
+.region-item {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border-dim);
+  cursor: pointer;
+}
+.region-item:hover { background: var(--accent-dim); }
+.region-item-title {
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  line-height: 1.25;
+  color: var(--text);
+}
+.region-item-meta {
+  margin-top: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.alert-modal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 12px;
+}
+.alert-modal-item {
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius);
+  padding: 9px;
+  background: var(--surface-2);
+}
+.alert-modal-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+}
+.btn.watch-active {
+  border-color: var(--green);
+  color: var(--green);
+}
+
 /* ── Collapse Toggle ── */
 .sidebar-toggle {
   position: absolute;
@@ -693,6 +831,29 @@ html, body {
     <div class="sidebar-actions">
       <button class="btn btn-primary btn-sm" onclick="refreshFeed()" id="refresh-btn">↻ Refresh</button>
       <button class="btn btn-secondary btn-sm" onclick="fetchAllFeeds()" id="fetch-btn">Fetch Feeds</button>
+      <button class="btn btn-secondary btn-sm" onclick="toggleFeedWatch()" id="feed-watch-btn">Auto Watch</button>
+    </div>
+
+    <!-- Selected story -->
+    <div class="story-card" id="story-card">
+      <div class="story-card-head">
+        <div class="story-card-title" id="story-card-title">Selected Story</div>
+        <button class="story-card-close" onclick="closeStoryCard()" aria-label="Close story card">x</button>
+      </div>
+      <div class="story-card-body" id="story-card-body"></div>
+    </div>
+
+    <!-- Region articles -->
+    <div class="region-panel" id="region-panel">
+      <div class="region-panel-head">
+        <div>
+          <div class="region-panel-title">Visible Region</div>
+          <div class="article-source" id="region-count-label">No map area selected</div>
+        </div>
+      </div>
+      <div class="region-list" id="region-article-list">
+        <div class="empty-feed" style="padding:12px">Move or zoom the map to list visible articles.</div>
+      </div>
     </div>
 
     <!-- Feed list -->
@@ -755,6 +916,19 @@ html, body {
   </div>
 </div>
 
+<!-- Significant News Alert Modal -->
+<div class="modal-overlay" id="news-alert-modal">
+  <div class="modal-card">
+    <div class="modal-title">Significant News Event</div>
+    <div class="modal-subtitle" id="news-alert-subtitle">New high-signal RSS item detected</div>
+    <div class="alert-modal-list" id="news-alert-list"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary btn-sm" onclick="closeNewsAlert()">Dismiss</button>
+      <button class="btn btn-primary btn-sm" onclick="focusNewestAlert()">Focus Newest</button>
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast">
   <div class="toast-dot"></div>
@@ -775,10 +949,18 @@ html, body {
 let map, markersLayer, heatLayer;
 let allArticles = [];
 let filteredArticles = [];
+let storyGroups = [];
+let filteredGroups = [];
 let currentMapLayer = 'dark';
 let heatmapOn = false;
 let pendingFlag = null;
 let toastTimer = null;
+let feedWatchTimer = null;
+let feedWatchEnabled = false;
+let seenStoryKeys = new Set();
+let alertArticles = [];
+let firstArticleLoad = true;
+let alertAudioCtx = null;
 
 const TILE_LAYERS = {
   dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
@@ -830,12 +1012,13 @@ function initMap() {
     spiderfyOnMaxZoom: true
   });
   map.addLayer(markersLayer);
+  map.on('moveend zoomend', updateRegionList);
 
   loadArticles();
 }
 
 /* ── Data loading ── */
-async function loadArticles() {
+async function loadArticles(options = {}) {
   try {
     const [geoRes, feedRes] = await Promise.all([
       fetch('/api/articles/geo?limit=5000'),
@@ -869,11 +1052,14 @@ async function loadArticles() {
       allArticles = getMockArticles();
     }
 
+    storyGroups = groupRelatedArticles(allArticles);
+    detectSignificantNewStories(storyGroups, options);
     updateStats();
     applyFilters();
   } catch(e) {
     // Fall back to mock data
     allArticles = getMockArticles();
+    storyGroups = groupRelatedArticles(allArticles);
     updateStats();
     applyFilters();
   }
@@ -887,19 +1073,118 @@ async function refreshFeed() {
   showToast('Feed refreshed');
 }
 
-async function fetchAllFeeds() {
+async function fetchAllFeeds(options = {}) {
   const btn = document.getElementById('fetch-btn');
-  if (btn) { btn.textContent = 'Fetching...'; btn.disabled = true; }
+  if (btn && !options.silent) { btn.textContent = 'Fetching...'; btn.disabled = true; }
   try {
-    const res = await fetch('/api/feeds/fetch', { method: 'POST' });
+    const params = options.fast ? '?limitFeeds=25&maxItemsPerFeed=8' : '';
+    const res = await fetch('/api/feeds/fetch' + params, { method: 'POST' });
     const data = await res.json();
-    showToast(data.message || 'Feeds fetched');
-    await loadArticles();
+    if (!options.silent) showToast(data.message || 'Feeds fetched');
+    await loadArticles({ alertOnNew: !!options.alertOnNew, silent: !!options.silent });
   } catch(e) {
-    showToast('API not available — using demo data', true);
+    if (!options.silent) showToast('API not available - using demo data', true);
   } finally {
-    if (btn) { btn.textContent = 'Fetch Feeds'; btn.disabled = false; }
+    if (btn && !options.silent) { btn.textContent = 'Fetch Feeds'; btn.disabled = false; }
   }
+}
+
+function toggleFeedWatch() {
+  feedWatchEnabled = !feedWatchEnabled;
+  const btn = document.getElementById('feed-watch-btn');
+  if (btn) {
+    btn.classList.toggle('watch-active', feedWatchEnabled);
+    btn.textContent = feedWatchEnabled ? 'Watching' : 'Auto Watch';
+  }
+
+  if (feedWatchEnabled) {
+    initializeAlertAudio();
+    seenStoryKeys = new Set(storyGroups.map(group => group.storyKey));
+    feedWatchTimer = setInterval(() => {
+      fetchAllFeeds({ silent: true, fast: true, alertOnNew: true });
+    }, 15000);
+    fetchAllFeeds({ silent: true, fast: true, alertOnNew: true });
+    showToast('RSS auto-watch enabled');
+  } else {
+    clearInterval(feedWatchTimer);
+    feedWatchTimer = null;
+    showToast('RSS auto-watch stopped');
+  }
+}
+
+function detectSignificantNewStories(groups, options = {}) {
+  const keys = new Set(groups.map(group => group.storyKey).filter(Boolean));
+  if (firstArticleLoad) {
+    seenStoryKeys = keys;
+    firstArticleLoad = false;
+    return;
+  }
+
+  const newGroups = groups.filter(group => group.storyKey && !seenStoryKeys.has(group.storyKey));
+  seenStoryKeys = new Set([...seenStoryKeys, ...keys]);
+  const significant = newGroups
+    .map(group => group.primary)
+    .filter(isSignificantArticle)
+    .slice(0, 8);
+  if (options.alertOnNew && significant.length) showNewsAlert(significant);
+}
+
+function isSignificantArticle(article) {
+  const text = `${article.title || ''} ${article.description || ''} ${article.category || ''}`.toLowerCase();
+  return /(missile|airstrike|strike|attack|explosion|invasion|war|troops|nuclear|evacuation|emergency|cyberattack|ransomware|coup|sanction|taiwan|hormuz|gaza|ukraine|russia|china|iran|israel)/.test(text)
+    || ['breaking', 'conflict', 'military'].includes(article.category || '');
+}
+
+function showNewsAlert(articles) {
+  alertArticles = articles;
+  const modal = document.getElementById('news-alert-modal');
+  const list = document.getElementById('news-alert-list');
+  const subtitle = document.getElementById('news-alert-subtitle');
+  if (!modal || !list) return;
+  if (subtitle) subtitle.textContent = `${articles.length} high-signal item${articles.length === 1 ? '' : 's'} detected by RSS auto-watch`;
+  list.innerHTML = articles.map(article => `
+    <div class="alert-modal-item">
+      <div class="alert-modal-title">${escHtml(article.title || 'Untitled')}</div>
+      <div class="additional-link-meta"><span>${escHtml(article.source || 'Unknown source')}</span><span>${timeAgo(article.pubDate || article.publishedAt)}</span><span>${escHtml(article.category || 'general')}</span></div>
+    </div>
+  `).join('');
+  modal.classList.add('open');
+  playAlertSound();
+}
+
+function closeNewsAlert() {
+  document.getElementById('news-alert-modal')?.classList.remove('open');
+}
+
+function focusNewestAlert() {
+  closeNewsAlert();
+  if (alertArticles[0]) focusArticle(alertArticles[0]);
+}
+
+function initializeAlertAudio() {
+  try {
+    alertAudioCtx = alertAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if (alertAudioCtx.state === 'suspended') alertAudioCtx.resume();
+  } catch (_) {}
+}
+
+function playAlertSound() {
+  try {
+    initializeAlertAudio();
+    if (!alertAudioCtx) return;
+    const oscillator = alertAudioCtx.createOscillator();
+    const gain = alertAudioCtx.createGain();
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(880, alertAudioCtx.currentTime);
+    oscillator.frequency.setValueAtTime(660, alertAudioCtx.currentTime + 0.12);
+    gain.gain.setValueAtTime(0.001, alertAudioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.16, alertAudioCtx.currentTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, alertAudioCtx.currentTime + 0.35);
+    oscillator.connect(gain);
+    gain.connect(alertAudioCtx.destination);
+    oscillator.start();
+    oscillator.stop(alertAudioCtx.currentTime + 0.38);
+  } catch (_) {}
 }
 
 /* ── Filters ── */
@@ -919,18 +1204,38 @@ function applyFilters() {
   const since = getTimeFilter();
   const country = document.getElementById('filter-country')?.value || '';
 
-  filteredArticles = allArticles.filter(a => {
-    if (cats.length && !cats.includes(a.category || 'general')) return false;
-    if (country && !articleMatchesCountry(a, country)) return false;
-    // Support both pubDate (API) and publishedAt (legacy/mock)
-    const dateStr = a.pubDate || a.publishedAt;
-    if (since && dateStr && new Date(dateStr).getTime() < since) return false;
-    return true;
-  });
+  filteredGroups = storyGroups
+    .map(group => {
+      const visibleArticles = group.articles.filter(a => articleMatchesFilters(a, cats, country, since));
+      if (!visibleArticles.length) return null;
+      const primary = sortNewest(visibleArticles)[0];
+      return {
+        ...group,
+        primary: {
+          ...primary,
+          additionalReporting: mergeAdditionalReporting(primary, visibleArticles.filter(a => a !== primary)),
+          storyKey: group.storyKey,
+          storyCount: visibleArticles.length,
+        },
+        visibleArticles,
+      };
+    })
+    .filter(Boolean);
+
+  filteredArticles = filteredGroups.map(group => group.primary);
 
   updateMapMarkers();
   updateFeedList();
+  updateRegionList();
   updateStats();
+}
+
+function articleMatchesFilters(article, cats, country, since) {
+  if (cats.length && !cats.includes(article.category || 'general')) return false;
+  if (country && !articleMatchesCountry(article, country)) return false;
+  const dateStr = article.pubDate || article.publishedAt;
+  if (since && dateStr && new Date(dateStr).getTime() < since) return false;
+  return true;
 }
 
 function articleMatchesCountry(article, country) {
@@ -954,6 +1259,89 @@ function articleMatchesCountry(article, country) {
   return aliases.some(alias => haystack.includes(alias));
 }
 
+function groupRelatedArticles(articles) {
+  const groups = [];
+  const byKey = new Map();
+  const sorted = sortNewest(articles);
+
+  sorted.forEach(article => {
+    const storyKey = article.storyKey || articleStoryKey(article);
+    const group = storyKey ? byKey.get(storyKey) : null;
+    if (group) {
+      group.articles.push(article);
+      return;
+    }
+    const nextGroup = {
+      storyKey: storyKey || String(article.id || article.link || groups.length),
+      primary: article,
+      articles: [article],
+    };
+    groups.push(nextGroup);
+    if (storyKey) byKey.set(storyKey, nextGroup);
+  });
+
+  return groups.map(group => {
+    const visible = sortNewest(group.articles);
+    const primary = visible[0] || group.primary;
+    return {
+      ...group,
+      primary: {
+        ...primary,
+        storyKey: group.storyKey,
+        storyCount: visible.length,
+        additionalReporting: mergeAdditionalReporting(primary, visible.slice(1)),
+      },
+      articles: visible,
+    };
+  });
+}
+
+function articleStoryKey(article) {
+  const title = String(article.title || '').toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!title) return String(article.link || article.id || '');
+  const stop = new Set(['the','and','for','with','from','that','this','into','over','after','before','says','said','new','live','news','update','updates','analysis','report','a','an','to','of','in','on','as','by','at','is','are','be','was','were']);
+  const tokens = title.split(' ').filter(token => token.length > 2 && !stop.has(token)).slice(0, 16);
+  return tokens.length < 3 ? title.slice(0, 90) : tokens.sort().slice(0, 12).join('|');
+}
+
+function mergeAdditionalReporting(primary, duplicates = []) {
+  const refs = [
+    ...(Array.isArray(primary.additionalReporting) ? primary.additionalReporting : []),
+    ...duplicates.map(compactArticle),
+  ];
+  const seen = new Set([String(primary.link || primary.url || primary.id || '').toLowerCase()]);
+  return refs.filter(ref => {
+    const key = String(ref.link || ref.url || ref.id || ref.title || '').toLowerCase();
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).slice(0, 12);
+}
+
+function compactArticle(article) {
+  return {
+    id: article.id || '',
+    title: article.title || '',
+    source: article.source || '',
+    link: article.link || article.url || '',
+    pubDate: article.pubDate || article.publishedAt || '',
+    category: article.category || '',
+  };
+}
+
+function sortNewest(articles) {
+  return [...(articles || [])].sort((a, b) => {
+    const ta = (a.pubDate || a.publishedAt) ? new Date(a.pubDate || a.publishedAt).getTime() : 0;
+    const tb = (b.pubDate || b.publishedAt) ? new Date(b.pubDate || b.publishedAt).getTime() : 0;
+    return tb - ta;
+  });
+}
+
 /* ── Map markers ── */
 function updateMapMarkers() {
   markersLayer.clearLayers();
@@ -974,7 +1362,8 @@ function updateMapMarkers() {
       fillOpacity: 0.8
     });
 
-    marker.bindPopup(buildPopup(article), { maxWidth: 280, minWidth: 220 });
+    marker.on('click', () => showStoryCard(article));
+    marker.bindPopup(buildPopup(article), { maxWidth: 300, minWidth: 240 });
     markersLayer.addLayer(marker);
   });
 
@@ -994,6 +1383,7 @@ function getGeoCoords(a) {
 function buildPopup(article) {
   const cat = article.category || 'general';
   const catColor = CAT_COLORS[cat] || CAT_COLORS.general;
+  const additionalCount = Array.isArray(article.additionalReporting) ? article.additionalReporting.length : 0;
   return `
     <div class="popup-title">${escHtml(article.title || 'Untitled')}</div>
     <div class="popup-meta">
@@ -1001,8 +1391,9 @@ function buildPopup(article) {
       <span class="popup-source">${escHtml(article.source || 'Unknown')}</span>
     </div>
     <div style="font-size:0.7rem;color:#888;margin-bottom:8px">${timeAgo(article.pubDate || article.publishedAt)}</div>
+    ${additionalCount ? `<div style="font-size:0.68rem;color:#aaa;margin-bottom:8px">${additionalCount} additional related report${additionalCount === 1 ? '' : 's'}</div>` : ''}
     <div class="popup-actions">
-      ${(article.link || article.url) ? `<a href="${escHtml(article.link || article.url)}" target="_blank" rel="noopener" class="popup-btn primary" style="text-decoration:none">Read →</a>` : ''}
+      ${(article.link || article.url) ? `<a href="${escHtml(article.link || article.url)}" target="_blank" rel="noopener" class="popup-btn primary" style="text-decoration:none">Read</a>` : ''}
       <button class="popup-btn" onclick="openFlagModal(${JSON.stringify({ id: article.id, title: article.title }).replace(/"/g, '&quot;')})">⚑ Flag</button>
     </div>
   `;
@@ -1070,11 +1461,7 @@ function updateFeedList() {
   }
 
   // Sort newest first
-  const sorted = [...filteredArticles].sort((a, b) => {
-    const ta = (a.pubDate || a.publishedAt) ? new Date(a.pubDate || a.publishedAt).getTime() : 0;
-    const tb = (b.pubDate || b.publishedAt) ? new Date(b.pubDate || b.publishedAt).getTime() : 0;
-    return tb - ta;
-  });
+  const sorted = sortNewest(filteredArticles);
 
   container.innerHTML = `
     <div class="feed-section-label">Live Articles (${sorted.length})</div>
@@ -1086,6 +1473,7 @@ function updateFeedList() {
           <span class="cat-badge ${a.category || 'general'}">${escHtml(a.category || 'general')}</span>
           <span class="article-source">${escHtml(a.source || 'Unknown')}</span>
           <span class="article-time">${timeAgo(a.pubDate || a.publishedAt)}</span>
+          ${a.additionalReporting?.length ? `<span class="article-time">+${a.additionalReporting.length} related</span>` : ''}
         </div>
       </div>
     `).join('')}
@@ -1093,11 +1481,72 @@ function updateFeedList() {
 }
 
 function focusArticle(article) {
+  showStoryCard(article);
   const coords = getGeoCoords(article);
   if (coords) {
     const { lat, lng } = coords;
     map.setView([lat, lng], 6, { animate: true });
   }
+}
+
+function showStoryCard(article) {
+  const card = document.getElementById('story-card');
+  const title = document.getElementById('story-card-title');
+  const body = document.getElementById('story-card-body');
+  if (!card || !title || !body) return;
+  const cat = article.category || 'general';
+  const catColor = CAT_COLORS[cat] || CAT_COLORS.general;
+  const additional = Array.isArray(article.additionalReporting) ? article.additionalReporting : [];
+  title.textContent = article.title || 'Untitled story';
+  body.innerHTML = `
+    <div class="story-card-meta">
+      <span class="cat-badge ${cat}" style="background:${catColor}22;color:${catColor}">${escHtml(cat)}</span>
+      <span>${escHtml(article.source || 'Unknown source')}</span>
+      <span>${timeAgo(article.pubDate || article.publishedAt)}</span>
+      ${article.geo?.place || article.location ? `<span>${escHtml(article.geo?.place || article.location)}</span>` : ''}
+    </div>
+    <div>${escHtml(article.description || article.summary || 'No parsed summary is available for this article yet.')}</div>
+    <div class="story-card-actions">
+      ${(article.link || article.url) ? `<a href="${escHtml(article.link || article.url)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="text-decoration:none">Open Source</a>` : ''}
+      <button class="btn btn-secondary btn-sm" onclick="openFlagModal(${JSON.stringify({ id: article.id, title: article.title }).replace(/"/g, '&quot;')})">Flag</button>
+    </div>
+    <div class="additional-reporting">
+      <div class="additional-reporting-title">Additional Reporting</div>
+      ${additional.length ? additional.map(item => `
+        <a class="additional-link" href="${escHtml(item.link || item.url || '#')}" target="_blank" rel="noopener">
+          ${escHtml(item.title || 'Related report')}
+          <div class="additional-link-meta"><span>${escHtml(item.source || 'Unknown source')}</span><span>${timeAgo(item.pubDate || item.publishedAt)}</span></div>
+        </a>
+      `).join('') : '<div class="empty-feed" style="padding:10px 0;text-align:left">No duplicate or related reporting has been grouped with this story yet.</div>'}
+    </div>
+  `;
+  card.classList.add('visible');
+}
+
+function closeStoryCard() {
+  document.getElementById('story-card')?.classList.remove('visible');
+}
+
+function updateRegionList() {
+  const list = document.getElementById('region-article-list');
+  const label = document.getElementById('region-count-label');
+  if (!list || !label || !map) return;
+  const bounds = map.getBounds();
+  const visible = sortNewest(filteredArticles.filter(article => {
+    const coords = getGeoCoords(article);
+    return coords && bounds.contains([coords.lat, coords.lng]);
+  }));
+  label.textContent = `${visible.length} article${visible.length === 1 ? '' : 's'} in current map view`;
+  if (!visible.length) {
+    list.innerHTML = '<div class="empty-feed" style="padding:12px">No geotagged articles in the visible map area.</div>';
+    return;
+  }
+  list.innerHTML = visible.slice(0, 80).map(article => `
+    <div class="region-item" onclick="focusArticle(${JSON.stringify(article).replace(/"/g, '&quot;')})">
+      <div class="region-item-title">${escHtml(article.title || 'Untitled')}</div>
+      <div class="region-item-meta">${escHtml(article.source || 'Unknown')} · ${timeAgo(article.pubDate || article.publishedAt)}${article.geo?.place ? ` · ${escHtml(article.geo.place)}` : ''}</div>
+    </div>
+  `).join('');
 }
 
 /* ── Stats ── */

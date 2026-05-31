@@ -2091,6 +2091,10 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
               Reports
             </button>
+            <button class="admin-nav-item" data-section="reports" onclick="showAdminSection('reports', this)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>
+              Storage
+            </button>
             <button class="admin-nav-item" data-section="flagged" onclick="showAdminSection('flagged', this)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
               Flagged
@@ -2216,6 +2220,8 @@
                   <div style="margin-left:auto;display:flex;gap:var(--space-2)">
                     <button class="btn btn-secondary btn-sm" onclick="loadPromptTemplates(true)">Refresh</button>
                     <button class="btn btn-primary btn-sm" onclick="copyPromptTemplate()">Copy Prompt</button>
+                    <button class="btn btn-secondary btn-sm" onclick="downloadPromptTemplate()">Download .md</button>
+                    <button class="btn btn-secondary btn-sm" onclick="downloadAllPromptTemplates()">Download All</button>
                   </div>
                 </div>
                 <div class="form-row">
@@ -2231,7 +2237,7 @@
                   </div>
                 </div>
                 <label class="form-label" for="prompt-template-output">Full System + User Prompt</label>
-                <textarea class="form-input" id="prompt-template-output" readonly spellcheck="false" style="min-height:520px;font-family:var(--font-mono);font-size:0.68rem;line-height:1.55;white-space:pre;resize:vertical"></textarea>
+                <textarea class="form-input" id="prompt-template-output" spellcheck="false" oninput="markPromptTemplateEdited()" style="min-height:520px;font-family:var(--font-mono);font-size:0.68rem;line-height:1.55;white-space:pre;resize:vertical"></textarea>
               </div>
             </div>
 
@@ -2503,7 +2509,7 @@
             <!-- Reports Section -->
             <div class="admin-section" id="section-reports">
               <h2 class="admin-section-title">Reports</h2>
-              <p class="admin-section-desc">Generate, upload, and review AI-powered intelligence reports.</p>
+              <p class="admin-section-desc">Generate, upload, review, and browse Cloudflare R2 report objects.</p>
 
               <!-- Active job status -->
               <div id="rpt-active-job" style="display:none;margin-bottom:var(--space-5)">
@@ -4682,13 +4688,17 @@ async function runAnalysis(endpoint, label) {
       try {
         const statusRes = await fetch('/api/analysis/status');
         if (statusRes.ok) {
-          const status = await statusRes.json();
+          const payload = await statusRes.json();
+          const status = payload.data || payload;
           progress = Math.min(status.progress || progress + 5, 90);
           if (progBar) progBar.style.width = progress + '%';
           if (progText) progText.textContent = status.message || 'Processing...';
-          if (status.done) {
+          if (!status.running && (status.phase === 'complete' || status.done)) {
             clearInterval(pollInterval);
             finishAnalysis(true, status.message || 'Analysis complete');
+          } else if (!status.running && status.phase === 'failed') {
+            clearInterval(pollInterval);
+            finishAnalysis(false, status.message || 'Analysis failed');
           }
         }
       } catch(e) {}
@@ -4697,9 +4707,9 @@ async function runAnalysis(endpoint, label) {
     if (startRes.ok) {
       const data = await startRes.json();
       // If API returns immediately (sync)
-      if (data.done || data.success) {
+      if (data.done || data.data?.done) {
         clearInterval(pollInterval);
-        finishAnalysis(true, data.message || 'Analysis complete');
+        finishAnalysis(true, data.message || data.data?.message || 'Analysis complete');
       }
     } else {
       clearInterval(pollInterval);
@@ -4743,6 +4753,8 @@ async function runCountryAnalysis() {
 
 /* ── Prompt library ─────────────────────────────────────── */
 let _promptTemplates = [];
+let _promptTemplateEdits = {};
+let _activePromptTemplateId = '';
 
 async function loadPromptTemplates(force = false) {
   const status = document.getElementById('prompt-status-label');
@@ -4777,14 +4789,17 @@ function renderPromptTemplate() {
   const output = document.getElementById('prompt-template-output');
   const notes = document.getElementById('prompt-import-notes');
   if (!select || !output) return;
+  saveCurrentPromptTemplateEdit();
   const template = _promptTemplates.find((item) => item.id === select.value) || _promptTemplates[0];
   if (!template) {
+    _activePromptTemplateId = '';
     output.value = '';
     if (notes) notes.textContent = 'No prompt template loaded.';
     return;
   }
   select.value = template.id;
-  output.value = template.fullPrompt || '';
+  _activePromptTemplateId = template.id;
+  output.value = _promptTemplateEdits[template.id] ?? template.fullPrompt ?? '';
   if (notes) {
     notes.innerHTML = (template.importNotes || [])
       .map((note) => `<div>• ${escHtml(note)}</div>`)
@@ -4792,17 +4807,85 @@ function renderPromptTemplate() {
   }
 }
 
-async function copyPromptTemplate() {
+function markPromptTemplateEdited() {
+  saveCurrentPromptTemplateEdit();
+}
+
+function saveCurrentPromptTemplateEdit() {
   const output = document.getElementById('prompt-template-output');
-  if (!output?.value) { showToast('No prompt loaded', true); return; }
+  if (_activePromptTemplateId && output) _promptTemplateEdits[_activePromptTemplateId] = output.value;
+}
+
+function getSelectedPromptTemplate() {
+  const select = document.getElementById('prompt-template-select');
+  return _promptTemplates.find((item) => item.id === select?.value) || _promptTemplates[0] || null;
+}
+
+function getPromptTemplateText(template) {
+  saveCurrentPromptTemplateEdit();
+  if (!template) return '';
+  return _promptTemplateEdits[template.id] ?? template.fullPrompt ?? '';
+}
+
+function buildPromptMarkdown(template, promptText) {
+  return `# ${template.label} Prompt
+
+Scope: ${template.scope}
+Slug: ${template.slug}
+Default title: ${template.title}
+
+## Import Notes
+${(template.importNotes || []).map((note) => `- ${note}`).join('\n') || '- Return only the report HTML body fragment.'}
+
+## Full Prompt
+
+${promptText}
+`;
+}
+
+async function copyPromptTemplate() {
+  const template = getSelectedPromptTemplate();
+  const promptText = getPromptTemplateText(template);
+  const output = document.getElementById('prompt-template-output');
+  if (!promptText) { showToast('No prompt loaded', true); return; }
   try {
-    await navigator.clipboard.writeText(output.value);
+    await navigator.clipboard.writeText(promptText);
     showToast('Prompt copied');
   } catch (_) {
     output.focus();
     output.select();
     showToast('Prompt selected for copy');
   }
+}
+
+function downloadPromptTemplate() {
+  const template = getSelectedPromptTemplate();
+  if (!template) { showToast('No prompt loaded', true); return; }
+  downloadTextFile(template.filename || `${template.id || 'report'}-prompt.md`, buildPromptMarkdown(template, getPromptTemplateText(template)));
+  showToast('Prompt downloaded');
+}
+
+function downloadAllPromptTemplates() {
+  saveCurrentPromptTemplateEdit();
+  if (!_promptTemplates.length) { showToast('No prompt templates loaded', true); return; }
+  _promptTemplates.forEach((template, index) => {
+    setTimeout(() => {
+      downloadTextFile(template.filename || `${template.id || 'report'}-prompt.md`, buildPromptMarkdown(template, getPromptTemplateText(template)));
+    }, index * 180);
+  });
+  showToast('Prompt downloads started');
+}
+
+function downloadTextFile(filename, text) {
+  const blob = new Blob([text], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 /* ── Confirm async helper ────────────────────────────────── */
@@ -4851,7 +4934,7 @@ function stopLogsPolling() {
 
 async function fetchLogs() {
   try {
-    const res = await fetch('/api/logs');
+    const res = await fetch('/api/logs?limit=250');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     _logsRaw = data.data?.logs || data.logs || (Array.isArray(data) ? data : []);

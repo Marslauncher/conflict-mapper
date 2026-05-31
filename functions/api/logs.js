@@ -3,9 +3,11 @@ import { getArticleFetchStatus } from '../../cloudflare/lib/articles.js';
 import { getReportStatus, listReportLogs } from '../../cloudflare/lib/reports.js';
 
 export async function onRequestGet(context) {
+  const url = new URL(context.request.url);
+  const limit = Math.max(1, Math.min(Number(url.searchParams.get('limit') || 250), 250));
   const reportStatus = await getReportStatus(context.env);
   const feedStatus = await getArticleFetchStatus(context.env);
-  const logs = await listReportLogs(context.env, 100);
+  const logs = await listReportLogs(context.env, limit);
   const statusLogs = [];
 
   if (reportStatus?.phase && reportStatus.phase !== 'idle') {
@@ -44,7 +46,7 @@ export async function onRequestGet(context) {
     });
   }
 
-  const combinedLogs = [...statusLogs, ...logs].slice(0, 100);
+  const combinedLogs = [...statusLogs, ...logs].slice(0, limit);
 
   return jsonResponse({
     success: true,

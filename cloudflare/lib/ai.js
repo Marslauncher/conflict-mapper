@@ -244,7 +244,8 @@ export async function generateReportText(env, systemPrompt, userPrompt) {
     throw new Error(`No API key configured for provider "${config.provider}"`);
   }
   const maxTokens = resolveReportMaxTokens(env, config.provider, providerConfig.model);
-  return callModel(config.provider, providerConfig, `${systemPrompt}\n\n${userPrompt}`, { maxTokens });
+  const timeoutMs = resolveReportTimeoutMs(env);
+  return callModel(config.provider, providerConfig, `${systemPrompt}\n\n${userPrompt}`, { maxTokens, timeoutMs });
 }
 
 function resolveReportMaxTokens(env, provider, model = '') {
@@ -256,6 +257,11 @@ function resolveReportMaxTokens(env, provider, model = '') {
   if (provider === 'nvidia') return 8192;
   if (provider === 'anthropic') return 12000;
   return 12000;
+}
+
+function resolveReportTimeoutMs(env) {
+  const configured = Number(env.REPORT_AI_TIMEOUT_MS || 0);
+  return Number.isFinite(configured) && configured >= 5000 ? Math.floor(configured) : 55000;
 }
 
 async function importEncryptionKey(secret) {
@@ -424,14 +430,14 @@ async function callPerplexity(config, prompt, options) {
     body.temperature = 0.2;
   }
 
-  const response = await fetch(buildPerplexityUrl(config.baseUrl), {
+  const response = await fetchWithTimeout(buildPerplexityUrl(config.baseUrl), {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
       authorization: `Bearer ${config.apiKey}`,
     },
     body: JSON.stringify(body),
-  });
+  }, options.timeoutMs);
 
   const data = await readProviderJson(response, 'Perplexity');
   const content = data?.choices?.[0]?.message?.content || data?.choices?.[0]?.delta?.content;
@@ -440,7 +446,7 @@ async function callPerplexity(config, prompt, options) {
 }
 
 async function callOpenAICompatible(config, prompt, options) {
-  const response = await fetch(`${config.baseUrl}/chat/completions`, {
+  const response = await fetchWithTimeout(`${config.baseUrl}/chat/completions`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -453,7 +459,7 @@ async function callOpenAICompatible(config, prompt, options) {
       max_tokens: options.maxTokens || 8000,
       temperature: 0.25,
     }),
-  });
+  }, options.timeoutMs);
 
   const data = await readProviderJson(response, 'AI provider');
   const content = data?.choices?.[0]?.message?.content;
@@ -462,7 +468,7 @@ async function callOpenAICompatible(config, prompt, options) {
 }
 
 async function callAnthropic(config, prompt, options) {
-  const response = await fetch(`${config.baseUrl}/v1/messages`, {
+  const response = await fetchWithTimeout(`${config.baseUrl}/v1/messages`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -474,7 +480,7 @@ async function callAnthropic(config, prompt, options) {
       max_tokens: options.maxTokens || 8000,
       messages: [{ role: 'user', content: prompt }],
     }),
-  });
+  }, options.timeoutMs);
 
   const data = await readProviderJson(response, 'Anthropic');
   const content = data?.content?.[0]?.text;
@@ -483,7 +489,7 @@ async function callAnthropic(config, prompt, options) {
 }
 
 async function callGoogle(config, prompt, options) {
-  const response = await fetch(`${config.baseUrl}/v1beta/models/${config.model}:generateContent?key=${config.apiKey}`, {
+  const response = await fetchWithTimeout(`${config.baseUrl}/v1beta/models/${config.model}:generateContent?key=${config.apiKey}`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
@@ -493,10 +499,25 @@ async function callGoogle(config, prompt, options) {
         temperature: 0.25,
       },
     }),
-  });
+  }, options.timeoutMs);
 
   const data = await readProviderJson(response, 'Google');
   const content = data?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!content) throw new Error('AI provider returned an empty response');
   return content;
+}
+
+async function fetchWithTimeout(url, init = {}, timeoutMs = 55000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort('timeout'), timeoutMs);
+  try {
+    return await fetch(url, { ...init, signal: controller.signal });
+  } catch (err) {
+    if (err?.name === 'AbortError' || err === 'timeout') {
+      throw new Error(`AI provider timed out after ${Math.round(timeoutMs / 1000)}s`);
+    }
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
 }
