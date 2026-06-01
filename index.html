@@ -3369,6 +3369,7 @@ const DEFAULT_CONFIG = {
         country: "taiwan",
         title: "China/Taiwan Watch",
         image: "screenshots/final-taiwan-strait.png",
+        heroOnly: true,
         items: [
           { label: "China/Taiwan Watch", subtitle: "Live threat dashboard", target: "pages/taiwan-strait.html", image: "screenshots/final-taiwan-strait.png" },
           { label: "April 2026 Window", subtitle: "Taiwan scenario", target: "pages/taiwan-window-apr-2026.html", image: "screenshots/final-taiwan-apr2026-hero.png" },
@@ -3521,6 +3522,7 @@ function normalizeNavConfig(config) {
           country: 'taiwan',
           title: 'China/Taiwan Watch',
           image: 'screenshots/final-taiwan-strait.png',
+          heroOnly: true,
           items: item.preview?.items?.length ? item.preview.items : [
             { label: 'China/Taiwan Watch', subtitle: 'Live threat dashboard', target: 'pages/taiwan-strait.html', image: 'screenshots/final-taiwan-strait.png' },
             { label: 'April 2026 Window', subtitle: 'Taiwan scenario', target: 'pages/taiwan-window-apr-2026.html', image: 'screenshots/final-taiwan-apr2026-hero.png' },
@@ -3712,6 +3714,15 @@ function renderNavPreview(item) {
   if (!item?.preview) return '';
   const preview = item.preview;
   const image = preview.image || '';
+  if (preview.heroOnly) {
+    return `
+      <div class="nav-preview-card">
+        <div class="nav-preview-hero" style="background-image:url('${escHtml(image)}')">
+          <div class="nav-preview-title">${escHtml(preview.title || item.label)}</div>
+        </div>
+      </div>
+    `;
+  }
   const entries = Array.isArray(preview.items) && preview.items.length
     ? preview.items
     : [{ label: preview.title || item.label, subtitle: 'Open page', target: item.target || '', image }];

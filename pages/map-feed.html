@@ -90,10 +90,6 @@ html, body {
 .sidebar.feed-strip-hidden .sidebar-feed {
   display: none;
 }
-.sidebar.feed-strip-hidden .region-panel {
-  flex: 1;
-  max-height: none;
-}
 .sidebar.collapsed {
   width: 0;
   min-width: 0;
@@ -317,6 +313,22 @@ html, body {
 }
 .article-item:hover .flag-btn { opacity: 1; }
 .flag-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.read-btn {
+  border: 1px solid var(--border-dim);
+  border-radius: 3px;
+  background: var(--surface-2);
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 3px 6px;
+}
+.read-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
 
 .loading-feed {
   padding: 20px 14px;
@@ -421,9 +433,7 @@ html, body {
 }
 .additional-link:hover { color: var(--accent); }
 .region-panel {
-  max-height: 190px;
-  display: flex;
-  flex-direction: column;
+  display: none;
 }
 .region-list {
   overflow-y: auto;
@@ -874,10 +884,10 @@ html, body {
           <select class="filter-select" id="filter-time" onchange="applyFilters()">
             <option value="1h">Last 1 hour</option>
             <option value="6h">Last 6 hours</option>
-            <option value="24h">Last 24 hours</option>
+            <option value="24h" selected>Last 24 hours</option>
             <option value="7d">Last 7 days</option>
             <option value="30d">Last 30 days</option>
-            <option value="all" selected>All time</option>
+            <option value="all">All time</option>
           </select>
         </div>
         <div class="filter-row">
@@ -1117,6 +1127,10 @@ let firstArticleLoad = true;
 let alertAudioCtx = null;
 let visibleUpdateTimer = null;
 let feedStripVisible = true;
+let selectedLocationArticles = null;
+let selectedLocationLabel = '';
+const READ_ARTICLES_KEY = 'conflictMapper:readArticles:v1';
+const readArticleKeys = loadReadArticleKeys();
 
 const TILE_LAYERS = {
   dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
@@ -1152,6 +1166,25 @@ const AGE_COLORS = {
   archive: '#166534',
 };
 
+function loadReadArticleKeys() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(READ_ARTICLES_KEY) || '[]');
+    return new Set(Array.isArray(parsed) ? parsed.map(String) : []);
+  } catch (_) {
+    return new Set();
+  }
+}
+
+function saveReadArticleKeys() {
+  try {
+    localStorage.setItem(READ_ARTICLES_KEY, JSON.stringify(Array.from(readArticleKeys).slice(-5000)));
+  } catch (_) {}
+}
+
+function isArticleRead(article) {
+  return readArticleKeys.has(articleKey(article));
+}
+
 /* ── Init ── */
 function initMap() {
   map = L.map('map', {
@@ -1172,11 +1205,13 @@ function initMap() {
   // Marker cluster group
   markersLayer = L.markerClusterGroup({
     showCoverageOnHover: false,
+    zoomToBoundsOnClick: false,
     maxClusterRadius: 50,
     spiderfyOnMaxZoom: true,
     iconCreateFunction: buildClusterIcon
   });
   map.addLayer(markersLayer);
+  markersLayer.on('clusterclick', handleClusterClick);
   map.on('move zoom moveend zoomend', scheduleVisibleArticleUpdate);
 
   initSidebarResize();
@@ -1404,6 +1439,7 @@ function applyFilters() {
     .filter(Boolean);
 
   filteredArticles = filteredGroups.map(group => group.primary);
+  clearLocationSelection(false);
 
   updateMapMarkers();
   updateVisibleArticlePanels();
@@ -1528,7 +1564,7 @@ function updateMapMarkers() {
   articleMarkers.clear();
 
   const geoArticles = filteredArticles.filter(a => {
-    return !!getGeoCoords(a);
+    return !!getGeoCoords(a) && !isArticleRead(a);
   });
 
   geoArticles.forEach(article => {
@@ -1561,10 +1597,10 @@ function updateMapMarkers() {
       setTooltipExpanded(marker, false);
     });
     marker.bindTooltip(buildTooltip(article), {
-      direction: 'right',
-      offset: [14, 0],
-      permanent: true,
-      sticky: false,
+      direction: 'top',
+      offset: [0, -8],
+      permanent: false,
+      sticky: true,
       opacity: 0.98,
       interactive: true,
       className: `article-tooltip article-map-label age-${ageBucket}`,
@@ -1596,6 +1632,36 @@ function buildClusterIcon(cluster) {
     className: `marker-cluster time-cluster age-${ageBucket}`,
     iconSize: [size, size],
   });
+}
+
+function handleClusterClick(event) {
+  const cluster = event.layer;
+  const markers = cluster?.getAllChildMarkers ? cluster.getAllChildMarkers() : [];
+  const articles = markers.map(marker => marker._cmArticle).filter(Boolean).filter(article => !isArticleRead(article));
+  if (!articles.length) return;
+  const center = cluster.getLatLng ? cluster.getLatLng() : null;
+  selectedLocationArticles = sortNewest(articles);
+  selectedLocationLabel = locationLabelForArticles(selectedLocationArticles, center);
+  updateFeedList();
+  if (map && center) {
+    const nextZoom = Math.min(map.getMaxZoom(), Math.max(map.getZoom() + 2, 7));
+    map.setView(center, nextZoom, { animate: true });
+  }
+}
+
+function locationLabelForArticles(articles, center) {
+  const places = articles
+    .map(article => article.geo?.place || article.location || article.geo?.country || article.country)
+    .filter(Boolean);
+  const byPlace = places.reduce((acc, place) => {
+    const key = String(place);
+    acc.set(key, (acc.get(key) || 0) + 1);
+    return acc;
+  }, new Map());
+  const [place] = Array.from(byPlace.entries()).sort((a, b) => b[1] - a[1])[0] || [];
+  if (place) return place;
+  if (center) return `${center.lat.toFixed(2)}, ${center.lng.toFixed(2)}`;
+  return 'Selected location';
 }
 
 function getArticleAgeBucket(article) {
@@ -1646,6 +1712,7 @@ function buildPopup(article) {
     <div class="popup-actions">
       ${(article.link || article.url) ? `<a href="${escHtml(article.link || article.url)}" target="_blank" rel="noopener" class="popup-btn primary" style="text-decoration:none">Read</a>` : ''}
       <button class="popup-btn" onclick="openFlagModal(${JSON.stringify({ id: article.id, title: article.title }).replace(/"/g, '&quot;')})">⚑ Flag</button>
+      <button class="popup-btn" onclick="markArticleRead(${JSON.stringify(article).replace(/"/g, '&quot;')})">Mark Read</button>
     </div>
   `;
 }
@@ -1746,7 +1813,10 @@ function updateFeedList() {
   const container = document.getElementById('article-feed');
   if (!container) return;
   if (!feedStripVisible) return;
-  const visibleArticles = getVisibleArticles();
+  const selected = Array.isArray(selectedLocationArticles) && selectedLocationArticles.length
+    ? selectedLocationArticles.filter(article => !isArticleRead(article))
+    : null;
+  const visibleArticles = selected || getVisibleArticles();
 
   if (!visibleArticles.length) {
     container.innerHTML = `<div class="empty-feed">No geotagged articles are visible in this map view.<br>Move or zoom the map, or expand filters.</div>`;
@@ -1757,7 +1827,11 @@ function updateFeedList() {
   const rendered = sorted.slice(0, 250);
 
   container.innerHTML = `
-    <div class="feed-section-label">Visible Articles (${sorted.length}${sorted.length > rendered.length ? `, showing newest ${rendered.length}` : ''})</div>
+    <div class="feed-section-label">
+      ${selected ? `Selected Location: ${escHtml(selectedLocationLabel || 'Map Selection')}` : 'Visible Articles'}
+      (${sorted.length}${sorted.length > rendered.length ? `, showing newest ${rendered.length}` : ''})
+      ${selected ? `<button class="read-btn" style="float:right;margin-top:-3px" onclick="clearLocationSelection()">Clear</button>` : ''}
+    </div>
     ${rendered.map(a => `
       <div class="article-item" data-article-key="${escHtml(articleKey(a))}" onclick="focusArticle(${JSON.stringify(a).replace(/"/g, '&quot;')})">
         <button class="flag-btn" title="Flag for analysis" onclick="event.stopPropagation(); openFlagModal(${JSON.stringify({ id: a.id, title: a.title }).replace(/"/g, '&quot;')})">⚑</button>
@@ -1767,12 +1841,19 @@ function updateFeedList() {
           <span class="article-source">${escHtml(a.source || 'Unknown')}</span>
           <span class="article-time">${timeAgo(a.pubDate || a.publishedAt)}</span>
           ${a.additionalReporting?.length ? `<span class="article-time">+${a.additionalReporting.length} related</span>` : ''}
+          <button class="read-btn" onclick="event.stopPropagation(); markArticleRead(${JSON.stringify(a).replace(/"/g, '&quot;')})">Read</button>
         </div>
       </div>
     `).join('')}
     ${sorted.length > rendered.length ? '<div class="empty-feed" style="padding:12px">Zoom into an area to narrow the visible article strip.</div>' : ''}
   `;
   attachArticleHoverHandlers(container);
+}
+
+function clearLocationSelection(refresh = true) {
+  selectedLocationArticles = null;
+  selectedLocationLabel = '';
+  if (refresh) updateFeedList();
 }
 
 function focusArticle(article) {
@@ -1782,6 +1863,21 @@ function focusArticle(article) {
     const { lat, lng } = coords;
     map.setView([lat, lng], 6, { animate: true });
   }
+}
+
+function markArticleRead(article) {
+  const key = articleKey(article);
+  if (!key) return;
+  readArticleKeys.add(key);
+  saveReadArticleKeys();
+  if (Array.isArray(selectedLocationArticles)) {
+    selectedLocationArticles = selectedLocationArticles.filter(item => articleKey(item) !== key);
+  }
+  closeStoryCard();
+  updateMapMarkers();
+  updateVisibleArticlePanels();
+  updateStats();
+  showToast('Article hidden from map. It remains available in News Library.');
 }
 
 function showStoryCard(article) {
@@ -1804,6 +1900,7 @@ function showStoryCard(article) {
     <div class="story-card-actions">
       ${(article.link || article.url) ? `<a href="${escHtml(article.link || article.url)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="text-decoration:none">Open Source</a>` : ''}
       <button class="btn btn-secondary btn-sm" onclick="openFlagModal(${JSON.stringify({ id: article.id, title: article.title }).replace(/"/g, '&quot;')})">Flag</button>
+      <button class="btn btn-secondary btn-sm" onclick="markArticleRead(${JSON.stringify(article).replace(/"/g, '&quot;')})">Mark Read</button>
     </div>
     <div class="additional-reporting">
       <div class="additional-reporting-title">Additional Reporting</div>
@@ -1842,16 +1939,16 @@ function updateRegionList() {
 }
 
 function getVisibleArticles() {
-  if (!map) return sortNewest(filteredArticles.filter(getGeoCoords));
+  const mapArticles = filteredArticles.filter(article => getGeoCoords(article) && !isArticleRead(article));
+  if (!map) return sortNewest(mapArticles);
   const bounds = map.getBounds();
-  return sortNewest(filteredArticles.filter(article => {
+  return sortNewest(mapArticles.filter(article => {
     const coords = getGeoCoords(article);
     return coords && bounds.contains([coords.lat, coords.lng]);
   }));
 }
 
 function updateVisibleArticlePanels() {
-  updateRegionList();
   updateFeedList();
 }
 
@@ -1879,9 +1976,10 @@ function toggleArticleStrip() {
 
 /* ── Stats ── */
 function updateStats() {
-  document.getElementById('stat-total').textContent = filteredArticles.length;
-  document.getElementById('stat-geo').textContent = filteredArticles.filter(a => getGeoCoords(a)).length;
-  const sources = new Set(filteredArticles.map(a => a.source).filter(Boolean));
+  const mapArticles = filteredArticles.filter(article => !isArticleRead(article));
+  document.getElementById('stat-total').textContent = mapArticles.length;
+  document.getElementById('stat-geo').textContent = mapArticles.filter(a => getGeoCoords(a)).length;
+  const sources = new Set(mapArticles.map(a => a.source).filter(Boolean));
   document.getElementById('stat-sources').textContent = sources.size;
 }
 

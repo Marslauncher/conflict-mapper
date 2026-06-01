@@ -5,7 +5,7 @@ const MONITORING_CONFIG_KEY = 'monitoring:config:v1';
 export const DEFAULT_TOPICS = [
   { id: 'breaking', name: 'Breaking News', keywords: ['breaking', 'urgent', 'live updates'] },
   { id: 'geopolitics', name: 'Geopolitics', keywords: ['geopolitics', 'foreign policy', 'diplomacy', 'sanctions', 'treaty', 'summit'] },
-  { id: 'military', name: 'Military', keywords: ['military', 'missile', 'drone', 'troops', 'marines', 'airstrike', 'warship', 'navy', 'army', 'air force', 'submarine', 'ammunition', 'munitions', 'defense', 'defence'] },
+  { id: 'military', name: 'Military', keywords: ['war', 'armed conflict', 'battlefield', 'frontline', 'fighting', 'escalation', 'military', 'missile', 'drone', 'troops', 'marines', 'airstrike', 'warship', 'navy', 'army', 'air force', 'submarine', 'ammunition', 'munitions', 'defense', 'defence'] },
   { id: 'political', name: 'Political', keywords: ['election', 'parliament', 'president', 'minister', 'government', 'coup', 'protest'] },
   { id: 'economic', name: 'Economic Security', keywords: ['market', 'trade', 'tariff', 'supply chain', 'shipping', 'oil', 'gas', 'energy', 'sanctions'] },
   { id: 'cyber', name: 'Cybersecurity', keywords: ['cyber', 'ransomware', 'malware', 'hack', 'breach', 'espionage', 'zero-day'] },
@@ -124,7 +124,7 @@ export function articleMatchesMonitoringConfig(article, config) {
 
 function isLowSignalNoise(text, category, tags) {
   const value = String(text || '').toLowerCase();
-  if (/(\btop photos?\b|\bphoto gallery\b|\bgallery was curated\b|\bmessi\b|\bchampions league\b|\bformula one\b|\bf1\b|\bshoe pads?\b|\bhandcrafted\b|\binspired by son\b|\bhome loan\b|\bcash back\b|\bcredit card\b|\bhoroscope\b)/.test(value)) return true;
+  if (/(\btop photos?\b|\bphoto gallery\b|\bgallery was curated\b|\bmessi\b|\bchampions league\b|\bformula one\b|\bf1\b|\bshoe pads?\b|\bhandcrafted\b|\binspired by son\b|\bgubernatorial election\b|\bprefecture gubernatorial\b|\bincumbent\b.*\bwins\b|\bhome loan\b|\bcash back\b|\bcredit card\b|\bhoroscope\b)/.test(value)) return true;
   if (hasOperationalSignal(value, category, tags)) return false;
   return /(\bcelebrity\b|\bentertainment\b|\bsports?\b|\broyal\b|\bfashion\b|\bhome loan\b|\bcash back\b|\bcredit card\b|\bhoroscope\b|\bnicola sturgeon\b|\bfirst minister\b|\bfederal judge\b|\bastronaut\b|\bmoon mission\b|\bworld health organization\b|\bebola\b|\bchampions league\b|\bfootball\b|\bsoccer\b|\bceos?\b.*\bresign|\bresign.*\bceos?\b|\bscandal\b|\bembezzlement\b)/.test(value);
 }

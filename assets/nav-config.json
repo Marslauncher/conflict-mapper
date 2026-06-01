@@ -135,6 +135,7 @@
         "country": "taiwan",
         "title": "China/Taiwan Watch",
         "image": "screenshots/final-taiwan-strait.png",
+        "heroOnly": true,
         "items": [
           {
             "label": "China/Taiwan Watch",
