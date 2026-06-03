@@ -364,6 +364,31 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
         },
       });
     }
+    const formatResult = normalizeReportBody({
+      body: aiText,
+      title,
+      scope,
+      slug: normalizedSlug,
+      articles: selectedArticles,
+      aiFallback,
+    });
+    aiText = formatResult.body;
+    if (formatResult.changed) {
+      await appendReportLog(env, {
+        level: formatResult.fallback ? 'warn' : 'info',
+        category: 'analysis',
+        message: formatResult.message,
+        details: {
+          scope,
+          slug: normalizedSlug,
+          provider,
+          model,
+          promptId,
+          fallback: formatResult.fallback,
+        },
+      });
+    }
+
     await appendReportLog(env, {
       category: 'ai',
       message: aiFallback ? 'Fallback report body generated' : 'AI provider returned report body',
@@ -377,6 +402,7 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
         aiArticles: aiArticles.length,
         bodyCharacters: aiText.length,
         aiFallback,
+        formatNormalized: formatResult.changed,
       },
     });
 
@@ -1349,6 +1375,318 @@ function generateFallbackReportBody({ title, scope, slug, articles, error }) {
   </div>
   <div class="panel watch-panel">${watchItems}</div>
 </div>`;
+}
+
+function normalizeReportBody({ body, title, scope, slug, articles, aiFallback = false }) {
+  const cleaned = stripCodeFence(body);
+  if (isStructuredReportBody(cleaned)) {
+    return { body: cleaned, changed: false, fallback: aiFallback, message: 'Report body already uses the styled report structure' };
+  }
+
+  const coerced = coercePlainReportBody(cleaned, { title, scope, slug, articles });
+  if (coerced) {
+    return {
+      body: coerced,
+      changed: true,
+      fallback: aiFallback,
+      message: 'AI report body did not preserve styled class structure; converted plain sections to styled report panels',
+    };
+  }
+
+  return {
+    body: generateFallbackReportBody({
+      title,
+      scope,
+      slug,
+      articles,
+      error: 'AI response did not preserve the required Conflict Mapper report HTML structure.',
+    }),
+    changed: true,
+    fallback: true,
+    message: 'AI report body did not preserve styled class structure; using deterministic styled fallback renderer',
+  };
+}
+
+function isStructuredReportBody(value) {
+  const html = String(value || '').toLowerCase();
+  return html.includes('class="exec-summary"')
+    && html.includes('class="section"')
+    && (html.includes('class="trend-card"') || html.includes('class="panel"'))
+    && (html.includes('class="section-title"') || html.includes('class="section-header"'));
+}
+
+function coercePlainReportBody(value, { scope, slug, articles }) {
+  const sections = extractPlainReportSections(value);
+  const executiveSummary = firstSectionText(sections, ['executive summary', 'summary']);
+  const keyDevelopments = sectionBullets(sections, ['key developments', 'global trends', 'priority analysis']);
+  const risks = sectionBullets(sections, ['risk assessment', 'areas of concern', 'risks']);
+  const watchItems = sectionBullets(sections, ['indicators to watch', 'watch list', 'items to monitor']);
+  const outlook = firstSectionText(sections, ['near-term outlook', 'outlook', 'forecast']);
+
+  if (!executiveSummary && keyDevelopments.length < 2 && risks.length < 2) return '';
+
+  const scopeName = scope === 'global'
+    ? 'global'
+    : scope === 'watch'
+      ? watchTitle(slug)
+      : (COUNTRY_LABELS[slug] || slug.replace(/-/g, ' '));
+  const sourceArticles = Array.isArray(articles) ? articles : [];
+  const topDevelopments = keyDevelopments.length
+    ? keyDevelopments.slice(0, 8)
+    : sourceArticles.slice(0, 8).map((article) => `${article.title}. ${article.description || ''}`.trim());
+  const topRisks = risks.length
+    ? risks.slice(0, 8)
+    : topDevelopments.slice(0, 6);
+  const topWatch = watchItems.length
+    ? watchItems.slice(0, 12)
+    : topDevelopments.slice(0, 8).map((item) => `Monitor follow-on reporting for ${shortTitle(item)}`);
+
+  const trendCards = topDevelopments.map((item, index) => {
+    const risk = riskForText(item, index);
+    const trajectory = trajectoryForText(item, index);
+    const { heading, detail } = splitLeadPhrase(item);
+    return `<div class="trend-card">
+      <div class="trend-card-head">
+        <h3><span class="trend-rank">#${index + 1}</span>${escapeHtml(heading)}</h3>
+        <div class="badge-row">
+          <span class="risk-badge risk-${risk.toLowerCase()}">${risk}</span>
+          <span class="risk-badge trajectory-${trajectory}">${trajectory.toUpperCase()}</span>
+        </div>
+      </div>
+      <p>${escapeHtml(detail || item)}</p>
+      <div class="regions-line">REGIONS: ${escapeHtml(inferRegionsLine(item, sourceArticles, scopeName))}</div>
+    </div>`;
+  }).join('');
+
+  const developments = sourceArticles.slice(0, 10).map((article, index) => {
+    const date = article.pubDate ? new Date(article.pubDate).toISOString().slice(0, 10) : 'unknown-date';
+    return `<div class="feed-row">
+      <div class="feed-meta"><span class="breaking-dot">◉ ${escapeHtml(article.category || 'UPDATE').toUpperCase()}</span><span>${date}</span><span>${escapeHtml(article.source || 'unknown source')}</span></div>
+      <div class="feed-title">${escapeHtml(article.title || 'Untitled source item')}</div>
+      <div class="feed-summary">${escapeHtml(article.description || 'No summary was available from the feed parser.')} [${index + 1}]</div>
+    </div>`;
+  }).join('');
+
+  const riskRows = topRisks.map((item, index) => {
+    const risk = riskForText(item, index);
+    const { heading, detail } = splitLeadPhrase(item);
+    return `<div class="risk-row">
+      <span class="risk-badge risk-${risk.toLowerCase()}">${risk}</span>
+      <div><div class="risk-location">${escapeHtml(heading)}</div><div class="risk-detail">${escapeHtml(detail || item)}</div></div>
+    </div>`;
+  }).join('');
+
+  const regionCounts = countBy(sourceArticles, (article) => article.geo?.place || article.geo?.country || article.country || scopeName);
+  const theaterRows = Object.entries(regionCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 7)
+    .map(([region, count]) => `<div class="theater-row"><div class="theater-name">${escapeHtml(region)}</div><div class="theater-assessment">${count} selected source item${count === 1 ? '' : 's'} currently map to this area. Review for escalation indicators, force posture changes, infrastructure exposure, and second-order operational impacts.</div></div>`)
+    .join('');
+
+  const watchRows = topWatch.map((item) => `<div class="watch-row"><span>◆</span><span>${escapeHtml(item)}</span></div>`).join('');
+  const summary = executiveSummary || `Current ${scopeName} source coverage is concentrated around ${topDevelopments.slice(0, 3).map(shortTitle).join('; ')}. Prioritize validation of escalation indicators, operational infrastructure impacts, and cross-source confirmation.`;
+
+  return `<div class="exec-summary">
+  <strong>EXECUTIVE SUMMARY</strong>
+  ${escapeHtml(summary)}
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">${scope === 'watch' ? 'Watch Trends' : 'Global Trends'}</span>
+    <span class="section-label">PRIORITY ANALYSIS</span>
+  </div>
+  ${trendCards}
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Breaking Developments</span>
+    <span class="section-label">LATEST SOURCES</span>
+  </div>
+  <div class="panel">${developments || '<div class="feed-row"><div class="feed-title">No source articles attached.</div></div>'}</div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Areas of Concern</span>
+    <span class="section-label">RISK ASSESSMENT</span>
+  </div>
+  <div class="panel">${riskRows}</div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Regional Assessments</span>
+    <span class="section-label">BY THEATER</span>
+  </div>
+  <div class="panel">${theaterRows || `<div class="theater-row"><div class="theater-name">${escapeHtml(scopeName)}</div><div class="theater-assessment">No precise regional clustering was available in the selected source set.</div></div>`}</div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Near-Term Outlook</span>
+    <span class="section-label">30-90 DAY FORECAST</span>
+  </div>
+  <div class="outlook-box">${escapeHtml(outlook || 'Expect reporting volume and cross-source confirmation to determine whether these signals mature into persistent operational risk. Continue monitoring force posture, infrastructure disruption, cyber activity, logistics effects, sanctions exposure, and official government warnings.')}</div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Watch List</span>
+    <span class="section-label">ITEMS TO MONITOR</span>
+  </div>
+  <div class="panel watch-panel">${watchRows}</div>
+</div>`;
+}
+
+function extractPlainReportSections(value) {
+  const lines = htmlToPlainReportLines(value);
+  const sections = new Map();
+  let current = 'preamble';
+  sections.set(current, []);
+  for (const line of lines) {
+    const heading = normalizePlainHeading(line);
+    if (heading) {
+      current = heading;
+      if (!sections.has(current)) sections.set(current, []);
+      continue;
+    }
+    sections.get(current).push(line);
+  }
+  return sections;
+}
+
+function htmlToPlainReportLines(value) {
+  return decodeHtmlEntities(String(value || '')
+    .replace(/<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>/gi, '\n## $1\n')
+    .replace(/<li[^>]*>([\s\S]*?)<\/li>/gi, '\n- $1\n')
+    .replace(/<\/(p|div|section|ul|ol)>/gi, '\n')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\*\*/g, '')
+    .replace(/\r/g, '\n'))
+    .split('\n')
+    .map((line) => line.replace(/\s+/g, ' ').trim())
+    .filter(Boolean);
+}
+
+function normalizePlainHeading(line) {
+  const cleaned = String(line || '')
+    .replace(/^#+\s*/, '')
+    .replace(/:$/, '')
+    .trim()
+    .toLowerCase();
+  const known = [
+    'executive summary',
+    'key developments',
+    'global trends',
+    'priority analysis',
+    'breaking developments',
+    'risk assessment',
+    'areas of concern',
+    'regional assessments',
+    'near-term outlook',
+    'outlook',
+    'forecast',
+    'indicators to watch',
+    'watch list',
+    'items to monitor',
+  ];
+  return known.includes(cleaned) ? cleaned : '';
+}
+
+function firstSectionText(sections, names) {
+  for (const name of names) {
+    const lines = sections.get(name);
+    if (lines?.length) return joinSectionLines(lines).slice(0, 2200);
+  }
+  return '';
+}
+
+function sectionBullets(sections, names) {
+  for (const name of names) {
+    const lines = sections.get(name);
+    if (lines?.length) {
+      const bullets = splitPlainBullets(lines);
+      if (bullets.length) return bullets;
+    }
+  }
+  return [];
+}
+
+function splitPlainBullets(lines) {
+  const items = [];
+  let current = '';
+  for (const line of lines) {
+    if (/^[-•*]\s+/.test(line)) {
+      if (current) items.push(current.trim());
+      current = line.replace(/^[-•*]\s+/, '').trim();
+    } else if (current) {
+      current += ` ${line}`;
+    } else {
+      current = line;
+    }
+  }
+  if (current) items.push(current.trim());
+  return items.filter((item) => item.length > 20);
+}
+
+function joinSectionLines(lines) {
+  return lines
+    .map((line) => line.replace(/^[-•*]\s+/, ''))
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function splitLeadPhrase(value) {
+  const text = String(value || '').trim();
+  const colon = text.match(/^(.{8,110}?):\s+(.+)$/);
+  if (colon) return { heading: colon[1], detail: colon[2] };
+  const sentence = text.match(/^(.{8,110}?\.)\s+(.+)$/);
+  if (sentence) return { heading: sentence[1].replace(/\.$/, ''), detail: sentence[2] };
+  return { heading: shortTitle(text), detail: text };
+}
+
+function riskForText(value, index = 0) {
+  const text = String(value || '').toLowerCase();
+  if (/(nuclear|missile|airstrike|war|invasion|critical infrastructure|cyberattack|maritime interdiction|hormuz|taiwan strait|gaza|ukraine|iran)/.test(text)) {
+    return index < 3 ? 'CRITICAL' : 'HIGH';
+  }
+  if (/(military|weapon|sanction|shipping|energy|drone|naval|escalat|frontline|procurement|supply chain)/.test(text)) return 'HIGH';
+  if (/(political|economic|technology|semiconductor|trade|diplomatic)/.test(text)) return 'MEDIUM';
+  return 'LOW';
+}
+
+function trajectoryForText(value, index = 0) {
+  const text = String(value || '').toLowerCase();
+  if (/(de-escalat|ceasefire|truce|talks resumed|withdraw)/.test(text)) return 'deescalating';
+  if (/(escalat|strike|attack|surge|reinforce|mobiliz|offensive|threat)/.test(text)) return 'escalating';
+  return index < 3 ? 'escalating' : 'stable';
+}
+
+function inferRegionsLine(value, articles, fallback) {
+  const text = String(value || '').toLowerCase();
+  const regions = [];
+  if (/(iran|israel|gaza|lebanon|hormuz|red sea|houthi|middle east)/.test(text)) regions.push('middleEast');
+  if (/(ukraine|russia|nato|europe|black sea)/.test(text)) regions.push('europe');
+  if (/(china|taiwan|south china sea|north korea|japan|philippines|india|pakistan)/.test(text)) regions.push('asiaPacific');
+  if (/(africa|sahel|sudan|ethiopia|congo)/.test(text)) regions.push('africa');
+  if (/(america|united states|washington|latin america|caribbean)/.test(text)) regions.push('americas');
+  if (regions.length) return Array.from(new Set(regions)).join(' · ');
+  const articleRegion = articles.find((article) => article.geo?.place || article.geo?.country || article.country);
+  return articleRegion?.geo?.place || articleRegion?.geo?.country || articleRegion?.country || fallback;
+}
+
+function decodeHtmlEntities(value) {
+  return String(value || '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
 }
 
 function renderReportHtml({ title, body, articles }) {

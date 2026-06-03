@@ -111,7 +111,7 @@ Edit `workers/report-cron/wrangler.toml`:
 - Replace `REPLACE_WITH_D1_DATABASE_ID`.
 - Confirm `STATIC_SITE_BASE_URL = "https://conflict-mapper.pages.dev"`.
 - Leave `FETCH_FEEDS_BEFORE_REPORTS = "true"` if the cron job should refresh RSS into KV before generating reports.
-- Adjust the cron expression if needed.
+- Adjust the cron expressions if needed. The default schedule uses one global job, one China/Taiwan watch job, and three independent country-report shards.
 
 Add the same encryption secret to the Worker so scheduled reports can read the saved provider config:
 
@@ -129,7 +129,13 @@ cd workers/report-cron
 npx wrangler secret put OPENROUTER_API_KEY
 ```
 
-The default cron is `15 8 * * *`, which runs daily at 08:15 UTC. It refreshes the RSS article cache, then generates the global report, the China/Taiwan watch report, and all configured country reports.
+The default cron schedule is:
+
+- `15 8 * * *`: refresh RSS and generate the Global Analysis report.
+- `20 8 * * *`: generate the China/Taiwan Watch report from the existing article cache.
+- `30 8 * * *`, `35 8 * * *`, and `40 8 * * *`: generate country-report shards, mapped from `REPORT_COUNTRIES` and run with `REPORT_COUNTRY_PARALLELISM`.
+
+This intentionally avoids the old combined global + country serial run. Country reports are independent daily scheduled shards, so a slow country model call does not block or time out the global report. The default stays within Cloudflare's five-cron-trigger Free plan limit while still updating every configured country each day.
 
 ## 6. Verify
 
@@ -200,6 +206,8 @@ Test the cron Worker manually:
 cd workers/report-cron
 npx wrangler dev --test-scheduled
 curl "http://localhost:8787/__scheduled?cron=15+8+*+*+*"
+curl "http://localhost:8787/__scheduled?scope=country&slug=usa"
+curl "http://localhost:8787/__scheduled?scope=watch&slug=taiwan"
 ```
 
 ## Security Notes
