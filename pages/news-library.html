@@ -35,7 +35,12 @@ body {
   color: var(--text);
   font-family: var(--font-body);
 }
-.library-shell { max-width: 1480px; margin: 0 auto; padding: 34px 28px 56px; }
+.library-shell {
+  width: var(--cm-content-max-width, min(90vw, calc(100vw - 32px)));
+  max-width: none;
+  margin: 0 auto;
+  padding: 34px 28px 56px;
+}
 .page-kicker {
   font-family: var(--font-mono);
   font-size: 0.64rem;

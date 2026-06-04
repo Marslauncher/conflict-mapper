@@ -107,11 +107,25 @@
     },
   };
 
+  const DEFAULT_LAYOUT = {
+    contentWidthPercent: 90,
+  };
+
+  const DEFAULT_TEXT_SIZES = {
+    article: 15,
+    header: 24,
+    sideMenu: 10,
+    commentary: 12,
+    navigation: 16,
+  };
+
   const DEFAULT_SETTINGS = {
     template: 'command',
     mode: THEMES.command.mode,
     fontScale: THEMES.command.fontScale,
     colors: { ...THEMES.command.colors },
+    layout: { ...DEFAULT_LAYOUT },
+    textSizes: { ...DEFAULT_TEXT_SIZES },
   };
 
   function readSettings() {
@@ -137,11 +151,22 @@
   function normalize(input) {
     const base = THEMES[input?.template] || THEMES.command;
     const fontScale = Number(input?.fontScale);
+    const rawWidth = Number(input?.layout?.contentWidthPercent);
+    const contentWidthPercent = Number.isFinite(rawWidth)
+      ? Math.min(100, Math.max(60, rawWidth))
+      : DEFAULT_LAYOUT.contentWidthPercent;
+    const textSizes = {};
+    for (const [key, defaultValue] of Object.entries(DEFAULT_TEXT_SIZES)) {
+      const value = Number(input?.textSizes?.[key]);
+      textSizes[key] = Number.isFinite(value) ? Math.min(42, Math.max(7, value)) : defaultValue;
+    }
     return {
       template: input?.template && THEMES[input.template] ? input.template : 'command',
       mode: input?.mode === 'light' ? 'light' : 'dark',
       fontScale: Number.isFinite(fontScale) ? Math.min(1.35, Math.max(0.92, fontScale)) : base.fontScale,
       colors: { ...base.colors, ...(input?.colors || {}) },
+      layout: { contentWidthPercent },
+      textSizes,
     };
   }
 
@@ -157,9 +182,19 @@
     const normalized = normalize(settings);
     const root = document.documentElement;
     const c = normalized.colors;
+    const width = normalized.layout.contentWidthPercent;
+    const sizes = normalized.textSizes;
     root.setAttribute('data-theme', normalized.mode);
     root.style.setProperty('--cm-font-scale', String(normalized.fontScale));
     root.style.setProperty('--cm-text-base-px', `${Math.round(16 * normalized.fontScale)}px`);
+    root.style.setProperty('--cm-content-width', `${width}%`);
+    root.style.setProperty('--cm-content-max-width', `min(${width}vw, calc(100vw - var(--cm-page-gutter, 32px) * 2))`);
+    root.style.setProperty('--cm-page-gutter', 'clamp(14px, 2vw, 36px)');
+    root.style.setProperty('--cm-article-text-size', `${sizes.article}pt`);
+    root.style.setProperty('--cm-header-text-size', `${sizes.header}pt`);
+    root.style.setProperty('--cm-side-menu-text-size', `${sizes.sideMenu}pt`);
+    root.style.setProperty('--cm-commentary-text-size', `${sizes.commentary}pt`);
+    root.style.setProperty('--cm-navigation-text-size', `${sizes.navigation}pt`);
     root.style.setProperty('--color-bg', c.bg);
     root.style.setProperty('--color-surface', c.surface);
     root.style.setProperty('--color-surface-2', c.surface2);
@@ -208,8 +243,62 @@
       button, input, select, textarea, table, .storage-object-browser {
         font-size: calc(1em * var(--cm-font-scale, 1));
       }
+      .welcome-hero, .welcome-section, .welcome-stats,
+      .library-shell, .page, .hero-inner, .section,
+      .main-grid, .current-assessment-section,
+      .section-wrap, .report-shell, .report-container,
+      .storage-object-browser {
+        width: var(--cm-content-max-width, min(90vw, calc(100vw - 32px))) !important;
+        max-width: none !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+      @media (max-width: 820px) {
+        .welcome-hero, .welcome-section, .welcome-stats,
+        .library-shell, .page, .hero-inner, .section,
+        .main-grid, .current-assessment-section,
+        .section-wrap, .report-shell, .report-container,
+        .storage-object-browser {
+          width: calc(100vw - 24px) !important;
+        }
+      }
+      .nav-link, .nav-dropdown-trigger, .nav-settings, .nav-hamburger,
+      .topbar-link, .topbar-logo, .topbar-crumb, .top-nav a, .brand,
+      .admin-nav-item, .admin-mobile-section-bar {
+        font-size: var(--cm-navigation-text-size, 16pt) !important;
+      }
+      @media (max-width: 820px) {
+        .nav-link, .nav-dropdown-trigger, .nav-settings, .nav-hamburger,
+        .topbar-link, .topbar-logo, .topbar-crumb, .top-nav a, .brand,
+        .admin-nav-item, .admin-mobile-section-bar {
+          font-size: min(var(--cm-navigation-text-size, 16pt), 15px) !important;
+        }
+      }
+      h2, h3, .report-title, .report-body h2, .report-body h3,
+      .section-title, .admin-section-title, .card-title,
+      .source-heading, .group-title, .source-stack h3 {
+        font-size: var(--cm-header-text-size, 24pt) !important;
+      }
+      p, li, .feed-summary, .risk-detail, .theater-assessment,
+      .article-summary, .summary, .outlook-box, .exec-summary,
+      .assessment-lede, .assessment-summary-item, .section-assessment-note,
+      .source-summary, .source-analysis, .source-link-title,
+      .article-title, .reference-note, .weapon-body p,
+      .scenario-review p, .scenario-review li {
+        font-size: var(--cm-article-text-size, 15pt) !important;
+      }
+      .meta, .feed-meta, .article-meta, .report-meta, .source-link-meta,
+      .metric-label, .metric-sub, .stat-label, .card-subtitle,
+      .weapon-role, .source-meta, .eyebrow, .page-kicker,
+      .generated-stamp, .classification-bar, .section-label {
+        font-size: var(--cm-commentary-text-size, 12pt) !important;
+      }
+      .activity-title, .rss-article-title, .visible-article-title,
+      .feed-title, .nav-preview-article-title, .storage-key {
+        font-size: var(--cm-side-menu-text-size, 10pt) !important;
+      }
       .report-title, .classification-bar, .section-label, .theater-name,
-      .topic-link, .watch-row span:first-child, .page-title, .hero-title {
+      .topic-link, .watch-row span:first-child {
         color: var(--color-teal, #2dd4bf) !important;
       }
       .classification-bar, .exec-summary, .topic-link {
@@ -222,11 +311,6 @@
         border-color: var(--color-border-dim, rgba(255,255,255,0.08)) !important;
       }
       a { color: var(--color-accent, #c41e3a); }
-      p, li, .feed-summary, .risk-detail, .theater-assessment,
-      .article-summary, .summary, .storage-row, .source-list li,
-      .trend-card, .outlook-box, .exec-summary {
-        font-size: calc(1em * var(--cm-font-scale, 1)) !important;
-      }
       .muted, .meta, .feed-meta, .article-meta, .report-meta,
       .storage-row:not(.header), .source-list, .risk-detail {
         color: var(--color-text-muted, var(--text-muted, #9aa4b8)) !important;
@@ -237,8 +321,8 @@
           var(--color-bg, #0a0c10) !important;
       }
       html.cm-legacy-report main {
-        width: min(1120px, calc(100vw - 32px)) !important;
-        max-width: min(1120px, calc(100vw - 32px)) !important;
+        width: var(--cm-content-max-width, min(90vw, calc(100vw - 32px))) !important;
+        max-width: none !important;
         margin: 0 auto !important;
         padding: clamp(28px, 4vw, 58px) 0 !important;
         color: var(--color-text, #dde2ec) !important;
@@ -294,7 +378,7 @@
       html.cm-legacy-report .report-body li,
       html.cm-legacy-report .sources li {
         color: var(--color-text, #dde2ec) !important;
-        font-size: calc(0.98rem * var(--cm-font-scale, 1)) !important;
+        font-size: var(--cm-article-text-size, 15pt) !important;
         line-height: 1.68 !important;
       }
       html.cm-legacy-report .report-body ul,
