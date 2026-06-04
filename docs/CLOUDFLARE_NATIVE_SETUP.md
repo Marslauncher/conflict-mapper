@@ -69,8 +69,8 @@ Set:
 | `PERPLEXITY_MODEL` | variable | `sonar-pro` |
 | `OPENROUTER_MODEL` | variable | `openai/gpt-4o-mini` |
 | `NVIDIA_MODEL` | variable | `nvidia/llama-3.3-nemotron-super-49b-v1` |
-| `REPORT_STATUS_STALE_MINUTES` | variable | `5` |
-| `REPORT_MAX_TOKENS` | variable | `6000` |
+| `REPORT_STATUS_STALE_MINUTES` | variable | `8` |
+| `REPORT_MAX_TOKENS` | variable | `10000` |
 | `REPORT_AI_TIMEOUT_MS` | variable | `75000` |
 | `REPORT_AI_ARTICLE_LIMIT` | variable | `24` |
 | `ALLOW_REPORT_FALLBACK` | variable | `true` |
@@ -194,7 +194,7 @@ RSS ingestion now loads the monitored Countries and Topics from `CONFIG_KV`, tra
 
 The Settings -> Logs page and `/api/logs` expose queued/running/failed report phases plus RSS fetch progress. If report generation fails before calling the AI provider, the log entry includes a mitigation field, for example missing D1 migrations or Cloudflare bindings.
 
-Single-report generation runs inside the request instead of relying on a long background Pages `waitUntil` job. `REPORT_AI_TIMEOUT_MS` prevents stalled provider calls; Perplexity report generation enforces a 75-second minimum because Sonar-Pro can exceed shorter limits. `REPORT_AI_ARTICLE_LIMIT` controls how many top-ranked articles are sent to the AI provider; the report still archives and links the full selected source set, but a smaller AI working set keeps Sonar-Pro and similar models from timing out. `REPORT_MAX_TOKENS=6000` is still enough for a verbose 1,800-3,200 word report, and Perplexity report calls are capped there to avoid slow or oversized responses. If `ALLOW_REPORT_FALLBACK=true`, a provider failure or timeout is logged and the app still writes a source-based fallback report to D1/R2 so storage, archives, and review links complete. `REPORT_STATUS_STALE_MINUTES=5` clears abandoned statuses quickly if an older deployment left `running: true` in KV.
+Single-report generation runs inside the request instead of relying on a long background Pages `waitUntil` job. `REPORT_AI_TIMEOUT_MS` prevents stalled provider calls; Perplexity report generation enforces a 75-second minimum because Sonar-Pro can exceed shorter limits. `REPORT_AI_ARTICLE_LIMIT` controls how many top-ranked articles are sent to the AI provider; the report still archives and links the full selected source set, but a smaller AI working set keeps Sonar-Pro and similar models from timing out. `REPORT_MAX_TOKENS=10000` gives country and global reports enough room for richer formatting while still capping oversized provider responses. If `ALLOW_REPORT_FALLBACK=true`, a provider failure or timeout is logged and the app still writes a source-based fallback report to D1/R2 so storage, archives, and review links complete. `REPORT_STATUS_STALE_MINUTES=8` clears abandoned statuses quickly if an older deployment left `running: true` in KV without marking active report jobs stale too aggressively.
 
 The Settings -> AI Prompts page reads `/api/prompts/reports` and shows editable Global, Country, and China/Taiwan Watch prompt templates for external model runs. Each template can be copied, duplicated, downloaded as a local `.md` prompt file, or saved to Cloudflare R2 under `prompts/*.md`.
 

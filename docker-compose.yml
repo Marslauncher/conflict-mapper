@@ -1,0 +1,26 @@
+services:
+  conflict-mapper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: conflict-mapper:local
+    container_name: conflict-mapper
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "5000"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:5000/api/status').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s

@@ -5,3 +5,7 @@ workers/report-cron/wrangler.toml
 .dev.vars*
 .env*
 generated-samples/
+.wrangler/
+.playwright-mcp/
+node_modules/.cache/
+node_modules/.mf/
