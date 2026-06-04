@@ -14,7 +14,7 @@ export async function onRequestGet(context) {
         headers.set('etag', object.httpEtag);
         headers.set('cache-control', 'public, max-age=300');
         if (!headers.has('content-type')) headers.set('content-type', 'text/html; charset=utf-8');
-        return new Response(object.body, { headers });
+        return new Response(await reportBody(object, headers, candidateKey), { headers });
       }
     }
   }
@@ -36,4 +36,27 @@ function normalizedAssetRequest(request, key) {
   const url = new URL(request.url);
   url.pathname = `/${key}.html`.replace(/\/+/g, '/');
   return new Request(url.toString(), request);
+}
+
+async function reportBody(object, headers, key) {
+  const contentType = headers.get('content-type') || '';
+  if (!isHtmlReport(key, contentType)) return object.body;
+  const html = await object.text();
+  const styled = injectUserStyle(html);
+  if (styled !== html) {
+    headers.delete('content-length');
+    headers.delete('etag');
+  }
+  return styled;
+}
+
+function isHtmlReport(key, contentType) {
+  return contentType.includes('text/html') || key.endsWith('.html') || !/\.[a-z0-9]+$/i.test(key);
+}
+
+function injectUserStyle(html) {
+  if (!html || html.includes('/assets/user-style.js')) return html;
+  const script = '<script src="/assets/user-style.js"></script>';
+  if (/<\/head>/i.test(html)) return html.replace(/<\/head>/i, `${script}\n</head>`);
+  return `${script}\n${html}`;
 }
