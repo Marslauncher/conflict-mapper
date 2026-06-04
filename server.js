@@ -19,6 +19,7 @@
 'use strict';
 
 const express    = require('express');
+const fs         = require('fs');
 const path       = require('path');
 const cors       = require('cors');
 const bodyParser = require('body-parser');
@@ -1070,6 +1071,22 @@ app.use((err, req, res, next) => {
     });
   }
   next(err);
+});
+
+// Normalize extensionless report URLs so local dev mirrors Cloudflare Pages.
+app.get('/reports/{*reportPath}', (req, res, next) => {
+  if (path.extname(req.path) || req.path.endsWith('/')) {
+    return next();
+  }
+  const relativePath = req.path.replace(/^\/+/, '');
+  const reportPath = path.join(__dirname, `${relativePath}.html`);
+  if (!reportPath.startsWith(path.join(__dirname, 'reports') + path.sep)) {
+    return next();
+  }
+  if (!fs.existsSync(reportPath)) {
+    return next();
+  }
+  res.sendFile(reportPath);
 });
 
 // Catch-all: serve index.html for any non-API, non-static route

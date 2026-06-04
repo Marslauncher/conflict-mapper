@@ -856,6 +856,7 @@ html, body {
   .sidebar-toggle { display: none; }
 }
 </style>
+<script src="/assets/user-style.js"></script>
 </head>
 <body>
 
@@ -1279,8 +1280,8 @@ async function fetchAllFeeds(options = {}) {
   if (btn && !options.silent) { btn.textContent = 'Fetching...'; btn.disabled = true; }
   try {
     const params = options.fast
-      ? '?limitFeeds=8&maxItemsPerFeed=3&translationLimit=2&concurrency=3'
-      : '?limitFeeds=24&maxItemsPerFeed=5&translationLimit=8&concurrency=4';
+      ? '?limitFeeds=12&maxItemsPerFeed=3&translationLimit=2&concurrency=3'
+      : '?limitFeeds=150&maxItemsPerFeed=8&translationLimit=80&concurrency=6';
     const res = await fetch('/api/feeds/fetch' + params, { method: 'POST' });
     const data = await readApiJson(res, '/api/feeds/fetch');
     if (!res.ok || data.success === false) throw new Error(data.error || `HTTP ${res.status}`);
@@ -1924,23 +1925,26 @@ function updateRegionList() {
   const label = document.getElementById('region-count-label');
   if (!list || !label || !map) return;
   const visible = getVisibleArticles();
-  label.textContent = `${visible.length} article${visible.length === 1 ? '' : 's'} in current map view`;
+  const scopeLabel = isWorldMapView() ? 'in current filter set' : 'in current map view';
+  label.textContent = `${visible.length} article${visible.length === 1 ? '' : 's'} ${scopeLabel}`;
   if (!visible.length) {
     list.innerHTML = '<div class="empty-feed" style="padding:12px">No geotagged articles in the visible map area.</div>';
     return;
   }
-  list.innerHTML = visible.slice(0, 100).map(article => `
+  const rendered = visible.slice(0, 500);
+  list.innerHTML = rendered.map(article => `
     <div class="region-item" data-article-key="${escHtml(articleKey(article))}" onclick="focusArticle(${JSON.stringify(article).replace(/"/g, '&quot;')})">
       <div class="region-item-title">${escHtml(article.title || 'Untitled')}</div>
-      <div class="region-item-meta">${escHtml(article.source || 'Unknown')} · ${timeAgo(article.pubDate || article.publishedAt)}${article.geo?.place ? ` · ${escHtml(article.geo.place)}` : ''}</div>
+      <div class="region-item-meta">${escHtml(article.source || 'Unknown')} · ${formatArticleDate(article.pubDate || article.publishedAt || article.fetchedAt)} · ${timeAgo(article.pubDate || article.publishedAt)}${article.geo?.place ? ` · ${escHtml(article.geo.place)}` : ' · no map coordinate'}</div>
     </div>
-  `).join('');
+  `).join('') + (visible.length > rendered.length ? '<div class="empty-feed" style="padding:12px">Showing newest 500 articles.</div>' : '');
   attachArticleHoverHandlers(list);
 }
 
 function getVisibleArticles() {
-  const mapArticles = filteredArticles.filter(article => getGeoCoords(article) && !isArticleRead(article));
+  const mapArticles = filteredArticles.filter(article => !isArticleRead(article));
   if (!map) return sortNewest(mapArticles);
+  if (isWorldMapView()) return sortNewest(mapArticles);
   const bounds = map.getBounds();
   return sortNewest(mapArticles.filter(article => {
     const coords = getGeoCoords(article);
@@ -1950,6 +1954,19 @@ function getVisibleArticles() {
 
 function updateVisibleArticlePanels() {
   updateFeedList();
+  updateRegionList();
+}
+
+function isWorldMapView() {
+  if (!map) return true;
+  const bounds = map.getBounds();
+  const west = bounds.getWest();
+  const east = bounds.getEast();
+  const south = bounds.getSouth();
+  const north = bounds.getNorth();
+  const lngSpan = Math.abs(east - west);
+  const latSpan = Math.abs(north - south);
+  return map.getZoom() <= 2 || lngSpan >= 300 || latSpan >= 135;
 }
 
 function scheduleVisibleArticleUpdate() {
@@ -2081,6 +2098,16 @@ function escHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+function formatArticleDate(value) {
+  const time = value ? new Date(value).getTime() : 0;
+  if (!Number.isFinite(time) || !time) return 'date unknown';
+  return new Date(time).toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
 }
 
 function timeAgo(dateStr) {

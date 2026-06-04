@@ -23,6 +23,23 @@
       "icon": "globe"
     },
     {
+      "label": "Think Tanks",
+      "type": "dropdown",
+      "icon": "book-open",
+      "items": [
+        {
+          "label": "Think Tanks",
+          "subtitle": "Policy research directory",
+          "target": "pages/think-tanks.html"
+        },
+        {
+          "label": "Think Tank Latest News",
+          "subtitle": "Latest research and analysis",
+          "target": "pages/think-tank-latest-news.html"
+        }
+      ]
+    },
+    {
       "label": "Country Dossiers",
       "type": "dropdown-nested",
       "icon": "flag",

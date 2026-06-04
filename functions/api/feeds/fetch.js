@@ -5,9 +5,9 @@ import { appendReportLog } from '../../../cloudflare/lib/reports.js';
 export async function onRequestPost(context) {
   try {
     const url = new URL(context.request.url);
-    const limitFeeds = boundedInt(url.searchParams.get('limitFeeds'), 6, 1, 30);
-    const maxItemsPerFeed = boundedInt(url.searchParams.get('maxItemsPerFeed'), 4, 1, 12);
-    const translationLimit = boundedInt(url.searchParams.get('translationLimit'), 4, 0, 40);
+    const limitFeeds = boundedInt(url.searchParams.get('limitFeeds'), 150, 1, 200);
+    const maxItemsPerFeed = boundedInt(url.searchParams.get('maxItemsPerFeed'), 6, 1, 20);
+    const translationLimit = boundedInt(url.searchParams.get('translationLimit'), 40, 0, 120);
     const batchOffset = boundedInt(url.searchParams.get('batchOffset'), 0, 0, 500);
     const concurrency = boundedInt(url.searchParams.get('concurrency'), 1, 1, 6);
     const reprocessExisting = url.searchParams.get('reprocessExisting') === '1';

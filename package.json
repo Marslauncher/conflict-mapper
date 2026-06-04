@@ -5,6 +5,8 @@
   "scripts": {
     "test": "echo \"No automated test suite configured\" && exit 0",
     "start": "node server.js",
+    "think-tanks:data": "node scripts/generate-think-tank-data.mjs",
+    "think-tanks:news": "npm run think-tanks:data && node scripts/aggregate-think-tank-news.mjs",
     "cf:pages:dev": "npx wrangler pages dev .",
     "cf:d1:migrate:remote": "npx wrangler d1 migrations apply conflict-mapper --remote",
     "cf:cron:dev": "cd workers/report-cron && npx wrangler dev --test-scheduled",

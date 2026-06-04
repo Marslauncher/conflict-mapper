@@ -1,0 +1,2127 @@
+{
+  "generatedAt": "2026-06-04T02:08:39.185Z",
+  "source": "datasources/ThinkTanksP.csv",
+  "total": 105,
+  "thinkTanks": [
+    {
+      "id": "center-for-strategic-and-international-studies-csis",
+      "name": "Center for Strategic and International Studies (CSIS)",
+      "url": "https://www.csis.org",
+      "country": "United States",
+      "regionFocus": "Global / Indo-Pacific / Middle East",
+      "biasPerspective": "Bipartisan; U.S. national-security establishment; defense-forward",
+      "expertise": [
+        "Defense",
+        "China",
+        "Indo-Pacific",
+        "Middle East",
+        "cyber",
+        "AI",
+        "energy security",
+        "geoeconomics"
+      ],
+      "expertiseText": "Defense; China; Indo-Pacific; Middle East; cyber; AI; energy security; geoeconomics",
+      "topicsUrl": "https://www.csis.org/topics",
+      "latestAnalysisUrl": "https://www.csis.org/analysis",
+      "expertsUrl": "https://www.csis.org/about/people/experts"
+    },
+    {
+      "id": "brookings-institution",
+      "name": "Brookings Institution",
+      "url": "https://www.brookings.edu",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Center to Center-Left; nonpartisan technocratic; liberal-internationalist",
+      "expertise": [
+        "Foreign policy",
+        "governance",
+        "global economy",
+        "Asia",
+        "Europe",
+        "Middle East",
+        "defense",
+        "democracy"
+      ],
+      "expertiseText": "Foreign policy; governance; global economy; Asia; Europe; Middle East; defense; democracy",
+      "topicsUrl": "https://www.brookings.edu/programs/foreign-policy/",
+      "latestAnalysisUrl": "https://www.brookings.edu/research/",
+      "expertsUrl": "https://www.brookings.edu/experts/"
+    },
+    {
+      "id": "carnegie-endowment-for-international-peace",
+      "name": "Carnegie Endowment for International Peace",
+      "url": "https://carnegieendowment.org",
+      "country": "United States",
+      "regionFocus": "Global (centers in DC/Beirut/Berlin/Brussels/New Delhi)",
+      "biasPerspective": "Nonpartisan; internationalist; diplomacy-oriented",
+      "expertise": [
+        "Russia",
+        "China",
+        "Middle East",
+        "South Asia",
+        "democracy",
+        "technology",
+        "nuclear policy",
+        "Europe"
+      ],
+      "expertiseText": "Russia; China; Middle East; South Asia; democracy; technology; nuclear policy; Europe",
+      "topicsUrl": "https://carnegieendowment.org/research",
+      "latestAnalysisUrl": "https://carnegieendowment.org/publications",
+      "expertsUrl": "https://carnegieendowment.org/experts"
+    },
+    {
+      "id": "council-on-foreign-relations-cfr",
+      "name": "Council on Foreign Relations (CFR)",
+      "url": "https://www.cfr.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Nonpartisan; foreign-policy establishment; internationalist-realist mix",
+      "expertise": [
+        "U.S. foreign policy",
+        "global conflicts",
+        "China",
+        "Russia",
+        "trade",
+        "climate",
+        "international institutions"
+      ],
+      "expertiseText": "U.S. foreign policy; global conflicts; China; Russia; trade; climate; international institutions",
+      "topicsUrl": "https://www.cfr.org/topics",
+      "latestAnalysisUrl": "https://www.cfr.org/latest",
+      "expertsUrl": "https://www.cfr.org/experts"
+    },
+    {
+      "id": "rand-corporation",
+      "name": "RAND Corporation",
+      "url": "https://www.rand.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Nonpartisan; data-driven; defense and government research contractor",
+      "expertise": [
+        "Defense",
+        "wargaming",
+        "force posture",
+        "nuclear policy",
+        "cyber",
+        "China",
+        "Russia",
+        "infrastructure"
+      ],
+      "expertiseText": "Defense; wargaming; force posture; nuclear policy; cyber; China; Russia; infrastructure",
+      "topicsUrl": "https://www.rand.org/topics.html",
+      "latestAnalysisUrl": "https://www.rand.org/pubs.html",
+      "expertsUrl": "https://www.rand.org/about/people.html"
+    },
+    {
+      "id": "atlantic-council",
+      "name": "Atlantic Council",
+      "url": "https://www.atlanticcouncil.org",
+      "country": "United States",
+      "regionFocus": "Transatlantic / Global",
+      "biasPerspective": "Atlanticist; pro-NATO; often hawkish on Russia and Iran; foreign-government and corporate funding",
+      "expertise": [
+        "NATO",
+        "Europe",
+        "Russia",
+        "Ukraine",
+        "energy",
+        "cyber",
+        "Middle East",
+        "sanctions",
+        "geoeconomics"
+      ],
+      "expertiseText": "NATO; Europe; Russia; Ukraine; energy; cyber; Middle East; sanctions; geoeconomics",
+      "topicsUrl": "https://www.atlanticcouncil.org/programs/",
+      "latestAnalysisUrl": "https://www.atlanticcouncil.org/blogs/new-atlanticist/",
+      "expertsUrl": "https://www.atlanticcouncil.org/expert/"
+    },
+    {
+      "id": "wilson-center",
+      "name": "Wilson Center",
+      "url": "https://www.wilsoncenter.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Congressionally chartered; nonpartisan policy-scholar bridge",
+      "expertise": [
+        "Russia (Kennan Institute)",
+        "China (Kissinger Institute)",
+        "Latin America",
+        "Middle East",
+        "environmental security"
+      ],
+      "expertiseText": "Russia (Kennan Institute); China (Kissinger Institute); Latin America; Middle East; environmental security",
+      "topicsUrl": "https://www.wilsoncenter.org/programs",
+      "latestAnalysisUrl": "https://www.wilsoncenter.org/publications",
+      "expertsUrl": "https://www.wilsoncenter.org/experts"
+    },
+    {
+      "id": "stimson-center",
+      "name": "Stimson Center",
+      "url": "https://www.stimson.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Nonpartisan; pragmatic security and arms-control orientation",
+      "expertise": [
+        "Nuclear security",
+        "South Asia",
+        "East Asia",
+        "climate security",
+        "conflict prevention",
+        "peace operations"
+      ],
+      "expertiseText": "Nuclear security; South Asia; East Asia; climate security; conflict prevention; peace operations",
+      "topicsUrl": "https://www.stimson.org/research/",
+      "latestAnalysisUrl": "https://www.stimson.org/analysis/",
+      "expertsUrl": "https://www.stimson.org/experts/"
+    },
+    {
+      "id": "center-for-a-new-american-security-cnas",
+      "name": "Center for a New American Security (CNAS)",
+      "url": "https://www.cnas.org",
+      "country": "United States",
+      "regionFocus": "Global / Indo-Pacific",
+      "biasPerspective": "Center-Left; U.S. national-security establishment; strong Pentagon ties",
+      "expertise": [
+        "Defense strategy",
+        "Indo-Pacific",
+        "China",
+        "AI",
+        "cyber",
+        "military modernization",
+        "tech competition"
+      ],
+      "expertiseText": "Defense strategy; Indo-Pacific; China; AI; cyber; military modernization; tech competition",
+      "topicsUrl": "https://www.cnas.org/research",
+      "latestAnalysisUrl": "https://www.cnas.org/publications",
+      "expertsUrl": "https://www.cnas.org/people"
+    },
+    {
+      "id": "american-enterprise-institute-aei",
+      "name": "American Enterprise Institute (AEI)",
+      "url": "https://www.aei.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Conservative; center-right; free-market and strong-defense orientation",
+      "expertise": [
+        "Foreign policy",
+        "defense",
+        "China",
+        "Russia",
+        "Middle East",
+        "democracy",
+        "economics"
+      ],
+      "expertiseText": "Foreign policy; defense; China; Russia; Middle East; democracy; economics",
+      "topicsUrl": "https://www.aei.org/policy-areas/foreign-and-defense-policy/",
+      "latestAnalysisUrl": "https://www.aei.org/research-products/",
+      "expertsUrl": "https://www.aei.org/scholars/"
+    },
+    {
+      "id": "heritage-foundation",
+      "name": "Heritage Foundation",
+      "url": "https://www.heritage.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Right; conservative; advocacy-oriented; architect of Project 2025",
+      "expertise": [
+        "Defense",
+        "China",
+        "homeland security",
+        "nuclear deterrence",
+        "energy",
+        "sovereignty",
+        "U.S. policy"
+      ],
+      "expertiseText": "Defense; China; homeland security; nuclear deterrence; energy; sovereignty; U.S. policy",
+      "topicsUrl": "https://www.heritage.org/defense",
+      "latestAnalysisUrl": "https://www.heritage.org/reports",
+      "expertsUrl": "https://www.heritage.org/staff"
+    },
+    {
+      "id": "cato-institute",
+      "name": "Cato Institute",
+      "url": "https://www.cato.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Libertarian; restraint-oriented; skeptical of interventionism",
+      "expertise": [
+        "Foreign policy restraint",
+        "defense spending",
+        "trade",
+        "immigration",
+        "civil liberties"
+      ],
+      "expertiseText": "Foreign policy restraint; defense spending; trade; immigration; civil liberties",
+      "topicsUrl": "https://www.cato.org/policy-areas/foreign-policy",
+      "latestAnalysisUrl": "https://www.cato.org/policy-analysis",
+      "expertsUrl": "https://www.cato.org/people"
+    },
+    {
+      "id": "hudson-institute",
+      "name": "Hudson Institute",
+      "url": "https://www.hudson.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Conservative; hawkish; U.S. power and technology-security focused",
+      "expertise": [
+        "China",
+        "Taiwan",
+        "Iran",
+        "Russia",
+        "defense industrial base",
+        "cyber",
+        "space"
+      ],
+      "expertiseText": "China; Taiwan; Iran; Russia; defense industrial base; cyber; space",
+      "topicsUrl": "https://www.hudson.org/policy-centers",
+      "latestAnalysisUrl": "https://www.hudson.org/research",
+      "expertsUrl": "https://www.hudson.org/experts"
+    },
+    {
+      "id": "foundation-for-defense-of-democracies-fdd",
+      "name": "Foundation for Defense of Democracies (FDD)",
+      "url": "https://www.fdd.org",
+      "country": "United States",
+      "regionFocus": "Global / Middle East",
+      "biasPerspective": "Conservative; hawkish; hardline on Iran; sanctions and counterterrorism focused",
+      "expertise": [
+        "Iran",
+        "Israel",
+        "terrorism finance",
+        "sanctions",
+        "cyber",
+        "China",
+        "Russia",
+        "illicit networks"
+      ],
+      "expertiseText": "Iran; Israel; terrorism finance; sanctions; cyber; China; Russia; illicit networks",
+      "topicsUrl": "https://www.fdd.org/issues/",
+      "latestAnalysisUrl": "https://www.fdd.org/analysis/",
+      "expertsUrl": "https://www.fdd.org/team/"
+    },
+    {
+      "id": "quincy-institute-for-responsible-statecraft",
+      "name": "Quincy Institute for Responsible Statecraft",
+      "url": "https://quincyinst.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Transpartisan; realist-restraint; anti-interventionist; Soros + Koch funded",
+      "expertise": [
+        "Military restraint",
+        "diplomacy",
+        "Middle East",
+        "China policy",
+        "sanctions",
+        "defense spending",
+        "think-tank funding transparency"
+      ],
+      "expertiseText": "Military restraint; diplomacy; Middle East; China policy; sanctions; defense spending; think-tank funding transparency",
+      "topicsUrl": "https://quincyinst.org/research/",
+      "latestAnalysisUrl": "https://quincyinst.org/research/",
+      "expertsUrl": "https://quincyinst.org/experts/"
+    },
+    {
+      "id": "foreign-policy-research-institute-fpri",
+      "name": "Foreign Policy Research Institute (FPRI)",
+      "url": "https://www.fpri.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Center-right; realist and strategic-history oriented",
+      "expertise": [
+        "Eurasia",
+        "Russia",
+        "China",
+        "Middle East",
+        "national security",
+        "military history"
+      ],
+      "expertiseText": "Eurasia; Russia; China; Middle East; national security; military history",
+      "topicsUrl": "https://www.fpri.org/research/",
+      "latestAnalysisUrl": "https://www.fpri.org/articles/",
+      "expertsUrl": "https://www.fpri.org/contributors/"
+    },
+    {
+      "id": "institute-for-the-study-of-war-isw",
+      "name": "Institute for the Study of War (ISW)",
+      "url": "https://www.understandingwar.org",
+      "country": "United States",
+      "regionFocus": "Global / Conflict Zones",
+      "biasPerspective": "Defense-oriented; hawkish; operational OSINT and battlefield assessment focus",
+      "expertise": [
+        "Russia-Ukraine war",
+        "Iran axis",
+        "Syria",
+        "China-Taiwan",
+        "campaign assessments",
+        "open-source intelligence"
+      ],
+      "expertiseText": "Russia-Ukraine war; Iran axis; Syria; China-Taiwan; campaign assessments; open-source intelligence",
+      "topicsUrl": "https://www.understandingwar.org/publications",
+      "latestAnalysisUrl": "https://www.understandingwar.org/publications",
+      "expertsUrl": "https://www.understandingwar.org/who-we-are"
+    },
+    {
+      "id": "center-for-strategic-and-budgetary-assessments-csba",
+      "name": "Center for Strategic and Budgetary Assessments (CSBA)",
+      "url": "https://csbaonline.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Defense-planning; Pentagon-adjacent; force-design focused",
+      "expertise": [
+        "Force structure",
+        "deterrence",
+        "long-range strike",
+        "naval strategy",
+        "China",
+        "defense budgets"
+      ],
+      "expertiseText": "Force structure; deterrence; long-range strike; naval strategy; China; defense budgets",
+      "topicsUrl": "https://csbaonline.org/research",
+      "latestAnalysisUrl": "https://csbaonline.org/research/publications",
+      "expertsUrl": "https://csbaonline.org/about/people"
+    },
+    {
+      "id": "cna",
+      "name": "CNA",
+      "url": "https://www.cna.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Federally funded research; defense-analysis orientation",
+      "expertise": [
+        "Navy",
+        "Marines",
+        "homeland security",
+        "wargaming",
+        "operations research",
+        "China",
+        "Russia"
+      ],
+      "expertiseText": "Navy; Marines; homeland security; wargaming; operations research; China; Russia",
+      "topicsUrl": "https://www.cna.org/research",
+      "latestAnalysisUrl": "https://www.cna.org/reports",
+      "expertsUrl": "https://www.cna.org/our-experts"
+    },
+    {
+      "id": "belfer-center-for-science-and-international-affairs",
+      "name": "Belfer Center for Science and International Affairs",
+      "url": "https://www.belfercenter.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Academic; centrist technocratic; Harvard Kennedy School affiliated",
+      "expertise": [
+        "Nuclear policy",
+        "cyber",
+        "AI",
+        "China",
+        "Russia",
+        "climate",
+        "intelligence",
+        "diplomacy"
+      ],
+      "expertiseText": "Nuclear policy; cyber; AI; China; Russia; climate; intelligence; diplomacy",
+      "topicsUrl": "https://www.belfercenter.org/topics",
+      "latestAnalysisUrl": "https://www.belfercenter.org/publications",
+      "expertsUrl": "https://www.belfercenter.org/experts"
+    },
+    {
+      "id": "hoover-institution",
+      "name": "Hoover Institution",
+      "url": "https://www.hoover.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Conservative; classical liberal; Stanford affiliated",
+      "expertise": [
+        "U.S. strategy",
+        "China",
+        "Russia",
+        "military history",
+        "economics",
+        "democracy",
+        "AI governance"
+      ],
+      "expertiseText": "U.S. strategy; China; Russia; military history; economics; democracy; AI governance",
+      "topicsUrl": "https://www.hoover.org/topics",
+      "latestAnalysisUrl": "https://www.hoover.org/research",
+      "expertsUrl": "https://www.hoover.org/fellows"
+    },
+    {
+      "id": "jamestown-foundation",
+      "name": "Jamestown Foundation",
+      "url": "https://jamestown.org",
+      "country": "United States",
+      "regionFocus": "Eurasia / China / Terrorism",
+      "biasPerspective": "Center-right; hawkish on Russia and China; strong OSINT",
+      "expertise": [
+        "Russia",
+        "China",
+        "Central Asia",
+        "Caucasus",
+        "terrorism",
+        "gray-zone operations"
+      ],
+      "expertiseText": "Russia; China; Central Asia; Caucasus; terrorism; gray-zone operations",
+      "topicsUrl": "https://jamestown.org/programs/",
+      "latestAnalysisUrl": "https://jamestown.org/program/eurasia-daily-monitor/",
+      "expertsUrl": "https://jamestown.org/experts/"
+    },
+    {
+      "id": "center-for-the-national-interest",
+      "name": "Center for the National Interest",
+      "url": "https://cftni.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Realist; conservative-leaning; restraint-aware",
+      "expertise": [
+        "Great-power competition",
+        "U.S. strategy",
+        "Russia",
+        "China",
+        "Middle East"
+      ],
+      "expertiseText": "Great-power competition; U.S. strategy; Russia; China; Middle East",
+      "topicsUrl": "https://cftni.org/research/",
+      "latestAnalysisUrl": "https://nationalinterest.org/",
+      "expertsUrl": "https://cftni.org/experts/"
+    },
+    {
+      "id": "american-foreign-policy-council",
+      "name": "American Foreign Policy Council",
+      "url": "https://www.afpc.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Conservative; hawkish; U.S. strategic-competition focused",
+      "expertise": [
+        "Russia",
+        "China",
+        "Iran",
+        "missile defense",
+        "counterterrorism",
+        "U.S. foreign policy"
+      ],
+      "expertiseText": "Russia; China; Iran; missile defense; counterterrorism; U.S. foreign policy",
+      "topicsUrl": "https://www.afpc.org/programs",
+      "latestAnalysisUrl": "https://www.afpc.org/publications",
+      "expertsUrl": "https://www.afpc.org/experts"
+    },
+    {
+      "id": "center-for-american-progress-cap",
+      "name": "Center for American Progress (CAP)",
+      "url": "https://www.americanprogress.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Progressive; center-left; Democratic policy ecosystem",
+      "expertise": [
+        "Foreign policy",
+        "democracy",
+        "climate security",
+        "national security",
+        "human rights"
+      ],
+      "expertiseText": "Foreign policy; democracy; climate security; national security; human rights",
+      "topicsUrl": "https://www.americanprogress.org/topic/security/",
+      "latestAnalysisUrl": "https://www.americanprogress.org/article/",
+      "expertsUrl": "https://www.americanprogress.org/people/"
+    },
+    {
+      "id": "institute-for-policy-studies",
+      "name": "Institute for Policy Studies",
+      "url": "https://ips-dc.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Progressive-left; anti-militarist; global justice oriented",
+      "expertise": [
+        "Peace policy",
+        "inequality",
+        "militarism",
+        "climate justice",
+        "global economy"
+      ],
+      "expertiseText": "Peace policy; inequality; militarism; climate justice; global economy",
+      "topicsUrl": "https://ips-dc.org/programs/",
+      "latestAnalysisUrl": "https://ips-dc.org/articles/",
+      "expertsUrl": "https://ips-dc.org/people/"
+    },
+    {
+      "id": "german-marshall-fund-of-the-united-states-gmf",
+      "name": "German Marshall Fund of the United States (GMF)",
+      "url": "https://www.gmfus.org",
+      "country": "United States / Europe",
+      "regionFocus": "Transatlantic",
+      "biasPerspective": "Center; pro-transatlantic; pro-NATO; liberal-democratic",
+      "expertise": [
+        "Transatlantic relations",
+        "democracy",
+        "technology",
+        "migration",
+        "Russia",
+        "disinformation",
+        "Indo-Pacific"
+      ],
+      "expertiseText": "Transatlantic relations; democracy; technology; migration; Russia; disinformation; Indo-Pacific",
+      "topicsUrl": "https://www.gmfus.org/issues",
+      "latestAnalysisUrl": "https://www.gmfus.org/publications",
+      "expertsUrl": "https://www.gmfus.org/experts"
+    },
+    {
+      "id": "pew-research-center",
+      "name": "Pew Research Center",
+      "url": "https://www.pewresearch.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Nonpartisan; data/polling only; does not take policy positions",
+      "expertise": [
+        "Global attitudes",
+        "demographics",
+        "media and technology",
+        "religion",
+        "immigration",
+        "public opinion"
+      ],
+      "expertiseText": "Global attitudes; demographics; media and technology; religion; immigration; public opinion",
+      "topicsUrl": "https://www.pewresearch.org/topics/",
+      "latestAnalysisUrl": "https://www.pewresearch.org/publications/",
+      "expertsUrl": "https://www.pewresearch.org/experts/"
+    },
+    {
+      "id": "baker-institute-for-public-policy",
+      "name": "Baker Institute for Public Policy",
+      "url": "https://www.bakerinstitute.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Nonpartisan; university-affiliated (Rice University); pragmatic",
+      "expertise": [
+        "Energy",
+        "Middle East",
+        "China",
+        "Mexico",
+        "health",
+        "science and technology",
+        "public policy"
+      ],
+      "expertiseText": "Energy; Middle East; China; Mexico; health; science and technology; public policy",
+      "topicsUrl": "https://www.bakerinstitute.org/research",
+      "latestAnalysisUrl": "https://www.bakerinstitute.org/research",
+      "expertsUrl": "https://www.bakerinstitute.org/experts"
+    },
+    {
+      "id": "united-states-institute-of-peace-usip",
+      "name": "United States Institute of Peace (USIP)",
+      "url": "https://www.usip.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "U.S. congressionally funded; conflict-prevention and peacebuilding oriented",
+      "expertise": [
+        "Conflict prevention",
+        "mediation",
+        "peacebuilding",
+        "fragile states",
+        "violent extremism"
+      ],
+      "expertiseText": "Conflict prevention; mediation; peacebuilding; fragile states; violent extremism",
+      "topicsUrl": "https://www.usip.org/programs",
+      "latestAnalysisUrl": "https://www.usip.org/publications",
+      "expertsUrl": "https://www.usip.org/people"
+    },
+    {
+      "id": "federation-of-american-scientists-fas",
+      "name": "Federation of American Scientists (FAS)",
+      "url": "https://fas.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Science-based; transparency and risk-reduction oriented",
+      "expertise": [
+        "Nuclear weapons",
+        "government secrecy",
+        "defense",
+        "emerging technology",
+        "biosecurity"
+      ],
+      "expertiseText": "Nuclear weapons; government secrecy; defense; emerging technology; biosecurity",
+      "topicsUrl": "https://fas.org/issues/",
+      "latestAnalysisUrl": "https://fas.org/publications/",
+      "expertsUrl": "https://fas.org/expert/"
+    },
+    {
+      "id": "arms-control-association",
+      "name": "Arms Control Association",
+      "url": "https://www.armscontrol.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Arms-control advocacy; nonproliferation and risk-reduction oriented",
+      "expertise": [
+        "Nuclear weapons",
+        "arms treaties",
+        "Iran",
+        "North Korea",
+        "missile defense",
+        "WMD"
+      ],
+      "expertiseText": "Nuclear weapons; arms treaties; Iran; North Korea; missile defense; WMD",
+      "topicsUrl": "https://www.armscontrol.org/factsheets",
+      "latestAnalysisUrl": "https://www.armscontrol.org/news",
+      "expertsUrl": "https://www.armscontrol.org/about/staff"
+    },
+    {
+      "id": "nuclear-threat-initiative-nti",
+      "name": "Nuclear Threat Initiative (NTI)",
+      "url": "https://www.nti.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Nonpartisan; nuclear-risk and WMD-reduction focused",
+      "expertise": [
+        "Nuclear security",
+        "biosecurity",
+        "radiological risk",
+        "arms control",
+        "WMD threat reduction"
+      ],
+      "expertiseText": "Nuclear security; biosecurity; radiological risk; arms control; WMD threat reduction",
+      "topicsUrl": "https://www.nti.org/analysis/",
+      "latestAnalysisUrl": "https://www.nti.org/analysis/",
+      "expertsUrl": "https://www.nti.org/about/people/"
+    },
+    {
+      "id": "james-martin-center-for-nonproliferation-studies-cns",
+      "name": "James Martin Center for Nonproliferation Studies (CNS)",
+      "url": "https://nonproliferation.org",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Academic; nonproliferation specialist; Monterey affiliated",
+      "expertise": [
+        "Nuclear weapons",
+        "chemical weapons",
+        "biological weapons",
+        "missiles",
+        "export controls"
+      ],
+      "expertiseText": "Nuclear weapons; chemical weapons; biological weapons; missiles; export controls",
+      "topicsUrl": "https://nonproliferation.org/category/analysis/",
+      "latestAnalysisUrl": "https://nonproliferation.org/category/analysis/",
+      "expertsUrl": "https://nonproliferation.org/experts/"
+    },
+    {
+      "id": "stratfor-rane-worldview",
+      "name": "Stratfor / RANE Worldview",
+      "url": "https://worldview.stratfor.com",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Private geopolitical-intelligence firm; realist forecasting orientation",
+      "expertise": [
+        "Geopolitical forecasting",
+        "security risk",
+        "country risk",
+        "global trends"
+      ],
+      "expertiseText": "Geopolitical forecasting; security risk; country risk; global trends",
+      "topicsUrl": "https://worldview.stratfor.com/regions",
+      "latestAnalysisUrl": "https://worldview.stratfor.com/",
+      "expertsUrl": "https://www.ranenetwork.com/experts"
+    },
+    {
+      "id": "geopolitical-futures",
+      "name": "Geopolitical Futures",
+      "url": "https://geopoliticalfutures.com",
+      "country": "United States",
+      "regionFocus": "Global",
+      "biasPerspective": "Private geopolitical forecasting; realist and geography-driven (George Friedman)",
+      "expertise": [
+        "Long-range geopolitical forecasting",
+        "great-power competition",
+        "regional risk"
+      ],
+      "expertiseText": "Long-range geopolitical forecasting; great-power competition; regional risk",
+      "topicsUrl": "https://geopoliticalfutures.com/analysis/",
+      "latestAnalysisUrl": "https://geopoliticalfutures.com/analysis/",
+      "expertsUrl": "https://geopoliticalfutures.com/about/"
+    },
+    {
+      "id": "chatham-house-royal-institute-of-international-affairs",
+      "name": "Chatham House (Royal Institute of International Affairs)",
+      "url": "https://www.chathamhouse.org",
+      "country": "United Kingdom",
+      "regionFocus": "Global",
+      "biasPerspective": "Independent; UK establishment; liberal internationalist; one of the oldest think tanks",
+      "expertise": [
+        "Global order",
+        "UK foreign policy",
+        "Russia",
+        "Europe",
+        "Middle East",
+        "climate",
+        "Africa",
+        "Asia-Pacific"
+      ],
+      "expertiseText": "Global order; UK foreign policy; Russia; Europe; Middle East; climate; Africa; Asia-Pacific",
+      "topicsUrl": "https://www.chathamhouse.org/topics",
+      "latestAnalysisUrl": "https://www.chathamhouse.org/publications",
+      "expertsUrl": "https://www.chathamhouse.org/about-us/our-people"
+    },
+    {
+      "id": "international-institute-for-strategic-studies-iiss",
+      "name": "International Institute for Strategic Studies (IISS)",
+      "url": "https://www.iiss.org",
+      "country": "United Kingdom",
+      "regionFocus": "Global",
+      "biasPerspective": "Nonpartisan; defense and strategic-establishment; authoritative data-driven assessments",
+      "expertise": [
+        "Military balance",
+        "Asia security",
+        "Middle East",
+        "nuclear",
+        "cyber",
+        "geopolitics",
+        "defense economics"
+      ],
+      "expertiseText": "Military balance; Asia security; Middle East; nuclear; cyber; geopolitics; defense economics",
+      "topicsUrl": "https://www.iiss.org/research",
+      "latestAnalysisUrl": "https://www.iiss.org/online-analysis",
+      "expertsUrl": "https://www.iiss.org/people"
+    },
+    {
+      "id": "royal-united-services-institute-rusi",
+      "name": "Royal United Services Institute (RUSI)",
+      "url": "https://www.rusi.org",
+      "country": "United Kingdom",
+      "regionFocus": "Global",
+      "biasPerspective": "Pro-Western security establishment; world's oldest defence think tank (est. 1831)",
+      "expertise": [
+        "Russia-Ukraine war",
+        "land warfare",
+        "airpower",
+        "cyber",
+        "intelligence",
+        "terrorism",
+        "sanctions"
+      ],
+      "expertiseText": "Russia-Ukraine war; land warfare; airpower; cyber; intelligence; terrorism; sanctions",
+      "topicsUrl": "https://www.rusi.org/explore-our-research",
+      "latestAnalysisUrl": "https://www.rusi.org/explore-our-research/publications/commentary",
+      "expertsUrl": "https://www.rusi.org/people"
+    },
+    {
+      "id": "centre-for-european-reform-cer",
+      "name": "Centre for European Reform (CER)",
+      "url": "https://www.cer.eu",
+      "country": "United Kingdom",
+      "regionFocus": "Europe",
+      "biasPerspective": "Pro-European; liberal internationalist",
+      "expertise": [
+        "EU politics",
+        "Brexit",
+        "European defense",
+        "trade",
+        "Russia",
+        "China",
+        "enlargement"
+      ],
+      "expertiseText": "EU politics; Brexit; European defense; trade; Russia; China; enlargement",
+      "topicsUrl": "https://www.cer.eu/research-topics",
+      "latestAnalysisUrl": "https://www.cer.eu/insights",
+      "expertsUrl": "https://www.cer.eu/experts"
+    },
+    {
+      "id": "european-leadership-network-eln",
+      "name": "European Leadership Network (ELN)",
+      "url": "https://www.europeanleadershipnetwork.org",
+      "country": "United Kingdom",
+      "regionFocus": "Euro-Atlantic",
+      "biasPerspective": "Arms-control; risk-reduction network; Euro-Atlantic security focused",
+      "expertise": [
+        "Nuclear risk",
+        "arms control",
+        "NATO-Russia",
+        "strategic stability",
+        "escalation management"
+      ],
+      "expertiseText": "Nuclear risk; arms control; NATO-Russia; strategic stability; escalation management",
+      "topicsUrl": "https://www.europeanleadershipnetwork.org/publications/",
+      "latestAnalysisUrl": "https://www.europeanleadershipnetwork.org/commentary/",
+      "expertsUrl": "https://www.europeanleadershipnetwork.org/networks/"
+    },
+    {
+      "id": "international-crisis-group-icg",
+      "name": "International Crisis Group (ICG)",
+      "url": "https://www.crisisgroup.org",
+      "country": "Belgium / Global",
+      "regionFocus": "Global / Conflict Zones",
+      "biasPerspective": "Nonprofit NGO; conflict-prevention; diplomacy-oriented; field-based analysts",
+      "expertise": [
+        "Active conflicts",
+        "early warning",
+        "mediation",
+        "insurgency",
+        "coups",
+        "civil wars",
+        "CrisisWatch tracker"
+      ],
+      "expertiseText": "Active conflicts; early warning; mediation; insurgency; coups; civil wars; CrisisWatch tracker",
+      "topicsUrl": "https://www.crisisgroup.org/regions",
+      "latestAnalysisUrl": "https://www.crisisgroup.org/latest-updates",
+      "expertsUrl": "https://www.crisisgroup.org/who-we-are/our-people"
+    },
+    {
+      "id": "stockholm-international-peace-research-institute-sipri",
+      "name": "Stockholm International Peace Research Institute (SIPRI)",
+      "url": "https://www.sipri.org",
+      "country": "Sweden",
+      "regionFocus": "Global",
+      "biasPerspective": "Independent; peace-research; data-heavy; nonpartisan; gold standard for arms data",
+      "expertise": [
+        "Arms transfers",
+        "military expenditure",
+        "nuclear weapons",
+        "arms control",
+        "peace operations"
+      ],
+      "expertiseText": "Arms transfers; military expenditure; nuclear weapons; arms control; peace operations",
+      "topicsUrl": "https://www.sipri.org/research",
+      "latestAnalysisUrl": "https://www.sipri.org/publications",
+      "expertsUrl": "https://www.sipri.org/media/issue_experts"
+    },
+    {
+      "id": "european-council-on-foreign-relations-ecfr",
+      "name": "European Council on Foreign Relations (ECFR)",
+      "url": "https://ecfr.eu",
+      "country": "Pan-European",
+      "regionFocus": "Europe / Global",
+      "biasPerspective": "Center-Left; pro-European integration; strategic-autonomy oriented",
+      "expertise": [
+        "EU foreign policy",
+        "Russia",
+        "China",
+        "Middle East",
+        "defense",
+        "geoeconomics",
+        "migration"
+      ],
+      "expertiseText": "EU foreign policy; Russia; China; Middle East; defense; geoeconomics; migration",
+      "topicsUrl": "https://ecfr.eu/topics/",
+      "latestAnalysisUrl": "https://ecfr.eu/articles/",
+      "expertsUrl": "https://ecfr.eu/profile/"
+    },
+    {
+      "id": "european-union-institute-for-security-studies-euiss",
+      "name": "European Union Institute for Security Studies (EUISS)",
+      "url": "https://www.iss.europa.eu",
+      "country": "European Union",
+      "regionFocus": "Europe / Global",
+      "biasPerspective": "Official EU agency; pro-EU institutional perspective; not fully independent",
+      "expertise": [
+        "EU foreign policy",
+        "security",
+        "defense",
+        "strategic foresight",
+        "cyber",
+        "AI",
+        "Indo-Pacific"
+      ],
+      "expertiseText": "EU foreign policy; security; defense; strategic foresight; cyber; AI; Indo-Pacific",
+      "topicsUrl": "https://www.iss.europa.eu/topics",
+      "latestAnalysisUrl": "https://www.iss.europa.eu/publications",
+      "expertsUrl": "https://www.iss.europa.eu/about-us"
+    },
+    {
+      "id": "german-institute-for-international-and-security-affairs-swp",
+      "name": "German Institute for International and Security Affairs (SWP)",
+      "url": "https://www.swp-berlin.org/en/",
+      "country": "Germany",
+      "regionFocus": "Europe / Global",
+      "biasPerspective": "Government-advisory but analytically independent; German and EU policy lens",
+      "expertise": [
+        "German foreign policy",
+        "EU",
+        "Russia",
+        "Middle East",
+        "Africa",
+        "migration",
+        "global governance"
+      ],
+      "expertiseText": "German foreign policy; EU; Russia; Middle East; Africa; migration; global governance",
+      "topicsUrl": "https://www.swp-berlin.org/en/topics",
+      "latestAnalysisUrl": "https://www.swp-berlin.org/en/publications",
+      "expertsUrl": "https://www.swp-berlin.org/en/researchers"
+    },
+    {
+      "id": "german-council-on-foreign-relations-dgap",
+      "name": "German Council on Foreign Relations (DGAP)",
+      "url": "https://dgap.org/en",
+      "country": "Germany",
+      "regionFocus": "Europe",
+      "biasPerspective": "German Atlanticist and European policy community; centrist establishment",
+      "expertise": [
+        "German foreign policy",
+        "Europe",
+        "security and defense",
+        "technology",
+        "Russia",
+        "China"
+      ],
+      "expertiseText": "German foreign policy; Europe; security and defense; technology; Russia; China",
+      "topicsUrl": "https://dgap.org/en/research",
+      "latestAnalysisUrl": "https://dgap.org/en/research/publications",
+      "expertsUrl": "https://dgap.org/en/experts"
+    },
+    {
+      "id": "french-institute-of-international-relations-ifri",
+      "name": "French Institute of International Relations (Ifri)",
+      "url": "https://www.ifri.org/en",
+      "country": "France",
+      "regionFocus": "Europe / Global",
+      "biasPerspective": "Independent; French foreign-policy establishment; strategic-autonomy aware",
+      "expertise": [
+        "France",
+        "EU",
+        "Russia",
+        "Middle East",
+        "Africa",
+        "energy",
+        "security",
+        "space",
+        "Indo-Pacific"
+      ],
+      "expertiseText": "France; EU; Russia; Middle East; Africa; energy; security; space; Indo-Pacific",
+      "topicsUrl": "https://www.ifri.org/en/research-ifri",
+      "latestAnalysisUrl": "https://www.ifri.org/en/newsroom",
+      "expertsUrl": "https://www.ifri.org/en/list-experts"
+    },
+    {
+      "id": "bruegel",
+      "name": "Bruegel",
+      "url": "https://www.bruegel.org",
+      "country": "Belgium",
+      "regionFocus": "Europe",
+      "biasPerspective": "Technocratic; pro-EU economic-policy orientation",
+      "expertise": [
+        "EU economy",
+        "sanctions",
+        "trade",
+        "energy",
+        "technology",
+        "China economy",
+        "industrial policy"
+      ],
+      "expertiseText": "EU economy; sanctions; trade; energy; technology; China economy; industrial policy",
+      "topicsUrl": "https://www.bruegel.org/topics",
+      "latestAnalysisUrl": "https://www.bruegel.org/analysis",
+      "expertsUrl": "https://www.bruegel.org/people"
+    },
+    {
+      "id": "centre-for-european-policy-studies-ceps",
+      "name": "Centre for European Policy Studies (CEPS)",
+      "url": "https://www.ceps.eu",
+      "country": "Belgium",
+      "regionFocus": "Europe",
+      "biasPerspective": "EU policy establishment; technocratic; pro-European integration",
+      "expertise": [
+        "EU policy",
+        "enlargement",
+        "trade",
+        "energy",
+        "digital policy",
+        "migration",
+        "security",
+        "institutions"
+      ],
+      "expertiseText": "EU policy; enlargement; trade; energy; digital policy; migration; security; institutions",
+      "topicsUrl": "https://www.ceps.eu/research-areas/",
+      "latestAnalysisUrl": "https://www.ceps.eu/ceps-publications/",
+      "expertsUrl": "https://www.ceps.eu/ceps-staff/"
+    },
+    {
+      "id": "istituto-affari-internazionali-iai",
+      "name": "Istituto Affari Internazionali (IAI)",
+      "url": "https://www.iai.it/en",
+      "country": "Italy",
+      "regionFocus": "Europe / Mediterranean",
+      "biasPerspective": "Independent; Italian-European internationalist; pro-EU and multilateral",
+      "expertise": [
+        "Mediterranean",
+        "Italy foreign policy",
+        "EU",
+        "NATO",
+        "defense",
+        "energy",
+        "Middle East"
+      ],
+      "expertiseText": "Mediterranean; Italy foreign policy; EU; NATO; defense; energy; Middle East",
+      "topicsUrl": "https://www.iai.it/en/ricerche",
+      "latestAnalysisUrl": "https://www.iai.it/en/pubblicazioni",
+      "expertsUrl": "https://www.iai.it/en/persone"
+    },
+    {
+      "id": "clingendael-institute",
+      "name": "Clingendael Institute",
+      "url": "https://www.clingendael.org",
+      "country": "Netherlands",
+      "regionFocus": "Europe / Global",
+      "biasPerspective": "Independent; Dutch and EU policy lens; pragmatic diplomatic orientation",
+      "expertise": [
+        "EU",
+        "security",
+        "migration",
+        "energy",
+        "China",
+        "Russia",
+        "diplomacy",
+        "strategic foresight"
+      ],
+      "expertiseText": "EU; security; migration; energy; China; Russia; diplomacy; strategic foresight",
+      "topicsUrl": "https://www.clingendael.org/research",
+      "latestAnalysisUrl": "https://www.clingendael.org/publications",
+      "expertsUrl": "https://www.clingendael.org/experts"
+    },
+    {
+      "id": "danish-institute-for-international-studies-diis",
+      "name": "Danish Institute for International Studies (DIIS)",
+      "url": "https://www.diis.dk/en",
+      "country": "Denmark",
+      "regionFocus": "Global",
+      "biasPerspective": "Academic; Nordic; independent and evidence-driven",
+      "expertise": [
+        "Arctic",
+        "security",
+        "migration",
+        "development",
+        "Africa",
+        "Middle East",
+        "global order"
+      ],
+      "expertiseText": "Arctic; security; migration; development; Africa; Middle East; global order",
+      "topicsUrl": "https://www.diis.dk/en/research",
+      "latestAnalysisUrl": "https://www.diis.dk/en/publications",
+      "expertsUrl": "https://www.diis.dk/en/experts"
+    },
+    {
+      "id": "polish-institute-of-international-affairs-pism",
+      "name": "Polish Institute of International Affairs (PISM)",
+      "url": "https://www.pism.pl",
+      "country": "Poland",
+      "regionFocus": "Europe / Eastern Flank",
+      "biasPerspective": "Polish; NATO-forward; strong Russia threat-perception lens",
+      "expertise": [
+        "Russia",
+        "Ukraine",
+        "NATO",
+        "EU",
+        "Central Europe",
+        "China",
+        "energy security"
+      ],
+      "expertiseText": "Russia; Ukraine; NATO; EU; Central Europe; China; energy security",
+      "topicsUrl": "https://www.pism.pl/topics",
+      "latestAnalysisUrl": "https://www.pism.pl/publications",
+      "expertsUrl": "https://www.pism.pl/experts"
+    },
+    {
+      "id": "centre-for-eastern-studies-osw",
+      "name": "Centre for Eastern Studies (OSW)",
+      "url": "https://www.osw.waw.pl/en",
+      "country": "Poland",
+      "regionFocus": "Eastern Europe / Eurasia",
+      "biasPerspective": "Polish state-funded analytical center; excellent on Russia and Ukraine",
+      "expertise": [
+        "Russia",
+        "Ukraine",
+        "Belarus",
+        "Central Asia",
+        "Caucasus",
+        "energy",
+        "sanctions",
+        "internal politics"
+      ],
+      "expertiseText": "Russia; Ukraine; Belarus; Central Asia; Caucasus; energy; sanctions; internal politics",
+      "topicsUrl": "https://www.osw.waw.pl/en/region",
+      "latestAnalysisUrl": "https://www.osw.waw.pl/en/publikacje/analyses",
+      "expertsUrl": "https://www.osw.waw.pl/en/experts"
+    },
+    {
+      "id": "international-centre-for-defence-and-security-icds",
+      "name": "International Centre for Defence and Security (ICDS)",
+      "url": "https://icds.ee/en",
+      "country": "Estonia",
+      "regionFocus": "Baltic / NATO",
+      "biasPerspective": "Baltic; NATO-forward; Russia-deterrence and hybrid warfare perspective",
+      "expertise": [
+        "Russia",
+        "Baltic security",
+        "NATO Eastern Flank",
+        "cyber",
+        "resilience",
+        "hybrid threats"
+      ],
+      "expertiseText": "Russia; Baltic security; NATO Eastern Flank; cyber; resilience; hybrid threats",
+      "topicsUrl": "https://icds.ee/en/category/publications/",
+      "latestAnalysisUrl": "https://icds.ee/en/category/analysis/",
+      "expertsUrl": "https://icds.ee/en/people/"
+    },
+    {
+      "id": "center-for-security-studies-css-eth-zurich",
+      "name": "Center for Security Studies (CSS ETH Zurich)",
+      "url": "https://css.ethz.ch/en.html",
+      "country": "Switzerland",
+      "regionFocus": "Europe / Global",
+      "biasPerspective": "Academic; Swiss; concise high-quality security-policy analysis",
+      "expertise": [
+        "Strategic trends",
+        "cyber",
+        "arms control",
+        "Europe",
+        "Russia",
+        "resilience",
+        "mediation"
+      ],
+      "expertiseText": "Strategic trends; cyber; arms control; Europe; Russia; resilience; mediation",
+      "topicsUrl": "https://css.ethz.ch/en/research.html",
+      "latestAnalysisUrl": "https://css.ethz.ch/en/publications.html",
+      "expertsUrl": "https://css.ethz.ch/en/center/people.html"
+    },
+    {
+      "id": "bonn-international-centre-for-conflict-studies-bicc",
+      "name": "Bonn International Centre for Conflict Studies (BICC)",
+      "url": "https://www.bicc.de",
+      "country": "Germany",
+      "regionFocus": "Global",
+      "biasPerspective": "Peace and conflict research; European academic-policy lens",
+      "expertise": [
+        "Militarization",
+        "arms control",
+        "displacement",
+        "conflict resources",
+        "security sector reform"
+      ],
+      "expertiseText": "Militarization; arms control; displacement; conflict resources; security sector reform",
+      "topicsUrl": "https://www.bicc.de/topics",
+      "latestAnalysisUrl": "https://www.bicc.de/publications",
+      "expertsUrl": "https://www.bicc.de/about/staff"
+    },
+    {
+      "id": "mercator-institute-for-china-studies-merics",
+      "name": "Mercator Institute for China Studies (MERICS)",
+      "url": "https://merics.org/en",
+      "country": "Germany",
+      "regionFocus": "Europe / China",
+      "biasPerspective": "Independent European China-specialist; skeptical of CCP coercive behavior",
+      "expertise": [
+        "China politics",
+        "economy",
+        "technology",
+        "military-civil fusion",
+        "EU-China",
+        "Taiwan",
+        "industrial policy"
+      ],
+      "expertiseText": "China politics; economy; technology; military-civil fusion; EU-China; Taiwan; industrial policy",
+      "topicsUrl": "https://merics.org/en/topics",
+      "latestAnalysisUrl": "https://merics.org/en/analysis",
+      "expertsUrl": "https://merics.org/en/team"
+    },
+    {
+      "id": "lowy-institute",
+      "name": "Lowy Institute",
+      "url": "https://www.lowyinstitute.org",
+      "country": "Australia",
+      "regionFocus": "Indo-Pacific",
+      "biasPerspective": "Independent Australian; liberal internationalist; Indo-Pacific strategic community",
+      "expertise": [
+        "Australia foreign policy",
+        "China",
+        "Pacific Islands",
+        "Southeast Asia",
+        "aid",
+        "Asia Power Index"
+      ],
+      "expertiseText": "Australia foreign policy; China; Pacific Islands; Southeast Asia; aid; Asia Power Index",
+      "topicsUrl": "https://www.lowyinstitute.org/research",
+      "latestAnalysisUrl": "https://www.lowyinstitute.org/the-interpreter",
+      "expertsUrl": "https://www.lowyinstitute.org/people/experts"
+    },
+    {
+      "id": "australian-strategic-policy-institute-aspi",
+      "name": "Australian Strategic Policy Institute (ASPI)",
+      "url": "https://www.aspi.org.au",
+      "country": "Australia",
+      "regionFocus": "Indo-Pacific",
+      "biasPerspective": "Australian defense-establishment; government-founded; defense and tech-company funded",
+      "expertise": [
+        "China",
+        "cyber",
+        "critical technology",
+        "defense",
+        "Pacific",
+        "deterrence",
+        "gray-zone influence"
+      ],
+      "expertiseText": "China; cyber; critical technology; defense; Pacific; deterrence; gray-zone influence",
+      "topicsUrl": "https://www.aspi.org.au/research",
+      "latestAnalysisUrl": "https://www.aspistrategist.org.au",
+      "expertsUrl": "https://www.aspi.org.au/experts"
+    },
+    {
+      "id": "s-rajaratnam-school-of-international-studies-rsis",
+      "name": "S. Rajaratnam School of International Studies (RSIS)",
+      "url": "https://www.rsis.edu.sg",
+      "country": "Singapore",
+      "regionFocus": "Southeast Asia / Indo-Pacific",
+      "biasPerspective": "Academic; Singapore strategic-policy perspective; pragmatic ASEAN lens",
+      "expertise": [
+        "ASEAN",
+        "maritime security",
+        "terrorism",
+        "China-Southeast Asia",
+        "cyber",
+        "nontraditional security"
+      ],
+      "expertiseText": "ASEAN; maritime security; terrorism; China-Southeast Asia; cyber; nontraditional security",
+      "topicsUrl": "https://www.rsis.edu.sg/research/",
+      "latestAnalysisUrl": "https://www.rsis.edu.sg/rsis-publication/rsis/",
+      "expertsUrl": "https://rsis.edu.sg/about-rsis/staff-profiles/faculty-and-research/"
+    },
+    {
+      "id": "japan-institute-of-international-affairs-jiia",
+      "name": "Japan Institute of International Affairs (JIIA)",
+      "url": "https://www.jiia.or.jp/en",
+      "country": "Japan",
+      "regionFocus": "East Asia / Indo-Pacific",
+      "biasPerspective": "Independent; nonpartisan Japanese foreign-policy establishment",
+      "expertise": [
+        "Japan foreign policy",
+        "China",
+        "Taiwan",
+        "North Korea",
+        "maritime security",
+        "nuclear policy"
+      ],
+      "expertiseText": "Japan foreign policy; China; Taiwan; North Korea; maritime security; nuclear policy",
+      "topicsUrl": "https://www.jiia-jic.jp/en/resourcelibrary/",
+      "latestAnalysisUrl": "https://www.jiia.or.jp/en/column/",
+      "expertsUrl": "https://www.jiia.or.jp/en/researcher/"
+    },
+    {
+      "id": "national-institute-for-defense-studies-nids",
+      "name": "National Institute for Defense Studies (NIDS)",
+      "url": "https://www.nids.mod.go.jp/english/",
+      "country": "Japan",
+      "regionFocus": "East Asia / Indo-Pacific",
+      "biasPerspective": "Japanese Ministry of Defense-affiliated; official defense scholarship",
+      "expertise": [
+        "Japanese defense policy",
+        "China",
+        "North Korea",
+        "maritime security",
+        "military history"
+      ],
+      "expertiseText": "Japanese defense policy; China; North Korea; maritime security; military history",
+      "topicsUrl": "https://www.nids.mod.go.jp/english/research/",
+      "latestAnalysisUrl": "https://www.nids.mod.go.jp/english/publication/",
+      "expertsUrl": "https://www.nids.mod.go.jp/english/research/profile/"
+    },
+    {
+      "id": "observer-research-foundation-orf",
+      "name": "Observer Research Foundation (ORF)",
+      "url": "https://www.orfonline.org",
+      "country": "India",
+      "regionFocus": "Indo-Pacific / Global South",
+      "biasPerspective": "Indian strategic-policy establishment; pro-India national-interest lens",
+      "expertise": [
+        "India foreign policy",
+        "Indo-Pacific",
+        "China",
+        "technology",
+        "energy",
+        "Global South",
+        "security"
+      ],
+      "expertiseText": "India foreign policy; Indo-Pacific; China; technology; energy; Global South; security",
+      "topicsUrl": "https://www.orfonline.org/research",
+      "latestAnalysisUrl": "https://www.orfonline.org/research",
+      "expertsUrl": "https://www.orfonline.org/people"
+    },
+    {
+      "id": "orf-america",
+      "name": "ORF America",
+      "url": "https://orfamerica.org",
+      "country": "United States / India-linked",
+      "regionFocus": "Indo-Pacific",
+      "biasPerspective": "Indian and U.S. policy bridge; Global South-aware",
+      "expertise": [
+        "Technology",
+        "geoeconomics",
+        "strategic affairs",
+        "development",
+        "energy",
+        "global governance"
+      ],
+      "expertiseText": "Technology; geoeconomics; strategic affairs; development; energy; global governance",
+      "topicsUrl": "https://orfamerica.org/programs",
+      "latestAnalysisUrl": "https://orfamerica.org/analysis",
+      "expertsUrl": "https://orfamerica.org/experts"
+    },
+    {
+      "id": "manohar-parrikar-institute-for-defence-studies-and-analyses-mp-idsa",
+      "name": "Manohar Parrikar Institute for Defence Studies and Analyses (MP-IDSA)",
+      "url": "https://www.idsa.in",
+      "country": "India",
+      "regionFocus": "South Asia",
+      "biasPerspective": "Indian government-linked defense research; official strategic community view",
+      "expertise": [
+        "India defense",
+        "Pakistan",
+        "China",
+        "Indian Ocean",
+        "nuclear policy",
+        "terrorism"
+      ],
+      "expertiseText": "India defense; Pakistan; China; Indian Ocean; nuclear policy; terrorism",
+      "topicsUrl": "https://www.idsa.in/topics",
+      "latestAnalysisUrl": "https://www.idsa.in/publications",
+      "expertsUrl": "https://www.idsa.in/experts"
+    },
+    {
+      "id": "asan-institute-for-policy-studies",
+      "name": "Asan Institute for Policy Studies",
+      "url": "https://en.asaninst.org",
+      "country": "South Korea",
+      "regionFocus": "East Asia",
+      "biasPerspective": "South Korean strategic-policy institute; center-right; alliance-forward",
+      "expertise": [
+        "North Korea",
+        "U.S.-ROK alliance",
+        "China",
+        "Japan",
+        "nuclear policy",
+        "public opinion polling"
+      ],
+      "expertiseText": "North Korea; U.S.-ROK alliance; China; Japan; nuclear policy; public opinion polling",
+      "topicsUrl": "https://en.asaninst.org/contents/category/publications/",
+      "latestAnalysisUrl": "https://en.asaninst.org/contents/category/publications/",
+      "expertsUrl": "https://en.asaninst.org/experts/"
+    },
+    {
+      "id": "korea-institute-for-national-unification-kinu",
+      "name": "Korea Institute for National Unification (KINU)",
+      "url": "https://www.kinu.or.kr/eng",
+      "country": "South Korea",
+      "regionFocus": "East Asia",
+      "biasPerspective": "South Korean government-funded; North Korea and unification focused",
+      "expertise": [
+        "North Korea",
+        "inter-Korean relations",
+        "sanctions",
+        "regime dynamics",
+        "human rights"
+      ],
+      "expertiseText": "North Korea; inter-Korean relations; sanctions; regime dynamics; human rights",
+      "topicsUrl": "https://www.kinu.or.kr/eng/module/report/list.do",
+      "latestAnalysisUrl": "https://www.kinu.or.kr/eng/module/report/list.do",
+      "expertsUrl": "https://www.kinu.or.kr/eng/main/contents.do?menuNo=100034"
+    },
+    {
+      "id": "korea-institute-for-international-economic-policy-kiep",
+      "name": "Korea Institute for International Economic Policy (KIEP)",
+      "url": "https://www.kiep.go.kr/eng/",
+      "country": "South Korea",
+      "regionFocus": "East Asia / Global",
+      "biasPerspective": "Government-affiliated; economics and geoeconomics focused",
+      "expertise": [
+        "Trade",
+        "global economy",
+        "Asia-Pacific",
+        "China",
+        "Korea economic strategy",
+        "development"
+      ],
+      "expertiseText": "Trade; global economy; Asia-Pacific; China; Korea economic strategy; development",
+      "topicsUrl": "https://www.kiep.go.kr/eng/sub/list.do?bbsId=pub_main",
+      "latestAnalysisUrl": "https://www.kiep.go.kr/eng/sub/list.do?bbsId=pub_main",
+      "expertsUrl": "https://www.kiep.go.kr/eng/sub/staff.do"
+    },
+    {
+      "id": "east-west-center",
+      "name": "East-West Center",
+      "url": "https://www.eastwestcenter.org",
+      "country": "United States",
+      "regionFocus": "Asia-Pacific",
+      "biasPerspective": "Nonpartisan; Asia-Pacific research and exchange institution",
+      "expertise": [
+        "Asia-Pacific",
+        "Pacific Islands",
+        "U.S.-Asia relations",
+        "climate",
+        "governance",
+        "development"
+      ],
+      "expertiseText": "Asia-Pacific; Pacific Islands; U.S.-Asia relations; climate; governance; development",
+      "topicsUrl": "https://www.eastwestcenter.org/research",
+      "latestAnalysisUrl": "https://www.eastwestcenter.org/publications",
+      "expertsUrl": "https://www.eastwestcenter.org/about-us/experts"
+    },
+    {
+      "id": "asia-society-policy-institute",
+      "name": "Asia Society Policy Institute",
+      "url": "https://asiasociety.org/policy-institute",
+      "country": "United States",
+      "regionFocus": "Asia-Pacific",
+      "biasPerspective": "Nonpartisan policy bridge; diplomacy and Asia policy",
+      "expertise": [
+        "China",
+        "climate",
+        "India",
+        "Southeast Asia",
+        "trade",
+        "U.S.-Asia relations"
+      ],
+      "expertiseText": "China; climate; India; Southeast Asia; trade; U.S.-Asia relations",
+      "topicsUrl": "https://asiasociety.org/policy-institute/analysis",
+      "latestAnalysisUrl": "https://asiasociety.org/policy-institute/analysis",
+      "expertsUrl": "https://asiasociety.org/policy-institute/experts"
+    },
+    {
+      "id": "institute-of-south-asian-studies-isas-nus",
+      "name": "Institute of South Asian Studies (ISAS NUS)",
+      "url": "https://www.isas.nus.edu.sg",
+      "country": "Singapore",
+      "regionFocus": "South Asia",
+      "biasPerspective": "Academic; Singapore-based South Asia specialist",
+      "expertise": [
+        "India",
+        "Pakistan",
+        "Bangladesh",
+        "Sri Lanka",
+        "South Asian economy and security"
+      ],
+      "expertiseText": "India; Pakistan; Bangladesh; Sri Lanka; South Asian economy and security",
+      "topicsUrl": "https://www.isas.nus.edu.sg/publications/",
+      "latestAnalysisUrl": "https://www.isas.nus.edu.sg/publications/",
+      "expertsUrl": "https://www.isas.nus.edu.sg/people/"
+    },
+    {
+      "id": "chinapower-project-csis",
+      "name": "ChinaPower Project (CSIS)",
+      "url": "https://chinapower.csis.org",
+      "country": "United States",
+      "regionFocus": "China / Indo-Pacific",
+      "biasPerspective": "CSIS project; U.S. strategic lens; data-rich and well-presented",
+      "expertise": [
+        "China military",
+        "economy",
+        "technology",
+        "diplomacy",
+        "demographics",
+        "Taiwan"
+      ],
+      "expertiseText": "China military; economy; technology; diplomacy; demographics; Taiwan",
+      "topicsUrl": "https://chinapower.csis.org",
+      "latestAnalysisUrl": "https://chinapower.csis.org",
+      "expertsUrl": "https://chinapower.csis.org/about/"
+    },
+    {
+      "id": "global-taiwan-institute",
+      "name": "Global Taiwan Institute",
+      "url": "https://globaltaiwan.org",
+      "country": "United States",
+      "regionFocus": "Taiwan / Indo-Pacific",
+      "biasPerspective": "Nonpartisan; Taiwan-focused; democracy and security oriented",
+      "expertise": [
+        "Taiwan",
+        "cross-Strait relations",
+        "U.S.-Taiwan policy",
+        "China",
+        "Indo-Pacific security"
+      ],
+      "expertiseText": "Taiwan; cross-Strait relations; U.S.-Taiwan policy; China; Indo-Pacific security",
+      "topicsUrl": "https://globaltaiwan.org/programs/",
+      "latestAnalysisUrl": "https://globaltaiwan.org/publications/",
+      "expertsUrl": "https://globaltaiwan.org/team/"
+    },
+    {
+      "id": "nautilus-institute-for-security-and-sustainability",
+      "name": "Nautilus Institute for Security and Sustainability",
+      "url": "https://nautilus.org",
+      "country": "United States",
+      "regionFocus": "Asia-Pacific",
+      "biasPerspective": "Independent; peace and security; nonproliferation focused",
+      "expertise": [
+        "Nuclear risk",
+        "North Korea",
+        "Asia-Pacific security",
+        "climate-security",
+        "deterrence"
+      ],
+      "expertiseText": "Nuclear risk; North Korea; Asia-Pacific security; climate-security; deterrence",
+      "topicsUrl": "https://nautilus.org/projects/",
+      "latestAnalysisUrl": "https://nautilus.org/publications/",
+      "expertsUrl": "https://nautilus.org/about/people/"
+    },
+    {
+      "id": "middle-east-institute-mei",
+      "name": "Middle East Institute (MEI)",
+      "url": "https://www.mei.edu",
+      "country": "United States",
+      "regionFocus": "Middle East",
+      "biasPerspective": "Centrist; regional-expert driven; broad contributor base",
+      "expertise": [
+        "Iran",
+        "Gulf",
+        "Levant",
+        "North Africa",
+        "Turkey",
+        "energy",
+        "security",
+        "culture"
+      ],
+      "expertiseText": "Iran; Gulf; Levant; North Africa; Turkey; energy; security; culture",
+      "topicsUrl": "https://www.mei.edu/research",
+      "latestAnalysisUrl": "https://www.mei.edu/publications",
+      "expertsUrl": "https://www.mei.edu/experts"
+    },
+    {
+      "id": "washington-institute-for-near-east-policy-winep",
+      "name": "Washington Institute for Near East Policy (WINEP)",
+      "url": "https://www.washingtoninstitute.org",
+      "country": "United States",
+      "regionFocus": "Middle East",
+      "biasPerspective": "Pro-Israel; U.S. security establishment; highly influential",
+      "expertise": [
+        "Iran",
+        "Israel",
+        "Gulf",
+        "Arab politics",
+        "terrorism",
+        "U.S. Middle East policy"
+      ],
+      "expertiseText": "Iran; Israel; Gulf; Arab politics; terrorism; U.S. Middle East policy",
+      "topicsUrl": "https://www.washingtoninstitute.org/policy-analysis",
+      "latestAnalysisUrl": "https://www.washingtoninstitute.org/policy-analysis",
+      "expertsUrl": "https://www.washingtoninstitute.org/experts"
+    },
+    {
+      "id": "carnegie-middle-east-center",
+      "name": "Carnegie Middle East Center",
+      "url": "https://carnegie-mec.org",
+      "country": "Lebanon",
+      "regionFocus": "Middle East",
+      "biasPerspective": "Carnegie regional center; reform and governance lens; strong local expertise",
+      "expertise": [
+        "Lebanon",
+        "Syria",
+        "Gulf",
+        "Iran",
+        "political economy",
+        "governance",
+        "conflict"
+      ],
+      "expertiseText": "Lebanon; Syria; Gulf; Iran; political economy; governance; conflict",
+      "topicsUrl": "https://carnegie-mec.org/diwan",
+      "latestAnalysisUrl": "https://carnegie-mec.org/diwan",
+      "expertsUrl": "https://carnegie-mec.org/experts"
+    },
+    {
+      "id": "institute-for-national-security-studies-inss",
+      "name": "Institute for National Security Studies (INSS)",
+      "url": "https://www.inss.org.il",
+      "country": "Israel",
+      "regionFocus": "Middle East",
+      "biasPerspective": "Israeli national-security establishment; security-forward",
+      "expertise": [
+        "Iran",
+        "Hezbollah",
+        "Hamas",
+        "Gaza",
+        "Israeli defense",
+        "normalization",
+        "cyber"
+      ],
+      "expertiseText": "Iran; Hezbollah; Hamas; Gaza; Israeli defense; normalization; cyber",
+      "topicsUrl": "https://www.inss.org.il/publications/",
+      "latestAnalysisUrl": "https://www.inss.org.il/publications/",
+      "expertsUrl": "https://www.inss.org.il/person/"
+    },
+    {
+      "id": "begin-sadat-center-for-strategic-studies-besa",
+      "name": "Begin-Sadat Center for Strategic Studies (BESA)",
+      "url": "https://besacenter.org",
+      "country": "Israel",
+      "regionFocus": "Middle East",
+      "biasPerspective": "Israeli conservative; security-oriented",
+      "expertise": [
+        "Israeli strategy",
+        "Iran",
+        "Turkey",
+        "Arab-Israeli conflict",
+        "military affairs"
+      ],
+      "expertiseText": "Israeli strategy; Iran; Turkey; Arab-Israeli conflict; military affairs",
+      "topicsUrl": "https://besacenter.org/perspectives-papers/",
+      "latestAnalysisUrl": "https://besacenter.org/perspectives-papers/",
+      "expertsUrl": "https://besacenter.org/team/"
+    },
+    {
+      "id": "gulf-research-center-grc",
+      "name": "Gulf Research Center (GRC)",
+      "url": "https://www.grc.net",
+      "country": "Saudi Arabia",
+      "regionFocus": "Middle East / Gulf",
+      "biasPerspective": "Gulf policy-oriented; GCC perspective",
+      "expertise": [
+        "Gulf security",
+        "energy",
+        "Iran-GCC relations",
+        "Yemen",
+        "Saudi Arabia",
+        "maritime security"
+      ],
+      "expertiseText": "Gulf security; energy; Iran-GCC relations; Yemen; Saudi Arabia; maritime security",
+      "topicsUrl": "https://www.grc.net/publications",
+      "latestAnalysisUrl": "https://www.grc.net/publications",
+      "expertsUrl": "https://www.grc.net/team"
+    },
+    {
+      "id": "emirates-policy-center-epc",
+      "name": "Emirates Policy Center (EPC)",
+      "url": "https://epc.ae/en",
+      "country": "United Arab Emirates",
+      "regionFocus": "Middle East / Gulf",
+      "biasPerspective": "UAE-based; likely aligned with UAE policy interests",
+      "expertise": [
+        "Gulf",
+        "Iran",
+        "Yemen",
+        "Red Sea",
+        "Horn of Africa",
+        "energy",
+        "regional security"
+      ],
+      "expertiseText": "Gulf; Iran; Yemen; Red Sea; Horn of Africa; energy; regional security",
+      "topicsUrl": "https://epc.ae/en/publications",
+      "latestAnalysisUrl": "https://epc.ae/en/publications",
+      "expertsUrl": "https://epc.ae/en/team"
+    },
+    {
+      "id": "seta-foundation",
+      "name": "SETA Foundation",
+      "url": "https://www.setav.org/en",
+      "country": "Turkey",
+      "regionFocus": "Middle East / Europe",
+      "biasPerspective": "Turkish government-aligned; pro-AKP tendency; useful for Ankara perspective",
+      "expertise": [
+        "Turkey foreign policy",
+        "Syria",
+        "defense industry",
+        "Eastern Mediterranean",
+        "Gulf",
+        "EU-Turkey"
+      ],
+      "expertiseText": "Turkey foreign policy; Syria; defense industry; Eastern Mediterranean; Gulf; EU-Turkey",
+      "topicsUrl": "https://www.setav.org/en/category/analysis/",
+      "latestAnalysisUrl": "https://www.setav.org/en/category/analysis/",
+      "expertsUrl": "https://www.setav.org/en/experts/"
+    },
+    {
+      "id": "orsam-center-for-middle-eastern-studies",
+      "name": "ORSAM (Center for Middle Eastern Studies)",
+      "url": "https://www.orsam.org.tr/en",
+      "country": "Turkey",
+      "regionFocus": "Middle East",
+      "biasPerspective": "Turkish regional-policy institute; Ankara-centric",
+      "expertise": [
+        "Syria",
+        "Iraq",
+        "Kurds",
+        "Iran",
+        "Gulf",
+        "migration",
+        "water security"
+      ],
+      "expertiseText": "Syria; Iraq; Kurds; Iran; Gulf; migration; water security",
+      "topicsUrl": "https://www.orsam.org.tr/en/publications",
+      "latestAnalysisUrl": "https://www.orsam.org.tr/en/publications",
+      "expertsUrl": "https://www.orsam.org.tr/en/experts"
+    },
+    {
+      "id": "institute-for-security-studies-iss-africa",
+      "name": "Institute for Security Studies (ISS Africa)",
+      "url": "https://issafrica.org",
+      "country": "South Africa",
+      "regionFocus": "Africa",
+      "biasPerspective": "African security-policy institute; broadly nonpartisan and policy-focused",
+      "expertise": [
+        "African conflicts",
+        "terrorism",
+        "organized crime",
+        "maritime security",
+        "governance",
+        "peacekeeping"
+      ],
+      "expertiseText": "African conflicts; terrorism; organized crime; maritime security; governance; peacekeeping",
+      "topicsUrl": "https://issafrica.org/research",
+      "latestAnalysisUrl": "https://issafrica.org/iss-today",
+      "expertsUrl": "https://issafrica.org/about-us/people"
+    },
+    {
+      "id": "south-african-institute-of-international-affairs-saiia",
+      "name": "South African Institute of International Affairs (SAIIA)",
+      "url": "https://saiia.org.za",
+      "country": "South Africa",
+      "regionFocus": "Africa / Global South",
+      "biasPerspective": "Independent; Global South and African governance lens",
+      "expertise": [
+        "African diplomacy",
+        "China-Africa",
+        "climate",
+        "trade",
+        "governance",
+        "multilateralism"
+      ],
+      "expertiseText": "African diplomacy; China-Africa; climate; trade; governance; multilateralism",
+      "topicsUrl": "https://saiia.org.za/research/",
+      "latestAnalysisUrl": "https://saiia.org.za/category/analysis/",
+      "expertsUrl": "https://saiia.org.za/people/"
+    },
+    {
+      "id": "africa-center-for-strategic-studies",
+      "name": "Africa Center for Strategic Studies",
+      "url": "https://africacenter.org",
+      "country": "United States",
+      "regionFocus": "Africa",
+      "biasPerspective": "U.S. Department of Defense institution; U.S. security-policy lens on Africa",
+      "expertise": [
+        "African security",
+        "coups",
+        "terrorism",
+        "Russia and Wagner influence",
+        "governance",
+        "maritime security"
+      ],
+      "expertiseText": "African security; coups; terrorism; Russia and Wagner influence; governance; maritime security",
+      "topicsUrl": "https://africacenter.org/thematic-areas/",
+      "latestAnalysisUrl": "https://africacenter.org/spotlight/",
+      "expertsUrl": "https://africacenter.org/experts/"
+    },
+    {
+      "id": "armed-conflict-location-and-event-data-project-acled",
+      "name": "Armed Conflict Location and Event Data Project (ACLED)",
+      "url": "https://acleddata.com",
+      "country": "Global",
+      "regionFocus": "Global",
+      "biasPerspective": "Data-first conflict monitor; methodology-driven; not a classic think tank",
+      "expertise": [
+        "Conflict events",
+        "protests",
+        "violence against civilians",
+        "armed groups",
+        "crisis monitoring"
+      ],
+      "expertiseText": "Conflict events; protests; violence against civilians; armed groups; crisis monitoring",
+      "topicsUrl": "https://acleddata.com/dashboard/",
+      "latestAnalysisUrl": "https://acleddata.com/analysis/",
+      "expertsUrl": "https://acleddata.com/about-acled/"
+    },
+    {
+      "id": "institute-for-peace-and-security-studies-ipss",
+      "name": "Institute for Peace and Security Studies (IPSS)",
+      "url": "https://ipss-addis.org",
+      "country": "Ethiopia",
+      "regionFocus": "Africa",
+      "biasPerspective": "African peace and security academic-policy institute",
+      "expertise": [
+        "African Union peace and security",
+        "Horn of Africa",
+        "conflict prevention",
+        "governance"
+      ],
+      "expertiseText": "African Union peace and security; Horn of Africa; conflict prevention; governance",
+      "topicsUrl": "https://ipss-addis.org/publications/",
+      "latestAnalysisUrl": "https://ipss-addis.org/publications/",
+      "expertsUrl": "https://ipss-addis.org/team/"
+    },
+    {
+      "id": "enact-africa",
+      "name": "ENACT Africa",
+      "url": "https://enactafrica.org",
+      "country": "Africa-wide",
+      "regionFocus": "Africa",
+      "biasPerspective": "Organized crime and security project; empirical focus",
+      "expertise": [
+        "Transnational organized crime",
+        "illicit flows",
+        "terrorism-crime nexus",
+        "Africa security"
+      ],
+      "expertiseText": "Transnational organized crime; illicit flows; terrorism-crime nexus; Africa security",
+      "topicsUrl": "https://enactafrica.org/research",
+      "latestAnalysisUrl": "https://enactafrica.org/research",
+      "expertsUrl": "https://enactafrica.org/about-us"
+    },
+    {
+      "id": "accord-african-centre-for-constructive-resolution-of-disputes",
+      "name": "ACCORD (African Centre for Constructive Resolution of Disputes)",
+      "url": "https://www.accord.org.za",
+      "country": "South Africa",
+      "regionFocus": "Africa",
+      "biasPerspective": "Conflict-resolution oriented; African peacebuilding perspective",
+      "expertise": [
+        "Conflict resolution",
+        "mediation",
+        "peacekeeping",
+        "African security",
+        "governance"
+      ],
+      "expertiseText": "Conflict resolution; mediation; peacekeeping; African security; governance",
+      "topicsUrl": "https://www.accord.org.za/publications/",
+      "latestAnalysisUrl": "https://www.accord.org.za/conflict-trends/",
+      "expertsUrl": "https://www.accord.org.za/people/"
+    },
+    {
+      "id": "inter-american-dialogue",
+      "name": "Inter-American Dialogue",
+      "url": "https://www.thedialogue.org",
+      "country": "United States",
+      "regionFocus": "Latin America",
+      "biasPerspective": "Centrist; Washington-Latin America policy community; strong convening power",
+      "expertise": [
+        "Latin America politics",
+        "migration",
+        "China-Latin America",
+        "energy",
+        "democracy",
+        "education"
+      ],
+      "expertiseText": "Latin America politics; migration; China-Latin America; energy; democracy; education",
+      "topicsUrl": "https://www.thedialogue.org/analysis/",
+      "latestAnalysisUrl": "https://www.thedialogue.org/analysis/",
+      "expertsUrl": "https://www.thedialogue.org/experts/"
+    },
+    {
+      "id": "igarap-institute",
+      "name": "Igarapé Institute",
+      "url": "https://igarape.org.br/en",
+      "country": "Brazil",
+      "regionFocus": "Latin America",
+      "biasPerspective": "Progressive; data-driven security and governance institute",
+      "expertise": [
+        "Public security",
+        "climate security",
+        "Amazon",
+        "digital threats",
+        "organized crime"
+      ],
+      "expertiseText": "Public security; climate security; Amazon; digital threats; organized crime",
+      "topicsUrl": "https://igarape.org.br/en/publications/",
+      "latestAnalysisUrl": "https://igarape.org.br/en/publications/",
+      "expertsUrl": "https://igarape.org.br/en/team/"
+    },
+    {
+      "id": "funda-o-getulio-vargas-fgv",
+      "name": "Fundação Getulio Vargas (FGV)",
+      "url": "https://portal.fgv.br/en",
+      "country": "Brazil",
+      "regionFocus": "Latin America",
+      "biasPerspective": "Major academic-policy institution; economics and governance focused",
+      "expertise": [
+        "Brazil politics",
+        "economics",
+        "governance",
+        "regulation",
+        "international affairs",
+        "public policy"
+      ],
+      "expertiseText": "Brazil politics; economics; governance; regulation; international affairs; public policy",
+      "topicsUrl": "https://portal.fgv.br/en/research",
+      "latestAnalysisUrl": "https://portal.fgv.br/en/research",
+      "expertsUrl": "https://portal.fgv.br/en/faculty"
+    },
+    {
+      "id": "argentine-council-for-international-relations-cari",
+      "name": "Argentine Council for International Relations (CARI)",
+      "url": "https://www.cari.org.ar",
+      "country": "Argentina",
+      "regionFocus": "Latin America",
+      "biasPerspective": "Argentine foreign-policy establishment; centrist diplomatic lens",
+      "expertise": [
+        "Argentina foreign policy",
+        "South Atlantic",
+        "Latin America",
+        "China",
+        "Europe"
+      ],
+      "expertiseText": "Argentina foreign policy; South Atlantic; Latin America; China; Europe",
+      "topicsUrl": "https://www.cari.org.ar/publicaciones.html",
+      "latestAnalysisUrl": "https://www.cari.org.ar/publicaciones.html",
+      "expertsUrl": "https://www.cari.org.ar/miembros.html"
+    },
+    {
+      "id": "cide",
+      "name": "CIDE",
+      "url": "https://www.cide.edu",
+      "country": "Mexico",
+      "regionFocus": "Latin America",
+      "biasPerspective": "Academic public-policy research institute",
+      "expertise": [
+        "Mexico politics",
+        "public policy",
+        "security",
+        "governance",
+        "migration"
+      ],
+      "expertiseText": "Mexico politics; public policy; security; governance; migration",
+      "topicsUrl": "https://www.cide.edu/investigacion/",
+      "latestAnalysisUrl": "https://www.cide.edu/investigacion/",
+      "expertsUrl": "https://www.cide.edu/docencia/profesores-investigadores/"
+    },
+    {
+      "id": "institute-for-economics-and-peace-iep",
+      "name": "Institute for Economics and Peace (IEP)",
+      "url": "https://www.economicsandpeace.org",
+      "country": "Australia",
+      "regionFocus": "Global",
+      "biasPerspective": "Peace-index and metrics-oriented; data-driven risk models",
+      "expertise": [
+        "Global Peace Index",
+        "terrorism index",
+        "positive peace",
+        "conflict risk metrics"
+      ],
+      "expertiseText": "Global Peace Index; terrorism index; positive peace; conflict risk metrics",
+      "topicsUrl": "https://www.economicsandpeace.org/reports/",
+      "latestAnalysisUrl": "https://www.economicsandpeace.org/reports/",
+      "expertsUrl": "https://www.economicsandpeace.org/about/"
+    },
+    {
+      "id": "centre-for-international-governance-innovation-cigi",
+      "name": "Centre for International Governance Innovation (CIGI)",
+      "url": "https://www.cigionline.org",
+      "country": "Canada",
+      "regionFocus": "Global",
+      "biasPerspective": "Independent; global governance and policy research",
+      "expertise": [
+        "Global governance",
+        "digital policy",
+        "trade",
+        "international law",
+        "security",
+        "economics"
+      ],
+      "expertiseText": "Global governance; digital policy; trade; international law; security; economics",
+      "topicsUrl": "https://www.cigionline.org/topics/",
+      "latestAnalysisUrl": "https://www.cigionline.org/publications/",
+      "expertsUrl": "https://www.cigionline.org/people/"
+    },
+    {
+      "id": "china-institutes-of-contemporary-international-relations-cicir",
+      "name": "China Institutes of Contemporary International Relations (CICIR)",
+      "url": "http://www.cicir.ac.cn",
+      "country": "China",
+      "regionFocus": "Global (State-Linked)",
+      "biasPerspective": "Chinese state-linked; close to Ministry of State Security; PERSPECTIVE INTELLIGENCE ONLY",
+      "expertise": [
+        "U.S.-China",
+        "Taiwan",
+        "Asia-Pacific",
+        "security",
+        "global governance",
+        "Chinese threat perception"
+      ],
+      "expertiseText": "U.S.-China; Taiwan; Asia-Pacific; security; global governance; Chinese threat perception",
+      "topicsUrl": "http://www.cicir.ac.cn",
+      "latestAnalysisUrl": "http://www.cicir.ac.cn",
+      "expertsUrl": "http://www.cicir.ac.cn"
+    },
+    {
+      "id": "shanghai-institutes-for-international-studies-siis",
+      "name": "Shanghai Institutes for International Studies (SIIS)",
+      "url": "https://www.siis.org.cn",
+      "country": "China",
+      "regionFocus": "Global (State-Linked)",
+      "biasPerspective": "Chinese state-affiliated; Shanghai policy establishment; PERSPECTIVE INTELLIGENCE ONLY",
+      "expertise": [
+        "U.S.-China",
+        "Belt and Road",
+        "Asia-Pacific",
+        "global governance",
+        "economics"
+      ],
+      "expertiseText": "U.S.-China; Belt and Road; Asia-Pacific; global governance; economics",
+      "topicsUrl": "https://www.siis.org.cn/Research/EnPublications",
+      "latestAnalysisUrl": "https://www.siis.org.cn/Research/EnPublications",
+      "expertsUrl": "https://www.siis.org.cn/Experts"
+    },
+    {
+      "id": "chinese-academy-of-social-sciences-cass",
+      "name": "Chinese Academy of Social Sciences (CASS)",
+      "url": "http://casseng.cssn.cn",
+      "country": "China",
+      "regionFocus": "Global (State-Linked)",
+      "biasPerspective": "Official Chinese academic-policy system; state-aligned; PERSPECTIVE INTELLIGENCE ONLY",
+      "expertise": [
+        "China politics",
+        "economics",
+        "global order",
+        "regional studies",
+        "social sciences"
+      ],
+      "expertiseText": "China politics; economics; global order; regional studies; social sciences",
+      "topicsUrl": "http://casseng.cssn.cn/research",
+      "latestAnalysisUrl": "http://casseng.cssn.cn/research",
+      "expertsUrl": "http://casseng.cssn.cn/about/"
+    },
+    {
+      "id": "russian-international-affairs-council-riac",
+      "name": "Russian International Affairs Council (RIAC)",
+      "url": "https://russiancouncil.ru/en",
+      "country": "Russia",
+      "regionFocus": "Global (State-Linked)",
+      "biasPerspective": "Russian foreign-policy establishment; state-linked; PERSPECTIVE INTELLIGENCE ONLY",
+      "expertise": [
+        "Russia foreign policy",
+        "NATO",
+        "China",
+        "Middle East",
+        "Eurasia",
+        "global order"
+      ],
+      "expertiseText": "Russia foreign policy; NATO; China; Middle East; Eurasia; global order",
+      "topicsUrl": "https://russiancouncil.ru/en/analytics-and-comments/",
+      "latestAnalysisUrl": "https://russiancouncil.ru/en/analytics-and-comments/",
+      "expertsUrl": "https://russiancouncil.ru/en/about/team/"
+    },
+    {
+      "id": "valdai-discussion-club",
+      "name": "Valdai Discussion Club",
+      "url": "https://valdaiclub.com",
+      "country": "Russia",
+      "regionFocus": "Global (State-Linked)",
+      "biasPerspective": "Kremlin-aligned strategic messaging platform; PERSPECTIVE INTELLIGENCE ONLY",
+      "expertise": [
+        "Multipolarity",
+        "Russia-West confrontation",
+        "China",
+        "Eurasia",
+        "global order"
+      ],
+      "expertiseText": "Multipolarity; Russia-West confrontation; China; Eurasia; global order",
+      "topicsUrl": "https://valdaiclub.com/a/",
+      "latestAnalysisUrl": "https://valdaiclub.com/a/",
+      "expertsUrl": "https://valdaiclub.com/about/experts/"
+    },
+    {
+      "id": "primakov-institute-of-world-economy-and-international-relations-imemo",
+      "name": "Primakov Institute of World Economy and International Relations (IMEMO)",
+      "url": "https://www.imemo.ru/en",
+      "country": "Russia",
+      "regionFocus": "Global (State-Linked)",
+      "biasPerspective": "Russian Academy establishment; more scholarly but within Russian institutional environment; PERSPECTIVE INTELLIGENCE ONLY",
+      "expertise": [
+        "World economy",
+        "Russia",
+        "security",
+        "arms control",
+        "forecasting",
+        "international relations"
+      ],
+      "expertiseText": "World economy; Russia; security; arms control; forecasting; international relations",
+      "topicsUrl": "https://www.imemo.ru/en/research",
+      "latestAnalysisUrl": "https://www.imemo.ru/en/publications",
+      "expertsUrl": "https://www.imemo.ru/en/about/persons"
+    }
+  ]
+}

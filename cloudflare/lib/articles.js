@@ -196,7 +196,7 @@ export async function refreshArticles(context, {
 
   const feedsPayload = await readAssetJson(context, '/data/feeds-config.json', { feeds: [] });
   const monitoringConfig = await loadMonitoringConfig(context);
-  const safeLimitFeeds = Math.max(1, Math.min(readPositiveInt(limitFeeds, 6), 120));
+  const safeLimitFeeds = Math.max(1, Math.min(readPositiveInt(limitFeeds, 150), 200));
   const safeMaxItems = Math.max(1, Math.min(readPositiveInt(maxItemsPerFeed, 4), 25));
   const safeConcurrency = Math.max(1, Math.min(readPositiveInt(concurrency, 1), 6));
   const safeBatchOffset = Math.max(0, readNonNegativeInt(batchOffset, 0));

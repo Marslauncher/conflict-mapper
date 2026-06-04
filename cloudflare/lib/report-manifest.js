@@ -57,8 +57,16 @@ export async function listStaticReports(context, { scope = '', slug = '', includ
     if (scope && report.scope !== scope) continue;
     if (slug && report.slug !== slug) continue;
 
-    const size = await readAssetSize(context, path);
-    reports.push({ ...report, ...(size ? { size } : {}) });
+    const metadata = await readAssetMetadata(context, path);
+    const generatedAt = report.isCurrent && metadata.lastModified
+      ? metadata.lastModified
+      : report.generatedAt;
+    reports.push({
+      ...report,
+      generatedAt,
+      reportDate: generatedAt.slice(0, 10),
+      ...(metadata.size ? { size: metadata.size } : {}),
+    });
   }
   return reports;
 }
@@ -132,16 +140,20 @@ export function parseReportPath(publicPath) {
 }
 
 function parseReportDate(fileName, isCurrent) {
-  if (isCurrent) return '2026-05-29T07:12:17.000Z';
+  if (isCurrent) return new Date(0).toISOString();
   const match = fileName.match(/^report-(.+)\.html$/);
-  if (!match) return '2026-05-29T07:12:17.000Z';
+  if (!match) return new Date(0).toISOString();
   return `${match[1].replace(/T(\d\d)-(\d\d)-(\d\d)$/, 'T$1:$2:$3')}Z`;
 }
 
-async function readAssetSize(context, path) {
-  if (!context?.env?.ASSETS) return 0;
+async function readAssetMetadata(context, path) {
+  if (!context?.env?.ASSETS) return { size: 0, lastModified: '' };
   const url = new URL(path, context.request.url);
   const response = await context.env.ASSETS.fetch(new Request(url.toString(), { method: 'HEAD' }));
-  if (!response.ok) return 0;
-  return Number(response.headers.get('content-length') || 0);
+  if (!response.ok) return { size: 0, lastModified: '' };
+  const lastModified = response.headers.get('last-modified');
+  return {
+    size: Number(response.headers.get('content-length') || 0),
+    lastModified: lastModified ? new Date(lastModified).toISOString() : '',
+  };
 }

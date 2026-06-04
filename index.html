@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
 <link rel="stylesheet" href="assets/style.css">
+<script src="/assets/user-style.js"></script>
 
 <!-- Favicon: inline SVG as data URI -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0c10'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23c41e3a' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23c41e3a'/%3E%3Cline x1='16' y1='4' x2='16' y2='10' stroke='%23c41e3a' stroke-width='1.5'/%3E%3Cline x1='16' y1='22' x2='16' y2='28' stroke='%23c41e3a' stroke-width='1.5'/%3E%3Cline x1='4' y1='16' x2='10' y2='16' stroke='%23c41e3a' stroke-width='1.5'/%3E%3Cline x1='22' y1='16' x2='28' y2='16' stroke='%23c41e3a' stroke-width='1.5'/%3E%3C/svg%3E">
@@ -2212,6 +2213,10 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
               Nav Editor
             </button>
+            <button class="admin-nav-item" data-section="global-style" onclick="showAdminSection('global-style', this)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2a10 10 0 0 0 0 20 2 2 0 0 0 2-2 1.7 1.7 0 0 0-.35-1.02 1.7 1.7 0 0 1-.35-1.02 2 2 0 0 1 2-2h1.2A5.5 5.5 0 0 0 22 10.5C22 5.8 17.5 2 12 2z"/></svg>
+              Global Style
+            </button>
             <button class="admin-nav-item" data-section="ai-config" onclick="showAdminSection('ai-config', this)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
               AI Config
@@ -2275,6 +2280,68 @@
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                   Add Top-Level Section
                 </button>
+              </div>
+            </div>
+
+            <!-- Global Style Section -->
+            <div class="admin-section" id="section-global-style">
+              <h2 class="admin-section-title">Global Style Settings</h2>
+              <p class="admin-section-desc">Apply readable font sizing and theme colors across shell pages, reports, maps, and menus</p>
+
+              <div class="admin-card">
+                <div class="admin-card-header">
+                  <div class="admin-card-icon" style="background:rgba(45,212,191,0.12)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18"/><path d="M5 8h14"/><path d="M7 16h10"/></svg>
+                  </div>
+                  <div>
+                    <div class="admin-card-title">Typography & Theme</div>
+                    <div class="admin-card-subtitle" id="style-summary-label">Local browser preference</div>
+                  </div>
+                  <div style="margin-left:auto;display:flex;gap:var(--space-2);flex-wrap:wrap">
+                    <button class="btn btn-secondary btn-sm" onclick="resetStyleSettings()">Reset</button>
+                    <button class="btn btn-green btn-sm" onclick="saveStyleSettings()">Apply Style</button>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-field">
+                    <label class="form-label" for="style-template">Theme Template</label>
+                    <select class="form-select" id="style-template" onchange="applyStyleTemplate(this.value)"></select>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="style-font-scale">Font Size</label>
+                    <input class="form-input" id="style-font-scale" type="range" min="0.92" max="1.35" step="0.01" oninput="previewStyleSettings()">
+                    <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:0.65rem;color:var(--color-text-faint);margin-top:var(--space-1)">
+                      <span>Compact</span><span id="style-font-scale-label">108%</span><span>Large</span>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="style-mode">Mode</label>
+                    <select class="form-select" id="style-mode" onchange="previewStyleSettings()">
+                      <option value="dark">Dark</option>
+                      <option value="light">Light</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--space-3);margin-top:var(--space-4)" id="style-color-grid"></div>
+
+                <div style="margin-top:var(--space-5);display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:var(--space-4);align-items:stretch">
+                  <div style="background:var(--color-surface-2);border:1px solid var(--color-border-dim);border-radius:var(--radius-md);padding:var(--space-4)">
+                    <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--color-text);letter-spacing:0.08em;text-transform:uppercase">Preview Panel</div>
+                    <p style="font-size:1rem;color:var(--color-text-muted);line-height:1.7;margin-top:var(--space-2)">This sample uses the same CSS variables applied to reports, maps, storage tables, and navigation menus.</p>
+                    <div style="display:flex;gap:var(--space-2);margin-top:var(--space-3);flex-wrap:wrap">
+                      <span class="status-badge connected">Active</span>
+                      <span class="status-badge pending">Watch</span>
+                      <span class="status-badge disconnected">Alert</span>
+                    </div>
+                  </div>
+                  <div style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);font-family:var(--font-mono);font-size:0.7rem;color:var(--color-text-muted);line-height:1.7">
+                    <div style="color:var(--color-accent);margin-bottom:var(--space-2)">Propagation Targets</div>
+                    <div>Shell navigation, admin menus, report pages, map/feed, news library, country/theater pages that load /assets/user-style.js.</div>
+                    <div style="margin-top:var(--space-2);color:var(--color-text-faint)">Settings are stored in localStorage; no secrets or server-side writes are used.</div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -3345,6 +3412,15 @@ const DEFAULT_CONFIG = {
     { label: "News Library", type: "link", target: "pages/news-library.html", icon: "newspaper" },
     { label: "Global Analysis", type: "link", target: "reports/global/current/report.html", icon: "globe" },
     {
+      label: "Think Tanks",
+      type: "dropdown",
+      icon: "bookOpen",
+      items: [
+        { label: "Think Tanks", subtitle: "Policy Research Directory", target: "pages/think-tanks.html" },
+        { label: "Think Tank Latest News", subtitle: "Latest Research and Analysis", target: "pages/think-tank-latest-news.html" }
+      ]
+    },
+    {
       label: "Country Dossiers", type: "dropdown-nested", icon: "flag",
       countries: COUNTRIES
     },
@@ -3406,6 +3482,8 @@ const ICONS = {
   crosshair: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>`,
   eye: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
   newspaper: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 22h14a2 2 0 0 0 2-2V7H4v15Z"/><path d="M16 2v5"/><path d="M8 2v5"/><path d="M3 7h18"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>`,
+  bookOpen: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4h7a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/><path d="M22 4h-7a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h8z"/></svg>`,
+  'book-open': `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4h7a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/><path d="M22 4h-7a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h8z"/></svg>`,
   flame: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
   chevron: `<svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>`,
   chevronRight: `<svg class="nested-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>`,
@@ -3434,6 +3512,7 @@ async function init() {
 
   const savedTheme = getThemePref();
   setTheme(savedTheme || navConfig.theme || 'dark');
+  initStyleSettings();
 
   renderNav();
   renderWelcomeCards();
@@ -3513,6 +3592,19 @@ function normalizeNavConfig(config) {
     });
   }
 
+  if (!next.nav.some(item => item.label === 'Think Tanks')) {
+    const globalIdx = next.nav.findIndex(item => item.label === 'Global Analysis');
+    next.nav.splice(globalIdx >= 0 ? globalIdx + 1 : next.nav.length, 0, {
+      label: 'Think Tanks',
+      type: 'dropdown',
+      icon: 'bookOpen',
+      items: [
+        { label: 'Think Tanks', subtitle: 'Policy Research Directory', target: 'pages/think-tanks.html' },
+        { label: 'Think Tank Latest News', subtitle: 'Latest Research and Analysis', target: 'pages/think-tank-latest-news.html' },
+      ],
+    });
+  }
+
   next.nav = next.nav.map(item => {
     if (item.label === 'China/Taiwan Watch') {
       return {
@@ -3565,6 +3657,14 @@ function getThemePref() {
 function setTheme(theme) {
   currentTheme = theme;
   document.documentElement.setAttribute('data-theme', theme);
+  if (window.ConflictMapperStyle) {
+    const settings = window.ConflictMapperStyle.read();
+    if (settings.mode !== theme) {
+      window.ConflictMapperStyle.write({ ...settings, mode: theme });
+    } else {
+      window.ConflictMapperStyle.apply(settings);
+    }
+  }
   const btn = document.getElementById('theme-toggle');
   if (!btn) return;
   if (theme === 'dark') {
@@ -3582,6 +3682,137 @@ function setTheme(theme) {
 
 function toggleTheme() {
   setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+}
+
+const STYLE_COLOR_FIELDS = [
+  ['bg', 'Background'],
+  ['surface', 'Surface'],
+  ['surface2', 'Surface 2'],
+  ['surface3', 'Surface 3'],
+  ['text', 'Text'],
+  ['muted', 'Muted Text'],
+  ['faint', 'Faint Text'],
+  ['accent', 'Accent'],
+  ['accentHover', 'Accent Hover'],
+  ['teal', 'Teal'],
+  ['amber', 'Amber'],
+  ['blue', 'Blue'],
+  ['green', 'Green'],
+];
+
+function initStyleSettings() {
+  renderStyleTemplateOptions();
+  renderStyleColorGrid();
+  loadStyleSettingsToForm();
+}
+
+function renderStyleTemplateOptions() {
+  const select = document.getElementById('style-template');
+  if (!select || !window.ConflictMapperStyle) return;
+  const templates = window.ConflictMapperStyle.templates || {};
+  select.innerHTML = Object.entries(templates).map(([id, template]) => (
+    `<option value="${escHtml(id)}">${escHtml(template.label || id)}</option>`
+  )).join('');
+}
+
+function renderStyleColorGrid() {
+  const grid = document.getElementById('style-color-grid');
+  if (!grid) return;
+  grid.innerHTML = STYLE_COLOR_FIELDS.map(([key, label]) => `
+    <label style="display:grid;grid-template-columns:42px 1fr;gap:var(--space-2);align-items:center;background:var(--color-surface-2);border:1px solid var(--color-border-dim);border-radius:var(--radius-sm);padding:var(--space-2)">
+      <input type="color" id="style-color-${key}" value="#000000" oninput="previewStyleSettings()" style="width:36px;height:30px;border:0;background:transparent;padding:0">
+      <span>
+        <span style="display:block;font-family:var(--font-display);font-size:0.78rem;font-weight:600;color:var(--color-text)">${escHtml(label)}</span>
+        <span id="style-color-label-${key}" style="font-family:var(--font-mono);font-size:0.62rem;color:var(--color-text-faint)">#000000</span>
+      </span>
+    </label>
+  `).join('');
+}
+
+function loadStyleSettingsToForm(settings = null) {
+  if (!window.ConflictMapperStyle) return;
+  const next = settings || window.ConflictMapperStyle.read();
+  const template = document.getElementById('style-template');
+  const mode = document.getElementById('style-mode');
+  const fontScale = document.getElementById('style-font-scale');
+  if (template) template.value = next.template || 'command';
+  if (mode) mode.value = next.mode || 'dark';
+  if (fontScale) fontScale.value = next.fontScale || 1.08;
+  for (const [key] of STYLE_COLOR_FIELDS) {
+    const input = document.getElementById(`style-color-${key}`);
+    const label = document.getElementById(`style-color-label-${key}`);
+    const value = next.colors?.[key] || '#000000';
+    if (input) input.value = value;
+    if (label) label.textContent = value;
+  }
+  updateStyleSummary(next);
+}
+
+function collectStyleSettingsFromForm() {
+  const current = window.ConflictMapperStyle?.read() || {};
+  const colors = { ...(current.colors || {}) };
+  for (const [key] of STYLE_COLOR_FIELDS) {
+    const input = document.getElementById(`style-color-${key}`);
+    if (input?.value) colors[key] = input.value;
+    const label = document.getElementById(`style-color-label-${key}`);
+    if (label && input?.value) label.textContent = input.value;
+  }
+  return {
+    template: document.getElementById('style-template')?.value || current.template || 'command',
+    mode: document.getElementById('style-mode')?.value || current.mode || 'dark',
+    fontScale: Number(document.getElementById('style-font-scale')?.value || current.fontScale || 1.08),
+    colors,
+  };
+}
+
+function previewStyleSettings() {
+  if (!window.ConflictMapperStyle) return;
+  const settings = collectStyleSettingsFromForm();
+  window.ConflictMapperStyle.apply(settings);
+  updateStyleSummary(settings);
+}
+
+function saveStyleSettings() {
+  if (!window.ConflictMapperStyle) return;
+  const settings = window.ConflictMapperStyle.write(collectStyleSettingsFromForm());
+  setTheme(settings.mode);
+  loadStyleSettingsToForm(settings);
+  showToast('Global style applied');
+}
+
+function resetStyleSettings() {
+  if (!window.ConflictMapperStyle) return;
+  const defaults = window.ConflictMapperStyle.defaults;
+  const settings = window.ConflictMapperStyle.write(defaults);
+  currentTheme = settings.mode;
+  loadStyleSettingsToForm(settings);
+  setTheme(settings.mode);
+  showToast('Global style reset');
+}
+
+function applyStyleTemplate(templateId) {
+  if (!window.ConflictMapperStyle) return;
+  const template = window.ConflictMapperStyle.templates?.[templateId];
+  if (!template) return;
+  const settings = {
+    template: templateId,
+    mode: template.mode,
+    fontScale: template.fontScale,
+    colors: { ...template.colors },
+  };
+  loadStyleSettingsToForm(settings);
+  previewStyleSettings();
+}
+
+function updateStyleSummary(settings) {
+  const label = document.getElementById('style-summary-label');
+  const fontLabel = document.getElementById('style-font-scale-label');
+  const pct = Math.round(Number(settings.fontScale || 1) * 100);
+  if (fontLabel) fontLabel.textContent = `${pct}%`;
+  if (label) {
+    const template = window.ConflictMapperStyle?.templates?.[settings.template]?.label || settings.template || 'custom';
+    label.textContent = `${template} - ${settings.mode || 'dark'} - ${pct}% font`;
+  }
 }
 
 /* ── Nav Rendering ──────────────────────────────────────── */
@@ -4112,6 +4343,7 @@ function showAdminSection(id, btn) {
   if (section) section.classList.add('active');
   if (btn) btn.classList.add('active');
   if (id === 'config-io') updateConfigPreview();
+  if (id === 'global-style') initStyleSettings();
   if (id === 'rss-feeds') loadFeedsConfig();
   if (id === 'ai-prompts') loadPromptTemplates();
   if (id === 'flagged') loadFlaggedArticles();
@@ -4147,8 +4379,42 @@ function renderNavEditor() {
             <button class="btn btn-ghost btn-sm" onclick="moveNavItem(${idx}, 1)" title="Move down">↓</button>
           </div>
         </div>
-        <div style="padding:var(--space-3) var(--space-4);font-family:var(--font-mono);font-size:0.65rem;color:var(--color-text-faint)">
-          ${countries.length} countries configured — edit nav-config.json directly to modify country list.
+        <div style="padding:var(--space-3) var(--space-4);display:grid;gap:var(--space-2)">
+          ${countries.map((country, countryIdx) => `
+            <div class="nav-editor-item">
+              <input value="${escHtml(country.flag || '')}" placeholder="Flag" style="max-width:70px"
+                     onchange="updateNestedCountryField(${idx}, ${countryIdx}, 'flag', this.value)">
+              <input value="${escHtml(country.label || '')}" placeholder="Country label"
+                     onchange="updateNestedCountryField(${idx}, ${countryIdx}, 'label', this.value)">
+              <input value="${escHtml(country.slug || '')}" placeholder="slug"
+                     onchange="updateNestedCountryField(${idx}, ${countryIdx}, 'slug', this.value)">
+              <div class="nav-editor-item-actions">
+                <button class="btn btn-ghost btn-sm" onclick="moveNestedCountry(${idx}, ${countryIdx}, -1)" title="Move up">↑</button>
+                <button class="btn btn-ghost btn-sm" onclick="moveNestedCountry(${idx}, ${countryIdx}, 1)" title="Move down">↓</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteNestedCountry(${idx}, ${countryIdx})" title="Delete country">×</button>
+              </div>
+            </div>
+          `).join('')}
+          <div class="add-item-form">
+            <div class="add-item-row">
+              <div class="form-group">
+                <label class="form-label">Flag</label>
+                <input class="form-input" id="new-country-flag-${idx}" placeholder="🇫🇷" style="font-size:0.75rem;">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Label</label>
+                <input class="form-input" id="new-country-label-${idx}" placeholder="France" style="font-size:0.75rem;">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Slug</label>
+                <input class="form-input" id="new-country-slug-${idx}" placeholder="france" style="font-size:0.75rem;">
+              </div>
+              <div class="form-group" style="justify-content:flex-end">
+                <label class="form-label">&nbsp;</label>
+                <button class="btn btn-secondary btn-sm" onclick="addNestedCountry(${idx})">Add</button>
+              </div>
+            </div>
+          </div>
         </div>
       `;
     } else if (item.type === 'dropdown') {
@@ -4307,6 +4573,69 @@ function addSubItem(parentIdx) {
   renderWelcomeCards();
   showToast('Item added');
 }
+
+function updateNestedCountryField(parentIdx, countryIdx, field, value) {
+  const item = navConfig.nav[parentIdx];
+  if (!item) return;
+  if (!Array.isArray(item.countries)) item.countries = [];
+  if (!item.countries[countryIdx]) return;
+  item.countries[countryIdx][field] = field === 'slug' ? slugifyNavValue(value) : value;
+  deferRenderNav();
+}
+
+function moveNestedCountry(parentIdx, countryIdx, dir) {
+  const arr = navConfig.nav[parentIdx]?.countries;
+  if (!Array.isArray(arr)) return;
+  const nextIdx = countryIdx + dir;
+  if (nextIdx < 0 || nextIdx >= arr.length) return;
+  [arr[countryIdx], arr[nextIdx]] = [arr[nextIdx], arr[countryIdx]];
+  renderNavEditor();
+  renderNav();
+  renderWelcomeCards();
+}
+
+function deleteNestedCountry(parentIdx, countryIdx) {
+  const arr = navConfig.nav[parentIdx]?.countries;
+  if (!Array.isArray(arr) || !arr[countryIdx]) return;
+  showModal('Delete Country', `Delete "${arr[countryIdx].label}" from Country Dossiers?`, () => {
+    arr.splice(countryIdx, 1);
+    renderNavEditor();
+    renderNav();
+    renderWelcomeCards();
+    showToast('Country removed');
+  });
+}
+
+function addNestedCountry(parentIdx) {
+  const flagInput = document.getElementById(`new-country-flag-${parentIdx}`);
+  const labelInput = document.getElementById(`new-country-label-${parentIdx}`);
+  const slugInput = document.getElementById(`new-country-slug-${parentIdx}`);
+  const label = labelInput?.value.trim() || '';
+  const slug = slugifyNavValue(slugInput?.value.trim() || label);
+  if (!label || !slug) {
+    showToast('Enter a country label and slug', true);
+    return;
+  }
+  const item = navConfig.nav[parentIdx];
+  if (!Array.isArray(item.countries)) item.countries = [];
+  item.countries.push({ flag: flagInput?.value.trim() || '🌍', label, slug });
+  if (flagInput) flagInput.value = '';
+  if (labelInput) labelInput.value = '';
+  if (slugInput) slugInput.value = '';
+  renderNavEditor();
+  renderNav();
+  renderWelcomeCards();
+  showToast('Country added');
+}
+
+function slugifyNavValue(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 function addTopLevelNav() {
   navConfig.nav.push({
     label: 'New Section',
@@ -4728,7 +5057,14 @@ async function fetchAllFeeds() {
   labelEl.textContent = 'Fetching all feeds...';
 
   try {
-    const res = await fetch('/api/feeds/fetch', { method: 'POST' });
+    const enabledCount = Array.isArray(_feedsData) ? _feedsData.filter(feed => feed.enabled !== false).length : 150;
+    const params = new URLSearchParams({
+      limitFeeds: String(Math.max(1, Math.min(enabledCount || 150, 200))),
+      maxItemsPerFeed: '8',
+      translationLimit: '80',
+      concurrency: '6',
+    });
+    const res = await fetch(`/api/feeds/fetch?${params.toString()}`, { method: 'POST' });
     barEl.style.width = '100%';
     if (res.ok) {
       const data = await res.json();

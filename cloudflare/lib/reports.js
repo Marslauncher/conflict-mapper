@@ -1693,7 +1693,7 @@ function renderReportHtml({ title, body, articles }) {
   const generatedAt = new Date().toISOString();
   const generatedDate = new Date(generatedAt);
   const displayTitle = escapeHtml(title).replace(' - ', ' &mdash; ');
-  const sanitizedBody = sanitizeReportHtml(stripCodeFence(body));
+  const sanitizedBody = sanitizeReportHtml(extractReportBody(stripCodeFence(body)));
   const mapMarkers = buildMapMarkers(articles);
   const topicLinks = buildTopicLinks(title, articles);
   const sourceList = articles.slice(0, 20).map((article) => (
@@ -1710,6 +1710,7 @@ function renderReportHtml({ title, body, articles }) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQPD+0DgM52rONKgrLqMEw3u96rBKUE=" crossorigin="">
+  <script src="/assets/user-style.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -2114,6 +2115,18 @@ function sanitizeReportHtml(value) {
     .replace(/\son[a-z]+\s*=\s*"[^"]*"/gi, '')
     .replace(/\son[a-z]+\s*=\s*'[^']*'/gi, '')
     .replace(/javascript:/gi, '');
+}
+
+function extractReportBody(value) {
+  const html = String(value || '').trim();
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+  if (bodyMatch) return bodyMatch[1].trim();
+  return html
+    .replace(/<!doctype[^>]*>/i, '')
+    .replace(/<html[^>]*>/gi, '')
+    .replace(/<\/html>/gi, '')
+    .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '')
+    .trim();
 }
 
 function escapeHtml(value) {
