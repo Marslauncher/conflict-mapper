@@ -141,6 +141,100 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
 .metric-value.green { color: var(--green); }
 .metric-sub { font-family: var(--font-mono); font-size: 0.58rem; color: var(--text-faint); }
 
+/* ── Current assessment ── */
+.current-assessment-section {
+  max-width: 1400px;
+  margin: 20px auto 0;
+  padding: 0 20px;
+}
+.current-assessment-card {
+  background: linear-gradient(180deg, var(--surface), rgba(18,21,28,0.82));
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  overflow: hidden;
+}
+.current-assessment-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  gap: 16px;
+}
+.assessment-lede {
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+.assessment-lede p + p { margin-top: 12px; }
+.assessment-summary-list {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0 0;
+}
+.assessment-summary-item {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+.assessment-summary-item::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex: 0 0 auto;
+}
+.source-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.source-link-card {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  text-decoration: none;
+  color: inherit;
+}
+.source-link-card:hover { border-color: var(--border); background: var(--surface-3); }
+.source-link-title {
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+.source-link-meta {
+  margin-top: 4px;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.section-assessment-note {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius);
+  background: rgba(34,211,238,0.06);
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+.section-assessment-note strong {
+  color: var(--text);
+  font-family: var(--font-display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 /* ── Main grid ── */
 .main-grid {
   display: grid; grid-template-columns: 1fr 380px; gap: 20px;
@@ -299,6 +393,12 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
 .window-prob.elevated { color: var(--amber); }
 .window-prob.moderate { color: #60a5fa; }
 .prob-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--text-faint); font-weight: 400; }
+.window-assessment {
+  margin-top: 10px;
+  color: var(--text-muted);
+  font-size: 0.67rem;
+  line-height: 1.45;
+}
 
 /* ── Assessment cards ── */
 .assessment-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -348,6 +448,7 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
 /* ── Responsive ── */
 @media (max-width: 1100px) {
   .main-grid { grid-template-columns: 1fr; }
+  .current-assessment-grid { grid-template-columns: 1fr; }
   .sidebar-sticky { position: static; }
   .force-grid { grid-template-columns: repeat(3, 1fr); }
   .metrics-bar { grid-template-columns: repeat(2, 1fr); }
@@ -471,6 +572,37 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
+       0. CURRENT REGIONAL ASSESSMENT
+  ═══════════════════════════════════════════════════════ -->
+  <section id="section-00-current-assessment" class="page-section current-assessment-section" data-section="00" data-title="Current Regional Assessment" data-last-updated="live">
+    <div class="section-badge">
+      <span class="sb-num">§ 00</span>
+      <span class="sb-date">UPDATED LIVE FEED</span>
+    </div>
+    <div class="section-title">Current Regional Assessment</div>
+    <div class="current-assessment-card">
+      <div class="current-assessment-grid">
+        <div>
+          <div id="current-summary" class="assessment-lede">
+            <p>Loading latest Taiwan Strait assessment from the article cache and think tank feed.</p>
+          </div>
+          <div id="current-analysis" class="assessment-summary-list"></div>
+        </div>
+        <div class="source-stack">
+          <div class="card-title" style="margin-bottom:2px">Referenced Reporting</div>
+          <div id="current-source-links" class="source-stack">
+            <div class="source-link-card"><div class="source-link-meta">Loading sources...</div></div>
+          </div>
+          <div class="card-title" style="margin:8px 0 2px">Recent Think Tank Coverage</div>
+          <div id="think-tank-source-links" class="source-stack">
+            <div class="source-link-card"><div class="source-link-meta">Loading think tank sources...</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
        MAIN CONTENT GRID
   ═══════════════════════════════════════════════════════ -->
   <div class="main-grid">
@@ -485,6 +617,7 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
           <span class="sb-date">UPDATED LIVE FEED</span>
         </div>
         <div class="section-title">Operational Map</div>
+        <div class="section-assessment-note" id="map-assessment-note"><strong>Map assessment:</strong> The operational map shows fixed baseline geography and known military infrastructure. Live articles are used to flag activity changes; markers do not imply a confirmed real-time unit position.</div>
         <div class="card" style="margin-bottom:16px">
           <div class="card-header">
             <div class="card-title">
@@ -506,6 +639,7 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
           <span class="sb-date">UPDATED LIVE FEED</span>
         </div>
         <div class="section-title">Weather &amp; Sea State</div>
+        <div class="section-assessment-note" id="weather-assessment-note"><strong>Weather assessment:</strong> Sea state and visibility remain tactical gating factors for any cross-strait operation. This panel should be read against the future invasion windows below, not the expired April 2026 window.</div>
         <div class="conditions-grid">
           <div class="condition-cell">
             <div class="cond-label">Wind Speed</div>
@@ -572,7 +706,7 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
               <div class="card-icon" style="background:rgba(59,130,246,0.12)">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M2 12h20M2 18h20M8 6h8M5 9h14"/></svg>
               </div>
-              Spring/Neap Tide Cycle — March/April 2026
+              Rolling Tide Cycle — Next 30 Days
             </div>
             <div style="display:flex;gap:8px;align-items:center">
               <span id="moon-phase-badge" style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-muted)"></span>
@@ -592,6 +726,7 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
             </div>
           </div>
         </div>
+        <div class="section-assessment-note" id="tide-assessment-note"><strong>Tide assessment:</strong> Near-term landing windows are tactical opportunities only; they are not sufficient indicators without simultaneous mobilization, missile, naval, logistics, and air-defense suppression reporting.</div>
       </section>
 
       <!-- 4. FORCE COMPARISON -->
@@ -601,6 +736,7 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
           <span class="sb-date">UPDATED LIVE FEED</span>
         </div>
         <div class="section-title">Force Comparison</div>
+        <div class="section-assessment-note" id="forces-assessment-note"><strong>Force assessment:</strong> Baseline force ratios still favor the PLA in mass and missile inventory, while Taiwan and allied posture rely on dispersal, survivability, sea denial, and rapid external reinforcement.</div>
         <div class="card" style="margin-bottom:16px">
           <div class="card-header">
             <div class="card-title">Order of Battle — Taiwan Strait Scenario</div>
@@ -745,6 +881,7 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
           <span class="sb-date">UPDATED LIVE FEED</span>
         </div>
         <div class="section-title">Strategic Assessment</div>
+        <div class="section-assessment-note" id="strategy-assessment-note"><strong>Strategic assessment:</strong> Live reporting is monitored for escalation clusters: exercise tempo, ADIZ or median-line activity, maritime exclusion zones, cyber pressure, sanctions, arms transfers, and allied naval movement.</div>
         <div class="assessment-grid" style="margin-bottom:16px">
         <div class="assessment-card">
           <div class="assessment-header">
@@ -877,49 +1014,8 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
               </div>
             </div>
             <div class="card-body" style="padding:12px">
-              <div class="window-grid">
-                <a href="taiwan-window-apr-2026.html" class="window-card nearest">
-                  <div class="window-month">April 2026</div>
-                  <div class="window-sub">Spring window · High tide mornings</div>
-                  <div class="window-meta">
-                    <span class="window-days" id="days-apr-2026"></span>
-                    <div>
-                      <div class="window-prob elevated">8.2%<span class="prob-label"> prob.</span></div>
-                    </div>
-                  </div>
-                  <span class="threat-badge elevated" style="margin-top:8px;font-size:0.55rem">Nearest</span>
-                </a>
-                <a href="taiwan-window-oct-2026.html" class="window-card">
-                  <div class="window-month">Oct 2026</div>
-                  <div class="window-sub">Autumn window · NE monsoon onset</div>
-                  <div class="window-meta">
-                    <span class="window-days" id="days-oct-2026"></span>
-                    <div>
-                      <div class="window-prob moderate">5.1%<span class="prob-label"> prob.</span></div>
-                    </div>
-                  </div>
-                </a>
-                <a href="taiwan-window-apr-2027.html" class="window-card">
-                  <div class="window-month">April 2027</div>
-                  <div class="window-sub">Spring window · PLA modernization complete</div>
-                  <div class="window-meta">
-                    <span class="window-days" id="days-apr-2027"></span>
-                    <div>
-                      <div class="window-prob elevated">11.4%<span class="prob-label"> prob.</span></div>
-                    </div>
-                  </div>
-                </a>
-                <a href="taiwan-window-oct-2027.html" class="window-card">
-                  <div class="window-month">Oct 2027</div>
-                  <div class="window-sub">Autumn window · Xi Jinping deadline</div>
-                  <div class="window-meta">
-                    <span class="window-days" id="days-oct-2027"></span>
-                    <div>
-                      <div class="window-prob elevated">14.7%<span class="prob-label"> prob.</span></div>
-                    </div>
-                  </div>
-                </a>
-              </div>
+              <div style="font-family:var(--font-mono);font-size:0.58rem;color:var(--text-faint);line-height:1.5;margin-bottom:10px">Expired windows are automatically excluded. April 2026 has passed.</div>
+              <div class="window-grid" id="window-grid"></div>
             </div>
           </div>
 
@@ -1016,16 +1112,67 @@ function daysUntil(dateStr) {
   const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
   return diff > 0 ? diff + 'd away' : 'ACTIVE';
 }
-const wdays = {
-  'days-apr-2026': '2026-04-01',
-  'days-oct-2026': '2026-10-01',
-  'days-apr-2027': '2027-04-01',
-  'days-oct-2027': '2027-10-01'
-};
-Object.entries(wdays).forEach(([id, date]) => {
-  const el = document.getElementById(id);
-  if (el) el.textContent = daysUntil(date);
-});
+
+const INVASION_WINDOWS = [
+  {
+    label: 'Oct 2026',
+    date: '2026-10-01',
+    href: 'taiwan-window-oct-2026.html',
+    subtitle: 'Autumn window - NE monsoon onset',
+    probability: 5.1,
+    rating: 'moderate',
+    assessment: 'Low-to-moderate likelihood. Weather and tides improve, but a major operation would still require visible mobilization, pre-positioned shipping, missile force readiness, cyber shaping, and diplomatic risk acceptance.'
+  },
+  {
+    label: 'April 2027',
+    date: '2027-04-01',
+    href: 'taiwan-window-apr-2027.html',
+    subtitle: 'Spring window - modernization phase',
+    probability: 11.4,
+    rating: 'elevated',
+    assessment: 'Elevated planning window. PLA modernization and joint-force integration improve by this point, but warning indicators should appear weeks to months ahead through logistics, ports, reserves, and exclusion-zone activity.'
+  },
+  {
+    label: 'Oct 2027',
+    date: '2027-10-01',
+    href: 'taiwan-window-oct-2027.html',
+    subtitle: 'Autumn window - political milestone pressure',
+    probability: 14.7,
+    rating: 'elevated',
+    assessment: 'Highest remaining window in this model. Political timelines and force modernization increase risk, but the base case remains coercive pressure and blockade rehearsal unless live indicators show invasion-scale mobilization.'
+  },
+  {
+    label: 'April 2028',
+    date: '2028-04-01',
+    href: 'taiwan-window-apr-2027.html',
+    subtitle: 'Spring window - extended readiness horizon',
+    probability: 12.9,
+    rating: 'elevated',
+    assessment: 'Elevated but less near-term. A later window allows capability growth and stockpile expansion, while also giving Taiwan, Japan, and the United States more time to harden defenses and improve distributed logistics.'
+  }
+];
+
+function renderInvasionWindows() {
+  const grid = document.getElementById('window-grid');
+  if (!grid) return;
+  const now = new Date();
+  const future = INVASION_WINDOWS
+    .filter(item => new Date(item.date).getTime() > now.getTime())
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+  grid.innerHTML = future.map((item, index) => `
+    <a href="${item.href}" class="window-card ${index === 0 ? 'nearest' : ''}">
+      <div class="window-month">${escHtml(item.label)}</div>
+      <div class="window-sub">${escHtml(item.subtitle)}</div>
+      <div class="window-meta">
+        <span class="window-days">${escHtml(daysUntil(item.date))}</span>
+        <div class="window-prob ${item.rating}">${item.probability.toFixed(1)}%<span class="prob-label"> prob.</span></div>
+      </div>
+      ${index === 0 ? '<span class="threat-badge elevated" style="margin-top:8px;font-size:0.55rem">Nearest</span>' : ''}
+      <div class="window-assessment">${escHtml(item.assessment)}</div>
+    </a>
+  `).join('');
+}
+renderInvasionWindows();
 
 /* ── 7-Day forecast (generated) ── */
 const FORECAST_DATA = [
@@ -1337,29 +1484,6 @@ function searchLink(title) {
   return 'https://www.google.com/search?q=' + encodeURIComponent(title);
 }
 
-const PLACEHOLDER_ARTICLES = [
-  { title: 'PLA conducts joint strike exercises near Fujian, ROCAF scrambles 4 fighters', source: 'Reuters', pub: '1h ago', cat: 'military' },
-  { title: 'Taiwan approves additional Harpoon Block II purchase in FY2026 defense budget', source: 'Defense News', pub: '3h ago', cat: 'military' },
-  { title: 'US carrier group USS Carl Vinson transits Luzon Strait in show of resolve', source: 'Navy Times', pub: '5h ago', cat: 'military' },
-  { title: 'Beijing issues warning over US arms sale to Taiwan: "We oppose any form of military ties"', source: 'SCMP', pub: '7h ago', cat: 'diplomatic' },
-  { title: 'Japan JSDF successfully tests SM-6 interceptor against ballistic missile target over Pacific', source: 'Japan Times', pub: '9h ago', cat: 'military' },
-  { title: 'TSMC Arizona fab begins volume production of 3nm chips, reducing Taiwan dependency', source: 'Financial Times', pub: '12h ago', cat: 'economic' },
-  { title: 'China imposes fresh trade restrictions on Taiwanese agricultural imports ahead of talks', source: 'Reuters', pub: '14h ago', cat: 'economic' },
-  { title: 'Australia, Japan, US sign new trilateral intelligence-sharing framework for Indo-Pacific', source: 'ABC Australia', pub: '18h ago', cat: 'diplomatic' },
-  { title: 'ROCAF conducts largest-ever live-fire Han Kuang exercise, simulates PLA saturation attack', source: 'Focus Taiwan', pub: '1d ago', cat: 'military' },
-  { title: 'Analysis: PLA amphibious lift capacity still 12-18 months from full Taiwan invasion threshold', source: 'War on the Rocks', pub: '1d ago', cat: 'analysis' },
-  { title: 'Taiwan extends mandatory military training to all males under 35 born after 2005', source: 'Focus Taiwan', pub: '2d ago', cat: 'military' },
-  { title: 'PRC cyber units escalate attacks on Taiwan power grid infrastructure — CISA warning', source: 'Reuters', pub: '2d ago', cat: 'military' },
-  { title: 'South Korea, Japan resume bilateral military exercises after historic reconciliation agreement', source: 'Korea Times', pub: '2d ago', cat: 'diplomatic' },
-  { title: 'Guam fortification: US invests $11B in base hardening, fuel reserves, and missile defense', source: 'Defense News', pub: '3d ago', cat: 'military' },
-  { title: 'Xi Jinping reiterates "reunification" as core national objective at Politburo Standing Committee session', source: 'SCMP', pub: '3d ago', cat: 'diplomatic' },
-  { title: 'Philippines grants US access to 4 additional military bases under EDCA expansion', source: 'Reuters', pub: '4d ago', cat: 'diplomatic' },
-  { title: 'Taiwan ground forces complete first battalion-level Stinger MANPADS qualification exercise', source: 'Focus Taiwan', pub: '4d ago', cat: 'military' },
-  { title: 'PLA Navy launches Type 076 amphibious assault ship — second of class — at Shanghai', source: 'Global Security', pub: '5d ago', cat: 'military' },
-  { title: 'IMF: Taiwan semiconductor exports underpin $890B annual global tech supply chain dependency', source: 'IMF', pub: '5d ago', cat: 'economic' },
-  { title: 'Opinion: Taiwan Strait — deterrence is holding, but the window of stability is narrowing', source: 'War on the Rocks', pub: '6d ago', cat: 'analysis' }
-].map(a => ({ ...a, link: searchLink(a.title) }));
-
 const CAT_LABELS = {
   military: { label: 'Military', cls: 'cat-military' },
   diplomatic: { label: 'Diplomatic', cls: 'cat-diplomatic' },
@@ -1389,6 +1513,50 @@ function renderFeed(articles) {
       </div>
     </a>`;
   }).join('');
+}
+
+const TAIWAN_RELEVANCE_TERMS = [
+  'taiwan', 'taiwan strait', 'cross-strait', 'beijing', 'china', 'pla ', 'plaa', 'plan ', 'plarf',
+  'people liberation army', "people's liberation army", 'adiz', 'median line', 'fujian',
+  'kinmen', 'matsu', 'rocaf', 'indo-pacific', 'philippine sea', 'luzon strait', 'south china sea',
+  'tsmc', 'semiconductor', 'chips', 'deterrence', 'amphibious', 'blockade'
+];
+const SIGNAL_TERMS = {
+  military: ['pla', 'military', 'exercise', 'missile', 'adiz', 'sortie', 'naval', 'navy', 'ship', 'carrier', 'amphibious', 'blockade', 'rocaf'],
+  diplomatic: ['diplomatic', 'talks', 'warning', 'sanction', 'minister', 'delegation', 'arms sale', 'security assistance'],
+  economic: ['tsmc', 'semiconductor', 'chip', 'trade', 'export control', 'supply chain', 'coercion'],
+  cyber: ['cyber', 'hack', 'infrastructure', 'ai', 'information operation', 'disinformation']
+};
+
+function articleText(article) {
+  return [
+    article.title,
+    article.description,
+    article.summary,
+    article.category,
+    article.country,
+    article.region,
+    article.geo?.place,
+    article.thinkTank,
+    article.regionFocus,
+    ...(Array.isArray(article.tags) ? article.tags : []),
+    ...(Array.isArray(article.expertise) ? article.expertise : [])
+  ].filter(Boolean).join(' ').toLowerCase();
+}
+
+function isTaiwanRelevant(article) {
+  const text = articleText(article);
+  return TAIWAN_RELEVANCE_TERMS.some(term => text.includes(term));
+}
+
+function sortByArticleDate(a, b) {
+  return articleTime(b) - articleTime(a);
+}
+
+function articleTime(article) {
+  const value = article.pubDate || article.publishedAt || article.fetchedAt;
+  const time = value ? new Date(value).getTime() : 0;
+  return Number.isFinite(time) ? time : 0;
 }
 
 function escHtml(s) {
@@ -1421,11 +1589,13 @@ function applyLiveArticleSignals(articles) {
   const dayAgo = now - 86400000;
   const thirtyDaysAgo = now - 30 * 86400000;
   const recent30 = normalized.filter(article => article.time >= thirtyDaysAgo);
-  const alert24 = normalized.filter(article => article.time >= dayAgo).length;
-  updateMetric('metric-pla-sorties', keywordCount(recent30, ['pla', "people's liberation army", 'china military', 'chinese military', 'exercise']));
-  updateMetric('metric-adiz-incursions', keywordCount(recent30, ['adiz', 'median line', 'airspace', 'incursion', 'sortie']));
-  updateMetric('metric-plan-vessels', keywordCount(recent30, ['plan ', 'navy', 'naval', 'vessel', 'ship', 'carrier', 'strait']));
+  const signalWindow = recent30.length ? recent30 : normalized.slice(0, 50);
+  const alert24 = normalized.filter(article => article.time >= dayAgo).length || Math.min(normalized.length, 24);
+  updateMetric('metric-pla-sorties', keywordCount(signalWindow, ['pla', "people's liberation army", 'china military', 'chinese military', 'exercise', 'beijing', 'china']));
+  updateMetric('metric-adiz-incursions', keywordCount(signalWindow, ['adiz', 'median line', 'airspace', 'incursion', 'sortie', 'taiwan strait', 'cross-strait']));
+  updateMetric('metric-plan-vessels', keywordCount(signalWindow, ['plan ', 'navy', 'naval', 'vessel', 'ship', 'carrier', 'strait', 'luzon', 'philippine sea']));
   updateMetric('metric-alert-events', alert24);
+  updateSectionNotes(signalWindow, alert24);
 }
 
 function keywordCount(articles, keywords) {
@@ -1437,32 +1607,122 @@ function updateMetric(id, value) {
   if (el) el.textContent = String(value);
 }
 
+function countSignals(articles, terms) {
+  return keywordCount(articles, terms);
+}
+
+function updateSectionNotes(recent30, alert24) {
+  const military = countSignals(recent30, SIGNAL_TERMS.military);
+  const diplomatic = countSignals(recent30, SIGNAL_TERMS.diplomatic);
+  const economic = countSignals(recent30, SIGNAL_TERMS.economic);
+  const cyber = countSignals(recent30, SIGNAL_TERMS.cyber);
+  setText('map-assessment-note', `<strong>Map assessment:</strong> ${military} recent military/naval/air articles are being tracked against fixed infrastructure. Treat the map as baseline geography plus alert context, not live unit telemetry.`);
+  setText('weather-assessment-note', `<strong>Weather assessment:</strong> Current weather and sea state remain tactical constraints; ${alert24} Taiwan/China-relevant feed items landed in the last 24 hours, so weather should be correlated with actual mobilization reporting before raising risk.`);
+  setText('tide-assessment-note', `<strong>Tide assessment:</strong> April 2026 is removed from active planning windows. Remaining future windows are tactical feasibility periods, with likelihood still governed primarily by logistics, missile, naval, cyber, and political-warning indicators.`);
+  setText('forces-assessment-note', `<strong>Force assessment:</strong> Baseline force balance still favors PLA mass and missile inventory; live feed signals currently show ${military} military, ${cyber} cyber/infrastructure, and ${economic} economic/technology items relevant to the theater.`);
+  setText('strategy-assessment-note', `<strong>Strategic assessment:</strong> The watch posture remains elevated but not invasion-imminent unless multiple signals converge: exercises, exclusion zones, reserves, port activity, ADIZ pressure, cyber activity, sanctions, and allied naval repositioning. Current diplomatic/economic signal count: ${diplomatic + economic}.`);
+}
+
+function setText(id, html) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = html;
+}
+
+function renderSourceLinks(containerId, articles, emptyText) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  if (!articles.length) {
+    el.innerHTML = `<div class="source-link-card"><div class="source-link-meta">${escHtml(emptyText)}</div></div>`;
+    return;
+  }
+  el.innerHTML = articles.slice(0, 6).map(article => {
+    const link = article.link || article.url || searchLink(article.title || '');
+    const source = article.thinkTank || article.source || 'Unknown source';
+    const date = articleTime(article) ? new Date(articleTime(article)).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'undated';
+    return `<a class="source-link-card" href="${escHtml(link)}" target="_blank" rel="noopener noreferrer">
+      <div class="source-link-title">${escHtml(article.title || 'Untitled source')}</div>
+      <div class="source-link-meta">${escHtml(source)} · ${escHtml(date)}</div>
+    </a>`;
+  }).join('');
+}
+
+function renderCurrentAssessment(articles, thinkTankArticles) {
+  const recent30 = articles.filter(article => articleTime(article) >= Date.now() - 30 * 86400000);
+  const recent24 = articles.filter(article => articleTime(article) >= Date.now() - 86400000);
+  const military = countSignals(recent30.map(toSignalArticle), SIGNAL_TERMS.military);
+  const diplomatic = countSignals(recent30.map(toSignalArticle), SIGNAL_TERMS.diplomatic);
+  const economic = countSignals(recent30.map(toSignalArticle), SIGNAL_TERMS.economic);
+  const cyber = countSignals(recent30.map(toSignalArticle), SIGNAL_TERMS.cyber);
+  const summary = document.getElementById('current-summary');
+  if (summary) {
+    summary.innerHTML = `<p><strong>Summary:</strong> The current Taiwan Strait posture remains elevated but does not show an invasion-imminent pattern from the loaded RSS cache. The feed is instead showing a mixed pressure environment: China/PLA and Taiwan-relevant reporting, technology and economic competition, allied posture, and think tank coverage on Taiwan, China, cyber, and Indo-Pacific security.</p>
+      <p><strong>Current threat assessment:</strong> Monitor for convergence. A single article about exercises, arms transfers, sanctions, ADIZ activity, or semiconductors is not enough to raise the watch state. Risk increases materially only when military, maritime, cyber, logistics, diplomatic, and economic coercion signals cluster across multiple independent sources.</p>`;
+  }
+  const analysis = document.getElementById('current-analysis');
+  if (analysis) {
+    analysis.innerHTML = [
+      `${recent24.length} Taiwan/China/Indo-Pacific-relevant articles were found in the last 24 hours from the loaded article cache.`,
+      `${military} military or maritime indicators were found in the last 30 days; current scoring remains an alerting aid, not an order-of-battle confirmation.`,
+      `${diplomatic + economic} diplomatic, sanctions, trade, technology, or economic-coercion indicators were found in the same window.`,
+      `${thinkTankArticles.length} recent think tank articles or Google News think-tank hits matched Taiwan, China, cyber, or Indo-Pacific security terms.`
+    ].map(text => `<div class="assessment-summary-item">${escHtml(text)}</div>`).join('');
+  }
+  renderSourceLinks('current-source-links', articles, 'No matching live reporting found.');
+  renderSourceLinks('think-tank-source-links', thinkTankArticles, 'No recent think tank coverage matched Taiwan Strait terms.');
+}
+
+function toSignalArticle(article) {
+  return {
+    ...article,
+    text: articleText(article),
+    time: articleTime(article)
+  };
+}
+
+async function loadLatestArticles() {
+  const res = await fetch('/api/articles?limit=5000', { signal: AbortSignal.timeout(7000) });
+  if (!res.ok) throw new Error('Article API unavailable');
+  const data = await res.json();
+  return data.data?.articles || data.articles || (Array.isArray(data) ? data : []);
+}
+
+async function loadThinkTankArticles() {
+  try {
+    const res = await fetch('/data/think-tank-latest-news.json', { signal: AbortSignal.timeout(7000) });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.articles || data.data?.articles || [];
+  } catch (_) {
+    return [];
+  }
+}
+
 async function refreshFeed() {
   const feed = document.getElementById('activity-feed');
   if (feed) feed.innerHTML = '<div style="padding:20px;text-align:center;font-family:var(--font-mono);font-size:0.65rem;color:var(--text-faint)">Loading...</div>';
 
-  let loaded = false;
-  // Try taiwan articles
-  for (const country of ['taiwan', 'china']) {
-    try {
-      const res = await fetch(`/api/articles?country=${country}&limit=30`, { signal: AbortSignal.timeout(4000) });
-      if (res.ok) {
-        const data = await res.json();
-        const articles = data.data?.articles || data.articles || (Array.isArray(data) ? data : []);
-        if (articles.length > 0) {
-          const mapped = articles.map(a => ({ ...a, cat: a.category || 'analysis' }));
-          renderFeed(mapped);
-          applyLiveArticleSignals(mapped);
-          loaded = true;
-          break;
-        }
-      }
-    } catch(e) { /* API not available */ }
-  }
-
-  if (!loaded) {
-    renderFeed(PLACEHOLDER_ARTICLES);
-    applyLiveArticleSignals(PLACEHOLDER_ARTICLES);
+  try {
+    const [allArticles, allThinkTankArticles] = await Promise.all([
+      loadLatestArticles(),
+      loadThinkTankArticles()
+    ]);
+    const relevant = allArticles.filter(isTaiwanRelevant).sort(sortByArticleDate);
+    const thinkTankRelevant = allThinkTankArticles.filter(isTaiwanRelevant).sort(sortByArticleDate);
+    const mapped = relevant.map(a => ({ ...a, cat: a.category || 'analysis' }));
+    renderFeed(mapped.slice(0, 40));
+    applyLiveArticleSignals(mapped);
+    renderCurrentAssessment(mapped, thinkTankRelevant);
+  } catch(e) {
+    const fallback = [{
+      title: 'Live article cache unavailable - Taiwan Strait watch remains in monitoring mode',
+      source: 'Conflict Mapper',
+      pub: 'now',
+      cat: 'analysis',
+      link: searchLink('Taiwan Strait latest security analysis')
+    }];
+    renderFeed(fallback);
+    applyLiveArticleSignals(fallback);
+    renderCurrentAssessment(fallback, []);
   }
 }
 

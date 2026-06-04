@@ -2025,10 +2025,9 @@
   .nav-logo-tag { display: none; }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1320px) {
   .nav-links,
   .nav-divider,
-  .nav-settings,
   .nav-status {
     display: none;
   }
@@ -2041,7 +2040,9 @@
   .cards-grid {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   }
+}
 
+@media (max-width: 1180px) {
   .admin-sidebar {
     display: none;
   }
@@ -2058,6 +2059,16 @@
   .storage-row span,
   .storage-row a { min-width: 0; }
   .rpt-btn-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .nav-settings {
+    width: 40px;
+    padding: 0;
+    justify-content: center;
+    font-size: 0;
+  }
+  .nav-settings svg { margin: 0; }
 }
 
 @media (max-width: 480px) {
@@ -4958,6 +4969,7 @@ async function saveAIConfig() {
 
 /* ── RSS Feeds ──────────────────────────────────────────── */
 let _feedsData = [];
+const FEED_ZERO_STREAK_KEY = 'conflictMapper.feedZeroStreaks.v1';
 
 async function loadFeedsConfig() {
   const list = document.getElementById('feed-list');
@@ -5001,6 +5013,14 @@ function renderFeedList() {
   list.innerHTML = _feedsData.map((feed, i) => {
     const catOpts = FEED_CATEGORIES.map(c => `<option value="${c}" ${feed.category===c?'selected':''}>${c}</option>`).join('');
     const ctryOpts = FEED_COUNTRIES.map(c => `<option value="${c}" ${(feed.country||'')===(c)?'selected':''}>${c||'global'}</option>`).join('');
+    const fetchCount = Number.isFinite(Number(feed.lastArticleCount)) ? Number(feed.lastArticleCount) : null;
+    const zeroStreak = Number(feed.zeroArticleStreak || 0);
+    const countBadge = fetchCount === null
+      ? `<span style="font-family:var(--font-mono);font-size:0.58rem;color:var(--color-text-faint);background:rgba(148,163,184,0.08);padding:2px 6px;border-radius:3px;" title="Article count will update after Fetch All Now">not fetched</span>`
+      : `<span style="font-family:var(--font-mono);font-size:0.58rem;color:${fetchCount > 0 ? 'var(--color-green)' : 'var(--color-amber)'};background:${fetchCount > 0 ? 'rgba(74,222,128,0.1)' : 'rgba(245,158,11,0.12)'};padding:2px 6px;border-radius:3px;" title="Articles returned during the last Fetch All Now run">${fetchCount} articles</span>`;
+    const zeroBadge = zeroStreak >= 2
+      ? `<span style="font-family:var(--font-mono);font-size:0.58rem;color:#f87171;background:rgba(248,113,113,0.12);padding:2px 6px;border-radius:3px;" title="This feed has returned zero articles for ${zeroStreak} consecutive Fetch All Now runs">${zeroStreak}x zero</span>`
+      : '';
     const healthBadge = feed.lastError
       ? `<span style="font-family:var(--font-mono);font-size:0.58rem;color:#f87171;background:rgba(248,113,113,0.12);padding:2px 6px;border-radius:3px;" title="${escHtml(feed.lastError)}">ERR</span>`
       : (feed.lastFetch ? `<span style="font-family:var(--font-mono);font-size:0.58rem;color:#4ade80;background:rgba(74,222,128,0.1);padding:2px 6px;border-radius:3px;">OK</span>` : '');
@@ -5015,6 +5035,8 @@ function renderFeedList() {
                  onfocus="this.style.borderBottomColor='var(--color-accent)'"
                  onblur="this.style.borderBottomColor='transparent'">
           ${healthBadge}
+          ${countBadge}
+          ${zeroBadge}
         </div>
         <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--color-text-faint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:var(--space-2)">${escHtml(feed.url)}</div>
         <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:center">
@@ -5113,6 +5135,108 @@ async function saveFeedsConfig() {
   } catch(e) { /* silent fallback */ }
 }
 
+function feedIdentity(feed) {
+  return String(feed?.id || feed?.url || feed?.name || '').trim();
+}
+
+function readFeedZeroStreaks() {
+  try {
+    return JSON.parse(localStorage.getItem(FEED_ZERO_STREAK_KEY) || '{}');
+  } catch (_) {
+    return {};
+  }
+}
+
+function writeFeedZeroStreaks(streaks) {
+  try {
+    localStorage.setItem(FEED_ZERO_STREAK_KEY, JSON.stringify(streaks));
+  } catch (_) {}
+}
+
+function normalizeFeedResults(payload) {
+  const data = payload?.data || payload || {};
+  return data.feedResults || data.lastResult?.feedResults || payload?.feedResults || [];
+}
+
+function resultArticleCount(result) {
+  const value = result?.count ?? result?.articles ?? result?.accepted ?? result?.acceptedArticles ?? 0;
+  const count = Number(value);
+  return Number.isFinite(count) ? count : 0;
+}
+
+function applyFeedFetchResults(feedResults) {
+  if (!Array.isArray(feedResults) || !feedResults.length) return [];
+  const streaks = readFeedZeroStreaks();
+  const byId = new Map();
+  for (const result of feedResults) {
+    const keys = [result.id, result.feedId, result.url, result.feedName, result.name].filter(Boolean).map(String);
+    for (const key of keys) byId.set(key, result);
+  }
+  const repeatedZeroFeeds = [];
+  const now = new Date().toISOString();
+  _feedsData = _feedsData.map(feed => {
+    const key = feedIdentity(feed);
+    const result = byId.get(key) || byId.get(feed.url) || byId.get(feed.name);
+    if (!result) return feed;
+    const count = resultArticleCount(result);
+    const nextStreak = count === 0 ? Number(streaks[key] || 0) + 1 : 0;
+    streaks[key] = nextStreak;
+    const nextFeed = {
+      ...feed,
+      lastFetch: now,
+      lastArticleCount: count,
+      zeroArticleStreak: nextStreak,
+      lastError: result.ok === false ? (result.error || 'Fetch failed') : ''
+    };
+    if (nextFeed.enabled !== false && nextStreak >= 2) repeatedZeroFeeds.push(nextFeed);
+    return nextFeed;
+  });
+  writeFeedZeroStreaks(streaks);
+  renderFeedList();
+  return repeatedZeroFeeds;
+}
+
+function promptPurgeZeroFeeds(feeds) {
+  if (!Array.isArray(feeds) || !feeds.length) return;
+  const sample = feeds.slice(0, 5).map(feed => feed.name || feed.url).join(', ');
+  const more = feeds.length > 5 ? `, plus ${feeds.length - 5} more` : '';
+  showModal(
+    'Purge Zero-Article Feeds',
+    `${feeds.length} enabled feed(s) have returned zero articles for at least two consecutive Fetch All Now runs: ${sample}${more}. Remove them from the RSS feed list?`,
+    () => {
+      const removeSet = new Set(feeds.map(feedIdentity));
+      _feedsData = _feedsData.filter(feed => !removeSet.has(feedIdentity(feed)));
+      document.getElementById('feed-count-label').textContent = `${_feedsData.length} feeds configured`;
+      renderFeedList();
+      saveFeedsConfig();
+      showToast(`${removeSet.size} zero-article feed(s) removed`);
+    }
+  );
+}
+
+async function waitForFeedFetchResults(labelEl, maxPolls = 90) {
+  for (let i = 0; i < maxPolls; i++) {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      const res = await fetch('/api/feeds/fetch-status');
+      if (!res.ok) continue;
+      const json = await res.json();
+      const status = json.data || json.status || {};
+      if (status.running) {
+        if (labelEl) labelEl.textContent = status.message || `Fetching feeds... ${status.progress || 0}/${status.total || '?'}`;
+        continue;
+      }
+      const feedResults = status.lastResult?.feedResults || [];
+      return {
+        status,
+        feedResults,
+        articlesAdded: status.lastResult?.newArticles || 0,
+      };
+    } catch (_) {}
+  }
+  return { status: null, feedResults: [], articlesAdded: 0 };
+}
+
 async function fetchAllFeeds() {
   const progressEl = document.getElementById('rss-progress');
   const barEl = document.getElementById('rss-progress-bar');
@@ -5134,8 +5258,18 @@ async function fetchAllFeeds() {
     barEl.style.width = '100%';
     if (res.ok) {
       const data = await res.json();
-      labelEl.textContent = `Fetched ${data.articlesAdded || 0} new articles`;
+      let feedResults = normalizeFeedResults(data);
+      let articlesAdded = data.articlesAdded || data.data?.articlesAdded || 0;
+      if (!feedResults.length && data.data?.status?.running) {
+        const finalStatus = await waitForFeedFetchResults(labelEl);
+        feedResults = finalStatus.feedResults;
+        articlesAdded = finalStatus.articlesAdded;
+      }
+      const repeatedZeroFeeds = applyFeedFetchResults(feedResults);
+      const checked = feedResults.length || data.data?.feedsChecked || data.feedsChecked || enabledCount;
+      labelEl.textContent = `Fetched ${articlesAdded} new articles from ${checked} feeds`;
       showToast('Feeds fetched successfully');
+      promptPurgeZeroFeeds(repeatedZeroFeeds);
     } else {
       labelEl.textContent = 'Fetch complete (check server logs)';
       showToast('Feeds fetch triggered');

@@ -98,7 +98,7 @@ body {
 }
 .stats-row {
   display: grid;
-  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  grid-template-columns: repeat(5, minmax(120px, 1fr));
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -122,6 +122,33 @@ body {
   color: var(--text-faint);
   text-transform: uppercase;
 }
+.date-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -4px 0 18px;
+  padding: 10px;
+  border: 1px solid var(--border-dim);
+  border-radius: 8px;
+  background: rgba(18,21,28,0.55);
+}
+.date-index a {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 5px 8px;
+  border: 1px solid var(--border-dim);
+  border-radius: 5px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.date-index a:hover { color: var(--text); border-color: var(--accent); }
+.date-index .count { color: var(--accent); }
 .group { margin-top: 18px; }
 .group-title {
   display: flex;
@@ -233,7 +260,6 @@ body {
   .toolbar, .stats-row, .article-grid { grid-template-columns: 1fr; }
 }
 </style>
-<script src="/assets/user-style.js"></script>
 </head>
 <body>
 <main class="library-shell">
@@ -281,6 +307,7 @@ body {
 
   <section class="stats-row" aria-label="Library statistics">
     <div class="stat-card"><div class="stat-value" id="stat-total">-</div><div class="stat-label">Matching Articles</div></div>
+    <div class="stat-card"><div class="stat-value" id="stat-rendered">-</div><div class="stat-label">Rendered Cards</div></div>
     <div class="stat-card"><div class="stat-value" id="stat-sources">-</div><div class="stat-label">Sources</div></div>
     <div class="stat-card"><div class="stat-value" id="stat-regions">-</div><div class="stat-label">Regions</div></div>
     <div class="stat-card"><div class="stat-value" id="stat-topics">-</div><div class="stat-label">Topics</div></div>
@@ -349,18 +376,20 @@ function renderLibrary() {
     renderLimit = Number.POSITIVE_INFINITY;
     lastFilterSignature = signature;
   }
-  updateStats(filtered);
   const target = document.getElementById('library-results');
   if (!filtered.length) {
+    updateStats(filtered, []);
     target.innerHTML = '<div class="empty">No articles match the current filters.</div>';
     return;
   }
   const visible = filtered.slice(0, renderLimit);
   const groups = groupByDate(visible);
+  updateStats(filtered, visible);
   target.innerHTML = `
-    <div class="results-note">Showing all ${visible.length} matching articles from ${allArticles.length} cached articles</div>
+    <div class="results-note">Rendered ${visible.length} article cards from ${filtered.length} matches and ${allArticles.length} cached articles</div>
+    ${renderDateIndex(groups)}
   ` + Object.entries(groups).map(([date, articles]) => `
-    <section class="group">
+    <section class="group" id="${dateGroupId(date)}">
       <div class="group-title">${escapeHtml(date)} <span style="color:var(--text-faint);font-size:0.8rem">${articles.length}</span></div>
       <div class="article-grid">
         ${articles.map(renderArticleCard).join('')}
@@ -376,6 +405,14 @@ function renderLibrary() {
 function loadMoreArticles() {
   renderLimit += 300;
   renderLibrary();
+}
+
+function renderDateIndex(groups) {
+  const entries = Object.entries(groups);
+  if (entries.length <= 1) return '';
+  return `<nav class="date-index" aria-label="Article date groups">
+    ${entries.map(([date, articles]) => `<a href="#${dateGroupId(date)}"><span>${escapeHtml(date)}</span><span class="count">${articles.length}</span></a>`).join('')}
+  </nav>`;
 }
 
 function filterArticles(articles) {
@@ -432,8 +469,9 @@ function renderArticleCard(article) {
   `;
 }
 
-function updateStats(articles) {
+function updateStats(articles, rendered) {
   document.getElementById('stat-total').textContent = articles.length;
+  document.getElementById('stat-rendered').textContent = rendered.length;
   document.getElementById('stat-sources').textContent = uniqueValues(articles.map(a => a.source)).length;
   document.getElementById('stat-regions').textContent = uniqueValues(articles.map(regionForArticle)).length;
   document.getElementById('stat-topics').textContent = uniqueValues(articles.flatMap(topicValues)).length;
@@ -482,6 +520,13 @@ function dateValue(article) {
   const value = article.pubDate || article.publishedAt || article.fetchedAt;
   const time = value ? new Date(value).getTime() : 0;
   return Number.isFinite(time) ? time : 0;
+}
+
+function dateGroupId(date) {
+  return `date-${String(date || 'unknown')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')}`;
 }
 
 function formatArticleDate(value) {

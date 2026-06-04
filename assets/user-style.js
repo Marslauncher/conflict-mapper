@@ -191,6 +191,7 @@
     root.style.setProperty('--accent', c.accent);
     root.style.setProperty('--accent-dim', hexToRgba(c.accent, 0.12));
     ensureOverrideStyle();
+    scheduleLegacyReportNormalization();
   }
 
   function ensureOverrideStyle() {
@@ -230,8 +231,116 @@
       .storage-row:not(.header), .source-list, .risk-detail {
         color: var(--color-text-muted, var(--text-muted, #9aa4b8)) !important;
       }
+      html.cm-legacy-report body {
+        background:
+          radial-gradient(circle at 70% -18%, color-mix(in srgb, var(--color-accent, #c41e3a) 14%, transparent), transparent 34%),
+          var(--color-bg, #0a0c10) !important;
+      }
+      html.cm-legacy-report main {
+        width: min(1120px, calc(100vw - 32px)) !important;
+        max-width: min(1120px, calc(100vw - 32px)) !important;
+        margin: 0 auto !important;
+        padding: clamp(28px, 4vw, 58px) 0 !important;
+        color: var(--color-text, #dde2ec) !important;
+        font-family: Inter, system-ui, sans-serif !important;
+      }
+      html.cm-legacy-report main h1 {
+        margin: 0 0 16px !important;
+        color: var(--color-teal, #2dd4bf) !important;
+        font-family: Rajdhani, system-ui, sans-serif !important;
+        font-size: clamp(2rem, 4vw, 3.3rem) !important;
+        line-height: 1.02 !important;
+        letter-spacing: 0.04em !important;
+        text-transform: uppercase !important;
+      }
+      html.cm-legacy-report main .meta,
+      html.cm-legacy-report main > .meta {
+        display: block !important;
+        margin: 0 0 22px !important;
+        padding: 10px 12px !important;
+        border: 1px solid var(--color-border-dim, rgba(255,255,255,0.08)) !important;
+        border-radius: 6px !important;
+        background: var(--color-surface, #0f1117) !important;
+        color: var(--color-text-muted, #9aa4b8) !important;
+        font-family: Share Tech Mono, monospace !important;
+        font-size: calc(0.72rem * var(--cm-font-scale, 1)) !important;
+        letter-spacing: 0.08em !important;
+        text-transform: uppercase !important;
+      }
+      html.cm-legacy-report .report-body,
+      html.cm-legacy-report .sources {
+        margin: 0 0 18px !important;
+        padding: clamp(18px, 3vw, 28px) !important;
+        border: 1px solid var(--color-border-dim, rgba(255,255,255,0.08)) !important;
+        border-radius: 8px !important;
+        background: linear-gradient(180deg, var(--color-surface-2, #141820), var(--color-surface, #0f1117)) !important;
+        box-shadow: 0 16px 42px rgba(0,0,0,0.22) !important;
+      }
+      html.cm-legacy-report .report-body h2,
+      html.cm-legacy-report .report-body h3,
+      html.cm-legacy-report .sources h2,
+      html.cm-legacy-report .sources h3 {
+        margin: 20px 0 10px !important;
+        color: var(--color-teal, #2dd4bf) !important;
+        font-family: Rajdhani, system-ui, sans-serif !important;
+        letter-spacing: 0.08em !important;
+        text-transform: uppercase !important;
+      }
+      html.cm-legacy-report .report-body h2:first-child,
+      html.cm-legacy-report .report-body h3:first-child {
+        margin-top: 0 !important;
+      }
+      html.cm-legacy-report .report-body p,
+      html.cm-legacy-report .report-body li,
+      html.cm-legacy-report .sources li {
+        color: var(--color-text, #dde2ec) !important;
+        font-size: calc(0.98rem * var(--cm-font-scale, 1)) !important;
+        line-height: 1.68 !important;
+      }
+      html.cm-legacy-report .report-body ul,
+      html.cm-legacy-report .report-body ol,
+      html.cm-legacy-report .sources ul,
+      html.cm-legacy-report .sources ol {
+        padding-left: 1.25rem !important;
+      }
+      html.cm-legacy-report .report-body a,
+      html.cm-legacy-report .sources a {
+        color: var(--color-accent-hover, #e02442) !important;
+        overflow-wrap: anywhere !important;
+      }
     `;
     document.head.appendChild(style);
+  }
+
+  let legacyReportNormalizationQueued = false;
+
+  function scheduleLegacyReportNormalization() {
+    if (legacyReportNormalizationQueued) return;
+    legacyReportNormalizationQueued = true;
+    const run = () => {
+      legacyReportNormalizationQueued = false;
+      normalizeLegacyReport();
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', run, { once: true });
+    } else {
+      run();
+    }
+  }
+
+  function normalizeLegacyReport() {
+    const reportBody = document.querySelector('.report-body');
+    if (!reportBody) return;
+    document.documentElement.classList.add('cm-legacy-report');
+    reportBody.querySelectorAll('html, body').forEach((node) => {
+      const parent = node.parentNode;
+      if (!parent) return;
+      while (node.firstChild) parent.insertBefore(node.firstChild, node);
+      node.remove();
+    });
+    reportBody.querySelectorAll('p').forEach((paragraph) => {
+      if (!paragraph.textContent.trim()) paragraph.remove();
+    });
   }
 
   function hexToRgba(hex, alpha) {

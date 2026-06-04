@@ -261,11 +261,20 @@ export async function refreshArticles(context, {
 
     for (const item of results) {
       if (item.error) {
-        feedResults.push({ id: item.feed.id || item.feed.name || item.feed.url, ok: false, error: item.error.message });
+        feedResults.push({
+          id: item.feed.id || item.feed.name || item.feed.url,
+          name: item.feed.name || item.feed.id || item.feed.url,
+          url: item.feed.url,
+          ok: false,
+          count: 0,
+          error: item.error.message,
+        });
       } else {
         nextArticles.push(...item.result.articles);
         feedResults.push({
           id: item.feed.id || item.feed.name || item.feed.url,
+          name: item.feed.name || item.feed.id || item.feed.url,
+          url: item.feed.url,
           ok: true,
           count: item.result.articles.length,
           ...item.result.stats,
