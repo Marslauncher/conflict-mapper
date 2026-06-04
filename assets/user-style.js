@@ -204,18 +204,31 @@
         color: var(--color-text, var(--text, #dde2ec)) !important;
       }
       body, button, input, select, textarea { font-size-adjust: none; }
+      button, input, select, textarea, table, .storage-object-browser {
+        font-size: calc(1em * var(--cm-font-scale, 1));
+      }
       .report-title, .classification-bar, .section-label, .theater-name,
-      .topic-link, .watch-row span:first-child { color: var(--color-teal, #2dd4bf) !important; }
+      .topic-link, .watch-row span:first-child, .page-title, .hero-title {
+        color: var(--color-teal, #2dd4bf) !important;
+      }
       .classification-bar, .exec-summary, .topic-link {
         border-color: color-mix(in srgb, var(--color-teal, #2dd4bf) 35%, transparent) !important;
       }
-      .panel, .trend-card, .outlook-box, .threat-level-bar,
-      .article-card, .stat-card, .admin-card, .nav-editor-group {
-        background-color: var(--color-surface-2, #141820);
+      .panel, .trend-card, .outlook-box, .threat-level-bar, .exec-summary,
+      .article-card, .article, .stat-card, .admin-card, .nav-editor-group,
+      .storage-table, .storage-row, .card, .section, .report-section {
+        background-color: var(--color-surface-2, #141820) !important;
+        border-color: var(--color-border-dim, rgba(255,255,255,0.08)) !important;
       }
       a { color: var(--color-accent, #c41e3a); }
-      p, li, .feed-summary, .risk-detail, .theater-assessment {
-        font-size: calc(1em * var(--cm-font-scale, 1));
+      p, li, .feed-summary, .risk-detail, .theater-assessment,
+      .article-summary, .summary, .storage-row, .source-list li,
+      .trend-card, .outlook-box, .exec-summary {
+        font-size: calc(1em * var(--cm-font-scale, 1)) !important;
+      }
+      .muted, .meta, .feed-meta, .article-meta, .report-meta,
+      .storage-row:not(.header), .source-list, .risk-detail {
+        color: var(--color-text-muted, var(--text-muted, #9aa4b8)) !important;
       }
     `;
     document.head.appendChild(style);

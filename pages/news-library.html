@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="/assets/user-style.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; }
 :root {
@@ -87,6 +88,14 @@ body {
   outline: none;
 }
 .input:focus, .select:focus { border-color: var(--accent); }
+.results-note {
+  margin: 0 0 14px;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 .stats-row {
   display: grid;
   grid-template-columns: repeat(4, minmax(120px, 1fr));
@@ -133,11 +142,13 @@ body {
 }
 .article-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
   gap: 12px;
   margin-top: 10px;
+  min-width: 0;
 }
 .article-card {
+  min-width: 0;
   min-height: 178px;
   background: var(--surface);
   border: 1px solid var(--border-dim);
@@ -160,17 +171,20 @@ body {
   font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 .article-summary {
   color: var(--text-muted);
   font-size: 0.78rem;
   line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 .meta {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   margin-top: auto;
+  min-width: 0;
 }
 .pill {
   font-family: var(--font-mono);
@@ -181,6 +195,8 @@ body {
   padding: 3px 6px;
   border-radius: 4px;
   background: var(--surface-3);
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 .pill.topic { color: #fda4af; background: rgba(196,30,58,0.16); }
 .pill.region { color: #93c5fd; background: rgba(59,130,246,0.16); }
@@ -330,7 +346,7 @@ function renderLibrary() {
   const filtered = filterArticles(allArticles);
   const signature = currentFilterSignature();
   if (signature !== lastFilterSignature) {
-    renderLimit = 300;
+    renderLimit = Number.POSITIVE_INFINITY;
     lastFilterSignature = signature;
   }
   updateStats(filtered);
@@ -341,7 +357,9 @@ function renderLibrary() {
   }
   const visible = filtered.slice(0, renderLimit);
   const groups = groupByDate(visible);
-  target.innerHTML = Object.entries(groups).map(([date, articles]) => `
+  target.innerHTML = `
+    <div class="results-note">Showing all ${visible.length} matching articles from ${allArticles.length} cached articles</div>
+  ` + Object.entries(groups).map(([date, articles]) => `
     <section class="group">
       <div class="group-title">${escapeHtml(date)} <span style="color:var(--text-faint);font-size:0.8rem">${articles.length}</span></div>
       <div class="article-grid">
@@ -397,7 +415,7 @@ function currentFilterSignature() {
 
 function renderArticleCard(article) {
   const link = article.link || article.url || '#';
-  const desc = article.description || article.summary || '';
+  const desc = cleanText(article.description || article.summary || '');
   const summary = desc.length > 210 ? `${desc.slice(0, 207)}...` : desc;
   return `
     <a class="article-card" href="${escapeHtml(link)}" target="_blank" rel="noopener">
@@ -474,6 +492,13 @@ function formatArticleDate(value) {
     month: 'short',
     day: 'numeric',
   });
+}
+
+function cleanText(value) {
+  const doc = new DOMParser().parseFromString(String(value || ''), 'text/html');
+  return (doc.body.textContent || '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function timeAgo(value) {

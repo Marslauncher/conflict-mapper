@@ -226,11 +226,12 @@ function readAtomLink(segment) {
 }
 
 function clean(value) {
-  return decodeEntities(String(value || '')
-    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+  const decoded = decodeEntities(String(value || '')
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1'));
+  return decoded
     .replace(/<[^>]+>/g, ' ')
     .replace(/\s+/g, ' ')
-    .trim());
+    .trim();
 }
 
 function decodeEntities(value) {

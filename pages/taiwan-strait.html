@@ -448,23 +448,23 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
       <div class="metrics-bar">
         <div class="metric-cell">
           <div class="metric-label">PLA Sorties (30d)</div>
-          <div class="metric-value red">47</div>
-          <div class="metric-sub">aircraft into ADIZ</div>
+          <div class="metric-value red" id="metric-pla-sorties">47</div>
+          <div class="metric-sub">PLA-related reports</div>
         </div>
         <div class="metric-cell">
           <div class="metric-label">ADIZ Incursions (30d)</div>
-          <div class="metric-value amber">23</div>
-          <div class="metric-sub">median line crossings</div>
+          <div class="metric-value amber" id="metric-adiz-incursions">23</div>
+          <div class="metric-sub">airspace / crossing reports</div>
         </div>
         <div class="metric-cell">
           <div class="metric-label">PLAN Vessels Active</div>
-          <div class="metric-value blue">14</div>
-          <div class="metric-sub">tracked in strait region</div>
+          <div class="metric-value blue" id="metric-plan-vessels">14</div>
+          <div class="metric-sub">naval / maritime reports</div>
         </div>
         <div class="metric-cell">
           <div class="metric-label">Alert Events (24h)</div>
-          <div class="metric-value amber">3</div>
-          <div class="metric-sub">ROCAF scrambles today</div>
+          <div class="metric-value amber" id="metric-alert-events">3</div>
+          <div class="metric-sub">new feed items today</div>
         </div>
       </div>
     </div>
@@ -479,10 +479,10 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
     <div class="main-col-left">
 
       <!-- 1. OPERATIONAL MAP -->
-      <section id="section-01-map" class="page-section" data-section="01" data-title="Operational Map" data-last-updated="2026-03-31">
+      <section id="section-01-map" class="page-section" data-section="01" data-title="Operational Map" data-last-updated="live">
         <div class="section-badge">
           <span class="sb-num">§ 01</span>
-          <span class="sb-date">UPDATED 2026-03-31</span>
+          <span class="sb-date">UPDATED LIVE FEED</span>
         </div>
         <div class="section-title">Operational Map</div>
         <div class="card" style="margin-bottom:16px">
@@ -500,10 +500,10 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
       </section>
 
       <!-- 2. WEATHER MAP -->
-      <section id="section-02-weather" class="page-section alt-bg" data-section="02" data-title="Weather &amp; Sea State" data-last-updated="2026-03-31">
+      <section id="section-02-weather" class="page-section alt-bg" data-section="02" data-title="Weather &amp; Sea State" data-last-updated="live">
         <div class="section-badge">
           <span class="sb-num">§ 02</span>
-          <span class="sb-date">UPDATED 2026-03-31</span>
+          <span class="sb-date">UPDATED LIVE FEED</span>
         </div>
         <div class="section-title">Weather &amp; Sea State</div>
         <div class="conditions-grid">
@@ -560,10 +560,10 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
       </section>
 
       <!-- 3. TIDE CHARTS -->
-      <section id="section-03-tides" class="page-section" data-section="03" data-title="Tide Charts &amp; Landing Windows" data-last-updated="2026-03-31">
+      <section id="section-03-tides" class="page-section" data-section="03" data-title="Tide Charts &amp; Landing Windows" data-last-updated="live">
         <div class="section-badge">
           <span class="sb-num">§ 03</span>
-          <span class="sb-date">UPDATED 2026-03-31</span>
+          <span class="sb-date">UPDATED LIVE FEED</span>
         </div>
         <div class="section-title">Tide Charts &amp; Landing Windows</div>
         <div class="card" style="margin-bottom:16px">
@@ -595,10 +595,10 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
       </section>
 
       <!-- 4. FORCE COMPARISON -->
-      <section id="section-04-forces" class="page-section alt-bg" data-section="04" data-title="Force Comparison" data-last-updated="2026-03-31">
+      <section id="section-04-forces" class="page-section alt-bg" data-section="04" data-title="Force Comparison" data-last-updated="live">
         <div class="section-badge">
           <span class="sb-num">§ 04</span>
-          <span class="sb-date">UPDATED 2026-03-31</span>
+          <span class="sb-date">UPDATED LIVE FEED</span>
         </div>
         <div class="section-title">Force Comparison</div>
         <div class="card" style="margin-bottom:16px">
@@ -739,10 +739,10 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
       </section>
 
       <!-- 5. STRATEGIC ASSESSMENT -->
-      <section id="section-05-assessment" class="page-section" data-section="05" data-title="Strategic Assessment" data-last-updated="2026-03-31">
+      <section id="section-05-assessment" class="page-section" data-section="05" data-title="Strategic Assessment" data-last-updated="live">
         <div class="section-badge">
           <span class="sb-num">§ 05</span>
-          <span class="sb-date">UPDATED 2026-03-31</span>
+          <span class="sb-date">UPDATED LIVE FEED</span>
         </div>
         <div class="section-title">Strategic Assessment</div>
         <div class="assessment-grid" style="margin-bottom:16px">
@@ -812,10 +812,10 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
 
     <!-- ── Right sidebar ── -->
     <div class="main-col-right">
-      <section id="section-06-sidebar" class="page-section" data-section="06" data-title="Sidebar" data-last-updated="2026-03-31">
+      <section id="section-06-sidebar" class="page-section" data-section="06" data-title="Sidebar" data-last-updated="live">
         <div class="section-badge">
           <span class="sb-num">§ 06</span>
-          <span class="sb-date">UPDATED 2026-03-31</span>
+          <span class="sb-date">UPDATED LIVE FEED</span>
         </div>
       <div class="sidebar-sticky">
         <div class="sidebar-inner">
@@ -996,6 +996,18 @@ document.getElementById('hero-ts').textContent = new Date().toLocaleString('en-U
 document.getElementById('status-ts').textContent = new Date().toLocaleTimeString('en-US', {
   hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
 });
+updateSectionDates(new Date());
+
+function updateSectionDates(date) {
+  const sourceDate = Number.isFinite(date?.getTime?.()) ? date : new Date();
+  const isoDate = sourceDate.toISOString().slice(0, 10);
+  document.querySelectorAll('.page-section').forEach(section => {
+    section.dataset.lastUpdated = isoDate;
+  });
+  document.querySelectorAll('.section-badge .sb-date').forEach(el => {
+    el.textContent = `UPDATED ${isoDate}`;
+  });
+}
 
 /* ── Days until windows ── */
 function daysUntil(dateStr) {
@@ -1392,6 +1404,39 @@ function timeAgoStr(date) {
   return Math.floor(diff/86400) + 'd ago';
 }
 
+function applyLiveArticleSignals(articles) {
+  const normalized = (articles || []).map(article => ({
+    ...article,
+    text: [article.title, article.description, article.summary, article.category, article.source]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase(),
+    time: article.publishedAt || article.pubDate || article.fetchedAt
+      ? new Date(article.publishedAt || article.pubDate || article.fetchedAt).getTime()
+      : 0
+  }));
+  updateSectionDates(new Date());
+
+  const now = Date.now();
+  const dayAgo = now - 86400000;
+  const thirtyDaysAgo = now - 30 * 86400000;
+  const recent30 = normalized.filter(article => article.time >= thirtyDaysAgo);
+  const alert24 = normalized.filter(article => article.time >= dayAgo).length;
+  updateMetric('metric-pla-sorties', keywordCount(recent30, ['pla', "people's liberation army", 'china military', 'chinese military', 'exercise']));
+  updateMetric('metric-adiz-incursions', keywordCount(recent30, ['adiz', 'median line', 'airspace', 'incursion', 'sortie']));
+  updateMetric('metric-plan-vessels', keywordCount(recent30, ['plan ', 'navy', 'naval', 'vessel', 'ship', 'carrier', 'strait']));
+  updateMetric('metric-alert-events', alert24);
+}
+
+function keywordCount(articles, keywords) {
+  return articles.filter(article => keywords.some(keyword => article.text.includes(keyword))).length;
+}
+
+function updateMetric(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = String(value);
+}
+
 async function refreshFeed() {
   const feed = document.getElementById('activity-feed');
   if (feed) feed.innerHTML = '<div style="padding:20px;text-align:center;font-family:var(--font-mono);font-size:0.65rem;color:var(--text-faint)">Loading...</div>';
@@ -1405,7 +1450,9 @@ async function refreshFeed() {
         const data = await res.json();
         const articles = data.data?.articles || data.articles || (Array.isArray(data) ? data : []);
         if (articles.length > 0) {
-          renderFeed(articles.map(a => ({ ...a, cat: a.category || 'analysis' })));
+          const mapped = articles.map(a => ({ ...a, cat: a.category || 'analysis' }));
+          renderFeed(mapped);
+          applyLiveArticleSignals(mapped);
           loaded = true;
           break;
         }
@@ -1415,6 +1462,7 @@ async function refreshFeed() {
 
   if (!loaded) {
     renderFeed(PLACEHOLDER_ARTICLES);
+    applyLiveArticleSignals(PLACEHOLDER_ARTICLES);
   }
 }
 

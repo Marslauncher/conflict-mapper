@@ -1964,10 +1964,68 @@
   color: var(--color-text);
 }
 
+.storage-object-browser {
+  margin-top: var(--space-3);
+  max-width: 1240px;
+  font-family: var(--font-mono);
+  font-size: calc(0.72rem * var(--cm-font-scale, 1));
+  color: var(--color-text-muted);
+}
+.storage-table {
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.storage-row {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) 84px 168px 64px;
+  column-gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3);
+  border-top: 1px solid var(--color-border-dim);
+}
+.storage-row:first-child { border-top: 0; }
+.storage-row.header {
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface-2);
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.storage-sort {
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  text-transform: inherit;
+  letter-spacing: inherit;
+}
+.storage-key {
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.storage-open { color: var(--color-info); }
+
 /* ────────────────────────────────────────────────────────────
    RESPONSIVE
 ──────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
+@media (max-width: 1380px) {
+  .nav-link,
+  .nav-dropdown-trigger {
+    font-size: 0.78rem;
+    padding: 0 var(--space-2);
+    gap: var(--space-1);
+  }
+  .nav-logo-tag { display: none; }
+}
+
+@media (max-width: 1180px) {
   .nav-links,
   .nav-divider,
   .nav-settings,
@@ -1993,6 +2051,12 @@
   .config-actions { flex-direction: column; }
 
   .form-row, .form-row-3 { grid-template-columns: 1fr; }
+
+  .storage-object-browser { max-width: none; }
+  .storage-row { grid-template-columns: 1fr; row-gap: var(--space-1); }
+  .storage-row.header { display: none; }
+  .storage-row span,
+  .storage-row a { min-width: 0; }
   .rpt-btn-grid { grid-template-columns: 1fr; }
 }
 
@@ -3070,7 +3134,7 @@
                     </button>
                   </div>
                 </div>
-                <div id="storage-object-list" style="margin-top:var(--space-3);font-family:var(--font-mono);font-size:0.68rem;color:var(--color-text-muted)">
+                <div id="storage-object-list" class="storage-object-browser">
                   Open the Storage section to load R2 objects.
                 </div>
               </div>
@@ -3375,6 +3439,8 @@ window.fetch = async (input, init = {}) => {
 let navConfig = null;
 let currentTarget = null;
 let currentTheme = 'dark';
+let storageObjects = [];
+let storageSort = { field: 'uploaded', direction: 'desc' };
 let adminAuthenticated = false;
 let pendingModalAction = null;
 let _storedConfig = null;
@@ -4454,11 +4520,11 @@ function renderNavEditor() {
           <div class="add-item-row">
             <div class="form-group">
               <label class="form-label">Label</label>
-              <input class="form-input" id="new-label-${idx}" placeholder="e.g. 🇫🇷 France" style="font-size:0.75rem;">
+              <input class="form-input" id="new-label-${idx}" placeholder="New menu item" style="font-size:0.75rem;">
             </div>
             <div class="form-group">
               <label class="form-label">Path / URL</label>
-              <input class="form-input" id="new-target-${idx}" placeholder="countries/france-dossier.html" style="font-size:0.75rem;">
+              <input class="form-input" id="new-target-${idx}" placeholder="pages/new-page.html" style="font-size:0.75rem;">
             </div>
             <div class="form-group" style="justify-content:flex-end">
               <label class="form-label">&nbsp;</label>
@@ -5318,6 +5384,7 @@ async function loadStorageObjects(options = {}) {
     const data = await readApiJson(res, '/api/storage/files');
     if (!res.ok || data.success === false) throw new Error(data.error || `HTTP ${res.status}`);
     const objects = data.data?.objects || [];
+    storageObjects = objects;
     const totalBytes = objects.reduce((sum, object) => sum + Number(object.size || 0), 0);
     summary.textContent = `${objects.length} objects - ${formatBytes(totalBytes)}${prefix ? ` under ${prefix}` : ' in R2'}`;
 
@@ -5326,25 +5393,70 @@ async function loadStorageObjects(options = {}) {
       return;
     }
 
-    list.innerHTML = `
-      <div style="border:1px solid var(--color-border-dim);border-radius:var(--radius-sm);overflow:hidden">
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) 90px 170px 90px;gap:var(--space-3);align-items:center;padding:var(--space-2) var(--space-3);background:var(--color-surface-2);color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.08em">
-          <span>Object Key</span><span>Size</span><span>Uploaded</span><span>Open</span>
-        </div>
-        ${objects.map((object) => `
-          <div style="display:grid;grid-template-columns:minmax(0,1fr) 90px 170px 90px;gap:var(--space-3);align-items:center;padding:var(--space-3);border-top:1px solid var(--color-border-dim)">
-            <span title="${escHtml(object.key)}" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--color-text)">${escHtml(object.key)}</span>
-            <span>${formatBytes(object.size || 0)}</span>
-            <span>${object.uploaded ? new Date(object.uploaded).toLocaleString() : '-'}</span>
-            <a href="${escHtml(object.path || object.downloadPath || '#')}" target="_blank" rel="noopener noreferrer" style="color:var(--color-info)">Open</a>
-          </div>
-        `).join('')}
-      </div>
-    `;
+    renderStorageObjects();
   } catch (err) {
     summary.textContent = 'R2 storage browser unavailable';
     list.innerHTML = `<div style="padding:var(--space-3);color:var(--color-error)">Failed to load storage: ${escHtml(err.message)}</div>`;
   }
+}
+
+function renderStorageObjects() {
+  const list = document.getElementById('storage-object-list');
+  if (!list) return;
+  const sorted = sortedStorageObjects();
+  list.innerHTML = `
+    <div class="storage-table">
+      <div class="storage-row header">
+        <button class="storage-sort" type="button" onclick="setStorageSort('key')">Object Key ${storageSortIndicator('key')}</button>
+        <button class="storage-sort" type="button" onclick="setStorageSort('size')">Size ${storageSortIndicator('size')}</button>
+        <button class="storage-sort" type="button" onclick="setStorageSort('uploaded')">Uploaded ${storageSortIndicator('uploaded')}</button>
+        <span>Open</span>
+      </div>
+      ${sorted.map((object) => `
+        <div class="storage-row">
+          <span class="storage-key" title="${escHtml(object.key)}">${escHtml(object.key)}</span>
+          <span>${formatBytes(object.size || 0)}</span>
+          <span>${object.uploaded ? new Date(object.uploaded).toLocaleString() : '-'}</span>
+          <a class="storage-open" href="${escHtml(object.path || object.downloadPath || '#')}" target="_blank" rel="noopener noreferrer">Open</a>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function sortedStorageObjects() {
+  const dir = storageSort.direction === 'asc' ? 1 : -1;
+  return [...storageObjects].sort((a, b) => {
+    let av;
+    let bv;
+    if (storageSort.field === 'size') {
+      av = Number(a.size || 0);
+      bv = Number(b.size || 0);
+    } else if (storageSort.field === 'uploaded') {
+      av = a.uploaded ? new Date(a.uploaded).getTime() : 0;
+      bv = b.uploaded ? new Date(b.uploaded).getTime() : 0;
+    } else {
+      av = String(a.key || '').toLowerCase();
+      bv = String(b.key || '').toLowerCase();
+    }
+    if (av < bv) return -1 * dir;
+    if (av > bv) return 1 * dir;
+    return String(a.key || '').localeCompare(String(b.key || ''));
+  });
+}
+
+function setStorageSort(field) {
+  if (storageSort.field === field) {
+    storageSort.direction = storageSort.direction === 'asc' ? 'desc' : 'asc';
+  } else {
+    storageSort = { field, direction: field === 'key' ? 'asc' : 'desc' };
+  }
+  renderStorageObjects();
+}
+
+function storageSortIndicator(field) {
+  if (storageSort.field !== field) return '';
+  return storageSort.direction === 'asc' ? '↑' : '↓';
 }
 
 function formatBytes(bytes) {
