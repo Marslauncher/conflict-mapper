@@ -25,6 +25,28 @@
 .indicator-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.indicator{border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:14px}.indicator b{display:block;font-family:var(--font-display);font-size:1rem;letter-spacing:.08em;color:#fff;margin-bottom:6px}.indicator span{color:var(--muted);font-size:.88rem}
 .callout{border-left:3px solid var(--accent);background:rgba(248,113,113,.07);padding:16px 18px;border-radius:0 var(--radius) var(--radius) 0;color:var(--muted)}.callout strong{color:var(--text)}
 @media(max-width:820px){.top-nav{height:auto;align-items:flex-start;flex-wrap:wrap;padding:10px 16px;gap:8px}.brand{width:100%}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;min-width:0;margin-left:0;gap:6px}.nav-links a{text-align:center;padding:7px 5px}.grid.two,.grid.three,.indicator-grid,.scenario-deck,.visual-grid{grid-template-columns:1fr}.step,.reference-link,.matrix-row{grid-template-columns:1fr}.matrix-row>div{border-right:0;border-bottom:1px solid var(--border)}.matrix-row>div:last-child{border-bottom:0}.section{padding:34px 18px}.map-panel{min-height:280px}}
+.outcome-footer{margin-top:14px;padding:12px 14px;border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:var(--radius);background:color-mix(in srgb,var(--accent) 8%,transparent)}.outcome-footer strong{display:block;font-family:var(--font-display);letter-spacing:.08em;text-transform:uppercase;color:#fff;margin-bottom:4px}.outcome-footer p{margin:0;color:var(--muted)}.terrain-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.terrain-figure{margin:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}.terrain-figure img{width:100%;height:420px;object-fit:cover;display:block}.terrain-figure figcaption{font-family:var(--font-mono);font-size:.72rem;color:var(--muted);padding:10px 12px;border-top:1px solid var(--border)}.terrain-card ul{margin:10px 0 0;padding-left:18px;color:var(--muted)}.citation-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.citation-list a{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--accent);text-decoration:none}@media(max-width:820px){.terrain-grid{grid-template-columns:1fr}.terrain-figure img{height:300px}}
+
+.scenario-data{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0;border:1px solid var(--border);border-radius:var(--radius);background:rgba(255,255,255,.025);padding:10px}
+.scenario-data div{border-right:1px solid var(--border);padding-right:8px}
+.scenario-data div:last-child{border-right:0}
+.scenario-data b{display:block;font-family:var(--font-mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+.scenario-data span{display:block;color:var(--muted);font-size:.78rem;line-height:1.35}
+.source-table{width:100%;border-collapse:collapse;margin:14px 0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.source-table th,.source-table td{padding:10px 12px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);vertical-align:top;text-align:left}
+.source-table th{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);background:var(--surface-2)}
+.source-table td{color:var(--muted);font-size:.86rem}
+.image-led-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;align-items:stretch}
+.analysis-map{margin:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.analysis-map img{width:100%;height:100%;min-height:320px;max-height:520px;object-fit:cover;display:block}
+.analysis-map figcaption{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.04em;color:var(--muted);border-top:1px solid var(--border);padding:10px 12px}
+.phase-grid.compact{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.phase-card.warn{border-color:rgba(245,158,11,.38);background:linear-gradient(180deg,rgba(245,158,11,.08),var(--surface))}
+.phase-card.danger{border-color:rgba(248,113,113,.38);background:linear-gradient(180deg,rgba(248,113,113,.08),var(--surface))}
+details.phase-card summary{cursor:pointer;font-family:var(--font-display);font-size:1.18rem;font-weight:700;letter-spacing:.06em;color:#fff}
+details.phase-card p{margin:10px 0 0}
+@media(max-width:820px){.scenario-data,.image-led-grid{grid-template-columns:1fr}.scenario-data div{border-right:0;border-bottom:1px solid var(--border);padding:0 0 8px}.scenario-data div:last-child{border-bottom:0;padding-bottom:0}.analysis-map img{min-height:240px}}
+
 </style>
 <script src="/assets/user-style.js"></script>
 </head>
@@ -70,8 +92,10 @@
         <li><strong>Adjudicated stress:</strong> allied response options appear either too weak to restore deterrence or too escalatory to be politically sustainable.</li>
         <li><strong>Watch translation:</strong> missile dispersal, chemical-force rhetoric, SOF/drone activity, and C2-delegation hints must be treated as escalation indicators.</li>
       </ul>
+      <div class="scenario-data"><div><b>Core variable</b><span>Credible response options between symbolic strikes and runaway escalation</span></div><div><b>Decision stress</b><span>Seoul and Washington risk perception after chemical or limited nuclear use</span></div><div><b>Best watch markers</b><span>Launcher dispersal, chemical rhetoric, SOF/drone activity, C2 delegation</span></div></div>
       <div class="scenario-links"><a href="https://www.atlanticcouncil.org/in-depth-research-reports/report/a-rising-nuclear-double-threat-in-east-asia-insights-from-our-guardian-tiger-i-and-ii-tabletop-exercises/" target="_blank" rel="noopener noreferrer">Atlantic Council</a></div>
-    </article>
+    <div class="outcome-footer"><strong>Outcome</strong><p>Outcome turns on whether the alliance has credible response options between symbolic conventional strikes and runaway nuclear escalation. Guardian Tiger shows Seoul and Washington can diverge under chemical or limited nuclear pressure. Missile dispersal, chemical rhetoric, SOF/drone activity, and C2-delegation hints are critical warnings.</p></div>
+      </article>
     <article class="scenario-review">
       <div class="scenario-kicker">Guardian Tiger II // Taiwan starts the shock</div>
       <h3>Dual-Adversary Escalation</h3>
@@ -81,8 +105,10 @@
         <li><strong>Adjudicated stress:</strong> a counteroffensive toward Pyongyang likely collides with Chinese logistics and air-defense support.</li>
         <li><strong>Watch translation:</strong> Taiwan crisis indicators should be visible in Korean warning, and DPRK launch tempo should be visible in Taiwan warning.</li>
       </ul>
+      <div class="scenario-data"><div><b>Core variable</b><span>Whether Taiwan crisis demand depletes Korea deterrence capacity</span></div><div><b>Decision stress</b><span>Allocating ISR, tankers, missile defense, and strike assets across two theaters</span></div><div><b>Best watch markers</b><span>Taiwan crisis markers, DPRK launch tempo, China border logistics, Japanese base politics</span></div></div>
       <div class="scenario-links"><a href="https://www.atlanticcouncil.org/in-depth-research-reports/report/a-rising-nuclear-double-threat-in-east-asia-insights-from-our-guardian-tiger-i-and-ii-tabletop-exercises/" target="_blank" rel="noopener noreferrer">Guardian Tiger</a><a href="https://globaltaiwan.org/2025/08/south-korea-could-support-taiwan-in-a-dual-contingency/" target="_blank" rel="noopener noreferrer">GTI dual contingency</a></div>
-    </article>
+    <div class="outcome-footer"><strong>Outcome</strong><p>Outcome is shaped by simultaneous Korea/Taiwan demand on finite US and allied assets. DPRK opportunism can convert a Taiwan crisis into a two-theater deterrence failure. Taiwan crisis markers, DPRK launch tempo, Chinese support to North Korea, and Japanese base politics must be tracked together.</p></div>
+      </article>
     <article class="scenario-review">
       <div class="scenario-kicker">NPEC 2029 scenario</div>
       <h3>Nuclear Use In Space</h3>
@@ -92,8 +118,10 @@
         <li><strong>Adjudicated stress:</strong> players lacked a preplanned response between ineffective condemnation and escalatory strikes.</li>
         <li><strong>Watch translation:</strong> satellite launch behavior, GPS anomalies, cyber preparation, and airbase/SOF indicators belong in the same escalation frame.</li>
       </ul>
+      <div class="scenario-data"><div><b>Core variable</b><span>Satellite resilience, legal framing, attribution, and proportional response</span></div><div><b>Decision stress</b><span>Responding to strategic nuclear effect without immediate mass casualties</span></div><div><b>Best watch markers</b><span>Satellite launch behavior, GPS anomalies, cyber preparation, SOF movement</span></div></div>
       <div class="scenario-links"><a href="https://npolicy.org/wp-content/uploads/2023/01/2301-Pyongyang-Goes-Nuclear-Occasional-Paper-copy-1.12.23.pdf" target="_blank" rel="noopener noreferrer">NPEC paper</a><a href="https://nationalinterest.org/blog/korea-watch/pyongyang-goes-nuclear-time-space-206281" target="_blank" rel="noopener noreferrer">National Interest</a></div>
-    </article>
+    <div class="outcome-footer"><strong>Outcome</strong><p>Outcome depends on satellite resilience, legal framing, attribution, and preplanned proportional responses. A space nuclear event can impose strategic effects without immediate mass casualties, complicating escalation control. Satellite launches, GPS disruption, cyber preparation, SOF movement, and airbase attack indicators become linked.</p></div>
+      </article>
     <article class="scenario-review">
       <div class="scenario-kicker">DNI / NIC through 2030</div>
       <h3>Nuclear Leverage Pathways</h3>
@@ -103,8 +131,10 @@
         <li><strong>Adjudicated stress:</strong> Kim does not need to intend suicide for nuclear leverage to destabilize conventional deterrence.</li>
         <li><strong>Watch translation:</strong> limited provocations become more dangerous when paired with nuclear rhetoric and launcher dispersal.</li>
       </ul>
+      <div class="scenario-data"><div><b>Core variable</b><span>Coercive risk-taking under a nuclear shield</span></div><div><b>Decision stress</b><span>Separating regime-survival signals from bargaining intimidation</span></div><div><b>Best watch markers</b><span>Limited provocations paired with nuclear rhetoric and launcher dispersal</span></div></div>
       <div class="scenario-links"><a href="https://www.dni.gov/files/ODNI/documents/assessments/NIC-Declassified-NIE-North-Korea-Scenarios-For-Leveraging-Nuclear-Weapons-June2023.pdf" target="_blank" rel="noopener noreferrer">ODNI / NIC</a></div>
-    </article>
+    <div class="outcome-footer"><strong>Outcome</strong><p>Outcome is most likely to follow coercive risk-taking under a nuclear shield, not immediate all-out nuclear war. The alliance must separate existential regime-defense signals from bargaining intimidation. Limited provocations become more dangerous when paired with nuclear rhetoric and launcher dispersal.</p></div>
+      </article>
     <article class="scenario-review">
       <div class="scenario-kicker">MWI / Ukraine lessons</div>
       <h3>Drone Warfare And Armor Attrition</h3>
@@ -114,8 +144,10 @@
         <li><strong>Adjudicated stress:</strong> a Taiwan contingency can drain ISR and precision munitions, leaving USFK/ROK formations more exposed.</li>
         <li><strong>Watch translation:</strong> drone-unit movement, EW posture, counter-drone procurement, and ammunition stockpiles need live tracking.</li>
       </ul>
+      <div class="scenario-data"><div><b>Core variable</b><span>Survivability of armor, artillery, logistics, and counteroffensive formations</span></div><div><b>Decision stress</b><span>Counter-drone and EW capacity as campaign-level constraints</span></div><div><b>Best watch markers</b><span>Drone-unit movement, EW posture, artillery ammunition, force-protection changes</span></div></div>
       <div class="scenario-links"><a href="https://mwi.westpoint.edu/drone-warfare-and-the-future-of-korean-armor/" target="_blank" rel="noopener noreferrer">MWI</a></div>
-    </article>
+    <div class="outcome-footer"><strong>Outcome</strong><p>Outcome depends on whether armor, artillery, logistics, and counteroffensive forces can survive persistent ISR-strike loops. Taiwan can drain the same ISR and precision-munition stocks Korea needs. Drone-unit movement, EW posture, counter-drone procurement, artillery ammunition, and force-protection changes are key markers.</p></div>
+      </article>
     <article class="scenario-review">
       <div class="scenario-kicker">38 North / APLN</div>
       <h3>Nuclear-Cognitive Warfare</h3>
@@ -125,26 +157,21 @@
         <li><strong>Adjudicated stress:</strong> coercive messaging can slow decision cycles and create pressure for premature negotiation.</li>
         <li><strong>Watch translation:</strong> propaganda themes, cyber disruptions, evacuation rumors, and nuclear command rhetoric are operational indicators.</li>
       </ul>
+      <div class="scenario-data"><div><b>Core variable</b><span>Alliance unity under nuclear narratives, cyber disruption, and public fear</span></div><div><b>Decision stress</b><span>Preventing information pressure from slowing response cycles</span></div><div><b>Best watch markers</b><span>Cyber disruptions, evacuation rumors, selective leaks, nuclear command rhetoric</span></div></div>
       <div class="scenario-links"><a href="https://www.38north.org/2025/04/north-koreas-nuclear-cognitive-warfare-strategy/" target="_blank" rel="noopener noreferrer">38 North</a><a href="https://www.apln.network/projects/nuclear-weapon-use-risk-reduction/nuclear-use-cases-for-contemplating-crisis-and-conflict-on-the-korean-peninsula" target="_blank" rel="noopener noreferrer">APLN</a></div>
-    </article>
+    <div class="outcome-footer"><strong>Outcome</strong><p>Outcome can shift before nuclear use if Pyongyang fractures Seoul-Washington risk perception. Nuclear narratives, cyber disruption, evacuation rumors, and selective leaks can slow alliance decision cycles. Information operations should be treated as operational indicators, not background noise.</p></div>
+      </article>
   </div>
 </section>
 
 <section class="section" id="geometry">
   <h2 class="section-title"><span class="sec-num">03</span>Operational Geometry</h2>
-  <div class="visual-grid">
-    <div class="map-panel" role="img" aria-label="Korean Peninsula operational geometry schematic">
-      <span class="map-label nk">DPRK launch / artillery belts</span>
-      <span class="map-label dmz">DMZ / Kaesong Heights</span>
-      <span class="map-label seoul">Seoul / USFK nodes</span>
-      <span class="map-label japan">Japan bases / sea lanes</span>
-      <span class="map-line one"></span><span class="map-line two"></span><span class="map-line three"></span>
-    </div>
-    <div class="card">
-      <h3>What The Map Is Testing</h3>
-      <p>Korean war games are geographically compressed. Artillery, SRBM, SOF, drones, cyber effects, and nuclear threats can all affect Seoul and USFK nodes before a conventional campaign has time to mature. The same geography that makes deterrence visible also makes escalation fast.</p>
-      <p style="margin-top:12px">In dual-contingency games, Japan is not a rear area. Missile defense, tanker staging, base authorization, and Chinese overflight or support behavior directly affect whether Korea remains contained or becomes the second front in a wider Indo-Pacific war.</p>
-    </div>
+  <div class="terrain-grid">
+    <figure class="terrain-figure"><img src="/assets/maps/north-korea-physiography-cia-2020.jpg" alt="CIA physiographic map of North Korea" loading="lazy"><figcaption>CIA North Korea physiography map. Mountain corridors, river lines, and constrained road networks shape force movement, missile dispersal, logistics, and regime-survival planning.</figcaption></figure>
+    <figure class="terrain-figure"><img src="/assets/maps/south-korea-physiography-cia-2018.jpg" alt="CIA physiographic map of South Korea" loading="lazy"><figcaption>CIA South Korea physiography map. The Seoul-Incheon-Han River corridor concentrates political, military, logistics, and population risk close to the DMZ.</figcaption></figure>
+    <div class="card terrain-card"><h3>What The Map Is Testing</h3><p>Korea's geometry is compressed by distance, terrain, and escalation timelines. The DMZ/Kaesong-Heights-to-Seoul corridor places political, C2, airbase, and logistics nodes under immediate artillery, missile, SOF, drone, cyber, and nuclear-coercion pressure. Mountain chains and river corridors constrain maneuver, while the Yellow Sea/Incheon approach, Busan/Korea Strait logistics path, and Japan base network determine whether the fight stays local or becomes regional.</p></div>
+    <figure class="terrain-figure"><img src="/assets/maps/korea-pusan-perimeter-usacmh.jpg" alt="Pusan Perimeter historical map" loading="lazy"><figcaption>Pusan Perimeter historical context map. Its modern relevance is logistics and depth: Korea's ports, interior routes, and southern sustainment nodes still matter if a crisis expands beyond the opening DMZ/Seoul shock.</figcaption></figure>
+    <div class="card terrain-card"><h3>Historical Challenge, Current Relevance</h3><p>The Korean War showed how terrain, road density, ports, mountain corridors, and outside intervention could change campaign tempo faster than initial battle lines suggested. Today, precision fires, nuclear coercion, drones, cyber disruption, and space dependence compress the same geography into shorter decision windows. Guardian Tiger and the ODNI/NIC nuclear-scenario work support treating Korea as a nuclear-coercion and dual-contingency theater, not just a conventional ground campaign.</p><div class="citation-list"><a href="https://www.cia.gov/resources/map/north-korea/" target="_blank" rel="noopener noreferrer">CIA North Korea maps</a><a href="https://www.cia.gov/resources/map/south-korea/" target="_blank" rel="noopener noreferrer">CIA South Korea maps</a><a href="https://www.atlanticcouncil.org/in-depth-research-reports/report/a-rising-nuclear-double-threat-in-east-asia-insights-from-our-guardian-tiger-i-and-ii-tabletop-exercises/" target="_blank" rel="noopener noreferrer">Atlantic Council Guardian Tiger I/II</a><a href="https://www.dni.gov/files/ODNI/documents/assessments/NIC-Declassified-NIE-North-Korea-Scenarios-For-Leveraging-Nuclear-Weapons-June2023.pdf" target="_blank" rel="noopener noreferrer">ODNI/NIC North Korea nuclear scenarios</a><a href="https://www.rand.org/content/dam/rand/pubs/perspectives/PE200/PE262/RAND_PE262.pdf" target="_blank" rel="noopener noreferrer">RAND Three Dangerous Scenarios</a></div></div>
   </div>
 </section>
 

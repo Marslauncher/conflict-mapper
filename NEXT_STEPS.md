@@ -258,6 +258,76 @@ Browser validation confirmed:
    git push
    ```
 
+## 2026-06-04 War Games Deep Dive Pass
+
+### Implemented In This Pass
+
+- Created planning files under `docs/planning/`:
+  - `WAR_GAMES_DEEP_DIVE_MASTER_PLAN.md`
+  - `AGENT_PROGRESS.md`
+  - task-specific prompt files for Tasks 1-4
+  - `DEPLOYED_TEST_PLAN.md`
+- Spawned and incorporated audit-agent output for scenario sources, force-comparison source inventory, and sourced terrain/map recommendations.
+- Added local sourced map assets under `assets/maps/`:
+  - Taiwan physiography
+  - Operation Causeway historical Taiwan planning map
+  - North Korea physiography
+  - South Korea physiography
+  - Pusan Perimeter historical context map
+- Updated `pages/taiwan-war-games.html`:
+  - Scenario Deep Review cards now include outcome footers and compact scenario data panels.
+  - Operational Geometry now uses sourced Taiwan terrain and historical planning maps.
+  - The former China/Taiwan munitions card grid was replaced with a Force Comparison Reports index.
+- Updated `pages/korean-peninsula-war-games.html`:
+  - Scenario Deep Review cards now include outcome footers and compact scenario data panels.
+  - Operational Geometry now uses sourced Korean Peninsula terrain and historical logistics-depth maps.
+- Generated five Taiwan force-comparison report pages from local datasource reports:
+  - `pages/china-vs-allied-naval-forces-taiwan.html`
+  - `pages/air-power-china-vs-allies-taiwan.html`
+  - `pages/army-forces-china-vs-allies-taiwan.html`
+  - `pages/marines-china-vs-allies-taiwan.html`
+  - `pages/special-forces-china-vs-allies-taiwan.html`
+- Copied local report imagery to `assets/force-comparison/`.
+- Added `pages/taiwan-contingency-ai-chip-war.html` as a non-operational strategic risk game with source synthesis, map-led context, assumptions, campaign phases, warning markers, losses/costs, and outcome assessment.
+- Added reproducible scripts:
+  - `scripts/generate-war-games-deep-dives.mjs`
+  - `scripts/enhance-war-games-output.mjs`
+
+### Validation Run In This Pass
+
+```bash
+node --check scripts/generate-war-games-deep-dives.mjs
+node --check scripts/enhance-war-games-output.mjs
+node - <<'NODE'
+// Validated 8 war-game/force-comparison pages, local image references,
+// /assets/user-style.js inclusion, references sections, preserved force tables,
+// and removal of the old Taiwan munitions section.
+NODE
+```
+
+Local server and browser validation also passed on `http://localhost:5001`:
+
+- HTTP `200` for the two war-game pages, five force-comparison pages, final Taiwan scenario page, and core map assets.
+- Playwright/System Chrome checks at 1440px and 390px for the Taiwan war-game page, Korean Peninsula war-game page, final Taiwan scenario page, naval force page, and air force page.
+- Browser checks showed zero horizontal overflow, zero broken images, and required page text visible at both viewport widths.
+
+### Remaining Validation Before/After Deploy
+
+1. Start the local app:
+
+   ```bash
+   PORT=5001 node server.js
+   ```
+
+2. Smoke-test locally:
+
+   - `http://localhost:5001/pages/taiwan-war-games.html`
+   - `http://localhost:5001/pages/korean-peninsula-war-games.html`
+   - `http://localhost:5001/pages/taiwan-contingency-ai-chip-war.html`
+   - each generated Taiwan force-comparison page
+
+3. After GitHub push and Cloudflare deploy, run the checklist in `docs/planning/DEPLOYED_TEST_PLAN.md` against `https://conflictmapper.com`.
+
 4. After Cloudflare Pages deploys, verify production:
 
    - `https://conflictmapper.com/pages/news-library.html`
