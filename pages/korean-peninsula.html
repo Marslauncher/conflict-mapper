@@ -19,6 +19,7 @@
 #peninsula-map{height:620px;border:1px solid var(--border-strong);border-radius:var(--radius);overflow:hidden;background:#0b1020}.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.legend span{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.08em;color:var(--muted)}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
 .feed{display:grid;gap:10px;max-height:620px;overflow:auto;padding-right:4px}.article{display:block;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:13px;color:inherit}.article:hover{border-color:var(--accent);text-decoration:none}.article-title{font-family:var(--font-display);font-size:1.02rem;font-weight:700;line-height:1.25;color:#fff}.article-meta{margin-top:8px;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
 .pill-list{display:flex;flex-wrap:wrap;gap:8px}.pill{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--border);border-radius:999px;padding:4px 9px;color:var(--muted);background:var(--surface-2)}
+.facility-index{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:14px}.facility-item{border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:12px}.facility-name{font-family:var(--font-display);font-weight:700;color:#fff;line-height:1.2}.facility-meta{margin-top:6px;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:var(--faint)}
 @media(max-width:960px){.grid.two,.grid.three,.grid.four{grid-template-columns:1fr}.top-nav{overflow-x:auto}.nav-links{min-width:max-content}.section{padding:34px 18px}#peninsula-map{height:520px}}
 </style>
 <script src="/assets/user-style.js"></script>
@@ -33,7 +34,7 @@
   <div class="hero-inner">
     <div class="eyebrow">Northeast Asia // Armistice Theater Watch</div>
     <h1>Korean Peninsula</h1>
-    <p>Live watch page for North and South Korean security reporting, nuclear and missile facilities, DMZ geography, major cities, and current escalation indicators. The page filters the local RSS cache for Korea-relevant reporting and cross-references published war-gaming scenarios.</p>
+  <p>Live watch page for North and South Korean security reporting, nuclear and missile facilities, DMZ geography, major cities, and current escalation indicators. The map includes a curated open-source set of known and reported DPRK nuclear, missile, air, and military nodes plus ROK/US base infrastructure, and the page filters the local RSS cache for Korea-relevant reporting.</p>
     <div class="status-row">
       <span class="status red">DPRK Nuclear: Active</span>
       <span class="status amber">DMZ Posture: Elevated</span>
@@ -49,7 +50,7 @@
     <div class="card"><div class="metric" id="metric-articles">0</div><div class="metric-label">Korea Articles</div></div>
     <div class="card"><div class="metric" id="metric-sources">0</div><div class="metric-label">Sources</div></div>
     <div class="card"><div class="metric" id="metric-thinktanks">0</div><div class="metric-label">Think Tank Hits</div></div>
-    <div class="card"><div class="metric">250+</div><div class="metric-label">DPRK Nuclear Estimate Ceiling</div></div>
+    <div class="card"><div class="metric" id="metric-map-points">0</div><div class="metric-label">Mapped Nodes</div></div>
   </div>
   <div class="grid two" style="margin-top:16px">
     <div class="card">
@@ -75,6 +76,7 @@
     <span><i class="dot" style="background:#22c55e"></i>ROK / US Base</span>
     <span><i class="dot" style="background:#e5e7eb"></i>DMZ / Armistice Line</span>
   </div>
+  <div class="facility-index" id="facility-index"></div>
 </section>
 
 <section class="section" id="feed">
@@ -108,17 +110,33 @@ const points = [
   ['city','Incheon',37.4563,126.7052,'Major port and air/sea access point near Seoul.'],
   ['nuke','Yongbyon Nuclear Scientific Research Center',39.8000,125.7500,'Approximate location; reactor, radiochemical, enrichment, and nuclear fuel-cycle complex.'],
   ['nuke','Punggye-ri Nuclear Test Site',41.2790,129.0870,'Approximate location; DPRK underground nuclear test site.'],
+  ['nuke','Kangson Suspected Enrichment Site',38.9570,125.6120,'Approximate reported enrichment-related site near Chollima/Kangson area; open-source confidence varies.'],
+  ['nuke','Pyongsan Uranium Concentrate Plant',38.3360,126.4360,'Approximate location; uranium milling and yellowcake production complex.'],
+  ['nuke','Pakchon Uranium Concentrate Plant',39.7100,125.5600,'Approximate location; uranium processing site referenced in open-source nuclear-fuel-cycle assessments.'],
   ['nuke','Sohae Satellite Launching Station',39.6600,124.7050,'Approximate location; satellite and long-range rocket launch infrastructure.'],
   ['nuke','Tonghae / Musudan-ri Launch Area',40.8500,129.6700,'Approximate location; historic missile and space launch area.'],
   ['nuke','Sinpo South Shipyard',40.0300,128.1800,'Approximate location; submarine-launched ballistic missile development and submarine construction activity.'],
+  ['nuke','Kusong Missile Test Area',39.9700,125.1700,'Approximate region; missile development and launch activity associated with DPRK ballistic missile testing.'],
+  ['nuke','Sakkanmol Missile Operating Base',38.5800,126.1000,'Approximate reported undeclared missile operating base area south of Pyongyang.'],
+  ['nuke','Hoejung-ni Missile Operating Base',40.8800,126.5700,'Approximate reported missile operating base in the DPRK interior.'],
+  ['nuke','Sangnam-ni Missile Base Area',40.6000,128.5500,'Approximate reported missile base area in South Hamgyong Province.'],
   ['base','Pyongyang Sunan Air Base',39.2240,125.6700,'DPRK air base serving capital region.'],
   ['base','Sunchon Air Base',39.4150,125.8900,'DPRK fighter air base north of Pyongyang.'],
+  ['base','Pukchang Air Base',39.5120,125.9630,'Major DPRK air base and hardened aviation node near the central-west corridor.'],
+  ['base','Kaechon Air Base',39.7520,125.9020,'DPRK air base north of Pyongyang; part of central air-defense and fighter network.'],
+  ['base','Koksan Air Base',38.6700,126.5900,'Forward DPRK air base east of the DMZ approaches.'],
+  ['base','Toksan Air Base',39.9970,127.6200,'DPRK east-central air base and military aviation node.'],
   ['base','Wonsan Kalma Airfield',39.1660,127.4860,'DPRK east-coast airfield and military/civil aviation node.'],
+  ['base','Orang / Chongjin Air Base',41.4300,129.6500,'Northeast DPRK air base supporting far-northeast aviation coverage.'],
   ['base','Hwangju Air Base',38.6700,125.7800,'DPRK forward air base near the DMZ approaches.'],
   ['base','Uiju Air Base',40.1990,124.5300,'DPRK northwest air base near China border.'],
+  ['base','Nampo Naval / Port Area',38.7370,125.4070,'West-coast port and naval/logistics area supporting the Pyongyang corridor.'],
+  ['base','Wonsan Naval Base Area',39.1600,127.4300,'East-coast naval and logistics area relevant to missile, submarine, and maritime activity.'],
   ['rok','Camp Humphreys',36.9620,127.0310,'Largest US overseas military installation; USFK hub.'],
   ['rok','Osan Air Base',37.0900,127.0300,'Major US/ROK airpower node south of Seoul.'],
-  ['rok','Kunsan Air Base',35.9038,126.6159,'USAF base on ROK west coast.']
+  ['rok','Kunsan Air Base',35.9038,126.6159,'USAF base on ROK west coast.'],
+  ['rok','Daegu / Camp Walker Area',35.8670,128.5960,'ROK/US logistics and command-support node in southeast Korea.'],
+  ['rok','Jinhae Naval Base',35.1500,128.6600,'Major ROK naval base area near Busan and the Korea Strait approaches.']
 ];
 const colors = { city:'#60a5fa', nuke:'#f87171', base:'#f59e0b', rok:'#22c55e' };
 const dmz = [[37.92,124.72],[37.96,125.25],[38.05,126.0],[38.22,126.65],[38.32,127.25],[38.34,128.05],[38.36,128.35]];
@@ -129,12 +147,15 @@ points.forEach(([type,name,lat,lng,detail]) => {
   const icon = L.divIcon({ className:'', html:`<div style="width:14px;height:14px;border-radius:50%;background:${colors[type]};border:2px solid #fff;box-shadow:0 0 14px ${colors[type]}"></div>`, iconSize:[14,14], iconAnchor:[7,7] });
   L.marker([lat,lng], { icon }).bindPopup(`<strong>${name}</strong><br>${detail}<br><span style="font-family:monospace;color:#94a3b8">${lat.toFixed(3)}, ${lng.toFixed(3)}</span>`).addTo(map);
 });
+document.getElementById('metric-map-points').textContent = points.length;
+document.getElementById('facility-index').innerHTML = points.map(([type,name,lat,lng,detail]) => `<div class="facility-item"><div class="facility-name">${name}</div><div class="facility-meta">${type.toUpperCase()} // ${lat.toFixed(3)}, ${lng.toFixed(3)}</div><div class="article-meta" style="text-transform:none;letter-spacing:0;margin-top:8px">${detail}</div></div>`).join('');
 function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 function articleTime(a){const v=a.pubDate||a.publishedAt||a.fetchedAt;const t=v?new Date(v).getTime():0;return Number.isFinite(t)?t:0}
 function timeLabel(a){const t=articleTime(a);return t?new Date(t).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}):'undated'}
 function text(a){return [a.title,a.description,a.summary,a.country,a.region,a.geo?.place,a.source,a.thinkTank,...(Array.isArray(a.tags)?a.tags:[])].filter(Boolean).join(' ').toLowerCase()}
-const terms=['korea','korean','north korea','south korea','dprk','rok','pyongyang','seoul','dmz','kim jong','usfk','yongbyon','punggye','missile','freedom shield'];
-function relevant(a){const s=text(a);return terms.some(t=>s.includes(t))}
+const directTerms=['korea','korean','north korea','south korea','dprk','rok','pyongyang','seoul','dmz','kim jong','usfk','yongbyon','punggye','sinpo','sohae','freedom shield'];
+const contextualTerms=['missile','srbm','mrbm','icbm','nuclear','ballistic','artillery','drone','submarine','launch'];
+function relevant(a){const s=text(a);return directTerms.some(t=>s.includes(t)) || (contextualTerms.some(t=>s.includes(t)) && ['north','south','dprk','rok','pyongyang','seoul','kim'].some(t=>s.includes(t)))}
 function renderList(id, articles, empty){const el=document.getElementById(id);if(!articles.length){el.innerHTML=`<div class="article-meta">${empty}</div>`;return}el.innerHTML=articles.slice(0,24).map(a=>`<a class="article" href="${esc(a.link||a.url||'#')}" target="_blank" rel="noopener noreferrer"><div class="article-title">${esc(a.title||'Untitled')}</div><div class="article-meta">${esc(a.source||a.thinkTank||'Unknown')} // ${timeLabel(a)}</div></a>`).join('')}
 async function loadFeed(){
   const [articleData, thinkData] = await Promise.all([

@@ -17,15 +17,17 @@
 .ladder{display:grid;gap:10px}.step{display:grid;grid-template-columns:170px 1fr;gap:16px;padding:14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}.step-label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.13em;color:var(--accent);text-transform:uppercase}.step strong{color:#fff}.step div:last-child{color:var(--muted)}
 .source-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}.source-card{display:block;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:14px;color:inherit}.source-card:hover{border-color:var(--accent);text-decoration:none}.source-title{font-family:var(--font-display);font-size:1rem;font-weight:700;line-height:1.25;color:#fff}.source-meta{margin-top:8px;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
 .reference-list{display:grid;gap:10px;margin-bottom:22px}.reference-link{display:grid;grid-template-columns:220px 1fr;gap:14px;padding:14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:inherit}.reference-link:hover{border-color:var(--accent);text-decoration:none}.reference-source{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}.reference-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:#fff}.reference-note{margin-top:4px;color:var(--muted);font-size:.86rem}
+.matrix{display:grid;gap:10px}.matrix-row{display:grid;grid-template-columns:170px repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}.matrix-row>div{padding:12px;border-right:1px solid var(--border);color:var(--muted);font-size:.86rem}.matrix-row>div:last-child{border-right:0}.matrix-head>div{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);background:var(--surface-2)}.matrix-key{font-family:var(--font-display);font-weight:700;color:#fff!important}
+.indicator-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.indicator{border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:14px}.indicator b{display:block;font-family:var(--font-display);font-size:1rem;letter-spacing:.08em;color:#fff;margin-bottom:6px}.indicator span{color:var(--muted);font-size:.88rem}
 .callout{border-left:3px solid var(--accent);background:rgba(248,113,113,.07);padding:16px 18px;border-radius:0 var(--radius) var(--radius) 0;color:var(--muted)}.callout strong{color:var(--text)}
-@media(max-width:820px){.top-nav{overflow-x:auto}.nav-links{min-width:max-content}.grid.two,.grid.three{grid-template-columns:1fr}.step,.reference-link{grid-template-columns:1fr}.section{padding:34px 18px}}
+@media(max-width:820px){.top-nav{overflow-x:auto}.nav-links{min-width:max-content}.grid.two,.grid.three,.indicator-grid{grid-template-columns:1fr}.step,.reference-link,.matrix-row{grid-template-columns:1fr}.matrix-row>div{border-right:0;border-bottom:1px solid var(--border)}.matrix-row>div:last-child{border-bottom:0}.section{padding:34px 18px}}
 </style>
 <script src="/assets/user-style.js"></script>
 </head>
 <body>
 <nav class="top-nav">
   <a class="brand" href="../index.html">CONFLICT <span>MAPPER</span></a>
-  <div class="nav-links"><a href="korean-peninsula.html">Watch</a><a href="#scenario-index">Scenarios</a><a href="#sources">Sources</a><a href="../index.html">Hub</a></div>
+  <div class="nav-links"><a href="korean-peninsula.html">Watch</a><a href="#scenario-index">Scenarios</a><a href="#indicators">Indicators</a><a href="#sources">Sources</a><a href="../index.html">Hub</a></div>
 </nav>
 
 <header class="hero">
@@ -64,8 +66,19 @@
   </div>
 </section>
 
+<section class="section" id="comparison">
+  <h2 class="section-title"><span class="sec-num">03</span>Scenario Comparison Matrix</h2>
+  <div class="matrix">
+    <div class="matrix-row matrix-head"><div>Scenario</div><div>DPRK Objective</div><div>Primary Friction</div><div>Alliance Decision Point</div><div>Watch Indicator</div></div>
+    <div class="matrix-row"><div class="matrix-key">Limited Strike</div><div>Coerce Seoul or Washington while staying below regime-ending war.</div><div>Artillery threat to Seoul, proportional response limits, escalation uncertainty.</div><div>Whether to retaliate locally, strike launchers/C2, or move immediately to broader suppression.</div><div>Frontline artillery posture, SOF/drone activity, evacuation messaging, KPA alert-state changes.</div></div>
+    <div class="matrix-row"><div class="matrix-key">Nuclear Demonstration</div><div>Shock the alliance into accepting a pause, concession, or negotiation under DPRK terms.</div><div>Proportionate response options are weak; nuclear retaliation risks uncontrolled escalation.</div><div>Whether a non-lethal or remote nuclear use triggers conventional regime targets or nuclear signaling.</div><div>Launcher dispersal, command-delegation signals, test-site activity, civil-defense propaganda.</div></div>
+    <div class="matrix-row"><div class="matrix-key">Space / Cyber Opening</div><div>Blind ISR, disrupt logistics, and create political confusion before kinetic escalation.</div><div>Attribution, restoration timelines, allied dependency on space/IT, private-sector infrastructure.</div><div>Whether to treat orbital/cyber effects as armed attack and how to respond without losing escalation control.</div><div>Satellite interference, telecom outages, port IT disruption, GPS anomalies, malware against ROK/USFK.</div></div>
+    <div class="matrix-row"><div class="matrix-key">Dual Contingency</div><div>Exploit a Taiwan crisis or wider Indo-Pacific conflict to split US and Japanese attention.</div><div>Munitions and ISR scarcity, Japanese basing politics, China border behavior, allied command load.</div><div>How to allocate air/missile defense and strike assets across Korea, Taiwan, Japan, Guam, and homeland defense.</div><div>PLA exercises plus DPRK launch tempo, Chinese border logistics, Japanese alert posture, US carrier movement.</div></div>
+  </div>
+</section>
+
 <section class="section">
-  <h2 class="section-title"><span class="sec-num">03</span>Escalation Ladder</h2>
+  <h2 class="section-title"><span class="sec-num">04</span>Escalation Ladder</h2>
   <div class="ladder">
     <div class="step"><div class="step-label">Move 1</div><div><strong>Provocation under nuclear cover.</strong> Limited strikes, missile tests, cyber events, or maritime incidents are framed as defensive responses while Pyongyang threatens disproportionate escalation.</div></div>
     <div class="step"><div class="step-label">Move 2</div><div><strong>Alliance split attempt.</strong> DPRK messaging targets Seoul's fear of tactical nuclear strikes and Washington's homeland-risk calculation, attempting to separate ROK and US decision timelines.</div></div>
@@ -76,7 +89,7 @@
 </section>
 
 <section class="section">
-  <h2 class="section-title"><span class="sec-num">04</span>Cross-Scenario Findings</h2>
+  <h2 class="section-title"><span class="sec-num">05</span>Cross-Scenario Findings</h2>
   <div class="grid three">
     <div class="card"><h3>Early Nuclear Signaling Is Baseline</h3><p>North Korea's nuclear arsenal is modeled as an enabling shield for coercion, not merely an end-stage last resort.</p></div>
     <div class="card"><h3>Limited Nuclear Response Gap</h3><p>Published games repeatedly find US/ROK options too weak at the conventional end and too escalatory at the nuclear end.</p></div>
@@ -87,8 +100,40 @@
   </div>
 </section>
 
+<section class="section" id="nuclear-use-cases">
+  <h2 class="section-title"><span class="sec-num">06</span>Nuclear-Use Cases</h2>
+  <div class="grid two">
+    <div class="card"><h3>Coercive Use</h3><p>DPRK threatens or demonstrates nuclear capability to force a pause, prevent US reinforcement, or split Seoul and Washington. War games show this as the most plausible pathway because it maximizes political leverage without requiring immediate all-out war.</p></div>
+    <div class="card"><h3>Operational Use</h3><p>Tactical nuclear strikes against ports, air bases, naval forces, or staging areas could aim to slow allied airpower and logistics. The core risk is that limited battlefield use creates pressure for regime-targeting strikes even when neither side wants full nuclear exchange.</p></div>
+    <div class="card"><h3>Defensive Last Resort</h3><p>If the regime believes collapse is imminent, nuclear release authority, command survival, and loose-material risk become dominant problems. Published scenarios repeatedly warn that collapse management and war termination must be planned together.</p></div>
+    <div class="card"><h3>Space / EMP Use</h3><p>Nuclear use in or near space is modeled as a disruptive but ambiguous escalation option. It can damage satellites and communications while complicating retaliation choices because immediate casualties may be limited but strategic effects are severe.</p></div>
+  </div>
+</section>
+
+<section class="section" id="assumptions">
+  <h2 class="section-title"><span class="sec-num">07</span>Assumptions And Limits</h2>
+  <div class="grid two">
+    <div class="card"><h3>Common Game Assumptions</h3><p>Games often assume rapid political recognition of escalation, reliable alliance consultation, and enough intelligence clarity to attribute cyber, space, and missile events. In practice, DPRK strategy may depend on creating ambiguity faster than allied processes can resolve it.</p></div>
+    <div class="card"><h3>Where Games Diverge</h3><p>Results vary based on Chinese border behavior, Japanese support, ROK domestic tolerance for risk, US homeland vulnerability, and whether nuclear use remains demonstrative or becomes tactical. Small assumption changes can move the result from deterrence success to alliance paralysis.</p></div>
+    <div class="card"><h3>Confidence</h3><p>High confidence: DPRK nuclear forces are central to crisis bargaining. Medium confidence: Pyongyang prefers coercive leverage over suicidal first use. Lower confidence: exact command-and-control survivability, release thresholds, and Chinese intervention behavior.</p></div>
+    <div class="card"><h3>Analyst Use</h3><p>Use this page as the structured scenario companion to the Korean Peninsula watch page. Live reporting should be mapped to game-derived indicators: missile activity, nuclear site activity, DMZ posture, cyber/space effects, China border support, and allied exercise cycles.</p></div>
+  </div>
+</section>
+
+<section class="section" id="indicators">
+  <h2 class="section-title"><span class="sec-num">08</span>Warning Indicators</h2>
+  <div class="indicator-grid">
+    <div class="indicator"><b>Nuclear Complex</b><span>Yongbyon operations, Punggye-ri access work, uranium facility reporting, radiochemical activity, unusual security perimeters, and missile-nuclear rhetoric synchronized with exercises.</span></div>
+    <div class="indicator"><b>Missile Forces</b><span>SRBM/MRBM launches, transporter-erector-launcher dispersal, submarine activity near Sinpo, 600mm MLRS posture, and simultaneous ballistic and cruise missile activity.</span></div>
+    <div class="indicator"><b>DMZ / Conventional</b><span>Forward artillery readiness, special operations indicators, drone incursions, tunnel or obstacle activity, civil-defense orders, and air-base alert-state changes.</span></div>
+    <div class="indicator"><b>Cyber / Space</b><span>Satellite interference, GPS anomalies, telecom disruption, port and rail IT outages, disinformation spikes, and malware against ROK/USFK logistics or media targets.</span></div>
+    <div class="indicator"><b>Alliance Posture</b><span>USFK dispersal, Patriot/THAAD activity, runway repair posture, evacuation planning, Japanese base authorization signals, and combined command messaging.</span></div>
+    <div class="indicator"><b>China Variable</b><span>Border logistics, PLA air-defense posture near the Yalu/Tumen, refugee-control preparation, fuel flows, rail activity, and diplomatic messaging that frames intervention thresholds.</span></div>
+  </div>
+</section>
+
 <section class="section">
-  <h2 class="section-title"><span class="sec-num">05</span>Planning Implications</h2>
+  <h2 class="section-title"><span class="sec-num">09</span>Planning Implications</h2>
   <div class="grid two">
     <div class="card"><h3>Operational Priorities</h3><ul><li>Harden air bases, C2, missile defense, logistics, and runway repair.</li><li>Pre-plan limited nuclear-use response options below full retaliation.</li><li>Build drone, counter-drone, counter-artillery, and ISR resiliency for the first 72 hours.</li><li>Exercise dual-contingency command structures with Japan and Taiwan scenarios.</li></ul></div>
     <div class="card"><h3>Strategic Warning Indicators</h3><ul><li>Unusual KPA brigade/division commander summons or frontline fortification orders.</li><li>Launcher dispersal across conventional-looking platforms.</li><li>SOF, drone, cyber, or satellite activity synchronized with exercises.</li><li>Chinese border logistics or air-defense posture changes during a Korea crisis.</li></ul></div>
@@ -96,7 +141,7 @@
 </section>
 
 <section class="section" id="sources">
-  <h2 class="section-title"><span class="sec-num">06</span>Referenced Source Index</h2>
+  <h2 class="section-title"><span class="sec-num">10</span>Referenced Source Index</h2>
   <div class="reference-list">
     <a class="reference-link" href="https://www.atlanticcouncil.org/in-depth-research-reports/report/a-rising-nuclear-double-threat-in-east-asia-insights-from-our-guardian-tiger-i-and-ii-tabletop-exercises/" target="_blank" rel="noopener noreferrer">
       <div class="reference-source">Atlantic Council</div>

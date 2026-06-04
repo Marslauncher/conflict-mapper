@@ -16,8 +16,11 @@
 .grid{display:grid;gap:16px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:linear-gradient(180deg,var(--surface),rgba(16,20,28,.78));border:1px solid var(--border);border-radius:var(--radius);padding:18px}.card h3{margin:0 0 10px;font-family:var(--font-display);letter-spacing:.08em;font-size:1.15rem}.card p{margin:0;color:var(--muted)}.metric{font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1}.metric-label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:4px}
 .timeline{display:grid;gap:10px}.phase{display:grid;grid-template-columns:160px 1fr;gap:16px;padding:14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}.phase-label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.13em;color:var(--accent);text-transform:uppercase}.phase strong{color:#fff}.phase div:last-child{color:var(--muted)}
 .source-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}.source-card{display:block;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:14px;color:inherit}.source-card:hover{border-color:var(--accent);text-decoration:none}.source-title{font-family:var(--font-display);font-size:1rem;font-weight:700;line-height:1.25;color:#fff}.source-meta{margin-top:8px;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.reference-list{display:grid;gap:10px;margin-bottom:22px}.reference-link{display:grid;grid-template-columns:220px 1fr;gap:14px;padding:14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:inherit}.reference-link:hover{border-color:var(--accent);text-decoration:none}.reference-source{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}.reference-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:#fff}.reference-note{margin-top:4px;color:var(--muted);font-size:.86rem}
+.matrix{display:grid;gap:10px}.matrix-row{display:grid;grid-template-columns:170px repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}.matrix-row>div{padding:12px;border-right:1px solid var(--border);color:var(--muted);font-size:.86rem}.matrix-row>div:last-child{border-right:0}.matrix-head>div{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);background:var(--surface-2)}.matrix-key{font-family:var(--font-display);font-weight:700;color:#fff!important}
+.indicator-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.indicator{border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:14px}.indicator b{display:block;font-family:var(--font-display);font-size:1rem;letter-spacing:.08em;color:#fff;margin-bottom:6px}.indicator span{color:var(--muted);font-size:.88rem}
 .callout{border-left:3px solid var(--accent);background:rgba(34,211,238,.07);padding:16px 18px;border-radius:0 var(--radius) var(--radius) 0;color:var(--muted)}.callout strong{color:var(--text)}
-@media(max-width:820px){.top-nav{overflow-x:auto}.nav-links{min-width:max-content}.grid.two,.grid.three{grid-template-columns:1fr}.phase{grid-template-columns:1fr}.hero{padding-top:36px}.section{padding:34px 18px}}
+@media(max-width:820px){.top-nav{overflow-x:auto}.nav-links{min-width:max-content}.grid.two,.grid.three,.indicator-grid{grid-template-columns:1fr}.phase,.reference-link{grid-template-columns:1fr}.matrix-row{grid-template-columns:1fr}.matrix-row>div{border-right:0;border-bottom:1px solid var(--border)}.matrix-row>div:last-child{border-bottom:0}.hero{padding-top:36px}.section{padding:34px 18px}}
 </style>
 <script src="/assets/user-style.js"></script>
 </head>
@@ -26,6 +29,8 @@
   <a class="brand" href="../index.html">CONFLICT <span>MAPPER</span></a>
   <div class="nav-links">
     <a href="taiwan-strait.html">Watch</a>
+    <a href="#families">Scenarios</a>
+    <a href="#indicators">Indicators</a>
     <a href="#sources">Sources</a>
     <a href="../index.html">Hub</a>
   </div>
@@ -55,8 +60,38 @@
   <div class="callout" style="margin-top:18px"><strong>Bottom line:</strong> The published Taiwan war-game literature converges on a hard operational truth: a direct invasion is costly and fragile even when China gains surprise, while blockade or quarantine scenarios can create slower but severe political, economic, and escalation dilemmas. Taiwan survivability, US/Japan access, logistics, missile inventory, airbase repair, and political endurance are the recurring decision variables.</div>
 </section>
 
+<section class="section" id="primary-references">
+  <h2 class="section-title"><span class="sec-num">02</span>Primary Linked References</h2>
+  <div class="reference-list">
+    <a class="reference-link" href="https://www.csis.org/analysis/first-battle-next-war-wargaming-chinese-invasion-taiwan" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">CSIS</div>
+      <div><div class="reference-title">The First Battle of the Next War</div><div class="reference-note">Core invasion-game reference: 24 iterations, severe losses on all sides, and emphasis on rapid deterrence improvements before crisis onset.</div></div>
+    </a>
+    <a class="reference-link" href="https://www.csis.org/analysis/lights-out-wargaming-chinese-blockade-taiwan" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">CSIS</div>
+      <div><div class="reference-title">Lights Out? Wargaming a Chinese Blockade of Taiwan</div><div class="reference-note">Primary blockade/quarantine reference for shipping, insurance, stockpile, legal, and escalation-management dilemmas.</div></div>
+    </a>
+    <a class="reference-link" href="https://www.cnas.org/publications/reports/dangerous-straits-wargaming-a-future-conflict-over-taiwans" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">CNAS</div>
+      <div><div class="reference-title">Dangerous Straits: Wargaming a Future Conflict over Taiwan</div><div class="reference-note">Strategic-operational Taiwan war game that stresses escalation, preemption, and the absence of a fast clean victory.</div></div>
+    </a>
+    <a class="reference-link" href="https://warontherocks.com/a-wargame-to-take-taiwan-from-chinas-perspective/" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">War on the Rocks</div>
+      <div><div class="reference-title">A Wargame to Take Taiwan, from China's Perspective</div><div class="reference-note">Useful red-team framing for PRC coercive sequencing, political objectives, and preferred pressure pathways.</div></div>
+    </a>
+    <a class="reference-link" href="https://globaltaiwan.org/2026/01/pla-justice-mission-2025/" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">Global Taiwan Institute</div>
+      <div><div class="reference-title">The PLA's Justice Mission-2025 Exercise Around Taiwan</div><div class="reference-note">Exercise-to-crisis reference for exclusion zones, joint rehearsal behavior, and warning-indicator calibration.</div></div>
+    </a>
+    <a class="reference-link" href="https://www.brookings.edu/articles/adapting-us-taiwan-policy-for-a-new-strategic-reality/" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">Brookings / RAND</div>
+      <div><div class="reference-title">Adapting US-Taiwan Policy for a New Strategic Reality</div><div class="reference-note">Policy adaptation reference for deterrence, diplomacy, asymmetric defense investment, and alliance architecture.</div></div>
+    </a>
+  </div>
+</section>
+
 <section class="section" id="families">
-  <h2 class="section-title"><span class="sec-num">02</span>Scenario Families</h2>
+  <h2 class="section-title"><span class="sec-num">03</span>Scenario Families</h2>
   <div class="grid two">
     <article class="card">
       <h3>Amphibious Invasion</h3>
@@ -77,8 +112,19 @@
   </div>
 </section>
 
+<section class="section" id="comparison">
+  <h2 class="section-title"><span class="sec-num">04</span>Scenario Comparison Matrix</h2>
+  <div class="matrix">
+    <div class="matrix-row matrix-head"><div>Scenario</div><div>PRC Objective</div><div>Primary Friction</div><div>Allied Decision Point</div><div>Watch Indicator</div></div>
+    <div class="matrix-row"><div class="matrix-key">Amphibious Invasion</div><div>Seize political control before external reinforcement becomes decisive.</div><div>Sealift, beachhead sustainment, mines, airbase repair, attrition of escorts and transports.</div><div>Whether US/Japan enter quickly enough to blunt the lodgment without uncontrolled escalation.</div><div>RO/RO requisition, ferry conversion, port loading, missile dispersal, civil-defense lockdown.</div></div>
+    <div class="matrix-row"><div class="matrix-key">Blockade / Quarantine</div><div>Coerce surrender while preserving ambiguity over whether a state of war exists.</div><div>International shipping behavior, energy and food stockpiles, insurance, sanctions, convoy risk.</div><div>Whether to run escorted convoys, break exclusion zones, or accept slow economic strangulation.</div><div>Customs notices, maritime exclusion areas, coast guard swarms, insurer advisories, port disruption.</div></div>
+    <div class="matrix-row"><div class="matrix-key">Exercise-to-Attack</div><div>Use rehearsals and declared drills to mask preparation or normalize encirclement.</div><div>Distinguishing coercive signaling from operational preparation without waiting too long.</div><div>Whether to mobilize publicly and risk crisis acceleration or stay quiet and lose time.</div><div>Repeated exercise zones, live-fire notices, logistics tails, reserve activity, information control.</div></div>
+    <div class="matrix-row"><div class="matrix-key">Dual Contingency</div><div>Exploit allied bandwidth by coupling Taiwan pressure with Korea, South China Sea, or cyber crises.</div><div>Munitions depth, ISR allocation, political authorization, base vulnerability, command focus.</div><div>How to prioritize Taiwan, Japan, Korea, Guam, and homeland defense in the first week.</div><div>DPRK launches, PLA exercises, cyber disruption, Japanese base politics, US carrier movements.</div></div>
+  </div>
+</section>
+
 <section class="section" id="timeline">
-  <h2 class="section-title"><span class="sec-num">03</span>Escalation Model</h2>
+  <h2 class="section-title"><span class="sec-num">05</span>Escalation Model</h2>
   <div class="timeline">
     <div class="phase"><div class="phase-label">Phase 0</div><div><strong>Political shaping and ambiguity.</strong> Cyber activity, influence operations, coast guard pressure, legal warfare, and exercises create uncertainty over intent.</div></div>
     <div class="phase"><div class="phase-label">Phase 1</div><div><strong>Isolation campaign.</strong> Missile threats, air and maritime exclusion zones, port interdiction, undersea cable risk, and economic pressure attempt to separate Taiwan from external support.</div></div>
@@ -89,7 +135,7 @@
 </section>
 
 <section class="section" id="findings">
-  <h2 class="section-title"><span class="sec-num">04</span>Cross-Game Findings</h2>
+  <h2 class="section-title"><span class="sec-num">06</span>Cross-Game Findings</h2>
   <div class="grid two">
     <div class="card"><h3>Surprise Is Necessary But Insufficient</h3><p>Invasion outcomes depend less on the first missile salvo than on whether follow-on sealift, air cover, and beachhead logistics survive long enough to become operationally meaningful.</p></div>
     <div class="card"><h3>Japan Is a Theater, Not a Rear Area</h3><p>US intervention almost immediately makes Japanese bases, airspace, and political authorization central to campaign feasibility and escalation management.</p></div>
@@ -98,8 +144,30 @@
   </div>
 </section>
 
+<section class="section" id="assumptions">
+  <h2 class="section-title"><span class="sec-num">07</span>Assumptions And Limits</h2>
+  <div class="grid two">
+    <div class="card"><h3>Common Game Assumptions</h3><p>Most published games simplify mobilization warning, political decision speed, munitions replenishment, cyber effects, civilian resilience, and intra-alliance disagreement. Treat outcomes as structured stress tests, not forecasts. The most useful output is the set of recurring constraints that appear across games with different sponsors and rule sets.</p></div>
+    <div class="card"><h3>Where Games Diverge</h3><p>Outcomes shift sharply based on whether Japan grants access early, whether the United States prepositions munitions, whether Taiwan disperses forces before the first salvo, whether PRC leaders accept strikes on US bases, and whether blockade rules treat commercial shipping, energy cargo, and cyber disruption as military targets.</p></div>
+    <div class="card"><h3>Confidence</h3><p>High confidence: direct invasion is costly and politically risky for Beijing. Medium confidence: blockade/quarantine is more likely than immediate full invasion as a coercive option. Lower confidence: exact timing, allied intervention speed, and PRC tolerance for escalation against US/Japanese bases.</p></div>
+    <div class="card"><h3>Analyst Use</h3><p>Use this page as a bridge between source material and the live China/Taiwan Watch page. Live reporting should be mapped to game-derived indicators: logistics, exercises, exclusion zones, cyber activity, allied posture, and political signaling.</p></div>
+  </div>
+</section>
+
+<section class="section" id="indicators">
+  <h2 class="section-title"><span class="sec-num">08</span>Warning Indicators</h2>
+  <div class="indicator-grid">
+    <div class="indicator"><b>Logistics And Sealift</b><span>Civilian ferry requisition, RO/RO concentration, pontoon bridging, fuel movement, medical stockpiles, blood supply orders, port closures, and unusual container-routing controls.</span></div>
+    <div class="indicator"><b>Fires And Air Defense</b><span>PLARF dispersal, SAM movement, long-range rocket artillery, air-defense activation, airfield hardening, drone staging, and anti-ship missile drills near coastal launch corridors.</span></div>
+    <div class="indicator"><b>Maritime Control</b><span>Coast guard swarms, maritime militia activation, declared law-enforcement patrols, live-fire boxes, cable-repair restrictions, shipping insurance warnings, and AIS anomalies around Taiwan ports.</span></div>
+    <div class="indicator"><b>Political Shaping</b><span>Travel advisories, evacuation messaging, emergency legislation, propaganda surge, pressure on third-country recognition, sanctions language, and diplomatic channel degradation.</span></div>
+    <div class="indicator"><b>Cyber / Space</b><span>Telecom outages, port IT disruption, satellite interference, disinformation campaigns, financial-system attacks, rail/energy disruption, and activity against Taiwan government media channels.</span></div>
+    <div class="indicator"><b>Allied Posture</b><span>US/Japan base dispersal, tanker movement, submarine activity, airlift surge, munitions transfers, emergency Diet or congressional action, and visible Guam/Okinawa hardening.</span></div>
+  </div>
+</section>
+
 <section class="section" id="planning">
-  <h2 class="section-title"><span class="sec-num">05</span>Planning Implications</h2>
+  <h2 class="section-title"><span class="sec-num">09</span>Planning Implications</h2>
   <div class="grid two">
     <div class="card"><h3>Indicators To Monitor</h3><p>RO/RO shipping, civilian ferry requisition, blood supply movement, missile unit dispersal, amphibious staging, PLA reserve mobilization, information control, and unusual port restrictions should carry more weight than routine aircraft counts alone.</p></div>
     <div class="card"><h3>Defensive Priorities</h3><p>Distributed anti-ship fires, runway repair, hardened C2, mobile air defense, mine warfare, resilient satellite/terrestrial communications, and civilian stockpile planning remain the highest-yield mitigation categories across scenarios.</p></div>
@@ -107,7 +175,7 @@
 </section>
 
 <section class="section" id="sources">
-  <h2 class="section-title"><span class="sec-num">06</span>Referenced Source Index</h2>
+  <h2 class="section-title"><span class="sec-num">10</span>Referenced Source Index</h2>
   <div class="source-grid" id="source-grid">
     <div class="card">Loading ChinaTaiwanWarGaming.csv...</div>
   </div>
