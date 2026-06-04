@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Korean Peninsula War Games — Conflict Mapper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080a0e;--surface:#10151d;--surface-2:#151d28;--surface-3:#1d2937;--border:rgba(255,255,255,.08);--border-strong:rgba(248,113,113,.30);--text:#e5e7eb;--muted:#a4adbd;--faint:#667085;--accent:#f87171;--amber:#f59e0b;--green:#22c55e;--blue:#60a5fa;--purple:#c084fc;--font-display:'Rajdhani',sans-serif;--font-mono:'Share Tech Mono',monospace;--font-body:'Inter',sans-serif;--radius:8px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,rgba(248,113,113,.10),transparent 34rem),var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.65}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.top-nav{position:sticky;top:0;z-index:50;height:56px;display:flex;align-items:center;gap:18px;padding:0 24px;background:rgba(8,10,14,.92);border-bottom:1px solid var(--border-strong);backdrop-filter:blur(12px)}.brand{font-family:var(--font-display);font-weight:700;letter-spacing:.14em;color:#fff}.brand span{color:var(--accent)}.nav-links{display:flex;gap:8px;margin-left:auto}.nav-links a{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;color:var(--muted);padding:6px 9px;border-radius:5px}.nav-links a:hover{background:rgba(248,113,113,.1);color:var(--accent);text-decoration:none}
+.hero{padding:56px 24px 34px;border-bottom:1px solid var(--border);background:linear-gradient(155deg,rgba(20,16,25,.92),rgba(8,10,14,.94))}.hero-inner{max-width:1280px;margin:0 auto}.eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}.hero h1{font-family:var(--font-display);font-size:clamp(2.3rem,6vw,4.8rem);line-height:.95;margin:0 0 16px;letter-spacing:.08em;text-transform:uppercase}.hero p{max-width:1020px;color:var(--muted);font-size:1.02rem;margin:0}.badge-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.badge{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;border:1px solid var(--border);background:var(--surface);padding:6px 10px;border-radius:5px;color:var(--muted)}.badge.red{color:var(--accent);border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.09)}.badge.amber{color:var(--amber);border-color:rgba(245,158,11,.38);background:rgba(245,158,11,.08)}
+.section{max-width:1280px;margin:0 auto;padding:46px 24px;border-bottom:1px solid var(--border)}.section-title{display:flex;align-items:center;gap:14px;margin:0 0 20px;font-family:var(--font-display);font-size:1.45rem;letter-spacing:.13em;text-transform:uppercase}.section-title:after{content:'';height:1px;background:var(--border);flex:1}.sec-num{font-family:var(--font-mono);font-size:.68rem;color:var(--accent);border:1px solid var(--border-strong);background:rgba(248,113,113,.08);padding:3px 8px;border-radius:4px}
+.grid{display:grid;gap:16px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:linear-gradient(180deg,var(--surface),rgba(16,21,29,.8));border:1px solid var(--border);border-radius:var(--radius);padding:18px}.card h3{margin:0 0 10px;font-family:var(--font-display);letter-spacing:.08em;font-size:1.15rem}.card p,.card li{color:var(--muted)}.card ul{margin:10px 0 0;padding-left:18px}.metric{font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1}.metric-label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+.ladder{display:grid;gap:10px}.step{display:grid;grid-template-columns:170px 1fr;gap:16px;padding:14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}.step-label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.13em;color:var(--accent);text-transform:uppercase}.step strong{color:#fff}.step div:last-child{color:var(--muted)}
+.source-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}.source-card{display:block;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:14px;color:inherit}.source-card:hover{border-color:var(--accent);text-decoration:none}.source-title{font-family:var(--font-display);font-size:1rem;font-weight:700;line-height:1.25;color:#fff}.source-meta{margin-top:8px;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.reference-list{display:grid;gap:10px;margin-bottom:22px}.reference-link{display:grid;grid-template-columns:220px 1fr;gap:14px;padding:14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:inherit}.reference-link:hover{border-color:var(--accent);text-decoration:none}.reference-source{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}.reference-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:#fff}.reference-note{margin-top:4px;color:var(--muted);font-size:.86rem}
+.callout{border-left:3px solid var(--accent);background:rgba(248,113,113,.07);padding:16px 18px;border-radius:0 var(--radius) var(--radius) 0;color:var(--muted)}.callout strong{color:var(--text)}
+@media(max-width:820px){.top-nav{overflow-x:auto}.nav-links{min-width:max-content}.grid.two,.grid.three{grid-template-columns:1fr}.step,.reference-link{grid-template-columns:1fr}.section{padding:34px 18px}}
+</style>
+<script src="/assets/user-style.js"></script>
+</head>
+<body>
+<nav class="top-nav">
+  <a class="brand" href="../index.html">CONFLICT <span>MAPPER</span></a>
+  <div class="nav-links"><a href="korean-peninsula.html">Watch</a><a href="#scenario-index">Scenarios</a><a href="#sources">Sources</a><a href="../index.html">Hub</a></div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">War Games Deep Dive // Korean Peninsula</div>
+    <h1>Korean Peninsula War Games</h1>
+    <p>Scenario synthesis of recent Korean Peninsula war games and structured analyses, including Guardian Tiger I/II, NPEC space-nuclear escalation, DNI/NIC nuclear leverage pathways, RAND dangerous scenarios, nuclear-cognitive warfare, Freedom Shield exercise logic, and Korea-Taiwan dual-contingency modeling.</p>
+    <div class="badge-row">
+      <span class="badge red">Early Nuclear Use</span>
+      <span class="badge amber">Dual-Contingency Risk</span>
+      <span class="badge">Space / Cyber Opening Moves</span>
+      <span class="badge">Alliance Decision Stress</span>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <h2 class="section-title"><span class="sec-num">01</span>Executive Assessment</h2>
+  <div class="grid three">
+    <div class="card"><div class="metric" id="metric-sources">22</div><div class="metric-label">Indexed References</div></div>
+    <div class="card"><div class="metric">8</div><div class="metric-label">Scenario Families</div></div>
+    <div class="card"><div class="metric">2030</div><div class="metric-label">Common Planning Horizon</div></div>
+  </div>
+  <div class="callout" style="margin-top:18px"><strong>Bottom line:</strong> The recent Korean war-game literature is more nuclear-forward than most Taiwan modeling. North Korea is consistently modeled as escalating early, using nuclear threats or demonstrations to fracture allied decision-making before a conventional campaign can reach a decisive stage.</div>
+</section>
+
+<section class="section" id="scenario-index">
+  <h2 class="section-title"><span class="sec-num">02</span>Scenario Families</h2>
+  <div class="grid two">
+    <article class="card"><h3>Guardian Tiger I — North Korea Initiates</h3><p>North Korea begins with limited conventional strikes, then escalates toward chemical use, tactical nuclear pre-delegation, nuclear demonstration, and potential nuclear strike against South Korean military infrastructure. The central lesson is allied indecision under limited nuclear use.</p></article>
+    <article class="card"><h3>Guardian Tiger II — China Initiates Over Taiwan</h3><p>A Taiwan war triggers opportunistic North Korean coercion. Missile overflights, SOF/drone attacks, nuclear demonstrations, and Chinese support create a two-theater stress test where Korea and Taiwan compete for munitions, ISR, command attention, and political bandwidth.</p></article>
+    <article class="card"><h3>Pyongyang Goes Nuclear in Space</h3><p>NPEC's scenario tests a nuclear detonation in low-Earth orbit as a precursor to conventional invasion. The game exposes major gaps in satellite resilience, legal framing, allied response options, and proportionate deterrence after nuclear use outside the atmosphere.</p></article>
+    <article class="card"><h3>DNI/NIC Nuclear Leverage Pathways</h3><p>The declassified NIE outlines coercive, offensive/revisionist, and defensive-only nuclear strategies. The most likely path is not an immediate all-out attack; it is increasing conventional risk-taking under a nuclear shield.</p></article>
+    <article class="card"><h3>RAND Dangerous Scenarios</h3><p>RAND's framework remains foundational: nuclear coercion, limited war with Seoul at risk, and regime collapse with loose nuclear material. These are not separate problems; a crisis can migrate from one family to another quickly.</p></article>
+    <article class="card"><h3>Nuclear-Cognitive Warfare</h3><p>38 North/APLN analysis shows how Pyongyang can use nuclear narratives, cyber, information operations, and differing threat perceptions in Seoul and Washington to fracture alliance choices without firing a nuclear weapon.</p></article>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="section-title"><span class="sec-num">03</span>Escalation Ladder</h2>
+  <div class="ladder">
+    <div class="step"><div class="step-label">Move 1</div><div><strong>Provocation under nuclear cover.</strong> Limited strikes, missile tests, cyber events, or maritime incidents are framed as defensive responses while Pyongyang threatens disproportionate escalation.</div></div>
+    <div class="step"><div class="step-label">Move 2</div><div><strong>Alliance split attempt.</strong> DPRK messaging targets Seoul's fear of tactical nuclear strikes and Washington's homeland-risk calculation, attempting to separate ROK and US decision timelines.</div></div>
+    <div class="step"><div class="step-label">Move 3</div><div><strong>Demonstration or limited nuclear use.</strong> Games repeatedly test low-yield demonstration, strike near naval forces, strike against air bases, or nuclear effects in space.</div></div>
+    <div class="step"><div class="step-label">Move 4</div><div><strong>Counteroffensive dilemma.</strong> A regime-change operation may be militarily attractive after nuclear use, but China support, DPRK residual nuclear capability, and Seoul exposure make escalation control fragile.</div></div>
+    <div class="step"><div class="step-label">Move 5</div><div><strong>Negotiation versus termination.</strong> Most games expose inadequate options between limited conventional response and excessive nuclear retaliation; termination often becomes political before it is operationally clean.</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="section-title"><span class="sec-num">04</span>Cross-Scenario Findings</h2>
+  <div class="grid three">
+    <div class="card"><h3>Early Nuclear Signaling Is Baseline</h3><p>North Korea's nuclear arsenal is modeled as an enabling shield for coercion, not merely an end-stage last resort.</p></div>
+    <div class="card"><h3>Limited Nuclear Response Gap</h3><p>Published games repeatedly find US/ROK options too weak at the conventional end and too escalatory at the nuclear end.</p></div>
+    <div class="card"><h3>China Is the Swing Variable</h3><p>Chinese logistics, border control, air defense support, or parallel Taiwan operations can reshape every Korean scenario.</p></div>
+    <div class="card"><h3>Korea and Taiwan Are Coupled</h3><p>ISR, munitions, basing, command attention, and Japanese political authorization link the theaters even when conflict begins in only one.</p></div>
+    <div class="card"><h3>Space and Cyber Are Opening Domains</h3><p>NPEC and Freedom Shield-style scenarios treat space/cyber effects as initial conditions, not late escalation.</p></div>
+    <div class="card"><h3>Alliance Perception Gaps Matter</h3><p>Seoul, Washington, and Tokyo do not experience risk symmetrically; Pyongyang can exploit those seams through information operations and nuclear threats.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="section-title"><span class="sec-num">05</span>Planning Implications</h2>
+  <div class="grid two">
+    <div class="card"><h3>Operational Priorities</h3><ul><li>Harden air bases, C2, missile defense, logistics, and runway repair.</li><li>Pre-plan limited nuclear-use response options below full retaliation.</li><li>Build drone, counter-drone, counter-artillery, and ISR resiliency for the first 72 hours.</li><li>Exercise dual-contingency command structures with Japan and Taiwan scenarios.</li></ul></div>
+    <div class="card"><h3>Strategic Warning Indicators</h3><ul><li>Unusual KPA brigade/division commander summons or frontline fortification orders.</li><li>Launcher dispersal across conventional-looking platforms.</li><li>SOF, drone, cyber, or satellite activity synchronized with exercises.</li><li>Chinese border logistics or air-defense posture changes during a Korea crisis.</li></ul></div>
+  </div>
+</section>
+
+<section class="section" id="sources">
+  <h2 class="section-title"><span class="sec-num">06</span>Referenced Source Index</h2>
+  <div class="reference-list">
+    <a class="reference-link" href="https://www.atlanticcouncil.org/in-depth-research-reports/report/a-rising-nuclear-double-threat-in-east-asia-insights-from-our-guardian-tiger-i-and-ii-tabletop-exercises/" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">Atlantic Council</div>
+      <div><div class="reference-title">A Rising Nuclear Double-Threat in East Asia: Guardian Tiger I and II</div><div class="reference-note">Primary tabletop-exercise reference for DPRK-initiated and China/Taiwan-initiated dual-contingency pathways.</div></div>
+    </a>
+    <a class="reference-link" href="https://npolicy.org/wp-content/uploads/2023/01/2301-Pyongyang-Goes-Nuclear-Occasional-Paper-copy-1.12.23.pdf" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">NPEC</div>
+      <div><div class="reference-title">Pyongyang Goes Nuclear in Space</div><div class="reference-note">Space-nuclear escalation scenario used for the cyber, satellite, and proportional-response sections.</div></div>
+    </a>
+    <a class="reference-link" href="https://www.dni.gov/files/ODNI/documents/assessments/NIC-Declassified-NIE-North-Korea-Scenarios-For-Leveraging-Nuclear-Weapons-June2023.pdf" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">ODNI / NIC</div>
+      <div><div class="reference-title">North Korea: Scenarios for Leveraging Nuclear Weapons</div><div class="reference-note">Declassified estimate framing coercive, offensive/revisionist, and defensive-only nuclear strategies.</div></div>
+    </a>
+    <a class="reference-link" href="https://mwi.westpoint.edu/drone-warfare-and-the-future-of-korean-armor/" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">Modern War Institute</div>
+      <div><div class="reference-title">Drone Warfare and the Future of Korean Armor</div><div class="reference-note">Ground maneuver and drone/counter-drone implications for a future Korean land campaign.</div></div>
+    </a>
+    <a class="reference-link" href="https://www.38north.org/2025/04/north-koreas-nuclear-cognitive-warfare-strategy/" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">38 North</div>
+      <div><div class="reference-title">North Korea's Nuclear-Cognitive Warfare Strategy</div><div class="reference-note">Reference for nuclear messaging, perception management, and alliance fracture risks.</div></div>
+    </a>
+    <a class="reference-link" href="https://globaltaiwan.org/2025/08/south-korea-could-support-taiwan-in-a-dual-contingency/" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">Global Taiwan Institute</div>
+      <div><div class="reference-title">South Korea Could Support Taiwan in a Dual Contingency</div><div class="reference-note">Links Korea and Taiwan planning problems through munitions, basing, ISR, and allied decision cycles.</div></div>
+    </a>
+    <a class="reference-link" href="https://understandingwar.org/research/china-taiwan/korean-peninsula-update-june-2-2026/" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">ISW</div>
+      <div><div class="reference-title">Korean Peninsula Update, June 2, 2026</div><div class="reference-note">Current-conditions reference for recent DPRK/ROK theater indicators.</div></div>
+    </a>
+    <a class="reference-link" href="https://www.cfr.org/global-conflict-tracker/conflict/north-korea-crisis" target="_blank" rel="noopener noreferrer">
+      <div class="reference-source">CFR</div>
+      <div><div class="reference-title">North Korea Crisis - Global Conflict Tracker</div><div class="reference-note">Baseline conflict-status reference for the Korean Peninsula watch surface.</div></div>
+    </a>
+  </div>
+  <div class="source-grid" id="source-grid"><div class="card">Loading KoreanPeninsula.csv...</div></div>
+</section>
+
+<script>
+function parseCsv(text){const rows=[];let row=[],cell='',q=false;for(let i=0;i<text.length;i++){const ch=text[i],n=text[i+1];if(q&&ch==='"'&&n==='"'){cell+='"';i++}else if(ch==='"')q=!q;else if(!q&&ch===','){row.push(cell);cell=''}else if(!q&&(ch==='\n'||ch==='\r')){if(ch==='\r'&&n==='\n')i++;row.push(cell);if(row.some(Boolean))rows.push(row);row=[];cell=''}else cell+=ch}if(cell||row.length){row.push(cell);rows.push(row)}return rows}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function sourceUrl(url,title,source){const raw=String(url||'').trim();if(/^https?:\/\//i.test(raw))return raw;if(/^[\w.-]+\.[a-z]{2,}/i.test(raw))return`https://${raw}`;return`https://www.google.com/search?q=${encodeURIComponent(`${title} ${source}`)}`}
+async function loadSources(){const grid=document.getElementById('source-grid');try{const csv=await fetch('/datasources/KoreanPeninsula.csv').then(r=>r.text());const[headers,...rows]=parseCsv(csv);document.getElementById('metric-sources').textContent=rows.length;grid.innerHTML=rows.map(row=>{const item=Object.fromEntries(headers.map((h,i)=>[h,row[i]||'']));return`<a class="source-card" href="${esc(sourceUrl(item.URL,item.Title,item.Source))}" target="_blank" rel="noopener noreferrer"><div class="source-title">${esc(item.Title)}</div><div class="source-meta">${esc(item.Source)} // REF ${esc(item['#'])}</div></a>`}).join('')}catch(err){grid.innerHTML=`<div class="card">Unable to load source CSV: ${esc(err.message)}</div>`}}
+loadSources();
+</script>
+</body>
+</html>

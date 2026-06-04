@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Korean Peninsula Watch — Conflict Mapper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root{--bg:#080b0f;--surface:#10151d;--surface-2:#151d28;--surface-3:#1d2937;--border:rgba(255,255,255,.08);--border-strong:rgba(96,165,250,.32);--text:#e5e7eb;--muted:#a4adbd;--faint:#667085;--accent:#60a5fa;--red:#f87171;--amber:#f59e0b;--green:#22c55e;--cyan:#22d3ee;--font-display:'Rajdhani',sans-serif;--font-mono:'Share Tech Mono',monospace;--font-body:'Inter',sans-serif;--radius:8px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0,rgba(96,165,250,.12),transparent 34rem),var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.62}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.top-nav{position:sticky;top:0;z-index:50;height:56px;display:flex;align-items:center;gap:18px;padding:0 24px;background:rgba(8,11,15,.92);border-bottom:1px solid var(--border-strong);backdrop-filter:blur(12px)}.brand{font-family:var(--font-display);font-weight:700;letter-spacing:.14em;color:#fff}.brand span{color:var(--accent)}.nav-links{display:flex;gap:8px;margin-left:auto}.nav-links a{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;color:var(--muted);padding:6px 9px;border-radius:5px}.nav-links a:hover{background:rgba(96,165,250,.1);color:var(--accent);text-decoration:none}
+.hero{padding:52px 24px 28px;border-bottom:1px solid var(--border);background:linear-gradient(150deg,rgba(15,23,42,.92),rgba(8,11,15,.94))}.hero-inner{max-width:1360px;margin:0 auto}.eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}.hero h1{font-family:var(--font-display);font-size:clamp(2.3rem,6vw,4.8rem);line-height:.95;margin:0 0 16px;letter-spacing:.08em;text-transform:uppercase}.hero p{max-width:1000px;color:var(--muted);font-size:1.02rem;margin:0}.status-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.status{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;border:1px solid var(--border);background:var(--surface);padding:6px 10px;border-radius:5px;color:var(--muted)}.status.red{color:var(--red);border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.09)}.status.amber{color:var(--amber);border-color:rgba(245,158,11,.38);background:rgba(245,158,11,.08)}.status.green{color:var(--green);border-color:rgba(34,197,94,.38);background:rgba(34,197,94,.08)}
+.section{max-width:1360px;margin:0 auto;padding:42px 24px;border-bottom:1px solid var(--border)}.section-title{display:flex;align-items:center;gap:14px;margin:0 0 20px;font-family:var(--font-display);font-size:1.45rem;letter-spacing:.13em;text-transform:uppercase}.section-title:after{content:'';height:1px;background:var(--border);flex:1}.sec-num{font-family:var(--font-mono);font-size:.68rem;color:var(--accent);border:1px solid var(--border-strong);background:rgba(96,165,250,.08);padding:3px 8px;border-radius:4px}
+.grid{display:grid;gap:16px}.grid.two{grid-template-columns:1.1fr .9fr}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}.card{background:linear-gradient(180deg,var(--surface),rgba(16,21,29,.8));border:1px solid var(--border);border-radius:var(--radius);padding:18px}.card h3{margin:0 0 10px;font-family:var(--font-display);letter-spacing:.08em;font-size:1.12rem}.card p{margin:0;color:var(--muted)}.metric{font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1}.metric-label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+#peninsula-map{height:620px;border:1px solid var(--border-strong);border-radius:var(--radius);overflow:hidden;background:#0b1020}.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.legend span{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.08em;color:var(--muted)}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+.feed{display:grid;gap:10px;max-height:620px;overflow:auto;padding-right:4px}.article{display:block;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:13px;color:inherit}.article:hover{border-color:var(--accent);text-decoration:none}.article-title{font-family:var(--font-display);font-size:1.02rem;font-weight:700;line-height:1.25;color:#fff}.article-meta{margin-top:8px;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.pill-list{display:flex;flex-wrap:wrap;gap:8px}.pill{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--border);border-radius:999px;padding:4px 9px;color:var(--muted);background:var(--surface-2)}
+@media(max-width:960px){.grid.two,.grid.three,.grid.four{grid-template-columns:1fr}.top-nav{overflow-x:auto}.nav-links{min-width:max-content}.section{padding:34px 18px}#peninsula-map{height:520px}}
+</style>
+<script src="/assets/user-style.js"></script>
+</head>
+<body>
+<nav class="top-nav">
+  <a class="brand" href="../index.html">CONFLICT <span>MAPPER</span></a>
+  <div class="nav-links"><a href="#map">Map</a><a href="#feed">News</a><a href="korean-peninsula-war-games.html">War Games</a><a href="../index.html">Hub</a></div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Northeast Asia // Armistice Theater Watch</div>
+    <h1>Korean Peninsula</h1>
+    <p>Live watch page for North and South Korean security reporting, nuclear and missile facilities, DMZ geography, major cities, and current escalation indicators. The page filters the local RSS cache for Korea-relevant reporting and cross-references published war-gaming scenarios.</p>
+    <div class="status-row">
+      <span class="status red">DPRK Nuclear: Active</span>
+      <span class="status amber">DMZ Posture: Elevated</span>
+      <span class="status green">ROK / US Alliance: Active</span>
+      <span class="status">Dual-Contingency Risk: Taiwan Linked</span>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="assessment">
+  <h2 class="section-title"><span class="sec-num">01</span>Current Regional Assessment</h2>
+  <div class="grid four">
+    <div class="card"><div class="metric" id="metric-articles">0</div><div class="metric-label">Korea Articles</div></div>
+    <div class="card"><div class="metric" id="metric-sources">0</div><div class="metric-label">Sources</div></div>
+    <div class="card"><div class="metric" id="metric-thinktanks">0</div><div class="metric-label">Think Tank Hits</div></div>
+    <div class="card"><div class="metric">250+</div><div class="metric-label">DPRK Nuclear Estimate Ceiling</div></div>
+  </div>
+  <div class="grid two" style="margin-top:16px">
+    <div class="card">
+      <h3>Assessment Summary</h3>
+      <p>The Korean Peninsula remains a high-risk armistice theater where limited conventional actions can rapidly become nuclear signaling events. The most important watch items are ballistic missile tests, tactical nuclear deployment signals, DMZ artillery posture, cyber and space activity, USFK/ROK exercise cycles, and whether a Taiwan contingency draws US attention or assets away from Korea.</p>
+    </div>
+    <div class="card">
+      <h3>Priority Indicators</h3>
+      <div class="pill-list">
+        <span class="pill">SRBM / MRBM Launches</span><span class="pill">600mm MLRS</span><span class="pill">Punggye-ri Activity</span><span class="pill">Yongbyon Operations</span><span class="pill">SOF / Drone Incidents</span><span class="pill">Freedom Shield Responses</span><span class="pill">USFK Repositioning</span><span class="pill">China Border Support</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="map">
+  <h2 class="section-title"><span class="sec-num">02</span>Operational Map</h2>
+  <div id="peninsula-map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:#60a5fa"></i>Major City</span>
+    <span><i class="dot" style="background:#f87171"></i>Nuclear / Missile Facility</span>
+    <span><i class="dot" style="background:#f59e0b"></i>Air / Military Base</span>
+    <span><i class="dot" style="background:#22c55e"></i>ROK / US Base</span>
+    <span><i class="dot" style="background:#e5e7eb"></i>DMZ / Armistice Line</span>
+  </div>
+</section>
+
+<section class="section" id="feed">
+  <h2 class="section-title"><span class="sec-num">03</span>Latest Korean Peninsula Reporting</h2>
+  <div class="grid two">
+    <div class="card">
+      <h3>Live RSS Articles</h3>
+      <div class="feed" id="article-feed"><div class="article-meta">Loading article cache...</div></div>
+    </div>
+    <div class="card">
+      <h3>Think Tank Coverage</h3>
+      <div class="feed" id="thinktank-feed"><div class="article-meta">Loading think tank cache...</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="war-games">
+  <h2 class="section-title"><span class="sec-num">04</span>War-Gaming Linkage</h2>
+  <div class="grid three">
+    <div class="card"><h3>Guardian Tiger I / II</h3><p>Models early nuclear signaling, chemical escalation, China intervention, and dual Taiwan-Korea stress on command structures.</p></div>
+    <div class="card"><h3>Pyongyang Goes Nuclear in Space</h3><p>Highlights high-altitude nuclear effects, satellite loss, and the absence of proportionate response options to nuclear use in space.</p></div>
+    <div class="card"><h3>Nuclear-Cognitive Warfare</h3><p>Frames North Korean coercion as an information, cyber, and alliance-fracture strategy enabled by nuclear weapons without requiring immediate launch.</p></div>
+  </div>
+</section>
+
+<script>
+const points = [
+  ['city','Seoul',37.5665,126.9780,'ROK capital; primary political and economic center within long-range artillery threat envelope.'],
+  ['city','Pyongyang',39.0392,125.7625,'DPRK capital and regime command center.'],
+  ['city','Busan',35.1796,129.0756,'Major ROK port and reinforcement node.'],
+  ['city','Incheon',37.4563,126.7052,'Major port and air/sea access point near Seoul.'],
+  ['nuke','Yongbyon Nuclear Scientific Research Center',39.8000,125.7500,'Approximate location; reactor, radiochemical, enrichment, and nuclear fuel-cycle complex.'],
+  ['nuke','Punggye-ri Nuclear Test Site',41.2790,129.0870,'Approximate location; DPRK underground nuclear test site.'],
+  ['nuke','Sohae Satellite Launching Station',39.6600,124.7050,'Approximate location; satellite and long-range rocket launch infrastructure.'],
+  ['nuke','Tonghae / Musudan-ri Launch Area',40.8500,129.6700,'Approximate location; historic missile and space launch area.'],
+  ['nuke','Sinpo South Shipyard',40.0300,128.1800,'Approximate location; submarine-launched ballistic missile development and submarine construction activity.'],
+  ['base','Pyongyang Sunan Air Base',39.2240,125.6700,'DPRK air base serving capital region.'],
+  ['base','Sunchon Air Base',39.4150,125.8900,'DPRK fighter air base north of Pyongyang.'],
+  ['base','Wonsan Kalma Airfield',39.1660,127.4860,'DPRK east-coast airfield and military/civil aviation node.'],
+  ['base','Hwangju Air Base',38.6700,125.7800,'DPRK forward air base near the DMZ approaches.'],
+  ['base','Uiju Air Base',40.1990,124.5300,'DPRK northwest air base near China border.'],
+  ['rok','Camp Humphreys',36.9620,127.0310,'Largest US overseas military installation; USFK hub.'],
+  ['rok','Osan Air Base',37.0900,127.0300,'Major US/ROK airpower node south of Seoul.'],
+  ['rok','Kunsan Air Base',35.9038,126.6159,'USAF base on ROK west coast.']
+];
+const colors = { city:'#60a5fa', nuke:'#f87171', base:'#f59e0b', rok:'#22c55e' };
+const dmz = [[37.92,124.72],[37.96,125.25],[38.05,126.0],[38.22,126.65],[38.32,127.25],[38.34,128.05],[38.36,128.35]];
+const map = L.map('peninsula-map', { center:[38.55,127.2], zoom:7, scrollWheelZoom:false });
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{ attribution:'© OpenStreetMap contributors © CARTO', maxZoom:18 }).addTo(map);
+L.polyline(dmz, { color:'#e5e7eb', weight:3, dashArray:'8 6' }).bindPopup('Korean Demilitarized Zone / Military Demarcation Line - approximate display').addTo(map);
+points.forEach(([type,name,lat,lng,detail]) => {
+  const icon = L.divIcon({ className:'', html:`<div style="width:14px;height:14px;border-radius:50%;background:${colors[type]};border:2px solid #fff;box-shadow:0 0 14px ${colors[type]}"></div>`, iconSize:[14,14], iconAnchor:[7,7] });
+  L.marker([lat,lng], { icon }).bindPopup(`<strong>${name}</strong><br>${detail}<br><span style="font-family:monospace;color:#94a3b8">${lat.toFixed(3)}, ${lng.toFixed(3)}</span>`).addTo(map);
+});
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function articleTime(a){const v=a.pubDate||a.publishedAt||a.fetchedAt;const t=v?new Date(v).getTime():0;return Number.isFinite(t)?t:0}
+function timeLabel(a){const t=articleTime(a);return t?new Date(t).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}):'undated'}
+function text(a){return [a.title,a.description,a.summary,a.country,a.region,a.geo?.place,a.source,a.thinkTank,...(Array.isArray(a.tags)?a.tags:[])].filter(Boolean).join(' ').toLowerCase()}
+const terms=['korea','korean','north korea','south korea','dprk','rok','pyongyang','seoul','dmz','kim jong','usfk','yongbyon','punggye','missile','freedom shield'];
+function relevant(a){const s=text(a);return terms.some(t=>s.includes(t))}
+function renderList(id, articles, empty){const el=document.getElementById(id);if(!articles.length){el.innerHTML=`<div class="article-meta">${empty}</div>`;return}el.innerHTML=articles.slice(0,24).map(a=>`<a class="article" href="${esc(a.link||a.url||'#')}" target="_blank" rel="noopener noreferrer"><div class="article-title">${esc(a.title||'Untitled')}</div><div class="article-meta">${esc(a.source||a.thinkTank||'Unknown')} // ${timeLabel(a)}</div></a>`).join('')}
+async function loadFeed(){
+  const [articleData, thinkData] = await Promise.all([
+    fetch('/api/articles?limit=5000').then(r=>r.ok?r.json():{}).catch(()=>({})),
+    fetch('/data/think-tank-latest-news.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
+  ]);
+  const articles=(articleData.data?.articles||articleData.articles||[]).filter(relevant).sort((a,b)=>articleTime(b)-articleTime(a));
+  const think=(thinkData.articles||thinkData.data?.articles||[]).filter(relevant).sort((a,b)=>articleTime(b)-articleTime(a));
+  document.getElementById('metric-articles').textContent=articles.length;
+  document.getElementById('metric-sources').textContent=new Set(articles.map(a=>a.source).filter(Boolean)).size;
+  document.getElementById('metric-thinktanks').textContent=think.length;
+  renderList('article-feed',articles,'No Korean Peninsula RSS articles found in the current cache.');
+  renderList('thinktank-feed',think,'No Korean Peninsula think tank articles found in the current cache.');
+}
+loadFeed();
+</script>
+</body>
+</html>

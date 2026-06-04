@@ -145,8 +145,7 @@
     },
     {
       "label": "China/Taiwan Watch",
-      "type": "link",
-      "target": "pages/taiwan-strait.html",
+      "type": "dropdown",
       "icon": "eye",
       "preview": {
         "country": "taiwan",
@@ -161,19 +160,61 @@
             "image": "screenshots/final-taiwan-strait.png"
           },
           {
-            "label": "April 2026 Window",
-            "subtitle": "Taiwan scenario",
-            "target": "pages/taiwan-window-apr-2026.html",
-            "image": "screenshots/final-taiwan-apr2026-hero.png"
-          },
-          {
-            "label": "October 2026 Window",
-            "subtitle": "Taiwan scenario",
-            "target": "pages/taiwan-window-oct-2026.html",
-            "image": "screenshots/fix-taiwan-hero.png"
+            "label": "War Games",
+            "subtitle": "Published scenario deep dive",
+            "target": "pages/taiwan-war-games.html",
+            "image": "screenshots/final-taiwan-strait.png"
           }
         ]
-      }
+      },
+      "items": [
+        {
+          "label": "China/Taiwan Watch",
+          "subtitle": "Live Threat Dashboard",
+          "target": "pages/taiwan-strait.html"
+        },
+        {
+          "label": "War Games",
+          "subtitle": "Published Scenario Deep Dive",
+          "target": "pages/taiwan-war-games.html"
+        }
+      ]
+    },
+    {
+      "label": "Korean Peninsula",
+      "type": "dropdown",
+      "icon": "flag",
+      "preview": {
+        "country": "north-korea",
+        "title": "Korean Peninsula Watch",
+        "image": "screenshots/final-taiwan-strait.png",
+        "items": [
+          {
+            "label": "Korean Peninsula",
+            "subtitle": "Live armistice theater watch",
+            "target": "pages/korean-peninsula.html",
+            "image": "screenshots/final-taiwan-strait.png"
+          },
+          {
+            "label": "War Games",
+            "subtitle": "Korea scenario deep dive",
+            "target": "pages/korean-peninsula-war-games.html",
+            "image": "screenshots/final-taiwan-strait.png"
+          }
+        ]
+      },
+      "items": [
+        {
+          "label": "Korean Peninsula",
+          "subtitle": "Live Armistice Theater Watch",
+          "target": "pages/korean-peninsula.html"
+        },
+        {
+          "label": "War Games",
+          "subtitle": "Scenario Deep Dive",
+          "target": "pages/korean-peninsula-war-games.html"
+        }
+      ]
     },
     {
       "label": "Iran Conflict",

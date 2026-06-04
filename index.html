@@ -3610,8 +3610,7 @@ const DEFAULT_CONFIG = {
     },
     {
       label: "China/Taiwan Watch",
-      type: "link",
-      target: "pages/taiwan-strait.html",
+      type: "dropdown",
       icon: "eye",
       preview: {
         country: "taiwan",
@@ -3620,10 +3619,31 @@ const DEFAULT_CONFIG = {
         heroOnly: true,
         items: [
           { label: "China/Taiwan Watch", subtitle: "Live threat dashboard", target: "pages/taiwan-strait.html", image: "screenshots/final-taiwan-strait.png" },
-          { label: "April 2026 Window", subtitle: "Taiwan scenario", target: "pages/taiwan-window-apr-2026.html", image: "screenshots/final-taiwan-apr2026-hero.png" },
-          { label: "October 2026 Window", subtitle: "Taiwan scenario", target: "pages/taiwan-window-oct-2026.html", image: "screenshots/fix-taiwan-hero.png" }
+          { label: "War Games", subtitle: "Published scenario deep dive", target: "pages/taiwan-war-games.html", image: "screenshots/final-taiwan-strait.png" }
         ]
-      }
+      },
+      items: [
+        { label: "China/Taiwan Watch", subtitle: "Live Threat Dashboard", target: "pages/taiwan-strait.html" },
+        { label: "War Games", subtitle: "Published Scenario Deep Dive", target: "pages/taiwan-war-games.html" }
+      ]
+    },
+    {
+      label: "Korean Peninsula",
+      type: "dropdown",
+      icon: "flag",
+      preview: {
+        country: "north-korea",
+        title: "Korean Peninsula Watch",
+        image: "screenshots/final-taiwan-strait.png",
+        items: [
+          { label: "Korean Peninsula", subtitle: "Live armistice theater watch", target: "pages/korean-peninsula.html", image: "screenshots/final-taiwan-strait.png" },
+          { label: "War Games", subtitle: "Korea scenario deep dive", target: "pages/korean-peninsula-war-games.html", image: "screenshots/final-taiwan-strait.png" }
+        ]
+      },
+      items: [
+        { label: "Korean Peninsula", subtitle: "Live Armistice Theater Watch", target: "pages/korean-peninsula.html" },
+        { label: "War Games", subtitle: "Scenario Deep Dive", target: "pages/korean-peninsula-war-games.html" }
+      ]
     },
     {
       label: "Iran Conflict",
@@ -3777,20 +3797,59 @@ function normalizeNavConfig(config) {
     });
   }
 
+  if (!next.nav.some(item => item.label === 'Korean Peninsula')) {
+    const watchIdx = next.nav.findIndex(item => item.label === 'China/Taiwan Watch');
+    next.nav.splice(watchIdx >= 0 ? watchIdx + 1 : next.nav.length, 0, {
+      label: 'Korean Peninsula',
+      type: 'dropdown',
+      icon: 'flag',
+      items: [
+        { label: 'Korean Peninsula', subtitle: 'Live Armistice Theater Watch', target: 'pages/korean-peninsula.html' },
+        { label: 'War Games', subtitle: 'Scenario Deep Dive', target: 'pages/korean-peninsula-war-games.html' },
+      ],
+    });
+  }
+
   next.nav = next.nav.map(item => {
     if (item.label === 'China/Taiwan Watch') {
       return {
         ...item,
+        type: 'dropdown',
+        target: undefined,
+        items: [
+          { label: 'China/Taiwan Watch', subtitle: 'Live Threat Dashboard', target: 'pages/taiwan-strait.html' },
+          { label: 'War Games', subtitle: 'Published Scenario Deep Dive', target: 'pages/taiwan-war-games.html' },
+        ],
         preview: {
           ...(item.preview || {}),
           country: 'taiwan',
           title: 'China/Taiwan Watch',
           image: 'screenshots/final-taiwan-strait.png',
           heroOnly: true,
-          items: item.preview?.items?.length ? item.preview.items : [
+          items: [
             { label: 'China/Taiwan Watch', subtitle: 'Live threat dashboard', target: 'pages/taiwan-strait.html', image: 'screenshots/final-taiwan-strait.png' },
-            { label: 'April 2026 Window', subtitle: 'Taiwan scenario', target: 'pages/taiwan-window-apr-2026.html', image: 'screenshots/final-taiwan-apr2026-hero.png' },
-            { label: 'October 2026 Window', subtitle: 'Taiwan scenario', target: 'pages/taiwan-window-oct-2026.html', image: 'screenshots/fix-taiwan-hero.png' },
+            { label: 'War Games', subtitle: 'Published scenario deep dive', target: 'pages/taiwan-war-games.html', image: 'screenshots/final-taiwan-strait.png' },
+          ],
+        },
+      };
+    }
+    if (item.label === 'Korean Peninsula') {
+      return {
+        ...item,
+        type: 'dropdown',
+        icon: item.icon || 'flag',
+        items: item.items?.length ? item.items : [
+          { label: 'Korean Peninsula', subtitle: 'Live Armistice Theater Watch', target: 'pages/korean-peninsula.html' },
+          { label: 'War Games', subtitle: 'Scenario Deep Dive', target: 'pages/korean-peninsula-war-games.html' },
+        ],
+        preview: {
+          ...(item.preview || {}),
+          country: 'north-korea',
+          title: 'Korean Peninsula Watch',
+          image: item.preview?.image || 'screenshots/final-taiwan-strait.png',
+          items: item.preview?.items?.length ? item.preview.items : [
+            { label: 'Korean Peninsula', subtitle: 'Live armistice theater watch', target: 'pages/korean-peninsula.html', image: 'screenshots/final-taiwan-strait.png' },
+            { label: 'War Games', subtitle: 'Korea scenario deep dive', target: 'pages/korean-peninsula-war-games.html', image: 'screenshots/final-taiwan-strait.png' },
           ],
         },
       };

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>China / Taiwan War Games — Conflict Mapper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#090b10;--surface:#10141c;--surface-2:#151b26;--surface-3:#1d2635;--border:rgba(255,255,255,.08);--border-strong:rgba(34,211,238,.28);--text:#e5e7eb;--muted:#98a2b3;--faint:#667085;--accent:#22d3ee;--red:#f87171;--amber:#f59e0b;--green:#22c55e;--blue:#60a5fa;--font-display:'Rajdhani',sans-serif;--font-mono:'Share Tech Mono',monospace;--font-body:'Inter',sans-serif;--radius:8px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,rgba(34,211,238,.08),transparent 34rem),var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.65}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.top-nav{position:sticky;top:0;z-index:50;height:56px;display:flex;align-items:center;gap:18px;padding:0 24px;background:rgba(9,11,16,.92);border-bottom:1px solid var(--border-strong);backdrop-filter:blur(12px)}.brand{font-family:var(--font-display);font-weight:700;letter-spacing:.14em;color:#fff}.brand span{color:var(--accent)}.nav-links{display:flex;gap:8px;margin-left:auto}.nav-links a{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;color:var(--muted);padding:6px 9px;border-radius:5px}.nav-links a:hover{background:rgba(34,211,238,.1);color:var(--accent);text-decoration:none}
+.hero{padding:56px 24px 34px;border-bottom:1px solid var(--border);background:linear-gradient(155deg,rgba(15,23,42,.9),rgba(9,11,16,.94))}.hero-inner{max-width:1280px;margin:0 auto}.eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}.hero h1{font-family:var(--font-display);font-size:clamp(2.3rem,6vw,4.8rem);line-height:.95;margin:0 0 16px;letter-spacing:.08em;text-transform:uppercase}.hero p{max-width:980px;color:var(--muted);font-size:1.02rem;margin:0}.badge-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.badge{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;border:1px solid var(--border);background:var(--surface);padding:6px 10px;border-radius:5px;color:var(--muted)}.badge.red{color:var(--red);border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.09)}.badge.amber{color:var(--amber);border-color:rgba(245,158,11,.38);background:rgba(245,158,11,.08)}
+.section{position:relative;max-width:1280px;margin:0 auto;padding:46px 24px;border-bottom:1px solid var(--border)}.section-title{display:flex;align-items:center;gap:14px;margin:0 0 20px;font-family:var(--font-display);font-size:1.45rem;letter-spacing:.13em;text-transform:uppercase}.section-title:after{content:'';height:1px;background:var(--border);flex:1}.sec-num{font-family:var(--font-mono);font-size:.68rem;color:var(--accent);border:1px solid var(--border-strong);background:rgba(34,211,238,.08);padding:3px 8px;border-radius:4px}
+.grid{display:grid;gap:16px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:linear-gradient(180deg,var(--surface),rgba(16,20,28,.78));border:1px solid var(--border);border-radius:var(--radius);padding:18px}.card h3{margin:0 0 10px;font-family:var(--font-display);letter-spacing:.08em;font-size:1.15rem}.card p{margin:0;color:var(--muted)}.metric{font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1}.metric-label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+.timeline{display:grid;gap:10px}.phase{display:grid;grid-template-columns:160px 1fr;gap:16px;padding:14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}.phase-label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.13em;color:var(--accent);text-transform:uppercase}.phase strong{color:#fff}.phase div:last-child{color:var(--muted)}
+.source-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}.source-card{display:block;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:14px;color:inherit}.source-card:hover{border-color:var(--accent);text-decoration:none}.source-title{font-family:var(--font-display);font-size:1rem;font-weight:700;line-height:1.25;color:#fff}.source-meta{margin-top:8px;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.callout{border-left:3px solid var(--accent);background:rgba(34,211,238,.07);padding:16px 18px;border-radius:0 var(--radius) var(--radius) 0;color:var(--muted)}.callout strong{color:var(--text)}
+@media(max-width:820px){.top-nav{overflow-x:auto}.nav-links{min-width:max-content}.grid.two,.grid.three{grid-template-columns:1fr}.phase{grid-template-columns:1fr}.hero{padding-top:36px}.section{padding:34px 18px}}
+</style>
+<script src="/assets/user-style.js"></script>
+</head>
+<body>
+<nav class="top-nav">
+  <a class="brand" href="../index.html">CONFLICT <span>MAPPER</span></a>
+  <div class="nav-links">
+    <a href="taiwan-strait.html">Watch</a>
+    <a href="#sources">Sources</a>
+    <a href="../index.html">Hub</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">War Games Deep Dive // Taiwan Strait</div>
+    <h1>China / Taiwan War Games</h1>
+    <p>Structured assessment of published Taiwan invasion, blockade, exercise, and dual-contingency war games. This page synthesizes the local ChinaTaiwanWarGaming source index into scenario families, decision points, failure modes, and planning implications for the live China/Taiwan Watch page.</p>
+    <div class="badge-row">
+      <span class="badge red">Invasion Modeling</span>
+      <span class="badge amber">Blockade Scenarios</span>
+      <span class="badge">Han Kuang / Defense Drills</span>
+      <span class="badge">CSIS / CNAS / ISW / DoD Indexed</span>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="summary">
+  <h2 class="section-title"><span class="sec-num">01</span>Executive Assessment</h2>
+  <div class="grid three">
+    <div class="card"><div class="metric" id="metric-sources">25</div><div class="metric-label">Indexed References</div></div>
+    <div class="card"><div class="metric">4</div><div class="metric-label">Scenario Families</div></div>
+    <div class="card"><div class="metric">2026+</div><div class="metric-label">Primary Planning Horizon</div></div>
+  </div>
+  <div class="callout" style="margin-top:18px"><strong>Bottom line:</strong> The published Taiwan war-game literature converges on a hard operational truth: a direct invasion is costly and fragile even when China gains surprise, while blockade or quarantine scenarios can create slower but severe political, economic, and escalation dilemmas. Taiwan survivability, US/Japan access, logistics, missile inventory, airbase repair, and political endurance are the recurring decision variables.</div>
+</section>
+
+<section class="section" id="families">
+  <h2 class="section-title"><span class="sec-num">02</span>Scenario Families</h2>
+  <div class="grid two">
+    <article class="card">
+      <h3>Amphibious Invasion</h3>
+      <p>CSIS and related invasion games emphasize the opening campaign: missile strikes against air bases and C2, airborne and special operations attempts, cross-strait sealift, beachhead survival, and US/Japan access. The scenario is decisive but exposes the PLA to attrition if Taiwan preserves distributed fires and allied submarines/airpower enter early.</p>
+    </article>
+    <article class="card">
+      <h3>Maritime Blockade / Quarantine</h3>
+      <p>Blockade games test whether Beijing can coerce surrender without the risks of immediate landing. The central contest becomes legal framing, insurance and shipping behavior, stockpile endurance, escalation thresholds, and whether the United States can reopen sea lanes without firing the first shot.</p>
+    </article>
+    <article class="card">
+      <h3>Exercise-to-Crisis</h3>
+      <p>Justice Mission and Han Kuang references highlight the gray area between exercises and attack preparation. Mobilization indicators, exclusion zones, air-defense posture, reserve call-ups, and logistics flow become more important than public rhetoric.</p>
+    </article>
+    <article class="card">
+      <h3>Dual Contingency</h3>
+      <p>Several sources connect Taiwan to Korea, Japan, and the wider Indo-Pacific. The key stressor is not only force count but command attention, munitions depth, ISR allocation, base vulnerability, and allied political coordination under simultaneous pressure.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="timeline">
+  <h2 class="section-title"><span class="sec-num">03</span>Escalation Model</h2>
+  <div class="timeline">
+    <div class="phase"><div class="phase-label">Phase 0</div><div><strong>Political shaping and ambiguity.</strong> Cyber activity, influence operations, coast guard pressure, legal warfare, and exercises create uncertainty over intent.</div></div>
+    <div class="phase"><div class="phase-label">Phase 1</div><div><strong>Isolation campaign.</strong> Missile threats, air and maritime exclusion zones, port interdiction, undersea cable risk, and economic pressure attempt to separate Taiwan from external support.</div></div>
+    <div class="phase"><div class="phase-label">Phase 2</div><div><strong>Joint fires and access denial.</strong> PLA Rocket Force, air, naval, cyber, and space effects target airfields, ports, C2, and US/Japanese staging nodes.</div></div>
+    <div class="phase"><div class="phase-label">Phase 3</div><div><strong>Decision point.</strong> Beijing chooses between blockade continuation, limited seizure, full landing, pause, or negotiated off-ramp based on losses, allied response, and domestic political risk.</div></div>
+    <div class="phase"><div class="phase-label">Phase 4</div><div><strong>Endurance contest.</strong> Munitions, fuel, repair capacity, civilian resilience, and alliance cohesion determine whether the opening shock becomes coercive success or strategic failure.</div></div>
+  </div>
+</section>
+
+<section class="section" id="findings">
+  <h2 class="section-title"><span class="sec-num">04</span>Cross-Game Findings</h2>
+  <div class="grid two">
+    <div class="card"><h3>Surprise Is Necessary But Insufficient</h3><p>Invasion outcomes depend less on the first missile salvo than on whether follow-on sealift, air cover, and beachhead logistics survive long enough to become operationally meaningful.</p></div>
+    <div class="card"><h3>Japan Is a Theater, Not a Rear Area</h3><p>US intervention almost immediately makes Japanese bases, airspace, and political authorization central to campaign feasibility and escalation management.</p></div>
+    <div class="card"><h3>Blockade Creates Legal and Political Ambiguity</h3><p>A quarantine can force Taiwan and allies into a slower choice between concession, risky convoy operations, or accepting severe economic degradation.</p></div>
+    <div class="card"><h3>Failure Is Regime-Level Risk for Beijing</h3><p>Several referenced analyses stress that a failed invasion would be catastrophic for Xi Jinping politically, not merely a military setback.</p></div>
+  </div>
+</section>
+
+<section class="section" id="planning">
+  <h2 class="section-title"><span class="sec-num">05</span>Planning Implications</h2>
+  <div class="grid two">
+    <div class="card"><h3>Indicators To Monitor</h3><p>RO/RO shipping, civilian ferry requisition, blood supply movement, missile unit dispersal, amphibious staging, PLA reserve mobilization, information control, and unusual port restrictions should carry more weight than routine aircraft counts alone.</p></div>
+    <div class="card"><h3>Defensive Priorities</h3><p>Distributed anti-ship fires, runway repair, hardened C2, mobile air defense, mine warfare, resilient satellite/terrestrial communications, and civilian stockpile planning remain the highest-yield mitigation categories across scenarios.</p></div>
+  </div>
+</section>
+
+<section class="section" id="sources">
+  <h2 class="section-title"><span class="sec-num">06</span>Referenced Source Index</h2>
+  <div class="source-grid" id="source-grid">
+    <div class="card">Loading ChinaTaiwanWarGaming.csv...</div>
+  </div>
+</section>
+
+<script>
+function parseCsv(text) {
+  const rows = []; let row = [], cell = '', inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], next = text[i + 1];
+    if (inQuotes && ch === '"' && next === '"') { cell += '"'; i++; }
+    else if (ch === '"') inQuotes = !inQuotes;
+    else if (!inQuotes && ch === ',') { row.push(cell); cell = ''; }
+    else if (!inQuotes && (ch === '\n' || ch === '\r')) {
+      if (ch === '\r' && next === '\n') i++;
+      row.push(cell); if (row.some(Boolean)) rows.push(row); row = []; cell = '';
+    } else cell += ch;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows;
+}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function sourceUrl(url, title, source) {
+  const raw = String(url || '').trim();
+  if (/^https?:\/\//i.test(raw)) return raw;
+  if (/^[\w.-]+\.[a-z]{2,}/i.test(raw)) return `https://${raw}`;
+  return `https://www.google.com/search?q=${encodeURIComponent(`${title} ${source}`)}`;
+}
+async function loadSources() {
+  const grid = document.getElementById('source-grid');
+  try {
+    const csv = await fetch('/datasources/ChinaTaiwanWarGaming.csv').then(r => r.text());
+    const [headers, ...rows] = parseCsv(csv);
+    document.getElementById('metric-sources').textContent = rows.length;
+    grid.innerHTML = rows.map(row => {
+      const item = Object.fromEntries(headers.map((h, i) => [h, row[i] || '']));
+      const href = sourceUrl(item.URL, item.Title, item.Source);
+      return `<a class="source-card" href="${esc(href)}" target="_blank" rel="noopener noreferrer">
+        <div class="source-title">${esc(item.Title)}</div>
+        <div class="source-meta">${esc(item.Source)} // REF ${esc(item['#'])}</div>
+      </a>`;
+    }).join('');
+  } catch (err) {
+    grid.innerHTML = `<div class="card">Unable to load source CSV: ${esc(err.message)}</div>`;
+  }
+}
+loadSources();
+</script>
+</body>
+</html>
