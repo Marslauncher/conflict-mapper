@@ -510,6 +510,49 @@ html, body {
   transition: background var(--transition), color var(--transition);
 }
 .sidebar-toggle:hover { background: var(--surface-3); color: var(--text); }
+
+.mobile-sidebar-open,
+.mobile-sidebar-close {
+  display: none;
+}
+.mobile-sidebar-open {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 450;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(18,21,28,0.94);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+.mobile-sidebar-close {
+  margin-left: auto;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  cursor: pointer;
+}
+.mobile-sidebar-close:hover,
+.mobile-sidebar-open:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
 .sidebar-resize-handle {
   position: absolute;
   top: 0;
@@ -850,10 +893,42 @@ html, body {
 .toast.error .toast-dot { background: var(--accent); }
 
 /* ── Responsive ── */
-@media (max-width: 640px) {
-  .sidebar { width: 100%; position: absolute; top: 0; left: 0; bottom: 0; z-index: 200; transform: translateX(-100%); transition: transform var(--transition); }
+@media (max-width: 820px) {
+  .sidebar {
+    width: min(92vw, 390px);
+    min-width: 0;
+    max-width: 92vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 500;
+    transform: translateX(-104%);
+    transition: transform var(--transition);
+    box-shadow: 10px 0 35px rgba(0,0,0,0.45);
+  }
   .sidebar.mobile-open { transform: translateX(0); }
   .sidebar-toggle { display: none; }
+  .mobile-sidebar-open,
+  .mobile-sidebar-close { display: inline-flex; }
+  .sidebar.mobile-open + .map-area .mobile-sidebar-open { display: none; }
+  .sidebar-header { padding-right: 10px; }
+  .sidebar-title { display: flex; align-items: center; gap: 8px; }
+  .sidebar-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sidebar-actions .btn {
+    min-height: 36px;
+    justify-content: center;
+    white-space: normal;
+  }
+  .story-card,
+  .region-panel { margin: 8px 10px; }
+  .map-controls {
+    right: 8px;
+    top: 54px;
+  }
 }
 </style>
 <script src="/assets/user-style.js"></script>
@@ -876,6 +951,7 @@ html, body {
       <div class="sidebar-title">
         <div class="live-dot"></div>
         Global Map &amp; Feed
+        <button class="mobile-sidebar-close" type="button" onclick="closeMobileSidebar()" aria-label="Close map feed controls">x</button>
       </div>
 
       <!-- Filters -->
@@ -980,6 +1056,7 @@ html, body {
 
   <!-- ── Map ── -->
   <div class="map-area">
+    <button class="mobile-sidebar-open" id="mobile-sidebar-open" type="button" onclick="openMobileSidebar()" aria-label="Open map feed controls">☰ Feed</button>
     <div id="map"></div>
 
     <!-- Custom map controls -->
@@ -1914,10 +1991,29 @@ function showStoryCard(article) {
     </div>
   `;
   card.classList.add('visible');
+  if (isMobileMapViewport()) openMobileSidebar();
 }
 
 function closeStoryCard() {
   document.getElementById('story-card')?.classList.remove('visible');
+}
+
+function isMobileMapViewport() {
+  return window.matchMedia('(max-width: 820px)').matches;
+}
+
+function openMobileSidebar() {
+  const sidebarEl = document.getElementById('sidebar');
+  if (!sidebarEl) return;
+  sidebarEl.classList.add('mobile-open');
+  setTimeout(() => map?.invalidateSize?.(), 180);
+}
+
+function closeMobileSidebar() {
+  const sidebarEl = document.getElementById('sidebar');
+  if (!sidebarEl) return;
+  sidebarEl.classList.remove('mobile-open');
+  setTimeout(() => map?.invalidateSize?.(), 180);
 }
 
 function updateRegionList() {
@@ -2069,6 +2165,11 @@ function initSidebarResize() {
 }
 
 document.getElementById('sidebar-toggle').addEventListener('click', () => {
+  if (isMobileMapViewport()) {
+    const sidebarEl = document.getElementById('sidebar');
+    sidebarEl?.classList.toggle('mobile-open');
+    return;
+  }
   sidebarOpen = !sidebarOpen;
   document.getElementById('sidebar').classList.toggle('collapsed', !sidebarOpen);
   document.getElementById('toggle-arrow').textContent = sidebarOpen ? '◀' : '▶';

@@ -143,7 +143,7 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
 
 /* ── Current assessment ── */
 .current-assessment-section {
-  max-width: 1400px;
+  max-width: 1720px;
   margin: 20px auto 0;
   padding: 0 20px;
 }
@@ -156,14 +156,15 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
 }
 .current-assessment-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
-  gap: 16px;
+  grid-template-columns: minmax(0, 1.55fr) minmax(340px, 0.75fr);
+  gap: 22px;
 }
 .assessment-lede {
   color: var(--text);
   font-size: 0.92rem;
   line-height: 1.7;
 }
+.assessment-lede p { max-width: 96ch; }
 .assessment-lede p + p { margin-top: 12px; }
 .assessment-summary-list {
   display: grid;
@@ -1515,11 +1516,40 @@ function renderFeed(articles) {
   }).join('');
 }
 
-const TAIWAN_RELEVANCE_TERMS = [
-  'taiwan', 'taiwan strait', 'cross-strait', 'beijing', 'china', 'pla ', 'plaa', 'plan ', 'plarf',
-  'people liberation army', "people's liberation army", 'adiz', 'median line', 'fujian',
-  'kinmen', 'matsu', 'rocaf', 'indo-pacific', 'philippine sea', 'luzon strait', 'south china sea',
-  'tsmc', 'semiconductor', 'chips', 'deterrence', 'amphibious', 'blockade'
+const TAIWAN_STRONG_TERMS = [
+  'taiwan', 'taiwan strait', 'cross-strait',
+  'people liberation army', "people's liberation army", 'pla ', 'pla navy', 'plan navy', 'plarf',
+  'adiz', 'median line', 'fujian', 'kinmen', 'matsu', 'rocaf', 'tsmc',
+  'semiconductor', 'south china sea', 'east china sea', 'luzon strait',
+  'philippine sea', 'indo-pacific', 'asia-pacific'
+];
+const TAIWAN_BROAD_CHINA_TERMS = ['china', 'chinese', 'beijing', 'prc', 'hong kong'];
+const TAIWAN_SECURITY_TERMS = [
+  'military', 'defence', 'defense', 'security', 'war', 'conflict', 'coercion',
+  'sanction', 'missile', 'naval', 'navy', 'air force', 'fighter', 'drone',
+  'jet', 'jets', 'strike', 'strikes',
+  'surveillance', 'cyber', 'ai race', 'artificial intelligence', 'chip',
+  'ai competition', 'semiconductor', 'export control', 'envoy', 'law changes', 'nuclear'
+];
+const TAIWAN_CONTEXT_TERMS = [
+  'japan', 'philippines', 'north korea', 'south korea', 'australia',
+  'asean', 'quad', 'aukus', 'first island chain', 'second island chain',
+  'deterrence', 'amphibious', 'blockade', 'standoff missile', 'naval exercise'
+];
+const TAIWAN_REGION_TERMS = [
+  'east asia', 'northeast asia', 'southeast asia', 'asia pacific',
+  'asia-pacific', 'indo-pacific', 'pacific', 'taiwan strait', 'south china sea',
+  'east china sea', 'philippine sea'
+];
+const TAIWAN_TITLE_REGION_TERMS = [
+  'east asia', 'northeast asia', 'southeast asia', 'asia pacific', 'asia-pacific',
+  'indo-pacific', 'taiwan strait', 'south china sea', 'east china sea',
+  'philippine sea'
+];
+const TAIWAN_UNRELATED_TERMS = [
+  'somalia', 'mogadishu', 'gaza', 'hezbollah', 'lebanon', 'hormuz', 'iran war',
+  'venezuela', 'sudan', 'ukraine war', 'russia offensive', 'abraham accords',
+  'battle of midway', 'world war ii', 'wwii', 'west asia'
 ];
 const SIGNAL_TERMS = {
   military: ['pla', 'military', 'exercise', 'missile', 'adiz', 'sortie', 'naval', 'navy', 'ship', 'carrier', 'amphibious', 'blockade', 'rocaf'],
@@ -1545,8 +1575,61 @@ function articleText(article) {
 }
 
 function isTaiwanRelevant(article) {
-  const text = articleText(article);
-  return TAIWAN_RELEVANCE_TERMS.some(term => text.includes(term));
+  return taiwanRelevanceScore(article) >= 3;
+}
+
+function escapeRegExp(term) {
+  return term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function hasTerm(text, terms) {
+  return terms.some(term => {
+    const normalized = term.trim().toLowerCase();
+    if (!normalized) return false;
+    if (/^[a-z0-9 -]+$/.test(normalized)) {
+      const pattern = normalized
+        .split(/\s+/)
+        .map(escapeRegExp)
+        .join('[\\s-]+');
+      return new RegExp(`(^|[^a-z0-9])${pattern}([^a-z0-9]|$)`, 'i').test(text);
+    }
+    return text.includes(normalized);
+  });
+}
+
+function taiwanRelevanceScore(article) {
+  const headlineText = String(article.title || '').toLowerCase();
+  const titleText = [
+    article.title,
+    article.description,
+    article.summary
+  ].filter(Boolean).join(' ').toLowerCase();
+  const fieldText = [
+    article.category,
+    article.country,
+    article.region,
+    article.geo?.place,
+    article.thinkTank,
+    article.regionFocus,
+    ...(Array.isArray(article.tags) ? article.tags : []),
+    ...(Array.isArray(article.expertise) ? article.expertise : [])
+  ].filter(Boolean).join(' ').toLowerCase();
+
+  let score = 0;
+  const titleHasBroadChina = hasTerm(headlineText, TAIWAN_BROAD_CHINA_TERMS);
+  const fieldHasBroadChina = hasTerm(fieldText, TAIWAN_BROAD_CHINA_TERMS);
+  const titleHasSecurity = hasTerm(headlineText, TAIWAN_SECURITY_TERMS);
+  if (hasTerm(headlineText, TAIWAN_STRONG_TERMS)) score += 4;
+  else if (hasTerm(titleText, TAIWAN_STRONG_TERMS)) score += 2;
+  if (hasTerm(headlineText, TAIWAN_TITLE_REGION_TERMS)) score += 3;
+  if (hasTerm(headlineText, TAIWAN_CONTEXT_TERMS)) score += 2;
+  if ((titleHasBroadChina || fieldHasBroadChina) && titleHasSecurity) score += 3;
+  else if (titleHasBroadChina) score += 1;
+  if (hasTerm(fieldText, TAIWAN_STRONG_TERMS)) score += 2;
+  if (hasTerm(fieldText, TAIWAN_REGION_TERMS)) score += 2;
+  if (fieldHasBroadChina && !titleHasSecurity) score += 1;
+  if (hasTerm(titleText, TAIWAN_UNRELATED_TERMS) && !hasTerm(titleText, TAIWAN_STRONG_TERMS)) score -= 4;
+  return score;
 }
 
 function sortByArticleDate(a, b) {
@@ -1655,8 +1738,11 @@ function renderCurrentAssessment(articles, thinkTankArticles) {
   const cyber = countSignals(recent30.map(toSignalArticle), SIGNAL_TERMS.cyber);
   const summary = document.getElementById('current-summary');
   if (summary) {
-    summary.innerHTML = `<p><strong>Summary:</strong> The current Taiwan Strait posture remains elevated but does not show an invasion-imminent pattern from the loaded RSS cache. The feed is instead showing a mixed pressure environment: China/PLA and Taiwan-relevant reporting, technology and economic competition, allied posture, and think tank coverage on Taiwan, China, cyber, and Indo-Pacific security.</p>
-      <p><strong>Current threat assessment:</strong> Monitor for convergence. A single article about exercises, arms transfers, sanctions, ADIZ activity, or semiconductors is not enough to raise the watch state. Risk increases materially only when military, maritime, cyber, logistics, diplomatic, and economic coercion signals cluster across multiple independent sources.</p>`;
+    summary.innerHTML = `<p><strong>Summary:</strong> The current Taiwan Strait posture remains elevated but does not show an invasion-imminent pattern from the loaded RSS cache. The filtered feed is now constrained to China, Taiwan, Asia-Pacific, Indo-Pacific, and adjacent first-island-chain reporting, so unrelated global conflict items do not drive this watch page.</p>
+      <p><strong>Current threat assessment:</strong> Monitor for convergence. A single article about exercises, arms transfers, sanctions, ADIZ activity, semiconductors, or allied naval movement is not enough to raise the watch state. Risk increases materially only when military, maritime, cyber, logistics, diplomatic, and economic coercion signals cluster across multiple independent sources and appear in a compressed time window.</p>
+      <p><strong>Military and maritime indicators:</strong> The decisive watch items remain PLA Eastern Theater Command activity, missile-force readiness, amphibious shipping, maritime exclusion zones, ADIZ or median-line pressure, PLAN surface action group movement, and unusual logistics at Fujian or adjacent ports. Reporting that only references routine exercises is treated as background unless it coincides with air-defense suppression, reserve movement, or maritime interdiction indicators.</p>
+      <p><strong>Political and economic indicators:</strong> The assessment weighs coercive trade actions, semiconductor supply-chain pressure, sanctions, diplomatic channel degradation, cyber activity, and allied reinforcement posture as supporting indicators. These items can raise strategic warning when they reinforce military indicators, but they do not independently imply a near-term invasion window.</p>
+      <p><strong>Analyst note:</strong> Remaining 2026-2027 planning windows are modeled as feasibility periods, not forecasts. The base case remains coercion, blockade rehearsal, gray-zone pressure, and signaling unless future reporting shows sustained mobilization and operational preparations that would be difficult to conceal.</p>`;
   }
   const analysis = document.getElementById('current-analysis');
   if (analysis) {
@@ -1706,8 +1792,12 @@ async function refreshFeed() {
       loadLatestArticles(),
       loadThinkTankArticles()
     ]);
-    const relevant = allArticles.filter(isTaiwanRelevant).sort(sortByArticleDate);
-    const thinkTankRelevant = allThinkTankArticles.filter(isTaiwanRelevant).sort(sortByArticleDate);
+    const relevant = allArticles
+      .filter(isTaiwanRelevant)
+      .sort(sortByArticleDate);
+    const thinkTankRelevant = allThinkTankArticles
+      .filter(isTaiwanRelevant)
+      .sort(sortByArticleDate);
     const mapped = relevant.map(a => ({ ...a, cat: a.category || 'analysis' }));
     renderFeed(mapped.slice(0, 40));
     applyLiveArticleSignals(mapped);

@@ -122,15 +122,32 @@ body {
   color: var(--text-faint);
   text-transform: uppercase;
 }
+.date-index-wrap {
+  margin: -4px 0 18px;
+  border: 1px solid var(--border-dim);
+  border-radius: 8px;
+  background: rgba(18,21,28,0.55);
+}
+.date-index-wrap summary {
+  cursor: pointer;
+  padding: 9px 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  user-select: none;
+}
+.date-index-wrap summary:hover { color: var(--text); }
 .date-index {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: -4px 0 18px;
+  margin: 0;
   padding: 10px;
-  border: 1px solid var(--border-dim);
-  border-radius: 8px;
-  background: rgba(18,21,28,0.55);
+  border-top: 1px solid var(--border-dim);
+  max-height: 150px;
+  overflow-y: auto;
 }
 .date-index a {
   display: inline-flex;
@@ -410,9 +427,13 @@ function loadMoreArticles() {
 function renderDateIndex(groups) {
   const entries = Object.entries(groups);
   if (entries.length <= 1) return '';
-  return `<nav class="date-index" aria-label="Article date groups">
-    ${entries.map(([date, articles]) => `<a href="#${dateGroupId(date)}"><span>${escapeHtml(date)}</span><span class="count">${articles.length}</span></a>`).join('')}
-  </nav>`;
+  const total = entries.reduce((sum, [, articles]) => sum + articles.length, 0);
+  return `<details class="date-index-wrap">
+    <summary>Date index · ${entries.length} days · ${total} articles</summary>
+    <nav class="date-index" aria-label="Article date groups">
+      ${entries.map(([date, articles]) => `<a href="#${dateGroupId(date)}"><span>${escapeHtml(date)}</span><span class="count">${articles.length}</span></a>`).join('')}
+    </nav>
+  </details>`;
 }
 
 function filterArticles(articles) {
