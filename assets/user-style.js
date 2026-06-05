@@ -276,7 +276,10 @@
       }
       h2, h3, .report-title, .report-body h2, .report-body h3,
       .section-title, .admin-section-title, .card-title,
-      .source-heading, .group-title, .source-stack h3 {
+      .source-heading, .group-title, .source-stack h3,
+      .panel-title, .assessment-title, .scenario-title,
+      .priority-title, .source-card h3, .family-card h3,
+      .analysis-card h3, .matrix-card h3 {
         font-size: var(--cm-header-text-size, 24pt) !important;
       }
       p, li, .feed-summary, .risk-detail, .theater-assessment,
@@ -284,13 +287,18 @@
       .assessment-lede, .assessment-summary-item, .section-assessment-note,
       .source-summary, .source-analysis, .source-link-title,
       .article-title, .reference-note, .weapon-body p,
-      .scenario-review p, .scenario-review li {
+      .scenario-review p, .scenario-review li,
+      .scenario-card p, .family-card p, .analysis-card p,
+      .matrix-card p, .source-card p, .watch-card p,
+      .facility-name, .indicator-card span, .priority-indicator span {
         font-size: var(--cm-article-text-size, 15pt) !important;
       }
       .meta, .feed-meta, .article-meta, .report-meta, .source-link-meta,
       .metric-label, .metric-sub, .stat-label, .card-subtitle,
       .weapon-role, .source-meta, .eyebrow, .page-kicker,
-      .generated-stamp, .classification-bar, .section-label {
+      .generated-stamp, .classification-bar, .section-label,
+      .kicker, .caption, figcaption, .facility-meta,
+      .scenario-source, .card-actions a, .toc a {
         font-size: var(--cm-commentary-text-size, 12pt) !important;
       }
       .activity-title, .rss-article-title, .visible-article-title,
@@ -306,9 +314,23 @@
       }
       .panel, .trend-card, .outlook-box, .threat-level-bar, .exec-summary,
       .article-card, .article, .stat-card, .admin-card, .nav-editor-group,
-      .storage-table, .storage-row, .card, .section, .report-section {
+      .storage-table, .storage-row, .card, .section, .report-section,
+      .scenario-card, .source-card, .family-card, .analysis-card,
+      .matrix-card, .metric, .force-card, .facility-item,
+      .indicator-card, .watch-card {
         background-color: var(--color-surface-2, #141820) !important;
         border-color: var(--color-border-dim, rgba(255,255,255,0.08)) !important;
+      }
+      .card, .article, .scenario-card, .source-card, .family-card,
+      .analysis-card, .matrix-card, .metric, .force-card, .facility-item,
+      .indicator-card, .watch-card {
+        color: var(--color-text, var(--text, #dde2ec)) !important;
+      }
+      .card p, .article p, .scenario-card p, .source-card p,
+      .family-card p, .analysis-card p, .matrix-card p,
+      .force-card p, .facility-item p, .indicator-card span,
+      .watch-card p {
+        color: var(--color-text-muted, var(--text-muted, #9aa4b8)) !important;
       }
       a { color: var(--color-accent, #c41e3a); }
       .muted, .meta, .feed-meta, .article-meta, .report-meta,
