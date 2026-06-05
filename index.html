@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,6 +88,7 @@
   overflow: visible;
   padding: 0 var(--space-2);
   min-width: 0;
+  max-width: 100%;
 }
 
 /* Individual nav item */
@@ -2090,17 +2091,22 @@
 /* ────────────────────────────────────────────────────────────
    RESPONSIVE
 ──────────────────────────────────────────────────────────── */
-@media (max-width: 1380px) {
+@media (max-width: 1680px) {
   .nav-link,
   .nav-dropdown-trigger {
-    font-size: 0.78rem;
-    padding: 0 var(--space-2);
+    font-size: 0.76rem;
+    padding: 0 0.55rem;
     gap: var(--space-1);
   }
+  .nav-settings {
+    font-size: 0.68rem;
+    padding: 0 var(--space-2);
+  }
   .nav-logo-tag { display: none; }
+  .nav-right { padding: 0 var(--space-2); }
 }
 
-@media (max-width: 1320px) {
+@media (max-width: 1500px) {
   .nav-links,
   .nav-divider,
   .nav-status {
@@ -3610,7 +3616,7 @@ const DEFAULT_CONFIG = {
   siteName: "CONFLICT MAPPER",
   siteTagline: "GEOPOLITICAL INTELLIGENCE PLATFORM",
   password: "admin123",
-  theme: "dark",
+  theme: "light",
   nav: [
     { label: "Map & Feed", type: "link", target: "pages/map-feed.html", icon: "map" },
     { label: "News Library", type: "link", target: "pages/news-library.html", icon: "newspaper" },
@@ -3644,37 +3650,20 @@ const DEFAULT_CONFIG = {
       label: "China/Taiwan Watch",
       type: "dropdown",
       icon: "eye",
-      preview: {
-        country: "taiwan",
-        title: "China/Taiwan Watch",
-        image: "screenshots/final-taiwan-strait.png",
-        heroOnly: true,
-        items: [
-          { label: "China/Taiwan Watch", subtitle: "Live threat dashboard", target: "pages/taiwan-strait.html", image: "screenshots/final-taiwan-strait.png" },
-          { label: "War Games", subtitle: "Published scenario deep dive", target: "pages/taiwan-war-games.html", image: "screenshots/final-taiwan-strait.png" }
-        ]
-      },
       items: [
         { label: "China/Taiwan Watch", subtitle: "Live Threat Dashboard", target: "pages/taiwan-strait.html" },
-        { label: "War Games", subtitle: "Published Scenario Deep Dive", target: "pages/taiwan-war-games.html" }
+        { label: "War Gaming Hub", subtitle: "Theater War Game Index", target: "pages/war-gaming-hub.html" },
+        { label: "China/Taiwan War Games", subtitle: "Published Scenario Deep Dive", target: "pages/taiwan-war-games.html" }
       ]
     },
     {
       label: "Korean Peninsula",
       type: "dropdown",
       icon: "flag",
-      preview: {
-        country: "north-korea",
-        title: "Korean Peninsula Watch",
-        image: "screenshots/final-taiwan-strait.png",
-        items: [
-          { label: "Korean Peninsula", subtitle: "Live armistice theater watch", target: "pages/korean-peninsula.html", image: "screenshots/final-taiwan-strait.png" },
-          { label: "War Games", subtitle: "Korea scenario deep dive", target: "pages/korean-peninsula-war-games.html", image: "screenshots/final-taiwan-strait.png" }
-        ]
-      },
       items: [
         { label: "Korean Peninsula", subtitle: "Live Armistice Theater Watch", target: "pages/korean-peninsula.html" },
-        { label: "War Games", subtitle: "Scenario Deep Dive", target: "pages/korean-peninsula-war-games.html" }
+        { label: "War Gaming Hub", subtitle: "Theater War Game Index", target: "pages/war-gaming-hub.html" },
+        { label: "Korean Peninsula War Games", subtitle: "Scenario Deep Dive", target: "pages/korean-peninsula-war-games.html" }
       ]
     },
     {
@@ -3848,21 +3837,12 @@ function normalizeNavConfig(config) {
         ...item,
         type: 'dropdown',
         target: undefined,
+        preview: undefined,
         items: [
           { label: 'China/Taiwan Watch', subtitle: 'Live Threat Dashboard', target: 'pages/taiwan-strait.html' },
-          { label: 'War Games', subtitle: 'Published Scenario Deep Dive', target: 'pages/taiwan-war-games.html' },
+          { label: 'War Gaming Hub', subtitle: 'Theater War Game Index', target: 'pages/war-gaming-hub.html' },
+          { label: 'China/Taiwan War Games', subtitle: 'Published Scenario Deep Dive', target: 'pages/taiwan-war-games.html' },
         ],
-        preview: {
-          ...(item.preview || {}),
-          country: 'taiwan',
-          title: 'China/Taiwan Watch',
-          image: 'screenshots/final-taiwan-strait.png',
-          heroOnly: true,
-          items: [
-            { label: 'China/Taiwan Watch', subtitle: 'Live threat dashboard', target: 'pages/taiwan-strait.html', image: 'screenshots/final-taiwan-strait.png' },
-            { label: 'War Games', subtitle: 'Published scenario deep dive', target: 'pages/taiwan-war-games.html', image: 'screenshots/final-taiwan-strait.png' },
-          ],
-        },
       };
     }
     if (item.label === 'Korean Peninsula') {
@@ -3870,20 +3850,12 @@ function normalizeNavConfig(config) {
         ...item,
         type: 'dropdown',
         icon: item.icon || 'flag',
-        items: item.items?.length ? item.items : [
+        preview: undefined,
+        items: [
           { label: 'Korean Peninsula', subtitle: 'Live Armistice Theater Watch', target: 'pages/korean-peninsula.html' },
-          { label: 'War Games', subtitle: 'Scenario Deep Dive', target: 'pages/korean-peninsula-war-games.html' },
+          { label: 'War Gaming Hub', subtitle: 'Theater War Game Index', target: 'pages/war-gaming-hub.html' },
+          { label: 'Korean Peninsula War Games', subtitle: 'Scenario Deep Dive', target: 'pages/korean-peninsula-war-games.html' },
         ],
-        preview: {
-          ...(item.preview || {}),
-          country: 'north-korea',
-          title: 'Korean Peninsula Watch',
-          image: item.preview?.image || 'screenshots/final-taiwan-strait.png',
-          items: item.preview?.items?.length ? item.preview.items : [
-            { label: 'Korean Peninsula', subtitle: 'Live armistice theater watch', target: 'pages/korean-peninsula.html', image: 'screenshots/final-taiwan-strait.png' },
-            { label: 'War Games', subtitle: 'Korea scenario deep dive', target: 'pages/korean-peninsula-war-games.html', image: 'screenshots/final-taiwan-strait.png' },
-          ],
-        },
       };
     }
     if (item.label === 'Iran Conflict') {
@@ -4219,7 +4191,6 @@ function renderNav() {
             </button>
           `).join('')}
         </div>
-        ${renderNavPreview(item)}
       `;
       const trigger = el.querySelector('.nav-dropdown-trigger');
       trigger.addEventListener('click', (e) => {

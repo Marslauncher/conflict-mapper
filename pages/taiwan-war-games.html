@@ -1,466 +1,124 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>China / Taiwan War Games — Conflict Mapper</title>
+<title>China / Taiwan War Games - Conflict Mapper</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="icon" href="data:,">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#090b10;--surface:#10141c;--surface-2:#151b26;--surface-3:#1d2635;--border:rgba(255,255,255,.08);--border-strong:rgba(34,211,238,.28);--text:#e5e7eb;--muted:#98a2b3;--faint:#667085;--accent:#22d3ee;--red:#f87171;--amber:#f59e0b;--green:#22c55e;--blue:#60a5fa;--font-display:'Rajdhani',sans-serif;--font-mono:'Share Tech Mono',monospace;--font-body:'Inter',sans-serif;--radius:8px}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,rgba(34,211,238,.08),transparent 34rem),var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.65}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-.top-nav{position:sticky;top:0;z-index:50;height:56px;display:flex;align-items:center;gap:18px;padding:0 24px;background:rgba(9,11,16,.92);border-bottom:1px solid var(--border-strong);backdrop-filter:blur(12px)}.brand{font-family:var(--font-display);font-weight:700;letter-spacing:.14em;color:#fff}.brand span{color:var(--accent)}.nav-links{display:flex;gap:8px;margin-left:auto}.nav-links a{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;color:var(--muted);padding:6px 9px;border-radius:5px}.nav-links a:hover{background:rgba(34,211,238,.1);color:var(--accent);text-decoration:none}
-.hero{padding:56px 24px 34px;border-bottom:1px solid var(--border);background:linear-gradient(155deg,rgba(15,23,42,.9),rgba(9,11,16,.94))}.hero-inner{width:var(--cm-content-max-width,min(90vw,calc(100vw - 32px)));max-width:none;margin:0 auto}.eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}.hero h1{font-family:var(--font-display);font-size:clamp(2.3rem,6vw,4.8rem);line-height:.95;margin:0 0 16px;letter-spacing:.08em;text-transform:uppercase}.hero p{max-width:980px;color:var(--muted);font-size:1.02rem;margin:0}.badge-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.badge{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;border:1px solid var(--border);background:var(--surface);padding:6px 10px;border-radius:5px;color:var(--muted)}.badge.red{color:var(--red);border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.09)}.badge.amber{color:var(--amber);border-color:rgba(245,158,11,.38);background:rgba(245,158,11,.08)}
-.section{position:relative;width:var(--cm-content-max-width,min(90vw,calc(100vw - 32px)));max-width:none;margin:0 auto;padding:46px 24px;border-bottom:1px solid var(--border)}.section-title{display:flex;align-items:center;gap:14px;margin:0 0 20px;font-family:var(--font-display);font-size:1.45rem;letter-spacing:.13em;text-transform:uppercase}.section-title:after{content:'';height:1px;background:var(--border);flex:1}.sec-num{font-family:var(--font-mono);font-size:.68rem;color:var(--accent);border:1px solid var(--border-strong);background:rgba(34,211,238,.08);padding:3px 8px;border-radius:4px}
-.grid{display:grid;gap:16px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:linear-gradient(180deg,var(--surface),rgba(16,20,28,.78));border:1px solid var(--border);border-radius:var(--radius);padding:18px}.card h3{margin:0 0 10px;font-family:var(--font-display);letter-spacing:.08em;font-size:1.15rem}.card p{margin:0;color:var(--muted)}.metric{font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1}.metric-label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:4px}
-.timeline{display:grid;gap:10px}.phase{display:grid;grid-template-columns:160px 1fr;gap:16px;padding:14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}.phase-label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.13em;color:var(--accent);text-transform:uppercase}.phase strong{color:#fff}.phase div:last-child{color:var(--muted)}
-.source-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}.source-card{display:block;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:14px;color:inherit}.source-card:hover{border-color:var(--accent);text-decoration:none}.source-title{font-family:var(--font-display);font-size:1rem;font-weight:700;line-height:1.25;color:#fff}.source-meta{margin-top:8px;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}.source-summary{margin-top:10px;color:var(--muted);font-size:.84rem;line-height:1.45}.source-analysis{margin-top:8px;border-top:1px solid var(--border);padding-top:8px;color:#cbd5e1;font-size:.82rem;line-height:1.45}
-.reference-list{display:grid;gap:10px;margin-bottom:22px}.reference-link{display:grid;grid-template-columns:220px 1fr;gap:14px;padding:14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:inherit}.reference-link:hover{border-color:var(--accent);text-decoration:none}.reference-source{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}.reference-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:#fff}.reference-note{margin-top:4px;color:var(--muted);font-size:.86rem}
-.scenario-deck{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.scenario-review{border:1px solid var(--border);border-radius:var(--radius);background:linear-gradient(180deg,var(--surface),rgba(16,20,28,.72));padding:18px}.scenario-review h3{margin:0 0 8px;font-family:var(--font-display);font-size:1.25rem;letter-spacing:.08em}.scenario-review p{margin:0 0 10px;color:var(--muted)}.scenario-review ul{margin:8px 0 0;padding-left:18px;color:var(--muted)}.scenario-review li{margin:4px 0}.scenario-kicker{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}.scenario-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.scenario-links a{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--accent)}
-.visual-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.map-panel{min-height:360px;border:1px solid var(--border);border-radius:var(--radius);background:linear-gradient(135deg,rgba(34,211,238,.08),rgba(15,23,42,.6)),url('https://upload.wikimedia.org/wikipedia/commons/6/6b/Taiwan_Strait.png') center/cover no-repeat;position:relative;overflow:hidden}.map-panel:after{content:'';position:absolute;inset:0;background:rgba(9,11,16,.34)}.map-label{position:absolute;z-index:2;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(9,11,16,.82);border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:#fff}.map-label.prc{left:12%;top:35%}.map-label.taiwan{right:18%;top:52%}.map-label.japan{right:8%;top:18%}.map-label.bashi{right:20%;bottom:12%}.map-line{position:absolute;z-index:2;height:2px;background:var(--accent);transform-origin:left center;opacity:.72}.map-line.one{width:42%;left:22%;top:47%;transform:rotate(12deg)}.map-line.two{width:32%;left:40%;top:70%;transform:rotate(-18deg);background:var(--amber)}.map-line.three{width:24%;right:12%;top:38%;transform:rotate(28deg);background:var(--blue)}
-.munitions-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}.weapon-card{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);overflow:hidden}.weapon-image{height:145px;background:#0f172a}.weapon-image img{width:100%;height:100%;object-fit:cover;display:block}.weapon-body{padding:14px}.weapon-name{font-family:var(--font-display);font-size:1.08rem;font-weight:700;letter-spacing:.07em;color:#fff}.weapon-role{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:4px 0 9px}.weapon-body p{margin:0 0 10px;color:var(--muted);font-size:.86rem}.weapon-specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.weapon-spec{border:1px solid var(--border);border-radius:5px;padding:6px;background:rgba(255,255,255,.03)}.weapon-spec b{display:block;font-family:var(--font-mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}.weapon-spec span{font-size:.78rem;color:#fff}.weapon-link{display:inline-block;margin-top:10px;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase}
-.matrix{display:grid;gap:10px}.matrix-row{display:grid;grid-template-columns:170px repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}.matrix-row>div{padding:12px;border-right:1px solid var(--border);color:var(--muted);font-size:.86rem}.matrix-row>div:last-child{border-right:0}.matrix-head>div{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);background:var(--surface-2)}.matrix-key{font-family:var(--font-display);font-weight:700;color:#fff!important}
-.indicator-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.indicator{border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:14px}.indicator b{display:block;font-family:var(--font-display);font-size:1rem;letter-spacing:.08em;color:#fff;margin-bottom:6px}.indicator span{color:var(--muted);font-size:.88rem}
-.callout{border-left:3px solid var(--accent);background:rgba(34,211,238,.07);padding:16px 18px;border-radius:0 var(--radius) var(--radius) 0;color:var(--muted)}.callout strong{color:var(--text)}
-@media(max-width:820px){.top-nav{height:auto;align-items:flex-start;flex-wrap:wrap;padding:10px 16px;gap:8px}.brand{width:100%}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;min-width:0;margin-left:0;gap:6px}.nav-links a{text-align:center;padding:7px 5px}.grid.two,.grid.three,.indicator-grid,.scenario-deck,.visual-grid{grid-template-columns:1fr}.phase,.reference-link{grid-template-columns:1fr}.matrix-row{grid-template-columns:1fr}.matrix-row>div{border-right:0;border-bottom:1px solid var(--border)}.matrix-row>div:last-child{border-bottom:0}.hero{padding-top:36px}.section{padding:34px 18px}.map-panel{min-height:280px}}
-.outcome-footer{margin-top:14px;padding:12px 14px;border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:var(--radius);background:color-mix(in srgb,var(--accent) 8%,transparent)}.outcome-footer strong{display:block;font-family:var(--font-display);letter-spacing:.08em;text-transform:uppercase;color:#fff;margin-bottom:4px}.outcome-footer p{margin:0;color:var(--muted)}.terrain-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.terrain-figure{margin:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}.terrain-figure img{width:100%;height:420px;object-fit:cover;display:block}.terrain-figure figcaption{font-family:var(--font-mono);font-size:.72rem;color:var(--muted);padding:10px 12px;border-top:1px solid var(--border)}.terrain-card ul{margin:10px 0 0;padding-left:18px;color:var(--muted)}.citation-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.citation-list a{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--accent);text-decoration:none}@media(max-width:820px){.terrain-grid{grid-template-columns:1fr}.terrain-figure img{height:300px}}
-
-.scenario-data{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0;border:1px solid var(--border);border-radius:var(--radius);background:rgba(255,255,255,.025);padding:10px}
-.scenario-data div{border-right:1px solid var(--border);padding-right:8px}
-.scenario-data div:last-child{border-right:0}
-.scenario-data b{display:block;font-family:var(--font-mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
-.scenario-data span{display:block;color:var(--muted);font-size:.78rem;line-height:1.35}
-.source-table{width:100%;border-collapse:collapse;margin:14px 0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
-.source-table th,.source-table td{padding:10px 12px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);vertical-align:top;text-align:left}
-.source-table th{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);background:var(--surface-2)}
-.source-table td{color:var(--muted);font-size:.86rem}
-.image-led-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;align-items:stretch}
-.analysis-map{margin:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
-.analysis-map img{width:100%;height:100%;min-height:320px;max-height:520px;object-fit:cover;display:block}
-.analysis-map figcaption{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.04em;color:var(--muted);border-top:1px solid var(--border);padding:10px 12px}
-.phase-grid.compact{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-.phase-card.warn{border-color:rgba(245,158,11,.38);background:linear-gradient(180deg,rgba(245,158,11,.08),var(--surface))}
-.phase-card.danger{border-color:rgba(248,113,113,.38);background:linear-gradient(180deg,rgba(248,113,113,.08),var(--surface))}
-details.phase-card summary{cursor:pointer;font-family:var(--font-display);font-size:1.18rem;font-weight:700;letter-spacing:.06em;color:#fff}
-details.phase-card p{margin:10px 0 0}
-@media(max-width:820px){.scenario-data,.image-led-grid{grid-template-columns:1fr}.scenario-data div{border-right:0;border-bottom:1px solid var(--border);padding:0 0 8px}.scenario-data div:last-child{border-bottom:0;padding-bottom:0}.analysis-map img{min-height:240px}}
-
-</style>
 <script src="/assets/user-style.js"></script>
+<style>
+:root{--accent:#c41e3a;--bg:var(--color-bg,#f3f5f8);--surface:var(--color-surface,#fff);--surface-2:var(--color-surface-2,#eef1f5);--surface-3:var(--color-surface-3,#e2e7ef);--text:var(--color-text,#111827);--muted:var(--color-text-muted,#475569);--faint:var(--color-text-faint,#8a94a6);--border:var(--color-border-dim,rgba(0,0,0,.12));--font-display:'Rajdhani',sans-serif;--font-mono:'Share Tech Mono',monospace;--font-body:'Inter',sans-serif;--radius:8px}
+html[data-theme="dark"]{--bg:var(--color-bg,#080b10);--surface:var(--color-surface,#10141c);--surface-2:var(--color-surface-2,#151b26);--surface-3:var(--color-surface-3,#1e2736);--text:var(--color-text,#e5e7eb);--muted:var(--color-text-muted,#a7b0c0);--faint:var(--color-text-faint,#667085);--border:var(--color-border-dim,rgba(255,255,255,.1))}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0,color-mix(in srgb,var(--accent) 10%,transparent),transparent 34rem),var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.68}.hero,.section{width:var(--cm-content-max-width,min(90vw,calc(100vw - 32px)));max-width:none;margin:0 auto}.hero{padding:48px var(--cm-page-gutter,32px) 26px}.eyebrow{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}.hero h1{font-family:var(--font-display);font-size:clamp(2.7rem,6vw,5.8rem);line-height:.95;letter-spacing:.04em;text-transform:uppercase;margin:0 0 16px}.hero p{max-width:1280px;color:var(--muted);font-size:var(--cm-article-text-size,15pt);margin:0 0 12px}.action-strip{position:sticky;top:0;z-index:5;display:flex;gap:8px;flex-wrap:wrap;width:var(--cm-content-max-width,min(90vw,calc(100vw - 32px)));max-width:none;margin:0 auto 18px;padding:12px var(--cm-page-gutter,32px);background:color-mix(in srgb,var(--bg) 92%,transparent);border:1px solid var(--border);border-radius:0 0 var(--radius) var(--radius);backdrop-filter:blur(12px)}.action-strip a{font-family:var(--font-mono);font-size:var(--cm-navigation-text-size,16pt);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;border:1px solid var(--border);border-radius:6px;padding:7px 10px;background:var(--surface)}.action-strip a.active,.action-strip a:hover{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 55%,var(--border));background:color-mix(in srgb,var(--accent) 8%,var(--surface))}.section{padding:26px var(--cm-page-gutter,32px)}.section h2{font-family:var(--font-display);font-size:var(--cm-header-text-size,24pt);letter-spacing:.12em;text-transform:uppercase;margin:0 0 16px;border-bottom:1px solid var(--border);padding-bottom:9px}.section h3{font-family:var(--font-display);font-size:clamp(1.2rem,var(--cm-navigation-text-size,16pt),1.55rem);letter-spacing:.07em;text-transform:uppercase;margin:0 0 10px}.section p,.section li{font-size:var(--cm-article-text-size,15pt);color:var(--muted)}a{color:var(--accent)}.lead-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(420px,.75fr);gap:22px;align-items:start}.prose{max-width:1260px}.prose p{margin:0 0 15px}.metric-grid,.card-grid,.source-grid,.family-grid,.force-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.metric,.scenario-card,.source-card,.family-card,.analysis-card,.matrix-card,.force-card{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);overflow:hidden}.metric{padding:16px}.metric strong{display:block;font-family:var(--font-display);font-size:2rem;color:var(--accent);line-height:1}.metric span{font-family:var(--font-mono);font-size:var(--cm-commentary-text-size,12pt);color:var(--faint);text-transform:uppercase;letter-spacing:.1em}.scenario-card{display:grid;grid-template-rows:auto 1fr}.scenario-card img,.force-card img{width:100%;height:230px;object-fit:contain;background:var(--surface-2);display:block}.scenario-body,.force-body,.family-card,.analysis-card,.matrix-card{padding:16px}.kicker{font-family:var(--font-mono);font-size:var(--cm-commentary-text-size,12pt);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}.scenario-card p,.family-card p,.matrix-card p{margin:0 0 10px}.card-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.card-actions a{font-family:var(--font-mono);font-size:var(--cm-commentary-text-size,12pt);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);border-radius:6px;padding:6px 9px;background:var(--surface-2)}.analysis-figure{margin:0;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);overflow:hidden}.analysis-figure img{width:100%;max-height:560px;object-fit:contain;background:var(--surface-2);display:block}.analysis-figure figcaption{font-family:var(--font-mono);font-size:var(--cm-commentary-text-size,12pt);color:var(--muted);border-top:1px solid var(--border);padding:10px 12px}.wide-table{overflow:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}table{width:100%;border-collapse:collapse;min-width:880px}th,td{border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding:12px 14px;text-align:left;vertical-align:top}th{font-family:var(--font-mono);font-size:var(--cm-commentary-text-size,12pt);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--surface-2)}td{font-size:var(--cm-article-text-size,15pt);color:var(--muted)}.source-card{display:block;text-decoration:none;padding:14px;overflow-wrap:anywhere}.source-card strong{display:block;color:var(--text);font-size:var(--cm-article-text-size,15pt);margin-bottom:6px}.source-card span{font-family:var(--font-mono);font-size:var(--cm-commentary-text-size,12pt);color:var(--faint)}.outcome{border-left:4px solid var(--accent);padding:14px 16px;background:color-mix(in srgb,var(--accent) 8%,var(--surface));border-radius:0 var(--radius) var(--radius) 0;margin-top:16px}.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.toc a{font-family:var(--font-mono);font-size:var(--cm-commentary-text-size,12pt);text-transform:uppercase;text-decoration:none;border:1px solid var(--border);border-radius:6px;padding:6px 8px;background:var(--surface)}@media(max-width:980px){.lead-grid{grid-template-columns:1fr}.action-strip{position:static}.scenario-card img,.force-card img{height:200px}table{min-width:720px}}@media(max-width:620px){.hero{padding-top:28px}.action-strip a{width:100%;text-align:center}.section{padding-left:14px;padding-right:14px}.hero h1{font-size:2.35rem}}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.pros-cons div{border:1px solid var(--border);border-radius:var(--radius);padding:12px;background:var(--surface-2)}.pros-cons strong{display:block;font-family:var(--font-display);letter-spacing:.08em;text-transform:uppercase;color:var(--text);margin-bottom:6px}.pros-cons ul{margin:0;padding-left:18px}.pros-cons li{font-size:var(--cm-commentary-text-size,12pt);margin-bottom:5px}@media(max-width:980px){.pros-cons{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-<nav class="top-nav">
-  <a class="brand" href="../index.html">CONFLICT <span>MAPPER</span></a>
-  <div class="nav-links">
-    <a href="taiwan-strait.html">Watch</a>
-    <a href="#deep-review">Deep Review</a>
-    <a href="#force-comparison">Force Reports</a>
-    <a href="#indicators">Indicators</a>
-    <a href="#sources">Sources</a>
-    <a href="../index.html">Hub</a>
-  </div>
-</nav>
+<header class="hero"><div class="eyebrow">Published scenario deep dive // Taiwan Strait</div><h1>China / Taiwan War Games</h1></header>
+<div class="action-strip"><a class="" href="war-gaming-hub.html">War Gaming Hub</a><a class="" href="taiwan-strait.html">China/Taiwan Watch</a><a class="active" href="taiwan-war-games.html">China/Taiwan War Games</a><a class="" href="korean-peninsula.html">Korean Peninsula Watch</a><a class="" href="korean-peninsula-war-games.html">Korean Peninsula War Games</a></div>
 
-<header class="hero">
-  <div class="hero-inner">
-    <div class="eyebrow">War Games Deep Dive // Taiwan Strait</div>
-    <h1>China / Taiwan War Games</h1>
-    <p>Structured assessment of published Taiwan invasion, blockade, exercise, and dual-contingency war games. This page synthesizes the local ChinaTaiwanWarGaming source index into scenario families, decision points, failure modes, and planning implications for the live China/Taiwan Watch page.</p>
-    <div class="badge-row">
-      <span class="badge red">Invasion Modeling</span>
-      <span class="badge amber">Blockade Scenarios</span>
-      <span class="badge">Han Kuang / Defense Drills</span>
-      <span class="badge">CSIS / CNAS / ISW / DoD Indexed</span>
+<section class="section" id="executive-assessment">
+  <div class="lead-grid">
+    <div class="prose"><h2>Executive Assessment</h2><p>This page is rebuilt as a flagship analysis surface rather than a list of report titles. The core question is not whether a single weapon system is impressive; it is how published war games explain the interaction between geography, shipping, political timing, command continuity, cyber pressure, allied access, semiconductor disruption, and escalation control.</p><p>The most important conclusion across the Taiwan scenario set is that Beijing has many coercive pathways but few low-cost decisive pathways. A full invasion is a sustainment and political-termination problem, a blockade is a commercial and legal endurance problem, and escalation-control games are decision-cycle problems. These are different scenarios and should not be collapsed into one generic China risk card.</p><p>The page uses the source reports as structured decision models. Each scenario card now tells the reader what the report tests, why it matters, and what outcome logic it implies. Dedicated deep-review pages provide the longer analysis, images, source links, limitations, and outcome footer that were missing from the previous version.</p></div>
+    <figure class="analysis-figure"><img src="/assets/maps/taiwan-physiography-cia-2022.jpg" alt="Taiwan topography and coastal geography are central to every serious scenario family." loading="lazy"><figcaption>Taiwan topography and coastal geography are central to every serious scenario family.</figcaption></figure>
+  </div>
+  <div class="metric-grid" style="margin-top:18px">
+    <div class="metric"><strong>6</strong><span>Scenario Deep Reviews</span></div>
+    <div class="metric"><strong>5</strong><span>Force Reports Linked</span></div>
+    <div class="metric"><strong>7</strong><span>Primary Source Anchors</span></div>
+  </div>
+</section>
+<section class="section" id="scenario-deep-review"><h2>Scenario Deep Review</h2><div class="card-grid"><article class="scenario-card">
+    <img src="/assets/maps/taiwan-physiography-cia-2022.jpg" alt="CIA Taiwan physiography map - terrain, ports, and western coastal density remain central to invasion-game assumptions." loading="lazy">
+    <div class="scenario-body">
+      <div class="kicker">CSIS // Full invasion and denial campaign</div>
+      <h3>The First Battle of the Next War</h3>
+      <p>The CSIS invasion game is the anchor case because it forces the reader to confront the difference between a successful landing and a successful campaign. It shows why aircraft, missiles, submarines, ports, runways, and political endurance matter more than a dramatic first crossing.</p>
+      <p>The scenario family models a large Chinese attempt to seize Taiwan and tests whether the United States, Taiwan, Japan, and partners can deny rapid success before PLA follow-on lift becomes sustainable. The headline lesson is not that any side wins cheaply; it is that geography, basing, runway repair, anti-ship fires, and allied political access determine whether a landing becomes a campaign.</p>
+      <p><strong>Outcome logic:</strong> Outcome assessment: the invasion can fail even after painful early PLA gains if follow-on shipping, air cover, and port access are disrupted. Taiwan still suffers severe damage and cannot treat allied intervention as automatic or casualty-free.</p>
+      <div class="card-actions">
+        <a href="taiwan-scenario-csis-invasion.html">Deep Review</a>
+        <a href="https://www.csis.org/analysis/first-battle-next-war-wargaming-chinese-invasion-taiwan" target="_blank" rel="noopener noreferrer">Original Source</a>
+      </div>
     </div>
-  </div>
-</header>
-
-<section class="section" id="summary">
-  <h2 class="section-title"><span class="sec-num">01</span>Executive Assessment</h2>
-  <div class="grid three">
-    <div class="card"><div class="metric" id="metric-sources">25</div><div class="metric-label">Indexed References</div></div>
-    <div class="card"><div class="metric">4</div><div class="metric-label">Scenario Families</div></div>
-    <div class="card"><div class="metric">2026+</div><div class="metric-label">Primary Planning Horizon</div></div>
-  </div>
-  <div class="callout" style="margin-top:18px"><strong>Bottom line:</strong> The published Taiwan war-game literature converges on a hard operational truth: a direct invasion is costly and fragile even when China gains surprise, while blockade or quarantine scenarios can create slower but severe political, economic, and escalation dilemmas. Taiwan survivability, US/Japan access, logistics, missile inventory, airbase repair, and political endurance are the recurring decision variables.</div>
-</section>
-
-<section class="section" id="primary-references">
-  <h2 class="section-title"><span class="sec-num">02</span>Primary Linked References</h2>
-  <div class="reference-list">
-    <a class="reference-link" href="https://www.csis.org/analysis/first-battle-next-war-wargaming-chinese-invasion-taiwan" target="_blank" rel="noopener noreferrer">
-      <div class="reference-source">CSIS</div>
-      <div><div class="reference-title">The First Battle of the Next War</div><div class="reference-note">Core invasion-game reference: 24 iterations, severe losses on all sides, and emphasis on rapid deterrence improvements before crisis onset.</div></div>
-    </a>
-    <a class="reference-link" href="https://www.csis.org/analysis/lights-out-wargaming-chinese-blockade-taiwan" target="_blank" rel="noopener noreferrer">
-      <div class="reference-source">CSIS</div>
-      <div><div class="reference-title">Lights Out? Wargaming a Chinese Blockade of Taiwan</div><div class="reference-note">Primary blockade/quarantine reference for shipping, insurance, stockpile, legal, and escalation-management dilemmas.</div></div>
-    </a>
-    <a class="reference-link" href="https://www.cnas.org/publications/reports/dangerous-straits-wargaming-a-future-conflict-over-taiwans" target="_blank" rel="noopener noreferrer">
-      <div class="reference-source">CNAS</div>
-      <div><div class="reference-title">Dangerous Straits: Wargaming a Future Conflict over Taiwan</div><div class="reference-note">Strategic-operational Taiwan war game that stresses escalation, preemption, and the absence of a fast clean victory.</div></div>
-    </a>
-    <a class="reference-link" href="https://warontherocks.com/a-wargame-to-take-taiwan-from-chinas-perspective/" target="_blank" rel="noopener noreferrer">
-      <div class="reference-source">War on the Rocks</div>
-      <div><div class="reference-title">A Wargame to Take Taiwan, from China's Perspective</div><div class="reference-note">Useful red-team framing for PRC coercive sequencing, political objectives, and preferred pressure pathways.</div></div>
-    </a>
-    <a class="reference-link" href="https://globaltaiwan.org/2026/01/pla-justice-mission-2025/" target="_blank" rel="noopener noreferrer">
-      <div class="reference-source">Global Taiwan Institute</div>
-      <div><div class="reference-title">The PLA's Justice Mission-2025 Exercise Around Taiwan</div><div class="reference-note">Exercise-to-crisis reference for exclusion zones, joint rehearsal behavior, and warning-indicator calibration.</div></div>
-    </a>
-    <a class="reference-link" href="https://www.brookings.edu/articles/adapting-us-taiwan-policy-for-a-new-strategic-reality/" target="_blank" rel="noopener noreferrer">
-      <div class="reference-source">Brookings / RAND</div>
-      <div><div class="reference-title">Adapting US-Taiwan Policy for a New Strategic Reality</div><div class="reference-note">Policy adaptation reference for deterrence, diplomacy, asymmetric defense investment, and alliance architecture.</div></div>
-    </a>
-  </div>
-</section>
-
-<section class="section" id="deep-review">
-  <h2 class="section-title"><span class="sec-num">03</span>Scenario Deep Review</h2>
-  <div class="scenario-deck">
-    <article class="scenario-review">
-      <div class="scenario-kicker">CSIS invasion game // 24 iterations</div>
-      <h3>Full Amphibious Invasion</h3>
-      <p>The CSIS game is the invasion baseline: China attempts to seize Taiwan quickly through missile suppression, naval/air isolation, amphibious landings, and airborne/special operations. The game repeatedly produces heavy losses for all sides, but the decisive variable is not the first salvo. The decisive variable is whether Taiwan remains coherent long enough for US and Japanese-access-enabled combat power to attrit the follow-on lift.</p>
-      <ul>
-        <li><strong>Played friction:</strong> PLA sealift losses, beachhead sustainment, runway repair, submarine attrition of escorts/transports, and US base access.</li>
-        <li><strong>Cross-game result:</strong> Surprise improves the PLA opening position, but it does not solve the logistics problem of feeding a lodgment under air, submarine, mine, and missile attack.</li>
-        <li><strong>Watch-page translation:</strong> ferry requisition, RO/RO staging, hospital/blood movement, and port restrictions should outweigh routine aircraft-count spikes.</li>
-      </ul>
-      <div class="scenario-data"><div><b>Core variable</b><span>Follow-on lift survival under submarine, mine, air, and missile attrition</span></div><div><b>Decision stress</b><span>Whether Taiwan remains coherent until US/Japan-enabled combat power arrives</span></div><div><b>Best watch markers</b><span>RO/RO requisition, ferry conversion, port loading, medical logistics, runway repair posture</span></div></div>
-      <div class="scenario-links"><a href="https://www.csis.org/analysis/first-battle-next-war-wargaming-chinese-invasion-taiwan" target="_blank" rel="noopener noreferrer">CSIS report</a><a href="https://www.navalnews.com/naval-news/2023/01/csis-wargame-chinas-invasion-of-taiwan-in-2026/" target="_blank" rel="noopener noreferrer">Naval News</a></div>
-    <div class="outcome-footer"><strong>Outcome</strong><p>Outcome hinges less on first-salvo damage than on whether PLA follow-on lift survives. Taiwan coherence, runway repair, submarine attrition, and Japanese base access decide whether a lodgment becomes sustainable. Logistics mobilization and port controls are stronger indicators than routine air incursions.</p></div>
-      </article>
-    <article class="scenario-review">
-      <div class="scenario-kicker">CSIS / MIT blockade game</div>
-      <h3>Blockade Or Quarantine</h3>
-      <p>Lights Out shifts the problem from rapid seizure to coercive strangulation. The game stresses shipping insurance, legal framing, commercial behavior, energy and food stockpiles, cable/port resilience, and allied tolerance for convoy risk. It is slower than invasion but can be politically harder because Beijing can blur war, law enforcement, customs inspection, and economic coercion.</p>
-      <ul>
-        <li><strong>Played friction:</strong> whether commercial shipping self-deters, whether allies escort cargoes, and whether Taiwan can sustain public confidence during supply shock.</li>
-        <li><strong>Cross-game result:</strong> blockade outcomes depend on coalition legal unity and economic endurance more than on a single naval engagement.</li>
-        <li><strong>Watch-page translation:</strong> exclusion boxes, insurer advisories, customs notices, undersea cable incidents, and coast guard/militia density are leading indicators.</li>
-      </ul>
-      <div class="scenario-data"><div><b>Core variable</b><span>Commercial shipping and insurance behavior under ambiguous coercion</span></div><div><b>Decision stress</b><span>Whether allies escort cargoes or accept slow economic strangulation</span></div><div><b>Best watch markers</b><span>Exclusion notices, cable incidents, customs language, insurer advisories, coast guard density</span></div></div>
-      <div class="scenario-links"><a href="https://www.csis.org/analysis/lights-out-wargaming-chinese-blockade-taiwan" target="_blank" rel="noopener noreferrer">CSIS report</a><a href="https://ssp.mit.edu/publications/2025/lights-out-wargaming-a-chinese-blockade-of-taiwan" target="_blank" rel="noopener noreferrer">MIT SSP</a></div>
-    <div class="outcome-footer"><strong>Outcome</strong><p>Outcome is driven by legal unity, commercial shipping behavior, and Taiwan stockpile endurance. A blockade can remain below clear invasion thresholds while still creating strategic collapse pressure. Insurer advisories, exclusion zones, cable incidents, customs actions, and convoy debates are leading markers.</p></div>
-      </article>
-    <article class="scenario-review">
-      <div class="scenario-kicker">CNAS strategic-operational game</div>
-      <h3>Escalation And Preemption</h3>
-      <p>Dangerous Straits is useful because it refuses the clean one-theater premise. It foregrounds preemption pressure, escalation management, nuclear signaling, and the political difficulty of winning without expanding the war. The operational map is therefore not only Taiwan. It includes Okinawa, Guam, Japanese authorization, US homeland risk, cyber effects, and the credibility of off-ramps.</p>
-      <ul>
-        <li><strong>Played friction:</strong> early strikes on bases, alliance consultation speed, and escalation control after either side suffers major losses.</li>
-        <li><strong>Cross-game result:</strong> even a tactically successful defense can become strategically unstable if escalation pathways are unmanaged.</li>
-        <li><strong>Watch-page translation:</strong> Japanese political signals, Guam hardening, bomber/tanker movement, and PRC nuclear messaging belong on the Taiwan board.</li>
-      </ul>
-      <div class="scenario-data"><div><b>Core variable</b><span>Whether tactical success expands faster than leaders can manage</span></div><div><b>Decision stress</b><span>Japanese authorization, Guam hardening, nuclear messaging, and base-defense choices</span></div><div><b>Best watch markers</b><span>Bomber/tanker movement, hardening activity, cyber effects, PRC nuclear rhetoric</span></div></div>
-      <div class="scenario-links"><a href="https://www.cnas.org/publications/reports/dangerous-straits-wargaming-a-future-conflict-over-taiwans" target="_blank" rel="noopener noreferrer">CNAS report</a></div>
-    <div class="outcome-footer"><strong>Outcome</strong><p>Outcome depends on whether both sides can fight without expanding the war faster than leaders can control. Japan, Guam, cyber effects, and nuclear signaling are part of the Taiwan battlespace. Political authorization and escalation-management signals should be tracked beside force movement.</p></div>
-      </article>
-    <article class="scenario-review">
-      <div class="scenario-kicker">Red-team coercive sequence</div>
-      <h3>Taking Taiwan From Beijing's Perspective</h3>
-      <p>The War on the Rocks red-team article is valuable because it models political objectives and coercive sequencing from the PRC side rather than starting with a US defensive order of battle. It frames force as one part of a larger campaign: information pressure, military intimidation, diplomatic isolation, legal warfare, and calibrated escalation designed to make resistance appear futile.</p>
-      <ul>
-        <li><strong>Played friction:</strong> whether coercion can create enough panic and political paralysis before outside support becomes credible.</li>
-        <li><strong>Cross-game result:</strong> Beijing prefers pathways that preserve off-ramps and minimize regime-threatening military failure.</li>
-        <li><strong>Watch-page translation:</strong> propaganda synchronization, diplomatic threats, lawfare language, and selective mobilization matter alongside kinetic indicators.</li>
-      </ul>
-      <div class="scenario-data"><div><b>Core variable</b><span>Political paralysis before outside support becomes credible</span></div><div><b>Decision stress</b><span>How much force Beijing can use while preserving off-ramps</span></div><div><b>Best watch markers</b><span>Synchronized propaganda, lawfare, selective mobilization, elite-pressure messaging</span></div></div>
-      <div class="scenario-links"><a href="https://warontherocks.com/a-wargame-to-take-taiwan-from-chinas-perspective/" target="_blank" rel="noopener noreferrer">War on the Rocks</a><a href="https://www.realclearworld.com/2025/10/07/a_wargame_to_take_taiwan_from_chinas_perspective_1139388.html" target="_blank" rel="noopener noreferrer">Reprint</a></div>
-    <div class="outcome-footer"><strong>Outcome</strong><p>Outcome favors Beijing if coercion creates paralysis before outside support looks credible. The military campaign is only one lane in a broader information, diplomatic, legal, and intimidation sequence. Synchronized propaganda, lawfare, selective mobilization, and elite-pressure messaging matter.</p></div>
-      </article>
-    <article class="scenario-review">
-      <div class="scenario-kicker">Justice Mission / Han Kuang</div>
-      <h3>Exercise-To-Crisis Conversion</h3>
-      <p>Justice Mission and Han Kuang references are not classic tabletop games, but they are essential scenario material because real drills define the warning problem. The hardest intelligence question is whether an exercise is posturing, rehearsal, or cover. The page should therefore evaluate repeat exercise geometry, logistics tails, civil-military mobilization, live-fire areas, and whether Taiwan's reserve/civil-defense system is moving from demonstration to wartime function.</p>
-      <ul>
-        <li><strong>Played friction:</strong> deciding when to mobilize without accelerating the crisis or exhausting the force during repeated false alarms.</li>
-        <li><strong>Cross-game result:</strong> exercises are meaningful when they change logistics, political control, or civilian behavior, not merely when aircraft cross a line.</li>
-        <li><strong>Watch-page translation:</strong> emergency legislation, port closure orders, reserve activation, distributed C2, and cyber/media restrictions are higher signal.</li>
-      </ul>
-      <div class="scenario-data"><div><b>Core variable</b><span>Distinguishing exercise cover from rehearsal or attack preparation</span></div><div><b>Decision stress</b><span>Mobilizing early without accelerating crisis or exhausting readiness</span></div><div><b>Best watch markers</b><span>Emergency legislation, reserve activation, port orders, distributed C2, civil-defense movement</span></div></div>
-      <div class="scenario-links"><a href="https://www.understandingwar.org/research/china-taiwan/china-taiwan-special-report-december-31-2025/" target="_blank" rel="noopener noreferrer">ISW special report</a><a href="https://globaltaiwan.org/2026/01/pla-justice-mission-2025/" target="_blank" rel="noopener noreferrer">GTI</a><a href="https://focustaiwan.tw/politics/202504090020" target="_blank" rel="noopener noreferrer">Han Kuang</a></div>
-    <div class="outcome-footer"><strong>Outcome</strong><p>Outcome depends on correctly distinguishing rehearsal, coercive signaling, and operational cover. Exercises become dangerous when they alter logistics, civilian behavior, command posture, or legal authorities. Reserve activation, port restrictions, emergency legislation, civil-defense activity, and distributed C2 are high-signal indicators.</p></div>
-      </article>
-    <article class="scenario-review">
-      <div class="scenario-kicker">Korea / Japan / Indo-Pacific coupling</div>
-      <h3>Dual-Contingency Stress</h3>
-      <p>The dual-contingency literature links Taiwan to Korea because the same assets are consumed in both theaters: ISR, precision munitions, missile defense, tankers, submarines, political attention, and Japanese base access. The combined result is not simply additive. A Korea crisis can alter the Taiwan outcome by changing available missile-defense inventory and US/Japan political risk tolerance.</p>
-      <ul>
-        <li><strong>Played friction:</strong> simultaneous missile salvos, DPRK opportunism, PRC horizontal escalation, and competition for scarce strike and air-defense assets.</li>
-        <li><strong>Cross-game result:</strong> Japan and Guam become shared operating nodes; their vulnerability couples the theaters even when shooting starts in only one.</li>
-        <li><strong>Watch-page translation:</strong> DPRK launch tempo and Japan base politics should be visible on Taiwan Strait assessments.</li>
-      </ul>
-      <div class="scenario-data"><div><b>Core variable</b><span>Shared ISR, missile defense, munitions, tankers, submarines, and Japanese basing</span></div><div><b>Decision stress</b><span>Prioritizing Taiwan, Korea, Japan, Guam, and homeland defense simultaneously</span></div><div><b>Best watch markers</b><span>DPRK launch tempo, Japanese base politics, PLA exercise coupling, US carrier movement</span></div></div>
-      <div class="scenario-links"><a href="https://globaltaiwan.org/2025/08/south-korea-could-support-taiwan-in-a-dual-contingency/" target="_blank" rel="noopener noreferrer">GTI dual contingency</a><a href="korean-peninsula-war-games.html">Korea deep dive</a></div>
-    <div class="outcome-footer"><strong>Outcome</strong><p>Outcome is coupled through shared ISR, munitions, missile defense, tankers, submarines, and Japanese basing. A Korean crisis can degrade Taiwan options even without direct PRC-Taiwan escalation. Korea launch tempo and Japanese political constraints should feed the Taiwan assessment.</p></div>
-      </article>
-  </div>
-</section>
-
-<section class="section" id="geometry">
-  <h2 class="section-title"><span class="sec-num">04</span>Operational Geometry</h2>
-  <div class="terrain-grid">
-    <figure class="terrain-figure"><img src="/assets/maps/taiwan-physiography-cia-2022.jpg" alt="CIA physiographic map of Taiwan" loading="lazy"><figcaption>CIA Taiwan physiography map. The western coastal plain carries the decisive ports, airfields, cities, and road/rail density; the central and eastern mountain spine limits large-scale maneuver.</figcaption></figure>
-    <div class="card terrain-card"><h3>What The Map Is Testing</h3><p>Taiwan's geometry is not a generic island diagram. Invasion games should focus on cross-strait lift, west-coast lodgment sustainment, Penghu/Kinmen/Matsu forward geography, runway repair, port denial, and anti-ship fires. Blockade games shift outward to the Taiwan Strait, Luzon/Bashi access, East China Sea/Okinawa approaches, and commercial energy/shipping routes.</p><ul><li><strong>Western coastal plain:</strong> the decisive urban, port, airfield, and logistics belt.</li><li><strong>Central Mountain Range:</strong> a maneuver barrier that complicates rapid interior expansion.</li><li><strong>Bashi/Luzon and Okinawa approaches:</strong> routes that determine blockade endurance and allied access.</li></ul></div>
-    <figure class="terrain-figure"><img src="/assets/maps/taiwan-operation-causeway-1944.jpg" alt="Operation Causeway historical Taiwan map" loading="lazy"><figcaption>Operation Causeway historical planning map. Its continued relevance is not as a current invasion plan, but as a reminder that Taiwan's beaches, ports, weather, and mountain barrier have shaped campaign planning for decades.</figcaption></figure>
-    <div class="card terrain-card"><h3>Current Relevance</h3><p>CSIS invasion and blockade games converge on the same terrain logic: ports and airfields must be denied, repaired, or opened; lift must be sustained across contested water; and political endurance depends on whether Taiwan can keep essential supply, communications, and command functions alive. The map layer should therefore support indicator tracking, not decorative arrows.</p><div class="citation-list"><a href="https://www.cia.gov/resources/map/taiwan/" target="_blank" rel="noopener noreferrer">CIA Taiwan Physiography</a><a href="https://www.csis.org/analysis/first-battle-next-war-wargaming-chinese-invasion-taiwan" target="_blank" rel="noopener noreferrer">CSIS First Battle of the Next War</a><a href="https://www.csis.org/analysis/lights-out-wargaming-chinese-blockade-taiwan" target="_blank" rel="noopener noreferrer">CSIS Lights Out blockade game</a><a href="https://www.cnas.org/publications/reports/dangerous-straits-wargaming-a-future-conflict-over-taiwans" target="_blank" rel="noopener noreferrer">CNAS Dangerous Straits</a><a href="https://warontherocks.com/a-wargame-to-take-taiwan-from-chinas-perspective/" target="_blank" rel="noopener noreferrer">War on the Rocks PRC-perspective game</a></div></div>
-  </div>
-</section>
-
-<section class="section" id="families">
-  <h2 class="section-title"><span class="sec-num">05</span>Scenario Families</h2>
-  <div class="grid two">
-    <article class="card">
-      <h3>Amphibious Invasion</h3>
-      <p>CSIS and related invasion games emphasize the opening campaign: missile strikes against air bases and C2, airborne and special operations attempts, cross-strait sealift, beachhead survival, and US/Japan access. The scenario is decisive but exposes the PLA to attrition if Taiwan preserves distributed fires and allied submarines/airpower enter early.</p>
-    </article>
-    <article class="card">
-      <h3>Maritime Blockade / Quarantine</h3>
-      <p>Blockade games test whether Beijing can coerce surrender without the risks of immediate landing. The central contest becomes legal framing, insurance and shipping behavior, stockpile endurance, escalation thresholds, and whether the United States can reopen sea lanes without firing the first shot.</p>
-    </article>
-    <article class="card">
-      <h3>Exercise-to-Crisis</h3>
-      <p>Justice Mission and Han Kuang references highlight the gray area between exercises and attack preparation. Mobilization indicators, exclusion zones, air-defense posture, reserve call-ups, and logistics flow become more important than public rhetoric.</p>
-    </article>
-    <article class="card">
-      <h3>Dual Contingency</h3>
-      <p>Several sources connect Taiwan to Korea, Japan, and the wider Indo-Pacific. The key stressor is not only force count but command attention, munitions depth, ISR allocation, base vulnerability, and allied political coordination under simultaneous pressure.</p>
-    </article>
-  </div>
-</section>
-
-<section class="section" id="comparison">
-  <h2 class="section-title"><span class="sec-num">06</span>Scenario Comparison Matrix</h2>
-  <div class="matrix">
-    <div class="matrix-row matrix-head"><div>Scenario</div><div>PRC Objective</div><div>Primary Friction</div><div>Allied Decision Point</div><div>Watch Indicator</div></div>
-    <div class="matrix-row"><div class="matrix-key">Amphibious Invasion</div><div>Seize political control before external reinforcement becomes decisive.</div><div>Sealift, beachhead sustainment, mines, airbase repair, attrition of escorts and transports.</div><div>Whether US/Japan enter quickly enough to blunt the lodgment without uncontrolled escalation.</div><div>RO/RO requisition, ferry conversion, port loading, missile dispersal, civil-defense lockdown.</div></div>
-    <div class="matrix-row"><div class="matrix-key">Blockade / Quarantine</div><div>Coerce surrender while preserving ambiguity over whether a state of war exists.</div><div>International shipping behavior, energy and food stockpiles, insurance, sanctions, convoy risk.</div><div>Whether to run escorted convoys, break exclusion zones, or accept slow economic strangulation.</div><div>Customs notices, maritime exclusion areas, coast guard swarms, insurer advisories, port disruption.</div></div>
-    <div class="matrix-row"><div class="matrix-key">Exercise-to-Attack</div><div>Use rehearsals and declared drills to mask preparation or normalize encirclement.</div><div>Distinguishing coercive signaling from operational preparation without waiting too long.</div><div>Whether to mobilize publicly and risk crisis acceleration or stay quiet and lose time.</div><div>Repeated exercise zones, live-fire notices, logistics tails, reserve activity, information control.</div></div>
-    <div class="matrix-row"><div class="matrix-key">Dual Contingency</div><div>Exploit allied bandwidth by coupling Taiwan pressure with Korea, South China Sea, or cyber crises.</div><div>Munitions depth, ISR allocation, political authorization, base vulnerability, command focus.</div><div>How to prioritize Taiwan, Japan, Korea, Guam, and homeland defense in the first week.</div><div>DPRK launches, PLA exercises, cyber disruption, Japanese base politics, US carrier movements.</div></div>
-  </div>
-</section>
-
-<section class="section" id="force-comparison">
-  <h2 class="section-title"><span class="sec-num">07</span>Taiwan Force Comparison Reports</h2>
-  <div class="callout" style="margin-bottom:18px"><strong>Section replacement:</strong> The former munitions card grid has been replaced with full comparison reports. Each page preserves the local report structure, source imagery, side-by-side tables, and references.</div>
-  <div class="source-grid">
-    <a class="source-card" href="china-vs-allied-naval-forces-taiwan.html"><div class="source-title">China vs. US/Allied Naval Forces: Taiwan Invasion Capability Comparison</div><div class="source-meta">Dedicated comparison report</div><div class="source-summary">PLAN amphibious, surface, undersea, and dual-use maritime capability against US, Taiwan, Japan, and allied counters.</div></a>
-    <a class="source-card" href="air-power-china-vs-allies-taiwan.html"><div class="source-title">Air Power Comparison: PLAAF/PLAN Aviation vs. US &amp; Allied Air Forces</div><div class="source-meta">Dedicated comparison report</div><div class="source-summary">Stealth aircraft, bombers, drones, missile ranges, ISR, and allied airpower in a Taiwan contingency.</div></a>
-    <a class="source-card" href="army-forces-china-vs-allies-taiwan.html"><div class="source-title">Army Forces Comparison: PLA Ground Forces vs. US Army &amp; Allied Armies</div><div class="source-meta">Dedicated comparison report</div><div class="source-summary">Ground maneuver, long-range fires, armored forces, Taiwan defense, and allied land-domain counters.</div></a>
-    <a class="source-card" href="marines-china-vs-allies-taiwan.html"><div class="source-title">Marines Comparison: PLAN Marine Corps vs. USMC &amp; Allied Amphibious Forces</div><div class="source-meta">Dedicated comparison report</div><div class="source-summary">Marine force structure, amphibious assault vehicles, island-chain fires, aviation, and allied littoral forces.</div></a>
-    <a class="source-card" href="special-forces-china-vs-allies-taiwan.html"><div class="source-title">Special Forces Comparison: China PLA/PAP SOF vs. US JSOC &amp; Allied SOF</div><div class="source-meta">Dedicated comparison report</div><div class="source-summary">SOF architecture, maritime raids, reconnaissance, sabotage, drones, and crisis-opening special operations risk.</div></a>
-    <a class="source-card" href="taiwan-contingency-ai-chip-war.html"><div class="source-title">Taiwan Contingency Strategic Risk Game</div><div class="source-meta">Final analysis page</div><div class="source-summary">A non-operational strategic risk assessment of a crisis-stacked Taiwan contingency, escalation pathways, warning markers, and geopolitical outcomes.</div></a>
-  </div>
-</section>
-
-<section class="section" id="timeline">
-  <h2 class="section-title"><span class="sec-num">08</span>Escalation Model</h2>
-  <div class="timeline">
-    <div class="phase"><div class="phase-label">Phase 0</div><div><strong>Political shaping and ambiguity.</strong> Cyber activity, influence operations, coast guard pressure, legal warfare, and exercises create uncertainty over intent.</div></div>
-    <div class="phase"><div class="phase-label">Phase 1</div><div><strong>Isolation campaign.</strong> Missile threats, air and maritime exclusion zones, port interdiction, undersea cable risk, and economic pressure attempt to separate Taiwan from external support.</div></div>
-    <div class="phase"><div class="phase-label">Phase 2</div><div><strong>Joint fires and access denial.</strong> PLA Rocket Force, air, naval, cyber, and space effects target airfields, ports, C2, and US/Japanese staging nodes.</div></div>
-    <div class="phase"><div class="phase-label">Phase 3</div><div><strong>Decision point.</strong> Beijing chooses between blockade continuation, limited seizure, full landing, pause, or negotiated off-ramp based on losses, allied response, and domestic political risk.</div></div>
-    <div class="phase"><div class="phase-label">Phase 4</div><div><strong>Endurance contest.</strong> Munitions, fuel, repair capacity, civilian resilience, and alliance cohesion determine whether the opening shock becomes coercive success or strategic failure.</div></div>
-  </div>
-</section>
-
-<section class="section" id="findings">
-  <h2 class="section-title"><span class="sec-num">09</span>Cross-Game Findings</h2>
-  <div class="grid two">
-    <div class="card"><h3>Surprise Is Necessary But Insufficient</h3><p>Invasion outcomes depend less on the first missile salvo than on whether follow-on sealift, air cover, and beachhead logistics survive long enough to become operationally meaningful.</p></div>
-    <div class="card"><h3>Japan Is a Theater, Not a Rear Area</h3><p>US intervention almost immediately makes Japanese bases, airspace, and political authorization central to campaign feasibility and escalation management.</p></div>
-    <div class="card"><h3>Blockade Creates Legal and Political Ambiguity</h3><p>A quarantine can force Taiwan and allies into a slower choice between concession, risky convoy operations, or accepting severe economic degradation.</p></div>
-    <div class="card"><h3>Failure Is Regime-Level Risk for Beijing</h3><p>Several referenced analyses stress that a failed invasion would be catastrophic for Xi Jinping politically, not merely a military setback.</p></div>
-  </div>
-</section>
-
-<section class="section" id="assumptions">
-  <h2 class="section-title"><span class="sec-num">10</span>Assumptions And Limits</h2>
-  <div class="grid two">
-    <div class="card"><h3>Common Game Assumptions</h3><p>Most published games simplify mobilization warning, political decision speed, munitions replenishment, cyber effects, civilian resilience, and intra-alliance disagreement. Treat outcomes as structured stress tests, not forecasts. The most useful output is the set of recurring constraints that appear across games with different sponsors and rule sets.</p></div>
-    <div class="card"><h3>Where Games Diverge</h3><p>Outcomes shift sharply based on whether Japan grants access early, whether the United States prepositions munitions, whether Taiwan disperses forces before the first salvo, whether PRC leaders accept strikes on US bases, and whether blockade rules treat commercial shipping, energy cargo, and cyber disruption as military targets.</p></div>
-    <div class="card"><h3>Confidence</h3><p>High confidence: direct invasion is costly and politically risky for Beijing. Medium confidence: blockade/quarantine is more likely than immediate full invasion as a coercive option. Lower confidence: exact timing, allied intervention speed, and PRC tolerance for escalation against US/Japanese bases.</p></div>
-    <div class="card"><h3>Analyst Use</h3><p>Use this page as a bridge between source material and the live China/Taiwan Watch page. Live reporting should be mapped to game-derived indicators: logistics, exercises, exclusion zones, cyber activity, allied posture, and political signaling.</p></div>
-  </div>
-</section>
-
-<section class="section" id="indicators">
-  <h2 class="section-title"><span class="sec-num">11</span>Warning Indicators</h2>
-  <div class="indicator-grid">
-    <div class="indicator"><b>Logistics And Sealift</b><span>Civilian ferry requisition, RO/RO concentration, pontoon bridging, fuel movement, medical stockpiles, blood supply orders, port closures, and unusual container-routing controls.</span></div>
-    <div class="indicator"><b>Fires And Air Defense</b><span>PLARF dispersal, SAM movement, long-range rocket artillery, air-defense activation, airfield hardening, drone staging, and anti-ship missile drills near coastal launch corridors.</span></div>
-    <div class="indicator"><b>Maritime Control</b><span>Coast guard swarms, maritime militia activation, declared law-enforcement patrols, live-fire boxes, cable-repair restrictions, shipping insurance warnings, and AIS anomalies around Taiwan ports.</span></div>
-    <div class="indicator"><b>Political Shaping</b><span>Travel advisories, evacuation messaging, emergency legislation, propaganda surge, pressure on third-country recognition, sanctions language, and diplomatic channel degradation.</span></div>
-    <div class="indicator"><b>Cyber / Space</b><span>Telecom outages, port IT disruption, satellite interference, disinformation campaigns, financial-system attacks, rail/energy disruption, and activity against Taiwan government media channels.</span></div>
-    <div class="indicator"><b>Allied Posture</b><span>US/Japan base dispersal, tanker movement, submarine activity, airlift surge, munitions transfers, emergency Diet or congressional action, and visible Guam/Okinawa hardening.</span></div>
-  </div>
-</section>
-
-<section class="section" id="planning">
-  <h2 class="section-title"><span class="sec-num">12</span>Planning Implications</h2>
-  <div class="grid two">
-    <div class="card"><h3>Indicators To Monitor</h3><p>RO/RO shipping, civilian ferry requisition, blood supply movement, missile unit dispersal, amphibious staging, PLA reserve mobilization, information control, and unusual port restrictions should carry more weight than routine aircraft counts alone.</p></div>
-    <div class="card"><h3>Defensive Priorities</h3><p>Distributed anti-ship fires, runway repair, hardened C2, mobile air defense, mine warfare, resilient satellite/terrestrial communications, and civilian stockpile planning remain the highest-yield mitigation categories across scenarios.</p></div>
-  </div>
-</section>
-
-<section class="section" id="sources">
-  <h2 class="section-title"><span class="sec-num">13</span>Referenced Source Index</h2>
-  <div class="source-grid" id="source-grid">
-    <div class="card">Loading ChinaTaiwanWarGaming.csv...</div>
-  </div>
-</section>
-
-<script>
-function parseCsv(text) {
-  const rows = []; let row = [], cell = '', inQuotes = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i], next = text[i + 1];
-    if (inQuotes && ch === '"' && next === '"') { cell += '"'; i++; }
-    else if (ch === '"') inQuotes = !inQuotes;
-    else if (!inQuotes && ch === ',') { row.push(cell); cell = ''; }
-    else if (!inQuotes && (ch === '\n' || ch === '\r')) {
-      if (ch === '\r' && next === '\n') i++;
-      row.push(cell); if (row.some(Boolean)) rows.push(row); row = []; cell = '';
-    } else cell += ch;
-  }
-  if (cell || row.length) { row.push(cell); rows.push(row); }
-  return rows;
-}
-function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
-const SOURCE_ANALYSIS = {
-  'The First Battle of the Next War: Wargaming a Chinese Invasion of Taiwan': {
-    scope: 'Full invasion baseline: 24 CSIS iterations testing PLA landings, Taiwan resilience, US/Japan intervention, and first-week attrition.',
-    analysis: 'Use this as the anchor model for direct invasion. It repeatedly shows that China can devastate Taiwan and US/Japanese forces, but sustaining a beachhead while transports and escorts are under attack remains the central failure mode.'
-  },
-  "CSIS Wargame: China's Invasion of Taiwan in 2026": {
-    scope: 'Naval News summary of the CSIS invasion game, focused on maritime losses, fleet implications, and operational timelines.',
-    analysis: 'Useful for translating the full CSIS report into naval indicators: amphibious shipping, escort survival, submarine attrition, and whether US naval forces enter early enough to matter.'
-  },
-  'CSIS: Wargaming a Chinese Invasion of Taiwan': {
-    scope: 'PAXsims review of the CSIS game and its design assumptions.',
-    analysis: 'Useful as a methodology check. It helps separate the scenario rules and assumptions from the policy conclusions that are often quoted from the CSIS report.'
-  },
-  "A Wargame to Take Taiwan, from China's Perspective": {
-    scope: 'Red-team analysis of how Beijing might sequence coercion, intimidation, force, and political collapse pressure.',
-    analysis: 'This is the best counterweight to blue-force-centric games. It highlights that Beijing would seek political paralysis and perceived inevitability before accepting the risk of a full amphibious failure.'
-  },
-  'Lights Out? Wargaming a Chinese Blockade of Taiwan (Report Page)': {
-    scope: 'Primary blockade/quarantine game testing shipping, insurance, stockpiles, legal ambiguity, and allied convoy decisions.',
-    analysis: 'This report expands the threat model beyond beach assault. It shows why commercial behavior and coalition legal unity can be as decisive as missile exchanges in a blockade crisis.'
-  },
-  'Lights Out? Report Launch': {
-    scope: 'CSIS launch event for the blockade report.',
-    analysis: 'Useful for author commentary and framing: what assumptions the game designers emphasize, which economic variables they consider most sensitive, and where policy recommendations are headed.'
-  },
-  'Lights Out? Wargaming a Chinese Blockade of Taiwan (MIT/SSP)': {
-    scope: 'MIT Security Studies Program mirror/summary of the blockade wargame.',
-    analysis: 'Good cross-reference for the academic treatment of blockade mechanics and for connecting the CSIS report to broader security-studies work.'
-  },
-  'Dangerous Straits: Wargaming a Future Conflict over Taiwan': {
-    scope: 'CNAS strategic-operational game centered on escalation, alliance choice, and crisis-control failure points.',
-    analysis: 'CNAS is the escalation-control companion to CSIS. It is especially useful for tracking Japan, Guam, nuclear signaling, and political authorization in live assessments.'
-  },
-  'A Bloody Mess: How a China-US Conflict Over Taiwan Could Play Out': {
-    scope: 'Breaking Defense coverage of Taiwan conflict gaming and expected loss patterns.',
-    analysis: 'Useful for communicating severity: even optimistic defense cases are not clean wins, and the human, naval, and air losses remain severe.'
-  },
-  'Williams Piece on Strategic Insights from a China–Taiwan Wargame': {
-    scope: 'Academic/news note on strategic insights from a China-Taiwan wargame.',
-    analysis: 'Useful for extracting policy-level lessons from scenario play rather than only operational order-of-battle conclusions.'
-  },
-  'A Wargame To Take Taiwan, From China\'s Perspective (Reprint)': {
-    scope: 'Reprint of the red-team perspective piece.',
-    analysis: 'Retained to preserve source discoverability; analysis should be read with the War on the Rocks original.'
-  },
-  'CSIS Wargaming and Scenarios Topic Hub': {
-    scope: 'CSIS research hub for wargaming methods and related scenario work.',
-    analysis: 'Use this as the durable index when individual report pages move. It is not itself a scenario outcome but provides source lineage.'
-  },
-  'Special Report: Surprise PRC Military Exercise Around Taiwan (Justice Mission 2025)': {
-    scope: 'Exercise-to-crisis warning study for a surprise PRC exercise around Taiwan.',
-    analysis: 'The operational value is indicator calibration: live-fire boxes, blockade rehearsal, information control, and logistics tails are more important than headline aircraft counts.'
-  },
-  'China & Taiwan Update, March 13, 2026': {
-    scope: 'Current conditions update that anchors exercise and PLA posture changes in the live watch cycle.',
-    analysis: 'Use as a current-context bridge from tabletop scenarios to observed PRC/Taiwan behavior.'
-  },
-  'Creeping Closer: Timeline and Analysis of Justice Mission-2025': {
-    scope: 'Timeline reconstruction of Justice Mission-2025 and its joint exercise geography.',
-    analysis: 'Useful for comparing declared drills to blockade or rehearsal geometry; it helps determine whether repeated exercises are normalizing encirclement.'
-  },
-  'Taiwan Starts Annual Han Kuang Wargames': {
-    scope: 'Taiwan exercise reporting for annual defense drill behavior.',
-    analysis: 'Han Kuang is the defensive counterpart to PLA exercises. It shows which civilian, reserve, and distributed-defense functions Taiwan is actually exercising.'
-  },
-  "Taiwan's Han Kuang Drills Demonstrate Its Quills Are Growing Sharper": {
-    scope: 'Defense News assessment of Taiwan drill improvements and porcupine-defense progress.',
-    analysis: 'Use this to assess whether Taiwan is converting concepts into field behavior: dispersion, resilience, mobile fires, and practical civil-defense readiness.'
-  },
-  '2025 Han Kuang Extended to 2 Weeks of Wargames': {
-    scope: 'Focus Taiwan report on expanded Han Kuang duration.',
-    analysis: 'Exercise duration matters because a longer cycle can stress mobilization, sustainment, and civil-military coordination in ways short demonstrations cannot.'
-  },
-  "Xi Jinping's Taiwan Dashboard (DoD PDF)": {
-    scope: 'DoD background reference for PRC military modernization and Taiwan-related force posture.',
-    analysis: 'Use as the weapons and capability baseline, not as a war-game result. It supports range, force structure, and modernization assumptions.'
-  },
-  'Adapting US-Taiwan Policy for a New Strategic Reality': {
-    scope: 'Policy adaptation analysis for deterrence, diplomacy, and asymmetric defense.',
-    analysis: 'Useful for turning game conclusions into policy requirements: stockpiles, resilience, political signaling, and alliance coordination before crisis onset.'
-  },
-  'A Failed Chinese Invasion of Taiwan Would Be Disastrous for Xi Jinping': {
-    scope: 'German Marshall Fund assessment of regime and political costs of a failed invasion.',
-    analysis: 'This is a key strategic constraint. Failed invasion risk is not only military loss; it is a direct threat to Xi Jinping and CCP legitimacy.'
-  },
-  'China Military Drills, a Pentagon Memo and a Question: What Next for Taiwan?': {
-    scope: 'Cipher Brief analysis linking drills, US planning assumptions, and next-step risk.',
-    analysis: 'Use as a contemporary bridge between public drill activity and classified-policy uncertainty.'
-  },
-  'CSIS Releases Latest Report: Lights Out? (Reddit discussion w/ extended summary)': {
-    scope: 'Open-source discussion and extended summary of the CSIS blockade report.',
-    analysis: 'Useful as a discovery and critique surface, but analytical weight should remain on the primary CSIS and MIT links.'
-  },
-  'Simulation Results: What Would Happen if China Imposed a Naval Blockade': {
-    scope: 'Secondary summary of blockade simulation implications.',
-    analysis: 'Retained as a discovery pointer where the original article URL is transient; treat as lower-confidence supporting context.'
-  }
-};
-function sourceUrl(url, title, source) {
-  const raw = String(url || '').trim();
-  if (/^https?:\/\//i.test(raw)) return raw;
-  if (/^[\w.-]+\.[a-z]{2,}/i.test(raw)) return `https://${raw}`;
-  return `https://www.google.com/search?q=${encodeURIComponent(`${title} ${source}`)}`;
-}
-async function loadSources() {
-  const grid = document.getElementById('source-grid');
-  try {
-    const csv = await fetch('/datasources/ChinaTaiwanWarGaming.csv').then(r => r.text());
-    const [headers, ...rows] = parseCsv(csv);
-    document.getElementById('metric-sources').textContent = rows.length;
-    grid.innerHTML = rows.map(row => {
-      const item = Object.fromEntries(headers.map((h, i) => [h, row[i] || '']));
-      const href = sourceUrl(item.URL, item.Title, item.Source);
-      const detail = SOURCE_ANALYSIS[item.Title] || {
-        scope: `${item.Source} reference used for Taiwan Strait scenario context.`,
-        analysis: 'Review alongside the primary linked references before assigning it weight in the live watch assessment.'
-      };
-      return `<a class="source-card" href="${esc(href)}" target="_blank" rel="noopener noreferrer">
-        <div class="source-title">${esc(item.Title)}</div>
-        <div class="source-meta">${esc(item.Source)} // REF ${esc(item['#'])}</div>
-        <div class="source-summary">${esc(detail.scope)}</div>
-        <div class="source-analysis">${esc(detail.analysis)}</div>
-      </a>`;
-    }).join('');
-  } catch (err) {
-    grid.innerHTML = `<div class="card">Unable to load source CSV: ${esc(err.message)}</div>`;
-  }
-}
-loadSources();
-</script>
+  </article><article class="scenario-card">
+    <img src="/screenshots/final-taiwan-strait.png" alt="Conflict Mapper Taiwan Strait view - blockade games move the problem from beaches to shipping, insurance, ports, energy, cables, and political endurance." loading="lazy">
+    <div class="scenario-body">
+      <div class="kicker">CSIS / MIT SSP // Blockade, quarantine, and coercive isolation</div>
+      <h3>Lights Out? Blockade and Quarantine Games</h3>
+      <p>The blockade scenarios are essential because they model a slower, legally ambiguous path to strategic pressure. They ask whether Beijing can hurt Taiwan enough to force concessions while making allied escalation politically harder.</p>
+      <p>Blockade games shift the analytical focus from a dramatic amphibious assault to a contest over commercial shipping, legal framing, stockpiles, energy, financial pressure, undersea cables, air routes, and allied convoy politics. This is a harder problem for dashboards because it may not produce a single clean invasion indicator.</p>
+      <p><strong>Outcome logic:</strong> Outcome assessment: blockade pressure is more plausible than an immediate full invasion because it can be scaled, paused, denied, and framed as law enforcement or quarantine. It can still fail if Taiwan stockpiles hold, commercial routes adapt, allied convoy policy is clear, and Beijing cannot maintain pressure without broadening the war.</p>
+      <div class="card-actions">
+        <a href="taiwan-scenario-blockade-lights-out.html">Deep Review</a>
+        <a href="https://www.csis.org/analysis/lights-out-wargaming-chinese-blockade-taiwan" target="_blank" rel="noopener noreferrer">Original Source</a>
+      </div>
+    </div>
+  </article><article class="scenario-card">
+    <img src="/assets/maps/taiwan-operation-causeway-1944.jpg" alt="Operation Causeway historical map - useful as historical context for recurring Taiwan geography, not as a current campaign plan." loading="lazy">
+    <div class="scenario-body">
+      <div class="kicker">CNAS // Escalation management and allied decision stress</div>
+      <h3>Dangerous Straits</h3>
+      <p>Dangerous Straits matters because it makes escalation control the center of the game rather than a footnote. It asks how leaders make decisions when every move may deter, reassure, or widen the war.</p>
+      <p>The scenario emphasizes the political and military problem of controlling escalation once a Taiwan crisis is underway. It treats strikes, basing, cyber operations, space assets, blockade actions, and nuclear signaling as connected decisions rather than isolated military tools.</p>
+      <p><strong>Outcome logic:</strong> Outcome assessment: the most likely failure mode is not one side misunderstanding a single event, but both sides acting under compressed timelines with incomplete information. Escalation management improves when political objectives are explicit and allied access decisions are rehearsed before the crisis.</p>
+      <div class="card-actions">
+        <a href="taiwan-scenario-dangerous-straits.html">Deep Review</a>
+        <a href="https://www.cnas.org/publications/reports/dangerous-straits-wargaming-a-future-conflict-over-taiwans" target="_blank" rel="noopener noreferrer">Original Source</a>
+      </div>
+    </div>
+  </article><article class="scenario-card">
+    <img src="/assets/force-comparison/china-vs-allied-naval-forces-taiwan/images/image_1.jpg" alt="Type 076 amphibious carrier image from the local naval force-comparison datasource - relevant to future command, aviation, and unmanned-system assumptions." loading="lazy">
+    <div class="scenario-body">
+      <div class="kicker">War on the Rocks // PRC coercion, decision logic, and campaign framing</div>
+      <h3>A Wargame to Take Taiwan, from China's Perspective</h3>
+      <p>This scenario is useful because it forces the reader to see Taiwan through Beijing's campaign logic. It is not enough to ask whether China can land forces; the better question is what Beijing thinks will cause Taiwan and the coalition to fracture.</p>
+      <p>A PRC-perspective game reframes the campaign as political warfare, legal preparation, coercive signaling, and alliance-splitting before it becomes a purely kinetic operation. It asks what Beijing would try to make Taiwan, Washington, Tokyo, and regional capitals believe in the decisive days before and after the crisis opens.</p>
+      <p><strong>Outcome logic:</strong> Outcome assessment: Beijing's best path is paralysis before mass combat, not a cinematic first wave. The scenario succeeds for China only if Taiwan political cohesion cracks and allied decision-making slows.</p>
+      <div class="card-actions">
+        <a href="taiwan-scenario-beijing-perspective.html">Deep Review</a>
+        <a href="https://warontherocks.com/a-wargame-to-take-taiwan-from-chinas-perspective/" target="_blank" rel="noopener noreferrer">Original Source</a>
+      </div>
+    </div>
+  </article><article class="scenario-card">
+    <img src="/screenshots/fix-taiwan-map.png" alt="Conflict Mapper Taiwan map snapshot - exercise-to-crisis analysis should separate baseline geography from live indicator changes." loading="lazy">
+    <div class="scenario-body">
+      <div class="kicker">ISW / Han Kuang reporting // Exercise cover, coercion, and warning ambiguity</div>
+      <h3>Exercise-to-Crisis Conversion</h3>
+      <p>Exercise-to-crisis scenarios are where dashboards often fail. A familiar exercise can be routine, a coercive signal, or cover for preparation, and the difference is usually hidden in logistics and civilian behavior.</p>
+      <p>The scenario family asks how analysts distinguish routine exercises from genuine crisis preparation. The answer is not a single sortie count or a single missile notice. It is whether exercise behavior starts changing civilian shipping, port access, reserve posture, fuel movement, medical preparation, cyber activity, air routes, and diplomatic language.</p>
+      <p><strong>Outcome logic:</strong> Outcome assessment: exercise conversion is dangerous because it can compress warning time while maintaining plausible deniability. It is less likely to surprise if analysts track logistics, civilian restrictions, and legal authorities instead of only visible aircraft and ships.</p>
+      <div class="card-actions">
+        <a href="taiwan-scenario-exercise-crisis.html">Deep Review</a>
+        <a href="https://www.understandingwar.org/research/china-taiwan" target="_blank" rel="noopener noreferrer">Original Source</a>
+      </div>
+    </div>
+  </article><article class="scenario-card">
+    <img src="/assets/maps/south-korea-physiography-cia-2018.jpg" alt="CIA South Korea physiography map - Korea is not separate from Taiwan in dual-contingency games because munitions, ISR, missile defense, and basing are shared constraints." loading="lazy">
+    <div class="scenario-body">
+      <div class="kicker">Atlantic Council / Global Taiwan Institute // Two-theater deterrence and munitions stress</div>
+      <h3>Taiwan-Korea Dual Contingency Stress</h3>
+      <p>Dual-contingency scenarios matter because Taiwan and Korea compete for the same allied attention, munitions, ISR, tankers, missile defense, cyber resources, and Japanese base politics.</p>
+      <p>This scenario family connects the Taiwan fight to the Korean Peninsula. If a Taiwan crisis begins, North Korea may exploit allied distraction through missile launches, cyber pressure, limited attacks, nuclear coercion, or political intimidation aimed at splitting Seoul, Tokyo, and Washington.</p>
+      <p><strong>Outcome logic:</strong> Outcome assessment: a dual contingency is less a second war game than a stress test of alliance architecture. The risk rises when North Korea sees a chance to coerce under a nuclear shield while China pressures Taiwan.</p>
+      <div class="card-actions">
+        <a href="taiwan-scenario-dual-contingency.html">Deep Review</a>
+        <a href="https://www.atlanticcouncil.org/in-depth-research-reports/report/a-rising-nuclear-double-threat-in-east-asia-insights-from-our-guardian-tiger-i-and-ii-tabletop-exercises/" target="_blank" rel="noopener noreferrer">Original Source</a>
+      </div>
+    </div>
+  </article></div></section>
+<section class="section" id="geography-context"><h2>Geography And Terrain Context</h2><div class="lead-grid">
+<figure class="analysis-figure"><img src="/assets/maps/taiwan-operation-causeway-1944.jpg" alt="Historical Taiwan campaign-planning map used for context: beaches, ports, weather, and mountains remain recurring constraints." loading="lazy"><figcaption>Historical Taiwan campaign-planning map used for context: beaches, ports, weather, and mountains remain recurring constraints.</figcaption></figure>
+<div class="prose"><p>Taiwan geography is not a decorative backdrop. The western coastal plain contains the decisive ports, airfields, urban density, and road/rail networks, while the central mountain spine limits rapid east-west maneuver. Serious scenarios therefore test whether China can sustain lift and whether Taiwan can deny ports, repair runways, preserve command continuity, and keep society functioning under missile, cyber, maritime, and information pressure. Blockade scenarios shift the map outward to the Bashi Channel, Okinawa approaches, Luzon Strait, East China Sea, South China Sea, and commercial shipping routes.</p></div>
+</div></section>
+<section class="section" id="scenario-families"><h2>Scenario Families</h2><div class="lead-grid"><figure class="analysis-figure"><img src="/assets/maps/taiwan-physiography-cia-2022.jpg" alt="Taiwan terrain context for scenario families." loading="lazy"><figcaption>Taiwan terrain context for scenario families.</figcaption></figure><div class="family-grid"><div class="family-card"><h3>Full Invasion And Denial Campaign</h3><p>This family tests whether China can convert initial shock into sustained control. It is about ports, runways, lift, submarines, anti-ship fires, Taiwanese command continuity, and Japanese basing access. The reader should watch for logistics and political-warning indicators more than dramatic exercise headlines. A successful landing is not the same as a successful campaign. The family is useful because it makes sustainment the decisive question.</p></div><div class="family-card"><h3>Blockade, Quarantine, And Coercive Isolation</h3><p>This family tests whether Beijing can apply enough pressure to force political concessions without crossing a threshold that unifies allies immediately. It turns shipping, insurance, energy, food, air routes, cyber pressure, and legal language into strategic variables. It may produce fewer obvious military indicators than invasion, but it can be strategically severe. The strongest warning signs are commercial behavior changes and government restrictions moving faster than public war rhetoric.</p></div><div class="family-card"><h3>Escalation Management</h3><p>This family tests how leaders control a conflict once deterrence begins failing. It asks whether strikes, cyber operations, space effects, nuclear signaling, and regional basing decisions deter or widen the war. It is important because miscalculation may arise from political timing rather than platform capability. The best page analysis should connect military movement to authorization, public messaging, allied consultation, and crisis communication.</p></div><div class="family-card"><h3>Exercise-To-Crisis Conversion</h3><p>This family tests the ambiguity between normal drills, coercive signaling, and concealed preparation. Exercises become more dangerous when they change logistics, civilian shipping, reserves, medical preparation, cyber activity, or legal authorities. The value of this family is that it warns against overreacting to routine activity while still watching for hidden mobilization. It should be updated dynamically as new RSS reporting appears.</p></div><div class="family-card"><h3>Dual-Contingency Stress</h3><p>This family tests Taiwan and Korea as one resource problem. Munitions, missile defense, ISR, tankers, submarines, cyber support, and Japanese base politics are finite. If one theater heats up, deterrence in the other can degrade even without a formal alliance decision. This family belongs on both flagship pages because the warning picture is shared.</p></div></div></div></section>
+<section class="section" id="comparison-matrix"><h2>Scenario Comparison Matrix</h2><div class="wide-table"><table><thead><tr><th>Scenario</th><th>What It Tests</th><th>Most Important Warning Indicators</th><th>Outcome Logic</th></tr></thead><tbody><tr><td><a href="taiwan-scenario-csis-invasion.html">The First Battle of the Next War</a><br><span class="kicker">CSIS</span></td><td>The scenario family models a large Chinese attempt to seize Taiwan and tests whether the United States, Taiwan, Japan, and partners can deny rapid success before PLA follow-on lift becomes sustainable. The headline lesson is not that any side wins cheaply; it is that geography, basing, runway repair, anti-ship fires, and allied political access determine whether a landing becomes a campaign.</td><td>Watch for indicator clusters across exercises, ports, civilian shipping, reserve activity, cyber pressure, diplomatic warnings, semiconductor disruption, and allied basing decisions. A single sortie spike is weak; cross-domain synchronization is strong.</td><td>Outcome assessment: the invasion can fail even after painful early PLA gains if follow-on shipping, air cover, and port access are disrupted. Taiwan still suffers severe damage and cannot treat allied intervention as automatic or casualty-free. The scenario strongly favors early denial, runway repair, dispersed command, sea-denial fires, Japanese basing access, and rapid political alignment. The outcome is a warning against assuming either a clean Chinese fait accompli or a clean allied rescue.</td></tr><tr><td><a href="taiwan-scenario-blockade-lights-out.html">Lights Out? Blockade and Quarantine Games</a><br><span class="kicker">CSIS / MIT SSP</span></td><td>Blockade games shift the analytical focus from a dramatic amphibious assault to a contest over commercial shipping, legal framing, stockpiles, energy, financial pressure, undersea cables, air routes, and allied convoy politics. This is a harder problem for dashboards because it may not produce a single clean invasion indicator.</td><td>Watch for indicator clusters across exercises, ports, civilian shipping, reserve activity, cyber pressure, diplomatic warnings, semiconductor disruption, and allied basing decisions. A single sortie spike is weak; cross-domain synchronization is strong.</td><td>Outcome assessment: blockade pressure is more plausible than an immediate full invasion because it can be scaled, paused, denied, and framed as law enforcement or quarantine. It can still fail if Taiwan stockpiles hold, commercial routes adapt, allied convoy policy is clear, and Beijing cannot maintain pressure without broadening the war. The outcome is likely to be protracted and economically damaging even without a beach landing. The key warning sign is shipping behavior changing before official statements catch up.</td></tr><tr><td><a href="taiwan-scenario-dangerous-straits.html">Dangerous Straits</a><br><span class="kicker">CNAS</span></td><td>The scenario emphasizes the political and military problem of controlling escalation once a Taiwan crisis is underway. It treats strikes, basing, cyber operations, space assets, blockade actions, and nuclear signaling as connected decisions rather than isolated military tools.</td><td>Watch for indicator clusters across exercises, ports, civilian shipping, reserve activity, cyber pressure, diplomatic warnings, semiconductor disruption, and allied basing decisions. A single sortie spike is weak; cross-domain synchronization is strong.</td><td>Outcome assessment: the most likely failure mode is not one side misunderstanding a single event, but both sides acting under compressed timelines with incomplete information. Escalation management improves when political objectives are explicit and allied access decisions are rehearsed before the crisis. It worsens when cyber, space, and regional basing issues are treated as secondary. The scenario argues for monitoring decision architecture as closely as platform counts.</td></tr><tr><td><a href="taiwan-scenario-beijing-perspective.html">A Wargame to Take Taiwan, from China's Perspective</a><br><span class="kicker">War on the Rocks</span></td><td>A PRC-perspective game reframes the campaign as political warfare, legal preparation, coercive signaling, and alliance-splitting before it becomes a purely kinetic operation. It asks what Beijing would try to make Taiwan, Washington, Tokyo, and regional capitals believe in the decisive days before and after the crisis opens.</td><td>Watch for indicator clusters across exercises, ports, civilian shipping, reserve activity, cyber pressure, diplomatic warnings, semiconductor disruption, and allied basing decisions. A single sortie spike is weak; cross-domain synchronization is strong.</td><td>Outcome assessment: Beijing's best path is paralysis before mass combat, not a cinematic first wave. The scenario succeeds for China only if Taiwan political cohesion cracks and allied decision-making slows. It fails if Taiwan remains governable, allied access decisions are clear, and the coercive frame is rejected early. Analysts should therefore treat narrative and legal preparation as operationally meaningful warning indicators.</td></tr><tr><td><a href="taiwan-scenario-exercise-crisis.html">Exercise-to-Crisis Conversion</a><br><span class="kicker">ISW / Han Kuang reporting</span></td><td>The scenario family asks how analysts distinguish routine exercises from genuine crisis preparation. The answer is not a single sortie count or a single missile notice. It is whether exercise behavior starts changing civilian shipping, port access, reserve posture, fuel movement, medical preparation, cyber activity, air routes, and diplomatic language.</td><td>Watch for indicator clusters across exercises, ports, civilian shipping, reserve activity, cyber pressure, diplomatic warnings, semiconductor disruption, and allied basing decisions. A single sortie spike is weak; cross-domain synchronization is strong.</td><td>Outcome assessment: exercise conversion is dangerous because it can compress warning time while maintaining plausible deniability. It is less likely to surprise if analysts track logistics, civilian restrictions, and legal authorities instead of only visible aircraft and ships. Taiwan and allies benefit from making the threshold indicators public enough to shape deterrence. The scenario argues for indicator clusters, not single-event alerts.</td></tr><tr><td><a href="taiwan-scenario-dual-contingency.html">Taiwan-Korea Dual Contingency Stress</a><br><span class="kicker">Atlantic Council / Global Taiwan Institute</span></td><td>This scenario family connects the Taiwan fight to the Korean Peninsula. If a Taiwan crisis begins, North Korea may exploit allied distraction through missile launches, cyber pressure, limited attacks, nuclear coercion, or political intimidation aimed at splitting Seoul, Tokyo, and Washington.</td><td>Watch for indicator clusters across exercises, ports, civilian shipping, reserve activity, cyber pressure, diplomatic warnings, semiconductor disruption, and allied basing decisions. A single sortie spike is weak; cross-domain synchronization is strong.</td><td>Outcome assessment: a dual contingency is less a second war game than a stress test of alliance architecture. The risk rises when North Korea sees a chance to coerce under a nuclear shield while China pressures Taiwan. The best mitigation is preplanned trilateral coordination, clear base-access authorities, munitions depth, and rapid information sharing. The worst case is fragmented allied decision-making under simultaneous nuclear and maritime pressure.</td></tr></tbody></table></div></section>
+<section class="section" id="force-reports"><h2>Taiwan Force Comparison Reports</h2><p>Each report is a comprehensive overview of current likely combatants' firepower, broken down by branch of the military. The reports preserve the local datasource imagery and tables, but images are resized to fit their panels instead of being crop-zoomed into unusable fragments.</p><div class="force-grid"><a class="force-card" href="china-vs-allied-naval-forces-taiwan.html"><img src="/assets/force-comparison/china-vs-allied-naval-forces-taiwan/images/image_1.jpg" alt="Naval Forces" loading="lazy"><div class="force-body"><h3>Naval Forces</h3><p>Comprehensive overview of PLAN amphibious lift, surface combatants, undersea forces, and US/Taiwan/Japan/allied maritime counters in a Taiwan contingency.</p></div></a><a class="force-card" href="air-power-china-vs-allies-taiwan.html"><img src="/assets/force-comparison/air-power-china-vs-allies-taiwan/images/image_1.jpg" alt="Air Forces" loading="lazy"><div class="force-body"><h3>Air Forces</h3><p>Branch-by-branch airpower comparison covering PLAAF/PLAN aviation, stealth aircraft, bombers, ISR, drones, tankers, and allied air-defense constraints.</p></div></a><a class="force-card" href="army-forces-china-vs-allies-taiwan.html"><img src="/assets/force-comparison/army-forces-china-vs-allies-taiwan/images/image_1.jpg" alt="Army Forces" loading="lazy"><div class="force-body"><h3>Army Forces</h3><p>Ground force comparison focused on PLA landing follow-on forces, Taiwan territorial defense, long-range fires, armor, and allied land-domain support.</p></div></a><a class="force-card" href="marines-china-vs-allies-taiwan.html"><img src="/assets/force-comparison/marines-china-vs-allies-taiwan/images/image_1.jpg" alt="Marines" loading="lazy"><div class="force-body"><h3>Marines</h3><p>Amphibious and littoral force comparison covering PLAN Marine Corps, USMC stand-in forces, expeditionary fires, and island-chain access dilemmas.</p></div></a><a class="force-card" href="special-forces-china-vs-allies-taiwan.html"><img src="/assets/force-comparison/special-forces-china-vs-allies-taiwan/images/image_1.jpg" alt="Special Forces" loading="lazy"><div class="force-body"><h3>Special Forces</h3><p>SOF comparison covering reconnaissance, sabotage, maritime raids, cyber-enabled disruption, counter-SOF defense, and crisis-opening risk.</p></div></a></div></section>
+<section class="section" id="escalation-model"><h2>Escalation Model</h2><div class="card-grid"><div class="analysis-card"><h3>Coercive Exercises</h3><p>China gains pressure and normalization of military presence, but risks habituating Taiwan and allies to the pattern. Taiwan gains warning practice and civil-defense reinforcement, but public fatigue can grow. The scenario remains below war until it changes civilian logistics, legal authorities, commercial behavior, or allied readiness. The analytical challenge is separating routine signaling from rehearsal that materially improves crisis position.</p><div class="pros-cons"><div><strong>Pros / Advantages</strong><ul><li>Ambiguous and repeatable pressure tool</li><li>Lower cost than blockade or invasion</li><li>Collects intelligence and rehearses command-and-control</li><li>Can normalize PLA presence near Taiwan</li></ul></div><div><strong>Cons / Risks</strong><ul><li>Can expose PLA patterns</li><li>Can harden Taiwan public resilience</li><li>Risk of accident or overreaction</li><li>May fail if allies predefine warning thresholds</li></ul></div></div></div><div class="analysis-card"><h3>Blockade Or Quarantine</h3><p>China can pressure Taiwan without immediately committing to an invasion, but it must manage commercial blowback and allied response. Taiwan can frame the move as coercion and rally partners, but stockpiles and public confidence become stressed. The decisive contest becomes legal framing, shipping behavior, insurance, energy, communications, and coalition unity. This is often the most plausible high-pressure path because it can be scaled or paused.</p><div class="pros-cons"><div><strong>Pros / Advantages</strong><ul><li>Scalable pressure without immediate beach landing</li><li>Creates economic and psychological stress</li><li>Can exploit legal ambiguity</li><li>May split commercial actors before governments respond</li></ul></div><div><strong>Cons / Risks</strong><ul><li>Global economic shock can unify opposition</li><li>Maritime incidents can widen the war</li><li>Sustainment is politically costly</li><li>Taiwan stockpiles and allied convoy policy can blunt pressure</li></ul></div></div></div><div class="analysis-card"><h3>Invasion Attempt</h3><p>China seeks decisive political control but accepts enormous military, economic, and regime-risk exposure. Taiwan and allies can exploit sea-denial geography, but only if command continuity and allied access survive the opening phase. The issue is not only whether forces land; it is whether follow-on lift, air cover, port access, and political termination survive contact. This rung is the highest cost option and should require the strongest warning cluster.</p><div class="pros-cons"><div><strong>Pros / Advantages</strong><ul><li>Directly pursues the unification objective</li><li>Can create shock if Taiwan political cohesion breaks</li><li>Uses proximity and missile mass</li><li>May attempt to outrun allied mobilization</li></ul></div><div><strong>Cons / Risks</strong><ul><li>High casualties and uncertain termination</li><li>Semiconductor shutdown is likely even without deliberate destruction</li><li>Follow-on lift is exposed</li><li>Regional war and sanctions risk become severe</li></ul></div></div></div></div></section>
+<section class="section" id="assumptions-limits"><h2>Assumptions And Limits</h2><div class="lead-grid"><div class="prose"><p>The Taiwan page assumes public-source uncertainty, incomplete warning, contested cyber and space information, and political constraints on allied basing. A useful analysis must show both argument and counterargument: China has mass, proximity, missiles, and political initiative; Taiwan has geography, prepared defense, legitimacy, and potential allied support. The counterargument to alarmism is that invasion remains hard to hide and hard to sustain. The counterargument to complacency is that blockade, quarantine, cyber pressure, and exercise-to-crisis conversion may not look like a classic invasion until the crisis is already underway.</p><ul><li>Public war games simplify classified capabilities, readiness, intelligence warning, cyber access, and political decision-making.</li><li>Outcome confidence should rise only when multiple independent indicators converge across military, political, economic, cyber, and logistics domains.</li><li>Static pages should be treated as structured analysis baselines; live dashboard components should update the current assessment as fresh reporting arrives.</li></ul></div><div class="wide-table"><table><thead><tr><th>Argument</th><th>Counterargument</th></tr></thead><tbody><tr><td>Published war games are valuable because they reveal bottlenecks and decision points.</td><td>They can be outdated, adversaries can adapt, and classified assumptions are missing.</td></tr><tr><td>Military balance matters.</td><td>Political cohesion, logistics, geography, cyber resilience, and commercial behavior can be equally decisive.</td></tr><tr><td>Warning indicators can reduce surprise.</td><td>Ambiguity, deception, and normal exercise patterns can still compress warning time.</td></tr></tbody></table></div></div></section>
+<section class="section" id="warning-indicators"><h2>Warning Indicators</h2><div class="lead-grid"><div class="analysis-card"><h3>Indicators To Track</h3><ul><li>Civilian ferry, port, rail, fuel, medical, and blood-supply indicators changing alongside exercises.</li><li>Maritime exclusion or inspection zones that alter commercial shipping or insurance behavior.</li><li>Cyber pressure against Taiwan government, media, telecom, port, energy, semiconductor, or financial systems.</li><li>Legal language framing Taiwan as an emergency law-enforcement or quarantine problem.</li><li>Japan, Philippines, Guam, or US base posture shifts tied to Taiwan reporting.</li></ul></div><figure class="analysis-figure"><img src="/screenshots/fix-taiwan-map.png" alt="Taiwan warning indicators should be interpreted as changes to baseline geography, not arbitrary arrows." loading="lazy"><figcaption>Taiwan warning indicators should be interpreted as changes to baseline geography, not arbitrary arrows.</figcaption></figure></div></section><section class="section" id="planning-implications"><h2>Planning Implications</h2><div class="card-grid"><div class="analysis-card"><p>Prioritize denial resilience: runway repair, port denial, distributed command, mobile coastal fires, cyber continuity, and civil-defense messaging.</p></div><div class="analysis-card"><p>Make allied access decisions politically rehearsed before crisis onset, especially Japan and Philippines basing questions.</p></div><div class="analysis-card"><p>Treat blockade and quarantine as first-class scenarios, not lesser versions of invasion.</p></div><div class="analysis-card"><p>Link semiconductor, shipping, insurance, cable, and energy indicators to the military threat picture.</p></div></div></section>
+<section class="section sources" id="sources"><h2>Source Index</h2><div class="source-grid"><a class="source-card" href="https://www.csis.org/analysis/first-battle-next-war-wargaming-chinese-invasion-taiwan" target="_blank" rel="noopener noreferrer"><strong>CSIS - The First Battle of the Next War</strong><span>https://www.csis.org/analysis/first-battle-next-war-wargaming-chinese-invasion-taiwan</span></a><a class="source-card" href="https://www.csis.org/analysis/lights-out-wargaming-chinese-blockade-taiwan" target="_blank" rel="noopener noreferrer"><strong>CSIS - Lights Out blockade game</strong><span>https://www.csis.org/analysis/lights-out-wargaming-chinese-blockade-taiwan</span></a><a class="source-card" href="https://ssp.mit.edu/publications/2025/lights-out-wargaming-a-chinese-blockade-of-taiwan" target="_blank" rel="noopener noreferrer"><strong>MIT SSP - Lights Out blockade game</strong><span>https://ssp.mit.edu/publications/2025/lights-out-wargaming-a-chinese-blockade-of-taiwan</span></a><a class="source-card" href="https://www.cnas.org/publications/reports/dangerous-straits-wargaming-a-future-conflict-over-taiwans" target="_blank" rel="noopener noreferrer"><strong>CNAS - Dangerous Straits</strong><span>https://www.cnas.org/publications/reports/dangerous-straits-wargaming-a-future-conflict-over-taiwans</span></a><a class="source-card" href="https://warontherocks.com/a-wargame-to-take-taiwan-from-chinas-perspective/" target="_blank" rel="noopener noreferrer"><strong>War on the Rocks - PRC perspective game</strong><span>https://warontherocks.com/a-wargame-to-take-taiwan-from-chinas-perspective/</span></a><a class="source-card" href="https://www.understandingwar.org/research/china-taiwan" target="_blank" rel="noopener noreferrer"><strong>ISW - China-Taiwan special reports</strong><span>https://www.understandingwar.org/research/china-taiwan</span></a><a class="source-card" href="https://www.cia.gov/resources/map/taiwan/" target="_blank" rel="noopener noreferrer"><strong>CIA - Taiwan physiography map</strong><span>https://www.cia.gov/resources/map/taiwan/</span></a></div></section>
 </body>
 </html>

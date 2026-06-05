@@ -120,10 +120,10 @@
   };
 
   const DEFAULT_SETTINGS = {
-    template: 'command',
-    mode: THEMES.command.mode,
-    fontScale: THEMES.command.fontScale,
-    colors: { ...THEMES.command.colors },
+    template: 'lightOps',
+    mode: THEMES.lightOps.mode,
+    fontScale: THEMES.lightOps.fontScale,
+    colors: { ...THEMES.lightOps.colors },
     layout: { ...DEFAULT_LAYOUT },
     textSizes: { ...DEFAULT_TEXT_SIZES },
   };

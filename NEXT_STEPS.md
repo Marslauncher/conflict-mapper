@@ -218,6 +218,69 @@ Source/runtime checks confirmed:
 
 Browser validation confirmed:
 
+## 2026-06-05 War Games / Navigation Repair Pass
+
+### Implemented In This Pass
+
+- Removed the duplicate preview-card navigation behavior from the China/Taiwan and Korean Peninsula top-nav dropdowns.
+- Added a shared War Gaming Hub link under both theater menus and standardized the labels for the China/Taiwan and Korean Peninsula war-game pages.
+- Rebuilt the China/Taiwan and Korean Peninsula war-game pages as standalone flagship pages without a second top navigation bar.
+- Added dedicated scenario deep-review pages for six Taiwan scenarios and six Korean Peninsula scenarios, with direct source links and outcome sections.
+- Replaced the old Operational Geometry / Conflict Munitions blocks on the war-game pages with sourced terrain/geography and scenario-analysis sections.
+- Patched Taiwan force-comparison report pages to use the site action strip, add contents navigation, load global styling, and use `object-fit: contain` so report images are not cropped.
+- Updated Taiwan Watch layout:
+  - narrower operational map column
+  - wider Invasion Window Navigator / Current Threat Picture column
+  - longer invasion-window assessments
+  - larger text tied to global style variables
+  - dedicated prompt keys for Force Comparison and Strategic Assessment sections
+  - dynamic Strategic Assessment cards with things to note, things to watch, and 24h / 7d / 1m escalation likelihoods
+- Tightened Taiwan Watch latest-reporting filters so unrelated Iran, Somalia, Hezbollah, and North Korea items do not populate the Referenced Reporting section.
+- Set default theme to light across the nav config, global style defaults, current static pages, country dossiers, theater pages, war-game pages, and generation templates.
+- Added `/api/ai/models` to the local server so the Settings AI model picker no longer 404s, with safe fallback model catalogs when API keys are not configured.
+- Added `/favicon.ico` 204 handling to suppress default browser favicon 404 noise.
+- Corrected the local server banner to display the active API port.
+
+### Validation Run In This Pass
+
+```bash
+node --check server.js
+node --check scripts/rebuild-flagship-war-game-pages.mjs
+node --check scripts/generate-war-games-deep-dives.mjs
+node --check scripts/enhance-war-games-output.mjs
+node inline script syntax checks for index.html and pages/taiwan-strait.html
+curl -X POST http://localhost:5001/api/ai/models
+Playwright/Chrome render checks against http://localhost:5001
+```
+
+Rendered checks passed at desktop `1440x1000` and mobile `390x844` for:
+
+- `/index.html`
+- `/pages/taiwan-strait.html`
+- `/pages/taiwan-war-games.html`
+- `/pages/korean-peninsula-war-games.html`
+- `/pages/war-gaming-hub.html`
+- `/pages/taiwan-scenario-csis-invasion.html`
+- `/pages/korea-scenario-guardian-tiger-limited-strike.html`
+- `/pages/china-vs-allied-naval-forces-taiwan.html`
+
+The rendered checks confirmed:
+
+- default theme is light
+- global style dark-mode settings propagate across shell, watch, war-game, scenario, and force-report pages
+- no horizontal overflow at tested desktop or mobile widths
+- no standalone `nav.top-nav` remains on the war-game, scenario, or force-report pages checked
+- no old `Operational Geometry` or `Conflict Munitions` labels remain on checked war-game surfaces
+- no force-report image checked was using `object-fit: cover`
+- Taiwan Watch referenced reporting did not include the previously observed unrelated examples
+- source-index links on both war-game pages point to report/article URLs, not source homepages
+
+### Resume Notes
+
+- The local validation server was run on `http://localhost:5001`; stop any remaining `node server.js` process before starting another server.
+- The Browser connector was not available during this pass, so validation used Playwright with local Chrome.
+- The unrelated untracked file `datasources/OSINT & Geopolitics Multi-Region Monitor List.md` should remain uncommitted unless intentionally reviewed.
+
 - top nav stays desktop at 1200px with no horizontal overflow
 - top nav switches to hamburger at 900px, and the mobile drawer opens with Think Tanks, Country Dossiers, and other menu entries
 - News Library renders all matching local articles (`3938` cards for `3938` matching) with no raw RSS HTML leakage

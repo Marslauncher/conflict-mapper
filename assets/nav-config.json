@@ -2,7 +2,7 @@
   "siteName": "CONFLICT MAPPER",
   "siteTagline": "GEOPOLITICAL INTELLIGENCE PLATFORM",
   "password": "admin123",
-  "theme": "dark",
+  "theme": "light",
   "nav": [
     {
       "label": "Map & Feed",
@@ -147,26 +147,6 @@
       "label": "China/Taiwan Watch",
       "type": "dropdown",
       "icon": "eye",
-      "preview": {
-        "country": "taiwan",
-        "title": "China/Taiwan Watch",
-        "image": "screenshots/final-taiwan-strait.png",
-        "heroOnly": true,
-        "items": [
-          {
-            "label": "China/Taiwan Watch",
-            "subtitle": "Live threat dashboard",
-            "target": "pages/taiwan-strait.html",
-            "image": "screenshots/final-taiwan-strait.png"
-          },
-          {
-            "label": "War Games",
-            "subtitle": "Published scenario deep dive",
-            "target": "pages/taiwan-war-games.html",
-            "image": "screenshots/final-taiwan-strait.png"
-          }
-        ]
-      },
       "items": [
         {
           "label": "China/Taiwan Watch",
@@ -174,7 +154,12 @@
           "target": "pages/taiwan-strait.html"
         },
         {
-          "label": "War Games",
+          "label": "War Gaming Hub",
+          "subtitle": "Theater War Game Index",
+          "target": "pages/war-gaming-hub.html"
+        },
+        {
+          "label": "China/Taiwan War Games",
           "subtitle": "Published Scenario Deep Dive",
           "target": "pages/taiwan-war-games.html"
         }
@@ -184,25 +169,6 @@
       "label": "Korean Peninsula",
       "type": "dropdown",
       "icon": "flag",
-      "preview": {
-        "country": "north-korea",
-        "title": "Korean Peninsula Watch",
-        "image": "screenshots/final-taiwan-strait.png",
-        "items": [
-          {
-            "label": "Korean Peninsula",
-            "subtitle": "Live armistice theater watch",
-            "target": "pages/korean-peninsula.html",
-            "image": "screenshots/final-taiwan-strait.png"
-          },
-          {
-            "label": "War Games",
-            "subtitle": "Korea scenario deep dive",
-            "target": "pages/korean-peninsula-war-games.html",
-            "image": "screenshots/final-taiwan-strait.png"
-          }
-        ]
-      },
       "items": [
         {
           "label": "Korean Peninsula",
@@ -210,7 +176,12 @@
           "target": "pages/korean-peninsula.html"
         },
         {
-          "label": "War Games",
+          "label": "War Gaming Hub",
+          "subtitle": "Theater War Game Index",
+          "target": "pages/war-gaming-hub.html"
+        },
+        {
+          "label": "Korean Peninsula War Games",
           "subtitle": "Scenario Deep Dive",
           "target": "pages/korean-peninsula-war-games.html"
         }

@@ -79,6 +79,9 @@ app.use(express.static(path.join(__dirname), {
   },
 }));
 
+// Avoid noisy browser 404s when a client asks for the default favicon.
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
 // ─────────────────────────────────────────────────────────────────────────────
 // GLOBAL STATE
 // Progress tracking for long-running operations (fetch, generate)
@@ -429,6 +432,140 @@ app.get('/api/ai/config', (req, res) => {
     },
   });
 });
+
+const AI_MODEL_FALLBACKS = {
+  perplexity: [
+    { id: 'sonar-pro', name: 'Sonar Pro' },
+    { id: 'sonar', name: 'Sonar' },
+    { id: 'sonar-deep-research', name: 'Sonar Deep Research' },
+    { id: 'sonar-reasoning-pro', name: 'Sonar Reasoning Pro' },
+  ],
+  openrouter: [
+    { id: 'anthropic/claude-sonnet-4', name: 'Claude Sonnet 4' },
+    { id: 'openai/gpt-4.1', name: 'GPT-4.1' },
+    { id: 'google/gemini-2.5-pro', name: 'Gemini 2.5 Pro' },
+    { id: 'perplexity/sonar-pro', name: 'Perplexity Sonar Pro' },
+  ],
+  openai: [
+    { id: 'gpt-4o', name: 'GPT-4o' },
+    { id: 'gpt-4.1', name: 'GPT-4.1' },
+    { id: 'o3', name: 'o3' },
+    { id: 'o4-mini', name: 'o4-mini' },
+  ],
+  anthropic: [
+    { id: 'claude-sonnet-4-20250514', name: 'Claude Sonnet 4' },
+    { id: 'claude-opus-4-20250514', name: 'Claude Opus 4' },
+    { id: 'claude-3-7-sonnet-latest', name: 'Claude 3.7 Sonnet' },
+  ],
+  google: [
+    { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash' },
+    { id: 'gemini-2.5-pro', name: 'Gemini 2.5 Pro' },
+    { id: 'gemini-2.5-flash', name: 'Gemini 2.5 Flash' },
+  ],
+  local: [
+    { id: 'llama3.1', name: 'Llama 3.1' },
+    { id: 'mistral', name: 'Mistral' },
+    { id: 'qwen2.5', name: 'Qwen 2.5' },
+  ],
+};
+
+function normalizeModelList(provider, data) {
+  if (provider === 'google') {
+    return (data?.models || [])
+      .map(model => ({
+        id: String(model.name || '').replace(/^models\//, ''),
+        name: model.displayName || String(model.name || '').replace(/^models\//, ''),
+      }))
+      .filter(model => model.id);
+  }
+
+  return (data?.data || data?.models || [])
+    .map(model => ({
+      id: model.id || model.name || model.model,
+      name: model.name || model.id || model.model,
+    }))
+    .filter(model => model.id);
+}
+
+async function fetchProviderModels(provider, apiKey, baseUrl) {
+  if (provider === 'anthropic' || provider === 'perplexity') {
+    return null;
+  }
+
+  if (provider === 'google') {
+    if (!apiKey) return null;
+    const root = (baseUrl || 'https://generativelanguage.googleapis.com').replace(/\/+$/, '');
+    const response = await fetch(`${root}/v1beta/models?key=${encodeURIComponent(apiKey)}`, {
+      signal: AbortSignal.timeout(12000),
+    });
+    if (!response.ok) throw new Error(`Google model list returned HTTP ${response.status}`);
+    return normalizeModelList(provider, await response.json());
+  }
+
+  const defaultBaseUrl = provider === 'openrouter'
+    ? 'https://openrouter.ai/api/v1'
+    : provider === 'local'
+      ? 'http://localhost:11434/v1'
+      : 'https://api.openai.com/v1';
+  const root = (baseUrl || defaultBaseUrl).replace(/\/+$/, '');
+  const headers = {};
+  if (provider !== 'local') {
+    if (!apiKey) return null;
+    headers.Authorization = `Bearer ${apiKey}`;
+  }
+
+  const response = await fetch(`${root}/models`, {
+    headers,
+    signal: AbortSignal.timeout(12000),
+  });
+  if (!response.ok) throw new Error(`${provider} model list returned HTTP ${response.status}`);
+  return normalizeModelList(provider, await response.json());
+}
+
+/**
+ * POST /api/ai/models
+ * Return model options for the selected provider. Uses a provider endpoint where
+ * possible and falls back to a curated local list when credentials are absent.
+ */
+app.post('/api/ai/models', asyncRoute(async (req, res) => {
+  const { provider = 'perplexity', apiKey = '', baseUrl = '' } = req.body || {};
+  const knownProviders = new Set(aiProviders.listProviders().map(item => item.id));
+  const selectedProvider = knownProviders.has(provider) ? provider : 'perplexity';
+  const savedConfig = feedStore.getAIConfig(false);
+  const savedProvider = savedConfig.providers?.[selectedProvider] || {};
+  const key = apiKey || savedProvider.apiKey || '';
+  const url = baseUrl || savedProvider.baseUrl || '';
+
+  try {
+    const models = await fetchProviderModels(selectedProvider, key, url);
+    if (models?.length) {
+      return res.json({ success: true, data: { provider: selectedProvider, models, source: 'provider' } });
+    }
+  } catch (err) {
+    logger.log('ai', 'warn', 'Model discovery fell back to local catalog', {
+      provider: selectedProvider,
+      error: err.message,
+    });
+    return res.json({
+      success: true,
+      data: {
+        provider: selectedProvider,
+        models: AI_MODEL_FALLBACKS[selectedProvider] || AI_MODEL_FALLBACKS.perplexity,
+        source: 'fallback',
+        error: err.message,
+      },
+    });
+  }
+
+  res.json({
+    success: true,
+    data: {
+      provider: selectedProvider,
+      models: AI_MODEL_FALLBACKS[selectedProvider] || AI_MODEL_FALLBACKS.perplexity,
+      source: 'fallback',
+    },
+  });
+}));
 
 /**
  * POST /api/ai/config
@@ -1114,7 +1251,7 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log('║         CONFLICT MAPPER — API SERVER v2.0          ║');
   console.log('╠════════════════════════════════════════════════════╣');
   console.log(`║  HTTP:   http://0.0.0.0:${PORT}                      ║`);
-  console.log('║  API:    http://localhost:5000/api/status          ║');
+  console.log(`║  API:    http://localhost:${PORT}/api/status          ║`);
   console.log('╚════════════════════════════════════════════════════╝');
   console.log('');
   console.log('  Routes registered:');
@@ -1123,6 +1260,7 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log('  GET  /api/articles              — Get cached articles');
   console.log('  GET  /api/articles/geo          — Geotagged articles');
   console.log('  POST /api/ai/config             — Save AI config');
+  console.log('  POST /api/ai/models             — List AI models');
   console.log('  POST /api/ai/test               — Test AI connection');
   console.log('  POST /api/analysis/global       — Generate global report');
   console.log('  POST /api/analysis/country/:slug — Generate country report');
