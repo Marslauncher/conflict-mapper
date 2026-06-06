@@ -350,7 +350,7 @@ html[data-theme="dark"]{--bg:var(--color-bg,#080b10);--surface:var(--color-surfa
 <header class="hero"><div class="eyebrow">${esc(eyebrow)}</div><h1>${esc(title)}</h1></header>
 ${actionBar(active)}
 ${body}
-<div class="map-lightbox" id="map-lightbox" aria-hidden="true"><button type="button">Close</button><img alt=""></div>
+<div class="map-lightbox" id="map-lightbox" aria-hidden="true"><button type="button">Close</button><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Expanded map placeholder"></div>
 <script>
 document.querySelectorAll('.analysis-figure.expandable').forEach((figure) => {
   figure.addEventListener('click', () => {

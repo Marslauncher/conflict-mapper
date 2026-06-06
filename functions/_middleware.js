@@ -8,6 +8,15 @@ const PRIVATE_PREFIXES = [
 
 export async function onRequest(context) {
   const path = new URL(context.request.url).pathname;
+  if (path === '/favicon.ico') {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        'cache-control': 'public, max-age=86400',
+      },
+    });
+  }
+
   const privateFiles = new Set(['/server.js', '/package.json', '/package-lock.json', '/wrangler.toml', '/Dockerfile']);
   if (privateFiles.has(path) || PRIVATE_PREFIXES.some((prefix) => path.startsWith(prefix))) {
     return new Response('Not found', {

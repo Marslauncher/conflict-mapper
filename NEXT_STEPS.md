@@ -406,3 +406,59 @@ Local server and browser validation also passed on `http://localhost:5001`:
    - mobile/tablet top navigation hamburger behavior
    - Think Tank coverage panel no longer overlaps long article links
    - News Library displays all current filtered articles, grouped newest first
+
+## 2026-06-05 Production Validation / Hygiene Patch
+
+### Production Validation Run
+
+- Confirmed latest pushed commit before this patch: `cc0df09 Fix Korean peninsula watch and war games pages`.
+- Production routes returned `200`:
+  - `https://conflictmapper.com/`
+  - `https://conflictmapper.com/pages/korean-peninsula.html`
+  - `https://conflictmapper.com/pages/korean-peninsula-war-games.html`
+  - `https://conflictmapper.com/pages/war-gaming-hub.html`
+  - `https://conflictmapper.com/pages/taiwan-war-games.html`
+  - `https://conflictmapper.com/pages/taiwan-strait.html`
+  - `https://conflictmapper.com/pages/china-vs-allied-naval-forces-taiwan.html`
+  - `https://conflictmapper.com/pages/taiwan-contingency-ai-chip-war.html`
+- Playwright/System Chrome rendered production checks at desktop and mobile widths found:
+  - no horizontal overflow on checked pages
+  - no visible broken images
+  - no duplicate `top-subnav` / `local-war-nav` headers
+  - Korean watch article and think-tank cards include thumbnails
+  - Korean mapped node cards remain hidden behind the collapsed node drawer
+  - Korean war page has 6 scenario cards, 5 family cards, 9 matrix cards, and 7 source cards
+  - War Gaming Hub has no Taiwan Force Comparison Reports section inside the Korean path
+
+### Hygiene Fixes Prepared
+
+- Added Cloudflare Pages middleware handling for `/favicon.ico` so direct static page loads do not create browser console 404 noise.
+- Updated generated war-game lightbox placeholder markup so hidden lightbox images are not counted as broken images before a user opens a map.
+- Updated `scripts/rebuild-flagship-war-game-pages.mjs` so future generated pages preserve the fixed lightbox placeholder.
+
+### Validation Run For This Patch
+
+```bash
+node --check functions/_middleware.js
+node --check scripts/rebuild-flagship-war-game-pages.mjs
+git diff --check
+npm test
+PORT=5002 node server.js
+curl -I http://localhost:5002/favicon.ico
+Playwright/System Chrome against http://localhost:5002 for affected war-game pages at desktop and mobile widths
+npx wrangler pages dev . --port 8789
+curl -I http://localhost:8789/favicon.ico
+curl http://localhost:8789/pages/korean-peninsula-war-games.html
+```
+
+Notes:
+
+- Local Express returned `204` for `/favicon.ico`.
+- Wrangler Pages dev returned `204` for `/favicon.ico` and served the updated Korean war-game page with the placeholder lightbox image.
+- Wrangler emitted a shutdown-time temporary bundle cleanup error after pressing `x`, after the successful middleware/page checks; it did not affect the validation results.
+- Untracked files still intentionally left alone:
+  - `datasources/OSINT & Geopolitics Multi-Region Monitor List.md`
+  - `datasources/SYSTEM_PROMPT.md`
+  - `datasources/korean-peninsula-war-games.html`
+  - `datasources/korean-peninsula.html`
+  - `datasources/war-gaming-hub.html`

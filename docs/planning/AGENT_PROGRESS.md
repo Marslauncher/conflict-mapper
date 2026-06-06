@@ -10,8 +10,8 @@ Generated: 2026-06-04
 - Source audit agents: complete.
 - Implementation: generated and enhanced.
 - Local validation: static checks and browser smoke tests passed.
-- GitHub push: pending.
-- Deployed validation: pending.
+- GitHub push: complete through `cc0df09`; post-validation hygiene patch prepared for commit.
+- Deployed validation: production render sweep completed on 2026-06-05; favicon/lightbox hygiene fixes prepared after that sweep.
 
 ## Agent Assignments
 
@@ -88,3 +88,7 @@ Responsibilities:
   - Playwright/System Chrome rendered checks at 1440px and 390px passed for the Taiwan war-game page, Korean Peninsula war-game page, final Taiwan scenario page, naval force page, and air force page.
   - Browser checks reported zero horizontal overflow, zero broken images, and required page text visible at both viewport widths.
 - 2026-06-04: `npm test` could not be run in this shell because `npm` is not available on `PATH`; the bundled runtime exposes `node` only.
+- 2026-06-05: Follow-up GitHub push completed as `cc0df09 Fix Korean peninsula watch and war games pages`. Production checks against `https://conflictmapper.com` returned `200` for the home page, Korean Peninsula watch, Korean Peninsula war games, War Gaming Hub, Taiwan war games, Taiwan Strait watch, naval force comparison, and final Taiwan contingency page.
+- 2026-06-05: Production Playwright/System Chrome checks at desktop and mobile widths found no horizontal overflow, no duplicate local top nav headers, Korean mapped node cards hidden behind the drawer, Korean watch article cards with images, no Taiwan force-report section in the Korean hub path, and expected war-game card/source counts.
+- 2026-06-05: Production validation found two hygiene issues: `/favicon.ico` returned `404` on direct static page loads, and hidden map-lightbox placeholder images without `src` were counted as broken images even though they were not visible. Patched Cloudflare middleware to return `204` for `/favicon.ico`, patched existing generated war-game pages with a transparent placeholder image, and updated `scripts/rebuild-flagship-war-game-pages.mjs` so regenerated pages preserve the fix.
+- 2026-06-05: Patch validation passed with `node --check functions/_middleware.js`, `node --check scripts/rebuild-flagship-war-game-pages.mjs`, `git diff --check`, `npm test`, local Express favicon and Playwright checks on `http://localhost:5002`, and Wrangler Pages dev favicon/page checks on `http://localhost:8789`. Wrangler emitted a shutdown-time temporary bundle cleanup error after successful checks.
