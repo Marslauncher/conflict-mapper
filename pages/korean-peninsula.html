@@ -482,7 +482,11 @@ function text(a){return [a.title,a.description,a.summary,a.country,a.region,a.ge
 const directTerms=['korea','korean','north korea','south korea','dprk','rok','pyongyang','seoul','dmz','kim jong','usfk','yongbyon','punggye','sinpo','sohae','freedom shield'];
 const contextualTerms=['missile','srbm','mrbm','icbm','nuclear','ballistic','artillery','drone','submarine','launch'];
 const strategicTerms=['missile','srbm','mrbm','icbm','nuclear','ballistic','artillery','drone','submarine','launch','military','defense','defence','security','sanction','border','troops','army','naval','air base','usfk','dmz','kim jong','pyongyang','seoul','dprk','rok','yongbyon','punggye','sinpo','sohae','freedom shield'];
-function relevant(a){const s=text(a);return directTerms.some(t=>s.includes(t)) || (contextualTerms.some(t=>s.includes(t)) && ['north','south','dprk','rok','pyongyang','seoul','kim'].some(t=>s.includes(t)))}
+function primaryText(a){return [a.title,a.country,a.region,a.geo?.place,...(Array.isArray(a.tags)?a.tags:[])].filter(Boolean).join(' ').toLowerCase()}
+const highConfidenceKoreaTerms=['north korea','dprk','pyongyang','kim jong','dmz','usfk','yongbyon','punggye','sinpo','sohae','freedom shield'];
+const southKoreaTerms=['south korea','rok','seoul','korea','korean'];
+const koreaSecurityTerms=['missile','srbm','mrbm','icbm','ballistic','artillery','drone','submarine','launch','military','defense','defence','security','sanction','border','troops','army','naval','warship','air base','china','xi jinping','kim jong','usfk','dmz','freedom shield'];
+function relevant(a){const primary=primaryText(a);const body=text(a);return highConfidenceKoreaTerms.some(t=>primary.includes(t)) || (southKoreaTerms.some(t=>primary.includes(t)) && koreaSecurityTerms.some(t=>body.includes(t)))}
 function directRelevance(a){const s=[a.title,a.description,a.summary,a.contentSnippet,a.country,a.region,a.geo?.place,...(Array.isArray(a.tags)?a.tags:[])].filter(Boolean).join(' ').toLowerCase();return directTerms.some(t=>s.includes(t))}
 function strategicDirectRelevance(a){const s=[a.title,a.description,a.summary,a.contentSnippet,a.country,a.region,a.geo?.place,...(Array.isArray(a.tags)?a.tags:[])].filter(Boolean).join(' ').toLowerCase();return directTerms.some(t=>s.includes(t))&&strategicTerms.some(t=>s.includes(t))}
 function headlineStrategicRelevance(a){const s=String(a.title||'').toLowerCase();return directTerms.some(t=>s.includes(t))&&strategicTerms.some(t=>s.includes(t))}
