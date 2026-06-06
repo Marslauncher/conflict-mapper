@@ -65,6 +65,7 @@ Every theater watch page should include, either as full sections or sidebar modu
    - colored icon/title treatment for `Current Assessment`, `Things To Note`, `Things To Watch`, and `Escalation Likelihood`,
    - main-column/sidebar layout,
    - card rhythm, borders, spacing, and section title treatment,
+   - duplicated or clipped `Recent Think Tank Coverage` / regional-analysis modules,
    - text overflow, clipping, horizontal scrolling, blank panels, raw HTML, broken images, or map failures,
    - text-spacing defects such as `evidence.Routine` or `operational.Alert`.
 4. Confirm sidebar content remains readable and sticky on desktop, and collapses below the main column on mobile.

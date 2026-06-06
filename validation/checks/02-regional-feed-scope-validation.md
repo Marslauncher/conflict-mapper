@@ -14,6 +14,8 @@ Do not make code changes during this validation pass. Produce findings only.
 - Intelligence Feed contains only theater-relevant articles.
 - Referenced Reporting contains only theater-relevant articles.
 - Recent Think Tank Coverage is region-relevant.
+- Watch pages do not render duplicate think-tank modules in both the assessment source stack and sidebar/feed column unless explicitly requested.
+- If a think-tank module is removed to avoid clipping, verify the visible heading count and screenshot evidence rather than only checking old element IDs.
 - No unrelated global, Middle East, Europe, Africa, or generic non-regional articles appear unless directly tied to the theater.
 - Feed filtering logic uses region, country, title, summary, and tag relevance, not the raw global cache.
 
