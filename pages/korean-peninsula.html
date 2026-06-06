@@ -567,6 +567,7 @@ a:hover { text-decoration: underline; }
 .badge-strained { background: color-mix(in srgb, var(--red) 15%, transparent); color: var(--red); }
 .badge-active { background: color-mix(in srgb, var(--green) 12%, transparent); color: var(--green); }
 .badge-guarded { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+.badge-quiet { background: color-mix(in srgb, var(--faint) 12%, transparent); color: var(--faint); }
 .cond-value { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--text); }
 .cond-sub { font-family: var(--font-mono); font-size: var(--cm-side-menu-text-size, 10pt); color: var(--muted); margin-top: 2px; }
 .activity-list { display: flex; flex-direction: column; gap: 2px; max-height: 620px; overflow-y: auto; }
@@ -758,10 +759,10 @@ a:hover { text-decoration: underline; }
         <div class="section-title">Weather &amp; Sea State</div>
         <div class="section-assessment-note" id="weather-assessment-note"><strong>Weather assessment:</strong> Loading current reporting context before assigning operational relevance...</div>
         <div class="conditions-grid">
-          <div class="condition-cell"><div class="cond-label">Ground Conditions</div><div class="cond-value">Channeled</div><div class="cond-sub">mountains, tunnels, bridges, road chokepoints</div></div>
-          <div class="condition-cell"><div class="cond-label">Air Operations</div><div class="cond-value">Sensor Gated</div><div class="cond-sub">ceiling, visibility, crosswinds, runway state</div></div>
-          <div class="condition-cell"><div class="cond-label">Sea State</div><div class="cond-value">Dual Coast</div><div class="cond-sub">Yellow Sea, East Sea, Korea Strait</div></div>
-          <div class="condition-cell"><div class="cond-label">Civil Response</div><div class="cond-value">High Friction</div><div class="cond-sub">evacuation, shelters, repair, warning credibility</div></div>
+          <div class="condition-cell"><div class="cond-label">Ground Conditions</div><div class="cond-value" id="cond-ground-value">Loading</div><div class="cond-sub" id="cond-ground-sub">waiting for logistics/readiness signals</div></div>
+          <div class="condition-cell"><div class="cond-label">Air Operations</div><div class="cond-value" id="cond-air-value">Loading</div><div class="cond-sub" id="cond-air-sub">waiting for launch/air-defense signals</div></div>
+          <div class="condition-cell"><div class="cond-label">Sea State</div><div class="cond-value" id="cond-sea-value">Loading</div><div class="cond-sub" id="cond-sea-sub">waiting for maritime/shipyard signals</div></div>
+          <div class="condition-cell"><div class="cond-label">Civil Response</div><div class="cond-value" id="cond-civil-value">Loading</div><div class="cond-sub" id="cond-civil-sub">waiting for public-warning signals</div></div>
         </div>
       </section>
 
@@ -775,21 +776,21 @@ a:hover { text-decoration: underline; }
             <div class="force-bar"><span>Missiles</span><div class="force-track"><i style="width:86%"></i></div><strong>86</strong></div>
             <div class="force-bar"><span>Artillery</span><div class="force-track"><i style="width:82%"></i></div><strong>82</strong></div>
             <div class="force-bar"><span>Cyber / IO</span><div class="force-track"><i style="width:74%"></i></div><strong>74</strong></div>
-            <p>DPRK strength is crisis compression: missiles, artillery, nuclear rhetoric, SOF/drone incidents, cyber operations, and information pressure can create political and civilian stress quickly.</p>
+            <p id="dprk-force-note">Loading current DPRK coercive signal mix...</p>
           </div>
           <div class="force-card">
             <h3>ROK / US / Japan Advantages</h3>
             <div class="force-bar"><span>Air / ISR</span><div class="force-track"><i style="width:88%"></i></div><strong>88</strong></div>
             <div class="force-bar"><span>Missile Def.</span><div class="force-track"><i style="width:79%"></i></div><strong>79</strong></div>
             <div class="force-bar"><span>Sustainment</span><div class="force-track"><i style="width:84%"></i></div><strong>84</strong></div>
-            <p>Allied advantage depends on readiness, response ladders, missile-defense inventory, Japan access, public-warning resilience, logistics depth, and command continuity.</p>
+            <p id="allied-force-note">Loading current allied posture signal mix...</p>
           </div>
           <div class="force-card">
             <h3>Contested Variables</h3>
             <div class="force-bar"><span>Decision Time</span><div class="force-track"><i style="width:91%"></i></div><strong>91</strong></div>
             <div class="force-bar"><span>Public Trust</span><div class="force-track"><i style="width:76%"></i></div><strong>76</strong></div>
             <div class="force-bar"><span>Regional Load</span><div class="force-track"><i style="width:81%"></i></div><strong>81</strong></div>
-            <p>The matrix changes fastest when warning systems, cyber continuity, Japan access, interceptor sharing, or dual-contingency stress become active constraints.</p>
+            <p id="contested-force-note">Loading current contested-variable signal mix...</p>
           </div>
         </div>
       </section>
@@ -802,12 +803,12 @@ a:hover { text-decoration: underline; }
           <div class="section-badge"><span class="sb-num">§ 05</span><span class="sb-date">SIDEBAR</span></div>
           <div class="section-title">Situational Status</div>
           <div class="card"><div class="card-header"><div class="card-title">Current Threat Picture</div><span class="source-link-meta">Live</span></div><div class="card-body"><div class="status-grid">
-            <div class="status-item"><span class="status-item-label">DPRK Missile Posture</span><span class="status-badge badge-elevated">Elevated</span></div>
-            <div class="status-item"><span class="status-item-label">Artillery / MLRS</span><span class="status-badge badge-high">High</span></div>
-            <div class="status-item"><span class="status-item-label">Cyber / Space</span><span class="status-badge badge-ongoing">Ongoing</span></div>
-            <div class="status-item"><span class="status-item-label">ROK / US Posture</span><span class="status-badge badge-active">Active</span></div>
-            <div class="status-item"><span class="status-item-label">Public Warning</span><span class="status-badge badge-guarded">Guarded</span></div>
-            <div class="status-item"><span class="status-item-label">Alliance Coordination</span><span class="status-badge badge-active">Active</span></div>
+            <div class="status-item"><span class="status-item-label">DPRK Missile Posture</span><span class="status-badge badge-quiet" id="status-missile">Loading</span></div>
+            <div class="status-item"><span class="status-item-label">Artillery / MLRS</span><span class="status-badge badge-quiet" id="status-artillery">Loading</span></div>
+            <div class="status-item"><span class="status-item-label">Cyber / Space</span><span class="status-badge badge-quiet" id="status-cyber">Loading</span></div>
+            <div class="status-item"><span class="status-item-label">ROK / US Posture</span><span class="status-badge badge-quiet" id="status-alliance">Loading</span></div>
+            <div class="status-item"><span class="status-item-label">Public Warning</span><span class="status-badge badge-quiet" id="status-public">Loading</span></div>
+            <div class="status-item"><span class="status-item-label">Alliance Coordination</span><span class="status-badge badge-quiet" id="status-diplomatic">Loading</span></div>
           </div></div></div>
         </section>
 
@@ -1055,12 +1056,49 @@ function renderList(id, articles, empty){
 	    set('weather-assessment-note','<strong>Weather assessment:</strong> Current Korea-filtered RSS feed unavailable; no weather-operational relevance is assigned.');
 	    set('force-assessment-note','<strong>Force assessment:</strong> Current Korea-filtered RSS feed unavailable; force matrix remains a static baseline only.');
 	    set('strategy-assessment-note','<strong>Strategic brief:</strong> Current Korea-filtered RSS feed unavailable; no current strategic brief is rendered.');
+	    updateOperationalCards(currentStats, false);
 	    return;
 	  }
 	  set('map-assessment-note',`<strong>Map assessment:</strong> Fixed sites are contextualized against ${currentStats.military} current military/readiness indicators and ${currentStats.recent7.length} Korea-filtered articles from the last 7 days; markers are not live unit positions.`);
 	  set('weather-assessment-note',`<strong>Weather assessment:</strong> Weather and sea-state friction should be weighted only if current reporting shows movement, air, maritime, public-warning, or logistics activity. Current 30-day cache: ${currentStats.logistics} logistics/readiness, ${currentStats.artillery} fires/artillery, ${currentStats.missile} missile/launch indicators.`);
 	  set('force-assessment-note',`<strong>Force assessment:</strong> Baseline DPRK and allied capabilities are interpreted against the current feed: ${currentStats.military} military/readiness, ${currentStats.cyber} cyber/space, and ${currentStats.alliance} USFK/ROK/Japan/alliance indicators.`);
 	  set('strategy-assessment-note',`<strong>Strategic brief:</strong> Generated from ${articles.length} Korea-filtered RSS articles and ${think.length} Korea-relevant think-tank items. Current signal mix: ${currentStats.missile} missile/launch, ${currentStats.nuclear} nuclear, ${currentStats.cyber} cyber/space, ${currentStats.diplomatic} diplomatic/sanctions/leadership-contact.`);
+	  updateOperationalCards(currentStats, true);
+	}
+	function updateOperationalCards(stats, hasFeed){
+	  const setText=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
+	  const setBadge=(id,label,cls)=>{
+	    const el=document.getElementById(id);
+	    if(!el) return;
+	    el.textContent=label;
+	    el.className=`status-badge ${cls}`;
+	  };
+	  if(!hasFeed){
+	    ['cond-ground-value','cond-air-value','cond-sea-value','cond-civil-value'].forEach(id=>setText(id,'Feed unavailable'));
+	    ['cond-ground-sub','cond-air-sub','cond-sea-sub','cond-civil-sub'].forEach(id=>setText(id,'current article cache required'));
+	    ['status-missile','status-artillery','status-cyber','status-alliance','status-public','status-diplomatic'].forEach(id=>setBadge(id,'No Feed','badge-quiet'));
+	    setText('dprk-force-note','Current Korea-filtered RSS feed unavailable; DPRK coercive card is baseline only.');
+	    setText('allied-force-note','Current Korea-filtered RSS feed unavailable; allied posture card is baseline only.');
+	    setText('contested-force-note','Current Korea-filtered RSS feed unavailable; contested-variable card is baseline only.');
+	    return;
+	  }
+	  setText('cond-ground-value',stats.logistics>2?'Movement Watch':'No Movement Cluster');
+	  setText('cond-ground-sub',`${stats.logistics} logistics/readiness indicators in 30-day cache`);
+	  setText('cond-air-value',stats.missile>0?'Launch Watch':'No Launch Cluster');
+	  setText('cond-air-sub',`${stats.missile} missile/launch indicators; correlate with air-defense reporting`);
+	  setText('cond-sea-value',stats.logistics+stats.diplomatic>5?'Maritime Watch':'Context Only');
+	  setText('cond-sea-sub',`${stats.logistics} logistics/shipyard and ${stats.diplomatic} diplomatic indicators`);
+	  setText('cond-civil-value',stats.publicWarning>0?'Warning Watch':'No Warning Cluster');
+	  setText('cond-civil-sub',`${stats.publicWarning} public-warning/civil-response indicators`);
+	  setBadge('status-missile',stats.missile>3?'Elevated':stats.missile>0?'Watch':'Quiet',stats.missile>3?'badge-elevated':stats.missile>0?'badge-guarded':'badge-quiet');
+	  setBadge('status-artillery',stats.artillery>1?'High':stats.artillery>0?'Watch':'Quiet',stats.artillery>1?'badge-high':stats.artillery>0?'badge-guarded':'badge-quiet');
+	  setBadge('status-cyber',stats.cyber>1?'Ongoing':stats.cyber>0?'Watch':'Quiet',stats.cyber>1?'badge-ongoing':stats.cyber>0?'badge-guarded':'badge-quiet');
+	  setBadge('status-alliance',stats.alliance>2?'Active':stats.alliance>0?'Watch':'Quiet',stats.alliance>2?'badge-active':stats.alliance>0?'badge-guarded':'badge-quiet');
+	  setBadge('status-public',stats.publicWarning>1?'Guarded':stats.publicWarning>0?'Watch':'Quiet',stats.publicWarning>1?'badge-guarded':stats.publicWarning>0?'badge-elevated':'badge-quiet');
+	  setBadge('status-diplomatic',stats.diplomatic>2?'Active':stats.diplomatic>0?'Watch':'Quiet',stats.diplomatic>2?'badge-active':stats.diplomatic>0?'badge-guarded':'badge-quiet');
+	  setText('dprk-force-note',`Current feed shows ${stats.missile} missile/launch, ${stats.nuclear} nuclear, ${stats.artillery} artillery, and ${stats.logistics} logistics/readiness indicators.`);
+	  setText('allied-force-note',`Current feed shows ${stats.alliance} USFK/ROK/Japan/alliance indicators and ${stats.diplomatic} diplomatic/sanctions/leadership-contact indicators.`);
+	  setText('contested-force-note',`Current contested variables: ${stats.cyber} cyber/space, ${stats.publicWarning} public-warning, and ${stats.recent7.length} Korea-filtered articles over the last 7 days.`);
 	}
 	function updateAssessmentNote(articles, think){
 	  const el=document.getElementById('assessment-live-note');
