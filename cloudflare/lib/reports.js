@@ -1477,7 +1477,7 @@ function normalizeReportBody({ body, title, scope, slug, articles, aiFallback = 
         body: koreaWatch.body,
         changed: true,
         fallback: aiFallback,
-        message: `Korean Peninsula watch report was missing required sections; appended ${koreaWatch.missing.join(', ')}`,
+        message: describeKoreaWatchNormalization(koreaWatch),
       };
     }
     return { body: cleaned, changed: false, fallback: aiFallback, message: 'Report body already uses the styled report structure' };
@@ -1491,7 +1491,7 @@ function normalizeReportBody({ body, title, scope, slug, articles, aiFallback = 
       changed: true,
       fallback: aiFallback,
       message: koreaWatch.changed
-        ? `AI report body converted to styled panels and appended missing Korean Peninsula watch sections: ${koreaWatch.missing.join(', ')}`
+        ? describeKoreaWatchNormalization(koreaWatch)
         : 'AI report body did not preserve styled class structure; converted plain sections to styled report panels',
     };
   }
@@ -1509,7 +1509,7 @@ function normalizeReportBody({ body, title, scope, slug, articles, aiFallback = 
     changed: true,
     fallback: true,
     message: koreaWatch.changed
-      ? `AI report body used deterministic fallback and appended Korean Peninsula watch sections: ${koreaWatch.missing.join(', ')}`
+      ? describeKoreaWatchNormalization(koreaWatch)
       : 'AI report body did not preserve styled class structure; using deterministic styled fallback renderer',
   };
 }
@@ -1543,12 +1543,62 @@ function enforceKoreaWatchSections(body, { scope, slug, articles }) {
     'Escalation Likelihood',
   ];
   const missing = required.filter((name) => !plain.includes(name));
-  if (!missing.length) return { body, changed: false, missing: [] };
-  const additions = missing
+  const genericSections = [
+    'Global Trends',
+    'Breaking Developments',
+    'Areas of Concern',
+    'Regional Assessments',
+    'Near-Term Outlook',
+    'Watch List',
+    'Watch Trends',
+  ].filter((name) => plain.includes(name));
+  if (!missing.length && !genericSections.length) return { body, changed: false, missing: [] };
+  return {
+    body: buildKoreaWatchReportBody({ sourceBody: body, articles, required }),
+    changed: true,
+    missing,
+    genericSections,
+  };
+}
+
+function describeKoreaWatchNormalization(result) {
+  const details = [];
+  if (result.missing?.length) details.push(`missing sections: ${result.missing.join(', ')}`);
+  if (result.genericSections?.length) details.push(`generic sections removed: ${result.genericSections.join(', ')}`);
+  return `Korean Peninsula watch report was normalized to the required theater-watch section structure${details.length ? ` (${details.join('; ')})` : ''}`;
+}
+
+function buildKoreaWatchReportBody({ sourceBody, articles, required }) {
+  const summary = koreaWatchExecutiveSummary(sourceBody, articles);
+  const sections = required
     .map((name) => koreaWatchSection(name, articles))
     .filter(Boolean)
     .join('\n');
-  return { body: `${body}\n${additions}`, changed: Boolean(additions), missing };
+  return `<div class="exec-summary">
+  <strong>EXECUTIVE SUMMARY</strong>
+  ${escapeHtml(summary)}
+</div>
+
+${sections}`;
+}
+
+function koreaWatchExecutiveSummary(sourceBody, articles = []) {
+  const existing = String(sourceBody || '')
+    .match(/<div[^>]+class=["'][^"']*exec-summary[^"']*["'][^>]*>([\s\S]*?)<\/div>/i)?.[1]
+    ?.replace(/<[^>]*>/g, ' ')
+    .replace(/\bEXECUTIVE SUMMARY\b/i, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (existing && !/(global trends|breaking developments|regional assessments|near-term outlook)/i.test(existing)) {
+    return existing;
+  }
+  const sourceArticles = Array.isArray(articles) ? articles : [];
+  const themes = sourceArticles
+    .slice(0, 5)
+    .map((article) => shortTitle(article.title || article.description || 'source item'))
+    .filter(Boolean)
+    .join('; ');
+  return `Korean Peninsula monitoring remains focused on DPRK missile, nuclear, artillery, cyber, and political-signaling indicators, with escalation risk rising when military posture changes converge with alliance readiness stress, public-warning friction, maritime or air activity, and Japan-access implications. Current source themes: ${themes || 'no high-signal Korea source articles were attached'}.`;
 }
 
 function koreaWatchSection(name, articles = []) {
