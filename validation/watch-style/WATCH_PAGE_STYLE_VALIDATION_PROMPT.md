@@ -70,8 +70,10 @@ Every theater watch page should include, either as full sections or sidebar modu
    - text-spacing defects such as `evidence.Routine` or `operational.Alert`.
 4. Confirm sidebar content remains readable and sticky on desktop, and collapses below the main column on mobile.
 5. Confirm live feeds are scoped to the page theater and do not include unrelated regional articles.
-6. Confirm theme and text-size settings propagate to the watch page by checking CSS variables from `/assets/user-style.js` or by visual comparison after applying a non-default style profile.
-7. After pushing to GitHub, wait the configured Cloudflare propagation interval, open the production page, repeat the screenshot validation, and summarize the findings in the final response.
+6. Confirm Current Regional Assessment, Strategic Brief, map/weather/force notes, and sidebar status are populated from current region-filtered articles or show an explicit feed-unavailable state.
+7. Confirm no static boilerplate is presented as current analysis; current sections should include article counts, latest titles, publication dates, signal counts, or current feed-unavailable language.
+8. Confirm theme and text-size settings propagate to the watch page by checking CSS variables from `/assets/user-style.js` or by visual comparison after applying a non-default style profile.
+9. After pushing to GitHub, wait the configured Cloudflare propagation interval, open the production page, repeat the screenshot validation, and summarize the findings in the final response.
 
 ## Acceptance Standard
 
