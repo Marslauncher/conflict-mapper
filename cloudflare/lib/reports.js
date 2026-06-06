@@ -813,7 +813,10 @@ function reportCountryAliases(slug) {
 
 export function buildSystemPrompt(scope = 'global') {
   const watchInstruction = scope === 'watch'
-    ? '- This is a threat watch product. Emphasize warning indicators, likely escalation paths, military posture, cyber/information pressure, logistics, weather/terrain effects, alliance decision stress, and collection gaps for the requested theater.\n'
+    ? `- This is a threat watch product. Emphasize warning indicators, likely escalation paths, military posture, cyber/information pressure, logistics, weather/terrain effects, alliance decision stress, and collection gaps for the requested theater.
+- For watch products, do not use generic "Global Trends" or generic global-report section titles. Use theater-watch section titles inside the same styled HTML classes: Current Regional Assessment, Recent Think Tank Coverage, Operational Map, Situational Status, Weather & Sea State, Intelligence Feed, Force Comparison, Strategic Assessment, Current Assessment, Things To Note, Things To Watch, and Escalation Likelihood.
+- For each theater-watch section, use <div class="section"><div class="section-header"><span class="section-title">SECTION NAME</span><span class="section-label">SHORT LABEL</span></div>...</div>. Use trend-card, panel, feed-row, risk-row, theater-row, outlook-box, and watch-row classes as needed, but preserve the requested section names exactly.
+`
     : '';
   return `You are the Conflict Mapper intelligence report engine. Write in the style of a daily OSINT watch-center product for enterprise infrastructure, security, and executive risk teams.
 
