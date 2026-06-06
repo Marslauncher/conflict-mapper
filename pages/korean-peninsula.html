@@ -121,11 +121,85 @@ a:hover { text-decoration: underline; }
 .force-track { height: 10px; border-radius: 999px; background: var(--surface-3); overflow: hidden; }
 .force-track i { display: block; height: 100%; background: var(--accent); }
 .strategic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-.strategic-card { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 18px; }
-.strategic-card ul { margin: 0; padding-left: 20px; color: var(--muted); }
-.strategic-card li { margin-bottom: 8px; }
+.strategic-card {
+  --card-accent: var(--accent);
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--card-accent) 7%, transparent), transparent 42%),
+    linear-gradient(180deg, var(--surface), color-mix(in srgb, var(--surface-2) 76%, var(--surface)));
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--card-accent) 10%, transparent);
+}
+.strategic-card.current { --card-accent: var(--red); }
+.strategic-card.note { --card-accent: var(--accent); }
+.strategic-card.watch { --card-accent: var(--amber); }
+.strategic-card.likelihood { --card-accent: var(--green); }
+.strategic-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.strategic-card-head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, var(--cm-header-text-size, 24pt), 1.8rem);
+  line-height: 1;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--card-accent);
+}
+.strategic-icon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--card-accent) 42%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--card-accent) 12%, var(--surface));
+  color: var(--card-accent);
+  font-family: var(--font-mono);
+  font-size: var(--cm-commentary-text-size, 12pt);
+  line-height: 1;
+}
+.strategic-card-body { padding: 16px; }
+.strategic-list { list-style: none; margin: 0; padding: 0; color: var(--muted); }
+.strategic-list li {
+  position: relative;
+  margin: 0;
+  padding: 0 0 10px 18px;
+  font-size: var(--cm-article-text-size, 15pt);
+  line-height: 1.5;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 62%, transparent);
+}
+.strategic-list li + li { padding-top: 10px; }
+.strategic-list li:last-child { padding-bottom: 0; border-bottom: 0; }
+.strategic-list li:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .7em;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--card-accent);
+}
+.strategic-list li + li:before { top: calc(10px + .7em); }
+.strategic-list strong { color: var(--text); }
 .likelihood-stack { display: grid; gap: 10px; }
-.likelihood-row { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface-2); padding: 12px; }
+.likelihood-row {
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--card-accent) 7%, var(--surface-2));
+  padding: 12px 14px;
+  color: var(--muted);
+  line-height: 1.5;
+}
 .likelihood-row strong { color: var(--text); }
 .insight-item { position: relative; padding-right: 34px; }
 .info-dot { position: absolute; right: 0; top: 0; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border)); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); color: var(--accent); font-family: var(--font-mono); font-size: var(--cm-commentary-text-size, 12pt); cursor: help; }
@@ -594,10 +668,44 @@ a:hover { text-decoration: underline; }
     <div class="section-title">Strategic Brief</div>
     <div class="section-assessment-note"><strong>Strategic brief:</strong> Live reporting is monitored for escalation clusters: missile posture, artillery readiness, cyber/space disruption, nuclear rhetoric, public-warning friction, USFK/ROK posture, Japan access, and trilateral messaging.</div>
     <div class="strategic-grid">
-      <div class="strategic-card"><h3>Current Assessment</h3><p>The Korean Peninsula remains elevated but not invasion-imminent unless multiple indicators converge. The main watch problem is a coercive sequence: missile or artillery pressure, cyber/public-warning disruption, nuclear rhetoric, and allied consultation stress appearing together.</p></div>
-      <div class="strategic-card"><h3>Things To Note</h3><ul><li class="insight-item"><strong>Single launches are weak evidence.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">A missile test matters more when paired with launcher dispersal, ammunition movement, evacuation narratives, or explicit political demands.</span></span>Routine signaling remains lower concern without posture or logistics confirmation.</li><li class="insight-item"><strong>Public warning is operational.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">False alerts, delayed corrections, telecom outages, and rumor cascades can pressure leaders before battlefield conditions change.</span></span>Alert credibility should be monitored as a security variable.</li></ul></div>
-      <div class="strategic-card"><h3>Things To Watch</h3><ul><li class="insight-item"><strong>Missile plus artillery posture.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">This combination can compress response time and signal intent to control escalation before diplomacy catches up.</span></span>Watch SRBM/MRBM launches, 600mm MLRS, forward artillery movement, and hardened-site activity together.</li><li class="insight-item"><strong>Cyber or space shock.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">C2 disruption can turn a limited incident into a wider crisis by delaying verification, orders, and public guidance.</span></span>Watch GPS interference, government network disruption, telecom outages, and space-launch narratives.</li><li class="insight-item"><strong>Alliance friction.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">Pyongyang can exploit visible gaps between Seoul, Washington, and Tokyo even without major battlefield success.</span></span>Watch Japan access, USFK posture, evacuation guidance, and trilateral messaging.</li></ul></div>
-      <div class="strategic-card"><h3>Escalation Likelihood</h3><div class="likelihood-stack"><div class="likelihood-row"><strong>24 hours to 1 week:</strong> Elevated monitoring. Higher concern requires synchronized launch/artillery/cyber/public-warning indicators.</div><div class="likelihood-row"><strong>1 week to 6 months:</strong> Persistent coercion risk. Watch exercise cycles, sanctions pressure, nuclear rhetoric, US/ROK/Japan posture, and Taiwan-linked regional diversion.</div><div class="likelihood-row"><strong>6 months plus:</strong> Structural risk remains high because nuclear leverage, missiles, cyber tools, and alliance decision pressure are durable features of the theater.</div></div></div>
+      <div class="strategic-card current">
+        <div class="strategic-card-head"><span class="strategic-icon" aria-hidden="true">!</span><h3>Current Assessment</h3></div>
+        <div class="strategic-card-body">
+          <ul class="strategic-list">
+            <li>The Korean Peninsula remains elevated but not invasion-imminent unless multiple indicators converge.</li>
+            <li>The main watch problem is a coercive sequence: missile or artillery pressure, cyber/public-warning disruption, nuclear rhetoric, and allied consultation stress appearing together.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="strategic-card note">
+        <div class="strategic-card-head"><span class="strategic-icon" aria-hidden="true">S</span><h3>Things To Note</h3></div>
+        <div class="strategic-card-body">
+          <ul class="strategic-list">
+            <li class="insight-item"><strong>Single launches are weak evidence.</strong> <span class="info-dot" tabindex="0">i<span class="info-popover">A missile test matters more when paired with launcher dispersal, ammunition movement, evacuation narratives, or explicit political demands.</span></span>Routine signaling remains lower concern without posture or logistics confirmation.</li>
+            <li class="insight-item"><strong>Public warning is operational.</strong> <span class="info-dot" tabindex="0">i<span class="info-popover">False alerts, delayed corrections, telecom outages, and rumor cascades can pressure leaders before battlefield conditions change.</span></span>Alert credibility should be monitored as a security variable.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="strategic-card watch">
+        <div class="strategic-card-head"><span class="strategic-icon" aria-hidden="true">W</span><h3>Things To Watch</h3></div>
+        <div class="strategic-card-body">
+          <ul class="strategic-list">
+            <li class="insight-item"><strong>Missile plus artillery posture.</strong> <span class="info-dot" tabindex="0">i<span class="info-popover">This combination can compress response time and signal intent to control escalation before diplomacy catches up.</span></span>Watch SRBM/MRBM launches, 600mm MLRS, forward artillery movement, and hardened-site activity together.</li>
+            <li class="insight-item"><strong>Cyber or space shock.</strong> <span class="info-dot" tabindex="0">i<span class="info-popover">C2 disruption can turn a limited incident into a wider crisis by delaying verification, orders, and public guidance.</span></span>Watch GPS interference, government network disruption, telecom outages, and space-launch narratives.</li>
+            <li class="insight-item"><strong>Alliance friction.</strong> <span class="info-dot" tabindex="0">i<span class="info-popover">Pyongyang can exploit visible gaps between Seoul, Washington, and Tokyo even without major battlefield success.</span></span>Watch Japan access, USFK posture, evacuation guidance, and trilateral messaging.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="strategic-card likelihood">
+        <div class="strategic-card-head"><span class="strategic-icon" aria-hidden="true">%</span><h3>Escalation Likelihood</h3></div>
+        <div class="strategic-card-body">
+          <div class="likelihood-stack">
+            <div class="likelihood-row"><strong>24 hours to 1 week:</strong> Elevated monitoring. Higher concern requires synchronized launch/artillery/cyber/public-warning indicators.</div>
+            <div class="likelihood-row"><strong>1 week to 6 months:</strong> Persistent coercion risk. Watch exercise cycles, sanctions pressure, nuclear rhetoric, US/ROK/Japan posture, and Taiwan-linked regional diversion.</div>
+            <div class="likelihood-row"><strong>6 months plus:</strong> Structural risk remains high because nuclear leverage, missiles, cyber tools, and alliance decision pressure are durable features of the theater.</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 

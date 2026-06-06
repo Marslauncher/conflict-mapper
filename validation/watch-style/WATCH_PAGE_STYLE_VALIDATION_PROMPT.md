@@ -2,6 +2,12 @@
 
 Use this prompt before accepting changes to any existing or newly created Conflict Mapper watch page.
 
+This prompt is part of the reusable validation gate set indexed in `validation/VALIDATION_CHECKS.md`. Use it with:
+
+- `validation/checks/01-watch-page-style-parity-validation.md`
+- `validation/checks/05-blank-watch-template-validation.md`
+- `pages/watch-page-template.html`
+
 ## Goal
 
 Validate that every watch page uses the same visual language, page composition, and responsive behavior as the China/Taiwan Strait Watch reference page unless a page-specific requirement explicitly overrides it.
@@ -19,9 +25,10 @@ Validate that every watch page uses the same visual language, page composition, 
    - if the reference watch page has `Strategic Brief` above `Current Regional Assessment`, preserve that order for parity,
    - otherwise place `Current Regional Assessment` directly below the hero,
    - numbered section badge,
-   - two-column assessment grid on desktop,
-   - left-side assessment narrative and bullet-like summary indicators,
-   - right-side `Referenced Reporting` and `Recent Think Tank Coverage` source stacks.
+   - 2x2 strategic card grid on desktop and single-column cards on mobile,
+   - compact surface/dark card treatment with colored icon/title headers,
+   - bullet/list body rows with visual separators,
+   - no oversized H3-only cards, raw paragraph slabs, or text-only strategic panels.
 4. Main content grid below the assessment:
    - primary left column for map, weather/sea state, force comparison, and strategic brief/assessment,
    - sticky right sidebar for situational status, live intelligence feed, think tank feed, and cross-reference or war-game linkage.
@@ -54,9 +61,12 @@ Every theater watch page should include, either as full sections or sidebar modu
 3. Compare the screenshots visually for:
    - hero density and metrics alignment,
    - full-width assessment placement,
+   - Strategic Brief card parity with the reference screenshot,
+   - colored icon/title treatment for `Current Assessment`, `Things To Note`, `Things To Watch`, and `Escalation Likelihood`,
    - main-column/sidebar layout,
    - card rhythm, borders, spacing, and section title treatment,
-   - text overflow, clipping, horizontal scrolling, blank panels, raw HTML, broken images, or map failures.
+   - text overflow, clipping, horizontal scrolling, blank panels, raw HTML, broken images, or map failures,
+   - text-spacing defects such as `evidence.Routine` or `operational.Alert`.
 4. Confirm sidebar content remains readable and sticky on desktop, and collapses below the main column on mobile.
 5. Confirm live feeds are scoped to the page theater and do not include unrelated regional articles.
 6. Confirm theme and text-size settings propagate to the watch page by checking CSS variables from `/assets/user-style.js` or by visual comparison after applying a non-default style profile.
