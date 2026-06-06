@@ -160,259 +160,586 @@ a:hover { text-decoration: underline; }
 .war-link-card h3 { margin-bottom: 8px; }
 .war-link-card .card-actions { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
 .war-link-card .card-actions span { font-family: var(--font-mono); font-size: var(--cm-commentary-text-size, 12pt); letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--border); border-radius: 6px; padding: 5px 8px; color: var(--muted); background: var(--surface-2); }
-@media (max-width: 1100px) { .grid.two, .grid.three, .grid.four, .strategic-grid { grid-template-columns: 1fr; } .article, .war-link-card { grid-template-columns: 1fr; } .article img, .war-link-card img { width: 100%; height: 180px; } }
-@media (max-width: 720px) { .section { padding: 34px 14px; } .hero { padding-left: 14px; padding-right: 14px; } #peninsula-map { height: 540px; } .status { width: 100%; } }
+.page {
+  width: var(--cm-content-max-width, min(90vw, calc(100vw - 32px)));
+  max-width: none;
+  margin: 0 auto;
+  padding: 0 0 60px;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 48px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  backdrop-filter: blur(10px);
+}
+.topbar-logo {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.topbar-logo span { color: var(--accent); }
+.topbar-sep { width: 1px; height: 20px; background: var(--border); }
+.topbar-crumb,
+.topbar-link {
+  font-family: var(--font-mono);
+  font-size: var(--cm-side-menu-text-size, 10pt);
+  color: var(--faint);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.topbar-links { display: flex; gap: 4px; margin-left: auto; }
+.topbar-link { padding: 4px 10px; border-radius: 6px; }
+.topbar-link:hover { color: var(--text); background: var(--surface-2); text-decoration: none; }
+.hero {
+  padding: 32px 28px 24px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--surface-3) 78%, var(--bg)) 0%, var(--bg) 100%);
+  overflow: hidden;
+}
+.hero:before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 50%, color-mix(in srgb, var(--red) 10%, transparent) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 50%, color-mix(in srgb, var(--accent) 10%, transparent) 0%, transparent 55%);
+  pointer-events: none;
+}
+.hero-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--cm-commentary-text-size, 12pt);
+  letter-spacing: .22em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.hero-eyebrow:before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+.hero-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: .04em;
+  color: var(--text);
+  text-transform: uppercase;
+}
+.hero-title .flags { font-size: 1.35em; letter-spacing: 0; }
+.hero-meta {
+  font-family: var(--font-mono);
+  font-size: var(--cm-side-menu-text-size, 10pt);
+  color: var(--faint);
+  text-align: right;
+  line-height: 1.85;
+  text-transform: uppercase;
+}
+.hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.threat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: var(--cm-side-menu-text-size, 10pt);
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.threat-badge.elevated { background: color-mix(in srgb, var(--amber) 15%, transparent); color: var(--amber); border: 1px solid color-mix(in srgb, var(--amber) 32%, transparent); }
+.threat-badge.high { background: color-mix(in srgb, var(--red) 14%, transparent); color: var(--red); border: 1px solid color-mix(in srgb, var(--red) 34%, transparent); }
+.threat-badge.active { background: color-mix(in srgb, var(--green) 12%, transparent); color: var(--green); border: 1px solid color-mix(in srgb, var(--green) 32%, transparent); }
+.threat-badge.guarded { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent); }
+.threat-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.metrics-bar {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+.metric-cell {
+  background: var(--surface);
+  padding: 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.metric-value {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+}
+.metric-sub { font-family: var(--font-mono); font-size: var(--cm-side-menu-text-size, 10pt); color: var(--faint); }
+.page-section {
+  margin: 20px 0 0;
+  padding: 0 20px;
+  border-bottom: 0;
+}
+.page-section .section-title,
+.main-col-right .section-title {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(.9rem, var(--cm-navigation-text-size, 16pt), 1.25rem);
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.page-section .section-title:after,
+.main-col-right .section-title:after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.section-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.sb-num,
+.sb-date {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 3px 7px;
+  background: var(--surface-2);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: var(--cm-side-menu-text-size, 10pt);
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.sb-date { color: var(--faint); }
+.current-assessment-card {
+  background: linear-gradient(180deg, var(--surface), color-mix(in srgb, var(--surface-2) 64%, var(--surface)));
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  overflow: hidden;
+}
+.current-assessment-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(340px, .75fr);
+  gap: 22px;
+}
+.assessment-lede {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 22px;
+  row-gap: 12px;
+  color: var(--text);
+  font-size: var(--cm-article-text-size, 15pt);
+  line-height: 1.65;
+}
+.assessment-lede p { margin: 0; }
+.assessment-lede .assessment-wide { grid-column: 1 / -1; }
+.assessment-summary-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 14px;
+}
+.assessment-summary-item {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  color: var(--muted);
+  font-size: var(--cm-commentary-text-size, 12pt);
+  line-height: 1.5;
+}
+.assessment-summary-item:before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex: 0 0 auto;
+}
+.source-stack { display: flex; flex-direction: column; gap: 8px; }
+.current-assessment-grid > .source-stack { max-height: 680px; overflow: auto; padding-right: 2px; }
+.source-link-card {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: inherit;
+}
+.source-link-card:hover { border-color: var(--border-strong); background: var(--surface-3); text-decoration: none; }
+.source-link-title {
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: var(--cm-article-text-size, 15pt);
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+.source-link-meta {
+  margin-top: 4px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--cm-side-menu-text-size, 10pt);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, 34vw);
+  gap: 22px;
+  width: var(--cm-content-max-width, min(90vw, calc(100vw - 32px)));
+  max-width: none;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+.main-grid .page-section { padding: 0; }
+.sidebar-sticky { position: sticky; top: 68px; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.card-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: clamp(.86rem, var(--cm-navigation-text-size, 16pt), 1.2rem);
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.card-body { padding: 16px 18px; }
+.section-assessment-note {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--cyan) 6%, var(--surface));
+  color: var(--muted);
+  font-size: var(--cm-commentary-text-size, 12pt);
+  line-height: 1.55;
+}
+.section-assessment-note strong {
+  color: var(--text);
+  font-family: var(--font-display);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.conditions-grid,
+.status-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.status-item,
+.condition-cell {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+}
+.status-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.status-item-label,
+.cond-label { font-family: var(--font-mono); font-size: var(--cm-side-menu-text-size, 10pt); color: var(--faint); text-transform: uppercase; letter-spacing: .1em; }
+.status-badge {
+  font-family: var(--font-mono);
+  font-size: var(--cm-side-menu-text-size, 10pt);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.badge-elevated,
+.badge-ongoing { background: color-mix(in srgb, var(--amber) 15%, transparent); color: var(--amber); }
+.badge-high,
+.badge-strained { background: color-mix(in srgb, var(--red) 15%, transparent); color: var(--red); }
+.badge-active { background: color-mix(in srgb, var(--green) 12%, transparent); color: var(--green); }
+.badge-guarded { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+.cond-value { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--text); }
+.cond-sub { font-family: var(--font-mono); font-size: var(--cm-side-menu-text-size, 10pt); color: var(--muted); margin-top: 2px; }
+.activity-list { display: flex; flex-direction: column; gap: 2px; max-height: 620px; overflow-y: auto; }
+.activity-list .article {
+  grid-template-columns: 88px minmax(0, 1fr);
+  padding: 10px;
+  border-color: transparent;
+  background: transparent;
+}
+.activity-list .article:hover { background: var(--surface-2); border-color: var(--border); }
+.activity-list .article img { width: 88px; height: 66px; }
+.activity-list .article-summary { -webkit-line-clamp: 2; }
+.war-link-list { display: grid; gap: 10px; }
+.war-link-list .war-link-card { grid-template-columns: 92px minmax(0, 1fr); margin: 0; }
+.war-link-list .war-link-card img { width: 92px; height: 100%; min-height: 86px; }
+.strategic-brief-section { width: 100%; }
+@media (max-width: 1200px) {
+  .main-grid,
+  .current-assessment-grid { grid-template-columns: 1fr; }
+  .sidebar-sticky { position: static; }
+}
+@media (max-width: 1100px) { .grid.two, .grid.three, .grid.four, .strategic-grid, .force-grid { grid-template-columns: 1fr; } .article, .war-link-card { grid-template-columns: 1fr; } .article img, .war-link-card img { width: 100%; height: 180px; } }
+@media (max-width: 720px) {
+  .topbar { padding: 0 12px; overflow-x: auto; }
+  .hero { padding-left: 14px; padding-right: 14px; }
+  .metrics-bar,
+  .assessment-lede,
+  .assessment-summary-list,
+  .conditions-grid,
+  .status-grid { grid-template-columns: 1fr; }
+  .main-grid,
+  .page-section { padding-left: 14px; padding-right: 14px; }
+  .main-grid .page-section { padding-left: 0; padding-right: 0; }
+  #peninsula-map { height: 540px; }
+}
 </style>
 <script src="/assets/user-style.js"></script>
 </head>
 <body>
+<nav class="topbar" aria-label="Watch navigation">
+  <a href="../index.html" class="topbar-logo">Conflict<span>Mapper</span></a>
+  <div class="topbar-sep"></div>
+  <div class="topbar-crumb">Northeast Asia / Korean Peninsula Watch</div>
+  <div class="topbar-links">
+    <a class="topbar-link" href="taiwan-strait.html">Taiwan Watch</a>
+    <a class="topbar-link" href="korean-peninsula-war-games.html">War Games</a>
+    <a class="topbar-link" href="../index.html">Dashboard</a>
+  </div>
+</nav>
+
 <header class="hero">
   <div class="hero-inner">
-    <div class="eyebrow">Northeast Asia // Armistice Theater Watch</div>
-    <h1>Korean Peninsula</h1>
-  <p>Live watch page for North and South Korean security reporting, nuclear and missile facilities, DMZ geography, major cities, and current escalation indicators. The map includes a curated open-source set of known and reported DPRK nuclear, missile, air, and military nodes plus ROK/US base infrastructure, and the page filters the local RSS cache for Korea-relevant reporting.</p>
-    <div class="status-row">
-      <span class="status red">DPRK Nuclear: Active</span>
-      <span class="status amber">DMZ Posture: Elevated</span>
-      <span class="status green">ROK / US Alliance: Active</span>
-      <span class="status">Regional Spillover Risk: Monitored</span>
+    <div class="hero-top">
+      <div>
+        <div class="hero-eyebrow">Northeast Asia Theater &mdash; Armistice Watch File</div>
+        <h1 class="hero-title"><span class="flags">🇰🇵 🇰🇷</span> Korean Peninsula<br>Threat Watch</h1>
+        <div class="hero-badges">
+          <span class="threat-badge high"><span class="threat-dot"></span>DPRK Nuclear: Active</span>
+          <span class="threat-badge elevated"><span class="threat-dot"></span>DMZ Posture: Elevated</span>
+          <span class="threat-badge active"><span class="threat-dot"></span>ROK / US Alliance: Active</span>
+          <span class="threat-badge guarded"><span class="threat-dot"></span>Spillover: Monitored</span>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <div>LAST UPDATED: <span id="hero-ts">--</span></div>
+        <div>SOURCE: OSINT / OPEN-SOURCE FEEDS</div>
+        <div>CLASSIFICATION: UNCLASSIFIED</div>
+        <div>FILE: KP-WATCH-2026</div>
+      </div>
+    </div>
+    <div class="metrics-bar">
+      <div class="metric-cell">
+        <div class="metric-label">Korea Articles</div>
+        <div class="metric-value" id="metric-articles">0</div>
+        <div class="metric-sub">Korea-filtered reports</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-label">Sources</div>
+        <div class="metric-value" id="metric-sources">0</div>
+        <div class="metric-sub">RSS / open-source feeds</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-label">Think Tank Hits</div>
+        <div class="metric-value" id="metric-thinktanks">0</div>
+        <div class="metric-sub">regional analysis items</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-label">Mapped Nodes</div>
+        <div class="metric-value" id="metric-map-points">0</div>
+        <div class="metric-sub">static theater reference</div>
+      </div>
     </div>
   </div>
 </header>
 
-<section class="section" id="assessment">
-  <h2 class="section-title"><span class="sec-num">01</span>Current Regional Assessment</h2>
-  <div class="grid four">
-    <div class="card"><div class="metric" id="metric-articles">0</div><div class="metric-label">Korea Articles</div></div>
-    <div class="card"><div class="metric" id="metric-sources">0</div><div class="metric-label">Sources</div></div>
-    <div class="card"><div class="metric" id="metric-thinktanks">0</div><div class="metric-label">Think Tank Hits</div></div>
-    <div class="card"><div class="metric" id="metric-map-points">0</div><div class="metric-label">Mapped Nodes</div></div>
-  </div>
-  <div class="grid two" style="margin-top:16px">
-    <div class="card assessment-card">
-      <h3>Assessment Summary</h3>
-      <p>The Korean Peninsula remains a high-risk armistice theater where a limited incident can quickly become a nuclear-signaling, cyber, public-warning, and alliance-consultation problem. The core danger is not only a large invasion. It is a fast coercive sequence in which missile launches, artillery posture, nuclear rhetoric, SOF or drone incidents, cyber disruption, and public fear force Seoul and Washington to make visible decisions under pressure.</p>
-      <p>Current assessment should focus on convergence. A routine missile test or rhetorical statement is weaker evidence than a cluster that combines launcher dispersal, forward fires readiness, evacuation narratives, cyber disruption, unusual USFK/ROK posture, or inconsistent allied messaging. The watch page therefore treats fresh reporting as a signal only when it changes capability, intent, logistics, public-warning continuity, alliance cohesion, or escalation risk.</p>
-      <ul>
-        <li><strong>Primary watch logic:</strong> missile posture plus artillery readiness plus political demands is more important than any single launch headline.</li>
-        <li><strong>Civil risk logic:</strong> Seoul-Incheon exposure means public-warning failures, false alerts, and evacuation rumors can become operational pressure.</li>
-        <li><strong>Alliance logic:</strong> USFK posture, Japan access, missile-defense inventory, and clear public messaging determine whether coercion creates a usable gap.</li>
-      </ul>
-      <div class="live-note" id="assessment-live-note"><strong>Live cache:</strong> Loading Korea-filtered reporting and think tank coverage...</div>
+<main class="page">
+  <section class="page-section strategic-brief-section" id="section-00-strategic-brief" data-section="00" data-title="Strategic Brief" data-last-updated="live">
+    <div class="section-badge"><span class="sb-num">§ 00</span><span class="sb-date">UPDATED LIVE FEED</span></div>
+    <div class="section-title">Strategic Brief</div>
+    <div class="section-assessment-note"><strong>Strategic brief:</strong> Live reporting is monitored for escalation clusters: missile posture, artillery readiness, cyber/space disruption, nuclear rhetoric, public-warning friction, USFK/ROK posture, Japan access, and trilateral messaging.</div>
+    <div class="strategic-grid">
+      <div class="strategic-card"><h3>Current Assessment</h3><p>The Korean Peninsula remains elevated but not invasion-imminent unless multiple indicators converge. The main watch problem is a coercive sequence: missile or artillery pressure, cyber/public-warning disruption, nuclear rhetoric, and allied consultation stress appearing together.</p></div>
+      <div class="strategic-card"><h3>Things To Note</h3><ul><li class="insight-item"><strong>Single launches are weak evidence.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">A missile test matters more when paired with launcher dispersal, ammunition movement, evacuation narratives, or explicit political demands.</span></span>Routine signaling remains lower concern without posture or logistics confirmation.</li><li class="insight-item"><strong>Public warning is operational.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">False alerts, delayed corrections, telecom outages, and rumor cascades can pressure leaders before battlefield conditions change.</span></span>Alert credibility should be monitored as a security variable.</li></ul></div>
+      <div class="strategic-card"><h3>Things To Watch</h3><ul><li class="insight-item"><strong>Missile plus artillery posture.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">This combination can compress response time and signal intent to control escalation before diplomacy catches up.</span></span>Watch SRBM/MRBM launches, 600mm MLRS, forward artillery movement, and hardened-site activity together.</li><li class="insight-item"><strong>Cyber or space shock.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">C2 disruption can turn a limited incident into a wider crisis by delaying verification, orders, and public guidance.</span></span>Watch GPS interference, government network disruption, telecom outages, and space-launch narratives.</li><li class="insight-item"><strong>Alliance friction.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">Pyongyang can exploit visible gaps between Seoul, Washington, and Tokyo even without major battlefield success.</span></span>Watch Japan access, USFK posture, evacuation guidance, and trilateral messaging.</li></ul></div>
+      <div class="strategic-card"><h3>Escalation Likelihood</h3><div class="likelihood-stack"><div class="likelihood-row"><strong>24 hours to 1 week:</strong> Elevated monitoring. Higher concern requires synchronized launch/artillery/cyber/public-warning indicators.</div><div class="likelihood-row"><strong>1 week to 6 months:</strong> Persistent coercion risk. Watch exercise cycles, sanctions pressure, nuclear rhetoric, US/ROK/Japan posture, and Taiwan-linked regional diversion.</div><div class="likelihood-row"><strong>6 months plus:</strong> Structural risk remains high because nuclear leverage, missiles, cyber tools, and alliance decision pressure are durable features of the theater.</div></div></div>
     </div>
-    <div class="card">
-      <h3>Priority Indicators</h3>
-      <div class="indicator-grid">
-        <div class="indicator-card"><strong>SRBM / MRBM Launches</strong><span>Watch for launches that coincide with dispersal, hardened-site activity, nuclear rhetoric, or demands. Routine testing remains lower concern unless it synchronizes with other pressure.</span></div>
-        <div class="indicator-card"><strong>600mm MLRS / Artillery</strong><span>Forward fires posture near Seoul, ammunition movement, unusual shelters, and command delegation signals would shift concern faster than public rhetoric alone.</span></div>
-        <div class="indicator-card"><strong>Punggye-ri / Yongbyon</strong><span>Nuclear-site reporting matters most when paired with missile activity, tactical nuclear language, cyber disruption, or visible allied consultation stress.</span></div>
-        <div class="indicator-card"><strong>SOF / Drone Incidents</strong><span>Small incursions become escalation probes when synchronized with artillery alerts, cyber outages, EW activity, public fear, or information operations.</span></div>
-        <div class="indicator-card"><strong>USFK / Freedom Shield</strong><span>Exercise responses reveal readiness, proportional-response options, air and missile defense posture, and whether public messaging remains disciplined under pressure.</span></div>
-        <div class="indicator-card"><strong>Regional Access</strong><span>Japan access, interceptor allocation, Guam logistics, diplomatic cover, and China border behavior determine whether a peninsula crisis remains contained.</span></div>
+  </section>
+
+  <section class="page-section current-assessment-section" id="section-01-current-assessment" data-section="01" data-title="Current Regional Assessment" data-last-updated="live">
+    <div class="section-badge"><span class="sb-num">§ 01</span><span class="sb-date">UPDATED LIVE FEED</span></div>
+    <div class="section-title">Current Regional Assessment</div>
+    <div class="current-assessment-card">
+      <div class="current-assessment-grid">
+        <div>
+          <div class="assessment-lede">
+            <p>The Korean Peninsula remains a high-risk armistice theater where a limited incident can quickly become a nuclear-signaling, cyber, public-warning, and alliance-consultation problem. The core danger is not only a large invasion; it is a fast coercive sequence that forces visible decisions under pressure.</p>
+            <p>Current assessment should focus on convergence. A routine missile test or rhetorical statement is weaker evidence than a cluster that combines launcher dispersal, forward fires readiness, evacuation narratives, cyber disruption, unusual USFK/ROK posture, or inconsistent allied messaging.</p>
+            <p class="assessment-wide">The watch page treats fresh reporting as a signal only when it changes capability, intent, logistics, public-warning continuity, alliance cohesion, or escalation risk.</p>
+          </div>
+          <div class="assessment-summary-list">
+            <div class="assessment-summary-item"><strong>Missile posture plus artillery readiness plus political demands is more important than any single launch headline.</strong></div>
+            <div class="assessment-summary-item"><strong>Seoul-Incheon exposure means public-warning failures, false alerts, and evacuation rumors can become operational pressure.</strong></div>
+            <div class="assessment-summary-item"><strong>USFK posture, Japan access, missile-defense inventory, and clear public messaging determine whether coercion creates a usable gap.</strong></div>
+            <div class="assessment-summary-item"><strong>Cyber, space, and information effects should be elevated only when synchronized with military or political pressure.</strong></div>
+          </div>
+          <div class="section-assessment-note" id="assessment-live-note" style="margin-top:14px"><strong>Live cache:</strong> Loading Korea-filtered reporting and think tank coverage...</div>
+        </div>
+        <div class="source-stack">
+          <div class="card-title">Referenced Reporting</div>
+          <div id="current-source-links" class="source-stack">
+            <div class="source-link-card"><div class="source-link-meta">Loading Korea sources...</div></div>
+          </div>
+          <div class="card-title" style="margin-top:8px">Recent Think Tank Coverage</div>
+          <div id="think-tank-source-links" class="source-stack">
+            <div class="source-link-card"><div class="source-link-meta">Loading Korea think tank sources...</div></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section" id="think-tank-coverage">
-  <h2 class="section-title"><span class="sec-num">02</span>Recent Think Tank Coverage</h2>
-  <p class="section-lede">Korea-specific think tank reporting is treated as assessment input, not a bibliography. Items below should change the watch picture only when they clarify readiness, signaling, escalation pathways, public-warning resilience, or alliance coordination.</p>
-  <div class="grid two">
-    <div class="card">
-      <h3>Regional Analysis Feed</h3>
-      <div class="feed" id="thinktank-feed"><div class="article-meta">Loading think tank cache...</div></div>
+  <div class="main-grid">
+    <div class="main-col-left">
+      <section class="page-section" id="section-01-map" data-section="01" data-title="Operational Map" data-last-updated="live">
+        <div class="section-badge"><span class="sb-num">§ 01</span><span class="sb-date">STATIC REFERENCE / LIVE CONTEXT</span></div>
+        <div class="section-title">Operational Map</div>
+        <div class="section-assessment-note"><strong>Map assessment:</strong> Fixed geography and known military infrastructure shape warning time. Markers are a curated reference layer; they do not imply confirmed real-time unit positions.</div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Korean Peninsula &mdash; Armistice Theater</div>
+            <button type="button" id="toggle-map-size" class="map-tools-button">Expand map</button>
+          </div>
+          <div class="card-body" style="padding:0"><div id="peninsula-map"></div></div>
+        </div>
+        <div class="legend">
+          <span><i class="dot" style="background:#60a5fa"></i>Major City</span>
+          <span><i class="dot" style="background:#f87171"></i>Nuclear / Missile Facility</span>
+          <span><i class="dot" style="background:#f59e0b"></i>Air / Military Base</span>
+          <span><i class="dot" style="background:#22c55e"></i>ROK / US Base</span>
+          <span><i class="dot" style="background:#e5e7eb"></i>DMZ / Armistice Line</span>
+        </div>
+        <details class="facility-drawer">
+          <summary>Mapped Node Index <span id="node-count-label"></span></summary>
+          <div class="facility-index" id="facility-index"></div>
+        </details>
+      </section>
+
+      <section class="page-section alt-bg" id="section-02-weather" data-section="02" data-title="Weather & Sea State" data-last-updated="manual">
+        <div class="section-badge"><span class="sb-num">§ 02</span><span class="sb-date">OPERATIONAL CONTEXT</span></div>
+        <div class="section-title">Weather &amp; Sea State</div>
+        <div class="section-assessment-note"><strong>Weather assessment:</strong> Conditions should be read as operational friction for air operations, maritime access, ground movement, ports, visibility, public warning, and civil response.</div>
+        <div class="conditions-grid">
+          <div class="condition-cell"><div class="cond-label">Ground Conditions</div><div class="cond-value">Channeled</div><div class="cond-sub">mountains, tunnels, bridges, road chokepoints</div></div>
+          <div class="condition-cell"><div class="cond-label">Air Operations</div><div class="cond-value">Sensor Gated</div><div class="cond-sub">ceiling, visibility, crosswinds, runway state</div></div>
+          <div class="condition-cell"><div class="cond-label">Sea State</div><div class="cond-value">Dual Coast</div><div class="cond-sub">Yellow Sea, East Sea, Korea Strait</div></div>
+          <div class="condition-cell"><div class="cond-label">Civil Response</div><div class="cond-value">High Friction</div><div class="cond-sub">evacuation, shelters, repair, warning credibility</div></div>
+        </div>
+      </section>
+
+      <section class="page-section alt-bg" id="section-03-forces" data-section="03" data-title="Force Comparison" data-last-updated="live">
+        <div class="section-badge"><span class="sb-num">§ 03</span><span class="sb-date">WATCH MATRIX</span></div>
+        <div class="section-title">Force Comparison</div>
+        <div class="section-assessment-note"><strong>Force assessment:</strong> DPRK coercive advantages compress decision time; ROK/US/Japan advantages shape containment, denial, and recovery.</div>
+        <div class="force-grid">
+          <div class="force-card">
+            <h3>DPRK Coercive Strengths</h3>
+            <div class="force-bar"><span>Missiles</span><div class="force-track"><i style="width:86%"></i></div><strong>86</strong></div>
+            <div class="force-bar"><span>Artillery</span><div class="force-track"><i style="width:82%"></i></div><strong>82</strong></div>
+            <div class="force-bar"><span>Cyber / IO</span><div class="force-track"><i style="width:74%"></i></div><strong>74</strong></div>
+            <p>DPRK strength is crisis compression: missiles, artillery, nuclear rhetoric, SOF/drone incidents, cyber operations, and information pressure can create political and civilian stress quickly.</p>
+          </div>
+          <div class="force-card">
+            <h3>ROK / US / Japan Advantages</h3>
+            <div class="force-bar"><span>Air / ISR</span><div class="force-track"><i style="width:88%"></i></div><strong>88</strong></div>
+            <div class="force-bar"><span>Missile Def.</span><div class="force-track"><i style="width:79%"></i></div><strong>79</strong></div>
+            <div class="force-bar"><span>Sustainment</span><div class="force-track"><i style="width:84%"></i></div><strong>84</strong></div>
+            <p>Allied advantage depends on readiness, response ladders, missile-defense inventory, Japan access, public-warning resilience, logistics depth, and command continuity.</p>
+          </div>
+          <div class="force-card">
+            <h3>Contested Variables</h3>
+            <div class="force-bar"><span>Decision Time</span><div class="force-track"><i style="width:91%"></i></div><strong>91</strong></div>
+            <div class="force-bar"><span>Public Trust</span><div class="force-track"><i style="width:76%"></i></div><strong>76</strong></div>
+            <div class="force-bar"><span>Regional Load</span><div class="force-track"><i style="width:81%"></i></div><strong>81</strong></div>
+            <p>The matrix changes fastest when warning systems, cyber continuity, Japan access, interceptor sharing, or dual-contingency stress become active constraints.</p>
+          </div>
+        </div>
+      </section>
+
     </div>
-    <div class="card">
-      <h3>Ramifications To Assess</h3>
-      <div class="indicator-grid">
-        <div class="indicator-card"><strong>Nuclear Leverage</strong><span>Does the report explain how nuclear possession changes DPRK conventional risk tolerance, bargaining behavior, or tactical nuclear rhetoric?</span></div>
-        <div class="indicator-card"><strong>Alliance Decision Stress</strong><span>Does it identify a gap between Seoul, Washington, Tokyo, or public audiences that Pyongyang could exploit during a compressed crisis?</span></div>
-        <div class="indicator-card"><strong>Readiness Indicators</strong><span>Does it add observable cues: launcher movement, artillery posture, cyber preparation, evacuation narratives, or USFK/ROK posture changes?</span></div>
-        <div class="indicator-card"><strong>Regional Coupling</strong><span>Does it connect Korea to Japan access, Taiwan contingency stress, interceptor allocation, or Indo-Pacific logistics competition?</span></div>
+
+    <aside class="main-col-right">
+      <div class="sidebar-sticky">
+        <section class="page-section" id="section-05-sidebar-status" data-section="05" data-title="Situational Status" data-last-updated="live">
+          <div class="section-badge"><span class="sb-num">§ 05</span><span class="sb-date">SIDEBAR</span></div>
+          <div class="section-title">Situational Status</div>
+          <div class="card"><div class="card-header"><div class="card-title">Current Threat Picture</div><span class="source-link-meta">Live</span></div><div class="card-body"><div class="status-grid">
+            <div class="status-item"><span class="status-item-label">DPRK Missile Posture</span><span class="status-badge badge-elevated">Elevated</span></div>
+            <div class="status-item"><span class="status-item-label">Artillery / MLRS</span><span class="status-badge badge-high">High</span></div>
+            <div class="status-item"><span class="status-item-label">Cyber / Space</span><span class="status-badge badge-ongoing">Ongoing</span></div>
+            <div class="status-item"><span class="status-item-label">ROK / US Posture</span><span class="status-badge badge-active">Active</span></div>
+            <div class="status-item"><span class="status-item-label">Public Warning</span><span class="status-badge badge-guarded">Guarded</span></div>
+            <div class="status-item"><span class="status-item-label">Alliance Coordination</span><span class="status-badge badge-active">Active</span></div>
+          </div></div></div>
+        </section>
+
+        <section class="page-section" id="section-06-think-tank" data-section="06" data-title="Recent Think Tank Coverage" data-last-updated="live">
+          <div class="section-title">Recent Think Tank Coverage</div>
+          <div class="card"><div class="card-header"><div class="card-title">Regional Analysis Feed</div></div><div class="card-body"><div class="activity-list" id="thinktank-feed"><div class="article-meta">Loading think tank cache...</div></div></div></div>
+        </section>
+
+        <section class="page-section" id="section-07-feed" data-section="07" data-title="Intelligence Feed" data-last-updated="live">
+          <div class="section-title">Intelligence Feed</div>
+          <div class="card"><div class="card-header"><div class="card-title">Latest Reporting</div></div><div class="card-body"><div class="activity-list" id="article-feed"><div class="article-meta">Loading article cache...</div></div></div></div>
+        </section>
+
+        <section class="page-section" id="section-08-war-games" data-section="08" data-title="War-Gaming Linkage">
+          <div class="section-title">War-Gaming Linkage</div>
+          <div class="war-link-list">
+            <a class="card war-link-card" href="korean-peninsula-war-games.html"><img src="/assets/maps/north-korea-physiography-cia-2020.jpg" alt="North Korea physiography map" loading="lazy"><div><h3>Korean Peninsula War Games Hub</h3><p>Scenario overview and deep reviews for limited strike, nuclear leverage, space shock, drone/armor attrition, and nuclear-cognitive warfare.</p></div></a>
+            <a class="card war-link-card" href="korea-scenario-guardian-tiger-limited-strike.html"><img src="/assets/weapons/thaad-launcher.jpg" alt="THAAD launcher" loading="lazy"><div><h3>Guardian Tiger I / II</h3><p>Limited strike pressure, tactical nuclear coercion, regional diversion, Japan access, and allied command stress.</p></div></a>
+            <a class="card war-link-card" href="korea-scenario-nuclear-cognitive-warfare.html"><img src="/assets/maps/south-korea-physiography-cia-2018.jpg" alt="South Korea physiography map" loading="lazy"><div><h3>Nuclear-Cognitive Warfare</h3><p>Perception, cyber, public-confidence, and alliance-fracture campaigns enabled by nuclear weapons.</p></div></a>
+          </div>
+        </section>
       </div>
-    </div>
+    </aside>
   </div>
-</section>
-
-<section class="section" id="map">
-  <h2 class="section-title"><span class="sec-num">03</span>Operational Map</h2>
-  <div class="map-frame">
-    <div class="map-tools">
-      <button type="button" id="toggle-map-size">Expand map</button>
-      <span class="map-note">Markers are a curated static reference layer; use the node index only when you need coordinates and facility context.</span>
-    </div>
-    <div id="peninsula-map"></div>
-  </div>
-  <div class="legend">
-    <span><i class="dot" style="background:#60a5fa"></i>Major City</span>
-    <span><i class="dot" style="background:#f87171"></i>Nuclear / Missile Facility</span>
-    <span><i class="dot" style="background:#f59e0b"></i>Air / Military Base</span>
-    <span><i class="dot" style="background:#22c55e"></i>ROK / US Base</span>
-    <span><i class="dot" style="background:#e5e7eb"></i>DMZ / Armistice Line</span>
-  </div>
-  <details class="facility-drawer">
-    <summary>Mapped Node Index <span id="node-count-label"></span></summary>
-    <div class="facility-index" id="facility-index"></div>
-  </details>
-</section>
-
-<section class="section" id="situational-status">
-  <h2 class="section-title"><span class="sec-num">04</span>Situational Status</h2>
-  <p class="section-lede">The status board separates military pressure, command disruption, alliance posture, and civil response so the reader can see whether a headline is isolated or part of a higher-risk cluster.</p>
-  <div class="status-board">
-    <div class="status-tile tile-red">
-      <h3>DPRK Fires / Missile Posture</h3>
-      <p>Baseline risk remains elevated because DPRK missile launches, 600mm MLRS signaling, artillery readiness, and tactical nuclear rhetoric can compress allied decision time.</p>
-      <ul>
-        <li>Watch launcher dispersal and hardened-site activity.</li>
-        <li>Separate routine launch testing from launch-plus-mobilization clusters.</li>
-      </ul>
-    </div>
-    <div class="status-tile tile-amber">
-      <h3>Cyber / Space / Public Warning</h3>
-      <p>Cyber disruption, GPS interference, space-launch activity, media manipulation, and false-alert dynamics can create operational pressure before major ground movement is visible.</p>
-      <ul>
-        <li>Watch telecom, government, banking, port, and warning-system continuity.</li>
-        <li>Track whether disruption coincides with military signaling.</li>
-      </ul>
-    </div>
-    <div class="status-tile tile-green">
-      <h3>ROK / US / Japan Posture</h3>
-      <p>Alliance strength depends on visible readiness, common public language, Japan access assumptions, missile-defense inventory, and rapid consultation.</p>
-      <ul>
-        <li>Watch USFK, ROK, Japan, Guam, and trilateral statements together.</li>
-        <li>Map posture changes against DPRK launch and rhetoric tempo.</li>
-      </ul>
-    </div>
-    <div class="status-tile tile-cyan">
-      <h3>Escalation Containment</h3>
-      <p>Containment holds when indicators remain isolated, allied messaging is consistent, civilian systems function, and logistics behavior does not show unusual preparation.</p>
-      <ul>
-        <li>Concern rises when public fear and command stress synchronize.</li>
-        <li>Concern falls when reporting lacks readiness or logistics confirmation.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="weather-sea-state">
-  <h2 class="section-title"><span class="sec-num">05</span>Weather & Sea State</h2>
-  <p class="section-lede">Weather is included as operational context. It should be updated with current observations when a live weather source is available, then interpreted against air operations, maritime access, ground movement, visibility, ports, and civil response.</p>
-  <div class="weather-grid">
-    <div class="weather-card"><strong>Ground Conditions</strong><span>Mountain corridors, river crossings, tunnels, bridges, and road chokepoints shape repair, concealment, counter-battery movement, evacuation, and logistics under drone observation.</span></div>
-    <div class="weather-card"><strong>Air Operations</strong><span>Visibility, ceiling, crosswinds, runway condition, and missile-defense sensor performance matter around Seoul, Osan, Kunsan, Pyongyang, Wonsan, and forward air-defense nodes.</span></div>
-    <div class="weather-card"><strong>Sea State</strong><span>Yellow Sea, East Sea, and Korea Strait conditions affect patrol craft, submarines, amphibious movement, port throughput, evacuation routes, and Japan-ROK logistics flow.</span></div>
-    <div class="weather-card"><strong>Civil Response</strong><span>Extreme heat, cold, rain, snow, flooding, or low visibility changes evacuation friction, shelter demand, public-warning credibility, and repair timelines after missile or cyber disruption.</span></div>
-  </div>
-</section>
-
-<section class="section" id="feed">
-  <h2 class="section-title"><span class="sec-num">06</span>Intelligence Feed</h2>
-  <p class="section-lede">The feed is filtered to Korean Peninsula reporting only. Militarily significant stories should be read for why they matter: readiness, posture, missile/nuclear signaling, cyber disruption, logistics, public-warning stress, alliance cohesion, or escalation timing.</p>
-  <div class="card">
-    <h3>Live RSS Articles</h3>
-    <div class="feed" id="article-feed"><div class="article-meta">Loading article cache...</div></div>
-  </div>
-</section>
-
-<section class="section" id="force-comparison">
-  <h2 class="section-title"><span class="sec-num">07</span>Force Comparison</h2>
-  <p class="section-lede">The comparison is qualitative and watch-oriented. It highlights where DPRK coercive advantages can create immediate risk and where ROK/US/Japan advantages shape containment, denial, and recovery.</p>
-  <div class="force-grid">
-    <div class="force-card">
-      <h3>DPRK Coercive Strengths</h3>
-      <div class="force-bar"><span>Missiles</span><div class="force-track"><i style="width:86%"></i></div><strong>86</strong></div>
-      <div class="force-bar"><span>Artillery</span><div class="force-track"><i style="width:82%"></i></div><strong>82</strong></div>
-      <div class="force-bar"><span>Cyber / IO</span><div class="force-track"><i style="width:74%"></i></div><strong>74</strong></div>
-      <p>DPRK strength is crisis compression: missiles, artillery, nuclear rhetoric, SOF/drone incidents, cyber operations, and information pressure can create political and civilian stress quickly.</p>
-    </div>
-    <div class="force-card">
-      <h3>ROK / US / Japan Advantages</h3>
-      <div class="force-bar"><span>Air / ISR</span><div class="force-track"><i style="width:88%"></i></div><strong>88</strong></div>
-      <div class="force-bar"><span>Missile Def.</span><div class="force-track"><i style="width:79%"></i></div><strong>79</strong></div>
-      <div class="force-bar"><span>Sustainment</span><div class="force-track"><i style="width:84%"></i></div><strong>84</strong></div>
-      <p>Allied advantage depends on readiness, clear response ladders, missile-defense inventory, Japan access, public-warning resilience, logistics depth, and command continuity.</p>
-    </div>
-    <div class="force-card">
-      <h3>Contested Variables</h3>
-      <div class="force-bar"><span>Decision Time</span><div class="force-track"><i style="width:91%"></i></div><strong>91</strong></div>
-      <div class="force-bar"><span>Public Trust</span><div class="force-track"><i style="width:76%"></i></div><strong>76</strong></div>
-      <div class="force-bar"><span>Regional Load</span><div class="force-track"><i style="width:81%"></i></div><strong>81</strong></div>
-      <p>The matrix changes fastest when public-warning systems, cyber continuity, Japan access, interceptor sharing, or Taiwan-linked dual-contingency stress become active constraints.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="strategic-assessment">
-  <h2 class="section-title"><span class="sec-num">08</span>Strategic Assessment</h2>
-  <div class="strategic-grid">
-    <div class="strategic-card">
-      <h3>Current Assessment</h3>
-      <p>The Korean Peninsula remains elevated but not invasion-imminent unless multiple indicators converge. The main watch problem is a coercive sequence: missile or artillery pressure, cyber/public-warning disruption, nuclear rhetoric, and allied consultation stress appearing together.</p>
-    </div>
-    <div class="strategic-card">
-      <h3>Things To Note</h3>
-      <ul>
-        <li class="insight-item"><strong>Single launches are weak evidence.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">A missile test matters more when paired with launcher dispersal, ammunition movement, evacuation narratives, or explicit political demands.</span></span>Routine signaling remains lower concern without posture or logistics confirmation.</li>
-        <li class="insight-item"><strong>Public warning is operational.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">False alerts, delayed corrections, telecom outages, and rumor cascades can pressure leaders before battlefield conditions change.</span></span>Confidence in alerts and continuity messaging should be monitored as a security variable.</li>
-      </ul>
-    </div>
-    <div class="strategic-card">
-      <h3>Things To Watch</h3>
-      <ul>
-        <li class="insight-item"><strong>Missile plus artillery posture.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">This combination can compress response time and signal intent to control escalation before diplomacy catches up.</span></span>Watch SRBM/MRBM launches, 600mm MLRS, forward artillery movement, and hardened-site activity together.</li>
-        <li class="insight-item"><strong>Cyber or space shock.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">C2 disruption can turn a limited incident into a wider crisis by delaying verification, orders, and public guidance.</span></span>Watch GPS interference, government network disruption, telecom outages, and space-launch narratives.</li>
-        <li class="insight-item"><strong>Alliance friction.</strong><span class="info-dot" tabindex="0">i<span class="info-popover">Pyongyang can exploit visible gaps between Seoul, Washington, and Tokyo even without major battlefield success.</span></span>Watch Japan access, USFK posture, evacuation guidance, and trilateral messaging.</li>
-      </ul>
-    </div>
-    <div class="strategic-card">
-      <h3>Escalation Likelihood</h3>
-      <div class="likelihood-stack">
-        <div class="likelihood-row"><strong>24 hours to 1 week:</strong> Elevated monitoring. Higher concern requires synchronized launch/artillery/cyber/public-warning indicators.</div>
-        <div class="likelihood-row"><strong>1 week to 6 months:</strong> Persistent coercion risk. Watch exercise cycles, sanctions pressure, nuclear rhetoric, US/ROK/Japan posture, and Taiwan-linked regional diversion.</div>
-        <div class="likelihood-row"><strong>6 months plus:</strong> Structural risk remains high because nuclear leverage, missiles, cyber tools, and alliance decision pressure are durable features of the theater.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="war-games">
-  <h2 class="section-title"><span class="sec-num">09</span>War-Gaming Linkage</h2>
-  <div class="grid two">
-    <a class="card war-link-card" href="korean-peninsula-war-games.html">
-      <img src="/assets/maps/north-korea-physiography-cia-2020.jpg" alt="North Korea physiography map" loading="lazy">
-      <div>
-        <h3>Korean Peninsula War Games Hub</h3>
-        <p>Start with the full scenario overview, then branch into limited strike, nuclear leverage, space shock, drone/armor attrition, and nuclear-cognitive warfare deep reviews.</p>
-        <div class="card-actions"><span>War games overview</span><span>Scenario families</span><span>Sources</span></div>
-      </div>
-    </a>
-    <a class="card war-link-card" href="korea-scenario-guardian-tiger-limited-strike.html">
-      <img src="/assets/weapons/thaad-launcher.jpg" alt="THAAD launcher" loading="lazy">
-      <div>
-        <h3>Guardian Tiger I / II</h3>
-        <p>Models limited strike pressure, tactical nuclear coercion, chemical escalation, regional diversion, Japan access, and allied command stress under compressed timelines.</p>
-        <div class="card-actions"><span>Limited strike</span><span>Nuclear coercion</span><span>Alliance response</span></div>
-      </div>
-    </a>
-    <a class="card war-link-card" href="korea-scenario-nuclear-space.html">
-      <img src="/assets/maps/korea-pusan-perimeter-usacmh.jpg" alt="Pusan Perimeter historical map" loading="lazy">
-      <div>
-        <h3>Pyongyang Goes Nuclear In Space</h3>
-        <p>Tests how satellite loss, GPS degradation, public-warning failure, and proportional-response uncertainty could shape a Korean crisis before ground maneuver matures.</p>
-        <div class="card-actions"><span>Space shock</span><span>C2 resilience</span><span>Historical logistics</span></div>
-      </div>
-    </a>
-    <a class="card war-link-card" href="korea-scenario-nuclear-cognitive-warfare.html">
-      <img src="/assets/maps/south-korea-physiography-cia-2018.jpg" alt="South Korea physiography map" loading="lazy">
-      <div>
-        <h3>Nuclear-Cognitive Warfare</h3>
-        <p>Frames North Korean coercion as a perception, cyber, public-confidence, and alliance-fracture campaign enabled by nuclear weapons without requiring immediate launch.</p>
-        <div class="card-actions"><span>Information operations</span><span>Public confidence</span><span>Alliance cohesion</span></div>
-      </div>
-    </a>
-  </div>
-</section>
+</main>
 
 <script>
 const points = [
@@ -510,6 +837,12 @@ function renderList(id, articles, empty){
   if(!articles.length){el.innerHTML=`<div class="article-meta">${empty}</div>`;return}
 	  el.innerHTML=articles.slice(0,24).map((a,index)=>`<a class="article" href="${esc(a.link||a.url||'#')}" target="_blank" rel="noopener noreferrer"><img src="${esc(articleImage(a,index))}" alt="${esc(a.title||'Article image')}" loading="lazy" onerror="this.src='${fallbackImages[index % fallbackImages.length]}'"><div><div class="article-title">${esc(a.title||'Untitled')}</div><div class="article-meta">${esc(a.source||a.thinkTank||'Unknown')} // ${timeLabel(a)}</div><div class="article-summary">${esc(articleSummary(a))}</div></div></a>`).join('')
 	}
+	function renderSourceStack(id, articles, empty){
+	  const el=document.getElementById(id);
+	  if(!el) return;
+	  if(!articles.length){el.innerHTML=`<div class="source-link-card"><div class="source-link-meta">${empty}</div></div>`;return}
+	  el.innerHTML=articles.slice(0,6).map((a)=>`<a class="source-link-card" href="${esc(a.link||a.url||'#')}" target="_blank" rel="noopener noreferrer"><div class="source-link-title">${esc(a.title||'Untitled')}</div><div class="source-link-meta">${esc(a.source||a.thinkTank||'Unknown')} // ${timeLabel(a)}</div></a>`).join('')
+	}
 	function updateAssessmentNote(articles, think){
 	  const el=document.getElementById('assessment-live-note');
 	  if(!el) return;
@@ -527,15 +860,18 @@ function renderList(id, articles, empty){
     fetch('/api/articles?limit=5000').then(r=>r.ok?r.json():{}).catch(()=>({})),
     fetch('/data/think-tank-latest-news.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
   ]);
-  const articles=(articleData.data?.articles||articleData.articles||[]).filter(relevant).sort((a,b)=>articleTime(b)-articleTime(a));
+	  const articles=(articleData.data?.articles||articleData.articles||[]).filter(relevant).sort((a,b)=>articleTime(b)-articleTime(a));
   const think=(thinkData.articles||thinkData.data?.articles||[]).filter(relevant).sort((a,b)=>articleTime(b)-articleTime(a));
   document.getElementById('metric-articles').textContent=articles.length;
   document.getElementById('metric-sources').textContent=new Set(articles.map(a=>a.source).filter(Boolean)).size;
 	  document.getElementById('metric-thinktanks').textContent=think.length;
 	  updateAssessmentNote(articles,think);
+	  renderSourceStack('current-source-links',articles,'No Korea referenced reporting found in the current cache.');
+	  renderSourceStack('think-tank-source-links',think,'No Korea think tank reporting found in the current cache.');
 	  renderList('article-feed',articles,'No Korean Peninsula RSS articles found in the current cache.');
   renderList('thinktank-feed',think,'No Korean Peninsula think tank articles found in the current cache.');
 }
+document.getElementById('hero-ts').textContent = new Date().toLocaleString(undefined,{month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'});
 loadFeed();
 </script>
 </body>
