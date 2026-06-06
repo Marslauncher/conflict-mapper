@@ -748,10 +748,45 @@ function reportArticleScore(article, { scope, slug, now }) {
     value -= 10;
   }
 
-  const countryMatch = scope === 'global' || reportCountryAliases(slug).some((alias) => text.includes(alias));
+  const countryMatch = scope === 'global' || reportArticleMatchesScope(article, slug);
   if (scope !== 'global' && countryMatch) value += 8;
 
   return { value, countryMatch };
+}
+
+function reportArticleMatchesScope(article, slug) {
+  const normalized = String(slug || '').toLowerCase();
+  if (normalized === 'korea' || normalized === 'korean-peninsula') {
+    return isKoreaReportArticle(article);
+  }
+  if (normalized === 'north-korea') {
+    const text = reportSearchText(article);
+    return /(north korea|dprk|pyongyang|kim jong un|kim yo jong|yongbyon|punggye|sinpo|sohae)/.test(text);
+  }
+  const text = reportSearchText(article);
+  return reportCountryAliases(slug).some((alias) => text.includes(alias));
+}
+
+function isKoreaReportArticle(article) {
+  const primary = ` ${[
+    article.title,
+    article.country,
+    article.geo?.place,
+    article.geo?.country,
+    ...(article.tags || []),
+  ].filter(Boolean).join(' ').toLowerCase()} `;
+  const text = reportSearchText(article);
+  const title = String(article.title || '').toLowerCase();
+  const highConfidence = /(north korea|dprk|pyongyang|korean peninsula|kim jong un|kim yo jong|\bdmz\b|\busfk\b|yongbyon|punggye|sinpo|sohae|kaesong|panmunjom|38th parallel|freedom shield|ulchi freedom shield|inter-korean|korean war)/;
+  const southKorea = /(south korea|\brok\b|seoul|incheon|busan|kunsan|osan|camp humphreys)/;
+  const securityContext = /(missile|nuclear|artillery|military|defen[cs]e|drill|exercise|cyber|sanction|border|alliance|deterrence|troops?|war|weapon|drone|satellite|submarine|readiness|posture|provocation|shelling|launch)/;
+  const taiwanTitle = /(taiwan|taipei|taiwan strait)/.test(title);
+  if (highConfidence.test(primary)) return true;
+  if (taiwanTitle) return false;
+  if (highConfidence.test(text) && securityContext.test(text)) return true;
+  if (southKorea.test(primary) && securityContext.test(text) && !taiwanTitle) return true;
+  const koreaMentions = (text.match(/north korea|south korea|korean peninsula|\bdprk\b|\brok\b|pyongyang|seoul|\bdmz\b|\busfk\b/g) || []).length;
+  return koreaMentions >= 2 && securityContext.test(text) && !taiwanTitle;
 }
 
 function hasHardSecuritySignal(text) {
