@@ -1471,30 +1471,46 @@ function generateFallbackReportBody({ title, scope, slug, articles, error }) {
 function normalizeReportBody({ body, title, scope, slug, articles, aiFallback = false }) {
   const cleaned = stripCodeFence(body);
   if (isStructuredReportBody(cleaned)) {
+    const koreaWatch = enforceKoreaWatchSections(cleaned, { scope, slug, articles });
+    if (koreaWatch.changed) {
+      return {
+        body: koreaWatch.body,
+        changed: true,
+        fallback: aiFallback,
+        message: `Korean Peninsula watch report was missing required sections; appended ${koreaWatch.missing.join(', ')}`,
+      };
+    }
     return { body: cleaned, changed: false, fallback: aiFallback, message: 'Report body already uses the styled report structure' };
   }
 
   const coerced = coercePlainReportBody(cleaned, { title, scope, slug, articles });
   if (coerced) {
+    const koreaWatch = enforceKoreaWatchSections(coerced, { scope, slug, articles });
     return {
-      body: coerced,
+      body: koreaWatch.body,
       changed: true,
       fallback: aiFallback,
-      message: 'AI report body did not preserve styled class structure; converted plain sections to styled report panels',
+      message: koreaWatch.changed
+        ? `AI report body converted to styled panels and appended missing Korean Peninsula watch sections: ${koreaWatch.missing.join(', ')}`
+        : 'AI report body did not preserve styled class structure; converted plain sections to styled report panels',
     };
   }
 
+  const fallbackBody = generateFallbackReportBody({
+    title,
+    scope,
+    slug,
+    articles,
+    error: 'AI response did not preserve the required Conflict Mapper report HTML structure.',
+  });
+  const koreaWatch = enforceKoreaWatchSections(fallbackBody, { scope, slug, articles });
   return {
-    body: generateFallbackReportBody({
-      title,
-      scope,
-      slug,
-      articles,
-      error: 'AI response did not preserve the required Conflict Mapper report HTML structure.',
-    }),
+    body: koreaWatch.body,
     changed: true,
     fallback: true,
-    message: 'AI report body did not preserve styled class structure; using deterministic styled fallback renderer',
+    message: koreaWatch.changed
+      ? `AI report body used deterministic fallback and appended Korean Peninsula watch sections: ${koreaWatch.missing.join(', ')}`
+      : 'AI report body did not preserve styled class structure; using deterministic styled fallback renderer',
   };
 }
 
@@ -1504,6 +1520,71 @@ function isStructuredReportBody(value) {
     && html.includes('class="section"')
     && (html.includes('class="trend-card"') || html.includes('class="panel"'))
     && (html.includes('class="section-title"') || html.includes('class="section-header"'));
+}
+
+function enforceKoreaWatchSections(body, { scope, slug, articles }) {
+  const normalizedSlug = String(slug || '').toLowerCase();
+  if (scope !== 'watch' || (normalizedSlug !== 'korea' && normalizedSlug !== 'korean-peninsula')) {
+    return { body, changed: false, missing: [] };
+  }
+  const plain = String(body || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
+  const required = [
+    'Current Regional Assessment',
+    'Recent Think Tank Coverage',
+    'Operational Map',
+    'Situational Status',
+    'Weather & Sea State',
+    'Intelligence Feed',
+    'Force Comparison',
+    'Strategic Assessment',
+    'Current Assessment',
+    'Things To Note',
+    'Things To Watch',
+    'Escalation Likelihood',
+  ];
+  const missing = required.filter((name) => !plain.includes(name));
+  if (!missing.length) return { body, changed: false, missing: [] };
+  const additions = missing
+    .map((name) => koreaWatchSection(name, articles))
+    .filter(Boolean)
+    .join('\n');
+  return { body: `${body}\n${additions}`, changed: Boolean(additions), missing };
+}
+
+function koreaWatchSection(name, articles = []) {
+  const sourceArticles = Array.isArray(articles) ? articles : [];
+  const articleRows = sourceArticles.slice(0, 8).map((article, index) => {
+    const date = article.pubDate ? new Date(article.pubDate).toISOString().slice(0, 10) : 'unknown-date';
+    return `<div class="feed-row">
+      <div class="feed-meta"><span class="breaking-dot">◉ KOREA WATCH</span><span>${date}</span><span>${escapeHtml(article.source || 'unknown source')}</span></div>
+      <div class="feed-title">${escapeHtml(article.title || 'Untitled source item')}</div>
+      <div class="feed-summary">${escapeHtml(article.description || 'No summary was available from the feed parser.')} [${index + 1}]</div>
+    </div>`;
+  }).join('');
+  const firstTitles = sourceArticles.slice(0, 4).map((article) => shortTitle(article.title || article.description || 'source item')).join('; ');
+  const panels = {
+    'Current Regional Assessment': `<div class="trend-card"><div class="trend-card-head"><h3><span class="trend-rank">#1</span>DPRK posture and alliance readiness baseline</h3><div class="badge-row"><span class="risk-badge risk-high">HIGH</span><span class="risk-badge trajectory-stable">STABLE</span></div></div><p>Current Korea watch risk remains elevated because missile activity, nuclear signaling, cyber pressure, public-warning resilience, and US/ROK/Japan coordination can interact quickly. Latest selected source themes: ${escapeHtml(firstTitles || 'no high-signal Korea articles were attached')}.</p><div class="regions-line">REGIONS: koreanPeninsula · dprk · rok · japanAccess</div></div>`,
+    'Recent Think Tank Coverage': `<div class="panel"><div class="theater-row"><div class="theater-name">Analytic Ramifications</div><div class="theater-assessment">Use current think tank reporting to test whether new analysis changes DPRK readiness, alliance cohesion, missile-defense assumptions, nuclear leverage, Japan access, cyber/space resilience, or public-warning confidence. Robust reports should be treated as assessment inputs, not link lists.</div></div></div>`,
+    'Operational Map': `<div class="panel"><div class="theater-row"><div class="theater-name">Mapped Theater Logic</div><div class="theater-assessment">Interpret reporting against the DMZ, Seoul-Incheon exposure, Pyongyang command nodes, Yongbyon and Punggye-ri nuclear indicators, Sinpo maritime activity, USFK bases, southern ports, Japan access, and logistics corridors. Map relevance rises when source reporting changes posture at a specific node.</div></div></div>`,
+    'Situational Status': `<div class="panel"><div class="risk-row"><span class="risk-badge risk-high">HIGH</span><div><div class="risk-location">Missile, artillery, cyber, and public-warning convergence</div><div class="risk-detail">Concern rises when launcher activity, artillery readiness, cyber disruption, nuclear language, evacuation narratives, and allied consultation stress appear together.</div></div></div></div>`,
+    'Weather & Sea State': `<div class="panel"><div class="theater-row"><div class="theater-name">Ground, Air, And Maritime Conditions</div><div class="theater-assessment">Assess weather through operational effects: visibility and ceiling for air operations, sea state in the Yellow Sea/East Sea/Korea Strait, mountain corridor mobility, runway and bridge repair, port throughput, and civilian movement during public-warning events.</div></div></div>`,
+    'Intelligence Feed': `<div class="panel">${articleRows || '<div class="feed-row"><div class="feed-title">No Korea source articles attached.</div></div>'}</div>`,
+    'Force Comparison': `<div class="panel"><div class="risk-row"><span class="risk-badge risk-high">HIGH</span><div><div class="risk-location">DPRK coercive strengths</div><div class="risk-detail">Missiles, artillery, SOF/drone incidents, cyber activity, and nuclear leverage compress decision time.</div></div></div><div class="risk-row"><span class="risk-badge risk-medium">MEDIUM</span><div><div class="risk-location">ROK/US/Japan advantages</div><div class="risk-detail">Air/ISR, missile defense, sustainment, Japan access, and command continuity shape containment and recovery.</div></div></div></div>`,
+    'Strategic Assessment': `<div class="outlook-box"><strong>Current Assessment:</strong> Monitor for convergence rather than isolated rhetoric. <strong>Things To Note:</strong> single launches are weaker evidence than launch-plus-logistics or launch-plus-cyber clusters. <strong>Things To Watch:</strong> missile/artillery posture, cyber or space shock, Japan access, USFK posture, evacuation guidance, and trilateral messaging. <strong>Escalation Likelihood:</strong> elevated monitoring in the next 24 hours to 1 week, persistent coercion risk over 1 week to 6 months, and durable structural risk beyond 6 months.</div>`,
+    'Current Assessment': `<div class="outlook-box">The Korean Peninsula remains elevated but not invasion-imminent unless multiple posture, logistics, cyber, nuclear-signaling, and public-warning indicators converge.</div>`,
+    'Things To Note': `<div class="panel watch-panel"><div class="watch-row"><span>◆</span><span>Single missile launches are lower-confidence indicators unless paired with dispersal, ammunition movement, cyber disruption, or political demands.</span></div><div class="watch-row"><span>◆</span><span>Public-warning credibility and false-alert correction are operational resilience issues in the Seoul-Incheon corridor.</span></div></div>`,
+    'Things To Watch': `<div class="panel watch-panel"><div class="watch-row"><span>◆</span><span>SRBM/MRBM launches, 600mm MLRS posture, forward artillery, cyber outages, GPS interference, Japan access, USFK posture, and evacuation guidance.</span></div></div>`,
+    'Escalation Likelihood': `<div class="panel"><div class="risk-row"><span class="risk-badge risk-medium">MEDIUM</span><div><div class="risk-location">24 hours to 1 week</div><div class="risk-detail">Elevated monitoring; concern rises with synchronized military, cyber, nuclear, and public-warning indicators.</div></div></div><div class="risk-row"><span class="risk-badge risk-high">HIGH</span><div><div class="risk-location">1 week to 6 months</div><div class="risk-detail">Persistent coercion risk from exercise cycles, sanctions pressure, nuclear rhetoric, and regional diversion.</div></div></div></div>`,
+  };
+  const content = panels[name];
+  if (!content) return '';
+  return `<div class="section">
+  <div class="section-header">
+    <span class="section-title">${escapeHtml(name)}</span>
+    <span class="section-label">KOREA WATCH</span>
+  </div>
+  ${content}
+</div>`;
 }
 
 function coercePlainReportBody(value, { scope, slug, articles }) {
