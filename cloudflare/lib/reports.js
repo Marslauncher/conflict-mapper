@@ -781,8 +781,11 @@ function isKoreaReportArticle(article) {
   const southKorea = /(south korea|\brok\b|seoul|incheon|busan|kunsan|osan|camp humphreys)/;
   const securityContext = /(missile|nuclear|artillery|military|defen[cs]e|drill|exercise|cyber|sanction|border|alliance|deterrence|troops?|war|weapon|drone|satellite|submarine|readiness|posture|provocation|shelling|launch)/;
   const taiwanTitle = /(taiwan|taipei|taiwan strait)/.test(title);
-  if (highConfidence.test(primary)) return true;
+  const otherTheaterTitle = /(strait of hormuz|hormuz|iran|gaza|israel|ukraine|red sea|houthi|black sea|south china sea|taiwan|taipei|taiwan strait)/.test(title);
+  const koreaTitle = highConfidence.test(title);
   if (taiwanTitle) return false;
+  if (otherTheaterTitle && !koreaTitle) return false;
+  if (highConfidence.test(primary)) return true;
   if (highConfidence.test(text) && securityContext.test(text)) return true;
   if (southKorea.test(primary) && securityContext.test(text) && !taiwanTitle) return true;
   const koreaMentions = (text.match(/north korea|south korea|korean peninsula|\bdprk\b|\brok\b|pyongyang|seoul|\bdmz\b|\busfk\b/g) || []).length;
