@@ -16,6 +16,8 @@ Do not make code changes during this validation pass. Produce findings only.
   - latest source title and publication date,
   - current signal-category counts,
   - current think-tank item title/date when used.
+- Article titles, think-tank titles, and source references mentioned in assessment text must be active links to the referenced material or a source-search fallback.
+- Weather & Sea State must include a current weather map/embed when the reference watch-page pattern includes one, and the map must be visible on desktop and mobile.
 - If the article API or cache is unavailable, the page must say the current feed is unavailable instead of rendering boilerplate as current analysis.
 - No known stale boilerplate phrases remain visible in rendered watch sections.
 - Referenced Reporting and Intelligence Feed must be region-filtered and must match the same theater used by the assessment logic.

@@ -114,6 +114,8 @@ a:hover { text-decoration: underline; }
 .weather-card { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 16px; }
 .weather-card strong { display: block; font-family: var(--font-display); font-size: clamp(1.15rem, var(--cm-navigation-text-size, 16pt), 1.45rem); letter-spacing: .08em; text-transform: uppercase; color: var(--text); margin-bottom: 6px; }
 .weather-card span { display: block; color: var(--muted); }
+.weather-iframe-wrap { width: 100%; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: var(--surface); margin-top: 14px; }
+.weather-iframe-wrap iframe { display: block; width: 100%; height: 420px; border: 0; }
 .force-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
 .force-card { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 16px; }
 .force-card h3 { margin-bottom: 8px; }
@@ -764,6 +766,17 @@ a:hover { text-decoration: underline; }
           <div class="condition-cell"><div class="cond-label">Sea State</div><div class="cond-value" id="cond-sea-value">Loading</div><div class="cond-sub" id="cond-sea-sub">waiting for maritime/shipyard signals</div></div>
           <div class="condition-cell"><div class="cond-label">Civil Response</div><div class="cond-value" id="cond-civil-value">Loading</div><div class="cond-sub" id="cond-civil-sub">waiting for public-warning signals</div></div>
         </div>
+        <div class="weather-iframe-wrap">
+          <iframe
+            src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=5&overlay=wind&product=ecmwf&level=surface&lat=38.25&lon=127.50&detailLat=38.25&detailLon=127.50&marker=true"
+            width="100%"
+            height="420"
+            frameborder="0"
+            title="Korean Peninsula Wind and Weather Map (Windy.com)"
+            loading="eager"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
       </section>
 
       <section class="page-section alt-bg" id="section-03-forces" data-section="03" data-title="Force Comparison" data-last-updated="live">
@@ -921,16 +934,26 @@ function articleSummary(a){
   const raw = a.summary || a.description || a.contentSnippet || '';
   return String(raw).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
 }
+function articleHref(a, fallback){
+  const raw = String(a?.link || a?.url || '').trim();
+  if(/^https?:\/\//i.test(raw)) return raw;
+  return searchLink(a?.title || fallback || 'Korean Peninsula security reporting');
+}
+function refLink(a, fallback){
+  const title = headline(a) || fallback || 'Open referenced material';
+  return `<a href="${esc(articleHref(a, title))}" target="_blank" rel="noopener noreferrer"><strong>${esc(title)}</strong></a>`;
+}
+function searchLink(q){return `https://www.google.com/search?q=${encodeURIComponent(q)}`}
 function renderList(id, articles, empty){
   const el=document.getElementById(id);
   if(!articles.length){el.innerHTML=`<div class="article-meta">${empty}</div>`;return}
-	  el.innerHTML=articles.slice(0,24).map((a,index)=>`<a class="article" href="${esc(a.link||a.url||'#')}" target="_blank" rel="noopener noreferrer"><img src="${esc(articleImage(a,index))}" alt="${esc(a.title||'Article image')}" loading="lazy" onerror="this.src='${fallbackImages[index % fallbackImages.length]}'"><div><div class="article-title">${esc(a.title||'Untitled')}</div><div class="article-meta">${esc(a.source||a.thinkTank||'Unknown')} // ${timeLabel(a)}</div><div class="article-summary">${esc(articleSummary(a))}</div></div></a>`).join('')
+	  el.innerHTML=articles.slice(0,24).map((a,index)=>`<a class="article" href="${esc(articleHref(a, a.title || 'Korean Peninsula article'))}" target="_blank" rel="noopener noreferrer"><img src="${esc(articleImage(a,index))}" alt="${esc(a.title||'Article image')}" loading="lazy" onerror="this.src='${fallbackImages[index % fallbackImages.length]}'"><div><div class="article-title">${esc(a.title||'Untitled')}</div><div class="article-meta">${esc(a.source||a.thinkTank||'Unknown')} // ${timeLabel(a)}</div><div class="article-summary">${esc(articleSummary(a))}</div></div></a>`).join('')
 	}
 	function renderSourceStack(id, articles, empty){
 	  const el=document.getElementById(id);
 	  if(!el) return;
 	  if(!articles.length){el.innerHTML=`<div class="source-link-card"><div class="source-link-meta">${empty}</div></div>`;return}
-	  el.innerHTML=articles.slice(0,6).map((a)=>`<a class="source-link-card" href="${esc(a.link||a.url||'#')}" target="_blank" rel="noopener noreferrer"><div class="source-link-title">${esc(a.title||'Untitled')}</div><div class="source-link-meta">${esc(a.source||a.thinkTank||'Unknown')} // ${timeLabel(a)}</div></a>`).join('')
+	  el.innerHTML=articles.slice(0,6).map((a)=>`<a class="source-link-card" href="${esc(articleHref(a, a.title || 'Korean Peninsula source'))}" target="_blank" rel="noopener noreferrer"><div class="source-link-title">${esc(a.title||'Untitled')}</div><div class="source-link-meta">${esc(a.source||a.thinkTank||'Unknown')} // ${timeLabel(a)}</div></a>`).join('')
 	}
 	const SIGNAL_TERMS={
 	  missile:['missile','srbm','mrbm','icbm','ballistic','launch','rocket','projectile'],
@@ -984,12 +1007,12 @@ function renderList(id, articles, empty){
 	    return stats;
 	  }
 	  const top=stats.top;
-	  const thinkLine=stats.thinkTop?`Current think-tank context is ${esc(headline(stats.thinkTop))} from ${esc(sourceName(stats.thinkTop))} on ${timeLabel(stats.thinkTop)}.`:'No current Korea-relevant think-tank article matched the direct theater filter.';
+	  const thinkLine=stats.thinkTop?`Current think-tank context is ${refLink(stats.thinkTop, 'Korean Peninsula think tank analysis')} from ${esc(sourceName(stats.thinkTop))} on ${timeLabel(stats.thinkTop)}.`:'No current Korea-relevant think-tank article matched the direct theater filter.';
 	  const convergence=stats.military>=8&&stats.cyber>=2&&stats.political>=4
 	    ? 'The current feed shows multi-domain convergence and should be treated as elevated warning context.'
 	    : 'The current feed does not show a full military, cyber, public-warning, and alliance-stress convergence pattern.';
 	  if(summary){
-	    summary.innerHTML=`<p class="assessment-wide"><strong>Current feed basis:</strong> This assessment is generated from ${stats.recent24.length} Korea-filtered RSS articles in the last 24 hours, ${stats.recent7.length} in the last 7 days, and ${stats.recent30.length} in the last 30 days. Newest direct item: <strong>${esc(headline(top))}</strong> from ${esc(sourceName(top))} on ${timeLabel(top)}.</p>
+	    summary.innerHTML=`<p class="assessment-wide"><strong>Current feed basis:</strong> This assessment is generated from ${stats.recent24.length} Korea-filtered RSS articles in the last 24 hours, ${stats.recent7.length} in the last 7 days, and ${stats.recent30.length} in the last 30 days. Newest direct item: ${refLink(top, 'Korean Peninsula current report')} from ${esc(sourceName(top))} on ${timeLabel(top)}.</p>
 	      <p><strong>Current threat read:</strong> ${convergence} The 30-day signal mix contains ${stats.missile} missile/launch, ${stats.nuclear} nuclear-site or nuclear-program, ${stats.artillery} artillery/fires, ${stats.cyber} cyber/space/telecom, and ${stats.logistics} logistics/readiness references.</p>
 	      <p><strong>Political and alliance read:</strong> The loaded feed contains ${stats.diplomatic} diplomatic/sanctions/leadership-contact references, ${stats.alliance} USFK/ROK/Japan/alliance references, and ${stats.publicWarning} public-warning or civil-response references. ${thinkLine}</p>
 	      <p class="assessment-wide"><strong>Assessment rule:</strong> The section is driven by the current article cache and direct theater filters; static geography and baseline doctrine are not used as substitutes for current reporting.</p>`;
@@ -997,10 +1020,10 @@ function renderList(id, articles, empty){
 	  if(analysis){
 	    analysis.innerHTML=[
 	      `${stats.sources} sources contributed Korea-relevant RSS items; ${stats.recent24.length} landed inside the last 24 hours.`,
-	      `Most recent direct RSS item: ${headline(top)} (${sourceName(top)}, ${timeLabel(top)}).`,
+	      `Most recent direct RSS item: <a href="${esc(articleHref(top, 'Korean Peninsula current report'))}" target="_blank" rel="noopener noreferrer">${esc(headline(top))}</a> (${esc(sourceName(top))}, ${timeLabel(top)}).`,
 	      `${stats.military} military/readiness indicators and ${stats.cyber} cyber/space/infrastructure indicators were detected in the 30-day Korea-filtered cache.`,
 	      `${stats.political} diplomatic, public-warning, or alliance indicators were detected in the same cache; this determines whether current reporting is treated as routine signaling or escalation context.`
-	    ].map(item=>`<div class="assessment-summary-item"><strong>${esc(item)}</strong></div>`).join('');
+	    ].map(item=>`<div class="assessment-summary-item"><strong>${item}</strong></div>`).join('');
 	  }
 	  return stats;
 	}
@@ -1019,7 +1042,7 @@ function renderList(id, articles, empty){
 	      <div class="strategic-card-head"><span class="strategic-icon" aria-hidden="true">!</span><h3>Current Assessment</h3></div>
 	      <div class="strategic-card-body"><ul class="strategic-list">
 	        <li>${stats.recent24.length} Korea-filtered articles landed in the last 24 hours and ${stats.recent7.length} in the last 7 days.</li>
-	        <li>Newest direct item: <strong>${esc(headline(top))}</strong> from ${esc(sourceName(top))} on ${timeLabel(top)}.</li>
+	        <li>Newest direct item: ${refLink(top, 'Korean Peninsula current report')} from ${esc(sourceName(top))} on ${timeLabel(top)}.</li>
 	      </ul></div>
 	    </div>
 	    <div class="strategic-card note">
@@ -1027,7 +1050,7 @@ function renderList(id, articles, empty){
 	      <div class="strategic-card-body"><ul class="strategic-list">
 	        <li>${stats.missile} missile/launch, ${stats.nuclear} nuclear, and ${stats.artillery} artillery indicators were detected in the 30-day relevant cache.</li>
 	        <li>${stats.diplomatic+stats.alliance} diplomatic/alliance indicators and ${stats.cyber} cyber/space indicators were detected in the same window.</li>
-	        <li>${thinkTop?`Think-tank context: <strong>${esc(headline(thinkTop))}</strong> (${esc(sourceName(thinkTop))}, ${timeLabel(thinkTop)}).`:'No direct Korea think-tank match loaded for this cycle.'}</li>
+	        <li>${thinkTop?`Think-tank context: ${refLink(thinkTop, 'Korean Peninsula think tank analysis')} (${esc(sourceName(thinkTop))}, ${timeLabel(thinkTop)}).`:'No direct Korea think-tank match loaded for this cycle.'}</li>
 	      </ul></div>
 	    </div>
 	    <div class="strategic-card watch">

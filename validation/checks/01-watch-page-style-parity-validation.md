@@ -18,6 +18,8 @@ Do not make code changes during this validation pass. Produce findings only.
 - No text spacing defects such as `evidence.Routine` or `operational.Alert`.
 - No duplicated, clipped, or partially hidden `Recent Think Tank Coverage` / regional-analysis modules inside the source stack, sidebar, or intelligence-feed area.
 - Current Regional Assessment and Strategic Brief text are visibly populated from current region-filtered feed data or explicitly show a feed-unavailable state; no static boilerplate should masquerade as current analysis.
+- Weather & Sea State includes the current weather map/embed pattern used by the reference watch page.
+- Referenced article and think-tank titles in assessment text are active links, not plain text only.
 - No overlap, clipping, unreadable contrast, or mobile overflow.
 - Theme, text size, and style settings remain visually coherent.
 
