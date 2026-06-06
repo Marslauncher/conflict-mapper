@@ -826,17 +826,12 @@ a:hover { text-decoration: underline; }
           </div></div></div>
         </section>
 
-        <section class="page-section" id="section-06-think-tank" data-section="06" data-title="Recent Think Tank Coverage" data-last-updated="live">
-          <div class="section-title">Recent Think Tank Coverage</div>
-          <div class="card"><div class="card-header"><div class="card-title">Regional Analysis Feed</div></div><div class="card-body"><div class="activity-list" id="thinktank-feed"><div class="article-meta">Loading think tank cache...</div></div></div></div>
-        </section>
-
-        <section class="page-section" id="section-07-feed" data-section="07" data-title="Intelligence Feed" data-last-updated="live">
+        <section class="page-section" id="section-06-feed" data-section="06" data-title="Intelligence Feed" data-last-updated="live">
           <div class="section-title">Intelligence Feed</div>
           <div class="card"><div class="card-header"><div class="card-title">Latest Reporting</div></div><div class="card-body"><div class="activity-list" id="article-feed"><div class="article-meta">Loading article cache...</div></div></div></div>
         </section>
 
-        <section class="page-section" id="section-08-war-games" data-section="08" data-title="War-Gaming Linkage">
+        <section class="page-section" id="section-07-war-games" data-section="07" data-title="War-Gaming Linkage">
           <div class="section-title">War-Gaming Linkage</div>
           <div class="war-link-list">
             <a class="card war-link-card" href="korean-peninsula-war-games.html"><img src="/assets/maps/north-korea-physiography-cia-2020.jpg" alt="North Korea physiography map" loading="lazy"><div><h3>Korean Peninsula War Games Hub</h3><p>Scenario overview and deep reviews for limited strike, nuclear leverage, space shock, drone/armor attrition, and nuclear-cognitive warfare.</p></div></a>
@@ -977,7 +972,6 @@ function renderList(id, articles, empty){
 	  renderSourceStack('current-source-links',articles,'No Korea referenced reporting found in the current cache.');
 	  renderSourceStack('think-tank-source-links',think,'No Korea think tank reporting found in the current cache.');
 	  renderList('article-feed',articles,'No Korean Peninsula RSS articles found in the current cache.');
-  renderList('thinktank-feed',think,'No Korean Peninsula think tank articles found in the current cache.');
 }
 document.getElementById('hero-ts').textContent = new Date().toLocaleString(undefined,{month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'});
 loadFeed();
