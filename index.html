@@ -1029,6 +1029,352 @@
   opacity: 0.7;
 }
 
+.global-brief-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.global-brief-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.8fr);
+  gap: var(--space-5);
+  padding: var(--space-5);
+}
+.global-brief-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.global-brief-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.global-brief-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.6vw, 2.45rem);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  line-height: 1;
+}
+.global-brief-title span { color: var(--color-accent); }
+.global-brief-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid rgba(245, 158, 11, 0.32);
+  border-radius: var(--radius-sm);
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--color-amber);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.global-brief-desc {
+  max-width: 78ch;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.75;
+}
+.global-signal-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.global-signal {
+  min-height: 104px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+.global-signal strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+.signal-meter {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  margin-bottom: var(--space-2);
+}
+.signal-meter span {
+  height: 6px;
+  border-radius: 99px;
+  background: var(--color-surface-3);
+}
+.signal-meter[data-level="2"] span:nth-child(-n+2) { background: var(--color-green); }
+.signal-meter[data-level="3"] span:nth-child(-n+3) { background: var(--color-amber); }
+.signal-meter[data-level="4"] span:nth-child(-n+4) { background: var(--color-accent); }
+.signal-meter[data-level="5"] span { background: var(--color-accent); }
+.global-signal p {
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+.global-visual {
+  display: grid;
+  gap: var(--space-3);
+}
+.global-map-card {
+  min-height: 248px;
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    radial-gradient(circle at 76% 35%, rgba(196,30,58,0.34), transparent 22%),
+    radial-gradient(circle at 58% 45%, rgba(245,158,11,0.26), transparent 20%),
+    radial-gradient(circle at 36% 38%, rgba(96,165,250,0.2), transparent 22%),
+    var(--color-surface-2);
+  background-size: 42px 42px, 42px 42px, auto, auto, auto, auto;
+  position: relative;
+  overflow: hidden;
+}
+.global-map-card::before {
+  content: '';
+  position: absolute;
+  inset: 18px;
+  border: 1px dashed rgba(255,255,255,0.16);
+  border-radius: 50%;
+}
+.global-map-node {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 2px solid var(--color-surface);
+  box-shadow: 0 0 0 6px rgba(196,30,58,0.16);
+}
+.global-map-node.n1 { left: 22%; top: 38%; background: var(--color-blue); box-shadow: 0 0 0 6px rgba(96,165,250,0.16); }
+.global-map-node.n2 { left: 47%; top: 31%; background: var(--color-accent); }
+.global-map-node.n3 { left: 62%; top: 50%; background: var(--color-amber); box-shadow: 0 0 0 6px rgba(245,158,11,0.16); }
+.global-map-node.n4 { left: 76%; top: 35%; background: var(--color-accent); }
+.global-map-caption {
+  position: absolute;
+  left: var(--space-4);
+  right: var(--space-4);
+  bottom: var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.global-domain-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+.global-domain {
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  padding: var(--space-3);
+}
+.global-domain span {
+  display: block;
+  font-family: var(--font-mono);
+  color: var(--color-text-faint);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-1);
+}
+.global-domain strong {
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.global-brief-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.brief-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-dim);
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.brief-action.primary {
+  border-color: var(--color-accent);
+  background: var(--color-accent-dim);
+  color: var(--color-accent);
+}
+.country-analysis-grid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.daily-country-card {
+  --priority-color: var(--color-blue);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  min-height: 285px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  position: relative;
+  box-shadow: var(--shadow-card);
+}
+.daily-country-card.priority-critical,
+.daily-country-card.priority-high { --priority-color: var(--color-accent); }
+.daily-country-card.priority-watch { --priority-color: var(--color-amber); }
+.daily-country-card.priority-steady { --priority-color: var(--color-blue); }
+.daily-country-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--priority-color), transparent 72%);
+}
+.country-card-top {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-4) var(--space-4) var(--space-3);
+}
+.country-card-flag {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-dim);
+  font-size: 1.45rem;
+}
+.country-card-title {
+  min-width: 0;
+}
+.country-card-title strong {
+  display: block;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.country-card-title span {
+  color: var(--color-text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.priority-badge {
+  border: 1px solid color-mix(in srgb, var(--priority-color) 45%, transparent);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--priority-color) 10%, transparent);
+  color: var(--priority-color);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  padding: 4px 7px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.country-card-body {
+  padding: 0 var(--space-4) var(--space-4);
+  display: grid;
+  gap: var(--space-3);
+}
+.threat-spark {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: end;
+  gap: 5px;
+  min-height: 58px;
+  padding: var(--space-2);
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(180deg, transparent 0 48%, rgba(255,255,255,0.06) 49% 50%, transparent 51%),
+    var(--color-surface-2);
+}
+.threat-spark span {
+  height: calc(var(--bar) * 1%);
+  min-height: 10px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(180deg, var(--priority-color), color-mix(in srgb, var(--priority-color) 42%, transparent));
+}
+.country-card-summary {
+  color: var(--color-text-muted);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+.country-domain-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.domain-chip {
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 7px;
+}
+.country-card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--color-border-dim);
+}
+.country-card-actions button {
+  min-height: 42px;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  border-right: 1px solid var(--color-border-dim);
+}
+.country-card-actions button:last-child { border-right: 0; }
+.country-card-actions button:hover {
+  color: var(--priority-color);
+  background: color-mix(in srgb, var(--priority-color) 8%, transparent);
+}
+
 /* Stats bar */
 .welcome-stats {
   width: var(--cm-content-max-width, min(90vw, calc(100vw - 32px)));
@@ -2121,9 +2467,21 @@
   .cards-grid {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   }
+
+  .country-analysis-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
 }
 
 @media (max-width: 1180px) {
+  .global-brief-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .global-signal-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .admin-sidebar {
     display: none;
   }
@@ -2146,13 +2504,50 @@
 }
 
 @media (max-width: 640px) {
+  #welcome-screen {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+
+  .welcome-hero {
+    padding-top: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .global-brief-grid {
+    padding: var(--space-4);
+  }
+
+  .global-brief-title-row {
+    flex-direction: column;
+  }
+
+  .global-signal-strip,
+  .global-domain-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .global-map-card {
+    min-height: 210px;
+  }
+
+  .brief-action {
+    width: 100%;
+  }
+
+  .country-analysis-grid {
+    grid-template-columns: 1fr;
+  }
+
   .nav-settings {
     width: 40px;
     padding: 0;
     justify-content: center;
     font-size: 0;
+    color: transparent;
   }
-  .nav-settings svg { margin: 0; }
+  .nav-settings svg { margin: 0; color: var(--color-text-muted); }
+  .nav-settings:hover svg { color: var(--color-text); }
 }
 
 @media (max-width: 480px) {
@@ -2287,16 +2682,73 @@
       <!-- Stats bar -->
       <div class="welcome-stats" id="welcome-stats" aria-label="Platform statistics"></div>
 
-      <!-- Country dossiers -->
       <div class="welcome-section">
-        <div class="welcome-section-label">Country Strategic Dossiers</div>
-        <div class="cards-grid" id="welcome-country-cards"></div>
+        <div class="welcome-section-label">Daily Global Analysis</div>
+        <section class="global-brief-panel" aria-label="Daily Global Analysis Report">
+          <div class="global-brief-grid">
+            <div class="global-brief-copy">
+              <div class="global-brief-title-row">
+                <h2 class="global-brief-title">Global <span>Analysis</span> Report</h2>
+                <span class="global-brief-status">Priority Watch</span>
+              </div>
+              <p class="global-brief-desc">
+                Global watch-center view for fast triage across military posture, cyber pressure,
+                maritime disruption, nuclear signaling, energy exposure, and alliance decision stress.
+                Open the full daily report for source-backed assessment and current intelligence traceability.
+              </p>
+              <div class="global-signal-strip" aria-label="Global threat matrix summary">
+                <div class="global-signal">
+                  <strong>Military</strong>
+                  <div class="signal-meter" data-level="4" aria-label="Military pressure high"><span></span><span></span><span></span><span></span><span></span></div>
+                  <p>Active conflict, exercises, missile posture, and force readiness indicators.</p>
+                </div>
+                <div class="global-signal">
+                  <strong>Cyber / C2</strong>
+                  <div class="signal-meter" data-level="3" aria-label="Cyber pressure watch"><span></span><span></span><span></span><span></span><span></span></div>
+                  <p>Disruption risk to command, public warning, telecom, finance, and infrastructure.</p>
+                </div>
+                <div class="global-signal">
+                  <strong>Maritime</strong>
+                  <div class="signal-meter" data-level="3" aria-label="Maritime pressure watch"><span></span><span></span><span></span><span></span><span></span></div>
+                  <p>Shipping lanes, port access, chokepoints, interdiction, and insurance behavior.</p>
+                </div>
+                <div class="global-signal">
+                  <strong>Nuclear</strong>
+                  <div class="signal-meter" data-level="4" aria-label="Nuclear signaling high"><span></span><span></span><span></span><span></span><span></span></div>
+                  <p>Escalatory rhetoric, missile defense stress, and coercive nuclear signaling.</p>
+                </div>
+              </div>
+              <div class="global-brief-actions">
+                <button class="brief-action primary" type="button" onclick="loadContent('reports/global/current/report.html', this)">Open Daily Global Report</button>
+                <button class="brief-action" type="button" onclick="loadContent('pages/map-feed.html', this)">Live Map &amp; Feed</button>
+                <button class="brief-action" type="button" onclick="loadContent('pages/news-library.html', this)">News Library</button>
+              </div>
+            </div>
+            <div class="global-visual" aria-hidden="true">
+              <div class="global-map-card">
+                <span class="global-map-node n1"></span>
+                <span class="global-map-node n2"></span>
+                <span class="global-map-node n3"></span>
+                <span class="global-map-node n4"></span>
+                <div class="global-map-caption">
+                  <span>Regional signal fusion</span>
+                  <span>Daily matrix</span>
+                </div>
+              </div>
+              <div class="global-domain-grid">
+                <div class="global-domain"><span>Primary theatres</span><strong>Europe / Indo-Pacific</strong></div>
+                <div class="global-domain"><span>Watch drivers</span><strong>Military / Cyber</strong></div>
+                <div class="global-domain"><span>Infrastructure</span><strong>Energy / Maritime</strong></div>
+                <div class="global-domain"><span>Escalation</span><strong>Nuclear / Alliance</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
 
-      <!-- Theater analysis -->
       <div class="welcome-section">
-        <div class="welcome-section-label">Theater &amp; Domain Analysis</div>
-        <div class="cards-grid" id="welcome-theater-cards"></div>
+        <div class="welcome-section-label">Daily Country Analysis</div>
+        <div class="cards-grid country-analysis-grid" id="welcome-country-analysis-cards"></div>
       </div>
     </div>
 
@@ -3460,29 +3912,16 @@
             <!-- Security Section -->
             <div class="admin-section" id="section-security">
               <h2 class="admin-section-title">Security</h2>
-              <p class="admin-section-desc">Change admin access code</p>
+              <p class="admin-section-desc">Cloudflare-managed settings access</p>
               <div class="password-form">
-                <div class="config-card-title" style="margin-bottom:var(--space-1)">Change Access Code</div>
+                <div class="config-card-title" style="margin-bottom:var(--space-1)">Access Code Source</div>
                 <div class="config-card-desc" style="margin-bottom:var(--space-4)">
-                  Updates the access code stored in this browser.
+                  Settings access is verified by the server-side <code>ADMIN_ACCESS_TOKEN</code> secret. The code is not stored in static assets, localStorage, or browser configuration. Rotate it with Cloudflare secrets and the local <code>.env</code> file.
                 </div>
-                <form id="password-change-form" autocomplete="off" style="display:flex;flex-direction:column;gap:var(--space-3)" onsubmit="changePassword(event)">
-                  <input type="text" name="username" value="admin" autocomplete="username" hidden>
-                  <div>
-                    <label class="form-label" for="pw-current">Current Code</label>
-                    <input class="form-input" type="password" id="pw-current" placeholder="Current access code" autocomplete="current-password" required>
-                  </div>
-                  <div>
-                    <label class="form-label" for="pw-new">New Code</label>
-                    <input class="form-input" type="password" id="pw-new" placeholder="New access code" autocomplete="new-password" required>
-                  </div>
-                  <div>
-                    <label class="form-label" for="pw-confirm">Confirm New Code</label>
-                    <input class="form-input" type="password" id="pw-confirm" placeholder="Confirm new access code" autocomplete="new-password" required>
-                  </div>
-                  <p class="auth-error" id="pw-error"></p>
-                  <button class="btn btn-primary" type="submit">Update Access Code</button>
-                </form>
+                <div class="config-card-desc" style="font-family:var(--font-mono);font-size:0.68rem;color:var(--color-text-faint);line-height:1.7">
+                  Local: <code>ADMIN_ACCESS_TOKEN=...</code> in <code>.env</code><br>
+                  Cloudflare Pages: <code>npx wrangler pages secret put ADMIN_ACCESS_TOKEN --project-name conflict-mapper</code>
+                </div>
               </div>
             </div>
 
@@ -3611,11 +4050,91 @@ const COUNTRIES = [
   { flag: '🇪🇺', label: 'NATO', slug: 'nato' }
 ];
 
+const COUNTRY_ANALYSIS_META = {
+  usa: {
+    priority: 'steady',
+    badge: 'Steady',
+    summary: 'Domestic resilience, cyber exposure, defense posture, and alliance bandwidth shape the daily U.S. risk picture.',
+    domains: ['Cyber', 'Alliance', 'Infrastructure'],
+    trend: [38, 42, 45, 43, 48, 46],
+  },
+  china: {
+    priority: 'high',
+    badge: 'High',
+    summary: 'Military pressure, Taiwan signaling, maritime behavior, industrial policy, and cyber activity drive the China watch.',
+    domains: ['Military', 'Maritime', 'Cyber'],
+    trend: [58, 64, 69, 71, 76, 73],
+  },
+  russia: {
+    priority: 'high',
+    badge: 'High',
+    summary: 'Ukraine operations, missile activity, sanctions pressure, energy leverage, and NATO friction keep the matrix elevated.',
+    domains: ['Military', 'Energy', 'NATO'],
+    trend: [68, 72, 70, 75, 78, 76],
+  },
+  ukraine: {
+    priority: 'critical',
+    badge: 'Critical',
+    summary: 'Active conflict, air-defense stress, infrastructure attacks, frontline tempo, and external support remain priority signals.',
+    domains: ['Active War', 'Air Defense', 'Infrastructure'],
+    trend: [78, 82, 85, 84, 88, 86],
+  },
+  taiwan: {
+    priority: 'high',
+    badge: 'High',
+    summary: 'PLA activity, blockade indicators, maritime exclusion risk, cyber pressure, and allied access shape the daily Strait view.',
+    domains: ['PLA', 'Maritime', 'Allied Access'],
+    trend: [62, 66, 70, 74, 72, 76],
+  },
+  iran: {
+    priority: 'high',
+    badge: 'High',
+    summary: 'Proxy activity, nuclear signaling, missile posture, maritime disruption, and energy-market exposure drive Iran risk.',
+    domains: ['Nuclear', 'Missiles', 'Energy'],
+    trend: [64, 68, 73, 71, 75, 77],
+  },
+  israel: {
+    priority: 'watch',
+    badge: 'Watch',
+    summary: 'Regional conflict spillover, missile defense, internal security, Gaza/Lebanon fronts, and Iran-linked pressure remain active.',
+    domains: ['Missile Defense', 'Regional', 'Civil Security'],
+    trend: [56, 60, 63, 61, 66, 64],
+  },
+  india: {
+    priority: 'steady',
+    badge: 'Steady',
+    summary: 'Border posture, maritime competition, domestic security, technology controls, and regional diplomacy guide daily monitoring.',
+    domains: ['Border', 'Maritime', 'Technology'],
+    trend: [36, 39, 43, 42, 46, 44],
+  },
+  pakistan: {
+    priority: 'watch',
+    badge: 'Watch',
+    summary: 'Internal stability, militant activity, border friction, economic stress, and nuclear-adjacent escalation risks require watch.',
+    domains: ['Internal', 'Border', 'Nuclear'],
+    trend: [48, 52, 55, 58, 57, 60],
+  },
+  'north-korea': {
+    priority: 'high',
+    badge: 'High',
+    summary: 'Missile launches, nuclear messaging, artillery posture, cyber activity, and alliance response pressure drive Korea risk.',
+    domains: ['Missiles', 'Nuclear', 'Cyber'],
+    trend: [60, 66, 69, 75, 73, 78],
+  },
+  nato: {
+    priority: 'watch',
+    badge: 'Watch',
+    summary: 'Force posture, eastern flank readiness, munitions depth, air defense, and alliance cohesion shape NATO monitoring.',
+    domains: ['Readiness', 'Air Defense', 'Alliance'],
+    trend: [46, 50, 54, 56, 55, 58],
+  },
+};
+
 /* ── Default config ─────────────────────────────────────── */
 const DEFAULT_CONFIG = {
   siteName: "CONFLICT MAPPER",
   siteTagline: "GEOPOLITICAL INTELLIGENCE PLATFORM",
-  password: "admin123",
+  password: "",
   theme: "light",
   nav: [
     { label: "Map & Feed", type: "link", target: "pages/map-feed.html", icon: "map" },
@@ -4359,35 +4878,48 @@ function renderWelcomeCards() {
   renderWelcomeStats();
 
   const countrySection = navConfig.nav.find(n => n.type === 'dropdown-nested');
-  const theaterSection = navConfig.nav.find(n => n.type === 'dropdown' && n.label === 'Theater Analysis');
-
-  const countryGrid = document.getElementById('welcome-country-cards');
-  const theaterGrid = document.getElementById('welcome-theater-cards');
+  const countryGrid = document.getElementById('welcome-country-analysis-cards');
 
   if (countryGrid && countrySection) {
     const countries = countrySection.countries || COUNTRIES;
-    countryGrid.innerHTML = countries.map(c => `
-      <button class="dossier-card" onclick="loadContent('countries/${c.slug}-dossier.html', this)" aria-label="Open ${escHtml(c.label)} dossier">
-        <div class="card-flag" aria-hidden="true">${c.flag}</div>
-        <div class="card-label">${escHtml(c.label)}</div>
-        <div class="card-subtitle">Strategic Dossier</div>
-        <div class="card-arrow" aria-hidden="true">Open →</div>
-      </button>
-    `).join('');
+    countryGrid.innerHTML = countries.map(c => renderDailyCountryCard(c)).join('');
   }
+}
 
-  if (theaterGrid && theaterSection) {
-    theaterGrid.innerHTML = (theaterSection.items || []).map(item => `
-      <button class="theater-card" onclick="loadContent('${escHtml(item.target)}', this)" aria-label="Open ${escHtml(item.label)} analysis">
-        <div class="theater-icon" aria-hidden="true">
-          ${ICONS.crosshair}
+function renderDailyCountryCard(country) {
+  const meta = COUNTRY_ANALYSIS_META[country.slug] || {
+    priority: 'steady',
+    badge: 'Steady',
+    summary: `Daily assessment for ${country.label} covering security, political, military, cyber, and infrastructure indicators.`,
+    domains: ['Security', 'Political', 'Infrastructure'],
+    trend: [35, 38, 41, 42, 44, 43],
+  };
+  const bars = (meta.trend || []).map(value => `<span style="--bar:${Number(value) || 25}"></span>`).join('');
+  const domains = (meta.domains || []).map(domain => `<span class="domain-chip">${escHtml(domain)}</span>`).join('');
+  const currentTarget = `reports/countries/${country.slug}/current/report.html`;
+  const dossierTarget = `countries/${country.slug}-dossier.html`;
+
+  return `
+    <article class="daily-country-card priority-${escHtml(meta.priority)}" aria-label="${escHtml(country.label)} daily analysis card">
+      <div class="country-card-top">
+        <div class="country-card-flag" aria-hidden="true">${country.flag}</div>
+        <div class="country-card-title">
+          <strong>${escHtml(country.label)}</strong>
+          <span>Daily Assessment</span>
         </div>
-        <div class="card-label">${escHtml(item.label)}</div>
-        <div class="card-tag">${escHtml(item.subtitle || '')}</div>
-        <div class="card-arrow" style="color:var(--color-amber)" aria-hidden="true">Open →</div>
-      </button>
-    `).join('');
-  }
+        <span class="priority-badge">${escHtml(meta.badge)}</span>
+      </div>
+      <div class="country-card-body">
+        <div class="threat-spark" aria-label="${escHtml(country.label)} threat trend visual">${bars}</div>
+        <p class="country-card-summary">${escHtml(meta.summary)}</p>
+        <div class="country-domain-row" aria-label="${escHtml(country.label)} key domains">${domains}</div>
+      </div>
+      <div class="country-card-actions">
+        <button type="button" onclick="loadContent('${escHtml(currentTarget)}', this)">Current Report</button>
+        <button type="button" onclick="loadContent('${escHtml(dossierTarget)}', this)">Dossier</button>
+      </div>
+    </article>
+  `;
 }
 
 function renderWelcomeStats() {
@@ -4606,28 +5138,53 @@ function logoutAdmin() {
 }
 
 /* ── Auth form ──────────────────────────────────────────── */
-document.getElementById('auth-form').addEventListener('submit', function(e) {
+document.getElementById('auth-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const pw = document.getElementById('admin-password').value;
   const errorEl = document.getElementById('auth-error');
-  const storedPw = navConfig ? navConfig.password : DEFAULT_CONFIG.password;
 
-  if (pw === storedPw) {
+  errorEl.classList.remove('visible');
+  errorEl.textContent = 'Incorrect access code. Try again.';
+
+  try {
+    const authenticated = await authenticateAdmin(pw);
+    if (!authenticated) throw new Error('Incorrect access code. Try again.');
     errorEl.classList.remove('visible');
-    adminAuthenticated = true;
-    setSessionAuth(true);
-    document.getElementById('admin-auth').classList.add('hidden');
-    document.getElementById('admin-content').classList.add('visible');
-    updateConfigPreview();
-    renderNavEditor();
-    loadFeedsConfig();
-    loadFlaggedArticles();
+    activateAdminSession();
     document.getElementById('admin-password').value = '';
-  } else {
+  } catch (err) {
+    errorEl.textContent = err.message || 'Incorrect access code. Try again.';
     errorEl.classList.add('visible');
     document.getElementById('admin-password').focus();
   }
 });
+
+async function authenticateAdmin(password) {
+  const res = await fetch('/api/admin/auth', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password }),
+  });
+  const data = await readApiJson(res, '/api/admin/auth').catch((err) => ({ error: err.message }));
+  if (res.ok && data.success && data.data?.authenticated) return true;
+  if (res.status === 503) {
+    throw new Error(data.error || 'ADMIN_ACCESS_TOKEN is not configured.');
+  }
+  if (data.error && !/incorrect/i.test(data.error)) throw new Error(data.error);
+  return false;
+}
+
+function activateAdminSession() {
+  adminAuthenticated = true;
+  setSessionAuth(true);
+  document.getElementById('admin-auth').classList.add('hidden');
+  document.getElementById('admin-content').classList.add('visible');
+  updateConfigPreview();
+  renderNavEditor();
+  loadFeedsConfig();
+  loadFlaggedArticles();
+  loadCountries();
+}
 
 /* ── Admin section switching ────────────────────────────── */
 function showAdminSection(id, btn) {
@@ -5894,36 +6451,7 @@ async function unflagArticle(id) {
 /* ── Password change ────────────────────────────────────── */
 function changePassword(event) {
   if (event) event.preventDefault();
-  const current = document.getElementById('pw-current').value;
-  const next = document.getElementById('pw-new').value;
-  const confirm = document.getElementById('pw-confirm').value;
-  const errEl = document.getElementById('pw-error');
-
-  errEl.classList.remove('visible');
-  errEl.textContent = '';
-
-  if (current !== navConfig.password) {
-    errEl.textContent = 'Current access code is incorrect.';
-    errEl.classList.add('visible');
-    return;
-  }
-  if (!next || next.length < 4) {
-    errEl.textContent = 'New code must be at least 4 characters.';
-    errEl.classList.add('visible');
-    return;
-  }
-  if (next !== confirm) {
-    errEl.textContent = 'New codes do not match.';
-    errEl.classList.add('visible');
-    return;
-  }
-
-  navConfig.password = next;
-  saveConfig(navConfig);
-  document.getElementById('pw-current').value = '';
-  document.getElementById('pw-new').value = '';
-  document.getElementById('pw-confirm').value = '';
-  showToast('Access code updated');
+  showToast('Access code is managed through ADMIN_ACCESS_TOKEN in Cloudflare and .env', true);
 }
 
 /* ── Modal ──────────────────────────────────────────────── */

@@ -194,22 +194,23 @@ All dossier components are documented in `COUNTRY_DOSSIER_TEMPLATE.md` and `THEA
 
 ### Access
 - Settings button in nav bar → password gate
-- Default password: `admin123` (stored in nav-config.json, changeable in admin)
-- Session persists via sessionStorage
+- Access code is verified server-side against the Cloudflare/local `ADMIN_ACCESS_TOKEN` secret
+- The access code is not stored in `nav-config.json`, localStorage, or static assets
+- Session persists in memory for the current page session
 
 ### Capabilities
 1. **Navigation Editor** — Add/edit/remove/reorder nav items and sub-items
 2. **Source Selector** — Each nav item targets either a local file path or external URL
 3. **Config Export/Import** — Download/upload nav-config.json
 4. **Reset to Defaults** — Restore factory navigation configuration
-5. **Password Change** — Update admin access code
+5. **Security Status** — Documents the Cloudflare-managed access-code source
 
 ### Nav Config Schema
 ```json
 {
   "siteName": "CONFLICT MAPPER",
   "siteTagline": "GEOPOLITICAL INTELLIGENCE PLATFORM",
-  "password": "admin123",
+  "password": "",
   "theme": "dark",
   "nav": [
     {

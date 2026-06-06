@@ -30,7 +30,7 @@ All three rendering functions read from the same `navConfig` variable (loaded on
 {
   "siteName": "CONFLICT MAPPER",
   "siteTagline": "GEOPOLITICAL INTELLIGENCE PLATFORM",
-  "password": "admin123",
+  "password": "",
   "theme": "dark",
   "nav": [
     {

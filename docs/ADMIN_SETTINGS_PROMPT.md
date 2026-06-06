@@ -90,40 +90,26 @@ function getSessionAuth() {
 }
 ```
 
-The password is stored in `assets/nav-config.json` under the `"password"` key (default: `"admin123"`).
+Production settings access is verified by `POST /api/admin/auth` against the server-side `ADMIN_ACCESS_TOKEN` secret. The access code is not stored in `assets/nav-config.json`, localStorage, or static assets.
 
-### Changing the Password
+### Rotating the Access Code
 
-Edit `assets/nav-config.json`:
+Update the local `.env` file and the Cloudflare Pages secret:
 
-```json
-{
-  "password": "your-secure-password",
-  ...
-}
+```bash
+ADMIN_ACCESS_TOKEN=<new-secure-token>
+npx wrangler pages secret put ADMIN_ACCESS_TOKEN --project-name conflict-mapper
 ```
 
-**Security note:** Since the password is in a client-served JSON file, this authentication provides convenience-level access control only. For stronger security on a networked deployment, add HTTP Basic Auth at the server level (nginx or Express middleware).
+**Security note:** Do not commit or print the token. `.env*` is gitignored, and Cloudflare stores Pages secrets encrypted.
 
-### Adding Server-Side Auth (recommended for production)
+### Server-Side Auth
 
-In `server.js`, add a middleware:
+Local Express and Cloudflare Pages both expose `POST /api/admin/auth`. The endpoint returns `401` for incorrect values and `503` when `ADMIN_ACCESS_TOKEN` is not configured.
 
 ```js
-const AUTH_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
-
-app.use('/api', (req, res, next) => {
-  const auth = req.headers.authorization;
-  if (!auth || !auth.startsWith('Basic ')) {
-    res.setHeader('WWW-Authenticate', 'Basic realm="Conflict Mapper Admin"');
-    return res.status(401).json({ success: false, error: 'Unauthorized' });
-  }
-  const decoded = Buffer.from(auth.slice(6), 'base64').toString();
-  if (decoded !== `admin:${AUTH_PASSWORD}`) {
-    return res.status(401).json({ success: false, error: 'Invalid credentials' });
-  }
-  next();
-});
+const expected = process.env.ADMIN_ACCESS_TOKEN;
+const authenticated = constantTimeEqual(provided, expected);
 ```
 
 ---

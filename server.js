@@ -23,6 +23,7 @@ const fs         = require('fs');
 const path       = require('path');
 const cors       = require('cors');
 const bodyParser = require('body-parser');
+const crypto     = require('crypto');
 
 // ── Internal modules ────────────────────────────────────────────────────────
 const feedStore   = require('./lib/feed-store');
@@ -34,6 +35,8 @@ const logger      = require('./lib/logger');
 // ─────────────────────────────────────────────────────────────────────────────
 // SERVER SETUP
 // ─────────────────────────────────────────────────────────────────────────────
+
+loadLocalEnv();
 
 const app  = express();
 const PORT = process.env.PORT || 5000;
@@ -54,7 +57,7 @@ app.use((req, res, next) => {
   if (req.path.startsWith('/api/')) {
     let bodySummary = null;
     if (req.body && typeof req.body === 'object' && Object.keys(req.body).length > 0) {
-      const raw = JSON.stringify(req.body);
+      const raw = JSON.stringify(redactSensitiveBody(req.body));
       bodySummary = raw.length > 200 ? raw.slice(0, 200) + '...' : raw;
     }
     logger.log('api', 'info', `${req.method} ${req.path}`, bodySummary ? { body: bodySummary } : undefined);
@@ -957,6 +960,49 @@ app.post('/api/settings', asyncRoute(async (req, res) => {
 
 const COUNTRIES_CONFIG_PATH = path.join(__dirname, 'data', 'countries-config.json');
 
+// ─────────────────────────────────────────────────────────────────────────────
+// === ADMIN AUTH ===
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * GET /api/admin/auth
+ * Report whether server-side admin auth is configured.
+ */
+app.get('/api/admin/auth', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      configured: Boolean(process.env.ADMIN_ACCESS_TOKEN),
+      authMode: 'env-secret',
+    },
+  });
+});
+
+/**
+ * POST /api/admin/auth
+ * Verify the settings-menu access token without exposing the configured value.
+ */
+app.post('/api/admin/auth', (req, res) => {
+  const provided = String(req.body?.password || req.body?.token || '').trim();
+  const expected = String(process.env.ADMIN_ACCESS_TOKEN || '').trim();
+  if (!expected) {
+    return res.status(503).json({
+      success: false,
+      error: 'ADMIN_ACCESS_TOKEN is not configured',
+      data: { configured: false },
+    });
+  }
+
+  const authenticated = constantTimeEqual(provided, expected);
+  return res.status(authenticated ? 200 : 401).json({
+    success: authenticated,
+    data: {
+      authenticated,
+      authMode: 'env-secret',
+    },
+  });
+});
+
 function readCountriesConfig() {
   try {
     return JSON.parse(require('fs').readFileSync(COUNTRIES_CONFIG_PATH, 'utf8'));
@@ -1272,3 +1318,49 @@ app.listen(PORT, '0.0.0.0', () => {
 });
 
 module.exports = app;
+
+function constantTimeEqual(a, b) {
+  if (!a || !b) return false;
+  const left = crypto.createHash('sha256').update(a).digest();
+  const right = crypto.createHash('sha256').update(b).digest();
+  return crypto.timingSafeEqual(left, right);
+}
+
+function loadLocalEnv() {
+  const envPath = path.join(__dirname, '.env');
+  if (!fs.existsSync(envPath)) return;
+  const lines = fs.readFileSync(envPath, 'utf8').split(/\r?\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const idx = trimmed.indexOf('=');
+    if (idx <= 0) continue;
+    const key = trimmed.slice(0, idx).trim();
+    const rawValue = trimmed.slice(idx + 1).trim();
+    const value = rawValue.replace(/^['"]|['"]$/g, '');
+    if (key && process.env[key] === undefined) process.env[key] = value;
+  }
+}
+
+function redactSensitiveBody(body) {
+  const sensitive = new Set([
+    'apiKey',
+    'api_key',
+    'authorization',
+    'password',
+    'token',
+    'secret',
+    'current',
+    'next',
+    'confirm',
+  ]);
+  if (Array.isArray(body)) return body.map(redactSensitiveBody);
+  if (!body || typeof body !== 'object') return body;
+  return Object.fromEntries(Object.entries(body).map(([key, value]) => {
+    if (sensitive.has(key) || /password|token|secret|api[-_]?key|authorization/i.test(key)) {
+      return [key, '[redacted]'];
+    }
+    if (value && typeof value === 'object') return [key, redactSensitiveBody(value)];
+    return [key, value];
+  }));
+}
