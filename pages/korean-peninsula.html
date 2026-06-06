@@ -87,10 +87,17 @@ a:hover { text-decoration: underline; }
 .card p { margin: 0; color: var(--muted); font-size: var(--cm-article-text-size, 15pt); }
 .metric { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700; color: var(--accent); line-height: 1; }
 .metric-label { font-family: var(--font-mono); font-size: var(--cm-commentary-text-size, 12pt); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin-top: 4px; }
-.indicator-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
-.indicator-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; background: var(--surface); }
-.indicator-card strong { display: block; font-family: var(--font-display); color: var(--text); font-size: clamp(1.1rem, var(--cm-navigation-text-size, 16pt), 1.45rem); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 5px; }
-.indicator-card span { display: block; color: var(--muted); font-size: var(--cm-article-text-size, 15pt); line-height: 1.45; }
+	.indicator-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+	.indicator-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; background: var(--surface); }
+	.indicator-card strong { display: block; font-family: var(--font-display); color: var(--text); font-size: clamp(1.1rem, var(--cm-navigation-text-size, 16pt), 1.45rem); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 5px; }
+	.indicator-card span { display: block; color: var(--muted); font-size: var(--cm-article-text-size, 15pt); line-height: 1.45; }
+	.assessment-card { display: grid; gap: 14px; }
+	.assessment-card ul { margin: 0; padding-left: 20px; color: var(--muted); }
+	.assessment-card li { margin-bottom: 8px; }
+	.live-note { border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; background: color-mix(in srgb, var(--accent) 7%, var(--surface)); color: var(--muted); }
+	.live-note strong { color: var(--text); }
+	.signal-row { display: flex; flex-wrap: wrap; gap: 8px; }
+	.signal-pill { font-family: var(--font-mono); font-size: var(--cm-commentary-text-size, 12pt); letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--border); border-radius: 999px; padding: 5px 9px; background: var(--surface-2); color: var(--muted); }
 .map-frame { position: relative; }
 .map-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
 .map-tools button { border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; background: var(--surface); color: var(--text); font-family: var(--font-mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
@@ -135,7 +142,7 @@ a:hover { text-decoration: underline; }
       <span class="status red">DPRK Nuclear: Active</span>
       <span class="status amber">DMZ Posture: Elevated</span>
       <span class="status green">ROK / US Alliance: Active</span>
-      <span class="status">Dual-Contingency Risk: Taiwan Linked</span>
+      <span class="status">Regional Spillover Risk: Monitored</span>
     </div>
   </div>
 </header>
@@ -149,19 +156,26 @@ a:hover { text-decoration: underline; }
     <div class="card"><div class="metric" id="metric-map-points">0</div><div class="metric-label">Mapped Nodes</div></div>
   </div>
   <div class="grid two" style="margin-top:16px">
-    <div class="card">
+    <div class="card assessment-card">
       <h3>Assessment Summary</h3>
-      <p>The Korean Peninsula remains a high-risk armistice theater where limited conventional actions can rapidly become nuclear signaling events. The most important watch items are ballistic missile tests, tactical nuclear deployment signals, DMZ artillery posture, cyber and space activity, USFK/ROK exercise cycles, and whether a Taiwan contingency draws US attention or assets away from Korea.</p>
+      <p>The Korean Peninsula remains a high-risk armistice theater where a limited incident can quickly become a nuclear-signaling, cyber, public-warning, and alliance-consultation problem. The core danger is not only a large invasion. It is a fast coercive sequence in which missile launches, artillery posture, nuclear rhetoric, SOF or drone incidents, cyber disruption, and public fear force Seoul and Washington to make visible decisions under pressure.</p>
+      <p>Current assessment should focus on convergence. A routine missile test or rhetorical statement is weaker evidence than a cluster that combines launcher dispersal, forward fires readiness, evacuation narratives, cyber disruption, unusual USFK/ROK posture, or inconsistent allied messaging. The watch page therefore treats fresh reporting as a signal only when it changes capability, intent, logistics, public-warning continuity, alliance cohesion, or escalation risk.</p>
+      <ul>
+        <li><strong>Primary watch logic:</strong> missile posture plus artillery readiness plus political demands is more important than any single launch headline.</li>
+        <li><strong>Civil risk logic:</strong> Seoul-Incheon exposure means public-warning failures, false alerts, and evacuation rumors can become operational pressure.</li>
+        <li><strong>Alliance logic:</strong> USFK posture, Japan access, missile-defense inventory, and clear public messaging determine whether coercion creates a usable gap.</li>
+      </ul>
+      <div class="live-note" id="assessment-live-note"><strong>Live cache:</strong> Loading Korea-filtered reporting and think tank coverage...</div>
     </div>
     <div class="card">
       <h3>Priority Indicators</h3>
       <div class="indicator-grid">
-        <div class="indicator-card"><strong>SRBM / MRBM Launches</strong><span>Launcher dispersal plus political demands is more important than a routine single test.</span></div>
-        <div class="indicator-card"><strong>600mm MLRS</strong><span>Watch for forward artillery posture near Seoul, ammunition movement, and command delegation signals.</span></div>
-        <div class="indicator-card"><strong>Punggye-ri / Yongbyon</strong><span>Nuclear-site reporting matters most when paired with crisis rhetoric, cyber disruption, or missile activity.</span></div>
-        <div class="indicator-card"><strong>SOF / Drone Incidents</strong><span>Small incursions can become escalation probes when synchronized with artillery, cyber, or information operations.</span></div>
-        <div class="indicator-card"><strong>USFK / Freedom Shield</strong><span>Exercise responses reveal alliance readiness, public messaging discipline, and proportional-response options.</span></div>
-        <div class="indicator-card"><strong>China Border Support</strong><span>Border logistics, diplomatic cover, and air-defense posture can turn a Korea crisis into a regional crisis.</span></div>
+        <div class="indicator-card"><strong>SRBM / MRBM Launches</strong><span>Watch for launches that coincide with dispersal, hardened-site activity, nuclear rhetoric, or demands. Routine testing remains lower concern unless it synchronizes with other pressure.</span></div>
+        <div class="indicator-card"><strong>600mm MLRS / Artillery</strong><span>Forward fires posture near Seoul, ammunition movement, unusual shelters, and command delegation signals would shift concern faster than public rhetoric alone.</span></div>
+        <div class="indicator-card"><strong>Punggye-ri / Yongbyon</strong><span>Nuclear-site reporting matters most when paired with missile activity, tactical nuclear language, cyber disruption, or visible allied consultation stress.</span></div>
+        <div class="indicator-card"><strong>SOF / Drone Incidents</strong><span>Small incursions become escalation probes when synchronized with artillery alerts, cyber outages, EW activity, public fear, or information operations.</span></div>
+        <div class="indicator-card"><strong>USFK / Freedom Shield</strong><span>Exercise responses reveal readiness, proportional-response options, air and missile defense posture, and whether public messaging remains disciplined under pressure.</span></div>
+        <div class="indicator-card"><strong>Regional Access</strong><span>Japan access, interceptor allocation, Guam logistics, diplomatic cover, and China border behavior determine whether a peninsula crisis remains contained.</span></div>
       </div>
     </div>
   </div>
@@ -218,7 +232,7 @@ a:hover { text-decoration: underline; }
       <img src="/assets/weapons/thaad-launcher.jpg" alt="THAAD launcher" loading="lazy">
       <div>
         <h3>Guardian Tiger I / II</h3>
-        <p>Models limited strike pressure, tactical nuclear coercion, chemical escalation, China intervention, and dual Taiwan-Korea stress on alliance command structures.</p>
+        <p>Models limited strike pressure, tactical nuclear coercion, chemical escalation, regional diversion, Japan access, and allied command stress under compressed timelines.</p>
         <div class="card-actions"><span>Limited strike</span><span>Nuclear coercion</span><span>Alliance response</span></div>
       </div>
     </a>
@@ -308,7 +322,11 @@ function timeLabel(a){const t=articleTime(a);return t?new Date(t).toLocaleDateSt
 function text(a){return [a.title,a.description,a.summary,a.country,a.region,a.geo?.place,a.source,a.thinkTank,...(Array.isArray(a.tags)?a.tags:[])].filter(Boolean).join(' ').toLowerCase()}
 const directTerms=['korea','korean','north korea','south korea','dprk','rok','pyongyang','seoul','dmz','kim jong','usfk','yongbyon','punggye','sinpo','sohae','freedom shield'];
 const contextualTerms=['missile','srbm','mrbm','icbm','nuclear','ballistic','artillery','drone','submarine','launch'];
+const strategicTerms=['missile','srbm','mrbm','icbm','nuclear','ballistic','artillery','drone','submarine','launch','military','defense','defence','security','sanction','border','troops','army','naval','air base','usfk','dmz','kim jong','pyongyang','seoul','dprk','rok','yongbyon','punggye','sinpo','sohae','freedom shield'];
 function relevant(a){const s=text(a);return directTerms.some(t=>s.includes(t)) || (contextualTerms.some(t=>s.includes(t)) && ['north','south','dprk','rok','pyongyang','seoul','kim'].some(t=>s.includes(t)))}
+function directRelevance(a){const s=[a.title,a.description,a.summary,a.contentSnippet,a.country,a.region,a.geo?.place,...(Array.isArray(a.tags)?a.tags:[])].filter(Boolean).join(' ').toLowerCase();return directTerms.some(t=>s.includes(t))}
+function strategicDirectRelevance(a){const s=[a.title,a.description,a.summary,a.contentSnippet,a.country,a.region,a.geo?.place,...(Array.isArray(a.tags)?a.tags:[])].filter(Boolean).join(' ').toLowerCase();return directTerms.some(t=>s.includes(t))&&strategicTerms.some(t=>s.includes(t))}
+function headlineStrategicRelevance(a){const s=String(a.title||'').toLowerCase();return directTerms.some(t=>s.includes(t))&&strategicTerms.some(t=>s.includes(t))}
 const fallbackImages=[
   '/assets/maps/north-korea-physiography-cia-2020.jpg',
   '/assets/maps/south-korea-physiography-cia-2018.jpg',
@@ -327,9 +345,21 @@ function articleSummary(a){
 function renderList(id, articles, empty){
   const el=document.getElementById(id);
   if(!articles.length){el.innerHTML=`<div class="article-meta">${empty}</div>`;return}
-  el.innerHTML=articles.slice(0,24).map((a,index)=>`<a class="article" href="${esc(a.link||a.url||'#')}" target="_blank" rel="noopener noreferrer"><img src="${esc(articleImage(a,index))}" alt="${esc(a.title||'Article image')}" loading="lazy" onerror="this.src='${fallbackImages[index % fallbackImages.length]}'"><div><div class="article-title">${esc(a.title||'Untitled')}</div><div class="article-meta">${esc(a.source||a.thinkTank||'Unknown')} // ${timeLabel(a)}</div><div class="article-summary">${esc(articleSummary(a))}</div></div></a>`).join('')
-}
-async function loadFeed(){
+	  el.innerHTML=articles.slice(0,24).map((a,index)=>`<a class="article" href="${esc(a.link||a.url||'#')}" target="_blank" rel="noopener noreferrer"><img src="${esc(articleImage(a,index))}" alt="${esc(a.title||'Article image')}" loading="lazy" onerror="this.src='${fallbackImages[index % fallbackImages.length]}'"><div><div class="article-title">${esc(a.title||'Untitled')}</div><div class="article-meta">${esc(a.source||a.thinkTank||'Unknown')} // ${timeLabel(a)}</div><div class="article-summary">${esc(articleSummary(a))}</div></div></a>`).join('')
+	}
+	function updateAssessmentNote(articles, think){
+	  const el=document.getElementById('assessment-live-note');
+	  if(!el) return;
+	  const sources=new Set(articles.map(a=>a.source).filter(Boolean)).size;
+	  const latest=articles.find(headlineStrategicRelevance);
+	  const thinkLatest=think.find(strategicDirectRelevance)||think.find(directRelevance);
+	  const militaryTerms=['missile','srbm','mrbm','icbm','nuclear','artillery','drone','launch','usfk','dmz','yongbyon','punggye','submarine'];
+	  const indicatorHits=articles.filter(a=>militaryTerms.some(term=>text(a).includes(term))).length;
+	  const latestLine=latest?`Newest direct Korea RSS item: <strong>${esc(latest.title||'Untitled')}</strong> from ${esc(latest.source||'unknown source')} on ${timeLabel(latest)}.`:'No current RSS item matched the Korean Peninsula filter.';
+	  const thinkLine=thinkLatest?`Newest direct Korea think tank item: <strong>${esc(thinkLatest.title||'Untitled')}</strong> from ${esc(thinkLatest.thinkTank||thinkLatest.source||'unknown source')} on ${timeLabel(thinkLatest)}.`:'No current think tank item matched the Korean Peninsula filter.';
+	  el.innerHTML=`<strong>Live cache:</strong> ${articles.length} Korea-relevant RSS articles across ${sources} sources; ${think.length} think tank matches; ${indicatorHits} articles contain missile, nuclear, artillery, drone, launch, DMZ, USFK, or nuclear-site terms.<br>${latestLine}<br>${thinkLine}<div class="signal-row"><span class="signal-pill">Missile posture</span><span class="signal-pill">Cyber / space</span><span class="signal-pill">USFK / ROK</span><span class="signal-pill">Public warning</span><span class="signal-pill">Regional access</span></div>`;
+	}
+	async function loadFeed(){
   const [articleData, thinkData] = await Promise.all([
     fetch('/api/articles?limit=5000').then(r=>r.ok?r.json():{}).catch(()=>({})),
     fetch('/data/think-tank-latest-news.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
@@ -338,8 +368,9 @@ async function loadFeed(){
   const think=(thinkData.articles||thinkData.data?.articles||[]).filter(relevant).sort((a,b)=>articleTime(b)-articleTime(a));
   document.getElementById('metric-articles').textContent=articles.length;
   document.getElementById('metric-sources').textContent=new Set(articles.map(a=>a.source).filter(Boolean)).size;
-  document.getElementById('metric-thinktanks').textContent=think.length;
-  renderList('article-feed',articles,'No Korean Peninsula RSS articles found in the current cache.');
+	  document.getElementById('metric-thinktanks').textContent=think.length;
+	  updateAssessmentNote(articles,think);
+	  renderList('article-feed',articles,'No Korean Peninsula RSS articles found in the current cache.');
   renderList('thinktank-feed',think,'No Korean Peninsula think tank articles found in the current cache.');
 }
 loadFeed();
