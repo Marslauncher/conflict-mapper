@@ -159,6 +159,16 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
   margin: 20px auto 0;
   padding: 0 20px;
 }
+.strategic-brief-section {
+  width: 100%;
+  max-width: none;
+  margin: 20px 0 0;
+  padding: 0 20px;
+}
+.strategic-brief-section .assessment-grid {
+  width: 100%;
+  min-width: 0;
+}
 .current-assessment-card {
   background: linear-gradient(180deg, var(--surface), rgba(18,21,28,0.82));
   border: 1px solid var(--border-dim);
@@ -958,14 +968,14 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
       </div>
       </section>
 
-      <!-- 5. STRATEGIC ASSESSMENT -->
-      <section id="section-05-assessment" class="page-section" data-section="05" data-title="Strategic Assessment" data-last-updated="live" data-prompt-key="taiwan-strategic-assessment">
+      <!-- 5. STRATEGIC BRIEF -->
+      <section id="section-05-assessment" class="page-section strategic-brief-section" data-section="05" data-title="Strategic Brief" data-last-updated="live" data-prompt-key="taiwan-strategic-assessment">
         <div class="section-badge">
           <span class="sb-num">§ 05</span>
           <span class="sb-date">UPDATED LIVE FEED</span>
         </div>
-        <div class="section-title">Strategic Assessment</div>
-        <div class="section-assessment-note" id="strategy-assessment-note"><strong>Strategic assessment:</strong> Live reporting is monitored for escalation clusters: exercise tempo, ADIZ or median-line activity, maritime exclusion zones, cyber pressure, sanctions, arms transfers, and allied naval movement.</div>
+        <div class="section-title">Strategic Brief</div>
+        <div class="section-assessment-note" id="strategy-assessment-note"><strong>Strategic brief:</strong> Live reporting is monitored for escalation clusters: exercise tempo, ADIZ or median-line activity, maritime exclusion zones, cyber pressure, sanctions, arms transfers, and allied naval movement.</div>
         <div class="assessment-grid" id="strategic-assessment-cards" style="margin-bottom:16px">
         <div class="assessment-card">
           <div class="assessment-header">
@@ -1167,6 +1177,12 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 'use strict';
+
+const strategicBriefSection = document.getElementById('section-05-assessment');
+const currentAssessmentSection = document.getElementById('section-00-current-assessment');
+if (strategicBriefSection && currentAssessmentSection) {
+  currentAssessmentSection.before(strategicBriefSection);
+}
 
 /* ── Timestamp ── */
 document.getElementById('hero-ts').textContent = new Date().toLocaleString('en-US', {
@@ -1633,6 +1649,7 @@ const TAIWAN_UNRELATED_TERMS = [
   'somalia', 'mogadishu', 'gaza', 'hezbollah', 'lebanon', 'hormuz', 'iran',
   'israel', 'venezuela', 'sudan', 'ukraine war', 'russia offensive',
   'abraham accords', 'battle of midway', 'world war ii', 'wwii', 'west asia',
+  'middle east', 'mideast',
   'north korea', 'dprk', 'kim jong', 'korean peninsula'
 ];
 const TAIWAN_DIRECT_TERMS = [
@@ -1655,7 +1672,7 @@ const SIGNAL_TERMS = {
 
 window.TAIWAN_SECTION_PROMPTS = {
   'taiwan-force-comparison': 'Update the Taiwan Strait force-comparison assessment from recent public reporting. Separate baseline order-of-battle facts from live posture indicators, cite all source articles, and call out whether new information changes PLA, Taiwan, US, Japan, or allied readiness assumptions.',
-  'taiwan-strategic-assessment': 'Update the Taiwan Strait strategic assessment from current news, recent think tank analysis, and the local article cache. Include a sourced situation summary, things to note, things to watch, and escalation likelihood for the next 24 hours, 7 days, and 1 month.'
+  'taiwan-strategic-assessment': 'Update the Taiwan Strait strategic brief from current news, recent think tank analysis, and the local article cache. Include a sourced situation summary, things to note, things to watch, and escalation likelihood for the next 24 hours, 7 days, and 1 month.'
 };
 
 function articleText(article) {
@@ -1691,6 +1708,63 @@ function isTaiwanCoreRelevant(article) {
     'taiwan blockade', 'taiwan invasion', 'cross-strait crisis',
     'semiconductor supply chain', 'chip export control', 'first island chain'
   ]);
+}
+
+function isChinaTaiwanTheaterRelevant(article) {
+  const profile = taiwanSignalProfile(article);
+  if (profile.unrelated && !profile.direct) return false;
+
+  const text = articleText(article);
+  const headline = String(article.title || '').toLowerCase();
+  const crossStraitTerms = [
+    'taiwan strait', 'cross-strait', 'taiwan blockade', 'taiwan invasion',
+    'cross-strait crisis', 'cross-strait tensions', 'taiwan contingency',
+    'taiwan defense', 'taiwan arms', 'taiwan security', 'taiwan election',
+    'taiwan sanctions', 'taiwan cyber'
+  ];
+  const plaTerms = [
+    'pla', 'plarf', 'pla navy', 'plan navy', 'people liberation army',
+    "people's liberation army", 'eastern theater command', 'adiz',
+    'median line', 'fujian', 'kinmen', 'matsu', 'penghu', 'rocaf'
+  ];
+  const adjacentMaritimeTerms = [
+    'first island chain', 'bashi channel', 'luzon strait', 'south china sea',
+    'east china sea', 'philippine sea', 'okinawa', 'ryukyu', 'philippines'
+  ];
+  if (
+    hasTerm(headline, TAIWAN_UNRELATED_TERMS) &&
+    !hasTerm(headline, [...TAIWAN_DIRECT_TERMS, ...crossStraitTerms, ...plaTerms])
+  ) return false;
+  if (!profile.direct && hasTerm(text, ['hong kong', 'hk', 'xinjiang', 'tibet'])) return false;
+
+  const directTheaterContext = profile.direct &&
+    (
+      profile.security ||
+      profile.technology ||
+      profile.china ||
+      profile.regional ||
+      hasTerm(text, crossStraitTerms) ||
+      hasTerm(text, plaTerms) ||
+      hasTerm(text, adjacentMaritimeTerms)
+    );
+  const plaSecurity = hasTerm(text, plaTerms) && profile.security;
+  const crossStraitSecurity = profile.china &&
+    hasTerm(text, [...crossStraitTerms, ...adjacentMaritimeTerms]) &&
+    (profile.security || profile.technology);
+  const adjacentSecurity = profile.china &&
+    hasTerm(text, adjacentMaritimeTerms) &&
+    profile.security;
+
+  return directTheaterContext || plaSecurity || crossStraitSecurity || adjacentSecurity;
+}
+
+function chinaTaiwanTheaterArticles(articles) {
+  return (articles || [])
+    .filter(isChinaTaiwanTheaterRelevant)
+    .sort((a, b) => {
+      const scoreDelta = taiwanRelevanceScore(b) - taiwanRelevanceScore(a);
+      return scoreDelta || sortByArticleDate(a, b);
+    });
 }
 
 function isTaiwanThinkTankRelevant(article) {
@@ -1829,7 +1903,7 @@ function updateSectionNotes(recent30, alert24) {
   setText('weather-assessment-note', `<strong>Weather assessment:</strong> Current weather and sea state remain tactical constraints; ${alert24} Taiwan/China-relevant feed items landed in the last 24 hours, so weather should be correlated with actual mobilization reporting before raising risk.`);
   setText('tide-assessment-note', `<strong>Tide assessment:</strong> April 2026 is removed from active planning windows. Remaining future windows are tactical feasibility periods, with likelihood still governed primarily by logistics, missile, naval, cyber, and political-warning indicators.`);
   setText('forces-assessment-note', `<strong>Force assessment:</strong> Baseline force balance still favors PLA mass and missile inventory; live feed signals currently show ${military} military, ${cyber} cyber/infrastructure, and ${economic} economic/technology items relevant to the theater.`);
-  setText('strategy-assessment-note', `<strong>Strategic assessment:</strong> The watch posture remains elevated but not invasion-imminent unless multiple signals converge: exercises, exclusion zones, reserves, port activity, ADIZ pressure, cyber activity, sanctions, and allied naval repositioning. Current diplomatic/economic signal count: ${diplomatic + economic}.`);
+  setText('strategy-assessment-note', `<strong>Strategic brief:</strong> The watch posture remains elevated but not invasion-imminent unless multiple signals converge: exercises, exclusion zones, reserves, port activity, ADIZ pressure, cyber activity, sanctions, and allied naval repositioning. Current diplomatic/economic signal count: ${diplomatic + economic}.`);
 }
 
 function setText(id, html) {
@@ -1856,8 +1930,10 @@ function renderSourceLinks(containerId, articles, emptyText) {
 }
 
 function renderCurrentAssessment(articles, thinkTankArticles) {
-  const sourceArticles = articles.filter(isTaiwanCoreRelevant).sort(sortByArticleDate);
-  const sourceThinkTankArticles = thinkTankArticles.filter(isTaiwanThinkTankRelevant).sort(sortByArticleDate);
+  const sourceArticles = chinaTaiwanTheaterArticles(articles);
+  const sourceThinkTankArticles = thinkTankArticles
+    .filter(article => isTaiwanThinkTankRelevant(article) && isChinaTaiwanTheaterRelevant(article))
+    .sort(sortByArticleDate);
   const recent30 = articles.filter(article => articleTime(article) >= Date.now() - 30 * 86400000);
   const recent24 = articles.filter(article => articleTime(article) >= Date.now() - 86400000);
   const military = countSignals(recent30.map(toSignalArticle), SIGNAL_TERMS.military);
@@ -1912,8 +1988,8 @@ function renderStrategicAssessment(articles, thinkTankArticles) {
   const economic = countSignals(signalArticles, SIGNAL_TERMS.economic);
   const cyber = countSignals(signalArticles, SIGNAL_TERMS.cyber);
   const likelihood = escalationLikelihoodFromSignals({ recent24, recent7, military, diplomatic, economic, cyber });
-  const topSource = articles.find(isTaiwanCoreRelevant) || articles[0] || {};
-  const thinkTankTop = thinkTankArticles.find(isTaiwanThinkTankRelevant) || thinkTankArticles[0] || {};
+  const topSource = articles.find(isChinaTaiwanTheaterRelevant) || articles[0] || {};
+  const thinkTankTop = thinkTankArticles.find(article => isTaiwanThinkTankRelevant(article) && isChinaTaiwanTheaterRelevant(article)) || thinkTankArticles[0] || {};
   const sourceLink = topSource.link || topSource.url || searchLink(topSource.title || 'Taiwan Strait security assessment');
   const thinkTankLink = thinkTankTop.link || thinkTankTop.url || searchLink(thinkTankTop.title || 'Taiwan Strait think tank analysis');
   container.innerHTML = `
@@ -2008,10 +2084,10 @@ async function refreshFeed() {
       loadThinkTankArticles()
     ]);
     const relevant = allArticles
-      .filter(isTaiwanRelevant)
+      .filter(isChinaTaiwanTheaterRelevant)
       .sort(sortByArticleDate);
     const thinkTankRelevant = allThinkTankArticles
-      .filter(isTaiwanRelevant)
+      .filter(article => isTaiwanThinkTankRelevant(article) && isChinaTaiwanTheaterRelevant(article))
       .sort(sortByArticleDate);
     const mapped = relevant.map(a => ({ ...a, cat: a.category || 'analysis' }));
     renderFeed(mapped.slice(0, 40));

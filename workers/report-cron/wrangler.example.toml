@@ -10,7 +10,7 @@ enabled = true
 # global/watch reports from timing out behind a full serial country batch.
 crons = [
   "15 8 * * *",
-  "20 8 * * *",
+  "0 3 * * *",
   "30 8 * * *",
   "35 8 * * *",
   "40 8 * * *",
@@ -46,10 +46,13 @@ ALLOW_REPORT_FALLBACK = "true"
 REPORT_AI_TIMEOUT_MS = "75000"
 REPORT_AI_ARTICLE_LIMIT = "24"
 REPORT_GLOBAL_CRON = "15 8 * * *"
-REPORT_WATCH_CRON = "20 8 * * *"
+REPORT_WATCH_CRON = "0 3 * * *"
+REPORT_WATCH_SLUGS = "taiwan,korea"
 REPORT_COUNTRY_CRONS = "30 8 * * *|35 8 * * *|40 8 * * *"
 REPORT_COUNTRY_PARALLELISM = "2"
 REPORT_GLOBAL_PROMPT_ID = "global"
 REPORT_COUNTRY_PROMPT_ID = "country"
 REPORT_WATCH_PROMPT_ID = "watch-taiwan"
+REPORT_TAIWAN_WATCH_PROMPT_ID = "watch-taiwan"
+REPORT_KOREA_WATCH_PROMPT_ID = "watch-korea"
 FETCH_FEEDS_BEFORE_COUNTRY_REPORTS = "false"

@@ -17,7 +17,8 @@ const DEFAULT_COUNTRIES = [
 ];
 
 const DEFAULT_GLOBAL_CRON = '15 8 * * *';
-const DEFAULT_WATCH_CRON = '20 8 * * *';
+const DEFAULT_WATCH_CRON = '0 3 * * *';
+const DEFAULT_WATCH_SLUGS = ['taiwan', 'korea'];
 const DEFAULT_COUNTRY_CRONS = [
   '30 8 * * *',
   '35 8 * * *',
@@ -171,11 +172,12 @@ function createCronPlan(env, cron) {
     };
   }
   if (trigger === normalizeCron(env.REPORT_WATCH_CRON || DEFAULT_WATCH_CRON)) {
+    const watchSlugs = getWatchSlugs(env);
     return {
-      label: 'Daily China/Taiwan watch job',
+      label: 'Daily theater watch jobs',
       refreshFeeds: env.FETCH_FEEDS_BEFORE_WATCH !== 'false' && env.FETCH_FEEDS_BEFORE_REPORTS === 'always',
       concurrency: 1,
-      jobs: [{ scope: 'watch', slug: 'taiwan' }],
+      jobs: watchSlugs.map((slug) => ({ scope: 'watch', slug })),
     };
   }
   if (countryIndex >= 0) {
@@ -227,8 +229,24 @@ function createManualPlan(env, params) {
 
 function defaultPromptIdForJob(env, job) {
   if (job.scope === 'global') return env.REPORT_GLOBAL_PROMPT_ID || 'global';
-  if (job.scope === 'watch') return env.REPORT_WATCH_PROMPT_ID || 'watch-taiwan';
+  if (job.scope === 'watch') {
+    const slug = String(job.slug || '').toLowerCase();
+    if (slug === 'korea' || slug === 'korean-peninsula') {
+      return env.REPORT_KOREA_WATCH_PROMPT_ID || 'watch-korea';
+    }
+    if (slug === 'taiwan' || slug === 'china-taiwan') {
+      return env.REPORT_TAIWAN_WATCH_PROMPT_ID || env.REPORT_WATCH_PROMPT_ID || 'watch-taiwan';
+    }
+    return env.REPORT_WATCH_PROMPT_ID || 'watch-taiwan';
+  }
   return env.REPORT_COUNTRY_PROMPT_ID || 'country';
+}
+
+function getWatchSlugs(env) {
+  return (env.REPORT_WATCH_SLUGS || DEFAULT_WATCH_SLUGS.join(','))
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
 
 function getReportCountries(env) {

@@ -18,6 +18,7 @@ const COUNTRY_LABELS = {
   india: 'India',
   pakistan: 'Pakistan',
   'north-korea': 'North Korea',
+  'korean-peninsula': 'Korean Peninsula',
   nato: 'NATO',
 };
 
@@ -620,6 +621,7 @@ async function ensureReportSchema(env) {
 
 function watchTitle(slug) {
   if (slug === 'taiwan') return 'China/Taiwan Threat Watch';
+  if (slug === 'korean-peninsula' || slug === 'korea') return 'Korean Peninsula Threat Watch';
   return `${COUNTRY_LABELS[slug] || slug.toUpperCase()} Threat Watch`;
 }
 
@@ -727,7 +729,7 @@ function reportArticleScore(article, { scope, slug, now }) {
   if (['military', 'conflict', 'geopolitics', 'cyber', 'infrastructure', 'nuclear', 'terrorism', 'maritime', 'energy'].includes(category)) value += 7;
   else if (['political', 'economic', 'technology', 'breaking'].includes(category)) value += 3;
 
-  if (tags.some((tag) => ['military', 'conflict', 'geopolitics', 'cyber', 'infrastructure', 'nuclear', 'terrorism', 'maritime', 'energy', 'taiwan', 'china', 'russia', 'ukraine', 'iran', 'israel'].includes(tag))) {
+  if (tags.some((tag) => ['military', 'conflict', 'geopolitics', 'cyber', 'infrastructure', 'nuclear', 'terrorism', 'maritime', 'energy', 'taiwan', 'china', 'russia', 'ukraine', 'iran', 'israel', 'north korea', 'south korea', 'korea', 'dprk', 'rok', 'usfk'].includes(tag))) {
     value += 4;
   }
 
@@ -802,6 +804,8 @@ function reportCountryAliases(slug) {
     india: ['india', 'new delhi'],
     pakistan: ['pakistan', 'islamabad'],
     'north-korea': ['north korea', 'dprk', 'pyongyang'],
+    'korean-peninsula': ['korean peninsula', 'north korea', 'south korea', 'dprk', 'rok', 'pyongyang', 'seoul', 'dmz', 'usfk', 'yongbyon', 'punggye', 'sinpo', 'sohae', 'freedom shield', 'korean'],
+    korea: ['korean peninsula', 'north korea', 'south korea', 'dprk', 'rok', 'pyongyang', 'seoul', 'dmz', 'usfk', 'yongbyon', 'punggye', 'sinpo', 'sohae', 'freedom shield', 'korean'],
     nato: ['nato', 'brussels', 'alliance'],
   };
   return map[normalized] || [normalized.replace(/-/g, ' '), normalized];
@@ -809,7 +813,7 @@ function reportCountryAliases(slug) {
 
 export function buildSystemPrompt(scope = 'global') {
   const watchInstruction = scope === 'watch'
-    ? '- This is a threat watch product. Emphasize warning indicators, likely escalation paths, PLA/ROC/US/Japan posture, maritime/air activity, cyber/economic pressure, and collection gaps.\n'
+    ? '- This is a threat watch product. Emphasize warning indicators, likely escalation paths, military posture, cyber/information pressure, logistics, weather/terrain effects, alliance decision stress, and collection gaps for the requested theater.\n'
     : '';
   return `You are the Conflict Mapper intelligence report engine. Write in the style of a daily OSINT watch-center product for enterprise infrastructure, security, and executive risk teams.
 
@@ -916,13 +920,23 @@ export function buildUserPrompt({ scope, slug, title, articles }) {
     : 'No recent articles were available. Use only cautious, general assessment language.';
 
   const scopeLine = scope === 'global' ? 'global' : scope === 'watch' ? `watch/${slug}` : `country/${slug}`;
+  const watchSlug = String(slug || '').toLowerCase();
   const sectionTarget = scope === 'watch'
-    ? `- 5-7 Watch Trends ranked by threat relevance.
+    ? (watchSlug === 'korean-peninsula' || watchSlug === 'korea'
+      ? `- Current Regional Assessment covering North Korean posturing, readiness, missile/nuclear indicators, alliance posture, civil-warning risk, and collection gaps.
+- Recent Think Tank Coverage with 5-10 sentence analysis of any robust regional report and why its ramifications matter.
+- Operational Map and Situational Status narrative tied to DMZ, Seoul/Incheon exposure, USFK/ROK nodes, Japan access, nuclear/missile facilities, cyber/space, and logistics.
+- Weather & Sea State / Ground Conditions with tactical relevance for air, maritime, ground movement, ports, visibility, and civil response.
+- Intelligence Feed: 5-10 militarily significant news stories with concise summaries plus 1-5 sentence analysis on why each matters.
+- Force Comparison and Strategic Assessment updates covering DPRK fires/missiles/SOF/cyber/nuclear leverage versus ROK/US/Japan conventional, air, naval, missile defense, ISR, and sustainment advantages.
+- Current Assessment, Things To Note, Things To Watch, and Escalation Likelihood for 24 hours, 7 days, and 1 month.
+- Outlook bands: short term 24 hours to 1 week, medium term 1 week to 6 months, and long term beyond 6 months.`
+      : `- 5-7 Watch Trends ranked by threat relevance.
 - 6-10 Breaking Developments focused on China/Taiwan and related regional security signals.
 - 6-10 Warning Indicators and Areas of Concern.
 - Regional Assessments by theater: Taiwan Strait, South China Sea, Japan/Ryukyu arc, Philippines, US Indo-Pacific posture, cyber/information operations.
 - One Near-Term Outlook paragraph covering 30-90 days.
-- 8-12 Watch List indicators suitable for alerting/monitoring dashboards.`
+- 8-12 Watch List indicators suitable for alerting/monitoring dashboards.`)
     : `- 7-10 Global Trends cards, ranked by impact.
 - 8-12 Breaking Developments from the newest/highest-signal source articles.
 - 8-12 Areas of Concern with risk badges.
@@ -960,6 +974,59 @@ Formatting requirements:
 Source articles:
 
 ${articleText}`;
+}
+
+function buildKoreaWatchCompositionPrompt() {
+  return `You are updating the Korean Peninsula Watch page for Conflict Mapper.
+
+Goal: update current content without breaking the page composition, shared theme variables, responsive behavior, map/feed IDs, or Korea-only analytic focus.
+
+Required page sections, in this order:
+1. Current Regional Assessment
+2. Recent Think Tank Coverage
+3. Operational Map
+4. Situational Status
+5. Weather & Sea State
+6. Intelligence Feed
+7. Force Comparison
+8. Strategic Assessment
+9. Current Assessment
+10. Things To Note
+11. Things To Watch
+12. Escalation Likelihood
+
+Update expectations:
+- Use the latest available RSS, think tank, official, and reputable open-source reporting.
+- Analyze North Korean posturing, missile and nuclear readiness, artillery/MLRS posture, SOF/drone activity, cyber/space indicators, public-warning risk, and US/ROK/Japan alliance posture.
+- Include weather and ground-condition relevance for air operations, maritime access, ground movement, ports, visibility, cyber/public-warning response, and civilian movement.
+- Highlight 5-10 militarily significant stories. Each story needs a concise summary plus 1-5 sentences explaining why it matters.
+- Include short-term 24 hours to 1 week, medium-term 1 week to 6 months, and long-term 6 months plus outlook.
+- Think tank coverage must not be a link list. Showcase robust regional analysis with 5-10 sentences on ramifications and include visual/context cards where possible.
+- Use bullet lists with hover/focus insight overlays for dense items. Avoid walls of text.
+- Do not cross-post Taiwan-specific force reports or Taiwan-only imagery on Korean pages unless explicitly analyzing regional spillover.
+- Preserve CSS variables for font sizes, content width, theme colors, and light/dark theme behavior. Do not hard-code local text sizes that override global style settings.`;
+}
+
+function buildKoreaWarGamesCompositionPrompt() {
+  return `You are updating the Korean Peninsula War Games page and related scenario deep-review pages for Conflict Mapper.
+
+Goal: preserve the flagship analysis structure while updating scenario research, source links, imagery, and comparison logic.
+
+Required page composition:
+- Executive Assessment: high-impact synthesis that explains why the page matters before the reader reaches the cards.
+- Scenario Deep Review: each scenario card must include an image, source link, more than one sentence of context, the war-game purpose, warning indicators, and outcome logic.
+- Geography And Terrain Context: use Korea-specific maps and terrain analysis only. Explain DMZ compression, Seoul/Incheon exposure, mountains, corridors, ports, air bases, logistics depth, Japan access, and why historical maps remain relevant.
+- Scenario Families: every family must include imagery and 5-10 sentences of context, not a one-line label.
+- Scenario Comparison Matrix: compare scenario pathways with readable cards, qualitative stress bars, and a summary matrix overview. Do not include prompt text or page-building meta-language.
+- Escalation Model, Assumptions And Limits, Warning Indicators, Planning Implications, and Source Index: each section must have enough analytical depth, useful visuals, and clear reader purpose.
+- Source Index should start with a carousel of the three most important/current scenarios, then provide summary cards for all relevant scenarios, then a readable reference library.
+
+Content expectations:
+- Cite original reports directly when available.
+- Use Korean Peninsula-specific sources, maps, and images. Remove Taiwan imagery unless the section explicitly covers dual-contingency regional spillover.
+- Planning Implications should use bullet points with hover/focus overlays explaining why each item matters.
+- Scenario analysis should explain what the game tested, what assumptions mattered, what outcome occurred, what warning indicators follow, and what limits remain.
+- Preserve global style variables and responsive behavior. All text should inherit editable Conflict Mapper style settings.`;
 }
 
 export function getReportPromptTemplates() {
@@ -1006,16 +1073,37 @@ export function getReportPromptTemplates() {
       slug: 'taiwan',
       title: `China/Taiwan Threat Watch - ${date}`,
     },
+    {
+      id: 'watch-korea',
+      label: 'Korean Peninsula Threat Watch',
+      filename: 'korean-peninsula-watch-prompt.md',
+      scope: 'watch',
+      slug: 'korea',
+      title: `Korean Peninsula Threat Watch - ${date}`,
+      compositionPrompt: buildKoreaWatchCompositionPrompt(),
+    },
+    {
+      id: 'korean-peninsula-war-games-page',
+      label: 'Korean Peninsula War Games Page Update',
+      filename: 'korean-peninsula-war-games-page-prompt.md',
+      scope: 'watch',
+      slug: 'korean-peninsula-war-games',
+      title: `Korean Peninsula War Games Page Update - ${date}`,
+      compositionPrompt: buildKoreaWarGamesCompositionPrompt(),
+    },
   ];
 
   return templates.map((template) => {
     const systemPrompt = buildSystemPrompt(template.scope);
-    const userPrompt = buildUserPrompt({
+    const generatedUserPrompt = buildUserPrompt({
       scope: template.scope,
       slug: template.slug,
       title: template.title,
       articles: sampleArticles,
     });
+    const userPrompt = template.compositionPrompt
+      ? `${template.compositionPrompt}\n\n${generatedUserPrompt}`
+      : generatedUserPrompt;
     return {
       ...template,
       systemPrompt,
