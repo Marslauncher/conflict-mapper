@@ -40,7 +40,7 @@
   function getContextText(anchor) {
     if (anchor.dataset.previewSummary) return clean(anchor.dataset.previewSummary);
 
-    const card = anchor.closest(".tool-card, .resource-card, .region-card, .domain-card, .source-card, .contract-card, .preview-card, .panel, .output-card");
+    const card = anchor.closest(".tool-card, .modal-resource-card, .resource-card, .region-card, .domain-card, .source-card, .contract-card, .preview-card, .panel, .output-card");
     if (card) {
       const paragraphs = Array.from(card.querySelectorAll("p"))
         .map((node) => clean(node.textContent))
@@ -63,7 +63,7 @@
 
   function getTitle(anchor) {
     if (anchor.dataset.previewTitle) return clean(anchor.dataset.previewTitle);
-    const card = anchor.closest(".tool-card, .resource-card, .region-card, .domain-card, .source-card, .contract-card, .preview-card, .panel, .output-card");
+    const card = anchor.closest(".tool-card, .modal-resource-card, .resource-card, .region-card, .domain-card, .source-card, .contract-card, .preview-card, .panel, .output-card");
     const cardTitle = card?.querySelector("h2, h3, h4")?.textContent;
     const text = clean(anchor.textContent);
     if (cardTitle && text && text.toLowerCase() !== "open") return `${clean(cardTitle)} / ${text}`;

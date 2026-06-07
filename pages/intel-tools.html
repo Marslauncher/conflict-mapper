@@ -713,6 +713,13 @@
       display: none;
     }
 
+    .website-shot-link {
+      display: block;
+      min-width: 0;
+      color: inherit;
+      text-decoration: none;
+    }
+
     .info {
       position: absolute;
       top: 13px;
@@ -1310,13 +1317,18 @@
 
     function renderModalResourceCard(resource) {
       const host = safeHost(resource.url, "Reference only");
-      const sourceLink = resource.url ? `<a class="button" href="${esc(resource.url)}" target="_blank" rel="noopener noreferrer">Open Source</a>` : `<span class="tag">Reference only</span>`;
-      const shot = resource.url ? `<img class="website-shot" src="${esc(screenshotUrl(resource.url))}" alt="${esc(resource.name)} website screenshot preview" loading="lazy" referrerpolicy="no-referrer" onerror="this.dataset.failed='true'">` : "";
-      return `<article class="modal-resource-card">
+      const useCase = useCaseFor(resource);
+      const summary = resource.notes || useCase || "Referenced in the Global OSINT resource guide.";
+      const previewAttrs = `data-preview-title="${esc(resource.name)}" data-preview-summary="${esc(summary)}"`;
+      const sourceLink = resource.url ? `<a class="button source-link" href="${esc(resource.url)}" target="_blank" rel="noopener noreferrer" ${previewAttrs}>Open ${esc(host)}</a>` : `<span class="tag">Reference only</span>`;
+      const shot = resource.url ? `<a class="website-shot-link" href="${esc(resource.url)}" target="_blank" rel="noopener noreferrer" ${previewAttrs}><img class="website-shot" src="${esc(screenshotUrl(resource.url))}" alt="${esc(resource.name)} website screenshot preview" loading="lazy" referrerpolicy="no-referrer" onerror="this.dataset.failed='true'"></a>` : "";
+      const navClass = resource.url ? " nav-card" : "";
+      const navAttrs = resource.url ? ` tabindex="0" data-external-href="${esc(resource.url)}"` : "";
+      return `<article class="modal-resource-card${navClass}"${navAttrs}>
         ${shot}
-        ${renderSitePreview(host, resource.name, useCaseFor(resource))}
+        ${renderSitePreview(host, resource.name, useCase)}
         <h3>${esc(resource.name)}</h3>
-        <p>${esc(resource.notes || "Referenced in the Global OSINT resource guide.")}</p>
+        <p>${esc(summary)}</p>
         <div class="mini-stats">
           <span class="tag">${esc(resource.kind)}</span>
           <span class="tag blue">${esc(resource.category.split("(")[0].trim())}</span>
@@ -1338,6 +1350,7 @@
       modal.hidden = false;
       document.body.style.overflow = "hidden";
       window.enhanceExternalLinkPreviews?.(grid);
+      wireNavigableCards(grid);
       modal.querySelector(".resource-modal-close")?.focus();
     }
 

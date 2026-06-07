@@ -7,6 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const GUIDE_PATH = path.join(ROOT, "datasources", "Global OSINT, News & Satellite Intelligence Resource Guide — Enhanced Edition.md");
 const HUB_PATH = path.join(ROOT, "pages", "intel-tools.html");
+const LINK_PREVIEW_PATH = path.join(ROOT, "assets", "intel-link-previews.js");
 const COUNTRIES_DIR = path.join(ROOT, "countries");
 
 const DOMAIN_DEFS = [
@@ -273,6 +274,7 @@ function validateLinks(filePath, html, errors) {
 
 function validateHub(resources, errors) {
   const html = fs.readFileSync(HUB_PATH, "utf8");
+  const previewJs = fs.readFileSync(LINK_PREVIEW_PATH, "utf8");
   validatePromptText("pages/intel-tools.html", html, errors);
   validateLinks(HUB_PATH, html, errors);
 
@@ -283,8 +285,15 @@ function validateHub(resources, errors) {
     "openResourceModal",
     "openDomainModal",
     "resource-modal-grid",
+    "modal-resource-card",
     "website-shot",
+    "website-shot-link",
+    "source-link",
+    "data-preview-title",
+    "data-preview-summary",
     "wireNavigableCards",
+    "wireNavigableCards(grid)",
+    "enhanceExternalLinkPreviews?.(grid)",
     "data-filter-domain",
     "data-open-domain-link",
     "data-filter-domain-link",
@@ -296,6 +305,22 @@ function validateHub(resources, errors) {
 
   if (!/renderResourceCard[\s\S]+class="tool-card nav-card"[\s\S]+renderSitePreview/.test(html)) {
     fail(errors, "pages/intel-tools.html: resource cards must be navigable and include inline previews");
+  }
+  if (!/renderModalResourceCard[\s\S]+modal-resource-card\$\{navClass\}[\s\S]+data-external-href="\$\{esc\(resource\.url\)\}"/.test(html)) {
+    fail(errors, "pages/intel-tools.html: modal resource cards with source URLs must be clickable provider cards");
+  }
+  if (!/renderModalResourceCard[\s\S]+website-shot-link[\s\S]+screenshotUrl\(resource\.url\)/.test(html)
+    || !/renderModalResourceCard[\s\S]+source-link[\s\S]+Open \$\{esc\(host\)\}/.test(html)) {
+    fail(errors, "pages/intel-tools.html: modal resource cards must include provider screenshot links and provider-specific open buttons");
+  }
+  if (/renderModalResourceCard[\s\S]+Open Source/.test(html)) {
+    fail(errors, "pages/intel-tools.html: modal resource cards must not use generic Open Source labels");
+  }
+  if (!/const previewAttrs = `data-preview-title="\$\{esc\(resource\.name\)\}" data-preview-summary="\$\{esc\(summary\)\}"/.test(html)) {
+    fail(errors, "pages/intel-tools.html: modal resource external previews must use per-resource title and summary metadata");
+  }
+  if (!/anchor\.closest\("[^"]*\.modal-resource-card/.test(previewJs)) {
+    fail(errors, "assets/intel-link-previews.js: external preview helper must treat modal resource cards as their own context");
   }
   if (!/if \(card\.dataset\.filterDomain\) \{[\s\S]+openDomainModal\(card\.dataset\.filterDomain\)/.test(html)) {
     fail(errors, "pages/intel-tools.html: domain card click must open the resource preview overlay instead of scrolling directly");
