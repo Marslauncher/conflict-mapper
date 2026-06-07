@@ -9,7 +9,7 @@
   <script src="../assets/user-style.js"></script>
   <style>
     :root{--bg:#061014;--panel:#10232c;--panel-2:#0c1c24;--line:rgba(103,232,221,.18);--line-strong:rgba(103,232,221,.38);--text:#e7f2f4;--muted:#9eb4bd;--faint:#617a85;--accent:#5eead4;--blue:#79a7ff;--amber:#f4b03a;--red:#f87171;--font-display:"Rajdhani",sans-serif;--font-mono:"Share Tech Mono",monospace;--font-body:"Inter",system-ui,sans-serif}
-    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden}body{background:radial-gradient(circle at 15% 0,rgba(121,167,255,.1),transparent 34rem),radial-gradient(circle at 88% 4%,rgba(94,234,212,.12),transparent 34rem),linear-gradient(180deg,#07151b 0%,#041014 100%)}a{color:inherit}.page{width:100%;max-width:1440px;margin:0 auto;padding:26px clamp(12px,2vw,22px) 78px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-family:var(--font-mono);letter-spacing:.16em;text-transform:uppercase}.brand{color:var(--red);font-size:.78rem}.nav-links{display:flex;flex-wrap:wrap;gap:8px}.nav-links a,.source-link,.preview-body a{border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:rgba(16,35,44,.62);color:var(--muted);text-decoration:none;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.nav-links a:hover,.source-link:hover,.preview-body a:hover{border-color:var(--line-strong);color:var(--accent)}.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.72fr);gap:18px;align-items:stretch;padding:54px 0 36px}.hero-main,.hero-card,.tool-card,.workflow-card,.preview-card,.code-panel,.output-card{border:1px solid var(--line);border-radius:8px;background:linear-gradient(135deg,rgba(18,41,51,.9),rgba(6,19,25,.78));box-shadow:0 18px 60px rgba(0,0,0,.22)}.hero-main{padding:30px}.kicker{font-family:var(--font-mono);color:var(--accent);letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;margin-bottom:12px}h1{margin:0 0 16px;font-family:var(--font-display);font-size:clamp(3.2rem,8vw,7.5rem);letter-spacing:.13em;line-height:.86;text-transform:uppercase;color:#111827}h2{margin:0;font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);letter-spacing:.16em;text-transform:uppercase}h3{margin:0;font-family:var(--font-display);font-size:1.25rem;letter-spacing:.1em;text-transform:uppercase}.lead{max-width:880px;color:var(--muted);font-size:1.04rem;line-height:1.7}.hero-card{padding:20px;display:grid;gap:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:6px;padding:14px;background:rgba(255,255,255,.04)}.metric strong{display:block;color:var(--accent);font-family:var(--font-display);font-size:2rem;line-height:1}.metric span{font-family:var(--font-mono);color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.focus-box{border:1px solid var(--line);border-radius:6px;padding:14px;color:var(--muted);line-height:1.65}.section{padding:26px 0}.section-head{display:grid;grid-template-columns:minmax(0,.7fr) minmax(280px,.45fr);gap:18px;align-items:end;margin-bottom:16px;border-bottom:1px solid var(--line);padding:0 0 12px 18px}.section-head p{margin:0;color:var(--muted);line-height:1.65}.tool-grid,.workflow-grid,.preview-grid,.code-grid,.output-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}.tool-card{position:relative;min-height:255px;padding:18px;display:grid;grid-template-rows:auto 1fr auto}.tool-card p,.workflow-card p,.output-card p{color:var(--muted);line-height:1.62}.card-meta{display:flex;flex-wrap:wrap;gap:6px}.tag{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:4px 7px;color:var(--accent);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}.tag.blue{color:var(--blue)}.source-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;min-width:0}.domain{min-width:0;color:var(--faint);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;overflow-wrap:anywhere}.source-link.disabled{opacity:.6}.info{position:absolute;top:12px;right:12px;z-index:8}.info-button{width:24px;height:24px;border:1px solid var(--line-strong);border-radius:999px;background:rgba(94,234,212,.08);color:var(--accent);font-family:var(--font-mono);cursor:pointer}.popover{position:absolute;right:0;top:32px;width:min(390px,calc(100vw - 38px));max-height:310px;overflow:auto;padding:16px;border:1px solid var(--line-strong);border-radius:8px;background:#061014;box-shadow:0 18px 60px rgba(0,0,0,.42);opacity:0;pointer-events:none;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}.info:hover .popover,.info:focus-within .popover,.info[data-open=true] .popover{opacity:1;pointer-events:auto;transform:translateY(0)}.popover h4{margin:0 0 8px;font-family:var(--font-display);letter-spacing:.1em;text-transform:uppercase}.popover p,.popover li{color:var(--muted);font-size:.86rem;line-height:1.55}.workflow-card,.output-card{padding:18px}.step{display:inline-flex;margin-bottom:12px;color:var(--accent);font-family:var(--font-mono);letter-spacing:.18em}.preview-card{overflow:hidden}.browser-bar{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding:10px 14px;font-family:var(--font-mono);color:var(--faint);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.browser-bar span{width:9px;height:9px;border-radius:50%;background:var(--red)}.browser-bar span:nth-child(2){background:var(--amber)}.browser-bar span:nth-child(3){background:#6bd37b}.preview-body{padding:20px}.preview-line{height:10px;border-radius:999px;background:rgba(159,178,191,.22);margin:14px 0}.preview-line.short{width:54%}.preview-line.mid{width:78%}.code-panel{overflow:hidden}.code-panel header{display:flex;justify-content:space-between;gap:10px;padding:14px;border-bottom:1px solid var(--line)}pre{margin:0;max-height:420px;overflow:auto;padding:16px;background:rgba(0,0,0,.28);color:#cdebf0;font-family:var(--font-mono);font-size:.78rem;line-height:1.58}.mini-map{height:190px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(135deg,rgba(94,234,212,.13),transparent 45%),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px)}@media(max-width:860px){.hero,.section-head{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.hero-main{padding:22px}h1{font-size:3rem}.metric-grid{grid-template-columns:1fr}.section-head{padding-left:8px}.popover{right:-10px}}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden}body{background:radial-gradient(circle at 15% 0,rgba(121,167,255,.1),transparent 34rem),radial-gradient(circle at 88% 4%,rgba(94,234,212,.12),transparent 34rem),linear-gradient(180deg,#07151b 0%,#041014 100%)}a{color:inherit}.page{width:100%;max-width:1440px;margin:0 auto;padding:26px clamp(12px,2vw,22px) 78px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-family:var(--font-mono);letter-spacing:.16em;text-transform:uppercase}.brand{color:var(--red);font-size:.78rem}.nav-links{display:flex;flex-wrap:wrap;gap:8px}.nav-links a,.source-link,.preview-body a{border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:rgba(16,35,44,.62);color:var(--muted);text-decoration:none;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.nav-links a:hover,.source-link:hover,.preview-body a:hover{border-color:var(--line-strong);color:var(--accent)}.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.72fr);gap:18px;align-items:stretch;padding:54px 0 36px}.hero-main,.hero-card,.tool-card,.workflow-card,.preview-card,.code-panel,.output-card{border:1px solid var(--line);border-radius:8px;background:linear-gradient(135deg,rgba(18,41,51,.9),rgba(6,19,25,.78));box-shadow:0 18px 60px rgba(0,0,0,.22)}.hero-main{padding:30px}.kicker{font-family:var(--font-mono);color:var(--accent);letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;margin-bottom:12px}h1{margin:0 0 16px;font-family:var(--font-display);font-size:clamp(3.2rem,8vw,7.5rem);letter-spacing:.13em;line-height:.86;text-transform:uppercase;color:#111827}h2{margin:0;font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);letter-spacing:.16em;text-transform:uppercase}h3{margin:0;font-family:var(--font-display);font-size:1.25rem;letter-spacing:.1em;text-transform:uppercase}.lead{max-width:880px;color:var(--muted);font-size:1.04rem;line-height:1.7}.hero-card{padding:20px;display:grid;gap:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:6px;padding:14px;background:rgba(255,255,255,.04)}.metric strong{display:block;color:var(--accent);font-family:var(--font-display);font-size:2rem;line-height:1}.metric span{font-family:var(--font-mono);color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.focus-box{border:1px solid var(--line);border-radius:6px;padding:14px;color:var(--muted);line-height:1.65}.section{padding:26px 0}.section-head{display:grid;grid-template-columns:minmax(0,.7fr) minmax(280px,.45fr);gap:18px;align-items:end;margin-bottom:16px;border-bottom:1px solid var(--line);padding:0 0 12px 18px}.section-head p{margin:0;color:var(--muted);line-height:1.65}.tool-grid,.workflow-grid,.preview-grid,.code-grid,.output-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}.tool-card{position:relative;min-height:255px;padding:18px;display:grid;grid-template-rows:auto auto 1fr auto}.tool-card p,.workflow-card p,.output-card p{color:var(--muted);line-height:1.62}.card-meta{display:flex;flex-wrap:wrap;gap:6px}.tag{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:4px 7px;color:var(--accent);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}.tag.blue{color:var(--blue)}.source-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;min-width:0}.domain{min-width:0;color:var(--faint);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;overflow-wrap:anywhere}.source-link.disabled{opacity:.6}.info{position:absolute;top:12px;right:12px;z-index:8}.info-button{width:24px;height:24px;border:1px solid var(--line-strong);border-radius:999px;background:rgba(94,234,212,.08);color:var(--accent);font-family:var(--font-mono);cursor:pointer}.popover{position:absolute;right:0;top:32px;width:min(390px,calc(100vw - 38px));max-height:310px;overflow:auto;padding:16px;border:1px solid var(--line-strong);border-radius:8px;background:#061014;box-shadow:0 18px 60px rgba(0,0,0,.42);opacity:0;pointer-events:none;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}.info:hover .popover,.info:focus-within .popover,.info[data-open=true] .popover{opacity:1;pointer-events:auto;transform:translateY(0)}.popover h4{margin:0 0 8px;font-family:var(--font-display);letter-spacing:.1em;text-transform:uppercase}.popover p,.popover li{color:var(--muted);font-size:.86rem;line-height:1.55}.workflow-card,.output-card{padding:18px}.step{display:inline-flex;margin-bottom:12px;color:var(--accent);font-family:var(--font-mono);letter-spacing:.18em}.preview-card{overflow:hidden}.inline-preview{margin:12px 0;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:rgba(4,13,17,.42)}.inline-preview .preview-body{padding:14px}.inline-preview h4{margin:0;color:var(--text);font-family:var(--font-display);font-size:1rem;letter-spacing:.1em;text-transform:uppercase}.inline-preview p{margin:12px 0 0;font-size:.84rem}.browser-bar{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding:10px 14px;font-family:var(--font-mono);color:var(--faint);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.browser-bar span{width:9px;height:9px;border-radius:50%;background:var(--red);flex:0 0 auto}.browser-bar span:nth-child(2){background:var(--amber)}.browser-bar span:nth-child(3){background:#6bd37b}.preview-body{padding:20px}.preview-line{height:10px;border-radius:999px;background:rgba(159,178,191,.22);margin:14px 0}.preview-line.short{width:54%}.preview-line.mid{width:78%}.code-panel{overflow:hidden}.code-panel header{display:flex;justify-content:space-between;gap:10px;padding:14px;border-bottom:1px solid var(--line)}pre{margin:0;max-height:420px;overflow:auto;padding:16px;background:rgba(0,0,0,.28);color:#cdebf0;font-family:var(--font-mono);font-size:.78rem;line-height:1.58}.mini-map{height:190px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(135deg,rgba(94,234,212,.13),transparent 45%),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px)}@media(max-width:860px){.hero,.section-head{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.hero-main{padding:22px}h1{font-size:3rem}.metric-grid{grid-template-columns:1fr}.section-head{padding-left:8px}.popover{right:-10px}}
   </style>
 </head>
 <body>
@@ -132,6 +132,15 @@
     </div>
     <h3>ProPublica</h3>
     <p>Nonprofit investigative; all 50 states; corruption, corporate misconduct</p>
+    <div class="inline-preview" aria-label="ProPublica website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>propublica.org</div>
+      <div class="preview-body">
+        <h4>ProPublica</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -158,6 +167,15 @@
     </div>
     <h3>The Intercept</h3>
     <p>NSA surveillance, intelligence, national security</p>
+    <div class="inline-preview" aria-label="The Intercept website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>theintercept.com</div>
+      <div class="preview-body">
+        <h4>The Intercept</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -184,6 +202,15 @@
     </div>
     <h3>MuckRock</h3>
     <p>FOIA filing platform; 50,000+ completed requests publicly archived</p>
+    <div class="inline-preview" aria-label="MuckRock website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>muckrock.com</div>
+      <div class="preview-body">
+        <h4>MuckRock</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -210,6 +237,15 @@
     </div>
     <h3>AP Wire</h3>
     <p>Primary-source breaking news</p>
+    <div class="inline-preview" aria-label="AP Wire website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>apnews.com</div>
+      <div class="preview-body">
+        <h4>AP Wire</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -236,6 +272,15 @@
     </div>
     <h3>Reuters</h3>
     <p>Wire service; verified breaking news</p>
+    <div class="inline-preview" aria-label="Reuters website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>reuters.com</div>
+      <div class="preview-body">
+        <h4>Reuters</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -262,6 +307,15 @@
     </div>
     <h3>NPR News</h3>
     <p>Public radio; domestic and foreign policy</p>
+    <div class="inline-preview" aria-label="NPR News website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>npr.org</div>
+      <div class="preview-body">
+        <h4>NPR News</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -288,6 +342,15 @@
     </div>
     <h3>The Guardian US</h3>
     <p>US politics, surveillance, civil liberties</p>
+    <div class="inline-preview" aria-label="The Guardian US website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>theguardian.com</div>
+      <div class="preview-body">
+        <h4>The Guardian US</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -314,6 +377,15 @@
     </div>
     <h3>Washington Post</h3>
     <p>National security, intelligence (limited free articles)</p>
+    <div class="inline-preview" aria-label="Washington Post website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>washingtonpost.com</div>
+      <div class="preview-body">
+        <h4>Washington Post</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -340,6 +412,15 @@
     </div>
     <h3>Politico</h3>
     <p>Congress, White House, regulatory affairs</p>
+    <div class="inline-preview" aria-label="Politico website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>politico.com</div>
+      <div class="preview-body">
+        <h4>Politico</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for aircraft activity leads near United States; corroborate sensitive military claims before publication.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -366,6 +447,15 @@
     </div>
     <h3>The Hill</h3>
     <p>Congress, legislation, DC politics — free</p>
+    <div class="inline-preview" aria-label="The Hill website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>thehill.com</div>
+      <div class="preview-body">
+        <h4>The Hill</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -392,6 +482,15 @@
     </div>
     <h3>DocumentCloud</h3>
     <p>Primary-source government document repository</p>
+    <div class="inline-preview" aria-label="DocumentCloud website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>documentcloud.org</div>
+      <div class="preview-body">
+        <h4>DocumentCloud</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -418,6 +517,15 @@
     </div>
     <h3>Just the News</h3>
     <p>Conservative-leaning investigative reporting</p>
+    <div class="inline-preview" aria-label="Just the News website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>justthenews.com</div>
+      <div class="preview-body">
+        <h4>Just the News</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -444,6 +552,15 @@
     </div>
     <h3>The Lever</h3>
     <p>Corporate accountability, financial investigations</p>
+    <div class="inline-preview" aria-label="The Lever website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>levernews.com</div>
+      <div class="preview-body">
+        <h4>The Lever</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
@@ -478,6 +595,15 @@
     </div>
     <h3>PACER</h3>
     <p>Federal court records; $0.10/page after $30/quarter threshold</p>
+    <div class="inline-preview" aria-label="PACER website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>pacer.gov</div>
+      <div class="preview-body">
+        <h4>PACER</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -504,6 +630,15 @@
     </div>
     <h3>CourtListener / RECAP</h3>
     <p>Millions of free PACER docs; RECAP browser extension auto-uploads</p>
+    <div class="inline-preview" aria-label="CourtListener / RECAP website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>courtlistener.com</div>
+      <div class="preview-body">
+        <h4>CourtListener / RECAP</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -530,6 +665,15 @@
     </div>
     <h3>FOIA.gov</h3>
     <p>Submit/track FOIA requests to federal agencies</p>
+    <div class="inline-preview" aria-label="FOIA.gov website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>foia.gov</div>
+      <div class="preview-body">
+        <h4>FOIA.gov</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -556,6 +700,15 @@
     </div>
     <h3>Congress.gov</h3>
     <p>Bill text, votes, committee reports; free API key</p>
+    <div class="inline-preview" aria-label="Congress.gov website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>congress.gov</div>
+      <div class="preview-body">
+        <h4>Congress.gov</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for repeatable collection, dashboards, and scheduled checks.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -582,6 +735,15 @@
     </div>
     <h3>SEC EDGAR</h3>
     <p>10-K, 10-Q, insider trades; free</p>
+    <div class="inline-preview" aria-label="SEC EDGAR website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>efts.sec.gov</div>
+      <div class="preview-body">
+        <h4>SEC EDGAR</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -608,6 +770,15 @@
     </div>
     <h3>FEC (Campaign Finance)</h3>
     <p>PAC donations, campaign spending; free key</p>
+    <div class="inline-preview" aria-label="FEC (Campaign Finance) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>fec.gov</div>
+      <div class="preview-body">
+        <h4>FEC (Campaign Finance)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -634,6 +805,15 @@
     </div>
     <h3>USASpending.gov</h3>
     <p>Federal contracts including defense; free</p>
+    <div class="inline-preview" aria-label="USASpending.gov website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>usaspending.gov</div>
+      <div class="preview-body">
+        <h4>USASpending.gov</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -660,6 +840,15 @@
     </div>
     <h3>OpenSecrets</h3>
     <p>Lobbying, dark money, PAC tracking</p>
+    <div class="inline-preview" aria-label="OpenSecrets website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>opensecrets.org</div>
+      <div class="preview-body">
+        <h4>OpenSecrets</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -686,6 +875,15 @@
     </div>
     <h3>Violation Tracker</h3>
     <p>Corporate misconduct database</p>
+    <div class="inline-preview" aria-label="Violation Tracker website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>violationtracker.goodjobsfirst.org</div>
+      <div class="preview-body">
+        <h4>Violation Tracker</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for repeatable collection, dashboards, and scheduled checks.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -712,6 +910,15 @@
     </div>
     <h3>GovTrack</h3>
     <p>Legislation tracking; bill text and voting records</p>
+    <div class="inline-preview" aria-label="GovTrack website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>govtrack.us</div>
+      <div class="preview-body">
+        <h4>GovTrack</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -738,6 +945,15 @@
     </div>
     <h3>Judyrecords</h3>
     <p>Free search of hundreds of millions of US court cases</p>
+    <div class="inline-preview" aria-label="Judyrecords website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>judyrecords.com</div>
+      <div class="preview-body">
+        <h4>Judyrecords</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -772,6 +988,15 @@
     </div>
     <h3>NOAA GOES Real-Time</h3>
     <p>Satellite refresh every 15 minutes</p>
+    <div class="inline-preview" aria-label="NOAA GOES Real-Time website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>goes.noaa.gov</div>
+      <div class="preview-body">
+        <h4>NOAA GOES Real-Time</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and United States location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
@@ -798,6 +1023,15 @@
     </div>
     <h3>NASA FIRMS US/Canada</h3>
     <p>Real-time fire detection for US</p>
+    <div class="inline-preview" aria-label="NASA FIRMS US/Canada website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>firms.modaps.eosdis.nasa.gov</div>
+      <div class="preview-body">
+        <h4>NASA FIRMS US/Canada</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and United States location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
@@ -824,6 +1058,15 @@
     </div>
     <h3>HIFLD Open Data</h3>
     <p>Homeland Infrastructure GIS layers — power, telecom, pipelines</p>
+    <div class="inline-preview" aria-label="HIFLD Open Data website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>hifld-geoplatform.opendata.arcgis.com</div>
+      <div class="preview-body">
+        <h4>HIFLD Open Data</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and United States location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
@@ -850,6 +1093,15 @@
     </div>
     <h3>FAA Aircraft Registry</h3>
     <p>Look up any N-registered aircraft owner</p>
+    <div class="inline-preview" aria-label="FAA Aircraft Registry website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>faa.gov</div>
+      <div class="preview-body">
+        <h4>FAA Aircraft Registry</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and United States location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
@@ -876,6 +1128,15 @@
     </div>
     <h3>ADS-B Exchange</h3>
     <p>Unfiltered US military aircraft tracking</p>
+    <div class="inline-preview" aria-label="ADS-B Exchange website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>adsbexchange.com</div>
+      <div class="preview-body">
+        <h4>ADS-B Exchange</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and United States location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
@@ -910,6 +1171,15 @@
     </div>
     <h3>LexisNexis / Nexis Uni</h3>
     <p>Legal and news database; backgrounding individuals</p>
+    <div class="inline-preview" aria-label="LexisNexis / Nexis Uni website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>LexisNexis / Nexis Uni</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Paid US Tools</span>
@@ -936,6 +1206,15 @@
     </div>
     <h3>Palantir Gotham</h3>
     <p>AI-powered government intelligence integration</p>
+    <div class="inline-preview" aria-label="Palantir Gotham website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Palantir Gotham</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Paid US Tools</span>
@@ -962,6 +1241,15 @@
     </div>
     <h3>Recorded Future</h3>
     <p>Predictive threat intelligence; cyber and geopolitical</p>
+    <div class="inline-preview" aria-label="Recorded Future website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Recorded Future</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Paid US Tools</span>
@@ -988,6 +1276,15 @@
     </div>
     <h3>Bloomberg Terminal</h3>
     <p>Financial news, data, trading tools</p>
+    <div class="inline-preview" aria-label="Bloomberg Terminal website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Bloomberg Terminal</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Paid US Tools</span>
@@ -1022,6 +1319,15 @@
     </div>
     <h3>UN Comtrade</h3>
     <p>Yes — free registration required</p>
+    <div class="inline-preview" aria-label="UN Comtrade website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>comtradeplus.un.org</div>
+      <div class="preview-body">
+        <h4>UN Comtrade</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -1048,6 +1354,15 @@
     </div>
     <h3>World Bank Open Data</h3>
     <p>Yes — free, no key needed</p>
+    <div class="inline-preview" aria-label="World Bank Open Data website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>data.worldbank.org</div>
+      <div class="preview-body">
+        <h4>World Bank Open Data</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for repeatable collection, dashboards, and scheduled checks.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -1074,6 +1389,15 @@
     </div>
     <h3>OFAC Sanctions Search</h3>
     <p>Yes — SDN list downloadable as XML/CSV</p>
+    <div class="inline-preview" aria-label="OFAC Sanctions Search website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>sanctionssearch.ofac.treas.gov</div>
+      <div class="preview-body">
+        <h4>OFAC Sanctions Search</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and United States collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -1100,6 +1424,15 @@
     </div>
     <h3>OpenSanctions</h3>
     <p>Yes — free bulk downloads; API from €200/mo for commercial</p>
+    <div class="inline-preview" aria-label="OpenSanctions website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>opensanctions.org</div>
+      <div class="preview-body">
+        <h4>OpenSanctions</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for repeatable collection, dashboards, and scheduled checks.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -1126,6 +1459,15 @@
     </div>
     <h3>SIPRI Military Expenditure DB</h3>
     <p>No API; bulk download available free</p>
+    <div class="inline-preview" aria-label="SIPRI Military Expenditure DB website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>sipri.org</div>
+      <div class="preview-body">
+        <h4>SIPRI Military Expenditure DB</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for repeatable collection, dashboards, and scheduled checks.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>

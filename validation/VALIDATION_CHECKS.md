@@ -11,6 +11,7 @@ Run validation gates before implementation rework when a defect may be visual, r
 5. [Blank Watch Template Validation](checks/05-blank-watch-template-validation.md)
 6. [Report Generation Validation](checks/06-report-generation-validation.md)
 7. [Current Event Analysis Validation](checks/07-current-event-analysis-validation.md)
+8. [Intel Tools Page Validation](checks/08-intel-tools-page-validation.md)
 
 ## Required Final Sequence
 
@@ -18,8 +19,9 @@ For change-modification requests that touch rendered pages, feeds, settings, pro
 
 1. Run the relevant local validation gate and record findings.
 2. For watch pages, run the current-event analysis validation and confirm assessment sections are generated from current region-filtered articles or explicitly show feed unavailable.
-3. Commit and push the implementation changes to GitHub.
-4. Wait 120 seconds for Cloudflare propagation.
-5. Open and validate the changed production pages on `https://conflictmapper.com`.
-6. Capture screenshots and record any mistakes, visual artifacts, stale content, feed leakage, static boilerplate analysis, or settings propagation issues.
-7. Report the validation findings in the final response.
+3. For Intel Tools pages, run `npm run validate:intel-tools` and confirm resource counts, overlays, previews, navigation, and links pass before browser validation.
+4. Commit and push the implementation changes to GitHub.
+5. Wait 120 seconds for Cloudflare propagation.
+6. Open and validate the changed production pages on `https://conflictmapper.com`.
+7. Capture screenshots and record any mistakes, visual artifacts, stale content, feed leakage, static boilerplate analysis, or settings propagation issues.
+8. Report the validation findings in the final response.

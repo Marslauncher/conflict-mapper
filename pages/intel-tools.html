@@ -288,6 +288,24 @@
       min-width: 0;
     }
 
+    .domain-card,
+    .region-card,
+    .tool-card {
+      cursor: pointer;
+      transition: border-color 140ms ease, transform 140ms ease, background 140ms ease;
+    }
+
+    .domain-card:hover,
+    .region-card:hover,
+    .tool-card:hover,
+    .domain-card:focus-within,
+    .region-card:focus-within,
+    .tool-card:focus-within {
+      border-color: var(--line-strong);
+      background: linear-gradient(145deg, rgba(20, 51, 64, 0.98), rgba(8, 22, 29, 0.98));
+      transform: translateY(-1px);
+    }
+
     .domain-card h3,
     .region-card h3,
     .contract-card h3 {
@@ -315,18 +333,109 @@
       gap: 8px;
     }
 
+    .stat-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
     .tag {
       color: var(--accent);
       border: 1px solid var(--line-strong);
       background: rgba(94, 234, 212, 0.055);
       border-radius: 999px;
-      padding: 4px 8px;
+      padding: 6px 10px;
       font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
+      font-size: 0.72rem;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
       white-space: normal;
       overflow-wrap: anywhere;
+    }
+
+    .resource-count {
+      cursor: help;
+    }
+
+    .resource-count:focus {
+      outline: 2px solid color-mix(in srgb, var(--accent) 60%, transparent);
+      outline-offset: 3px;
+    }
+
+    .resource-list-overlay {
+      position: absolute;
+      left: 0;
+      bottom: calc(100% + 10px);
+      z-index: 80;
+      display: none;
+      width: min(460px, calc(100vw - 48px));
+      max-height: 340px;
+      overflow: auto;
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      padding: 14px;
+      background: rgba(4, 13, 17, 0.98);
+      box-shadow: 0 22px 64px rgba(0, 0, 0, 0.48);
+    }
+
+    .domain-card:nth-child(4n) .resource-list-overlay,
+    .region-card:nth-child(4n) .resource-list-overlay,
+    .stat-wrap.align-right .resource-list-overlay {
+      right: 0;
+      left: auto;
+    }
+
+    .stat-wrap:hover .resource-list-overlay,
+    .stat-wrap:focus-within .resource-list-overlay,
+    .domain-card:hover > .resource-list-overlay,
+    .domain-card:focus-within > .resource-list-overlay,
+    .region-card:hover > .resource-list-overlay,
+    .region-card:focus-within > .resource-list-overlay {
+      display: block;
+    }
+
+    .resource-list-overlay h4 {
+      margin-bottom: 10px;
+      color: var(--text);
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .resource-list-overlay ul {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .resource-list-overlay li {
+      border-top: 1px solid rgba(103, 232, 221, 0.12);
+      padding-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+
+    .resource-list-overlay strong {
+      display: block;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .resource-list-overlay span {
+      color: var(--faint);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .resource-list-overlay .more {
+      color: var(--accent);
+      font-family: var(--font-mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
 
     .tag.blue {
@@ -420,6 +529,66 @@
 
     .tool-link:hover { text-decoration: underline; }
 
+    .site-preview {
+      margin: 12px 0;
+      border: 1px solid rgba(103, 232, 221, 0.16);
+      border-radius: 7px;
+      overflow: hidden;
+      background: rgba(4, 13, 17, 0.44);
+    }
+
+    .site-preview-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid rgba(103, 232, 221, 0.14);
+      padding: 7px 9px;
+      color: var(--faint);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .site-preview-bar::before,
+    .site-preview-bar::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+    }
+
+    .site-preview-bar::before { background: var(--red); }
+    .site-preview-bar::after { background: var(--amber); }
+
+    .site-preview-body {
+      min-height: 82px;
+      padding: 12px;
+      background:
+        linear-gradient(90deg, rgba(94, 234, 212, 0.12), transparent 42%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 16px);
+    }
+
+    .site-preview-title {
+      color: var(--text);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .site-preview-line {
+      height: 8px;
+      margin-top: 11px;
+      border-radius: 999px;
+      background: rgba(162, 182, 189, 0.22);
+    }
+
+    .site-preview-line.short { width: 55%; }
+
     .info {
       position: absolute;
       top: 13px;
@@ -472,7 +641,13 @@
     .popover p,
     .popover li {
       color: var(--muted);
-      font-size: 0.86rem;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .popover strong {
+      color: var(--text);
+      font-weight: 700;
     }
 
     .popover p { margin: 0 0 10px; }
@@ -665,17 +840,47 @@
   <script>
     const GUIDE_URL = "../datasources/Global%20OSINT,%20News%20%26%20Satellite%20Intelligence%20Resource%20Guide%20%E2%80%94%20Enhanced%20Edition.md";
     const DOMAIN_DEFS = [
-      ["Satellite Imagery", "Satellite imagery, thermal anomalies, SAR, map layers, and commercial tasking for geospatial evidence."],
-      ["Flight & Aircraft Tracking", "ADS-B, OpenSky, and paid aviation APIs for air activity leads and pattern checks."],
-      ["Vessel Tracking", "AIS, commercial maritime platforms, and Global Fishing Watch for shipping and grey-zone activity."],
-      ["Conflict & Geopolitical Mapping", "ACLED, LiveUAMap-style event layers, frontline maps, and incident databases."],
-      ["General OSINT Frameworks", "Shodan, Maltego, Overpass, SOCMINT, and graphing tools for investigation workflows."],
-      ["Global Trade & Economic Intelligence", "Trade, sanctions, spending, campaign finance, and financial intelligence sources."],
+      {
+        title: "Satellite Imagery",
+        desc: "Satellite imagery, thermal anomalies, SAR, map layers, and commercial tasking for geospatial evidence.",
+        target: "Satellite Imagery",
+        matcher: /satellite|imagery|sentinel|landsat|worldview|gibs|firms|planet|maxar|sar|iceye|capella|blacksky|airbus|umbra|skyfi/i
+      },
+      {
+        title: "Flight & Aircraft Tracking",
+        desc: "ADS-B, OpenSky, and paid aviation APIs for air activity leads and pattern checks.",
+        target: "Flight & Aircraft Tracking",
+        matcher: /flight|aircraft|aviation|ads-b|adsb|opensky|flightradar|faa|tail|icao/i
+      },
+      {
+        title: "Vessel Tracking",
+        desc: "AIS, commercial maritime platforms, and Global Fishing Watch for shipping and grey-zone activity.",
+        target: "Vessel Tracking",
+        matcher: /vessel|maritime|marine|shipping|ais|ship|port|fishing|global fishing|chokepoint/i
+      },
+      {
+        title: "Conflict & Geopolitical Mapping",
+        desc: "ACLED, LiveUAMap-style event layers, frontline maps, and incident databases.",
+        target: "Conflict & Geopolitical Mapping",
+        matcher: /conflict|geopolitical|acled|liveuamap|event|frontline|violence|incident|mapping/i
+      },
+      {
+        title: "General OSINT Frameworks",
+        desc: "Shodan, Maltego, Overpass, SOCMINT, and graphing tools for investigation workflows.",
+        target: "General OSINT Frameworks",
+        matcher: /osint|framework|shodan|maltego|overpass|socmint|social|graph|infrastructure|scada/i
+      },
+      {
+        title: "Global Trade & Economic Intelligence",
+        desc: "Trade, sanctions, spending, campaign finance, and financial intelligence sources.",
+        target: "Global Trade & Economic Intelligence",
+        matcher: /trade|economic|sanction|finance|financial|spending|campaign|comtrade|world bank|ofac|opensanctions|sipri/i
+      },
     ];
 
     let allResources = [];
     let allExamples = [];
-    let currentFilters = { region: "all", category: "all", query: "" };
+    let currentFilters = { region: "all", category: "all", query: "", domain: "all" };
     const REGION_DEEP_DIVE_LINKS = {
       "United States": "../countries/usa-intel-tools.html",
       "China": "../countries/china-intel-tools.html",
@@ -867,21 +1072,124 @@
       };
     }
 
-    function summarizeCategory(resources, label) {
-      const matches = resources.filter((resource) => resource.category.toLowerCase().includes(label.toLowerCase().split(" ")[0]));
-      return matches.length;
+    function domainResources(resources, domain) {
+      return resources.filter((resource) => {
+        const haystack = `${resource.name} ${resource.region} ${resource.category} ${resource.notes} ${resource.url}`;
+        return domain.matcher.test(haystack);
+      });
+    }
+
+    function safeHost(url, fallback = "Resource Library") {
+      if (!url) return fallback;
+      try {
+        return new URL(url, location.href).hostname.replace(/^www\./, "");
+      } catch {
+        return fallback;
+      }
+    }
+
+    function resourceListItems(items) {
+      return items.map((item) => `<li>
+        <strong>${esc(item.name)}</strong>
+        <span>${esc(item.region)} / ${esc(item.category)}${item.url ? ` / ${esc(safeHost(item.url))}` : ""}</span>
+      </li>`).join("");
+    }
+
+    function renderResourceOverlay(items, title) {
+      const body = items.length
+        ? `<ul>${resourceListItems(items)}</ul>`
+        : `<p class="more">No matching resources parsed from the guide. This is a validation failure for production pages.</p>`;
+      return `<div class="resource-list-overlay" role="tooltip">
+        <h4>${esc(title)} / ${items.length} Listed</h4>
+        ${body}
+      </div>`;
+    }
+
+    function renderCountChip(items, label, title) {
+      return `<span class="stat-wrap">
+        <span class="tag resource-count" tabindex="0" aria-label="${esc(title)}: ${items.length} ${label}">${items.length} ${esc(label)}</span>
+        ${renderResourceOverlay(items, title)}
+      </span>`;
+    }
+
+    function renderSitePreview(host, title, subtitle) {
+      return `<div class="site-preview" aria-label="${esc(title)} preview">
+        <div class="site-preview-bar">${esc(host)}</div>
+        <div class="site-preview-body">
+          <div class="site-preview-title">${esc(title)}</div>
+          <div class="site-preview-line"></div>
+          <div class="site-preview-line short"></div>
+          <p>${esc(subtitle)}</p>
+        </div>
+      </div>`;
+    }
+
+    function setSelectValue(id, value) {
+      const select = document.getElementById(id);
+      if (select && Array.from(select.options).some((option) => option.value === value)) select.value = value;
+    }
+
+    function filterToDomain(title) {
+      currentFilters.domain = title;
+      currentFilters.region = "all";
+      currentFilters.category = "all";
+      setSelectValue("region-filter", "all");
+      setSelectValue("category-filter", "all");
+      renderResources();
+      document.getElementById("resource-library-title")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function filterToRegion(region) {
+      currentFilters.domain = "all";
+      currentFilters.region = region;
+      setSelectValue("region-filter", region);
+      renderResources();
+      document.getElementById("resource-library-title")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function wireNavigableCards(root) {
+      if (!root) return;
+      root.querySelectorAll(".nav-card").forEach((card) => {
+        if (card.dataset.navBound === "true") return;
+        card.dataset.navBound = "true";
+        card.addEventListener("click", (event) => {
+          if (event.target.closest("a, button, input, select, textarea, .info, .popover, .resource-list-overlay, .resource-count")) return;
+          if (card.dataset.cardHref) {
+            window.location.href = card.dataset.cardHref;
+            return;
+          }
+          if (card.dataset.externalHref) {
+            window.open(card.dataset.externalHref, "_blank", "noopener,noreferrer");
+            return;
+          }
+          if (card.dataset.filterDomain) {
+            filterToDomain(card.dataset.filterDomain);
+            return;
+          }
+          if (card.dataset.filterRegion) filterToRegion(card.dataset.filterRegion);
+        });
+        card.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          if (event.target.closest("a, button, input, select, textarea")) return;
+          event.preventDefault();
+          card.click();
+        });
+      });
     }
 
     function renderDomains(resources) {
-      const html = DOMAIN_DEFS.map(([title, desc]) => {
-        const count = summarizeCategory(resources, title);
-        return `<article class="domain-card">
-          <h3>${esc(title)}</h3>
-          <p>${esc(desc)}</p>
-          <div class="mini-stats"><span class="tag">${count} resources</span></div>
+      const html = DOMAIN_DEFS.map((domain) => {
+        const items = domainResources(resources, domain);
+        const targetId = `resource-library-title`;
+        return `<article class="domain-card nav-card" tabindex="0" data-filter-domain="${esc(domain.title)}" data-target-id="${targetId}">
+          <h3>${esc(domain.title)}</h3>
+          <p>${esc(domain.desc)}</p>
+          ${renderSitePreview("Resource Library", domain.title, "Filtered source family")}
+          <div class="mini-stats">${renderCountChip(items, "resources", `${domain.title} resources`)}</div>
         </article>`;
       }).join("");
       document.getElementById("domain-grid").innerHTML = html;
+      wireNavigableCards(document.getElementById("domain-grid"));
     }
 
     function renderRegions(resources) {
@@ -897,18 +1205,28 @@
         const items = grouped.get(name);
         const categories = new Set(items.map((item) => item.category));
         const apiCount = items.filter((item) => /api|docs|developer|endpoint/i.test(`${item.notes} ${item.url} ${item.category}`)).length;
-        const link = REGION_DEEP_DIVE_LINKS[name] ? `<a class="button" href="${esc(REGION_DEEP_DIVE_LINKS[name])}">Open Intel Tools</a>` : "";
-        return `<article class="region-card">
+        const deepLink = REGION_DEEP_DIVE_LINKS[name] || "";
+        const link = deepLink ? `<a class="button" href="${esc(deepLink)}">Open Intel Tools</a>` : `<a class="button" href="#resource-library-title" data-filter-region-link="${esc(name)}">Open Filtered Section</a>`;
+        const dataAttrs = deepLink ? `data-card-href="${esc(deepLink)}"` : `data-filter-region="${esc(name)}"`;
+        return `<article class="region-card nav-card" tabindex="0" ${dataAttrs}>
           <h3>${esc(name)}</h3>
           <p>${esc(regionSummary(name, items))}</p>
+          ${renderSitePreview(deepLink ? "Country Intel Tools" : "Resource Library", name, deepLink ? "Focused country source page" : "Filtered resource section")}
           <div class="mini-stats">
-            <span class="tag">${items.length} resources</span>
+            ${renderCountChip(items, "resources", `${name} resources`)}
             <span class="tag blue">${categories.size} topics</span>
             <span class="tag amber">${apiCount} API/data</span>
           </div>
           ${link}
         </article>`;
       }).join("");
+      document.querySelectorAll("[data-filter-region-link]").forEach((linkEl) => {
+        linkEl.addEventListener("click", (event) => {
+          event.preventDefault();
+          filterToRegion(linkEl.dataset.filterRegionLink);
+        });
+      });
+      wireNavigableCards(document.getElementById("region-grid"));
     }
 
     function regionSummary(name, items) {
@@ -931,6 +1249,10 @@
     function filteredResources() {
       const query = currentFilters.query.toLowerCase();
       return allResources.filter((resource) => {
+        if (currentFilters.domain !== "all") {
+          const domain = DOMAIN_DEFS.find((item) => item.title === currentFilters.domain);
+          if (domain && !domainResources([resource], domain).length) return false;
+        }
         if (currentFilters.region !== "all" && resource.region !== currentFilters.region) return false;
         if (currentFilters.category !== "all" && resource.category !== currentFilters.category) return false;
         if (!query) return true;
@@ -956,14 +1278,16 @@
         return groups;
       }).join("");
       wireInfoButtons();
+      wireNavigableCards(container);
       window.enhanceExternalLinkPreviews?.(container);
     }
 
     function renderResourceCard(resource) {
-      const host = resource.url ? new URL(resource.url, location.href).hostname.replace(/^www\./, "") : "No direct URL";
+      const host = safeHost(resource.url, "No direct URL");
       const link = resource.url ? `<a class="tool-link" href="${esc(resource.url)}" target="_blank" rel="noopener noreferrer">Open</a>` : `<span class="domain">Reference only</span>`;
       const extraLinks = resource.links.filter((linkItem) => linkItem.url !== resource.url).slice(0, 3);
-      return `<article class="tool-card">
+      const navAttrs = resource.url ? `data-external-href="${esc(resource.url)}"` : "";
+      return `<article class="tool-card nav-card" tabindex="0" ${navAttrs}>
         <div class="info">
           <button class="info-button" type="button" aria-label="More about ${esc(resource.name)}">i</button>
           <div class="popover">
@@ -980,6 +1304,7 @@
         </div>
         <h4>${esc(resource.name)}</h4>
         <p>${esc(resource.notes || "Referenced in the resource guide.")}</p>
+        ${renderSitePreview(host, resource.name, useCaseFor(resource))}
         <div class="mini-stats">
           <span class="tag">${esc(resource.kind)}</span>
           <span class="tag blue">${esc(resource.category.split("(")[0].trim())}</span>
@@ -1063,10 +1388,12 @@
       renderResources();
     });
     document.getElementById("region-filter").addEventListener("change", (event) => {
+      currentFilters.domain = "all";
       currentFilters.region = event.target.value;
       renderResources();
     });
     document.getElementById("category-filter").addEventListener("change", (event) => {
+      currentFilters.domain = "all";
       currentFilters.category = event.target.value;
       renderResources();
     });

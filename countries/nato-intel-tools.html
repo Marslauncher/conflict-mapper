@@ -9,7 +9,7 @@
   <script src="../assets/user-style.js"></script>
   <style>
     :root{--bg:#061014;--panel:#10232c;--panel-2:#0c1c24;--line:rgba(103,232,221,.18);--line-strong:rgba(103,232,221,.38);--text:#e7f2f4;--muted:#9eb4bd;--faint:#617a85;--accent:#5eead4;--blue:#79a7ff;--amber:#f4b03a;--red:#f87171;--font-display:"Rajdhani",sans-serif;--font-mono:"Share Tech Mono",monospace;--font-body:"Inter",system-ui,sans-serif}
-    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden}body{background:radial-gradient(circle at 15% 0,rgba(121,167,255,.1),transparent 34rem),radial-gradient(circle at 88% 4%,rgba(94,234,212,.12),transparent 34rem),linear-gradient(180deg,#07151b 0%,#041014 100%)}a{color:inherit}.page{width:100%;max-width:1440px;margin:0 auto;padding:26px clamp(12px,2vw,22px) 78px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-family:var(--font-mono);letter-spacing:.16em;text-transform:uppercase}.brand{color:var(--red);font-size:.78rem}.nav-links{display:flex;flex-wrap:wrap;gap:8px}.nav-links a,.source-link,.preview-body a{border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:rgba(16,35,44,.62);color:var(--muted);text-decoration:none;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.nav-links a:hover,.source-link:hover,.preview-body a:hover{border-color:var(--line-strong);color:var(--accent)}.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.72fr);gap:18px;align-items:stretch;padding:54px 0 36px}.hero-main,.hero-card,.tool-card,.workflow-card,.preview-card,.code-panel,.output-card{border:1px solid var(--line);border-radius:8px;background:linear-gradient(135deg,rgba(18,41,51,.9),rgba(6,19,25,.78));box-shadow:0 18px 60px rgba(0,0,0,.22)}.hero-main{padding:30px}.kicker{font-family:var(--font-mono);color:var(--accent);letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;margin-bottom:12px}h1{margin:0 0 16px;font-family:var(--font-display);font-size:clamp(3.2rem,8vw,7.5rem);letter-spacing:.13em;line-height:.86;text-transform:uppercase;color:#111827}h2{margin:0;font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);letter-spacing:.16em;text-transform:uppercase}h3{margin:0;font-family:var(--font-display);font-size:1.25rem;letter-spacing:.1em;text-transform:uppercase}.lead{max-width:880px;color:var(--muted);font-size:1.04rem;line-height:1.7}.hero-card{padding:20px;display:grid;gap:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:6px;padding:14px;background:rgba(255,255,255,.04)}.metric strong{display:block;color:var(--accent);font-family:var(--font-display);font-size:2rem;line-height:1}.metric span{font-family:var(--font-mono);color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.focus-box{border:1px solid var(--line);border-radius:6px;padding:14px;color:var(--muted);line-height:1.65}.section{padding:26px 0}.section-head{display:grid;grid-template-columns:minmax(0,.7fr) minmax(280px,.45fr);gap:18px;align-items:end;margin-bottom:16px;border-bottom:1px solid var(--line);padding:0 0 12px 18px}.section-head p{margin:0;color:var(--muted);line-height:1.65}.tool-grid,.workflow-grid,.preview-grid,.code-grid,.output-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}.tool-card{position:relative;min-height:255px;padding:18px;display:grid;grid-template-rows:auto 1fr auto}.tool-card p,.workflow-card p,.output-card p{color:var(--muted);line-height:1.62}.card-meta{display:flex;flex-wrap:wrap;gap:6px}.tag{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:4px 7px;color:var(--accent);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}.tag.blue{color:var(--blue)}.source-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;min-width:0}.domain{min-width:0;color:var(--faint);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;overflow-wrap:anywhere}.source-link.disabled{opacity:.6}.info{position:absolute;top:12px;right:12px;z-index:8}.info-button{width:24px;height:24px;border:1px solid var(--line-strong);border-radius:999px;background:rgba(94,234,212,.08);color:var(--accent);font-family:var(--font-mono);cursor:pointer}.popover{position:absolute;right:0;top:32px;width:min(390px,calc(100vw - 38px));max-height:310px;overflow:auto;padding:16px;border:1px solid var(--line-strong);border-radius:8px;background:#061014;box-shadow:0 18px 60px rgba(0,0,0,.42);opacity:0;pointer-events:none;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}.info:hover .popover,.info:focus-within .popover,.info[data-open=true] .popover{opacity:1;pointer-events:auto;transform:translateY(0)}.popover h4{margin:0 0 8px;font-family:var(--font-display);letter-spacing:.1em;text-transform:uppercase}.popover p,.popover li{color:var(--muted);font-size:.86rem;line-height:1.55}.workflow-card,.output-card{padding:18px}.step{display:inline-flex;margin-bottom:12px;color:var(--accent);font-family:var(--font-mono);letter-spacing:.18em}.preview-card{overflow:hidden}.browser-bar{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding:10px 14px;font-family:var(--font-mono);color:var(--faint);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.browser-bar span{width:9px;height:9px;border-radius:50%;background:var(--red)}.browser-bar span:nth-child(2){background:var(--amber)}.browser-bar span:nth-child(3){background:#6bd37b}.preview-body{padding:20px}.preview-line{height:10px;border-radius:999px;background:rgba(159,178,191,.22);margin:14px 0}.preview-line.short{width:54%}.preview-line.mid{width:78%}.code-panel{overflow:hidden}.code-panel header{display:flex;justify-content:space-between;gap:10px;padding:14px;border-bottom:1px solid var(--line)}pre{margin:0;max-height:420px;overflow:auto;padding:16px;background:rgba(0,0,0,.28);color:#cdebf0;font-family:var(--font-mono);font-size:.78rem;line-height:1.58}.mini-map{height:190px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(135deg,rgba(94,234,212,.13),transparent 45%),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px)}@media(max-width:860px){.hero,.section-head{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.hero-main{padding:22px}h1{font-size:3rem}.metric-grid{grid-template-columns:1fr}.section-head{padding-left:8px}.popover{right:-10px}}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden}body{background:radial-gradient(circle at 15% 0,rgba(121,167,255,.1),transparent 34rem),radial-gradient(circle at 88% 4%,rgba(94,234,212,.12),transparent 34rem),linear-gradient(180deg,#07151b 0%,#041014 100%)}a{color:inherit}.page{width:100%;max-width:1440px;margin:0 auto;padding:26px clamp(12px,2vw,22px) 78px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-family:var(--font-mono);letter-spacing:.16em;text-transform:uppercase}.brand{color:var(--red);font-size:.78rem}.nav-links{display:flex;flex-wrap:wrap;gap:8px}.nav-links a,.source-link,.preview-body a{border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:rgba(16,35,44,.62);color:var(--muted);text-decoration:none;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.nav-links a:hover,.source-link:hover,.preview-body a:hover{border-color:var(--line-strong);color:var(--accent)}.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.72fr);gap:18px;align-items:stretch;padding:54px 0 36px}.hero-main,.hero-card,.tool-card,.workflow-card,.preview-card,.code-panel,.output-card{border:1px solid var(--line);border-radius:8px;background:linear-gradient(135deg,rgba(18,41,51,.9),rgba(6,19,25,.78));box-shadow:0 18px 60px rgba(0,0,0,.22)}.hero-main{padding:30px}.kicker{font-family:var(--font-mono);color:var(--accent);letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;margin-bottom:12px}h1{margin:0 0 16px;font-family:var(--font-display);font-size:clamp(3.2rem,8vw,7.5rem);letter-spacing:.13em;line-height:.86;text-transform:uppercase;color:#111827}h2{margin:0;font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);letter-spacing:.16em;text-transform:uppercase}h3{margin:0;font-family:var(--font-display);font-size:1.25rem;letter-spacing:.1em;text-transform:uppercase}.lead{max-width:880px;color:var(--muted);font-size:1.04rem;line-height:1.7}.hero-card{padding:20px;display:grid;gap:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:6px;padding:14px;background:rgba(255,255,255,.04)}.metric strong{display:block;color:var(--accent);font-family:var(--font-display);font-size:2rem;line-height:1}.metric span{font-family:var(--font-mono);color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.focus-box{border:1px solid var(--line);border-radius:6px;padding:14px;color:var(--muted);line-height:1.65}.section{padding:26px 0}.section-head{display:grid;grid-template-columns:minmax(0,.7fr) minmax(280px,.45fr);gap:18px;align-items:end;margin-bottom:16px;border-bottom:1px solid var(--line);padding:0 0 12px 18px}.section-head p{margin:0;color:var(--muted);line-height:1.65}.tool-grid,.workflow-grid,.preview-grid,.code-grid,.output-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}.tool-card{position:relative;min-height:255px;padding:18px;display:grid;grid-template-rows:auto auto 1fr auto}.tool-card p,.workflow-card p,.output-card p{color:var(--muted);line-height:1.62}.card-meta{display:flex;flex-wrap:wrap;gap:6px}.tag{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:4px 7px;color:var(--accent);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}.tag.blue{color:var(--blue)}.source-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;min-width:0}.domain{min-width:0;color:var(--faint);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;overflow-wrap:anywhere}.source-link.disabled{opacity:.6}.info{position:absolute;top:12px;right:12px;z-index:8}.info-button{width:24px;height:24px;border:1px solid var(--line-strong);border-radius:999px;background:rgba(94,234,212,.08);color:var(--accent);font-family:var(--font-mono);cursor:pointer}.popover{position:absolute;right:0;top:32px;width:min(390px,calc(100vw - 38px));max-height:310px;overflow:auto;padding:16px;border:1px solid var(--line-strong);border-radius:8px;background:#061014;box-shadow:0 18px 60px rgba(0,0,0,.42);opacity:0;pointer-events:none;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}.info:hover .popover,.info:focus-within .popover,.info[data-open=true] .popover{opacity:1;pointer-events:auto;transform:translateY(0)}.popover h4{margin:0 0 8px;font-family:var(--font-display);letter-spacing:.1em;text-transform:uppercase}.popover p,.popover li{color:var(--muted);font-size:.86rem;line-height:1.55}.workflow-card,.output-card{padding:18px}.step{display:inline-flex;margin-bottom:12px;color:var(--accent);font-family:var(--font-mono);letter-spacing:.18em}.preview-card{overflow:hidden}.inline-preview{margin:12px 0;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:rgba(4,13,17,.42)}.inline-preview .preview-body{padding:14px}.inline-preview h4{margin:0;color:var(--text);font-family:var(--font-display);font-size:1rem;letter-spacing:.1em;text-transform:uppercase}.inline-preview p{margin:12px 0 0;font-size:.84rem}.browser-bar{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding:10px 14px;font-family:var(--font-mono);color:var(--faint);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.browser-bar span{width:9px;height:9px;border-radius:50%;background:var(--red);flex:0 0 auto}.browser-bar span:nth-child(2){background:var(--amber)}.browser-bar span:nth-child(3){background:#6bd37b}.preview-body{padding:20px}.preview-line{height:10px;border-radius:999px;background:rgba(159,178,191,.22);margin:14px 0}.preview-line.short{width:54%}.preview-line.mid{width:78%}.code-panel{overflow:hidden}.code-panel header{display:flex;justify-content:space-between;gap:10px;padding:14px;border-bottom:1px solid var(--line)}pre{margin:0;max-height:420px;overflow:auto;padding:16px;background:rgba(0,0,0,.28);color:#cdebf0;font-family:var(--font-mono);font-size:.78rem;line-height:1.58}.mini-map{height:190px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(135deg,rgba(94,234,212,.13),transparent 45%),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px)}@media(max-width:860px){.hero,.section-head{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.hero-main{padding:22px}h1{font-size:3rem}.metric-grid{grid-template-columns:1fr}.section-head{padding-left:8px}.popover{right:-10px}}
   </style>
 </head>
 <body>
@@ -132,6 +132,15 @@
     </div>
     <h3>Maxar SecureWatch</h3>
     <p>Yes — OGC WMS/WCS streaming</p>
+    <div class="inline-preview" aria-label="Maxar SecureWatch website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Maxar SecureWatch</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Satellite Imagery  Paid Commercial</span>
@@ -158,6 +167,15 @@
     </div>
     <h3>Planet Labs</h3>
     <p>Yes — docs.planet.com</p>
+    <div class="inline-preview" aria-label="Planet Labs website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>docs.planet.com</div>
+      <div class="preview-body">
+        <h4>Planet Labs</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Satellite Imagery  Paid Commercial</span>
@@ -184,6 +202,15 @@
     </div>
     <h3>Airbus Pléiades Neo</h3>
     <p>Yes</p>
+    <div class="inline-preview" aria-label="Airbus Pléiades Neo website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Airbus Pléiades Neo</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Satellite Imagery  Paid Commercial</span>
@@ -210,6 +237,15 @@
     </div>
     <h3>ICEYE (SAR)</h3>
     <p>Yes</p>
+    <div class="inline-preview" aria-label="ICEYE (SAR) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>ICEYE (SAR)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Satellite Imagery  Paid Commercial</span>
@@ -236,6 +272,15 @@
     </div>
     <h3>Capella Space (SAR)</h3>
     <p>Yes</p>
+    <div class="inline-preview" aria-label="Capella Space (SAR) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Capella Space (SAR)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Satellite Imagery  Paid Commercial</span>
@@ -262,6 +307,15 @@
     </div>
     <h3>Umbra (SAR)</h3>
     <p>Yes</p>
+    <div class="inline-preview" aria-label="Umbra (SAR) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Umbra (SAR)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Satellite Imagery  Paid Commercial</span>
@@ -288,6 +342,15 @@
     </div>
     <h3>SkyFi</h3>
     <p>Yes — skyfi.com</p>
+    <div class="inline-preview" aria-label="SkyFi website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>skyfi.com</div>
+      <div class="preview-body">
+        <h4>SkyFi</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Satellite Imagery  Paid Commercial</span>
@@ -314,6 +377,15 @@
     </div>
     <h3>BlackSky</h3>
     <p>Yes</p>
+    <div class="inline-preview" aria-label="BlackSky website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>BlackSky</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Satellite Imagery  Paid Commercial</span>
@@ -348,6 +420,15 @@
     </div>
     <h3>UN Comtrade</h3>
     <p>Yes — free registration required</p>
+    <div class="inline-preview" aria-label="UN Comtrade website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>comtradeplus.un.org</div>
+      <div class="preview-body">
+        <h4>UN Comtrade</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and NATO collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -374,6 +455,15 @@
     </div>
     <h3>World Bank Open Data</h3>
     <p>Yes — free, no key needed</p>
+    <div class="inline-preview" aria-label="World Bank Open Data website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>data.worldbank.org</div>
+      <div class="preview-body">
+        <h4>World Bank Open Data</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for repeatable collection, dashboards, and scheduled checks.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -400,6 +490,15 @@
     </div>
     <h3>OFAC Sanctions Search</h3>
     <p>Yes — SDN list downloadable as XML/CSV</p>
+    <div class="inline-preview" aria-label="OFAC Sanctions Search website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>sanctionssearch.ofac.treas.gov</div>
+      <div class="preview-body">
+        <h4>OFAC Sanctions Search</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and NATO collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -426,6 +525,15 @@
     </div>
     <h3>OpenSanctions</h3>
     <p>Yes — free bulk downloads; API from €200/mo for commercial</p>
+    <div class="inline-preview" aria-label="OpenSanctions website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>opensanctions.org</div>
+      <div class="preview-body">
+        <h4>OpenSanctions</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for repeatable collection, dashboards, and scheduled checks.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -452,6 +560,15 @@
     </div>
     <h3>SIPRI Military Expenditure DB</h3>
     <p>No API; bulk download available free</p>
+    <div class="inline-preview" aria-label="SIPRI Military Expenditure DB website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>sipri.org</div>
+      <div class="preview-body">
+        <h4>SIPRI Military Expenditure DB</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for repeatable collection, dashboards, and scheduled checks.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -486,6 +603,15 @@
     </div>
     <h3>SEC EDGAR</h3>
     <p>10-K, 10-Q, insider trades; free</p>
+    <div class="inline-preview" aria-label="SEC EDGAR website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>efts.sec.gov</div>
+      <div class="preview-body">
+        <h4>SEC EDGAR</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and NATO collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -512,6 +638,15 @@
     </div>
     <h3>USASpending.gov</h3>
     <p>Federal contracts including defense; free</p>
+    <div class="inline-preview" aria-label="USASpending.gov website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>usaspending.gov</div>
+      <div class="preview-body">
+        <h4>USASpending.gov</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and NATO collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
@@ -546,6 +681,15 @@
     </div>
     <h3>NOAA GOES Real-Time</h3>
     <p>Satellite refresh every 15 minutes</p>
+    <div class="inline-preview" aria-label="NOAA GOES Real-Time website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>goes.noaa.gov</div>
+      <div class="preview-body">
+        <h4>NOAA GOES Real-Time</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
@@ -572,6 +716,15 @@
     </div>
     <h3>NASA FIRMS US/Canada</h3>
     <p>Real-time fire detection for US</p>
+    <div class="inline-preview" aria-label="NASA FIRMS US/Canada website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>firms.modaps.eosdis.nasa.gov</div>
+      <div class="preview-body">
+        <h4>NASA FIRMS US/Canada</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
@@ -598,6 +751,15 @@
     </div>
     <h3>HIFLD Open Data</h3>
     <p>Homeland Infrastructure GIS layers — power, telecom, pipelines</p>
+    <div class="inline-preview" aria-label="HIFLD Open Data website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>hifld-geoplatform.opendata.arcgis.com</div>
+      <div class="preview-body">
+        <h4>HIFLD Open Data</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
@@ -624,6 +786,15 @@
     </div>
     <h3>FAA Aircraft Registry</h3>
     <p>Look up any N-registered aircraft owner</p>
+    <div class="inline-preview" aria-label="FAA Aircraft Registry website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>faa.gov</div>
+      <div class="preview-body">
+        <h4>FAA Aircraft Registry</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
@@ -650,6 +821,15 @@
     </div>
     <h3>ADS-B Exchange</h3>
     <p>Unfiltered US military aircraft tracking</p>
+    <div class="inline-preview" aria-label="ADS-B Exchange website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>adsbexchange.com</div>
+      <div class="preview-body">
+        <h4>ADS-B Exchange</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
@@ -684,6 +864,15 @@
     </div>
     <h3>Ukrainska Pravda</h3>
     <p>Ukraine&#39;s leading investigative outlet (Ukrainian)</p>
+    <div class="inline-preview" aria-label="Ukrainska Pravda website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>pravda.com.ua</div>
+      <div class="preview-body">
+        <h4>Ukrainska Pravda</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -710,6 +899,15 @@
     </div>
     <h3>The Insider</h3>
     <p>Russian-language investigative; war crimes, Kremlin</p>
+    <div class="inline-preview" aria-label="The Insider website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>theins.ru</div>
+      <div class="preview-body">
+        <h4>The Insider</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -736,6 +934,15 @@
     </div>
     <h3>Hromadske International</h3>
     <p>Public broadcasting Ukraine; frontline reporting</p>
+    <div class="inline-preview" aria-label="Hromadske International website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>hromadske.ua</div>
+      <div class="preview-body">
+        <h4>Hromadske International</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -762,6 +969,15 @@
     </div>
     <h3>Radio Free Europe Ukraine</h3>
     <p>Independent; covers censored topics</p>
+    <div class="inline-preview" aria-label="Radio Free Europe Ukraine website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>rferl.org</div>
+      <div class="preview-body">
+        <h4>Radio Free Europe Ukraine</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -788,6 +1004,15 @@
     </div>
     <h3>Reuters Ukraine</h3>
     <p>Wire service bureau in Ukraine</p>
+    <div class="inline-preview" aria-label="Reuters Ukraine website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>reuters.com</div>
+      <div class="preview-body">
+        <h4>Reuters Ukraine</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -822,6 +1047,15 @@
     </div>
     <h3>ISW (Institute for the Study of War)</h3>
     <p>Daily campaign assessments since Feb 2022; maps of record</p>
+    <div class="inline-preview" aria-label="ISW (Institute for the Study of War) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>understandingwar.org</div>
+      <div class="preview-body">
+        <h4>ISW (Institute for the Study of War)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -848,6 +1082,15 @@
     </div>
     <h3>OSINT For Ukraine</h3>
     <p>War crimes documentation; disinformation combat</p>
+    <div class="inline-preview" aria-label="OSINT For Ukraine website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>osintforukraine.com</div>
+      <div class="preview-body">
+        <h4>OSINT For Ukraine</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -874,6 +1117,15 @@
     </div>
     <h3>GeoConfirmed</h3>
     <p>Volunteer geolocation of Ukraine conflict imagery</p>
+    <div class="inline-preview" aria-label="GeoConfirmed website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>geoconfirmed.org</div>
+      <div class="preview-body">
+        <h4>GeoConfirmed</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -900,6 +1152,15 @@
     </div>
     <h3>Eyes on Russia (Info-Res)</h3>
     <p>Troop movements, damage documentation, war crimes tracking</p>
+    <div class="inline-preview" aria-label="Eyes on Russia (Info-Res) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>info-res.org</div>
+      <div class="preview-body">
+        <h4>Eyes on Russia (Info-Res)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -926,6 +1187,15 @@
     </div>
     <h3>UA Weapons Tracker</h3>
     <p>Documents Russian equipment losses</p>
+    <div class="inline-preview" aria-label="UA Weapons Tracker website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>x.com</div>
+      <div class="preview-body">
+        <h4>UA Weapons Tracker</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -960,6 +1230,15 @@
     </div>
     <h3>Key Channels</h3>
     <p>@DeepStateUA (frontline), @UAWeapons (losses), @Militaryosint (general)</p>
+    <div class="inline-preview" aria-label="Key Channels website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Key Channels</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and NATO collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Telegram Intelligence Free</span>
@@ -994,6 +1273,15 @@
     </div>
     <h3>Meduza</h3>
     <p>Latvia-based; Russian/English; critical of Kremlin</p>
+    <div class="inline-preview" aria-label="Meduza website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>meduza.io</div>
+      <div class="preview-body">
+        <h4>Meduza</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Independent &amp; Monitoring Media Free</span>
@@ -1020,6 +1308,15 @@
     </div>
     <h3>Novaya Gazeta Europe</h3>
     <p>Exiled Russian investigative outlet</p>
+    <div class="inline-preview" aria-label="Novaya Gazeta Europe website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>novayagazeta.eu</div>
+      <div class="preview-body">
+        <h4>Novaya Gazeta Europe</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Independent &amp; Monitoring Media Free</span>
@@ -1046,6 +1343,15 @@
     </div>
     <h3>The Bell (Russia)</h3>
     <p>Russian business and political intelligence</p>
+    <div class="inline-preview" aria-label="The Bell (Russia) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>thebell.io</div>
+      <div class="preview-body">
+        <h4>The Bell (Russia)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Independent &amp; Monitoring Media Free</span>
@@ -1072,6 +1378,15 @@
     </div>
     <h3>Fontanka</h3>
     <p>Russian-language; St. Petersburg investigative</p>
+    <div class="inline-preview" aria-label="Fontanka website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>fontanka.ru</div>
+      <div class="preview-body">
+        <h4>Fontanka</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Independent &amp; Monitoring Media Free</span>
@@ -1098,6 +1413,15 @@
     </div>
     <h3>OCCRP (Russian investigations)</h3>
     <p>Oligarch money flows; sanctions evasion</p>
+    <div class="inline-preview" aria-label="OCCRP (Russian investigations) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>occrp.org</div>
+      <div class="preview-body">
+        <h4>OCCRP (Russian investigations)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Independent &amp; Monitoring Media Free</span>
@@ -1124,6 +1448,15 @@
     </div>
     <h3>Moscow Times</h3>
     <p>English; independent Russia coverage; now exile-based</p>
+    <div class="inline-preview" aria-label="Moscow Times website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>themoscowtimes.com</div>
+      <div class="preview-body">
+        <h4>Moscow Times</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Independent &amp; Monitoring Media Free</span>
@@ -1150,6 +1483,15 @@
     </div>
     <h3>Bellingcat Russia</h3>
     <p>GRU operations, MH17, assassination investigations</p>
+    <div class="inline-preview" aria-label="Bellingcat Russia website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>bellingcat.com</div>
+      <div class="preview-body">
+        <h4>Bellingcat Russia</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Independent &amp; Monitoring Media Free</span>
@@ -1176,6 +1518,15 @@
     </div>
     <h3>Verstka Media</h3>
     <p>Russian investigative; war, human rights</p>
+    <div class="inline-preview" aria-label="Verstka Media website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>verstka.media</div>
+      <div class="preview-body">
+        <h4>Verstka Media</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Independent &amp; Monitoring Media Free</span>
@@ -1202,6 +1553,15 @@
     </div>
     <h3>iStories / Agency (Russia)</h3>
     <p>Russian investigative journalism collective</p>
+    <div class="inline-preview" aria-label="iStories / Agency (Russia) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>agents.media</div>
+      <div class="preview-body">
+        <h4>iStories / Agency (Russia)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Independent &amp; Monitoring Media Free</span>
@@ -1236,6 +1596,15 @@
     </div>
     <h3>ISW Russia Coverage</h3>
     <p>Daily force generation and occupied territory analysis</p>
+    <div class="inline-preview" aria-label="ISW Russia Coverage website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>understandingwar.org</div>
+      <div class="preview-body">
+        <h4>ISW Russia Coverage</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Analysis Free</span>
@@ -1262,6 +1631,15 @@
     </div>
     <h3>Chatham House Russia</h3>
     <p>UK think tank; Russia strategy and policy</p>
+    <div class="inline-preview" aria-label="Chatham House Russia website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>chathamhouse.org</div>
+      <div class="preview-body">
+        <h4>Chatham House Russia</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Analysis Free</span>
@@ -1288,6 +1666,15 @@
     </div>
     <h3>CNAS (Center for New American Security)</h3>
     <p>US defense strategy including Russia</p>
+    <div class="inline-preview" aria-label="CNAS (Center for New American Security) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>cnas.org</div>
+      <div class="preview-body">
+        <h4>CNAS (Center for New American Security)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Analysis Free</span>
@@ -1314,6 +1701,15 @@
     </div>
     <h3>IISS (Russia coverage)</h3>
     <p>Military balance; Russian forces</p>
+    <div class="inline-preview" aria-label="IISS (Russia coverage) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>iiss.org</div>
+      <div class="preview-body">
+        <h4>IISS (Russia coverage)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Analysis Free</span>
@@ -1340,6 +1736,15 @@
     </div>
     <h3>European Council on Foreign Relations</h3>
     <p>European perspective on Russia</p>
+    <div class="inline-preview" aria-label="European Council on Foreign Relations website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>ecfr.eu</div>
+      <div class="preview-body">
+        <h4>European Council on Foreign Relations</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Analysis Free</span>
@@ -1374,6 +1779,15 @@
     </div>
     <h3>Yandex Maps</h3>
     <p>maps.yandex.com — Best satellite/aerial data available for Russian territory; historical views</p>
+    <div class="inline-preview" aria-label="Yandex Maps website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>maps.yandex.com</div>
+      <div class="preview-body">
+        <h4>Yandex Maps</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Geospatial &amp; Infrastructure Free</span>
@@ -1400,6 +1814,15 @@
     </div>
     <h3>Copernicus Sentinel</h3>
     <p>Full coverage; SAR (Sentinel-1) penetrates clouds over Russian-held territory</p>
+    <div class="inline-preview" aria-label="Copernicus Sentinel website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Copernicus Sentinel</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Geospatial &amp; Infrastructure Free</span>
@@ -1426,6 +1849,15 @@
     </div>
     <h3>NASA FIRMS</h3>
     <p>Thermal anomalies — oil field flaring, forest fires, strike impacts</p>
+    <div class="inline-preview" aria-label="NASA FIRMS website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>NASA FIRMS</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and NATO location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Geospatial &amp; Infrastructure Free</span>
@@ -1460,6 +1892,15 @@
     </div>
     <h3>Maxar SecureWatch</h3>
     <p>High-resolution tasking for military facility monitoring</p>
+    <div class="inline-preview" aria-label="Maxar SecureWatch website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Maxar SecureWatch</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and NATO collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Paid Russia Tools</span>
@@ -1486,6 +1927,15 @@
     </div>
     <h3>Recorded Future Russia Desk</h3>
     <p>Cyber threat intelligence and APT tracking</p>
+    <div class="inline-preview" aria-label="Recorded Future Russia Desk website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Recorded Future Russia Desk</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and NATO collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Paid Russia Tools</span>
@@ -1512,6 +1962,15 @@
     </div>
     <h3>Babel X</h3>
     <p>Russian-language monitoring across social media and dark web</p>
+    <div class="inline-preview" aria-label="Babel X website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Babel X</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Paid</span>
       <span class="tag blue">Paid Russia Tools</span>

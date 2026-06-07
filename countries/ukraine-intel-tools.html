@@ -9,7 +9,7 @@
   <script src="../assets/user-style.js"></script>
   <style>
     :root{--bg:#061014;--panel:#10232c;--panel-2:#0c1c24;--line:rgba(103,232,221,.18);--line-strong:rgba(103,232,221,.38);--text:#e7f2f4;--muted:#9eb4bd;--faint:#617a85;--accent:#5eead4;--blue:#79a7ff;--amber:#f4b03a;--red:#f87171;--font-display:"Rajdhani",sans-serif;--font-mono:"Share Tech Mono",monospace;--font-body:"Inter",system-ui,sans-serif}
-    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden}body{background:radial-gradient(circle at 15% 0,rgba(121,167,255,.1),transparent 34rem),radial-gradient(circle at 88% 4%,rgba(94,234,212,.12),transparent 34rem),linear-gradient(180deg,#07151b 0%,#041014 100%)}a{color:inherit}.page{width:100%;max-width:1440px;margin:0 auto;padding:26px clamp(12px,2vw,22px) 78px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-family:var(--font-mono);letter-spacing:.16em;text-transform:uppercase}.brand{color:var(--red);font-size:.78rem}.nav-links{display:flex;flex-wrap:wrap;gap:8px}.nav-links a,.source-link,.preview-body a{border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:rgba(16,35,44,.62);color:var(--muted);text-decoration:none;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.nav-links a:hover,.source-link:hover,.preview-body a:hover{border-color:var(--line-strong);color:var(--accent)}.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.72fr);gap:18px;align-items:stretch;padding:54px 0 36px}.hero-main,.hero-card,.tool-card,.workflow-card,.preview-card,.code-panel,.output-card{border:1px solid var(--line);border-radius:8px;background:linear-gradient(135deg,rgba(18,41,51,.9),rgba(6,19,25,.78));box-shadow:0 18px 60px rgba(0,0,0,.22)}.hero-main{padding:30px}.kicker{font-family:var(--font-mono);color:var(--accent);letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;margin-bottom:12px}h1{margin:0 0 16px;font-family:var(--font-display);font-size:clamp(3.2rem,8vw,7.5rem);letter-spacing:.13em;line-height:.86;text-transform:uppercase;color:#111827}h2{margin:0;font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);letter-spacing:.16em;text-transform:uppercase}h3{margin:0;font-family:var(--font-display);font-size:1.25rem;letter-spacing:.1em;text-transform:uppercase}.lead{max-width:880px;color:var(--muted);font-size:1.04rem;line-height:1.7}.hero-card{padding:20px;display:grid;gap:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:6px;padding:14px;background:rgba(255,255,255,.04)}.metric strong{display:block;color:var(--accent);font-family:var(--font-display);font-size:2rem;line-height:1}.metric span{font-family:var(--font-mono);color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.focus-box{border:1px solid var(--line);border-radius:6px;padding:14px;color:var(--muted);line-height:1.65}.section{padding:26px 0}.section-head{display:grid;grid-template-columns:minmax(0,.7fr) minmax(280px,.45fr);gap:18px;align-items:end;margin-bottom:16px;border-bottom:1px solid var(--line);padding:0 0 12px 18px}.section-head p{margin:0;color:var(--muted);line-height:1.65}.tool-grid,.workflow-grid,.preview-grid,.code-grid,.output-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}.tool-card{position:relative;min-height:255px;padding:18px;display:grid;grid-template-rows:auto 1fr auto}.tool-card p,.workflow-card p,.output-card p{color:var(--muted);line-height:1.62}.card-meta{display:flex;flex-wrap:wrap;gap:6px}.tag{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:4px 7px;color:var(--accent);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}.tag.blue{color:var(--blue)}.source-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;min-width:0}.domain{min-width:0;color:var(--faint);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;overflow-wrap:anywhere}.source-link.disabled{opacity:.6}.info{position:absolute;top:12px;right:12px;z-index:8}.info-button{width:24px;height:24px;border:1px solid var(--line-strong);border-radius:999px;background:rgba(94,234,212,.08);color:var(--accent);font-family:var(--font-mono);cursor:pointer}.popover{position:absolute;right:0;top:32px;width:min(390px,calc(100vw - 38px));max-height:310px;overflow:auto;padding:16px;border:1px solid var(--line-strong);border-radius:8px;background:#061014;box-shadow:0 18px 60px rgba(0,0,0,.42);opacity:0;pointer-events:none;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}.info:hover .popover,.info:focus-within .popover,.info[data-open=true] .popover{opacity:1;pointer-events:auto;transform:translateY(0)}.popover h4{margin:0 0 8px;font-family:var(--font-display);letter-spacing:.1em;text-transform:uppercase}.popover p,.popover li{color:var(--muted);font-size:.86rem;line-height:1.55}.workflow-card,.output-card{padding:18px}.step{display:inline-flex;margin-bottom:12px;color:var(--accent);font-family:var(--font-mono);letter-spacing:.18em}.preview-card{overflow:hidden}.browser-bar{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding:10px 14px;font-family:var(--font-mono);color:var(--faint);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.browser-bar span{width:9px;height:9px;border-radius:50%;background:var(--red)}.browser-bar span:nth-child(2){background:var(--amber)}.browser-bar span:nth-child(3){background:#6bd37b}.preview-body{padding:20px}.preview-line{height:10px;border-radius:999px;background:rgba(159,178,191,.22);margin:14px 0}.preview-line.short{width:54%}.preview-line.mid{width:78%}.code-panel{overflow:hidden}.code-panel header{display:flex;justify-content:space-between;gap:10px;padding:14px;border-bottom:1px solid var(--line)}pre{margin:0;max-height:420px;overflow:auto;padding:16px;background:rgba(0,0,0,.28);color:#cdebf0;font-family:var(--font-mono);font-size:.78rem;line-height:1.58}.mini-map{height:190px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(135deg,rgba(94,234,212,.13),transparent 45%),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px)}@media(max-width:860px){.hero,.section-head{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.hero-main{padding:22px}h1{font-size:3rem}.metric-grid{grid-template-columns:1fr}.section-head{padding-left:8px}.popover{right:-10px}}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden}body{background:radial-gradient(circle at 15% 0,rgba(121,167,255,.1),transparent 34rem),radial-gradient(circle at 88% 4%,rgba(94,234,212,.12),transparent 34rem),linear-gradient(180deg,#07151b 0%,#041014 100%)}a{color:inherit}.page{width:100%;max-width:1440px;margin:0 auto;padding:26px clamp(12px,2vw,22px) 78px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-family:var(--font-mono);letter-spacing:.16em;text-transform:uppercase}.brand{color:var(--red);font-size:.78rem}.nav-links{display:flex;flex-wrap:wrap;gap:8px}.nav-links a,.source-link,.preview-body a{border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:rgba(16,35,44,.62);color:var(--muted);text-decoration:none;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.nav-links a:hover,.source-link:hover,.preview-body a:hover{border-color:var(--line-strong);color:var(--accent)}.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.72fr);gap:18px;align-items:stretch;padding:54px 0 36px}.hero-main,.hero-card,.tool-card,.workflow-card,.preview-card,.code-panel,.output-card{border:1px solid var(--line);border-radius:8px;background:linear-gradient(135deg,rgba(18,41,51,.9),rgba(6,19,25,.78));box-shadow:0 18px 60px rgba(0,0,0,.22)}.hero-main{padding:30px}.kicker{font-family:var(--font-mono);color:var(--accent);letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;margin-bottom:12px}h1{margin:0 0 16px;font-family:var(--font-display);font-size:clamp(3.2rem,8vw,7.5rem);letter-spacing:.13em;line-height:.86;text-transform:uppercase;color:#111827}h2{margin:0;font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);letter-spacing:.16em;text-transform:uppercase}h3{margin:0;font-family:var(--font-display);font-size:1.25rem;letter-spacing:.1em;text-transform:uppercase}.lead{max-width:880px;color:var(--muted);font-size:1.04rem;line-height:1.7}.hero-card{padding:20px;display:grid;gap:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:6px;padding:14px;background:rgba(255,255,255,.04)}.metric strong{display:block;color:var(--accent);font-family:var(--font-display);font-size:2rem;line-height:1}.metric span{font-family:var(--font-mono);color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.focus-box{border:1px solid var(--line);border-radius:6px;padding:14px;color:var(--muted);line-height:1.65}.section{padding:26px 0}.section-head{display:grid;grid-template-columns:minmax(0,.7fr) minmax(280px,.45fr);gap:18px;align-items:end;margin-bottom:16px;border-bottom:1px solid var(--line);padding:0 0 12px 18px}.section-head p{margin:0;color:var(--muted);line-height:1.65}.tool-grid,.workflow-grid,.preview-grid,.code-grid,.output-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}.tool-card{position:relative;min-height:255px;padding:18px;display:grid;grid-template-rows:auto auto 1fr auto}.tool-card p,.workflow-card p,.output-card p{color:var(--muted);line-height:1.62}.card-meta{display:flex;flex-wrap:wrap;gap:6px}.tag{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:4px 7px;color:var(--accent);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}.tag.blue{color:var(--blue)}.source-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;min-width:0}.domain{min-width:0;color:var(--faint);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;overflow-wrap:anywhere}.source-link.disabled{opacity:.6}.info{position:absolute;top:12px;right:12px;z-index:8}.info-button{width:24px;height:24px;border:1px solid var(--line-strong);border-radius:999px;background:rgba(94,234,212,.08);color:var(--accent);font-family:var(--font-mono);cursor:pointer}.popover{position:absolute;right:0;top:32px;width:min(390px,calc(100vw - 38px));max-height:310px;overflow:auto;padding:16px;border:1px solid var(--line-strong);border-radius:8px;background:#061014;box-shadow:0 18px 60px rgba(0,0,0,.42);opacity:0;pointer-events:none;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}.info:hover .popover,.info:focus-within .popover,.info[data-open=true] .popover{opacity:1;pointer-events:auto;transform:translateY(0)}.popover h4{margin:0 0 8px;font-family:var(--font-display);letter-spacing:.1em;text-transform:uppercase}.popover p,.popover li{color:var(--muted);font-size:.86rem;line-height:1.55}.workflow-card,.output-card{padding:18px}.step{display:inline-flex;margin-bottom:12px;color:var(--accent);font-family:var(--font-mono);letter-spacing:.18em}.preview-card{overflow:hidden}.inline-preview{margin:12px 0;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:rgba(4,13,17,.42)}.inline-preview .preview-body{padding:14px}.inline-preview h4{margin:0;color:var(--text);font-family:var(--font-display);font-size:1rem;letter-spacing:.1em;text-transform:uppercase}.inline-preview p{margin:12px 0 0;font-size:.84rem}.browser-bar{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding:10px 14px;font-family:var(--font-mono);color:var(--faint);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.browser-bar span{width:9px;height:9px;border-radius:50%;background:var(--red);flex:0 0 auto}.browser-bar span:nth-child(2){background:var(--amber)}.browser-bar span:nth-child(3){background:#6bd37b}.preview-body{padding:20px}.preview-line{height:10px;border-radius:999px;background:rgba(159,178,191,.22);margin:14px 0}.preview-line.short{width:54%}.preview-line.mid{width:78%}.code-panel{overflow:hidden}.code-panel header{display:flex;justify-content:space-between;gap:10px;padding:14px;border-bottom:1px solid var(--line)}pre{margin:0;max-height:420px;overflow:auto;padding:16px;background:rgba(0,0,0,.28);color:#cdebf0;font-family:var(--font-mono);font-size:.78rem;line-height:1.58}.mini-map{height:190px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(135deg,rgba(94,234,212,.13),transparent 45%),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px)}@media(max-width:860px){.hero,.section-head{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.hero-main{padding:22px}h1{font-size:3rem}.metric-grid{grid-template-columns:1fr}.section-head{padding-left:8px}.popover{right:-10px}}
   </style>
 </head>
 <body>
@@ -132,6 +132,15 @@
     </div>
     <h3>Kyiv Independent</h3>
     <p>English-language Ukrainian journalism; war reporting</p>
+    <div class="inline-preview" aria-label="Kyiv Independent website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>kyivindependent.com</div>
+      <div class="preview-body">
+        <h4>Kyiv Independent</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -158,6 +167,15 @@
     </div>
     <h3>Ukrainska Pravda</h3>
     <p>Ukraine&#39;s leading investigative outlet (Ukrainian)</p>
+    <div class="inline-preview" aria-label="Ukrainska Pravda website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>pravda.com.ua</div>
+      <div class="preview-body">
+        <h4>Ukrainska Pravda</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -184,6 +202,15 @@
     </div>
     <h3>The Insider</h3>
     <p>Russian-language investigative; war crimes, Kremlin</p>
+    <div class="inline-preview" aria-label="The Insider website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>theins.ru</div>
+      <div class="preview-body">
+        <h4>The Insider</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -210,6 +237,15 @@
     </div>
     <h3>Bellingcat</h3>
     <p>Geolocation, weapons tracking, war crimes</p>
+    <div class="inline-preview" aria-label="Bellingcat website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>bellingcat.com</div>
+      <div class="preview-body">
+        <h4>Bellingcat</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -236,6 +272,15 @@
     </div>
     <h3>Hromadske International</h3>
     <p>Public broadcasting Ukraine; frontline reporting</p>
+    <div class="inline-preview" aria-label="Hromadske International website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>hromadske.ua</div>
+      <div class="preview-body">
+        <h4>Hromadske International</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -262,6 +307,15 @@
     </div>
     <h3>Radio Free Europe Ukraine</h3>
     <p>Independent; covers censored topics</p>
+    <div class="inline-preview" aria-label="Radio Free Europe Ukraine website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>rferl.org</div>
+      <div class="preview-body">
+        <h4>Radio Free Europe Ukraine</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -288,6 +342,15 @@
     </div>
     <h3>Ukrinform</h3>
     <p>Ukrainian state newswire; official updates</p>
+    <div class="inline-preview" aria-label="Ukrinform website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>ukrinform.net</div>
+      <div class="preview-body">
+        <h4>Ukrinform</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -314,6 +377,15 @@
     </div>
     <h3>Reuters Ukraine</h3>
     <p>Wire service bureau in Ukraine</p>
+    <div class="inline-preview" aria-label="Reuters Ukraine website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>reuters.com</div>
+      <div class="preview-body">
+        <h4>Reuters Ukraine</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">News &amp; Conflict Reporting Free</span>
@@ -348,6 +420,15 @@
     </div>
     <h3>ISW (Institute for the Study of War)</h3>
     <p>Daily campaign assessments since Feb 2022; maps of record</p>
+    <div class="inline-preview" aria-label="ISW (Institute for the Study of War) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>understandingwar.org</div>
+      <div class="preview-body">
+        <h4>ISW (Institute for the Study of War)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -374,6 +455,15 @@
     </div>
     <h3>OSINT For Ukraine</h3>
     <p>War crimes documentation; disinformation combat</p>
+    <div class="inline-preview" aria-label="OSINT For Ukraine website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>osintforukraine.com</div>
+      <div class="preview-body">
+        <h4>OSINT For Ukraine</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -400,6 +490,15 @@
     </div>
     <h3>GeoConfirmed</h3>
     <p>Volunteer geolocation of Ukraine conflict imagery</p>
+    <div class="inline-preview" aria-label="GeoConfirmed website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>geoconfirmed.org</div>
+      <div class="preview-body">
+        <h4>GeoConfirmed</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for map evidence, imagery checks, and Ukraine location context.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -426,6 +525,15 @@
     </div>
     <h3>Eyes on Russia (Info-Res)</h3>
     <p>Troop movements, damage documentation, war crimes tracking</p>
+    <div class="inline-preview" aria-label="Eyes on Russia (Info-Res) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>info-res.org</div>
+      <div class="preview-body">
+        <h4>Eyes on Russia (Info-Res)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -452,6 +560,15 @@
     </div>
     <h3>Deep State Map</h3>
     <p>Ukrainian-produced near-real-time frontline map</p>
+    <div class="inline-preview" aria-label="Deep State Map website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>deepstatemap.live</div>
+      <div class="preview-body">
+        <h4>Deep State Map</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -478,6 +595,15 @@
     </div>
     <h3>IntelMapper</h3>
     <p>AI-mapped OSINT from Telegram; frontline territorial control</p>
+    <div class="inline-preview" aria-label="IntelMapper website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>intelmapper.com</div>
+      <div class="preview-body">
+        <h4>IntelMapper</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -504,6 +630,15 @@
     </div>
     <h3>UA Weapons Tracker</h3>
     <p>Documents Russian equipment losses</p>
+    <div class="inline-preview" aria-label="UA Weapons Tracker website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>x.com</div>
+      <div class="preview-body">
+        <h4>UA Weapons Tracker</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -530,6 +665,15 @@
     </div>
     <h3>Oryx (equipment losses)</h3>
     <p>Visually confirmed equipment losses both sides</p>
+    <div class="inline-preview" aria-label="Oryx (equipment losses) website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>oryxspioenkop.com</div>
+      <div class="preview-body">
+        <h4>Oryx (equipment losses)</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Think Tanks &amp; Intelligence Analysis Free</span>
@@ -564,6 +708,15 @@
     </div>
     <h3>TGStat</h3>
     <p>tgstat.com — Telegram channel analytics, search, post archives</p>
+    <div class="inline-preview" aria-label="TGStat website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>tgstat.com</div>
+      <div class="preview-body">
+        <h4>TGStat</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and Ukraine collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Telegram Intelligence Free</span>
@@ -590,6 +743,15 @@
     </div>
     <h3>Telemetr.io</h3>
     <p>telemetr.io — Keyword search across Telegram including deleted content</p>
+    <div class="inline-preview" aria-label="Telemetr.io website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>telemetr.io</div>
+      <div class="preview-body">
+        <h4>Telemetr.io</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and Ukraine collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Telegram Intelligence Free</span>
@@ -616,6 +778,15 @@
     </div>
     <h3>Key Channels</h3>
     <p>@DeepStateUA (frontline), @UAWeapons (losses), @Militaryosint (general)</p>
+    <div class="inline-preview" aria-label="Key Channels website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>Reference only</div>
+      <div class="preview-body">
+        <h4>Key Channels</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and Ukraine collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Telegram Intelligence Free</span>
@@ -650,6 +821,15 @@
     </div>
     <h3>UN Comtrade</h3>
     <p>Yes — free registration required</p>
+    <div class="inline-preview" aria-label="UN Comtrade website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>comtradeplus.un.org</div>
+      <div class="preview-body">
+        <h4>UN Comtrade</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and Ukraine collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -676,6 +856,15 @@
     </div>
     <h3>World Bank Open Data</h3>
     <p>Yes — free, no key needed</p>
+    <div class="inline-preview" aria-label="World Bank Open Data website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>data.worldbank.org</div>
+      <div class="preview-body">
+        <h4>World Bank Open Data</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for repeatable collection, dashboards, and scheduled checks.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -702,6 +891,15 @@
     </div>
     <h3>OFAC Sanctions Search</h3>
     <p>Yes — SDN list downloadable as XML/CSV</p>
+    <div class="inline-preview" aria-label="OFAC Sanctions Search website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>sanctionssearch.ofac.treas.gov</div>
+      <div class="preview-body">
+        <h4>OFAC Sanctions Search</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for source discovery, corroboration, and Ukraine collection planning.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -728,6 +926,15 @@
     </div>
     <h3>OpenSanctions</h3>
     <p>Yes — free bulk downloads; API from €200/mo for commercial</p>
+    <div class="inline-preview" aria-label="OpenSanctions website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>opensanctions.org</div>
+      <div class="preview-body">
+        <h4>OpenSanctions</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for repeatable collection, dashboards, and scheduled checks.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
@@ -754,6 +961,15 @@
     </div>
     <h3>SIPRI Military Expenditure DB</h3>
     <p>No API; bulk download available free</p>
+    <div class="inline-preview" aria-label="SIPRI Military Expenditure DB website preview">
+      <div class="browser-bar"><span></span><span></span><span></span>sipri.org</div>
+      <div class="preview-body">
+        <h4>SIPRI Military Expenditure DB</h4>
+        <div class="preview-line mid"></div>
+        <div class="preview-line short"></div>
+        <p>Use for repeatable collection, dashboards, and scheduled checks.</p>
+      </div>
+    </div>
     <div class="card-meta">
       <span class="tag">Free</span>
       <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
