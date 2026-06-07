@@ -142,10 +142,11 @@ try {
       const centerY = Math.max(0, Math.min(viewport.height - 1, rect.top + Math.min(rect.height / 2, 160)));
       const topElements = document.elementsFromPoint(centerX, centerY);
       const topmost = topElements.includes(pop);
+      const triggerCenter = trigger.left + ((trigger.right - trigger.left) / 2);
       const fullWidthMobile = viewport.width <= 480 && rect.left >= 0 && rect.right <= viewport.width;
       const opensInward = fullWidthMobile
         ? true
-        : (trigger.left < viewport.width / 2
+        : (triggerCenter < viewport.width / 2
           ? rect.left >= trigger.left - 4
           : rect.right <= trigger.right + 4);
       return {
