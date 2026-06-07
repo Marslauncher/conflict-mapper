@@ -139,7 +139,8 @@ try {
       const offscreen = rect.left < 0 || rect.top < 0 || rect.right > viewport.width || rect.bottom > viewport.height;
       const scrollable = pop.scrollHeight > pop.clientHeight ? ['auto', 'scroll'].includes(style.overflowY) : true;
       const margin = 16;
-      const expectedTop = Math.max(margin, Math.min(trigger.top - 12, viewport.height - rect.height - margin));
+      const minHeight = Math.min(140, viewport.height - margin * 2);
+      const expectedTop = Math.max(margin, Math.min(trigger.top - 12, viewport.height - minHeight - margin));
       const verticallyAnchored = Math.abs(rect.top - expectedTop) <= 24;
       const centerX = Math.max(0, Math.min(viewport.width - 1, rect.left + rect.width / 2));
       const centerY = Math.max(0, Math.min(viewport.height - 1, rect.top + Math.min(rect.height / 2, 160)));
