@@ -16,7 +16,7 @@ const DEFAULT_COUNTRIES = [
   'nato',
 ];
 
-const DEFAULT_GLOBAL_CRON = '15 8 * * *';
+const DEFAULT_GLOBAL_CRON = '0 3 * * *';
 const DEFAULT_WATCH_CRON = '0 3 * * *';
 const DEFAULT_WATCH_SLUGS = ['taiwan', 'korea'];
 const DEFAULT_COUNTRY_CRONS = [
@@ -163,21 +163,27 @@ function createCronPlan(env, cron) {
   const countries = getReportCountries(env);
   const countryCrons = getCountryCrons(env);
   const countryIndex = countryCrons.indexOf(trigger);
-  if (trigger === normalizeCron(env.REPORT_GLOBAL_CRON || DEFAULT_GLOBAL_CRON)) {
-    return {
-      label: 'Daily global analysis job',
-      refreshFeeds: env.FETCH_FEEDS_BEFORE_REPORTS !== 'false',
-      concurrency: 1,
-      jobs: [{ scope: 'global', slug: 'global' }],
-    };
-  }
-  if (trigger === normalizeCron(env.REPORT_WATCH_CRON || DEFAULT_WATCH_CRON)) {
+  const globalCron = normalizeCron(env.REPORT_GLOBAL_CRON || DEFAULT_GLOBAL_CRON);
+  const watchCron = normalizeCron(env.REPORT_WATCH_CRON || DEFAULT_WATCH_CRON);
+  const matchesGlobal = trigger === globalCron;
+  const matchesWatch = trigger === watchCron;
+  if (matchesGlobal || matchesWatch) {
     const watchSlugs = getWatchSlugs(env);
+    const jobs = [
+      ...(matchesGlobal ? [{ scope: 'global', slug: 'global' }] : []),
+      ...(matchesWatch ? watchSlugs.map((slug) => ({ scope: 'watch', slug })) : []),
+    ];
     return {
-      label: 'Daily theater watch jobs',
-      refreshFeeds: env.FETCH_FEEDS_BEFORE_WATCH !== 'false' && env.FETCH_FEEDS_BEFORE_REPORTS === 'always',
+      label: matchesGlobal && matchesWatch
+        ? 'Daily global and theater watch jobs'
+        : matchesGlobal
+          ? 'Daily global analysis job'
+          : 'Daily theater watch jobs',
+      refreshFeeds: matchesGlobal
+        ? env.FETCH_FEEDS_BEFORE_REPORTS !== 'false'
+        : env.FETCH_FEEDS_BEFORE_WATCH !== 'false' && env.FETCH_FEEDS_BEFORE_REPORTS === 'always',
       concurrency: 1,
-      jobs: watchSlugs.map((slug) => ({ scope: 'watch', slug })),
+      jobs,
     };
   }
   if (countryIndex >= 0) {

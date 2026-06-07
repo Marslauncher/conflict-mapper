@@ -209,7 +209,7 @@ a:hover { text-decoration: underline; }
 .info-dot:hover .info-popover, .info-dot:focus .info-popover { display: block; }
 .citation-ref { position: relative; display: inline-flex; vertical-align: baseline; margin-left: 6px; }
 .citation-chip { display: inline-flex; align-items: center; gap: 4px; min-height: 20px; padding: 2px 7px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, var(--surface)); color: var(--accent); font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .78)); line-height: 1.2; letter-spacing: .08em; text-transform: uppercase; cursor: help; }
-.citation-popover { position: fixed; left: var(--citation-left, 16px); top: var(--citation-top, 16px); z-index: 4000; display: none; width: min(520px, calc(100vw - 32px)); max-height: min(440px, calc(100vh - 32px)); overflow: auto; overscroll-behavior: contain; padding: 12px; border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--surface); box-shadow: 0 18px 40px rgba(0,0,0,.38); color: var(--muted); font-family: var(--font-body); font-size: var(--cm-commentary-text-size, 12pt); line-height: 1.4; text-transform: none; letter-spacing: 0; }
+.citation-popover { position: fixed; left: var(--citation-left, 16px); top: var(--citation-top, 16px); z-index: 20000; display: none; width: min(460px, calc(100vw - 32px)); max-height: min(360px, calc(100vh - 32px)); overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; scrollbar-gutter: stable; padding: 12px; border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--surface); box-shadow: 0 18px 40px rgba(0,0,0,.38); color: var(--muted); font-family: var(--font-body); font-size: var(--cm-commentary-text-size, 12pt); line-height: 1.4; text-transform: none; letter-spacing: 0; }
 .citation-ref:hover .citation-popover, .citation-ref:focus-within .citation-popover, .citation-ref.is-active .citation-popover { display: block; }
 .citation-title { color: var(--text); font-family: var(--font-display); font-size: clamp(1rem, var(--cm-navigation-text-size, 16pt), 1.2rem); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
 .citation-note { display: block; margin: 0 0 8px; color: var(--muted); }
@@ -259,40 +259,6 @@ a:hover { text-decoration: underline; }
   margin: 0 auto;
   padding: 0 0 60px;
 }
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  height: 48px;
-  padding: 0 24px;
-  border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--bg) 94%, transparent);
-  backdrop-filter: blur(10px);
-}
-.topbar-logo {
-  font-family: var(--font-display);
-  font-size: .9rem;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--text);
-}
-.topbar-logo span { color: var(--accent); }
-.topbar-sep { width: 1px; height: 20px; background: var(--border); }
-.topbar-crumb,
-.topbar-link {
-  font-family: var(--font-mono);
-  font-size: var(--cm-side-menu-text-size, 10pt);
-  color: var(--faint);
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-.topbar-links { display: flex; gap: 4px; margin-left: auto; }
-.topbar-link { padding: 4px 10px; border-radius: 6px; }
-.topbar-link:hover { color: var(--text); background: var(--surface-2); text-decoration: none; }
 .hero {
   padding: 32px 28px 24px;
   border-bottom: 1px solid var(--border);
@@ -610,7 +576,6 @@ a:hover { text-decoration: underline; }
 }
 @media (max-width: 1100px) { .grid.two, .grid.three, .grid.four, .strategic-grid, .force-grid { grid-template-columns: 1fr; } .article, .war-link-card { grid-template-columns: 1fr; } .article img, .war-link-card img { width: 100%; height: 180px; } }
 @media (max-width: 720px) {
-  .topbar { padding: 0 12px; overflow-x: auto; }
   .hero { padding-left: 14px; padding-right: 14px; }
   .metrics-bar,
   .assessment-lede,
@@ -626,17 +591,6 @@ a:hover { text-decoration: underline; }
 <script src="/assets/user-style.js"></script>
 </head>
 <body>
-<nav class="topbar" aria-label="Watch navigation">
-  <a href="../index.html" class="topbar-logo">Conflict<span>Mapper</span></a>
-  <div class="topbar-sep"></div>
-  <div class="topbar-crumb">Northeast Asia / Korean Peninsula Watch</div>
-  <div class="topbar-links">
-    <a class="topbar-link" href="taiwan-strait.html">Taiwan Watch</a>
-    <a class="topbar-link" href="korean-peninsula-war-games.html">War Games</a>
-    <a class="topbar-link" href="../index.html">Dashboard</a>
-  </div>
-</nav>
-
 <header class="hero">
   <div class="hero-inner">
     <div class="hero-top">
@@ -982,12 +936,15 @@ function positionCitation(ref){
   pop.style.setProperty('--citation-left','16px');
   pop.style.setProperty('--citation-top','16px');
   const margin=16;
+  const gap=10;
   const trigger=ref.getBoundingClientRect();
-  const width=Math.min(520, window.innerWidth - margin*2);
+  const width=Math.min(460, window.innerWidth - margin*2);
   pop.style.width=`${width}px`;
-  const height=Math.min(pop.scrollHeight || 340, window.innerHeight - margin*2);
-  const opensRight=trigger.left < window.innerWidth/2;
-  let left=opensRight ? trigger.left : trigger.right - width;
+  const height=Math.min(pop.scrollHeight || 320, window.innerHeight - margin*2);
+  const triggerCenter=trigger.left + ((trigger.right - trigger.left) / 2);
+  const opensRight=triggerCenter < window.innerWidth/2;
+  let left=opensRight ? trigger.right + gap : trigger.left - width - gap;
+  if(left < margin || left + width > window.innerWidth - margin) left=triggerCenter - (width / 2);
   left=Math.max(margin, Math.min(left, window.innerWidth - width - margin));
   let top=trigger.bottom + 8;
   if(top + height > window.innerHeight - margin) top=trigger.top - height - 8;

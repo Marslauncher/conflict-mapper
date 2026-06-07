@@ -19,18 +19,51 @@ if (!targetUrl) {
 
 let chromium;
 try {
-  ({ chromium } = await import('playwright'));
+  const playwright = await import('playwright');
+  chromium = playwright.chromium || playwright.default?.chromium;
 } catch (error) {
+  const nodePaths = String(process.env.NODE_PATH || '')
+    .split(process.platform === 'win32' ? ';' : ':')
+    .filter(Boolean);
+  for (const moduleDir of nodePaths) {
+    try {
+      const playwright = await import(`file://${moduleDir.replace(/\/$/, '')}/playwright/index.js`);
+      chromium = playwright.chromium || playwright.default?.chromium;
+      break;
+    } catch {
+      // Try the next configured module directory.
+    }
+  }
+}
+if (!chromium) {
   console.error('Playwright is required for rendered citation validation.');
-  console.error(error?.message || error);
   process.exit(2);
 }
 
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1366, height: 900 } });
 const consoleMessages = [];
+const failedResources = [];
+const pageErrors = [];
+function ignoredFailedResource(url) {
+  try {
+    const parsed = new URL(url);
+    const localHost = ['127.0.0.1', 'localhost', '::1'].includes(parsed.hostname);
+    return parsed.pathname === '/favicon.ico' || (localHost && parsed.pathname === '/api/articles');
+  } catch {
+    return false;
+  }
+}
 page.on('console', msg => {
-  if (['warning', 'error'].includes(msg.type())) consoleMessages.push(`${msg.type()}: ${msg.text()}`);
+  if (msg.type() === 'error' && !/^Failed to load resource\b/i.test(msg.text())) {
+    consoleMessages.push(`${msg.type()}: ${msg.text()}`);
+  }
+});
+page.on('pageerror', error => pageErrors.push(error?.message || String(error)));
+page.on('response', response => {
+  if (response.status() >= 400 && !ignoredFailedResource(response.url())) {
+    failedResources.push({ status: response.status(), url: response.url() });
+  }
 });
 
 try {
@@ -80,6 +113,7 @@ try {
     }).filter(claim => claim.statedCount !== claim.dataCount || claim.statedCount !== claim.linkCount);
     return {
       citationCount: citations.length,
+      topbarCount: document.querySelectorAll('.topbar, nav.topbar').length,
       countMismatches: citations.filter(c => c.chipCount !== c.linkCount || c.dataCount !== c.linkCount),
       sourcedClaimMismatches,
       sourceLeak,
@@ -104,6 +138,10 @@ try {
       const viewport = { width: innerWidth, height: innerHeight };
       const offscreen = rect.left < 0 || rect.top < 0 || rect.right > viewport.width || rect.bottom > viewport.height;
       const scrollable = pop.scrollHeight > pop.clientHeight ? ['auto', 'scroll'].includes(style.overflowY) : true;
+      const centerX = Math.max(0, Math.min(viewport.width - 1, rect.left + rect.width / 2));
+      const centerY = Math.max(0, Math.min(viewport.height - 1, rect.top + Math.min(rect.height / 2, 160)));
+      const topElements = document.elementsFromPoint(centerX, centerY);
+      const topmost = topElements.includes(pop);
       const fullWidthMobile = viewport.width <= 480 && rect.left >= 0 && rect.right <= viewport.width;
       const opensInward = fullWidthMobile
         ? true
@@ -116,12 +154,13 @@ try {
         position: style.position,
         offscreen,
         scrollable,
+        topmost,
         opensInward,
         rect: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom },
         trigger: { left: trigger.left, right: trigger.right }
       };
     }, index);
-    if (result.missing || result.display === 'none' || result.position !== 'fixed' || result.offscreen || !result.scrollable || !result.opensInward) {
+    if (result.missing || result.display === 'none' || result.position !== 'fixed' || result.offscreen || !result.scrollable || !result.topmost || !result.opensInward) {
       popoverFailures.push(result);
     }
     await page.evaluate(() => {
@@ -133,22 +172,28 @@ try {
   const failures = {
     countMismatches: staticChecks.countMismatches,
     sourcedClaimMismatches: staticChecks.sourcedClaimMismatches,
+    topbarCount: staticChecks.topbarCount,
     punctuationHits: staticChecks.punctuationHits,
     sourceLeak: staticChecks.sourceLeak,
     overflowX: staticChecks.overflowX,
     popoverFailures,
-    consoleMessages
+    consoleMessages,
+    pageErrors,
+    failedResources
   };
   const failed = failures.countMismatches.length
     || failures.sourcedClaimMismatches.length
     || staticChecks.citationCount === 0
+    || failures.topbarCount > 0
     || failures.punctuationHits.some(Boolean)
     || failures.sourceLeak
     || failures.overflowX
     || failures.popoverFailures.length
-    || failures.consoleMessages.length;
+    || failures.consoleMessages.length
+    || failures.pageErrors.length
+    || failures.failedResources.length;
 
-  console.log(JSON.stringify({ targetUrl, staticChecks, popoverFailures, consoleMessages }, null, 2));
+  console.log(JSON.stringify({ targetUrl, staticChecks, popoverFailures, consoleMessages, pageErrors, failedResources }, null, 2));
   if (failed) process.exit(1);
 } finally {
   await browser.close();

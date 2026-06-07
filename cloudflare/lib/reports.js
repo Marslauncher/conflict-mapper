@@ -1979,9 +1979,25 @@ function renderReportHtml({ title, body, articles }) {
       font-family:'Inter', system-ui, sans-serif;
       font-size:14px;
       line-height:1.6;
-      padding:24px;
-      max-width:1100px;
+      margin:0;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    .report-shell {
+      width:var(--cm-content-max-width, min(92vw, calc(100vw - 32px)));
+      max-width:none;
       margin:0 auto;
+      padding:clamp(16px, 2vw, 28px) 0 48px;
+    }
+    .report-shell * { max-width:100%; }
+    .report-shell p,
+    .report-shell li,
+    .exec-summary,
+    .outlook-box,
+    .feed-summary,
+    .risk-detail,
+    .theater-assessment {
+      overflow-wrap:anywhere;
     }
     h1, h2, h3 { font-family:'Rajdhani', sans-serif; }
     a { color:#7dd3fc; text-decoration:none; }
@@ -2027,6 +2043,7 @@ function renderReportHtml({ title, body, articles }) {
       line-height:1.8;
       color:#c8d0dc;
       margin-bottom:40px;
+      max-width:1100px;
     }
     .exec-summary strong {
       display:block;
@@ -2037,6 +2054,12 @@ function renderReportHtml({ title, body, articles }) {
       margin-bottom:8px;
     }
     .section { margin-bottom:40px; }
+    .section,
+    .panel,
+    .trend-card,
+    .outlook-box {
+      width:100%;
+    }
     .section-header {
       display:flex;
       align-items:center;
@@ -2200,7 +2223,7 @@ function renderReportHtml({ title, body, articles }) {
       text-align:center;
     }
     @media (max-width: 700px) {
-      body { padding:16px; }
+      .report-shell { width:calc(100vw - 28px); padding-top:16px; padding-bottom:36px; }
       .trend-card-head { flex-direction:column; }
       .badge-row { margin-left:0; }
       .meta-row { gap:8px 18px; }
@@ -2208,6 +2231,7 @@ function renderReportHtml({ title, body, articles }) {
   </style>
 </head>
 <body>
+<main class="report-shell">
   <div class="report-header">
     <div class="classification-bar">UNCLASSIFIED // FOR INFORMATIONAL PURPOSES</div>
     <h1 class="report-title">${displayTitle}</h1>
@@ -2251,6 +2275,7 @@ function renderReportHtml({ title, body, articles }) {
   <div class="generated-stamp">
     CONFLICT MAPPER - AUTO-GENERATED INTELLIGENCE BRIEF // ${escapeHtml(generatedDate.toUTCString())} // CLOUDFLARE R2/D1 BACKED // AI-ASSISTED ANALYSIS
   </div>
+</main>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
     const reportMarkers = ${safeJson(mapMarkers)};

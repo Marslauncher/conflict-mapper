@@ -9,7 +9,6 @@ enabled = true
 # Independent daily report jobs. Keeping country jobs separate prevents the
 # global/watch reports from timing out behind a full serial country batch.
 crons = [
-  "15 8 * * *",
   "0 3 * * *",
   "30 8 * * *",
   "35 8 * * *",
@@ -45,7 +44,7 @@ REPORT_MAX_TOKENS = "12000"
 ALLOW_REPORT_FALLBACK = "true"
 REPORT_AI_TIMEOUT_MS = "75000"
 REPORT_AI_ARTICLE_LIMIT = "24"
-REPORT_GLOBAL_CRON = "15 8 * * *"
+REPORT_GLOBAL_CRON = "0 3 * * *"
 REPORT_WATCH_CRON = "0 3 * * *"
 REPORT_WATCH_SLUGS = "taiwan,korea"
 REPORT_COUNTRY_CRONS = "30 8 * * *|35 8 * * *|40 8 * * *"

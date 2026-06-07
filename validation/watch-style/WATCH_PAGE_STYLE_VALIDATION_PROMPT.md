@@ -14,7 +14,7 @@ Validate that every watch page uses the same visual language, page composition, 
 
 ## Required Layout Structure
 
-1. Sticky topbar with Conflict Mapper branding, current watch breadcrumb, and links to related watch/analysis pages.
+1. No legacy page-specific `.topbar` or breadcrumb menu. Navigation must be handled by the primary site navigation pattern outside the watch-page content.
 2. Compact theater hero using:
    - theater/watch eyebrow,
    - uppercase watch title,
@@ -78,10 +78,11 @@ Every theater watch page should include, either as full sections or sidebar modu
 11. Confirm category-count citations are scoped to the matching article subset, not only a generic all-feed source list.
 12. Confirm every citation count is internally consistent: visible `N` count text, citation chip count, `data-source-count`, and linked source rows in the overlay must all match.
 13. Confirm citation overlays open inward toward the center of the viewport, stay inside the viewport on desktop and mobile, and show scrollable overflow for long source lists.
-14. Confirm hidden overlay text does not leak into visible paragraphs and reject defects such as standalone comma lines, `, and`, duplicate commas, `and.`, `or.`, `Newest direct item: from`, raw HTML tags, or visible `source articles listed` text outside an opened overlay.
-15. Run `node scripts/validate-watch-citations.mjs <watch-page-url>` or an equivalent Browser DOM check for citation count equality, clipping, inward positioning, and rendered text defects.
-16. Confirm theme and text-size settings propagate to the watch page by checking CSS variables from `/assets/user-style.js` or by visual comparison after applying a non-default style profile.
-17. After pushing to GitHub, wait the configured Cloudflare propagation interval, open the production page, repeat the screenshot validation, and summarize the findings in the final response.
+14. Confirm citation overlays render above maps, expanded map controls, Leaflet controls, cards, and sidebars by checking the opened overlay is topmost at its visible center point.
+15. Confirm hidden overlay text does not leak into visible paragraphs and reject defects such as standalone comma lines, `, and`, duplicate commas, `and.`, `or.`, `Newest direct item: from`, raw HTML tags, or visible `source articles listed` text outside an opened overlay.
+16. Run `node scripts/validate-watch-citations.mjs <watch-page-url>` or an equivalent Browser DOM check for citation count equality, clipping, inward positioning, topmost rendering, and rendered text defects.
+17. Confirm theme and text-size settings propagate to the watch page by checking CSS variables from `/assets/user-style.js` or by visual comparison after applying a non-default style profile.
+18. After pushing to GitHub, wait the configured Cloudflare propagation interval, open the production page, repeat the screenshot validation, and summarize the findings in the final response.
 
 ## Acceptance Standard
 

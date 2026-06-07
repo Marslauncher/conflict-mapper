@@ -53,32 +53,6 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
   padding: 0 0 60px;
 }
 
-/* ── Top nav bar ── */
-.topbar {
-  position: sticky; top: 0; z-index: 200;
-  background: rgba(10,12,16,0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border-dim);
-  padding: 0 24px;
-  height: 48px;
-  display: flex; align-items: center; gap: 16px;
-}
-.topbar-logo {
-  font-family: var(--font-display); font-size: 0.9rem; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--text);
-  text-decoration: none;
-}
-.topbar-logo span { color: var(--accent); }
-.topbar-sep { width: 1px; height: 20px; background: var(--border-dim); }
-.topbar-crumb { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-faint); }
-.topbar-links { display: flex; gap: 4px; margin-left: auto; }
-.topbar-link {
-  font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted);
-  text-decoration: none; padding: 4px 10px; border-radius: var(--radius);
-  transition: var(--transition); white-space: nowrap;
-}
-.topbar-link:hover { color: var(--text); background: var(--surface-2); }
-
 /* ── Hero ── */
 .hero {
   background: linear-gradient(135deg, #0a0c10 0%, #0d1520 40%, #100d18 100%);
@@ -259,7 +233,7 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
 }
 .citation-ref { position: relative; display: inline-flex; vertical-align: baseline; margin-left: 6px; }
 .citation-chip { display: inline-flex; align-items: center; gap: 4px; min-height: 20px; padding: 2px 7px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border-dim)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, var(--surface)); color: var(--accent); font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .78)); line-height: 1.2; letter-spacing: .08em; text-transform: uppercase; cursor: help; }
-.citation-popover { position: fixed; left: var(--citation-left, 16px); top: var(--citation-top, 16px); z-index: 4000; display: none; width: min(520px, calc(100vw - 32px)); max-height: min(440px, calc(100vh - 32px)); overflow: auto; overscroll-behavior: contain; padding: 12px; border: 1px solid var(--border-dim); border-radius: var(--radius); background: var(--surface); box-shadow: 0 18px 40px rgba(0,0,0,.38); color: var(--text-muted); font-family: var(--font-body); font-size: var(--cm-commentary-text-size, 12pt); line-height: 1.4; text-transform: none; letter-spacing: 0; }
+.citation-popover { position: fixed; left: var(--citation-left, 16px); top: var(--citation-top, 16px); z-index: 20000; display: none; width: min(460px, calc(100vw - 32px)); max-height: min(360px, calc(100vh - 32px)); overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; scrollbar-gutter: stable; padding: 12px; border: 1px solid var(--border-dim); border-radius: var(--radius); background: var(--surface); box-shadow: 0 18px 40px rgba(0,0,0,.38); color: var(--text-muted); font-family: var(--font-body); font-size: var(--cm-commentary-text-size, 12pt); line-height: 1.4; text-transform: none; letter-spacing: 0; }
 .citation-ref:hover .citation-popover, .citation-ref:focus-within .citation-popover, .citation-ref.is-active .citation-popover { display: block; }
 .citation-title { display: block; color: var(--text); font-family: var(--font-display); font-size: clamp(1rem, var(--cm-navigation-text-size, 16pt), 1.2rem); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
 .citation-note { display: block; margin: 0 0 8px; color: var(--text-muted); }
@@ -516,41 +490,6 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
   .metrics-bar { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 700px) {
-  .topbar {
-    height: auto;
-    min-height: 48px;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 8px 12px;
-  }
-  .topbar-logo {
-    font-size: min(var(--cm-navigation-text-size, 16pt), 15px) !important;
-    width: 100%;
-  }
-  .topbar-sep {
-    display: none;
-  }
-  .topbar-crumb {
-    flex: 1 1 100%;
-    min-width: 0;
-    font-size: min(var(--cm-navigation-text-size, 16pt), 14px) !important;
-    overflow-wrap: anywhere;
-  }
-  .topbar-links {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    padding-bottom: 2px;
-    width: 100%;
-    margin-left: 0;
-  }
-  .topbar-link {
-    flex: 0 0 auto;
-    font-size: min(var(--cm-navigation-text-size, 16pt), 14px) !important;
-    text-align: center;
-    white-space: normal;
-  }
   .hero {
     padding: 28px 14px 22px;
   }
@@ -611,20 +550,6 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
 <script src="/assets/user-style.js"></script>
 </head>
 <body>
-
-<!-- ── Top navigation ── -->
-<nav class="topbar">
-  <a href="../index.html" class="topbar-logo">CONFLICT<span>MAPPER</span></a>
-  <div class="topbar-sep"></div>
-  <span class="topbar-crumb">ASIA-PACIFIC / TAIWAN STRAIT</span>
-  <div class="topbar-links">
-    <a href="../index.html" class="topbar-link">← Home</a>
-    <a href="china-dossier.html" class="topbar-link">🇨🇳 China</a>
-    <a href="taiwan-dossier.html" class="topbar-link">🇹🇼 Taiwan</a>
-    <a href="../theaters/asia-pacific-theater.html" class="topbar-link">Asia-Pacific</a>
-    <a href="usa-dossier.html" class="topbar-link">🇺🇸 USA</a>
-  </div>
-</nav>
 
 <div class="page">
 
@@ -1909,12 +1834,15 @@ function positionCitation(ref) {
   pop.style.setProperty('--citation-left', '16px');
   pop.style.setProperty('--citation-top', '16px');
   const margin = 16;
+  const gap = 10;
   const trigger = ref.getBoundingClientRect();
-  const width = Math.min(520, window.innerWidth - margin * 2);
+  const width = Math.min(460, window.innerWidth - margin * 2);
   pop.style.width = `${width}px`;
-  const height = Math.min(pop.scrollHeight || 340, window.innerHeight - margin * 2);
-  const opensRight = trigger.left < window.innerWidth / 2;
-  let left = opensRight ? trigger.left : trigger.right - width;
+  const height = Math.min(pop.scrollHeight || 320, window.innerHeight - margin * 2);
+  const triggerCenter = trigger.left + ((trigger.right - trigger.left) / 2);
+  const opensRight = triggerCenter < window.innerWidth / 2;
+  let left = opensRight ? trigger.right + gap : trigger.left - width - gap;
+  if (left < margin || left + width > window.innerWidth - margin) left = triggerCenter - (width / 2);
   left = Math.max(margin, Math.min(left, window.innerWidth - width - margin));
   let top = trigger.bottom + 8;
   if (top + height > window.innerHeight - margin) top = trigger.top - height - 8;
