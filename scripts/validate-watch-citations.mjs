@@ -139,9 +139,18 @@ try {
       const offscreen = rect.left < 0 || rect.top < 0 || rect.right > viewport.width || rect.bottom > viewport.height;
       const scrollable = pop.scrollHeight > pop.clientHeight ? ['auto', 'scroll'].includes(style.overflowY) : true;
       const margin = 16;
-      const minHeight = Math.min(140, viewport.height - margin * 2);
-      const expectedTop = Math.max(margin, Math.min(trigger.top - 12, viewport.height - minHeight - margin));
-      const verticallyAnchored = Math.abs(rect.top - expectedTop) <= 24;
+      const minHeight = Math.min(140, Math.max(80, viewport.height - margin * 2));
+      const belowTop = trigger.bottom + 8;
+      const belowSpace = viewport.height - belowTop - margin;
+      const aboveSpace = trigger.top - margin - 8;
+      const shouldOpenBelow = belowSpace >= minHeight || belowSpace >= aboveSpace;
+      const expectedMaxHeight = shouldOpenBelow
+        ? Math.max(80, Math.min(360, belowSpace))
+        : Math.max(80, Math.min(360, aboveSpace));
+      const expectedTop = shouldOpenBelow ? belowTop : Math.max(margin, trigger.top - expectedMaxHeight - 8);
+      const verticallyAnchored = shouldOpenBelow
+        ? rect.top >= trigger.bottom - 4 && Math.abs(rect.top - expectedTop) <= 24
+        : rect.bottom <= trigger.top + 4 && Math.abs(rect.top - expectedTop) <= 24;
       const centerX = Math.max(0, Math.min(viewport.width - 1, rect.left + rect.width / 2));
       const centerY = Math.max(0, Math.min(viewport.height - 1, rect.top + Math.min(rect.height / 2, 160)));
       const topElements = document.elementsFromPoint(centerX, centerY);

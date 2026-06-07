@@ -491,12 +491,20 @@ function positionCitation(ref) {
   let left = opensRight ? trigger.right + gap : trigger.left - width - gap;
   if (left < margin || left + width > window.innerWidth - margin) left = triggerCenter - (width / 2);
   left = Math.max(margin, Math.min(left, window.innerWidth - width - margin));
-  const minHeight = Math.min(140, window.innerHeight - margin * 2);
-  let top = Math.max(margin, Math.min(trigger.top - 12, window.innerHeight - minHeight - margin));
-  const maxHeight = Math.max(minHeight, Math.min(360, window.innerHeight - top - margin));
+  const minHeight = Math.min(140, Math.max(80, window.innerHeight - margin * 2));
+  const belowTop = trigger.bottom + 8;
+  const belowSpace = window.innerHeight - belowTop - margin;
+  const aboveSpace = trigger.top - margin - 8;
+  const openBelow = belowSpace >= minHeight || belowSpace >= aboveSpace;
+  const maxHeight = openBelow
+    ? Math.max(80, Math.min(360, belowSpace))
+    : Math.max(80, Math.min(360, aboveSpace));
+  let top = openBelow ? belowTop : trigger.top - maxHeight - 8;
   pop.style.maxHeight = `${maxHeight}px`;
   const renderedHeight = Math.min(pop.getBoundingClientRect().height || maxHeight, window.innerHeight - margin * 2);
-  top = Math.max(margin, Math.min(top, window.innerHeight - renderedHeight - margin));
+  top = openBelow
+    ? Math.max(margin, Math.min(top, window.innerHeight - renderedHeight - margin))
+    : Math.max(margin, top);
   pop.style.setProperty('--citation-left', `${left}px`);
   pop.style.setProperty('--citation-top', `${top}px`);
 }
