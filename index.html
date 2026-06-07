@@ -4173,6 +4173,7 @@ const DEFAULT_CONFIG = {
     { label: "Map & Feed", type: "link", target: "pages/map-feed.html", icon: "map" },
     { label: "News Library", type: "link", target: "pages/news-library.html", icon: "newspaper" },
     { label: "Global Analysis", type: "link", target: "reports/global/current/report.html", icon: "globe" },
+    { label: "Intel Tools", type: "link", target: "pages/intel-tools.html", icon: "crosshair" },
     {
       label: "Think Tanks",
       type: "dropdown",
@@ -4257,12 +4258,16 @@ const ICONS = {
 
 /* ── Sub-menu items for each country ──────────────────── */
 function getCountrySubItems(slug) {
-  return [
+  const items = [
     { icon: '🗺', label: 'Live News Map', target: `pages/news-map.html?country=${slug}` },
     { icon: '📊', label: 'Current Analysis', target: `reports/countries/${slug}/current/report.html` },
     { icon: '📁', label: 'Historical Reports', target: `pages/historical.html?country=${slug}` },
     { icon: '📋', label: 'Strategic Dossier', target: `countries/${slug}-dossier.html` }
   ];
+  if (slug === 'taiwan') {
+    items.push({ icon: '⌖', label: 'Intel Tools', target: 'countries/taiwan-intel-tools.html' });
+  }
+  return items;
 }
 
 /* ── Init ────────────────────────────────────────────────── */
@@ -4865,6 +4870,10 @@ function renderMobileDrawer() {
                 <button class="mobile-dropdown-item" onclick="mobileLoadContent('pages/historical.html?country=${c.slug}', this)">
                   <span class="mobile-dropdown-item-label">Historical Reports</span>
                 </button>
+                ${c.slug === 'taiwan' ? `
+                <button class="mobile-dropdown-item" onclick="mobileLoadContent('countries/taiwan-intel-tools.html', this)">
+                  <span class="mobile-dropdown-item-label">Intel Tools</span>
+                </button>` : ''}
               </div>
             </details>
           `).join('')}

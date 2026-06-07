@@ -23,6 +23,12 @@
       "icon": "globe"
     },
     {
+      "label": "Intel Tools",
+      "type": "link",
+      "target": "pages/intel-tools.html",
+      "icon": "crosshair"
+    },
+    {
       "label": "Think Tanks",
       "type": "dropdown",
       "icon": "book-open",

@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taiwan Intel Tools | Conflict Mapper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="../assets/user-style.js"></script>
+  <style>
+    :root {
+      --bg: #061014;
+      --bg-2: #091820;
+      --panel: #10232c;
+      --panel-2: #0c1c24;
+      --panel-3: #142f3b;
+      --line: rgba(103, 232, 221, 0.18);
+      --line-strong: rgba(103, 232, 221, 0.38);
+      --text: #e7f2f4;
+      --muted: #9eb4bd;
+      --faint: #617a85;
+      --accent: #5eead4;
+      --blue: #79a7ff;
+      --amber: #f7b84b;
+      --red: #ff7a7a;
+      --green: #65d982;
+      --font-display: "Rajdhani", sans-serif;
+      --font-mono: "Share Tech Mono", monospace;
+      --font-body: "Inter", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 82px;
+      background: var(--bg);
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 18% 2%, rgba(121, 167, 255, 0.1), transparent 32rem),
+        radial-gradient(circle at 83% 0%, rgba(94, 234, 212, 0.12), transparent 34rem),
+        linear-gradient(180deg, rgba(12, 28, 36, 0.88), #061014 44rem);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(103, 232, 221, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(103, 232, 221, 0.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 70%);
+    }
+
+    a { color: inherit; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    .page {
+      width: min(1440px, calc(100vw - 42px));
+      margin: 0 auto;
+      padding: 26px 0 78px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      min-height: 54px;
+      margin: 0 -21px;
+      padding: 0 21px;
+      background: rgba(6, 16, 20, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .nav-links a,
+    .button,
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      background: rgba(16, 35, 44, 0.74);
+      color: var(--muted);
+      border-radius: 6px;
+      padding: 8px 11px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.13em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links a:hover,
+    .button:hover,
+    .source-link:hover {
+      color: var(--accent);
+      border-color: var(--line-strong);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.58fr);
+      gap: 24px;
+      align-items: stretch;
+      padding: 48px 0 36px;
+    }
+
+    .hero-main,
+    .panel,
+    .tool-card,
+    .workflow-card,
+    .preview-card,
+    .code-panel,
+    .map-panel {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(18, 42, 54, 0.94), rgba(9, 22, 29, 0.94));
+      border-radius: 8px;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+    }
+
+    .hero-main {
+      padding: clamp(24px, 4vw, 46px);
+      min-height: 500px;
+      display: grid;
+      align-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      right: -185px;
+      top: -185px;
+      border-radius: 999px;
+      border: 1px solid rgba(94, 234, 212, 0.25);
+      box-shadow:
+        0 0 0 34px rgba(94, 234, 212, 0.025),
+        0 0 0 86px rgba(94, 234, 212, 0.018),
+        0 0 0 150px rgba(94, 234, 212, 0.012);
+      pointer-events: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-display);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin: 0;
+      line-height: 1;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 2;
+      font-size: clamp(3.3rem, 8.4vw, 8.2rem);
+      max-width: 900px;
+    }
+
+    .kicker {
+      color: var(--accent);
+      font-family: var(--font-mono);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 14px;
+    }
+
+    .lead {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.4vw, 1.24rem);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .stat {
+      min-height: 110px;
+      border: 1px solid rgba(121, 167, 255, 0.22);
+      background: rgba(121, 167, 255, 0.075);
+      border-radius: 6px;
+      padding: 14px;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--accent);
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--faint);
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .map-panel {
+      min-height: 500px;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .map-panel header {
+      padding: 22px 22px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .map-panel h2 {
+      font-size: 1.55rem;
+      letter-spacing: 0.12em;
+    }
+
+    .map-wrap {
+      position: relative;
+      min-height: 300px;
+      background: #071015;
+    }
+
+    .map-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 370px;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(0.95) contrast(1.08) brightness(0.82);
+    }
+
+    .map-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 55%, rgba(6, 16, 20, 0.92)),
+        radial-gradient(circle at 56% 42%, transparent 0 14px, rgba(94, 234, 212, 0.22) 15px, transparent 18px),
+        radial-gradient(circle at 50% 56%, transparent 0 9px, rgba(247, 184, 75, 0.32) 10px, transparent 13px);
+      pointer-events: none;
+    }
+
+    .map-caption {
+      padding: 16px 22px 22px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .section {
+      padding: 36px 0 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 700px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .tool-card {
+      position: relative;
+      overflow: visible;
+      min-height: 275px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 18px;
+    }
+
+    .tool-card h3 {
+      font-size: 1.16rem;
+      letter-spacing: 0.09em;
+      margin-right: 44px;
+    }
+
+    .tool-card p {
+      margin: 14px 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      color: var(--accent);
+      border: 1px solid var(--line-strong);
+      background: rgba(94, 234, 212, 0.055);
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .tag.blue {
+      color: var(--blue);
+      border-color: rgba(121, 167, 255, 0.42);
+      background: rgba(121, 167, 255, 0.07);
+    }
+
+    .tag.amber {
+      color: var(--amber);
+      border-color: rgba(247, 184, 75, 0.46);
+      background: rgba(247, 184, 75, 0.07);
+    }
+
+    .source-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    .domain {
+      color: var(--faint);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .info {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 10;
+    }
+
+    .info-button {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(94, 234, 212, 0.08);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      cursor: help;
+    }
+
+    .popover {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: min(330px, calc(100vw - 48px));
+      max-height: 320px;
+      overflow-y: auto;
+      padding: 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      background: rgba(4, 13, 17, 0.98);
+      box-shadow: 0 18px 52px rgba(0, 0, 0, 0.46);
+      display: none;
+      pointer-events: none;
+    }
+
+    .info:hover .popover,
+    .info:focus-within .popover,
+    .info[data-open="true"] .popover {
+      display: block !important;
+      pointer-events: auto !important;
+    }
+
+    .popover h4 {
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+
+    .popover p,
+    .popover li {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .popover p {
+      margin: 0 0 10px;
+    }
+
+    .popover ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .workflow-card {
+      padding: 18px;
+      min-height: 220px;
+    }
+
+    .workflow-card h3 {
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .workflow-card p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .workflow-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .preview-card {
+      overflow: hidden;
+      min-height: 290px;
+    }
+
+    .browser-bar {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--red);
+      opacity: 0.8;
+    }
+
+    .dot:nth-child(2) { background: var(--amber); }
+    .dot:nth-child(3) { background: var(--green); }
+
+    .url-pill {
+      margin-left: 8px;
+      color: var(--faint);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .preview-body {
+      padding: 18px;
+      min-height: 228px;
+      background:
+        linear-gradient(90deg, rgba(94, 234, 212, 0.09) 0 28%, transparent 28%),
+        linear-gradient(180deg, rgba(121, 167, 255, 0.11), transparent 46%);
+    }
+
+    .preview-body h3 {
+      font-size: 1.18rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    .preview-line {
+      height: 10px;
+      margin: 9px 0;
+      border-radius: 999px;
+      background: rgba(231, 242, 244, 0.14);
+    }
+
+    .preview-line.short { width: 62%; }
+    .preview-line.med { width: 78%; }
+    .preview-callout {
+      margin-top: 24px;
+      min-height: 62px;
+      border: 1px solid rgba(94, 234, 212, 0.2);
+      border-radius: 6px;
+      background: rgba(6, 16, 20, 0.45);
+      padding: 12px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .matrix {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(12, 28, 36, 0.82);
+    }
+
+    table {
+      width: 100%;
+      min-width: 880px;
+      border-collapse: collapse;
+      color: var(--muted);
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(103, 232, 221, 0.11);
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--text);
+      font-family: var(--font-display);
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    td a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    td a:hover {
+      text-decoration: underline;
+    }
+
+    .code-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .code-panel {
+      overflow: hidden;
+    }
+
+    .code-panel header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .code-panel h3 {
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+    }
+
+    pre {
+      margin: 0;
+      padding: 18px;
+      max-height: 430px;
+      overflow: auto;
+      color: #d9f4ef;
+      background: #041014;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.55;
+      tab-size: 2;
+    }
+
+    code {
+      font-family: var(--font-mono);
+    }
+
+    .notes-panel {
+      display: grid;
+      grid-template-columns: 0.75fr 1.25fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel {
+      padding: 20px;
+    }
+
+    .panel h3 {
+      font-size: 1.22rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    .panel p,
+    .panel li {
+      color: var(--muted);
+    }
+
+    .panel ul {
+      margin: 0;
+      padding-left: 19px;
+    }
+
+    @media (max-width: 1200px) {
+      .tool-grid,
+      .workflow-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .preview-grid,
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .map-panel {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(100vw - 24px, 1440px);
+      }
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        margin: 0;
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+      .brand {
+        white-space: normal;
+      }
+      .hero-grid,
+      .tool-grid,
+      .workflow-grid,
+      .preview-grid,
+      .code-grid,
+      .notes-panel {
+        grid-template-columns: 1fr;
+      }
+      .hero-main {
+        min-height: auto;
+      }
+      .section-head {
+        display: block;
+      }
+      .section-head p {
+        margin-top: 12px;
+      }
+      .popover {
+        right: -10px;
+        max-height: 260px;
+      }
+      table {
+        min-width: 0;
+        font-size: 0.82rem;
+      }
+      th,
+      td {
+        padding: 10px 8px;
+        overflow-wrap: anywhere;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="nav" aria-label="Taiwan intel tools navigation">
+      <div class="brand">Conflict Mapper / Taiwan Intel Tools</div>
+      <div class="nav-links">
+        <a href="../index.html">Dashboard</a>
+        <a href="../pages/intel-tools.html">Intel Tools Hub</a>
+        <a href="../countries/taiwan-dossier.html">Taiwan Dossier</a>
+        <a href="../pages/taiwan-strait.html">China/Taiwan Watch</a>
+      </div>
+    </nav>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-main">
+        <div>
+          <div class="kicker">Country dossier module / Template build</div>
+          <h1 id="page-title">Taiwan Intel Tools</h1>
+          <p class="lead">A working template for country-level OSINT resource pages. The page combines Taiwan-specific monitoring sources with satellite, aircraft, maritime, conflict-event, and geospatial workflows that can be reused across future country Intel Tools pages.</p>
+        </div>
+        <div class="hero-grid" aria-label="Taiwan source counts">
+          <div class="stat"><strong>08</strong><span>News and monitoring sources</span></div>
+          <div class="stat"><strong>06</strong><span>Research and think tank sources</span></div>
+          <div class="stat"><strong>05</strong><span>Cross-domain data workflows</span></div>
+          <div class="stat"><strong>03</strong><span>Executable code examples</span></div>
+        </div>
+      </div>
+      <aside class="map-panel" aria-label="Taiwan visual reference map">
+        <header>
+          <h2>Operating Picture</h2>
+        </header>
+        <div class="map-wrap">
+          <img src="../assets/maps/taiwan-physiography-cia-2022.jpg" alt="CIA physiographic map of Taiwan used as a geographic reference">
+        </div>
+        <p class="map-caption">The Taiwan page uses a real local map asset for geographic grounding, then layers source workflows for air activity, official military briefings, maritime grey-zone operations, and regional reporting.</p>
+      </aside>
+    </section>
+
+    <section class="section" aria-labelledby="news-title">
+      <div class="section-head">
+        <h2 id="news-title">News And Monitoring</h2>
+        <p>These sources are the fast-moving layer of the Taiwan collection stack: local news, official briefings, English-language public reporting, and regional public broadcasters.</p>
+      </div>
+      <div class="tool-grid">
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about Focus Taiwan">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>Best for official, English-language Taiwan newswire coverage from Central News Agency. Use it to confirm government statements, election developments, diplomatic responses, civil defense updates, and local reporting before relying on international summaries.</p>
+              <ul><li>Primary role: local baseline and official newswire context.</li><li>Watch for: MND statements, cabinet decisions, air-defense policy, diplomatic messaging.</li></ul>
+            </div>
+          </div>
+          <h3>Focus Taiwan (CNA)</h3>
+          <p>Official English newswire of Taiwan's Central News Agency and a useful baseline for locally sourced daily reporting.</p>
+          <div class="card-meta"><span class="tag">Newswire</span><span class="tag blue">Taiwan</span></div>
+          <div class="source-row"><span class="domain">focustaiwan.tw</span><a class="source-link" href="https://focustaiwan.tw" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about Taipei Times">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>Independent daily coverage helps separate local political debate, civil readiness issues, and cross-strait commentary from official releases. It is useful for tracking Taiwan domestic framing around coercion, resilience, elections, energy, and defense reform.</p>
+            </div>
+          </div>
+          <h3>Taipei Times</h3>
+          <p>Independent English-language daily with useful coverage of Taiwan politics, security debates, and cross-strait developments.</p>
+          <div class="card-meta"><span class="tag">News</span><span class="tag blue">Daily</span></div>
+          <div class="source-row"><span class="domain">taipeitimes.com</span><a class="source-link" href="https://www.taipeitimes.com" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about Taiwan News">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>Taiwan News is useful for quick English-language monitoring of cross-strait security, PLA activity headlines, disaster response, economic policy, and diplomatic friction. It is a good first-pass source, then should be cross-checked against MND, CNA, or primary releases.</p>
+            </div>
+          </div>
+          <h3>Taiwan News</h3>
+          <p>English-language outlet with strong cross-strait security coverage and frequent short-form updates.</p>
+          <div class="card-meta"><span class="tag">Security</span><span class="tag">Cross-Strait</span></div>
+          <div class="source-row"><span class="domain">taiwannews.com.tw</span><a class="source-link" href="https://www.taiwannews.com.tw" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about The Reporter Taiwan">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>Use investigative reporting for deeper background on supply chains, information operations, local politics, civil society, and long-running governance issues that shape Taiwan's resilience but may not appear in daily threat reporting.</p>
+            </div>
+          </div>
+          <h3>The Reporter Taiwan</h3>
+          <p>Investigative nonprofit journalism with longer context pieces that can support deeper country assessments.</p>
+          <div class="card-meta"><span class="tag amber">Investigative</span><span class="tag">Context</span></div>
+          <div class="source-row"><span class="domain">twreporter.org/topics/english-version</span><a class="source-link" href="https://www.twreporter.org/topics/english-version" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about Taiwan Defense News Tracker">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>Use as a fast social monitoring pointer for Taiwan defense reporting, but treat it as a lead source rather than a final citation. Confirm operationally significant claims through MND releases, reputable news outlets, or original documents before publishing analysis.</p>
+            </div>
+          </div>
+          <h3>Taiwan Defense News Tracker</h3>
+          <p>Real-time security updates from local Taiwanese media, useful for fast leads into defense and cross-strait developments.</p>
+          <div class="card-meta"><span class="tag">Realtime</span><span class="tag amber">Lead Source</span></div>
+          <div class="source-row"><span class="domain">x.com/TaiwansDefense</span><a class="source-link" href="https://x.com/TaiwansDefense" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about Taiwan MND Daily Briefings">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>The Taiwan Ministry of National Defense daily briefings are the most important recurring primary source for PLA aircraft and vessel activity around Taiwan. Use the briefings as source-of-record context for ADIZ activity, median-line crossings, and reported flight path maps.</p>
+              <ul><li>Best cadence: daily morning check.</li><li>Pair with: Taiwan Strait Tracker, PLATracker, ADS-B, and local news.</li></ul>
+            </div>
+          </div>
+          <h3>Taiwan MND Daily Briefings</h3>
+          <p>Daily PLA incursion reporting with flight path maps and official Taiwan defense ministry framing.</p>
+          <div class="card-meta"><span class="tag">Primary</span><span class="tag">MND</span><span class="tag blue">ADIZ</span></div>
+          <div class="source-row"><span class="domain">mnd.gov.tw</span><a class="source-link" href="https://www.mnd.gov.tw" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about Taiwan Strait Tracker">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>Use Taiwan Strait Tracker to understand methodology and patterns behind Chinese military flight monitoring. It is most useful when comparing official MND counts against recurring routes, concentration areas, and temporal patterns.</p>
+            </div>
+          </div>
+          <h3>Taiwan Strait Tracker</h3>
+          <p>OSINT methodology for tracking Chinese military flights and cross-strait air activity patterns.</p>
+          <div class="card-meta"><span class="tag">Flight Tracking</span><span class="tag">Methodology</span></div>
+          <div class="source-row"><span class="domain">taiwanstraittracker.com</span><a class="source-link" href="https://taiwanstraittracker.com" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about NHK World Taiwan">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>NHK World provides a Japan-facing regional lens that is useful for comparing Taiwan events against Japan access, regional evacuation planning, allied posture, and East China Sea or Ryukyu chain context.</p>
+            </div>
+          </div>
+          <h3>NHK World Taiwan</h3>
+          <p>Japanese public broadcaster with strong regional coverage of Taiwan, China, Japan, and Northeast Asia security issues.</p>
+          <div class="card-meta"><span class="tag blue">Regional</span><span class="tag">Japan Lens</span></div>
+          <div class="source-row"><span class="domain">nhk.or.jp/nhkworld</span><a class="source-link" href="https://www3.nhk.or.jp/nhkworld/" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="research-title">
+      <div class="section-head">
+        <h2 id="research-title">Research And Think Tanks</h2>
+        <p>These sources add structured analysis, PLA monitoring, maritime grey-zone context, and historical pattern recognition that daily reporting usually cannot provide on its own.</p>
+      </div>
+      <div class="tool-grid">
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about Taiwan Security Monitor">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>Use Taiwan Security Monitor as a curated research gateway for Taiwan security monitoring. It should sit near the top of an analyst workflow when building a source pack or checking which OSINT tools are active for Taiwan-specific security work.</p>
+            </div>
+          </div>
+          <h3>Taiwan Security Monitor</h3>
+          <p>Curated OSINT tools for Taiwan security research from the Schar School ecosystem at George Mason University.</p>
+          <div class="card-meta"><span class="tag">Directory</span><span class="tag blue">Research</span></div>
+          <div class="source-row"><span class="domain">tsm.schar.gmu.edu</span><a class="source-link" href="https://tsm.schar.gmu.edu" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about RCDA">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>RCDA is useful for Taiwan-based research on PLA grey-zone tactics and defense affairs. Use it when a watch-page claim needs a local research perspective rather than only U.S. or international think tank framing.</p>
+            </div>
+          </div>
+          <h3>RCDA</h3>
+          <p>Research on China's Defense Affairs, with Taiwanese researchers covering PLA activity and grey-zone tactics.</p>
+          <div class="card-meta"><span class="tag">PLA</span><span class="tag">Grey Zone</span></div>
+          <div class="source-row"><span class="domain">rcdatw.org</span><a class="source-link" href="https://rcdatw.org" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about PLATracker">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>Use PLATracker for PLA capabilities and activity monitoring. It is strongest when paired with MND daily briefings, Taiwan Strait Tracker, and maritime sources so aircraft or naval posture claims have more than one source path.</p>
+            </div>
+          </div>
+          <h3>PLATracker</h3>
+          <p>PLA capabilities and activity monitoring with a web presence and social feed for fast operational context.</p>
+          <div class="card-meta"><span class="tag">PLA</span><span class="tag amber">Activity</span></div>
+          <div class="source-row"><span class="domain">platracker.com / X</span><a class="source-link" href="https://www.platracker.com" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about SeaLight">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>SeaLight is the maritime grey-zone specialist in this template. Use it for coast guard, militia, and commercial-tech-enabled maritime coercion analysis, especially when the reporting involves non-naval pressure below the threshold of open conflict.</p>
+            </div>
+          </div>
+          <h3>SeaLight</h3>
+          <p>Stanford-linked maritime grey-zone operations research using commercial technology and open-source methods.</p>
+          <div class="card-meta"><span class="tag blue">Maritime</span><span class="tag">Grey Zone</span></div>
+          <div class="source-row"><span class="domain">sealight.live</span><a class="source-link" href="https://www.sealight.live" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about ASPI Pressure Points">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>Use ASPI Pressure Points when an assessment needs durable background on Beijing's military coercion around Taiwan and the Taiwan Strait. It is a reference analysis source rather than a live feed.</p>
+            </div>
+          </div>
+          <h3>ASPI Pressure Points</h3>
+          <p>Military coercion analysis focused on Taiwan Strait dynamics and pressure patterns.</p>
+          <div class="card-meta"><span class="tag amber">Reference</span><span class="tag">Coercion</span></div>
+          <div class="source-row"><span class="domain">aspi.org.au</span><a class="source-link" href="https://www.aspi.org.au/report/pressure-points-taiwan-and-the-taiwan-strait/" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="info">
+            <button class="info-button" type="button" aria-label="More about WarshipCam">i</button>
+            <div class="popover">
+              <h4>Use Case</h4>
+              <p>WarshipCam is a supplementary naval sighting reference. Use it to support vessel identification and public sighting trails, but do not treat it as a complete or authoritative order-of-battle source.</p>
+            </div>
+          </div>
+          <h3>WarshipCam</h3>
+          <p>Global naval vessel sightings that can support PLAN vessel tracking and ship identification workflows.</p>
+          <div class="card-meta"><span class="tag blue">Naval</span><span class="tag">Sightings</span></div>
+          <div class="source-row"><span class="domain">warshipcam.net</span><a class="source-link" href="https://www.warshipcam.net" target="_blank" rel="noopener noreferrer">Open</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="workflow-title">
+      <div class="section-head">
+        <h2 id="workflow-title">Collection Workflow</h2>
+        <p>This is the reusable page pattern for future country Intel Tools pages: identify the question, pick the source layer, then validate against a second source family before analysis is published.</p>
+      </div>
+      <div class="workflow-grid">
+        <article class="workflow-card">
+          <h3>What Happened</h3>
+          <p>Start with local news and primary releases before adding international reporting.</p>
+          <ul class="workflow-list">
+            <li>Focus Taiwan, Taipei Times, Taiwan News</li>
+            <li>MND official briefings</li>
+            <li>NHK for Japan-region framing</li>
+          </ul>
+        </article>
+        <article class="workflow-card">
+          <h3>Who Moved</h3>
+          <p>Cross-check military and aviation claims through official reports and activity trackers.</p>
+          <ul class="workflow-list">
+            <li>Taiwan MND daily reports</li>
+            <li>Taiwan Strait Tracker</li>
+            <li>PLATracker and ADS-B workflows</li>
+          </ul>
+        </article>
+        <article class="workflow-card">
+          <h3>Where It Changed</h3>
+          <p>Use satellite, map, and maritime layers when location is the key variable.</p>
+          <ul class="workflow-list">
+            <li>Copernicus Sentinel Hub</li>
+            <li>NASA Worldview / GIBS</li>
+            <li>Global Fishing Watch and OSM Overpass</li>
+          </ul>
+        </article>
+        <article class="workflow-card">
+          <h3>Why It Matters</h3>
+          <p>Use research sources to decide whether an event is routine pressure or a meaningful shift.</p>
+          <ul class="workflow-list">
+            <li>RCDA and SeaLight for grey-zone context</li>
+            <li>ASPI for coercion framing</li>
+            <li>Taiwan Security Monitor for tool discovery</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="previews-title">
+      <div class="section-head">
+        <h2 id="previews-title">Website Previews</h2>
+        <p>Preview cards show what each source family is meant to provide without embedding third-party pages that may block iframes or break production rendering.</p>
+      </div>
+      <div class="preview-grid">
+        <article class="preview-card">
+          <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url-pill">mnd.gov.tw</span></div>
+          <div class="preview-body">
+            <h3>MND Briefing Pattern</h3>
+            <div class="preview-line"></div>
+            <div class="preview-line med"></div>
+            <div class="preview-line short"></div>
+            <div class="preview-callout">Expected artifact: daily aircraft/vessel counts, flight-path map references, and official language for PLA activity around Taiwan.</div>
+          </div>
+        </article>
+        <article class="preview-card">
+          <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url-pill">taiwanstraittracker.com</span></div>
+          <div class="preview-body">
+            <h3>Flight Activity Pattern</h3>
+            <div class="preview-line med"></div>
+            <div class="preview-line"></div>
+            <div class="preview-line short"></div>
+            <div class="preview-callout">Expected artifact: route methodology, trend context, and repeatable tracking logic for Chinese military aviation activity.</div>
+          </div>
+        </article>
+        <article class="preview-card">
+          <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url-pill">sealight.live</span></div>
+          <div class="preview-body">
+            <h3>Maritime Grey-Zone Pattern</h3>
+            <div class="preview-line"></div>
+            <div class="preview-line short"></div>
+            <div class="preview-line med"></div>
+            <div class="preview-callout">Expected artifact: maritime militia, coast guard, commercial vessel, and non-naval coercion context.</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="data-title">
+      <div class="section-head">
+        <h2 id="data-title">Cross-Domain Data Tools</h2>
+        <p>These universal tools are included in the Taiwan template because they convert source lists into repeatable collection workflows.</p>
+      </div>
+      <div class="matrix">
+        <table>
+          <thead>
+            <tr>
+              <th>Tool</th>
+              <th>Domain</th>
+              <th>Best Taiwan Use</th>
+              <th>Access</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="https://dataspace.copernicus.eu" target="_blank" rel="noopener noreferrer">Copernicus Data Space / Sentinel Hub</a></td>
+              <td>Satellite imagery</td>
+              <td>Pull recent Sentinel-2 imagery over the Taiwan Strait, ports, airfields, or coastal areas for visual context.</td>
+              <td>Free quota after account creation</td>
+            </tr>
+            <tr>
+              <td><a href="https://worldview.earthdata.nasa.gov" target="_blank" rel="noopener noreferrer">NASA Worldview / GIBS</a></td>
+              <td>Satellite map layers</td>
+              <td>Rapid weather, smoke, fire, and regional imagery review when current conditions affect operations or transport.</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td><a href="https://api.adsb.lol" target="_blank" rel="noopener noreferrer">ADS-B Exchange / adsb.lol</a></td>
+              <td>Aircraft tracking</td>
+              <td>Query aircraft near Taiwan for air picture leads, then confirm sensitive military claims through additional sources.</td>
+              <td>Free API currently</td>
+            </tr>
+            <tr>
+              <td><a href="https://opensky-network.org" target="_blank" rel="noopener noreferrer">OpenSky Network</a></td>
+              <td>Aircraft tracking</td>
+              <td>Alternative live aircraft states and research-oriented historical access for university or government workflows.</td>
+              <td>Free for research/non-commercial use</td>
+            </tr>
+            <tr>
+              <td><a href="https://globalfishingwatch.org" target="_blank" rel="noopener noreferrer">Global Fishing Watch</a></td>
+              <td>Maritime activity</td>
+              <td>Monitor vessel patterns around the Taiwan Strait, East China Sea, or South China Sea for commercial and grey-zone context.</td>
+              <td>Free non-commercial API access</td>
+            </tr>
+            <tr>
+              <td><a href="https://acleddata.com" target="_blank" rel="noopener noreferrer">ACLED</a></td>
+              <td>Conflict events</td>
+              <td>Use for political violence, protest, and conflict-event baselining when Taiwan-related reporting connects to broader regional instability.</td>
+              <td>Free registration</td>
+            </tr>
+            <tr>
+              <td><a href="https://overpass-turbo.eu" target="_blank" rel="noopener noreferrer">OpenStreetMap Overpass</a></td>
+              <td>Geospatial infrastructure</td>
+              <td>Query ports, airfields, roads, military-tagged features, and public infrastructure layers for map overlays.</td>
+              <td>Free public instance limits</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="examples-title">
+      <div class="section-head">
+        <h2 id="examples-title">Code Examples</h2>
+        <p>Examples are intentionally practical and credential-safe. Secrets remain placeholders and should be passed from environment variables in production automation.</p>
+      </div>
+      <div class="code-grid">
+        <article class="code-panel">
+          <header>
+            <h3>Sentinel-2 Taiwan Strait</h3>
+            <span class="tag">Python</span>
+          </header>
+          <pre><code># pip install sentinelhub
+import os
+from sentinelhub import (
+    BBox,
+    CRS,
+    DataCollection,
+    MimeType,
+    SentinelHubRequest,
+    SHConfig,
+    bbox_to_dimensions,
+)
+
+config = SHConfig()
+config.sh_client_id = os.environ["CDSE_CLIENT_ID"]
+config.sh_client_secret = os.environ["CDSE_CLIENT_SECRET"]
+
+# Bounding box: Taiwan Strait region
+bbox = BBox(bbox=[119.5, 24.5, 122.5, 26.5], crs=CRS.WGS84)
+size = bbox_to_dimensions(bbox, resolution=60)
+
+evalscript = """
+//VERSION=3
+function setup() {
+  return { input: ["B04", "B03", "B02"], output: { bands: 3 } };
+}
+function evaluatePixel(sample) {
+  return [sample.B04 / 3000, sample.B03 / 3000, sample.B02 / 3000];
+}
+"""
+
+request = SentinelHubRequest(
+    evalscript=evalscript,
+    input_data=[SentinelHubRequest.input_data(
+        data_collection=DataCollection.SENTINEL2_L2A,
+        time_interval=("2026-05-01", "2026-06-07"),
+        mosaicking_order="leastCC",
+    )],
+    responses=[SentinelHubRequest.output_response("default", MimeType.PNG)],
+    bbox=bbox,
+    size=size,
+    config=config,
+)
+
+image = request.get_data()</code></pre>
+        </article>
+
+        <article class="code-panel">
+          <header>
+            <h3>ADS-B Near Taiwan</h3>
+            <span class="tag">Python</span>
+          </header>
+          <pre><code>import requests
+
+# Aircraft within 250 nautical miles of northern Taiwan.
+url = "https://api.adsb.lol/v2/point/25.0/121.5/250"
+response = requests.get(url, timeout=30)
+response.raise_for_status()
+data = response.json()
+
+for ac in data.get("ac", [])[:10]:
+    flight = (ac.get("flight") or "?").strip()
+    print(
+        f"ICAO: {ac.get('hex')} | "
+        f"Flight: {flight} | "
+        f"Type: {ac.get('t', '?')} | "
+        f"Alt: {ac.get('alt_baro', '?')} ft | "
+        f"Military: {ac.get('military', '?')}"
+    )</code></pre>
+        </article>
+
+        <article class="code-panel">
+          <header>
+            <h3>OSM Infrastructure Query</h3>
+            <span class="tag">Python</span>
+          </header>
+          <pre><code>import requests
+
+overpass_url = "https://overpass-api.de/api/interpreter"
+query = """
+[out:json][timeout:60];
+(
+  node["aeroway"="aerodrome"](21.8,119.0,25.5,122.4);
+  way["aeroway"="aerodrome"](21.8,119.0,25.5,122.4);
+  node["harbour"](21.8,119.0,25.5,122.4);
+  way["harbour"](21.8,119.0,25.5,122.4);
+);
+out body;
+>;
+out skel qt;
+"""
+
+response = requests.post(overpass_url, data={"data": query}, timeout=90)
+response.raise_for_status()
+data = response.json()
+
+for element in data.get("elements", [])[:10]:
+    print(element["type"], element["id"], element.get("tags", {}))</code></pre>
+        </article>
+
+        <article class="code-panel">
+          <header>
+            <h3>Global Fishing Watch</h3>
+            <span class="tag">Python</span>
+          </header>
+          <pre><code># pip install gfw-api-python-client
+import os
+import gfw
+
+client = gfw.GFWClient(api_key=os.environ["GFW_API_KEY"])
+
+events = client.get_events(
+    event_type="fishing",
+    start_date="2026-05-01",
+    end_date="2026-06-01",
+    bbox=[118.0, 21.0, 124.0, 27.0],
+    limit=100,
+)
+
+for event in events:
+    print(event)</code></pre>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="validation-title">
+      <div class="section-head">
+        <h2 id="validation-title">Template Validation Notes</h2>
+        <p>This section is included so future country pages preserve the same implementation contract instead of becoming unstructured link dumps.</p>
+      </div>
+      <div class="notes-panel">
+        <article class="panel">
+          <h3>What Must Stay</h3>
+          <ul>
+            <li>Every source card has an active link and a hover/focus overlay.</li>
+            <li>Visible copy stays concise, with deeper context in overlays.</li>
+            <li>The page contains images, preview modules, tables, and code blocks.</li>
+            <li>External examples do not hardcode secrets or credentials.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Rollout Rule</h3>
+          <p>When this template is approved, country pages should be generated one country at a time from the resource guide. Each rollout should validate external link reachability, internal nav links, overlay clipping, mobile layout, and theme/text-size propagation before the next country is added.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+  <script>
+    document.querySelectorAll(".info").forEach((info) => {
+      const button = info.querySelector(".info-button");
+      if (!button) return;
+      button.setAttribute("aria-expanded", "false");
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const isOpen = info.dataset.open === "true";
+        document.querySelectorAll(".info[data-open='true']").forEach((openInfo) => {
+          openInfo.dataset.open = "false";
+          openInfo.querySelector(".info-button")?.setAttribute("aria-expanded", "false");
+        });
+        info.dataset.open = String(!isOpen);
+        button.setAttribute("aria-expanded", String(!isOpen));
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (event.target.closest(".info")) return;
+      document.querySelectorAll(".info[data-open='true']").forEach((openInfo) => {
+        openInfo.dataset.open = "false";
+        openInfo.querySelector(".info-button")?.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
+</body>
+</html>
