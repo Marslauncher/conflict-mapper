@@ -1736,6 +1736,7 @@ function chinaTaiwanIntelligenceFeedArticles(articles) {
         'warship', 'air force', 'fighter', 'exercise', 'deterrence',
         'bases', 'deployment', 'coast guard', 'maritime'
       ];
+      if (hasTerm(headline, ['defense business brief', 'daily briefing', 'morning brief']) && !hasTerm(headline, directFeedTerms)) return false;
       if (hasTerm(headline, TAIWAN_UNRELATED_TERMS) && !hasTerm(headline, directFeedTerms)) return false;
       if (hasTerm(primaryText, ['ukraine', 'russia', 'iran', 'gaza', 'israel', 'nato', 'estonia', 'rio summit', 'uk nuclear']) && !hasTerm(primaryText, directFeedTerms)) return false;
       return hasTerm(primaryText, directFeedTerms) ||
