@@ -74,8 +74,10 @@ Every theater watch page should include, either as full sections or sidebar modu
 7. Confirm no static boilerplate is presented as current analysis; current sections should include article counts, latest titles, publication dates, signal counts, or current feed-unavailable language.
 8. Confirm Weather & Sea State includes a current weather map/embed and renders without clipping on desktop and mobile.
 9. Confirm all article and think-tank titles referenced in analysis text are active links to the original material or source-search fallback.
-10. Confirm theme and text-size settings propagate to the watch page by checking CSS variables from `/assets/user-style.js` or by visual comparison after applying a non-default style profile.
-11. After pushing to GitHub, wait the configured Cloudflare propagation interval, open the production page, repeat the screenshot validation, and summarize the findings in the final response.
+10. Confirm generated statements, category counts, status badges, likelihood rows, and operational notes include inline source/citation hover controls that list the specific region-filtered articles used for each claim.
+11. Confirm category-count citations are scoped to the matching article subset, not only a generic all-feed source list.
+12. Confirm theme and text-size settings propagate to the watch page by checking CSS variables from `/assets/user-style.js` or by visual comparison after applying a non-default style profile.
+13. After pushing to GitHub, wait the configured Cloudflare propagation interval, open the production page, repeat the screenshot validation, and summarize the findings in the final response.
 
 ## Acceptance Standard
 

@@ -126,7 +126,7 @@ a:hover { text-decoration: underline; }
 .strategic-card {
   --card-accent: var(--accent);
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background:
@@ -207,6 +207,19 @@ a:hover { text-decoration: underline; }
 .info-dot { position: absolute; right: 0; top: 0; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border)); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); color: var(--accent); font-family: var(--font-mono); font-size: var(--cm-commentary-text-size, 12pt); cursor: help; }
 .info-popover { position: absolute; right: 0; top: 30px; z-index: 20; width: min(360px, 74vw); display: none; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: 0 18px 40px rgba(0,0,0,.25); color: var(--muted); font-family: var(--font-body); font-size: var(--cm-commentary-text-size, 12pt); line-height: 1.5; text-transform: none; letter-spacing: 0; }
 .info-dot:hover .info-popover, .info-dot:focus .info-popover { display: block; }
+.citation-ref { position: relative; display: inline-flex; vertical-align: baseline; margin-left: 6px; }
+.citation-chip { display: inline-flex; align-items: center; gap: 4px; min-height: 20px; padding: 2px 7px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, var(--surface)); color: var(--accent); font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .78)); line-height: 1.2; letter-spacing: .08em; text-transform: uppercase; cursor: help; }
+.citation-popover { position: absolute; left: 0; top: calc(100% + 8px); z-index: 80; display: none; width: min(420px, 82vw); max-height: 340px; overflow: auto; padding: 12px; border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--surface); box-shadow: 0 18px 40px rgba(0,0,0,.28); color: var(--muted); font-family: var(--font-body); font-size: var(--cm-commentary-text-size, 12pt); line-height: 1.4; text-transform: none; letter-spacing: 0; }
+.citation-ref:hover .citation-popover, .citation-ref:focus-within .citation-popover { display: block; }
+.citation-title { color: var(--text); font-family: var(--font-display); font-size: clamp(1rem, var(--cm-navigation-text-size, 16pt), 1.2rem); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.citation-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.citation-list li { margin: 0; padding: 0 0 8px; border-bottom: 1px solid var(--border); }
+.citation-list li:last-child { padding-bottom: 0; border-bottom: 0; }
+.citation-list a { color: var(--text); font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
+.citation-list a:hover { color: var(--accent); text-decoration: underline; }
+.citation-meta { display: block; margin-top: 3px; font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .82)); color: var(--faint); letter-spacing: .06em; text-transform: uppercase; }
+.citation-empty { color: var(--muted); }
+.status-citation { margin-left: 4px; }
 .map-frame { position: relative; }
 .map-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
 .map-tools button { border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; background: var(--surface); color: var(--text); font-family: var(--font-mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
@@ -644,17 +657,17 @@ a:hover { text-decoration: underline; }
       <div class="metric-cell">
         <div class="metric-label">Korea Articles</div>
         <div class="metric-value" id="metric-articles">0</div>
-        <div class="metric-sub">Korea-filtered reports</div>
+        <div class="metric-sub" id="metric-articles-sub">Korea-filtered reports</div>
       </div>
       <div class="metric-cell">
         <div class="metric-label">Sources</div>
         <div class="metric-value" id="metric-sources">0</div>
-        <div class="metric-sub">RSS / open-source feeds</div>
+        <div class="metric-sub" id="metric-sources-sub">RSS / open-source feeds</div>
       </div>
       <div class="metric-cell">
         <div class="metric-label">Think Tank Hits</div>
         <div class="metric-value" id="metric-thinktanks">0</div>
-        <div class="metric-sub">regional analysis items</div>
+        <div class="metric-sub" id="metric-thinktanks-sub">regional analysis items</div>
       </div>
       <div class="metric-cell">
         <div class="metric-label">Mapped Nodes</div>
@@ -944,6 +957,20 @@ function refLink(a, fallback){
   return `<a href="${esc(articleHref(a, title))}" target="_blank" rel="noopener noreferrer"><strong>${esc(title)}</strong></a>`;
 }
 function searchLink(q){return `https://www.google.com/search?q=${encodeURIComponent(q)}`}
+function sourceArticles(articles, limit=6){
+  return [...new Map((articles||[]).filter(Boolean).map(a=>[articleHref(a, headline(a)), a])).values()].slice(0,limit);
+}
+function citationRef(label, articles, note=''){
+  const sources=sourceArticles(articles,6);
+  const safeLabel=esc(label);
+  const list=sources.length
+    ? `<ul class="citation-list">${sources.map(a=>`<li><a href="${esc(articleHref(a, headline(a)))}" target="_blank" rel="noopener noreferrer">${esc(headline(a))}</a><span class="citation-meta">${esc(sourceName(a))} // ${timeLabel(a)}</span></li>`).join('')}</ul>`
+    : `<div class="citation-empty">No matching current source article was available for this claim.</div>`;
+  return `<span class="citation-ref" tabindex="0"><span class="citation-chip">src ${sources.length}</span><span class="citation-popover"><span class="citation-title">${safeLabel}</span>${note?`<p>${esc(note)}</p>`:''}${list}</span></span>`;
+}
+function citedCount(count, label, articles, note=''){
+  return `<span class="sourced-claim"><strong>${count}</strong> ${esc(label)}${citationRef(`${count} ${label}`, articles, note)}</span>`;
+}
 function renderList(id, articles, empty){
   const el=document.getElementById(id);
   if(!articles.length){el.innerHTML=`<div class="article-meta">${empty}</div>`;return}
@@ -965,7 +992,8 @@ function renderList(id, articles, empty){
 	  diplomatic:['sanction','summit','talks','diplomatic','visit','envoy','china','russia','xi jinping'],
 	  logistics:['mobilization','readiness','troops','border','base','submarine','shipyard','warship','destroyer']
 	};
-	function countTerms(articles, terms){return articles.filter(a=>terms.some(term=>text(a).includes(term))).length}
+	function matchingTerms(articles, terms){return articles.filter(a=>terms.some(term=>text(a).includes(term)))}
+	function countTerms(articles, terms){return matchingTerms(articles,terms).length}
 	function headline(a){return a?.title||'No matching article title available'}
 	function sourceName(a){return a?.source||a?.thinkTank||'unknown source'}
 	function recentWindow(articles, days){const cutoff=Date.now()-days*86400000;return articles.filter(a=>articleTime(a)>=cutoff)}
@@ -973,17 +1001,28 @@ function renderList(id, articles, empty){
 	  const recent24=recentWindow(articles,1);
 	  const recent7=recentWindow(articles,7);
 	  const recent30=recentWindow(articles,30);
+	  const signalArticles={
+	    missile:matchingTerms(recent30,SIGNAL_TERMS.missile),
+	    nuclear:matchingTerms(recent30,SIGNAL_TERMS.nuclear),
+	    artillery:matchingTerms(recent30,SIGNAL_TERMS.artillery),
+	    cyber:matchingTerms(recent30,SIGNAL_TERMS.cyber),
+	    alliance:matchingTerms(recent30,SIGNAL_TERMS.alliance),
+	    publicWarning:matchingTerms(recent30,SIGNAL_TERMS.publicWarning),
+	    diplomatic:matchingTerms(recent30,SIGNAL_TERMS.diplomatic),
+	    logistics:matchingTerms(recent30,SIGNAL_TERMS.logistics)
+	  };
 	  const stats={
 	    recent24,recent7,recent30,
 	    sources:new Set(articles.map(a=>a.source).filter(Boolean)).size,
-	    missile:countTerms(recent30,SIGNAL_TERMS.missile),
-	    nuclear:countTerms(recent30,SIGNAL_TERMS.nuclear),
-	    artillery:countTerms(recent30,SIGNAL_TERMS.artillery),
-	    cyber:countTerms(recent30,SIGNAL_TERMS.cyber),
-	    alliance:countTerms(recent30,SIGNAL_TERMS.alliance),
-	    publicWarning:countTerms(recent30,SIGNAL_TERMS.publicWarning),
-	    diplomatic:countTerms(recent30,SIGNAL_TERMS.diplomatic),
-	    logistics:countTerms(recent30,SIGNAL_TERMS.logistics),
+	    signalArticles,
+	    missile:signalArticles.missile.length,
+	    nuclear:signalArticles.nuclear.length,
+	    artillery:signalArticles.artillery.length,
+	    cyber:signalArticles.cyber.length,
+	    alliance:signalArticles.alliance.length,
+	    publicWarning:signalArticles.publicWarning.length,
+	    diplomatic:signalArticles.diplomatic.length,
+	    logistics:signalArticles.logistics.length,
 	    top:articles.find(headlineStrategicRelevance)||articles[0]||null,
 	    thinkTop:think.find(strategicDirectRelevance)||think.find(directRelevance)||think[0]||null
 	  };
@@ -1012,17 +1051,17 @@ function renderList(id, articles, empty){
 	    ? 'The current feed shows multi-domain convergence and should be treated as elevated warning context.'
 	    : 'The current feed does not show a full military, cyber, public-warning, and alliance-stress convergence pattern.';
 	  if(summary){
-	    summary.innerHTML=`<p class="assessment-wide"><strong>Current feed basis:</strong> This assessment is generated from ${stats.recent24.length} Korea-filtered RSS articles in the last 24 hours, ${stats.recent7.length} in the last 7 days, and ${stats.recent30.length} in the last 30 days. Newest direct item: ${refLink(top, 'Korean Peninsula current report')} from ${esc(sourceName(top))} on ${timeLabel(top)}.</p>
-	      <p><strong>Current threat read:</strong> ${convergence} The 30-day signal mix contains ${stats.missile} missile/launch, ${stats.nuclear} nuclear-site or nuclear-program, ${stats.artillery} artillery/fires, ${stats.cyber} cyber/space/telecom, and ${stats.logistics} logistics/readiness references.</p>
-	      <p><strong>Political and alliance read:</strong> The loaded feed contains ${stats.diplomatic} diplomatic/sanctions/leadership-contact references, ${stats.alliance} USFK/ROK/Japan/alliance references, and ${stats.publicWarning} public-warning or civil-response references. ${thinkLine}</p>
+	    summary.innerHTML=`<p class="assessment-wide"><strong>Current feed basis:</strong> This assessment is generated from ${citedCount(stats.recent24.length,'Korea-filtered RSS articles in the last 24 hours',stats.recent24,'Most recent region-filtered articles inside the 24-hour window')}, ${citedCount(stats.recent7.length,'in the last 7 days',stats.recent7,'Most recent region-filtered articles inside the 7-day window')}, and ${citedCount(stats.recent30.length,'in the last 30 days',stats.recent30,'Current source set used for signal scoring')}. Newest direct item: ${refLink(top, 'Korean Peninsula current report')} from ${esc(sourceName(top))} on ${timeLabel(top)}.</p>
+	      <p><strong>Current threat read:</strong> ${convergence} The 30-day signal mix contains ${citedCount(stats.missile,'missile/launch indicators',stats.signalArticles.missile)}, ${citedCount(stats.nuclear,'nuclear-site or nuclear-program indicators',stats.signalArticles.nuclear)}, ${citedCount(stats.artillery,'artillery/fires indicators',stats.signalArticles.artillery)}, ${citedCount(stats.cyber,'cyber/space/telecom indicators',stats.signalArticles.cyber)}, and ${citedCount(stats.logistics,'logistics/readiness indicators',stats.signalArticles.logistics)}.</p>
+	      <p><strong>Political and alliance read:</strong> The loaded feed contains ${citedCount(stats.diplomatic,'diplomatic/sanctions/leadership-contact indicators',stats.signalArticles.diplomatic)}, ${citedCount(stats.alliance,'USFK/ROK/Japan/alliance indicators',stats.signalArticles.alliance)}, and ${citedCount(stats.publicWarning,'public-warning or civil-response indicators',stats.signalArticles.publicWarning)}. ${thinkLine}</p>
 	      <p class="assessment-wide"><strong>Assessment rule:</strong> The section is driven by the current article cache and direct theater filters; static geography and baseline doctrine are not used as substitutes for current reporting.</p>`;
 	  }
 	  if(analysis){
 	    analysis.innerHTML=[
-	      `${stats.sources} sources contributed Korea-relevant RSS items; ${stats.recent24.length} landed inside the last 24 hours.`,
+	      `${stats.sources} sources contributed Korea-relevant RSS items ${citationRef('Korea-relevant source set', stats.recent30)}; ${citedCount(stats.recent24.length,'landed inside the last 24 hours',stats.recent24)}.`,
 	      `Most recent direct RSS item: <a href="${esc(articleHref(top, 'Korean Peninsula current report'))}" target="_blank" rel="noopener noreferrer">${esc(headline(top))}</a> (${esc(sourceName(top))}, ${timeLabel(top)}).`,
-	      `${stats.military} military/readiness indicators and ${stats.cyber} cyber/space/infrastructure indicators were detected in the 30-day Korea-filtered cache.`,
-	      `${stats.political} diplomatic, public-warning, or alliance indicators were detected in the same cache; this determines whether current reporting is treated as routine signaling or escalation context.`
+	      `${citedCount(stats.military,'military/readiness indicators', [...stats.signalArticles.missile,...stats.signalArticles.nuclear,...stats.signalArticles.artillery,...stats.signalArticles.logistics])} and ${citedCount(stats.cyber,'cyber/space/infrastructure indicators',stats.signalArticles.cyber)} were detected in the 30-day Korea-filtered cache.`,
+	      `${citedCount(stats.political,'diplomatic, public-warning, or alliance indicators', [...stats.signalArticles.diplomatic,...stats.signalArticles.alliance,...stats.signalArticles.publicWarning])} were detected in the same cache; this determines whether current reporting is treated as routine signaling or escalation context.`
 	    ].map(item=>`<div class="assessment-summary-item"><strong>${item}</strong></div>`).join('');
 	  }
 	  return stats;
@@ -1041,32 +1080,32 @@ function renderList(id, articles, empty){
 	    <div class="strategic-card current">
 	      <div class="strategic-card-head"><span class="strategic-icon" aria-hidden="true">!</span><h3>Current Assessment</h3></div>
 	      <div class="strategic-card-body"><ul class="strategic-list">
-	        <li>${stats.recent24.length} Korea-filtered articles landed in the last 24 hours and ${stats.recent7.length} in the last 7 days.</li>
+	        <li>${citedCount(stats.recent24.length,'Korea-filtered articles landed in the last 24 hours',stats.recent24)} and ${citedCount(stats.recent7.length,'in the last 7 days',stats.recent7)}.</li>
 	        <li>Newest direct item: ${refLink(top, 'Korean Peninsula current report')} from ${esc(sourceName(top))} on ${timeLabel(top)}.</li>
 	      </ul></div>
 	    </div>
 	    <div class="strategic-card note">
 	      <div class="strategic-card-head"><span class="strategic-icon" aria-hidden="true">S</span><h3>Things To Note</h3></div>
 	      <div class="strategic-card-body"><ul class="strategic-list">
-	        <li>${stats.missile} missile/launch, ${stats.nuclear} nuclear, and ${stats.artillery} artillery indicators were detected in the 30-day relevant cache.</li>
-	        <li>${stats.diplomatic+stats.alliance} diplomatic/alliance indicators and ${stats.cyber} cyber/space indicators were detected in the same window.</li>
+	        <li>${citedCount(stats.missile,'missile/launch indicators',stats.signalArticles.missile)}, ${citedCount(stats.nuclear,'nuclear indicators',stats.signalArticles.nuclear)}, and ${citedCount(stats.artillery,'artillery indicators',stats.signalArticles.artillery)} were detected in the 30-day relevant cache.</li>
+	        <li>${citedCount(stats.diplomatic+stats.alliance,'diplomatic/alliance indicators',[...stats.signalArticles.diplomatic,...stats.signalArticles.alliance])} and ${citedCount(stats.cyber,'cyber/space indicators',stats.signalArticles.cyber)} were detected in the same window.</li>
 	        <li>${thinkTop?`Think-tank context: ${refLink(thinkTop, 'Korean Peninsula think tank analysis')} (${esc(sourceName(thinkTop))}, ${timeLabel(thinkTop)}).`:'No direct Korea think-tank match loaded for this cycle.'}</li>
 	      </ul></div>
 	    </div>
 	    <div class="strategic-card watch">
 	      <div class="strategic-card-head"><span class="strategic-icon" aria-hidden="true">W</span><h3>Things To Watch</h3></div>
 	      <div class="strategic-card-body"><ul class="strategic-list">
-	        <li>${stats.missile+stats.artillery>0?'Missile, launch, and artillery reporting is present; watch for follow-on readiness or logistics reporting.':'No missile/artillery-heavy article cluster is present in the current cache.'}</li>
-	        <li>${stats.cyber>0?'Cyber, space, GPS, telecom, or network reporting is present; correlate it with military posture before raising risk.':'Cyber/space disruption is not a dominant signal in the current Korea-filtered cache.'}</li>
-	        <li>${stats.alliance+stats.diplomatic>0?'Alliance, Japan access, leadership-contact, sanctions, or diplomatic reporting is active in the current feed.':'Political/alliance reporting is limited in the current Korea-filtered cache.'}</li>
+	        <li>${stats.missile+stats.artillery>0?`Missile, launch, and artillery reporting is present ${citationRef('Missile/artillery reporting behind this watch item',[...stats.signalArticles.missile,...stats.signalArticles.artillery])}; watch for follow-on readiness or logistics reporting ${citationRef('Readiness/logistics comparison set',stats.signalArticles.logistics)}.`:`No missile/artillery-heavy article cluster is present in the current cache ${citationRef('30-day source set checked for missile/artillery terms',stats.recent30)}.`}</li>
+	        <li>${stats.cyber>0?`Cyber, space, GPS, telecom, or network reporting is present ${citationRef('Cyber/space reporting behind this watch item',stats.signalArticles.cyber)}; correlate it with military posture before raising risk ${citationRef('Military posture comparison set',[...stats.signalArticles.missile,...stats.signalArticles.nuclear,...stats.signalArticles.artillery,...stats.signalArticles.logistics])}.`:`Cyber/space disruption is not a dominant signal in the current Korea-filtered cache ${citationRef('30-day source set checked for cyber/space terms',stats.recent30)}.`}</li>
+	        <li>${stats.alliance+stats.diplomatic>0?`Alliance, Japan access, leadership-contact, sanctions, or diplomatic reporting is active in the current feed ${citationRef('Political/alliance reporting behind this watch item',[...stats.signalArticles.alliance,...stats.signalArticles.diplomatic])}.`:`Political/alliance reporting is limited in the current Korea-filtered cache ${citationRef('30-day source set checked for political/alliance terms',stats.recent30)}.`}</li>
 	      </ul></div>
 	    </div>
 	    <div class="strategic-card likelihood">
 	      <div class="strategic-card-head"><span class="strategic-icon" aria-hidden="true">%</span><h3>Escalation Likelihood</h3></div>
 	      <div class="strategic-card-body"><div class="likelihood-stack">
-	        <div class="likelihood-row"><strong>Next 24 hours:</strong> ${stats.likelihood.day}% material-escalation likelihood from current article volume and signal mix.</div>
-	        <div class="likelihood-row"><strong>Next 7 days:</strong> ${stats.likelihood.week}% likelihood; military/readiness indicators: ${stats.military}, political/alliance/public-warning indicators: ${stats.political}.</div>
-	        <div class="likelihood-row"><strong>Next 1 month:</strong> ${stats.likelihood.month}% cumulative pressure risk based on ${stats.recent30.length} 30-day Korea-filtered articles, not a forecast of invasion.</div>
+	        <div class="likelihood-row"><strong>Next 24 hours:</strong> ${stats.likelihood.day}% material-escalation likelihood from current article volume ${citationRef('24-hour source volume',stats.recent24)} and signal mix ${citationRef('30-day signal mix source set',stats.recent30)}.</div>
+	        <div class="likelihood-row"><strong>Next 7 days:</strong> ${stats.likelihood.week}% likelihood; military/readiness indicators: ${citedCount(stats.military,'military/readiness', [...stats.signalArticles.missile,...stats.signalArticles.nuclear,...stats.signalArticles.artillery,...stats.signalArticles.logistics])}, political/alliance/public-warning indicators: ${citedCount(stats.political,'political/alliance/public-warning', [...stats.signalArticles.diplomatic,...stats.signalArticles.alliance,...stats.signalArticles.publicWarning])}.</div>
+	        <div class="likelihood-row"><strong>Next 1 month:</strong> ${stats.likelihood.month}% cumulative pressure risk based on ${citedCount(stats.recent30.length,'30-day Korea-filtered articles',stats.recent30)}, not a forecast of invasion.</div>
 	      </div></div>
 	    </div>`;
 	  return stats;
@@ -1082,19 +1121,22 @@ function renderList(id, articles, empty){
 	    updateOperationalCards(currentStats, false);
 	    return;
 	  }
-	  set('map-assessment-note',`<strong>Map assessment:</strong> Fixed sites are contextualized against ${currentStats.military} current military/readiness indicators and ${currentStats.recent7.length} Korea-filtered articles from the last 7 days; markers are not live unit positions.`);
-	  set('weather-assessment-note',`<strong>Weather assessment:</strong> Weather and sea-state friction should be weighted only if current reporting shows movement, air, maritime, public-warning, or logistics activity. Current 30-day cache: ${currentStats.logistics} logistics/readiness, ${currentStats.artillery} fires/artillery, ${currentStats.missile} missile/launch indicators.`);
-	  set('force-assessment-note',`<strong>Force assessment:</strong> Baseline DPRK and allied capabilities are interpreted against the current feed: ${currentStats.military} military/readiness, ${currentStats.cyber} cyber/space, and ${currentStats.alliance} USFK/ROK/Japan/alliance indicators.`);
-	  set('strategy-assessment-note',`<strong>Strategic brief:</strong> Generated from ${articles.length} Korea-filtered RSS articles and ${think.length} Korea-relevant think-tank items. Current signal mix: ${currentStats.missile} missile/launch, ${currentStats.nuclear} nuclear, ${currentStats.cyber} cyber/space, ${currentStats.diplomatic} diplomatic/sanctions/leadership-contact.`);
+	  set('map-assessment-note',`<strong>Map assessment:</strong> Fixed sites are contextualized against ${citedCount(currentStats.military,'current military/readiness indicators',[...currentStats.signalArticles.missile,...currentStats.signalArticles.nuclear,...currentStats.signalArticles.artillery,...currentStats.signalArticles.logistics])} and ${citedCount(currentStats.recent7.length,'Korea-filtered articles from the last 7 days',currentStats.recent7)}; markers are not live unit positions.`);
+	  set('weather-assessment-note',`<strong>Weather assessment:</strong> Weather and sea-state friction should be weighted only if current reporting shows movement, air, maritime, public-warning, or logistics activity ${citationRef('Operational-friction source basis',[...currentStats.signalArticles.logistics,...currentStats.signalArticles.artillery,...currentStats.signalArticles.missile,...currentStats.signalArticles.publicWarning])}. Current 30-day cache: ${citedCount(currentStats.logistics,'logistics/readiness indicators',currentStats.signalArticles.logistics)}, ${citedCount(currentStats.artillery,'fires/artillery indicators',currentStats.signalArticles.artillery)}, ${citedCount(currentStats.missile,'missile/launch indicators',currentStats.signalArticles.missile)}.`);
+	  set('force-assessment-note',`<strong>Force assessment:</strong> Baseline DPRK and allied capabilities are interpreted against the current feed: ${citedCount(currentStats.military,'military/readiness indicators',[...currentStats.signalArticles.missile,...currentStats.signalArticles.nuclear,...currentStats.signalArticles.artillery,...currentStats.signalArticles.logistics])}, ${citedCount(currentStats.cyber,'cyber/space indicators',currentStats.signalArticles.cyber)}, and ${citedCount(currentStats.alliance,'USFK/ROK/Japan/alliance indicators',currentStats.signalArticles.alliance)}.`);
+	  set('strategy-assessment-note',`<strong>Strategic brief:</strong> Generated from ${citedCount(articles.length,'Korea-filtered RSS articles',articles)} and ${citedCount(think.length,'Korea-relevant think-tank items',think)}. Current signal mix: ${citedCount(currentStats.missile,'missile/launch indicators',currentStats.signalArticles.missile)}, ${citedCount(currentStats.nuclear,'nuclear indicators',currentStats.signalArticles.nuclear)}, ${citedCount(currentStats.cyber,'cyber/space indicators',currentStats.signalArticles.cyber)}, ${citedCount(currentStats.diplomatic,'diplomatic/sanctions/leadership-contact indicators',currentStats.signalArticles.diplomatic)}.`);
 	  updateOperationalCards(currentStats, true);
 	}
 	function updateOperationalCards(stats, hasFeed){
 	  const setText=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
-	  const setBadge=(id,label,cls)=>{
+	  const setHTML=(id,value)=>{const el=document.getElementById(id);if(el)el.innerHTML=value};
+	  const setBadge=(id,label,cls,articles=[])=>{
 	    const el=document.getElementById(id);
 	    if(!el) return;
 	    el.textContent=label;
 	    el.className=`status-badge ${cls}`;
+	    if(el.nextElementSibling?.classList?.contains('status-citation')) el.nextElementSibling.remove();
+	    if(articles.length) el.insertAdjacentHTML('afterend',`<span class="status-citation">${citationRef(`${el.previousElementSibling?.textContent || label} status`,articles)}</span>`);
 	  };
 	  if(!hasFeed){
 	    ['cond-ground-value','cond-air-value','cond-sea-value','cond-civil-value'].forEach(id=>setText(id,'Feed unavailable'));
@@ -1106,22 +1148,22 @@ function renderList(id, articles, empty){
 	    return;
 	  }
 	  setText('cond-ground-value',stats.logistics>2?'Movement Watch':'No Movement Cluster');
-	  setText('cond-ground-sub',`${stats.logistics} logistics/readiness indicators in 30-day cache`);
+	  setHTML('cond-ground-sub',`${citedCount(stats.logistics,'logistics/readiness indicators',stats.signalArticles.logistics)} in 30-day cache`);
 	  setText('cond-air-value',stats.missile>0?'Launch Watch':'No Launch Cluster');
-	  setText('cond-air-sub',`${stats.missile} missile/launch indicators; correlate with air-defense reporting`);
+	  setHTML('cond-air-sub',`${citedCount(stats.missile,'missile/launch indicators',stats.signalArticles.missile)}; correlate with air-defense reporting`);
 	  setText('cond-sea-value',stats.logistics+stats.diplomatic>5?'Maritime Watch':'Context Only');
-	  setText('cond-sea-sub',`${stats.logistics} logistics/shipyard and ${stats.diplomatic} diplomatic indicators`);
+	  setHTML('cond-sea-sub',`${citedCount(stats.logistics,'logistics/shipyard indicators',stats.signalArticles.logistics)} and ${citedCount(stats.diplomatic,'diplomatic indicators',stats.signalArticles.diplomatic)}`);
 	  setText('cond-civil-value',stats.publicWarning>0?'Warning Watch':'No Warning Cluster');
-	  setText('cond-civil-sub',`${stats.publicWarning} public-warning/civil-response indicators`);
-	  setBadge('status-missile',stats.missile>3?'Elevated':stats.missile>0?'Watch':'Quiet',stats.missile>3?'badge-elevated':stats.missile>0?'badge-guarded':'badge-quiet');
-	  setBadge('status-artillery',stats.artillery>1?'High':stats.artillery>0?'Watch':'Quiet',stats.artillery>1?'badge-high':stats.artillery>0?'badge-guarded':'badge-quiet');
-	  setBadge('status-cyber',stats.cyber>1?'Ongoing':stats.cyber>0?'Watch':'Quiet',stats.cyber>1?'badge-ongoing':stats.cyber>0?'badge-guarded':'badge-quiet');
-	  setBadge('status-alliance',stats.alliance>2?'Active':stats.alliance>0?'Watch':'Quiet',stats.alliance>2?'badge-active':stats.alliance>0?'badge-guarded':'badge-quiet');
-	  setBadge('status-public',stats.publicWarning>1?'Guarded':stats.publicWarning>0?'Watch':'Quiet',stats.publicWarning>1?'badge-guarded':stats.publicWarning>0?'badge-elevated':'badge-quiet');
-	  setBadge('status-diplomatic',stats.diplomatic>2?'Active':stats.diplomatic>0?'Watch':'Quiet',stats.diplomatic>2?'badge-active':stats.diplomatic>0?'badge-guarded':'badge-quiet');
-	  setText('dprk-force-note',`Current feed shows ${stats.missile} missile/launch, ${stats.nuclear} nuclear, ${stats.artillery} artillery, and ${stats.logistics} logistics/readiness indicators.`);
-	  setText('allied-force-note',`Current feed shows ${stats.alliance} USFK/ROK/Japan/alliance indicators and ${stats.diplomatic} diplomatic/sanctions/leadership-contact indicators.`);
-	  setText('contested-force-note',`Current contested variables: ${stats.cyber} cyber/space, ${stats.publicWarning} public-warning, and ${stats.recent7.length} Korea-filtered articles over the last 7 days.`);
+	  setHTML('cond-civil-sub',`${citedCount(stats.publicWarning,'public-warning/civil-response indicators',stats.signalArticles.publicWarning)}`);
+	  setBadge('status-missile',stats.missile>3?'Elevated':stats.missile>0?'Watch':'Quiet',stats.missile>3?'badge-elevated':stats.missile>0?'badge-guarded':'badge-quiet',stats.signalArticles.missile);
+	  setBadge('status-artillery',stats.artillery>1?'High':stats.artillery>0?'Watch':'Quiet',stats.artillery>1?'badge-high':stats.artillery>0?'badge-guarded':'badge-quiet',stats.signalArticles.artillery);
+	  setBadge('status-cyber',stats.cyber>1?'Ongoing':stats.cyber>0?'Watch':'Quiet',stats.cyber>1?'badge-ongoing':stats.cyber>0?'badge-guarded':'badge-quiet',stats.signalArticles.cyber);
+	  setBadge('status-alliance',stats.alliance>2?'Active':stats.alliance>0?'Watch':'Quiet',stats.alliance>2?'badge-active':stats.alliance>0?'badge-guarded':'badge-quiet',stats.signalArticles.alliance);
+	  setBadge('status-public',stats.publicWarning>1?'Guarded':stats.publicWarning>0?'Watch':'Quiet',stats.publicWarning>1?'badge-guarded':stats.publicWarning>0?'badge-elevated':'badge-quiet',stats.signalArticles.publicWarning);
+	  setBadge('status-diplomatic',stats.diplomatic>2?'Active':stats.diplomatic>0?'Watch':'Quiet',stats.diplomatic>2?'badge-active':stats.diplomatic>0?'badge-guarded':'badge-quiet',stats.signalArticles.diplomatic);
+	  setHTML('dprk-force-note',`Current feed shows ${citedCount(stats.missile,'missile/launch indicators',stats.signalArticles.missile)}, ${citedCount(stats.nuclear,'nuclear indicators',stats.signalArticles.nuclear)}, ${citedCount(stats.artillery,'artillery indicators',stats.signalArticles.artillery)}, and ${citedCount(stats.logistics,'logistics/readiness indicators',stats.signalArticles.logistics)}.`);
+	  setHTML('allied-force-note',`Current feed shows ${citedCount(stats.alliance,'USFK/ROK/Japan/alliance indicators',stats.signalArticles.alliance)} and ${citedCount(stats.diplomatic,'diplomatic/sanctions/leadership-contact indicators',stats.signalArticles.diplomatic)}.`);
+	  setHTML('contested-force-note',`Current contested variables: ${citedCount(stats.cyber,'cyber/space indicators',stats.signalArticles.cyber)}, ${citedCount(stats.publicWarning,'public-warning indicators',stats.signalArticles.publicWarning)}, and ${citedCount(stats.recent7.length,'Korea-filtered articles over the last 7 days',stats.recent7)}.`);
 	}
 	function updateAssessmentNote(articles, think){
 	  const el=document.getElementById('assessment-live-note');
@@ -1130,10 +1172,10 @@ function renderList(id, articles, empty){
 	  const latest=articles.find(headlineStrategicRelevance);
 	  const thinkLatest=think.find(strategicDirectRelevance)||think.find(directRelevance);
 	  const militaryTerms=['missile','srbm','mrbm','icbm','nuclear','artillery','drone','launch','usfk','dmz','yongbyon','punggye','submarine'];
-	  const indicatorHits=articles.filter(a=>militaryTerms.some(term=>text(a).includes(term))).length;
-	  const latestLine=latest?`Newest direct Korea RSS item: <strong>${esc(latest.title||'Untitled')}</strong> from ${esc(latest.source||'unknown source')} on ${timeLabel(latest)}.`:'No current RSS item matched the Korean Peninsula filter.';
-	  const thinkLine=thinkLatest?`Newest direct Korea think tank item: <strong>${esc(thinkLatest.title||'Untitled')}</strong> from ${esc(thinkLatest.thinkTank||thinkLatest.source||'unknown source')} on ${timeLabel(thinkLatest)}.`:'No current think tank item matched the Korean Peninsula filter.';
-	  el.innerHTML=`<strong>Live cache:</strong> ${articles.length} Korea-relevant RSS articles across ${sources} sources; ${think.length} think tank matches; ${indicatorHits} articles contain missile, nuclear, artillery, drone, launch, DMZ, USFK, or nuclear-site terms.<br>${latestLine}<br>${thinkLine}<div class="signal-row"><span class="signal-pill">Missile posture</span><span class="signal-pill">Cyber / space</span><span class="signal-pill">USFK / ROK</span><span class="signal-pill">Public warning</span><span class="signal-pill">Regional access</span></div>`;
+	  const indicatorArticles=articles.filter(a=>militaryTerms.some(term=>text(a).includes(term)));
+	  const latestLine=latest?`Newest direct Korea RSS item: ${refLink(latest,'Korean Peninsula current report')} from ${esc(latest.source||'unknown source')} on ${timeLabel(latest)}.`:'No current RSS item matched the Korean Peninsula filter.';
+	  const thinkLine=thinkLatest?`Newest direct Korea think tank item: ${refLink(thinkLatest,'Korean Peninsula think tank analysis')} from ${esc(thinkLatest.thinkTank||thinkLatest.source||'unknown source')} on ${timeLabel(thinkLatest)}.`:'No current think tank item matched the Korean Peninsula filter.';
+	  el.innerHTML=`<strong>Live cache:</strong> ${citedCount(articles.length,'Korea-relevant RSS articles',articles)} across ${sources} sources ${citationRef('Korea-relevant source list',articles)}; ${citedCount(think.length,'think tank matches',think)}; ${citedCount(indicatorArticles.length,'articles contain missile, nuclear, artillery, drone, launch, DMZ, USFK, or nuclear-site terms',indicatorArticles)}.<br>${latestLine}<br>${thinkLine}<div class="signal-row"><span class="signal-pill">Missile posture</span><span class="signal-pill">Cyber / space</span><span class="signal-pill">USFK / ROK</span><span class="signal-pill">Public warning</span><span class="signal-pill">Regional access</span></div>`;
 	}
 	async function loadFeed(){
   const [articleData, thinkData] = await Promise.all([
@@ -1145,6 +1187,12 @@ function renderList(id, articles, empty){
   document.getElementById('metric-articles').textContent=articles.length;
   document.getElementById('metric-sources').textContent=new Set(articles.map(a=>a.source).filter(Boolean)).size;
 	  document.getElementById('metric-thinktanks').textContent=think.length;
+	  const metricArticlesSub=document.getElementById('metric-articles-sub');
+	  const metricSourcesSub=document.getElementById('metric-sources-sub');
+	  const metricThinkSub=document.getElementById('metric-thinktanks-sub');
+	  if(metricArticlesSub) metricArticlesSub.innerHTML=`Korea-filtered reports ${citationRef('Korea article metric source set',articles)}`;
+	  if(metricSourcesSub) metricSourcesSub.innerHTML=`RSS / open-source feeds ${citationRef('Source metric article set',articles)}`;
+	  if(metricThinkSub) metricThinkSub.innerHTML=`regional analysis items ${citationRef('Think tank metric source set',think)}`;
 	  const stats=renderCurrentAssessment(articles,think);
 	  renderStrategicAssessment(articles,think);
 	  updateSectionNotes(articles,think,stats);
