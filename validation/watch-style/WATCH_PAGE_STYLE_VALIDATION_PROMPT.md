@@ -76,8 +76,12 @@ Every theater watch page should include, either as full sections or sidebar modu
 9. Confirm all article and think-tank titles referenced in analysis text are active links to the original material or source-search fallback.
 10. Confirm generated statements, category counts, status badges, likelihood rows, and operational notes include inline source/citation hover controls that list the specific region-filtered articles used for each claim.
 11. Confirm category-count citations are scoped to the matching article subset, not only a generic all-feed source list.
-12. Confirm theme and text-size settings propagate to the watch page by checking CSS variables from `/assets/user-style.js` or by visual comparison after applying a non-default style profile.
-13. After pushing to GitHub, wait the configured Cloudflare propagation interval, open the production page, repeat the screenshot validation, and summarize the findings in the final response.
+12. Confirm every citation count is internally consistent: visible `N` count text, citation chip count, `data-source-count`, and linked source rows in the overlay must all match.
+13. Confirm citation overlays open inward toward the center of the viewport, stay inside the viewport on desktop and mobile, and show scrollable overflow for long source lists.
+14. Confirm hidden overlay text does not leak into visible paragraphs and reject defects such as standalone comma lines, `, and`, duplicate commas, `and.`, `or.`, `Newest direct item: from`, raw HTML tags, or visible `source articles listed` text outside an opened overlay.
+15. Run `node scripts/validate-watch-citations.mjs <watch-page-url>` or an equivalent Browser DOM check for citation count equality, clipping, inward positioning, and rendered text defects.
+16. Confirm theme and text-size settings propagate to the watch page by checking CSS variables from `/assets/user-style.js` or by visual comparison after applying a non-default style profile.
+17. After pushing to GitHub, wait the configured Cloudflare propagation interval, open the production page, repeat the screenshot validation, and summarize the findings in the final response.
 
 ## Acceptance Standard
 

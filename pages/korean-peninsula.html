@@ -209,16 +209,20 @@ a:hover { text-decoration: underline; }
 .info-dot:hover .info-popover, .info-dot:focus .info-popover { display: block; }
 .citation-ref { position: relative; display: inline-flex; vertical-align: baseline; margin-left: 6px; }
 .citation-chip { display: inline-flex; align-items: center; gap: 4px; min-height: 20px; padding: 2px 7px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, var(--surface)); color: var(--accent); font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .78)); line-height: 1.2; letter-spacing: .08em; text-transform: uppercase; cursor: help; }
-.citation-popover { position: absolute; left: 0; top: calc(100% + 8px); z-index: 80; display: none; width: min(420px, 82vw); max-height: 340px; overflow: auto; padding: 12px; border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--surface); box-shadow: 0 18px 40px rgba(0,0,0,.28); color: var(--muted); font-family: var(--font-body); font-size: var(--cm-commentary-text-size, 12pt); line-height: 1.4; text-transform: none; letter-spacing: 0; }
-.citation-ref:hover .citation-popover, .citation-ref:focus-within .citation-popover { display: block; }
+.citation-popover { position: fixed; left: var(--citation-left, 16px); top: var(--citation-top, 16px); z-index: 4000; display: none; width: min(520px, calc(100vw - 32px)); max-height: min(440px, calc(100vh - 32px)); overflow: auto; overscroll-behavior: contain; padding: 12px; border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--surface); box-shadow: 0 18px 40px rgba(0,0,0,.38); color: var(--muted); font-family: var(--font-body); font-size: var(--cm-commentary-text-size, 12pt); line-height: 1.4; text-transform: none; letter-spacing: 0; }
+.citation-ref:hover .citation-popover, .citation-ref:focus-within .citation-popover, .citation-ref.is-active .citation-popover { display: block; }
 .citation-title { color: var(--text); font-family: var(--font-display); font-size: clamp(1rem, var(--cm-navigation-text-size, 16pt), 1.2rem); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.citation-note { display: block; margin: 0 0 8px; color: var(--muted); }
 .citation-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
-.citation-list li { margin: 0; padding: 0 0 8px; border-bottom: 1px solid var(--border); }
-.citation-list li:last-child { padding-bottom: 0; border-bottom: 0; }
+.citation-list li,
+.citation-source-row { display: block; margin: 0; padding: 0 0 8px; border-bottom: 1px solid var(--border); }
+.citation-list li:last-child,
+.citation-source-row:last-child { padding-bottom: 0; border-bottom: 0; }
 .citation-list a { color: var(--text); font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
 .citation-list a:hover { color: var(--accent); text-decoration: underline; }
 .citation-meta { display: block; margin-top: 3px; font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .82)); color: var(--faint); letter-spacing: .06em; text-transform: uppercase; }
-.citation-empty { color: var(--muted); }
+.citation-empty { display: block; color: var(--muted); }
+.citation-count { margin-top: 8px; font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .8)); color: var(--faint); letter-spacing: .06em; text-transform: uppercase; }
 .status-citation { margin-left: 4px; }
 .map-frame { position: relative; }
 .map-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
@@ -957,19 +961,48 @@ function refLink(a, fallback){
   return `<a href="${esc(articleHref(a, title))}" target="_blank" rel="noopener noreferrer"><strong>${esc(title)}</strong></a>`;
 }
 function searchLink(q){return `https://www.google.com/search?q=${encodeURIComponent(q)}`}
-function sourceArticles(articles, limit=6){
-  return [...new Map((articles||[]).filter(Boolean).map(a=>[articleHref(a, headline(a)), a])).values()].slice(0,limit);
+function sourceArticles(articles){
+  return (articles||[]).filter(Boolean);
 }
 function citationRef(label, articles, note=''){
-  const sources=sourceArticles(articles,6);
+  const sources=sourceArticles(articles);
   const safeLabel=esc(label);
   const list=sources.length
-    ? `<ul class="citation-list">${sources.map(a=>`<li><a href="${esc(articleHref(a, headline(a)))}" target="_blank" rel="noopener noreferrer">${esc(headline(a))}</a><span class="citation-meta">${esc(sourceName(a))} // ${timeLabel(a)}</span></li>`).join('')}</ul>`
-    : `<div class="citation-empty">No matching current source article was available for this claim.</div>`;
-  return `<span class="citation-ref" tabindex="0"><span class="citation-chip">src ${sources.length}</span><span class="citation-popover"><span class="citation-title">${safeLabel}</span>${note?`<p>${esc(note)}</p>`:''}${list}</span></span>`;
+    ? `<span class="citation-list">${sources.map(a=>`<span class="citation-source-row"><a href="${esc(articleHref(a, headline(a)))}" target="_blank" rel="noopener noreferrer">${esc(headline(a))}</a><span class="citation-meta">${esc(sourceName(a))} // ${timeLabel(a)}</span></span>`).join('')}</span>`
+    : `<span class="citation-empty">No matching current source article was available for this claim.</span>`;
+  return `<span class="citation-ref" tabindex="0" data-source-count="${sources.length}"><span class="citation-chip">src ${sources.length}</span><span class="citation-popover"><span class="citation-title">${safeLabel}</span>${note?`<span class="citation-note">${esc(note)}</span>`:''}${list}<span class="citation-count">${sources.length} source article${sources.length===1?'':'s'} listed</span></span></span>`;
 }
 function citedCount(count, label, articles, note=''){
   return `<span class="sourced-claim"><strong>${count}</strong> ${esc(label)}${citationRef(`${count} ${label}`, articles, note)}</span>`;
+}
+function positionCitation(ref){
+  const pop=ref?.querySelector('.citation-popover');
+  if(!ref||!pop) return;
+  ref.classList.add('is-active');
+  pop.style.setProperty('--citation-left','16px');
+  pop.style.setProperty('--citation-top','16px');
+  const margin=16;
+  const trigger=ref.getBoundingClientRect();
+  const width=Math.min(520, window.innerWidth - margin*2);
+  pop.style.width=`${width}px`;
+  const height=Math.min(pop.scrollHeight || 340, window.innerHeight - margin*2);
+  const opensRight=trigger.left < window.innerWidth/2;
+  let left=opensRight ? trigger.left : trigger.right - width;
+  left=Math.max(margin, Math.min(left, window.innerWidth - width - margin));
+  let top=trigger.bottom + 8;
+  if(top + height > window.innerHeight - margin) top=trigger.top - height - 8;
+  top=Math.max(margin, Math.min(top, window.innerHeight - height - margin));
+  pop.style.setProperty('--citation-left',`${left}px`);
+  pop.style.setProperty('--citation-top',`${top}px`);
+}
+function bindCitationPopovers(root=document){
+  root.querySelectorAll('.citation-ref').forEach(ref=>{
+    if(ref.dataset.boundCitation) return;
+    ref.dataset.boundCitation='true';
+    ['mouseenter','focus'].forEach(eventName=>ref.addEventListener(eventName,()=>positionCitation(ref)));
+    ref.addEventListener('mouseleave',()=>ref.classList.remove('is-active'));
+    ref.addEventListener('blur',()=>ref.classList.remove('is-active'));
+  });
 }
 function renderList(id, articles, empty){
   const el=document.getElementById(id);
@@ -1199,6 +1232,7 @@ function renderList(id, articles, empty){
 	  updateAssessmentNote(articles,think);
 	  renderSourceStack('current-source-links',articles,'No Korea referenced reporting found in the current cache.');
 	  renderList('article-feed',articles,'No Korean Peninsula RSS articles found in the current cache.');
+	  bindCitationPopovers(document);
 }
 document.getElementById('hero-ts').textContent = new Date().toLocaleString(undefined,{month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'});
 loadFeed();

@@ -19,6 +19,9 @@ Do not make code changes during this validation pass. Produce findings only.
 - Article titles, think-tank titles, and source references mentioned in assessment text must be active links to the referenced material or a source-search fallback.
 - Every generated count, status label, likelihood statement, and current-event analytical claim must include an inline source/citation hover or focus control that lists the specific region-filtered articles used for that claim.
 - Category counts must cite the matching category article set, not only the general feed. Example: missile/launch counts cite missile/launch-matching articles; nuclear counts cite nuclear-matching articles.
+- Citation count integrity is mandatory: when visible text says `N` articles or indicators, the adjacent citation chip, `data-source-count`, and number of linked rows in the overlay must all equal `N`.
+- Citation overlays must open inward toward the center of the viewport, use fixed positioning, remain inside the viewport on desktop and mobile, and expose scrollbars/scrollable overflow when the linked article list is taller than the overlay.
+- Hidden citation-overlay text must not leak into the visible paragraph flow. Reject rendered defects such as standalone comma lines, `, and`, duplicate commas, `and.`, `or.`, `Newest direct item: from`, raw HTML tags, or visible `source articles listed` text outside an opened overlay.
 - Weather & Sea State must include a current weather map/embed when the reference watch-page pattern includes one, and the map must be visible on desktop and mobile.
 - If the article API or cache is unavailable, the page must say the current feed is unavailable instead of rendering boilerplate as current analysis.
 - No known stale boilerplate phrases remain visible in rendered watch sections.
@@ -31,4 +34,5 @@ Do not make code changes during this validation pass. Produce findings only.
 - Screenshot paths for desktop and mobile.
 - DOM evidence showing dynamic containers were populated after feed load.
 - DOM evidence that source/citation hover controls exist for Strategic Brief, Current Regional Assessment, Weather & Sea State, Force Comparison, Situational Status, and live-cache notes.
+- Output from `node scripts/validate-watch-citations.mjs <watch-page-url>` or equivalent Browser DOM evidence covering citation count equality, inward overlay positioning, clipping, scrollability, and visible text-defect checks.
 - Any stale/static statement that appears to be presented as current analysis.

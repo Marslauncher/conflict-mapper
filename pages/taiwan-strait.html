@@ -257,6 +257,22 @@ html, body { min-height: 100%; background: var(--bg); color: var(--text); font-f
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+.citation-ref { position: relative; display: inline-flex; vertical-align: baseline; margin-left: 6px; }
+.citation-chip { display: inline-flex; align-items: center; gap: 4px; min-height: 20px; padding: 2px 7px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border-dim)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, var(--surface)); color: var(--accent); font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .78)); line-height: 1.2; letter-spacing: .08em; text-transform: uppercase; cursor: help; }
+.citation-popover { position: fixed; left: var(--citation-left, 16px); top: var(--citation-top, 16px); z-index: 4000; display: none; width: min(520px, calc(100vw - 32px)); max-height: min(440px, calc(100vh - 32px)); overflow: auto; overscroll-behavior: contain; padding: 12px; border: 1px solid var(--border-dim); border-radius: var(--radius); background: var(--surface); box-shadow: 0 18px 40px rgba(0,0,0,.38); color: var(--text-muted); font-family: var(--font-body); font-size: var(--cm-commentary-text-size, 12pt); line-height: 1.4; text-transform: none; letter-spacing: 0; }
+.citation-ref:hover .citation-popover, .citation-ref:focus-within .citation-popover, .citation-ref.is-active .citation-popover { display: block; }
+.citation-title { display: block; color: var(--text); font-family: var(--font-display); font-size: clamp(1rem, var(--cm-navigation-text-size, 16pt), 1.2rem); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.citation-note { display: block; margin: 0 0 8px; color: var(--text-muted); }
+.citation-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.citation-list li,
+.citation-source-row { display: block; margin: 0; padding: 0 0 8px; border-bottom: 1px solid var(--border-dim); }
+.citation-list li:last-child,
+.citation-source-row:last-child { padding-bottom: 0; border-bottom: 0; }
+.citation-list a { color: var(--text); font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
+.citation-list a:hover { color: var(--accent); text-decoration: underline; }
+.citation-meta { display: block; margin-top: 3px; font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .82)); color: var(--text-faint); letter-spacing: .06em; text-transform: uppercase; }
+.citation-empty { display: block; color: var(--text-muted); }
+.citation-count { display: block; margin-top: 8px; font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .8)); color: var(--text-faint); letter-spacing: .06em; text-transform: uppercase; }
 .section-assessment-note {
   margin: 0 0 16px;
   padding: 12px 14px;
@@ -1847,6 +1863,76 @@ function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+function articleTitle(article) {
+  return String(article?.title || 'Untitled source');
+}
+
+function articleHref(article, fallback) {
+  const raw = String(article?.link || article?.url || '').trim();
+  if (/^https?:\/\//i.test(raw)) return raw;
+  return searchLink(articleTitle(article) || fallback || 'Taiwan Strait reporting');
+}
+
+function articleSource(article) {
+  return article?.thinkTank || article?.source || 'Unknown source';
+}
+
+function articleDateLabel(article) {
+  const time = articleTime(article);
+  return time ? new Date(time).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'undated';
+}
+
+function sourceArticlesForCitation(articles) {
+  return (articles || []).filter(Boolean);
+}
+
+function citationRef(label, articles, note = '') {
+  const sources = sourceArticlesForCitation(articles);
+  const sourceList = sources.length
+    ? `<span class="citation-list">${sources.map(article => `<span class="citation-source-row"><a href="${escHtml(articleHref(article, articleTitle(article)))}" target="_blank" rel="noopener noreferrer">${escHtml(articleTitle(article))}</a><span class="citation-meta">${escHtml(articleSource(article))} // ${articleDateLabel(article)}</span></span>`).join('')}</span>`
+    : '<span class="citation-empty">No matching current source article was available for this claim.</span>';
+  return `<span class="citation-ref" tabindex="0" data-source-count="${sources.length}"><span class="citation-chip">src ${sources.length}</span><span class="citation-popover"><span class="citation-title">${escHtml(label)}</span>${note ? `<span class="citation-note">${escHtml(note)}</span>` : ''}${sourceList}<span class="citation-count">${sources.length} source article${sources.length === 1 ? '' : 's'} listed</span></span></span>`;
+}
+
+function citedCount(count, label, articles, note = '') {
+  return `<span class="sourced-claim"><strong>${count}</strong> ${escHtml(label)}${citationRef(`${count} ${label}`, articles, note)}</span>`;
+}
+
+function articlesMatchingTerms(articles, terms) {
+  return (articles || []).filter(article => terms.some(term => article.text.includes(term)));
+}
+
+function positionCitation(ref) {
+  const pop = ref?.querySelector('.citation-popover');
+  if (!ref || !pop) return;
+  ref.classList.add('is-active');
+  pop.style.setProperty('--citation-left', '16px');
+  pop.style.setProperty('--citation-top', '16px');
+  const margin = 16;
+  const trigger = ref.getBoundingClientRect();
+  const width = Math.min(520, window.innerWidth - margin * 2);
+  pop.style.width = `${width}px`;
+  const height = Math.min(pop.scrollHeight || 340, window.innerHeight - margin * 2);
+  const opensRight = trigger.left < window.innerWidth / 2;
+  let left = opensRight ? trigger.left : trigger.right - width;
+  left = Math.max(margin, Math.min(left, window.innerWidth - width - margin));
+  let top = trigger.bottom + 8;
+  if (top + height > window.innerHeight - margin) top = trigger.top - height - 8;
+  top = Math.max(margin, Math.min(top, window.innerHeight - height - margin));
+  pop.style.setProperty('--citation-left', `${left}px`);
+  pop.style.setProperty('--citation-top', `${top}px`);
+}
+
+function bindCitationPopovers(root = document) {
+  root.querySelectorAll('.citation-ref').forEach(ref => {
+    if (ref.dataset.boundCitation) return;
+    ref.dataset.boundCitation = 'true';
+    ['mouseenter', 'focus'].forEach(eventName => ref.addEventListener(eventName, () => positionCitation(ref)));
+    ref.addEventListener('mouseleave', () => ref.classList.remove('is-active'));
+    ref.addEventListener('blur', () => ref.classList.remove('is-active'));
+  });
+}
+
 function timeAgoStr(date) {
   const diff = Math.floor((new Date() - date) / 1000);
   if (diff < 60) return 'just now';
@@ -1873,12 +1959,13 @@ function applyLiveArticleSignals(articles) {
   const thirtyDaysAgo = now - 30 * 86400000;
   const recent30 = normalized.filter(article => article.time >= thirtyDaysAgo);
   const signalWindow = recent30.length ? recent30 : normalized.slice(0, 50);
-  const alert24 = normalized.filter(article => article.time >= dayAgo).length || Math.min(normalized.length, 24);
+  const recent24 = normalized.filter(article => article.time >= dayAgo);
+  const alert24 = recent24.length || Math.min(normalized.length, 24);
   updateMetric('metric-pla-sorties', keywordCount(signalWindow, ['pla', "people's liberation army", 'china military', 'chinese military', 'exercise', 'beijing', 'china']));
   updateMetric('metric-adiz-incursions', keywordCount(signalWindow, ['adiz', 'median line', 'airspace', 'incursion', 'sortie', 'taiwan strait', 'cross-strait']));
   updateMetric('metric-plan-vessels', keywordCount(signalWindow, ['plan ', 'navy', 'naval', 'vessel', 'ship', 'carrier', 'strait', 'luzon', 'philippine sea']));
   updateMetric('metric-alert-events', alert24);
-  updateSectionNotes(signalWindow, alert24);
+  updateSectionNotes(signalWindow, recent24);
 }
 
 function keywordCount(articles, keywords) {
@@ -1894,16 +1981,21 @@ function countSignals(articles, terms) {
   return keywordCount(articles, terms);
 }
 
-function updateSectionNotes(recent30, alert24) {
+function updateSectionNotes(recent30, recent24) {
+  const alert24 = recent24.length;
   const military = countSignals(recent30, SIGNAL_TERMS.military);
   const diplomatic = countSignals(recent30, SIGNAL_TERMS.diplomatic);
   const economic = countSignals(recent30, SIGNAL_TERMS.economic);
   const cyber = countSignals(recent30, SIGNAL_TERMS.cyber);
-  setText('map-assessment-note', `<strong>Map assessment:</strong> ${military} recent military/naval/air articles are being tracked against fixed infrastructure. Treat the map as baseline geography plus alert context, not live unit telemetry.`);
-  setText('weather-assessment-note', `<strong>Weather assessment:</strong> Current weather and sea state remain tactical constraints; ${alert24} Taiwan/China-relevant feed items landed in the last 24 hours, so weather should be correlated with actual mobilization reporting before raising risk.`);
-  setText('tide-assessment-note', `<strong>Tide assessment:</strong> April 2026 is removed from active planning windows. Remaining future windows are tactical feasibility periods, with likelihood still governed primarily by logistics, missile, naval, cyber, and political-warning indicators.`);
-  setText('forces-assessment-note', `<strong>Force assessment:</strong> Baseline force balance still favors PLA mass and missile inventory; live feed signals currently show ${military} military, ${cyber} cyber/infrastructure, and ${economic} economic/technology items relevant to the theater.`);
-  setText('strategy-assessment-note', `<strong>Strategic brief:</strong> The watch posture remains elevated but not invasion-imminent unless multiple signals converge: exercises, exclusion zones, reserves, port activity, ADIZ pressure, cyber activity, sanctions, and allied naval repositioning. Current diplomatic/economic signal count: ${diplomatic + economic}.`);
+  const militaryArticles = articlesMatchingTerms(recent30, SIGNAL_TERMS.military);
+  const diplomaticArticles = articlesMatchingTerms(recent30, SIGNAL_TERMS.diplomatic);
+  const economicArticles = articlesMatchingTerms(recent30, SIGNAL_TERMS.economic);
+  const cyberArticles = articlesMatchingTerms(recent30, SIGNAL_TERMS.cyber);
+  setText('map-assessment-note', `<strong>Map assessment:</strong> ${citedCount(military, 'recent military/naval/air articles are being tracked against fixed infrastructure', militaryArticles, 'Current 30-day theater-filtered military, naval, air, exercise, and ADIZ matches')}. Treat the map as baseline geography plus alert context, not live unit telemetry ${citationRef('Map context source basis', recent30)}.`);
+  setText('weather-assessment-note', `<strong>Weather assessment:</strong> Current weather and sea state remain tactical constraints; ${citedCount(alert24, 'Taiwan/China-relevant feed items landed in the last 24 hours', recent24, 'Most recent region-filtered articles inside the 24-hour window')}, so weather should be correlated with actual mobilization reporting before raising risk ${citationRef('Weather-operational correlation source basis', [...militaryArticles, ...cyberArticles])}.`);
+  setText('tide-assessment-note', `<strong>Tide assessment:</strong> April 2026 is removed from active planning windows. Remaining future windows are tactical feasibility periods, with likelihood still governed primarily by logistics, missile, naval, cyber, and political-warning indicators ${citationRef('Planning-window source basis', [...militaryArticles, ...cyberArticles, ...diplomaticArticles])}.`);
+  setText('forces-assessment-note', `<strong>Force assessment:</strong> Baseline force balance still favors PLA mass and missile inventory; live feed signals currently show ${citedCount(military, 'military indicators', militaryArticles)}, ${citedCount(cyber, 'cyber/infrastructure indicators', cyberArticles)}, and ${citedCount(economic, 'economic/technology items relevant to the theater', economicArticles)}.`);
+  setText('strategy-assessment-note', `<strong>Strategic brief:</strong> The watch posture remains elevated but not invasion-imminent unless multiple signals converge: exercises, exclusion zones, reserves, port activity, ADIZ pressure, cyber activity, sanctions, and allied naval repositioning ${citationRef('Convergence source basis', [...militaryArticles, ...cyberArticles, ...diplomaticArticles, ...economicArticles])}. Current diplomatic/economic signal count: ${citedCount(diplomatic + economic, 'diplomatic/economic indicators', [...diplomaticArticles, ...economicArticles])}.`);
 }
 
 function setText(id, html) {
@@ -1930,37 +2022,39 @@ function renderSourceLinks(containerId, articles, emptyText) {
 }
 
 function renderCurrentAssessment(articles, thinkTankArticles) {
-  const sourceArticles = chinaTaiwanTheaterArticles(articles);
+  const reportingArticles = chinaTaiwanTheaterArticles(articles);
   const sourceThinkTankArticles = thinkTankArticles
     .filter(article => isTaiwanThinkTankRelevant(article) && isChinaTaiwanTheaterRelevant(article))
     .sort(sortByArticleDate);
   const recent30 = articles.filter(article => articleTime(article) >= Date.now() - 30 * 86400000);
   const recent24 = articles.filter(article => articleTime(article) >= Date.now() - 86400000);
-  const military = countSignals(recent30.map(toSignalArticle), SIGNAL_TERMS.military);
-  const diplomatic = countSignals(recent30.map(toSignalArticle), SIGNAL_TERMS.diplomatic);
-  const economic = countSignals(recent30.map(toSignalArticle), SIGNAL_TERMS.economic);
-  const cyber = countSignals(recent30.map(toSignalArticle), SIGNAL_TERMS.cyber);
+  const signalArticles = recent30.map(toSignalArticle);
+  const militaryArticles = articlesMatchingTerms(signalArticles, SIGNAL_TERMS.military);
+  const diplomaticArticles = articlesMatchingTerms(signalArticles, SIGNAL_TERMS.diplomatic);
+  const economicArticles = articlesMatchingTerms(signalArticles, SIGNAL_TERMS.economic);
+  const cyberArticles = articlesMatchingTerms(signalArticles, SIGNAL_TERMS.cyber);
+  const military = militaryArticles.length;
+  const diplomatic = diplomaticArticles.length;
+  const economic = economicArticles.length;
+  const cyber = cyberArticles.length;
+  const latest = reportingArticles[0] || articles[0] || {};
   const summary = document.getElementById('current-summary');
   if (summary) {
-    summary.innerHTML = `<p class="assessment-wide"><strong>Summary:</strong> The current Taiwan Strait posture remains elevated, but the loaded RSS cache does not show an invasion-imminent pattern. Reporting is now filtered to China, Taiwan, Asia-Pacific, Indo-Pacific, and adjacent first-island-chain terms before it can appear in this panel, so unrelated global conflict items do not drive the watch picture.</p>
-      <p><strong>Current threat assessment:</strong> Monitor for convergence. A single article about exercises, arms transfers, sanctions, ADIZ activity, semiconductors, or allied naval movement is not enough to raise the watch state. Risk increases materially when military, maritime, cyber, logistics, diplomatic, and economic coercion signals cluster across multiple independent sources in a compressed time window.</p>
-      <p><strong>Military indicators:</strong> Priority indicators are PLA Eastern Theater Command activity, missile-force readiness, amphibious shipping, reserve mobilization, maritime exclusion zones, ADIZ or median-line pressure, and unusual logistics at Fujian or adjacent ports. Routine exercise reporting stays at background level unless paired with air-defense suppression, port loading, missile dispersal, or maritime interdiction signals.</p>
-      <p><strong>Maritime and air picture:</strong> The watch page treats PLAN surface action group movement, coast guard pressure, gray-zone maritime activity, and sustained air sorties as early pressure markers. They become more serious when paired with declared exercise boxes, civilian shipping disruption, airspace closures, or evidence that Taiwan and allied forces are changing readiness posture in response.</p>
-      <p><strong>Political indicators:</strong> Diplomatic channel degradation, sanctions language, cross-strait hotline suspension, consular warnings, leadership rhetoric, emergency legislative sessions, or unusual civil-defense messaging can raise warning confidence. Political signals are most useful when they precede or explain measurable force posture changes rather than appearing as isolated messaging.</p>
-      <p><strong>Economic and technology indicators:</strong> Semiconductor supply-chain pressure, export controls, trade coercion, insurance-rate movement, shipping-route disruption, and financial-market stress are supporting signals. They may indicate coercive pressure, blockade rehearsal, or gray-zone escalation even when kinetic military indicators remain below invasion-warning thresholds.</p>
-      <p><strong>Cyber and infrastructure indicators:</strong> Elevated watch conditions require attention to telecom disruption, satellite or undersea-cable reporting, port and railway outages, coordinated influence operations, and cyber activity against Taiwan government, defense, energy, logistics, and media systems. These indicators matter most when synchronized with military exercise cycles or coercive diplomatic deadlines.</p>
-      <p><strong>Analyst note:</strong> Remaining 2026-2027 planning windows are feasibility periods, not forecasts. The base case remains coercion, blockade rehearsal, gray-zone pressure, and signaling unless future reporting shows sustained mobilization and operational preparations that would be difficult to conceal.</p>`;
+    summary.innerHTML = `<p class="assessment-wide"><strong>Current feed basis:</strong> This assessment is generated from ${citedCount(recent24.length, 'Taiwan/China/Indo-Pacific-relevant articles in the last 24 hours', recent24, 'Most recent region-filtered articles inside the 24-hour window')} and ${citedCount(recent30.length, 'articles in the last 30 days', recent30, 'Current source set used for signal scoring')}. Newest direct item: <a href="${escHtml(articleHref(latest, 'Taiwan Strait current report'))}" target="_blank" rel="noopener noreferrer"><strong>${escHtml(articleTitle(latest))}</strong></a> from ${escHtml(articleSource(latest))} on ${articleDateLabel(latest)}.</p>
+      <p><strong>Current threat read:</strong> The current cache contains ${citedCount(military, 'military or maritime indicators', militaryArticles)}, ${citedCount(cyber, 'cyber/infrastructure indicators', cyberArticles)}, and ${citedCount(diplomatic + economic, 'political/economic pressure indicators', [...diplomaticArticles, ...economicArticles])}. The page raises concern only when these categories converge across current sources ${citationRef('Convergence source set', [...militaryArticles, ...cyberArticles, ...diplomaticArticles, ...economicArticles])}.</p>
+      <p><strong>Military and maritime picture:</strong> Current military scoring is tied to articles mentioning PLA activity, exercises, ADIZ pressure, naval movement, missile posture, or maritime controls ${citationRef('Military and maritime source articles', militaryArticles)}. Routine exercise reporting remains background unless paired with logistics, air-defense, port, cyber, or civilian-traffic disruption signals.</p>
+      <p><strong>Political, economic, and cyber picture:</strong> Diplomatic channel stress, sanctions, semiconductor pressure, shipping-route disruption, telecom/cable reporting, and cyber activity are treated as supporting signals only when current articles connect them to cross-strait pressure or allied readiness changes ${citationRef('Political, economic, and cyber source articles', [...diplomaticArticles, ...economicArticles, ...cyberArticles])}.</p>`;
   }
   const analysis = document.getElementById('current-analysis');
   if (analysis) {
     analysis.innerHTML = [
-      `${recent24.length} Taiwan/China/Indo-Pacific-relevant articles were found in the last 24 hours from the loaded article cache.`,
-      `${military} military or maritime indicators were found in the last 30 days; current scoring remains an alerting aid, not an order-of-battle confirmation.`,
-      `${diplomatic + economic} diplomatic, sanctions, trade, technology, or economic-coercion indicators were found in the same window.`,
-      `${sourceThinkTankArticles.length} recent think tank articles or Google News think-tank hits matched direct Taiwan Strait, cross-strait, or Indo-Pacific deterrence terms.`
-    ].map(text => `<div class="assessment-summary-item">${escHtml(text)}</div>`).join('');
+      `${citedCount(recent24.length, 'Taiwan/China/Indo-Pacific-relevant articles were found in the last 24 hours', recent24)} from the loaded article cache.`,
+      `${citedCount(military, 'military or maritime indicators were found in the last 30 days', militaryArticles)}; current scoring remains an alerting aid, not an order-of-battle confirmation.`,
+      `${citedCount(diplomatic + economic, 'diplomatic, sanctions, trade, technology, or economic-coercion indicators were found in the same window', [...diplomaticArticles, ...economicArticles])}.`,
+      `${citedCount(sourceThinkTankArticles.length, 'recent think tank articles or Google News think-tank hits matched direct Taiwan Strait, cross-strait, or Indo-Pacific deterrence terms', sourceThinkTankArticles)}.`
+    ].map(text => `<div class="assessment-summary-item">${text}</div>`).join('');
   }
-  renderSourceLinks('current-source-links', sourceArticles, 'No direct Taiwan Strait live reporting found.');
+  renderSourceLinks('current-source-links', reportingArticles, 'No direct Taiwan Strait live reporting found.');
   renderSourceLinks('think-tank-source-links', sourceThinkTankArticles, 'No recent think tank coverage matched direct Taiwan Strait terms.');
 }
 
@@ -1983,12 +2077,19 @@ function renderStrategicAssessment(articles, thinkTankArticles) {
   const recent7 = articles.filter(article => articleTime(article) >= now - 7 * 86400000);
   const recent30 = articles.filter(article => articleTime(article) >= now - 30 * 86400000);
   const signalArticles = recent30.map(toSignalArticle);
-  const military = countSignals(signalArticles, SIGNAL_TERMS.military);
-  const diplomatic = countSignals(signalArticles, SIGNAL_TERMS.diplomatic);
-  const economic = countSignals(signalArticles, SIGNAL_TERMS.economic);
-  const cyber = countSignals(signalArticles, SIGNAL_TERMS.cyber);
+  const militaryArticles = articlesMatchingTerms(signalArticles, SIGNAL_TERMS.military);
+  const diplomaticArticles = articlesMatchingTerms(signalArticles, SIGNAL_TERMS.diplomatic);
+  const economicArticles = articlesMatchingTerms(signalArticles, SIGNAL_TERMS.economic);
+  const cyberArticles = articlesMatchingTerms(signalArticles, SIGNAL_TERMS.cyber);
+  const military = militaryArticles.length;
+  const diplomatic = diplomaticArticles.length;
+  const economic = economicArticles.length;
+  const cyber = cyberArticles.length;
   const likelihood = escalationLikelihoodFromSignals({ recent24, recent7, military, diplomatic, economic, cyber });
   const topSource = articles.find(isChinaTaiwanTheaterRelevant) || articles[0] || {};
+  const thinkTankSources = thinkTankArticles
+    .filter(article => isTaiwanThinkTankRelevant(article) && isChinaTaiwanTheaterRelevant(article))
+    .sort(sortByArticleDate);
   const thinkTankTop = thinkTankArticles.find(article => isTaiwanThinkTankRelevant(article) && isChinaTaiwanTheaterRelevant(article)) || thinkTankArticles[0] || {};
   const sourceLink = topSource.link || topSource.url || searchLink(topSource.title || 'Taiwan Strait security assessment');
   const thinkTankLink = thinkTankTop.link || thinkTankTop.url || searchLink(thinkTankTop.title || 'Taiwan Strait think tank analysis');
@@ -2001,8 +2102,8 @@ function renderStrategicAssessment(articles, thinkTankArticles) {
         <div class="assessment-title" style="color:#f87171">Current Assessment</div>
       </div>
       <div class="assessment-body">
-        <div class="assessment-item"><div class="assessment-dot"></div><div>The filtered cache contains ${recent24.length} directly relevant Taiwan, China, Asia-Pacific, or first-island-chain articles in the last 24 hours and ${recent7.length} over the last 7 days.</div></div>
-        <div class="assessment-item"><div class="assessment-dot amber"></div><div>The current posture remains elevated, but the live feed does not by itself show an invasion-imminent convergence pattern. Routine coercion, blockade rehearsal, cyber pressure, semiconductor competition, and allied posture reporting should be treated as warning context until multiple independent indicators cluster.</div></div>
+        <div class="assessment-item"><div class="assessment-dot"></div><div>The filtered cache contains ${citedCount(recent24.length, 'directly relevant Taiwan, China, Asia-Pacific, or first-island-chain articles in the last 24 hours', recent24)} and ${citedCount(recent7.length, 'over the last 7 days', recent7)}.</div></div>
+        <div class="assessment-item"><div class="assessment-dot amber"></div><div>The current posture remains elevated, but the live feed does not by itself show an invasion-imminent convergence pattern ${citationRef('Convergence indicator source set', [...militaryArticles, ...cyberArticles, ...diplomaticArticles, ...economicArticles])}. Routine coercion, blockade rehearsal, cyber pressure, semiconductor competition, and allied posture reporting should be treated as warning context until multiple independent indicators cluster.</div></div>
         <div class="assessment-item"><div class="assessment-dot"></div><div><a href="${escHtml(sourceLink)}" target="_blank" rel="noopener noreferrer">${escHtml(topSource.title || 'Open current Taiwan Strait source search')}</a></div></div>
       </div>
     </div>
@@ -2014,9 +2115,9 @@ function renderStrategicAssessment(articles, thinkTankArticles) {
         <div class="assessment-title" style="color:#60a5fa">Things To Note</div>
       </div>
       <div class="assessment-body">
-        <div class="assessment-item"><div class="assessment-dot blue"></div><div>${military} military, naval, air, missile, exercise, or ADIZ-related indicators were detected in the 30-day relevant cache.</div></div>
-        <div class="assessment-item"><div class="assessment-dot blue"></div><div>${diplomatic + economic} diplomatic, sanctions, trade, technology, semiconductor, or economic-coercion indicators were detected in the same window.</div></div>
-        <div class="assessment-item"><div class="assessment-dot blue"></div><div>Recent think tank coverage is used as context, not as a live order-of-battle source. ${thinkTankTop.title ? `<a href="${escHtml(thinkTankLink)}" target="_blank" rel="noopener noreferrer">${escHtml(thinkTankTop.title)}</a>` : 'No direct think tank article matched the current filter.'}</div></div>
+        <div class="assessment-item"><div class="assessment-dot blue"></div><div>${citedCount(military, 'military, naval, air, missile, exercise, or ADIZ-related indicators were detected in the 30-day relevant cache', militaryArticles)}.</div></div>
+        <div class="assessment-item"><div class="assessment-dot blue"></div><div>${citedCount(diplomatic + economic, 'diplomatic, sanctions, trade, technology, semiconductor, or economic-coercion indicators were detected in the same window', [...diplomaticArticles, ...economicArticles])}.</div></div>
+        <div class="assessment-item"><div class="assessment-dot blue"></div><div>Recent think tank coverage is used as context, not as a live order-of-battle source ${citationRef('Think tank context source set', thinkTankSources)}. ${thinkTankTop.title ? `<a href="${escHtml(thinkTankLink)}" target="_blank" rel="noopener noreferrer">${escHtml(thinkTankTop.title)}</a>` : 'No direct think tank article matched the current filter.'}</div></div>
       </div>
     </div>
     <div class="assessment-card">
@@ -2027,9 +2128,9 @@ function renderStrategicAssessment(articles, thinkTankArticles) {
         <div class="assessment-title" style="color:var(--amber)">Things To Watch</div>
       </div>
       <div class="assessment-body">
-        <div class="assessment-item"><div class="assessment-dot amber"></div><div>Exercise activity that changes civilian shipping, declared exclusion zones, port access, aviation routes, or allied readiness is more important than a routine sortie count.</div></div>
-        <div class="assessment-item"><div class="assessment-dot amber"></div><div>Warning confidence rises if cyber, maritime, missile, reserve, logistics, diplomatic, and economic-coercion indicators appear together in a compressed window.</div></div>
-        <div class="assessment-item"><div class="assessment-dot amber"></div><div>Semiconductor, shipping-insurance, undersea-cable, and financial-market stress can signal blockade or quarantine pressure even without landing preparations.</div></div>
+        <div class="assessment-item"><div class="assessment-dot amber"></div><div>Exercise activity that changes civilian shipping, declared exclusion zones, port access, aviation routes, or allied readiness is more important than a routine sortie count ${citationRef('Exercise and access source articles', militaryArticles)}.</div></div>
+        <div class="assessment-item"><div class="assessment-dot amber"></div><div>Warning confidence rises if cyber, maritime, missile, reserve, logistics, diplomatic, and economic-coercion indicators appear together in a compressed window ${citationRef('Cross-domain warning source articles', [...militaryArticles, ...cyberArticles, ...diplomaticArticles, ...economicArticles])}.</div></div>
+        <div class="assessment-item"><div class="assessment-dot amber"></div><div>Semiconductor, shipping-insurance, undersea-cable, and financial-market stress can signal blockade or quarantine pressure even without landing preparations ${citationRef('Economic and infrastructure pressure source articles', [...economicArticles, ...cyberArticles])}.</div></div>
       </div>
     </div>
     <div class="assessment-card">
@@ -2040,9 +2141,9 @@ function renderStrategicAssessment(articles, thinkTankArticles) {
         <div class="assessment-title" style="color:var(--green)">Escalation Likelihood</div>
       </div>
       <div class="assessment-body">
-        <div class="assessment-item"><div class="assessment-dot green"></div><div><strong>Next 24 hours:</strong> ${likelihood.day}% likelihood of material escalation above current coercive baseline, based on current relevant article volume and indicator mix.</div></div>
-        <div class="assessment-item"><div class="assessment-dot green"></div><div><strong>Next 7 days:</strong> ${likelihood.week}% likelihood, with the primary watch items being exercise-to-crisis conversion, cyber activity, and maritime or airspace restrictions.</div></div>
-        <div class="assessment-item"><div class="assessment-dot green"></div><div><strong>Next 1 month:</strong> ${likelihood.month}% likelihood, reflecting cumulative pressure risk rather than a forecast of invasion. The base case remains coercion unless logistics and mobilization indicators converge.</div></div>
+        <div class="assessment-item"><div class="assessment-dot green"></div><div><strong>Next 24 hours:</strong> ${likelihood.day}% likelihood of material escalation above current coercive baseline, based on current relevant article volume ${citationRef('24-hour source volume', recent24)} and indicator mix ${citationRef('30-day indicator source mix', recent30)}.</div></div>
+        <div class="assessment-item"><div class="assessment-dot green"></div><div><strong>Next 7 days:</strong> ${likelihood.week}% likelihood, with the primary watch items being exercise-to-crisis conversion, cyber activity, and maritime or airspace restrictions ${citationRef('7-day source volume', recent7)}.</div></div>
+        <div class="assessment-item"><div class="assessment-dot green"></div><div><strong>Next 1 month:</strong> ${likelihood.month}% likelihood, reflecting cumulative pressure risk rather than a forecast of invasion. The base case remains coercion unless logistics and mobilization indicators converge ${citationRef('30-day cumulative source set', recent30)}.</div></div>
       </div>
     </div>
   `;
@@ -2094,6 +2195,7 @@ async function refreshFeed() {
     applyLiveArticleSignals(mapped);
     renderCurrentAssessment(mapped, thinkTankRelevant);
     renderStrategicAssessment(mapped, thinkTankRelevant);
+    bindCitationPopovers(document);
   } catch(e) {
     const fallback = [{
       title: 'Live article cache unavailable - Taiwan Strait watch remains in monitoring mode',
@@ -2106,6 +2208,7 @@ async function refreshFeed() {
     applyLiveArticleSignals(fallback);
     renderCurrentAssessment(fallback, []);
     renderStrategicAssessment(fallback, []);
+    bindCitationPopovers(document);
   }
 }
 

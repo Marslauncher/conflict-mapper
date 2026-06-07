@@ -284,6 +284,20 @@ a:hover { text-decoration: underline; }
 .source-stack { display: grid; gap: 10px; }
 .source-card { padding: 12px; color: var(--muted); }
 .source-meta { color: var(--faint); font-size: var(--cm-side-menu-text-size, 10pt); margin-bottom: 8px; }
+.citation-ref { position: relative; display: inline-flex; vertical-align: baseline; margin-left: 6px; }
+.citation-chip { display: inline-flex; align-items: center; gap: 4px; min-height: 20px; padding: 2px 7px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, var(--surface)); color: var(--accent); font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .78)); line-height: 1.2; letter-spacing: .08em; text-transform: uppercase; cursor: help; }
+.citation-popover { position: fixed; left: var(--citation-left, 16px); top: var(--citation-top, 16px); z-index: 4000; display: none; width: min(520px, calc(100vw - 32px)); max-height: min(440px, calc(100vh - 32px)); overflow: auto; overscroll-behavior: contain; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: 0 18px 40px rgba(0,0,0,.38); color: var(--muted); font-family: var(--font-body); font-size: var(--cm-commentary-text-size, 12pt); line-height: 1.4; text-transform: none; letter-spacing: 0; }
+.citation-ref:hover .citation-popover, .citation-ref:focus-within .citation-popover, .citation-ref.is-active .citation-popover { display: block; }
+.citation-title { display: block; color: var(--text); font-family: var(--font-display); font-size: clamp(1rem, var(--cm-navigation-text-size, 16pt), 1.2rem); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.citation-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.citation-list li,
+.citation-source-row { display: block; margin: 0; padding: 0 0 8px; border-bottom: 1px solid var(--border); }
+.citation-list li:last-child,
+.citation-source-row:last-child { padding-bottom: 0; border-bottom: 0; }
+.citation-list a { color: var(--text); font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
+.citation-list a:hover { color: var(--accent); text-decoration: underline; }
+.citation-meta { display: block; margin-top: 3px; font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .82)); color: var(--faint); letter-spacing: .06em; text-transform: uppercase; }
+.citation-count { display: block; margin-top: 8px; font-family: var(--font-mono); font-size: max(10px, calc(var(--cm-commentary-text-size, 12pt) * .8)); color: var(--faint); letter-spacing: .06em; text-transform: uppercase; }
 .map-placeholder {
   min-height: 460px;
   display: grid;
@@ -408,6 +422,7 @@ a:hover { text-decoration: underline; }
       <div class="card">
         <div class="card-header"><div class="card-title">Assessment Narrative</div></div>
         <div class="card-body">
+          <p>Source-backed statement placeholder <span class="citation-ref" tabindex="0" data-source-count="2"><span class="citation-chip">src 2</span><span class="citation-popover"><span class="citation-title">Template citation source set</span><span class="citation-list"><span class="citation-source-row"><a href="https://example.com/source-placeholder-1" target="_blank" rel="noopener noreferrer">Template source placeholder one</a><span class="citation-meta">Source placeholder // undated</span></span><span class="citation-source-row"><a href="https://example.com/source-placeholder-2" target="_blank" rel="noopener noreferrer">Template source placeholder two</a><span class="citation-meta">Source placeholder // undated</span></span></span><span class="citation-count">2 source articles listed</span></span></span></p>
           <ul class="skeleton-list">
             <li><span class="skeleton-line long"></span><span class="skeleton-line long"></span><span class="skeleton-line mid"></span></li>
             <li><span class="skeleton-line long"></span><span class="skeleton-line mid"></span></li>
@@ -489,12 +504,46 @@ a:hover { text-decoration: underline; }
   <section class="page-section" id="section-current-assessment-cards" data-section="07" data-title="Current Assessment Card Modules">
     <div class="section-title">Current Assessment</div>
     <div class="template-card-grid">
-      <div class="template-panel"><div class="card-title">Things To Note</div><span class="skeleton-line long"></span><span class="skeleton-line mid"></span></div>
-      <div class="template-panel"><div class="card-title">Things To Watch</div><span class="skeleton-line long"></span><span class="skeleton-line short"></span></div>
-      <div class="template-panel"><div class="card-title">Escalation Likelihood</div><span class="skeleton-line mid"></span><span class="skeleton-line long"></span></div>
+      <div class="template-panel"><div class="card-title">Things To Note</div><span class="skeleton-line long"></span><span class="skeleton-line mid"></span><span class="citation-ref" tabindex="0" data-source-count="1"><span class="citation-chip">src 1</span><span class="citation-popover"><span class="citation-title">Template note source set</span><span class="citation-list"><span class="citation-source-row"><a href="https://example.com/note-source-placeholder" target="_blank" rel="noopener noreferrer">Template note source placeholder</a><span class="citation-meta">Source placeholder // undated</span></span></span><span class="citation-count">1 source article listed</span></span></span></div>
+      <div class="template-panel"><div class="card-title">Things To Watch</div><span class="skeleton-line long"></span><span class="skeleton-line short"></span><span class="citation-ref" tabindex="0" data-source-count="1"><span class="citation-chip">src 1</span><span class="citation-popover"><span class="citation-title">Template watch source set</span><span class="citation-list"><span class="citation-source-row"><a href="https://example.com/watch-source-placeholder" target="_blank" rel="noopener noreferrer">Template watch source placeholder</a><span class="citation-meta">Source placeholder // undated</span></span></span><span class="citation-count">1 source article listed</span></span></span></div>
+      <div class="template-panel"><div class="card-title">Escalation Likelihood</div><span class="skeleton-line mid"></span><span class="skeleton-line long"></span><span class="citation-ref" tabindex="0" data-source-count="1"><span class="citation-chip">src 1</span><span class="citation-popover"><span class="citation-title">Template likelihood source set</span><span class="citation-list"><span class="citation-source-row"><a href="https://example.com/likelihood-source-placeholder" target="_blank" rel="noopener noreferrer">Template likelihood source placeholder</a><span class="citation-meta">Source placeholder // undated</span></span></span><span class="citation-count">1 source article listed</span></span></span></div>
       <div class="template-panel"><div class="card-title">Template Notes</div><span class="skeleton-line long"></span><span class="skeleton-line mid"></span></div>
     </div>
   </section>
 </main>
+<script>
+function positionCitation(ref) {
+  const pop = ref?.querySelector('.citation-popover');
+  if (!ref || !pop) return;
+  ref.classList.add('is-active');
+  pop.style.setProperty('--citation-left', '16px');
+  pop.style.setProperty('--citation-top', '16px');
+  const margin = 16;
+  const trigger = ref.getBoundingClientRect();
+  const width = Math.min(520, window.innerWidth - margin * 2);
+  pop.style.width = `${width}px`;
+  const height = Math.min(pop.scrollHeight || 340, window.innerHeight - margin * 2);
+  const opensRight = trigger.left < window.innerWidth / 2;
+  let left = opensRight ? trigger.left : trigger.right - width;
+  left = Math.max(margin, Math.min(left, window.innerWidth - width - margin));
+  let top = trigger.bottom + 8;
+  if (top + height > window.innerHeight - margin) top = trigger.top - height - 8;
+  top = Math.max(margin, Math.min(top, window.innerHeight - height - margin));
+  pop.style.setProperty('--citation-left', `${left}px`);
+  pop.style.setProperty('--citation-top', `${top}px`);
+}
+
+function bindCitationPopovers(root = document) {
+  root.querySelectorAll('.citation-ref').forEach(ref => {
+    if (ref.dataset.boundCitation) return;
+    ref.dataset.boundCitation = 'true';
+    ['mouseenter', 'focus'].forEach(eventName => ref.addEventListener(eventName, () => positionCitation(ref)));
+    ref.addEventListener('mouseleave', () => ref.classList.remove('is-active'));
+    ref.addEventListener('blur', () => ref.classList.remove('is-active'));
+  });
+}
+
+bindCitationPopovers(document);
+</script>
 </body>
 </html>
