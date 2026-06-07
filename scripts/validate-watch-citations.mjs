@@ -137,6 +137,12 @@ try {
       const style = getComputedStyle(pop);
       const viewport = { width: innerWidth, height: innerHeight };
       const offscreen = rect.left < 0 || rect.top < 0 || rect.right > viewport.width || rect.bottom > viewport.height;
+      const boundary = ref.closest('.card, .current-assessment-card, .page-section');
+      const boundaryRect = boundary?.getBoundingClientRect();
+      const hasUsableBoundary = boundaryRect && boundaryRect.width >= Math.min(460, viewport.width - 32);
+      const insideBoundary = hasUsableBoundary
+        ? rect.left >= boundaryRect.left + 8 && rect.right <= boundaryRect.right - 8
+        : true;
       const scrollable = pop.scrollHeight > pop.clientHeight ? ['auto', 'scroll'].includes(style.overflowY) : true;
       const margin = 16;
       const minHeight = Math.min(140, Math.max(80, viewport.height - margin * 2));
@@ -159,14 +165,15 @@ try {
       const fullWidthMobile = viewport.width <= 480 && rect.left >= 0 && rect.right <= viewport.width;
       const opensInward = fullWidthMobile
         ? true
-        : (triggerCenter < viewport.width / 2
+        : (insideBoundary || (triggerCenter < viewport.width / 2
           ? rect.left >= trigger.left - 4
-          : rect.right <= trigger.right + 4);
+          : rect.right <= trigger.right + 4));
       return {
         index: i,
         display: style.display,
         position: style.position,
         offscreen,
+        insideBoundary,
         scrollable,
         verticallyAnchored,
         topmost,
@@ -175,7 +182,7 @@ try {
         trigger: { left: trigger.left, right: trigger.right }
       };
     }, index);
-    if (result.missing || result.display === 'none' || result.position !== 'fixed' || result.offscreen || !result.scrollable || !result.verticallyAnchored || !result.topmost || !result.opensInward) {
+    if (result.missing || result.display === 'none' || result.position !== 'fixed' || result.offscreen || !result.insideBoundary || !result.scrollable || !result.verticallyAnchored || !result.topmost || !result.opensInward) {
       popoverFailures.push(result);
     }
     await page.evaluate(() => {
