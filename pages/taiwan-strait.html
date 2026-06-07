@@ -1711,7 +1711,12 @@ function chinaTaiwanTheaterArticles(articles) {
 function chinaTaiwanIntelligenceFeedArticles(articles) {
   return (articles || [])
     .filter(article => {
-      const text = articleText(article);
+      const primaryText = [
+        article.title,
+        article.description,
+        article.summary,
+        article.contentSnippet
+      ].filter(Boolean).join(' ').toLowerCase();
       const headline = String(article.title || '').toLowerCase();
       const directFeedTerms = [
         'taiwan', 'taiwan strait', 'cross-strait', 'taipei', 'kinmen', 'matsu',
@@ -1725,8 +1730,8 @@ function chinaTaiwanIntelligenceFeedArticles(articles) {
         'south china sea', 'east china sea', 'philippines', 'japan'
       ];
       if (hasTerm(headline, TAIWAN_UNRELATED_TERMS) && !hasTerm(headline, directFeedTerms)) return false;
-      if (hasTerm(text, ['ukraine', 'russia', 'iran', 'gaza', 'israel', 'nato', 'estonia', 'rio summit', 'uk nuclear']) && !hasTerm(text, directFeedTerms)) return false;
-      return hasTerm(text, directFeedTerms) || (hasTerm(text, chinaTheaterTerms) && isChinaTaiwanTheaterRelevant(article));
+      if (hasTerm(primaryText, ['ukraine', 'russia', 'iran', 'gaza', 'israel', 'nato', 'estonia', 'rio summit', 'uk nuclear']) && !hasTerm(primaryText, directFeedTerms)) return false;
+      return hasTerm(primaryText, directFeedTerms) || (hasTerm(primaryText, chinaTheaterTerms) && isChinaTaiwanTheaterRelevant(article));
     })
     .sort(sortByArticleDate);
 }
