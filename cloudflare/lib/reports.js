@@ -2148,10 +2148,11 @@ function renderReportHtml({ title, body, articles }) {
       display:grid;
       grid-template-rows:150px auto;
       min-height:320px;
-      overflow:hidden;
+      overflow:visible;
       border:1px solid color-mix(in srgb, var(--report-accent) 25%, var(--report-border));
       border-radius:6px;
       background:var(--report-surface);
+      text-decoration:none;
     }
     .visual-card-media {
       display:grid;
@@ -2181,7 +2182,17 @@ function renderReportHtml({ title, body, articles }) {
       letter-spacing:.12em;
       text-transform:uppercase;
     }
-    .visual-card-placeholder strong { display:block; color:var(--report-text); font-family:'Rajdhani', sans-serif; font-size:24px; letter-spacing:.08em; }
+    .visual-card-placeholder[hidden] { display:none; }
+    .visual-card-placeholder strong {
+      display:block;
+      color:var(--report-text);
+      font-family:'Rajdhani', sans-serif;
+      font-size:clamp(18px, 2vw, 24px);
+      letter-spacing:.06em;
+      line-height:1.08;
+      overflow-wrap:anywhere;
+      word-break:break-word;
+    }
     .visual-card-body { padding:14px; display:grid; gap:8px; align-content:start; }
     .visual-card-title { color:var(--report-text); font-weight:700; line-height:1.25; }
     .visual-card-summary { color:var(--report-muted); font-size:13px; line-height:1.55; }
@@ -2474,9 +2485,10 @@ function buildSourceVisualBrief(articles = []) {
     const dateLabel = date ? new Date(date).toISOString().slice(0, 10) : 'undated';
     const summary = articleSummary(article);
     const href = article.link || article.url || `https://news.google.com/search?q=${encodeURIComponent(title)}`;
+    const fallback = `<div class="visual-card-placeholder"${image ? ' hidden' : ''}><span>Source preview</span><strong>${escapeHtml(source)}</strong><span>${escapeHtml((article.category || 'reporting').toUpperCase())}</span></div>`;
     const media = image
-      ? `<img src="${escapeAttr(image)}" alt="${escapeAttr(title)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.visual-card-media').innerHTML='<div class=&quot;visual-card-placeholder&quot;><span>Source preview</span><strong>${escapeAttr(source.slice(0, 18))}</strong><span>Image unavailable</span></div>'">`
-      : `<div class="visual-card-placeholder"><span>Source preview</span><strong>${escapeHtml(source.slice(0, 18))}</strong><span>${escapeHtml((article.category || 'reporting').toUpperCase())}</span></div>`;
+      ? `<img src="${escapeAttr(image)}" alt="${escapeAttr(title)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.hidden=true; this.nextElementSibling.hidden=false">${fallback}`
+      : fallback;
     return `<a class="visual-card" href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">
       <div class="visual-card-media">${media}</div>
       <div class="visual-card-body">
