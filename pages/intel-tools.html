@@ -29,10 +29,15 @@
     }
 
     * { box-sizing: border-box; }
-    html { background: var(--bg); color-scheme: dark; }
+    html {
+      overflow-x: hidden;
+      background: var(--bg);
+      color-scheme: dark;
+    }
     html body.intel-tools-page {
       margin: 0;
       min-height: 100vh;
+      overflow-x: hidden;
       background:
         radial-gradient(circle at 80% 0%, rgba(94, 234, 212, 0.11), transparent 34rem),
         radial-gradient(circle at 12% 6%, rgba(121, 167, 255, 0.1), transparent 32rem),
@@ -56,9 +61,11 @@
 
     a { color: inherit; }
     .page {
-      width: min(1480px, calc(100vw - 40px));
+      width: 100%;
+      max-width: 1480px;
       margin: 0 auto;
-      padding: 34px 0 76px;
+      padding: 34px clamp(12px, 2vw, 20px) 76px;
+      overflow-x: clip;
     }
 
     .topline {
@@ -97,6 +104,7 @@
       background: rgba(16, 35, 44, 0.76);
       border-radius: 6px;
       padding: 9px 12px;
+      overflow-wrap: anywhere;
     }
 
     .toplinks a:hover,
@@ -526,7 +534,7 @@
     }
 
     @media (max-width: 720px) {
-      .page { width: min(100vw - 24px, 1480px); }
+      .page { width: 100%; }
       .topline,
       .section-head {
         align-items: start;
@@ -552,6 +560,10 @@
         padding-left: 8px;
       }
       .brand { line-height: 1.4; }
+      h1 {
+        font-size: clamp(2.8rem, 18vw, 4.4rem);
+        overflow-wrap: anywhere;
+      }
     }
   </style>
 </head>
