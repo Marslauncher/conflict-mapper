@@ -138,6 +138,9 @@ try {
       const viewport = { width: innerWidth, height: innerHeight };
       const offscreen = rect.left < 0 || rect.top < 0 || rect.right > viewport.width || rect.bottom > viewport.height;
       const scrollable = pop.scrollHeight > pop.clientHeight ? ['auto', 'scroll'].includes(style.overflowY) : true;
+      const margin = 16;
+      const expectedTop = Math.max(margin, Math.min(trigger.top - 12, viewport.height - rect.height - margin));
+      const verticallyAnchored = Math.abs(rect.top - expectedTop) <= 24;
       const centerX = Math.max(0, Math.min(viewport.width - 1, rect.left + rect.width / 2));
       const centerY = Math.max(0, Math.min(viewport.height - 1, rect.top + Math.min(rect.height / 2, 160)));
       const topElements = document.elementsFromPoint(centerX, centerY);
@@ -155,13 +158,14 @@ try {
         position: style.position,
         offscreen,
         scrollable,
+        verticallyAnchored,
         topmost,
         opensInward,
         rect: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom },
         trigger: { left: trigger.left, right: trigger.right }
       };
     }, index);
-    if (result.missing || result.display === 'none' || result.position !== 'fixed' || result.offscreen || !result.scrollable || !result.topmost || !result.opensInward) {
+    if (result.missing || result.display === 'none' || result.position !== 'fixed' || result.offscreen || !result.scrollable || !result.verticallyAnchored || !result.topmost || !result.opensInward) {
       popoverFailures.push(result);
     }
     await page.evaluate(() => {

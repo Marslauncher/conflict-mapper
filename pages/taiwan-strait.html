@@ -1881,9 +1881,10 @@ function positionCitation(ref) {
   let left = opensRight ? trigger.right + gap : trigger.left - width - gap;
   if (left < margin || left + width > window.innerWidth - margin) left = triggerCenter - (width / 2);
   left = Math.max(margin, Math.min(left, window.innerWidth - width - margin));
-  let top = trigger.bottom + 8;
-  if (top + height > window.innerHeight - margin) top = trigger.top - height - 8;
-  top = Math.max(margin, Math.min(top, window.innerHeight - height - margin));
+  const renderedHeight = Math.min(pop.getBoundingClientRect().height || height, window.innerHeight - margin * 2);
+  let top = trigger.top - 12;
+  if (top + renderedHeight > window.innerHeight - margin) top = window.innerHeight - renderedHeight - margin;
+  top = Math.max(margin, Math.min(top, window.innerHeight - renderedHeight - margin));
   pop.style.setProperty('--citation-left', `${left}px`);
   pop.style.setProperty('--citation-top', `${top}px`);
 }
