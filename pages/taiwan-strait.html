@@ -1720,18 +1720,26 @@ function chinaTaiwanIntelligenceFeedArticles(articles) {
       const headline = String(article.title || '').toLowerCase();
       const directFeedTerms = [
         'taiwan', 'taiwan strait', 'cross-strait', 'taipei', 'kinmen', 'matsu',
-        'penghu', 'rocaf', 'adiz', 'median line', 'first island chain',
+        'penghu', 'rocaf', 'adiz', 'median line', 'first island chain', 'tsmc',
         'pla', 'plarf', 'pla navy', 'plan navy', 'eastern theater command',
         'people liberation army', "people's liberation army", 'fujian',
         'bashi channel', 'luzon strait', 'okinawa', 'ryukyu', 'philippine sea'
       ];
-      const chinaTheaterTerms = [
-        'china', 'beijing', 'xi jinping', 'semiconductor', 'tsmc',
-        'south china sea', 'east china sea', 'philippines', 'japan'
+      const adjacentMilitaryTerms = [
+        'south china sea', 'east china sea', 'philippines', 'philippine sea',
+        'luzon strait', 'okinawa', 'ryukyu', 'japan defence', 'japan defense',
+        'asian defense summit', 'asia defense summit', 'indo-pacific',
+        'navy', 'naval', 'warship', 'military spending', 'defense summit'
+      ];
+      const securityTerms = [
+        'military', 'defense', 'defence', 'naval', 'navy', 'missile',
+        'warship', 'air force', 'fighter', 'exercise', 'deterrence',
+        'bases', 'deployment', 'coast guard', 'maritime'
       ];
       if (hasTerm(headline, TAIWAN_UNRELATED_TERMS) && !hasTerm(headline, directFeedTerms)) return false;
       if (hasTerm(primaryText, ['ukraine', 'russia', 'iran', 'gaza', 'israel', 'nato', 'estonia', 'rio summit', 'uk nuclear']) && !hasTerm(primaryText, directFeedTerms)) return false;
-      return hasTerm(primaryText, directFeedTerms) || (hasTerm(primaryText, chinaTheaterTerms) && isChinaTaiwanTheaterRelevant(article));
+      return hasTerm(primaryText, directFeedTerms) ||
+        (hasTerm(primaryText, ['china', 'beijing', 'xi jinping']) && hasTerm(primaryText, adjacentMilitaryTerms) && hasTerm(primaryText, securityTerms));
     })
     .sort(sortByArticleDate);
 }
