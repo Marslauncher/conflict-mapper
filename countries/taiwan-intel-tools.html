@@ -606,6 +606,69 @@
       gap: 14px;
     }
 
+    .output-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .output-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(18, 42, 54, 0.94), rgba(9, 22, 29, 0.94));
+      border-radius: 8px;
+      overflow: hidden;
+      min-height: 300px;
+    }
+
+    .output-card header {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .output-card h3 {
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+    }
+
+    .output-body {
+      padding: 18px;
+      color: var(--muted);
+    }
+
+    .output-map {
+      min-height: 175px;
+      border: 1px solid rgba(94, 234, 212, 0.2);
+      border-radius: 6px;
+      background:
+        radial-gradient(circle at 64% 42%, rgba(247, 184, 75, 0.8) 0 5px, transparent 6px),
+        radial-gradient(circle at 54% 52%, rgba(94, 234, 212, 0.9) 0 5px, transparent 6px),
+        radial-gradient(circle at 48% 58%, rgba(121, 167, 255, 0.85) 0 5px, transparent 6px),
+        linear-gradient(90deg, rgba(94, 234, 212, 0.08) 1px, transparent 1px),
+        linear-gradient(rgba(94, 234, 212, 0.08) 1px, transparent 1px),
+        linear-gradient(135deg, rgba(121, 167, 255, 0.11), rgba(6, 16, 20, 0.76));
+      background-size: auto, auto, auto, 24px 24px, 24px 24px, auto;
+      margin-bottom: 14px;
+    }
+
+    .sample-output {
+      margin: 0;
+      max-height: 220px;
+      overflow: auto;
+      border-radius: 6px;
+      border: 1px solid rgba(103, 232, 221, 0.16);
+      background: #041014;
+      color: #d9f4ef;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      line-height: 1.55;
+      padding: 13px;
+      white-space: pre;
+    }
+
     .code-panel {
       overflow: hidden;
     }
@@ -701,6 +764,7 @@
       .workflow-grid,
       .preview-grid,
       .code-grid,
+      .output-grid,
       .notes-panel {
         grid-template-columns: 1fr;
       }
@@ -1258,6 +1322,48 @@ events = client.get_events(
 
 for event in events:
     print(event)</code></pre>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="output-title">
+      <div class="section-head">
+        <h2 id="output-title">Output Examples</h2>
+        <p>Country Intel Tools pages should show what a usable result looks like. These panels model the kind of output an analyst can expect from the API and mapping workflows without embedding credentials.</p>
+      </div>
+      <div class="output-grid">
+        <article class="output-card">
+          <header><h3>ADS-B Result Shape</h3><span class="tag">Live API Pattern</span></header>
+          <div class="output-body">
+            <pre class="sample-output">ICAO: 8990aa | Flight: EVA677
+Type: B77W | Alt: 35000 ft | Military: false
+ICAO: 71c088 | Flight: KAL185
+Type: A333 | Alt: 37000 ft | Military: false
+ICAO: ae1234 | Flight: RCH321
+Type: C17 | Alt: 28000 ft | Military: true</pre>
+          </div>
+        </article>
+        <article class="output-card">
+          <header><h3>Map Layer Result</h3><span class="tag blue">Visual Output</span></header>
+          <div class="output-body">
+            <div class="output-map" aria-label="Example plotted output for Taiwan Strait collection points"></div>
+            <p>Expected output: plotted aircraft, port, vessel, or infrastructure points over a Taiwan Strait reference layer, with source timestamps retained in the feature attributes.</p>
+          </div>
+        </article>
+        <article class="output-card">
+          <header><h3>Overpass Result Shape</h3><span class="tag amber">GeoJSON Ready</span></header>
+          <div class="output-body">
+            <pre class="sample-output">{
+  "type": "node",
+  "id": 14390231,
+  "tags": {
+    "aeroway": "aerodrome",
+    "name": "Example Airfield"
+  },
+  "lat": 24.9,
+  "lon": 121.2
+}</pre>
+          </div>
         </article>
       </div>
     </section>

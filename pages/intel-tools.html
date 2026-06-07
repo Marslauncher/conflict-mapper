@@ -11,38 +11,53 @@
       --bg: #061014;
       --panel: #10232c;
       --panel-2: #0c1c24;
+      --panel-3: #153342;
       --line: rgba(103, 232, 221, 0.18);
       --line-strong: rgba(103, 232, 221, 0.36);
-      --text: #e6f1f4;
-      --muted: #9fb2ba;
-      --faint: #607782;
+      --text: #e7f2f4;
+      --muted: #a2b6bd;
+      --faint: #667c86;
       --accent: #5eead4;
-      --blue: #78a8ff;
+      --blue: #79a7ff;
       --amber: #f7b84b;
       --red: #ff7a7a;
+      --green: #65d982;
       --font-display: "Rajdhani", sans-serif;
       --font-mono: "Share Tech Mono", monospace;
       --font-body: "Inter", sans-serif;
     }
 
     * { box-sizing: border-box; }
-    html { background: var(--bg); }
-    body {
+    html { background: var(--bg); color-scheme: dark; }
+    html body.intel-tools-page {
       margin: 0;
       min-height: 100vh;
       background:
         radial-gradient(circle at 80% 0%, rgba(94, 234, 212, 0.11), transparent 34rem),
-        linear-gradient(180deg, rgba(12, 28, 36, 0.86), #061014 38rem);
-      color: var(--text);
+        radial-gradient(circle at 12% 6%, rgba(121, 167, 255, 0.1), transparent 32rem),
+        linear-gradient(180deg, rgba(12, 28, 36, 0.92), #061014 44rem) !important;
+      color: var(--text) !important;
       font-family: var(--font-body);
       line-height: 1.6;
     }
 
+    html body.intel-tools-page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(103, 232, 221, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(103, 232, 221, 0.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 74%);
+    }
+
     a { color: inherit; }
     .page {
-      width: min(1380px, calc(100vw - 40px));
+      width: min(1480px, calc(100vw - 40px));
       margin: 0 auto;
-      padding: 34px 0 70px;
+      padding: 34px 0 76px;
     }
 
     .topline {
@@ -75,10 +90,10 @@
       font-family: var(--font-mono);
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: var(--muted);
       border: 1px solid var(--line);
-      background: rgba(16, 35, 44, 0.72);
+      background: rgba(16, 35, 44, 0.76);
       border-radius: 6px;
       padding: 9px 12px;
     }
@@ -91,7 +106,7 @@
 
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.7fr);
       gap: 26px;
       align-items: stretch;
       padding: 44px 0 30px;
@@ -99,7 +114,8 @@
 
     h1,
     h2,
-    h3 {
+    h3,
+    h4 {
       font-family: var(--font-display);
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -108,31 +124,34 @@
     }
 
     h1 {
-      font-size: clamp(2.9rem, 8vw, 7.2rem);
-      max-width: 900px;
+      font-size: clamp(3rem, 8vw, 7.2rem);
+      max-width: 920px;
     }
 
     .lead {
       margin: 24px 0 0;
       color: var(--muted);
-      font-size: clamp(1rem, 1.45vw, 1.28rem);
-      max-width: 820px;
+      font-size: clamp(1rem, 1.35vw, 1.24rem);
+      max-width: 880px;
     }
 
     .hero-card,
     .region-card,
-    .system-card {
+    .tool-card,
+    .domain-card,
+    .code-panel,
+    .contract-card {
       position: relative;
       border: 1px solid var(--line);
-      background: linear-gradient(145deg, rgba(19, 44, 56, 0.94), rgba(9, 22, 29, 0.94));
+      background: linear-gradient(145deg, rgba(19, 44, 56, 0.96), rgba(9, 22, 29, 0.96));
       border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+      overflow: visible;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
     }
 
     .hero-card {
       padding: 24px;
-      min-height: 310px;
+      min-height: 340px;
       display: grid;
       gap: 18px;
       align-content: start;
@@ -140,7 +159,7 @@
 
     .metric-row {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
     }
 
@@ -162,7 +181,7 @@
     .metric span {
       color: var(--faint);
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       letter-spacing: 0.13em;
       text-transform: uppercase;
     }
@@ -174,7 +193,7 @@
 
     .stack-row {
       display: grid;
-      grid-template-columns: 124px 1fr;
+      grid-template-columns: 142px 1fr;
       gap: 12px;
       align-items: center;
       border: 1px solid rgba(94, 234, 212, 0.15);
@@ -196,89 +215,92 @@
     }
 
     .section {
-      padding-top: 34px;
+      margin-top: 30px;
+      padding: 28px clamp(18px, 3vw, 44px) 34px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(145deg, rgba(9, 22, 29, 0.78), rgba(13, 32, 41, 0.66));
     }
 
     .section-head {
       display: flex;
       justify-content: space-between;
-      gap: 20px;
+      gap: 24px;
       align-items: end;
+      padding-left: clamp(10px, 1.2vw, 18px);
       padding-bottom: 18px;
       border-bottom: 1px solid var(--line);
       margin-bottom: 20px;
     }
 
+    .section-head h2 {
+      font-size: clamp(1.85rem, 3.5vw, 3rem);
+    }
+
     .section-head p {
       margin: 0;
       color: var(--muted);
-      max-width: 660px;
+      max-width: 720px;
     }
 
-    .region-grid {
+    .controls {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
+      grid-template-columns: minmax(260px, 1fr) minmax(220px, 0.32fr) minmax(220px, 0.32fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(5, 15, 20, 0.8);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 12px 13px;
+      font: 600 0.84rem var(--font-body);
+    }
+
+    input::placeholder { color: var(--faint); }
+
+    .domain-grid,
+    .region-grid,
+    .contract-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .domain-card,
+    .region-card,
+    .contract-card {
+      padding: 18px;
+      min-height: 180px;
+      min-width: 0;
+    }
+
+    .domain-card h3,
+    .region-card h3,
+    .contract-card h3 {
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .domain-card p,
+    .region-card p,
+    .contract-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
     }
 
     .region-card {
-      min-height: 285px;
-      display: grid;
-      grid-template-rows: 128px 1fr;
-    }
-
-    .region-visual {
-      position: relative;
-      border-bottom: 1px solid var(--line);
-      background:
-        linear-gradient(135deg, rgba(94, 234, 212, 0.13), transparent 45%),
-        radial-gradient(circle at 68% 36%, rgba(120, 168, 255, 0.22), transparent 9rem),
-        #091820;
-      overflow: hidden;
-    }
-
-    .region-visual::before {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      border: 1px solid rgba(94, 234, 212, 0.22);
-      background-image:
-        linear-gradient(rgba(94, 234, 212, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(94, 234, 212, 0.08) 1px, transparent 1px);
-      background-size: 22px 22px;
-      border-radius: 6px;
-    }
-
-    .region-visual::after {
-      content: "";
-      position: absolute;
-      width: 95px;
-      height: 95px;
-      right: 24px;
-      top: 18px;
-      border: 1px solid rgba(247, 184, 75, 0.5);
-      border-radius: 999px;
-      box-shadow: 0 0 0 18px rgba(247, 184, 75, 0.06);
-    }
-
-    .region-body {
-      padding: 18px;
       display: grid;
       gap: 12px;
     }
 
-    .region-body h3 {
-      font-size: 1.35rem;
-      letter-spacing: 0.12em;
-    }
-
-    .region-body p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.96rem;
-    }
-
-    .tags {
+    .mini-stats {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
@@ -287,64 +309,243 @@
     .tag {
       color: var(--accent);
       border: 1px solid var(--line-strong);
+      background: rgba(94, 234, 212, 0.055);
       border-radius: 999px;
-      padding: 4px 9px;
+      padding: 4px 8px;
       font-family: var(--font-mono);
-      font-size: 0.64rem;
+      font-size: 0.62rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      white-space: normal;
+      overflow-wrap: anywhere;
     }
 
-    .system-grid {
+    .tag.blue {
+      color: var(--blue);
+      border-color: rgba(121, 167, 255, 0.42);
+      background: rgba(121, 167, 255, 0.07);
+    }
+
+    .tag.amber {
+      color: var(--amber);
+      border-color: rgba(247, 184, 75, 0.46);
+      background: rgba(247, 184, 75, 0.07);
+    }
+
+    .resource-section {
+      margin-top: 20px;
+      border-top: 1px solid rgba(103, 232, 221, 0.14);
+      padding-top: 20px;
+    }
+
+    .resource-section h3 {
+      font-size: 1.35rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 14px;
+      padding-left: clamp(10px, 1.2vw, 18px);
+    }
+
+    .resource-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
     }
 
-    .system-card {
-      padding: 18px;
-      min-height: 180px;
+    .tool-card {
+      min-height: 238px;
+      padding: 17px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
     }
 
-    .system-card h3 {
-      font-size: 1.15rem;
-      letter-spacing: 0.1em;
-      margin-bottom: 12px;
+    .tool-card h4 {
+      font-size: 1.08rem;
+      letter-spacing: 0.08em;
+      padding-right: 38px;
     }
 
-    .system-card p {
-      margin: 0;
+    .tool-card p {
+      margin: 12px 0;
       color: var(--muted);
-      font-size: 0.94rem;
+      font-size: 0.9rem;
     }
 
-    @media (max-width: 980px) {
+    .tool-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .domain {
+      color: var(--faint);
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .tool-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.66rem;
+      white-space: nowrap;
+    }
+
+    .tool-link:hover { text-decoration: underline; }
+
+    .info {
+      position: absolute;
+      top: 13px;
+      right: 13px;
+      z-index: 10;
+    }
+
+    .info-button {
+      width: 29px;
+      height: 29px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(94, 234, 212, 0.08);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      cursor: help;
+    }
+
+    .popover {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      z-index: 40;
+      display: none;
+      width: min(340px, calc(100vw - 48px));
+      max-height: 310px;
+      overflow-y: auto;
+      padding: 15px;
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      background: rgba(4, 13, 17, 0.98);
+      box-shadow: 0 18px 52px rgba(0, 0, 0, 0.46);
+    }
+
+    .info:hover .popover,
+    .info:focus-within .popover,
+    .info[data-open="true"] .popover {
+      display: block;
+    }
+
+    .popover h4 {
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+      padding: 0;
+    }
+
+    .popover p,
+    .popover li {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .popover p { margin: 0 0 10px; }
+    .popover ul { margin: 0; padding-left: 18px; }
+
+    .code-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .code-panel {
+      overflow: hidden;
+    }
+
+    .code-panel header {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .code-panel h3 {
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+    }
+
+    pre {
+      margin: 0;
+      padding: 18px;
+      max-height: 360px;
+      overflow: auto;
+      color: #d9f4ef;
+      background: #041014;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.55;
+      tab-size: 2;
+    }
+
+    .empty {
+      border: 1px dashed var(--line);
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 22px;
+    }
+
+    @media (max-width: 1180px) {
       .hero,
+      .domain-grid,
       .region-grid,
-      .system-grid {
-        grid-template-columns: 1fr;
+      .contract-grid,
+      .resource-grid,
+      .code-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 640px) {
-      .page {
-        width: min(100vw - 24px, 1380px);
-      }
+    @media (max-width: 720px) {
+      .page { width: min(100vw - 24px, 1480px); }
       .topline,
       .section-head {
         align-items: start;
         flex-direction: column;
       }
-      .metric-row {
+      .hero,
+      .domain-grid,
+      .region-grid,
+      .contract-grid,
+      .resource-grid,
+      .code-grid,
+      .metric-row,
+      .controls {
         grid-template-columns: 1fr;
       }
-      .stack-row {
-        grid-template-columns: 1fr;
+      .stack-row { grid-template-columns: 1fr; }
+      .section {
+        padding-left: 16px;
+        padding-right: 16px;
       }
+      .section-head,
+      .resource-section h3 {
+        padding-left: 8px;
+      }
+      .brand { line-height: 1.4; }
     }
   </style>
 </head>
-<body>
+<body class="intel-tools-page">
   <main class="page">
     <div class="topline">
       <div class="brand">Conflict Mapper / Intel Tools</div>
@@ -358,69 +559,483 @@
     <section class="hero" aria-labelledby="intel-tools-title">
       <div>
         <h1 id="intel-tools-title">Intel Tools</h1>
-        <p class="lead">A source-backed directory for country and regional monitoring workflows. Each country page should combine curated links, collection logic, technical examples, and visual reference modules so analysts can move from a question to a usable source path quickly.</p>
+        <p class="lead">A global overview of the OSINT, news, satellite, aircraft, maritime, government-records, trade, sanctions, and regional research resources from the Global OSINT Resource Guide. Country Intel Tools pages down-select from this inventory and add focused commentary, use cases, API examples, output previews, and target-country context.</p>
       </div>
-      <aside class="hero-card" aria-label="Template rollout status">
+      <aside class="hero-card" aria-label="Resource guide status">
         <div class="metric-row">
-          <div class="metric"><strong>01</strong><span>Template Country</span></div>
-          <div class="metric"><strong>14</strong><span>Taiwan Sources</span></div>
-          <div class="metric"><strong>05</strong><span>OSINT Domains</span></div>
+          <div class="metric"><strong id="metric-resources">--</strong><span>Resources Parsed</span></div>
+          <div class="metric"><strong id="metric-regions">--</strong><span>Regions</span></div>
+          <div class="metric"><strong id="metric-apis">--</strong><span>API References</span></div>
+          <div class="metric"><strong id="metric-paid">--</strong><span>Paid Tools</span></div>
         </div>
         <div class="stack">
-          <div class="stack-row"><b>News</b><span>Local English-language media, official briefings, and regional public broadcasters.</span></div>
-          <div class="stack-row"><b>Research</b><span>Think tanks, maritime grey-zone monitoring, PLA activity trackers, and published coercion studies.</span></div>
-          <div class="stack-row"><b>Data</b><span>Satellite, aircraft, maritime, conflict-event, and geospatial APIs with example queries.</span></div>
+          <div class="stack-row"><b>Global</b><span>Universal sources for satellite, aircraft, maritime, conflict mapping, infrastructure, sanctions, and trade data.</span></div>
+          <div class="stack-row"><b>Regional</b><span>Country and theater-specific media, research, watch tools, and data portals.</span></div>
+          <div class="stack-row"><b>Deep Dives</b><span>Country pages should explain when to use each source, what output to expect, and how it supports assessments.</span></div>
         </div>
-        <a class="button" href="../countries/taiwan-intel-tools.html">Open Taiwan Intel Tools</a>
       </aside>
     </section>
 
-    <section class="section" aria-labelledby="template-country-title">
+    <section class="section" aria-labelledby="global-domains-title">
       <div class="section-head">
-        <h2 id="template-country-title">Template Country</h2>
-        <p>Taiwan is the first implementation because it has a focused datasource section, mature watch-page context, and enough cross-domain OSINT workflows to validate the full page pattern without creating broken links for every country.</p>
+        <h2 id="global-domains-title">Global Resource Domains</h2>
+        <p>These domains summarize the cross-regional tooling layer before the country inventory. They should remain the starting point for any future country Intel Tools page.</p>
       </div>
-      <div class="region-grid">
-        <article class="region-card">
-          <div class="region-visual" aria-hidden="true"></div>
-          <div class="region-body">
-            <h3>Taiwan</h3>
-            <p>Country-specific page covering local news, MND reporting, Taiwan Strait flight tracking, PLA activity monitoring, maritime grey-zone research, and API-based collection examples.</p>
-            <div class="tags">
-              <span class="tag">Ready</span>
-              <span class="tag">Country Dossier</span>
-              <span class="tag">Template</span>
-            </div>
-            <a class="button" href="../countries/taiwan-intel-tools.html">View Page</a>
-          </div>
-        </article>
-      </div>
+      <div class="domain-grid" id="domain-grid"></div>
     </section>
 
-    <section class="section" aria-labelledby="rollout-contract-title">
+    <section class="section" aria-labelledby="regions-title">
       <div class="section-head">
-        <h2 id="rollout-contract-title">Page Contract</h2>
-        <p>Every future Intel Tools page should preserve this structure, then swap in the country or region source list from the resource guide.</p>
+        <h2 id="regions-title">Regional Coverage</h2>
+        <p>Each card summarizes the resources parsed from the guide for that country or theater. Taiwan remains the first fully implemented country-level template.</p>
       </div>
-      <div class="system-grid">
-        <article class="system-card">
-          <h3>Source Cards</h3>
-          <p>Each tool needs a clear operational use case, active link, concise visible summary, and hover/focus overlay for deeper context.</p>
+      <div class="region-grid" id="region-grid"></div>
+    </section>
+
+    <section class="section" aria-labelledby="resource-library-title">
+      <div class="section-head">
+        <h2 id="resource-library-title">Resource Library</h2>
+        <p>All parsed tools from the Markdown guide are listed below. Use search and filters to narrow by region or topic; hover or focus each card for context.</p>
+      </div>
+      <div class="controls" aria-label="Resource filters">
+        <input id="resource-search" type="search" placeholder="Search resources, topics, URLs, or notes">
+        <select id="region-filter" aria-label="Filter by region"></select>
+        <select id="category-filter" aria-label="Filter by topic"></select>
+      </div>
+      <div id="resource-sections"></div>
+    </section>
+
+    <section class="section" aria-labelledby="api-title">
+      <div class="section-head">
+        <h2 id="api-title">API Reference And Examples</h2>
+        <p>API examples are extracted from the guide where available and kept as reusable starting points for automation, dashboards, and country deep dives.</p>
+      </div>
+      <div class="code-grid" id="code-grid"></div>
+    </section>
+
+    <section class="section" aria-labelledby="contract-title">
+      <div class="section-head">
+        <h2 id="contract-title">Country Page Contract</h2>
+        <p>Country pages are not link dumps. Each one should down-select from this global inventory and show focused commentary, output expectations, screenshots or generated output where possible, and target-country use cases.</p>
+      </div>
+      <div class="contract-grid">
+        <article class="contract-card">
+          <h3>Focused Source Cards</h3>
+          <p>Every card should explain the role of the source, provide an active link, and use an overlay for deeper context without cluttering the page.</p>
         </article>
-        <article class="system-card">
-          <h3>Visual Context</h3>
-          <p>Pages must include maps, flow diagrams, matrices, tables, website previews, or code examples instead of becoming text-only directories.</p>
+        <article class="contract-card">
+          <h3>Resource By Topic</h3>
+          <p>Group sources by collection question: news, official reporting, air, maritime, geospatial, cyber, trade, sanctions, and research.</p>
         </article>
-        <article class="system-card">
-          <h3>Analyst Workflow</h3>
-          <p>Sections should map tools to questions: what happened, where, who moved, what changed, and which source confirms it.</p>
+        <article class="contract-card">
+          <h3>Example Usage</h3>
+          <p>Include API examples, credential-safe code, expected output, and screenshots or output panels when the tool can be demonstrated safely.</p>
         </article>
-        <article class="system-card">
+        <article class="contract-card">
           <h3>Validation</h3>
-          <p>Internal links, external links, overlay clipping, responsive layout, and settings-theme behavior should be checked before rollout.</p>
+          <p>Check external links, overlays, mobile layout, theme readability, and local/prod rendering before expanding the pattern to the next country.</p>
         </article>
       </div>
     </section>
   </main>
+
+  <script>
+    const GUIDE_URL = "../datasources/Global%20OSINT,%20News%20%26%20Satellite%20Intelligence%20Resource%20Guide%20%E2%80%94%20Enhanced%20Edition.md";
+    const DOMAIN_DEFS = [
+      ["Satellite Imagery", "Satellite imagery, thermal anomalies, SAR, map layers, and commercial tasking for geospatial evidence."],
+      ["Flight & Aircraft Tracking", "ADS-B, OpenSky, and paid aviation APIs for air activity leads and pattern checks."],
+      ["Vessel Tracking", "AIS, commercial maritime platforms, and Global Fishing Watch for shipping and grey-zone activity."],
+      ["Conflict & Geopolitical Mapping", "ACLED, LiveUAMap-style event layers, frontline maps, and incident databases."],
+      ["General OSINT Frameworks", "Shodan, Maltego, Overpass, SOCMINT, and graphing tools for investigation workflows."],
+      ["Global Trade & Economic Intelligence", "Trade, sanctions, spending, campaign finance, and financial intelligence sources."],
+    ];
+
+    let allResources = [];
+    let allExamples = [];
+    let currentFilters = { region: "all", category: "all", query: "" };
+
+    const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+
+    function splitTableRow(line) {
+      return line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
+    }
+
+    function stripMarkdown(value) {
+      return String(value ?? "")
+        .replace(/\[\^.+?\]/g, "")
+        .replace(/\*\*(.+?)\*\*/g, "$1")
+        .replace(/`(.+?)`/g, "$1")
+        .replace(/\[(.+?)\]\((https?:\/\/[^)]+)\)/g, "$1")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function extractLinks(value) {
+      const text = String(value ?? "");
+      const links = [];
+      for (const match of text.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g)) {
+        links.push({ label: stripMarkdown(match[1]), url: match[2] });
+      }
+      for (const match of text.matchAll(/(^|\s)(https?:\/\/[^\s)]+)/g)) {
+        if (!links.some((link) => link.url === match[2])) links.push({ label: match[2], url: match[2] });
+      }
+      return links;
+    }
+
+    function groupBy(items, keyFn) {
+      const map = new Map();
+      items.forEach((item) => {
+        const key = keyFn(item);
+        if (!map.has(key)) map.set(key, []);
+        map.get(key).push(item);
+      });
+      return map;
+    }
+
+    function normalizeRegion(region) {
+      return String(region || "General").replace(/^\d+\.\s*/, "").trim();
+    }
+
+    function classifyCategory(category) {
+      const clean = stripMarkdown(category).replace(/[^\w\s/&-]/g, "").trim();
+      return clean || "General";
+    }
+
+    function resourceFromTable(headers, cells, context) {
+      const row = {};
+      headers.forEach((header, index) => {
+        row[stripMarkdown(header).toLowerCase()] = cells[index] || "";
+      });
+      const nameCell = row.source || row.tool || row.provider || row.platform || cells[0] || "Unnamed Resource";
+      const linkCells = [row.url, row.api, row["api url"], row.notes, row.focus, row.price, row.pricing, ...cells];
+      const links = linkCells.flatMap(extractLinks);
+      const url = links[0]?.url || "";
+      const cost = stripMarkdown(row.cost || row.price || row.pricing || "");
+      const notes = stripMarkdown(row.notes || row.focus || row.api || row["auth method"] || cells.slice(1).join(" "));
+      return {
+        name: stripMarkdown(nameCell),
+        url,
+        links,
+        region: normalizeRegion(context.region),
+        category: classifyCategory(context.category),
+        kind: cost.toLowerCase().includes("paid") || cost.includes("$") || cost.toLowerCase().includes("enterprise") || context.category.toLowerCase().includes("paid") ? "Paid" : "Free",
+        cost: cost || "Listed in guide",
+        notes: notes || "Referenced in the resource guide.",
+        source: "table"
+      };
+    }
+
+    function parseGuide(md) {
+      const lines = md.split(/\r?\n/);
+      let region = "Universal / Cross-Regional Tools";
+      let category = "General";
+      let inCode = false;
+      let codeTitle = "";
+      let code = [];
+      let currentTool = null;
+      const resources = [];
+      const examples = [];
+
+      function pushCurrentTool() {
+        if (!currentTool) return;
+        if (currentTool.name && (currentTool.url || currentTool.notes)) resources.push(currentTool);
+        currentTool = null;
+      }
+
+      function pushCode() {
+        if (!code.length) return;
+        examples.push({ title: codeTitle || category, region: normalizeRegion(region), category: classifyCategory(category), code: code.join("\n") });
+        code = [];
+        codeTitle = "";
+      }
+
+      for (let index = 0; index < lines.length; index++) {
+        const line = lines[index];
+        if (line.startsWith("```")) {
+          if (inCode) {
+            inCode = false;
+            pushCode();
+          } else {
+            inCode = true;
+            code = [];
+          }
+          continue;
+        }
+        if (inCode) {
+          code.push(line);
+          continue;
+        }
+        if (/^\*\*.+Example/.test(line) || /Example/.test(line)) codeTitle = stripMarkdown(line).replace(/:$/, "");
+        if (line.startsWith("## ")) {
+          pushCurrentTool();
+          region = line.replace(/^##\s+/, "").trim();
+          category = "General";
+          continue;
+        }
+        if (line.startsWith("### ")) {
+          pushCurrentTool();
+          category = line.replace(/^###\s+/, "").trim();
+          continue;
+        }
+        if (line.startsWith("#### ")) {
+          pushCurrentTool();
+          currentTool = {
+            name: stripMarkdown(line.replace(/^####\s+/, "")),
+            url: "",
+            links: [],
+            region: normalizeRegion(region),
+            category: classifyCategory(category),
+            kind: category.toLowerCase().includes("paid") ? "Paid" : "Free",
+            cost: category.toLowerCase().includes("paid") ? "Paid/commercial" : "Listed in guide",
+            notes: "",
+            source: "heading"
+          };
+          continue;
+        }
+        if (currentTool && /^-\s+\*\*/.test(line)) {
+          const clean = line.replace(/^-\s+/, "");
+          const [label, ...rest] = clean.split(":");
+          const key = stripMarkdown(label).toLowerCase();
+          const value = rest.join(":").trim();
+          const links = extractLinks(value);
+          currentTool.links.push(...links);
+          if ((key === "url" || key === "browser" || key === "api docs" || key === "api") && !currentTool.url) {
+            currentTool.url = links[0]?.url || stripMarkdown(value);
+          }
+          if (key === "cost" || key === "pricing") {
+            currentTool.cost = stripMarkdown(value);
+            if (/paid|enterprise|\$|€|contact/i.test(currentTool.cost)) currentTool.kind = "Paid";
+          }
+          if (key === "notes" || key === "data") currentTool.notes = stripMarkdown(value);
+        }
+        if (line.trim().startsWith("|") && index + 1 < lines.length && /^\|\s*-+/.test(lines[index + 1].trim())) {
+          pushCurrentTool();
+          const headers = splitTableRow(line);
+          index += 2;
+          while (index < lines.length && lines[index].trim().startsWith("|")) {
+            const cells = splitTableRow(lines[index]);
+            if (cells.length && cells.some(Boolean)) resources.push(resourceFromTable(headers, cells, { region, category }));
+            index++;
+          }
+          index--;
+        }
+      }
+      pushCurrentTool();
+      return {
+        resources: resources.filter((resource) => resource.name && !/^[-]+$/.test(resource.name)),
+        examples: examples.filter((example) => example.code.trim().length > 20)
+      };
+    }
+
+    function summarizeCategory(resources, label) {
+      const matches = resources.filter((resource) => resource.category.toLowerCase().includes(label.toLowerCase().split(" ")[0]));
+      return matches.length;
+    }
+
+    function renderDomains(resources) {
+      const html = DOMAIN_DEFS.map(([title, desc]) => {
+        const count = summarizeCategory(resources, title);
+        return `<article class="domain-card">
+          <h3>${esc(title)}</h3>
+          <p>${esc(desc)}</p>
+          <div class="mini-stats"><span class="tag">${count} resources</span></div>
+        </article>`;
+      }).join("");
+      document.getElementById("domain-grid").innerHTML = html;
+    }
+
+    function renderRegions(resources) {
+      const grouped = groupBy(resources, (resource) => resource.region);
+      const preferred = ["Universal / Cross-Regional Tools", "United States", "China", "Taiwan", "North Korea / Korean Peninsula", "Middle East", "Ukraine", "Russia", "Pakistan", "India", "African Continent", "API Quick Reference", "Paid Platform Pricing Summary"];
+      const regions = [...grouped.keys()].sort((a, b) => {
+        const ai = preferred.indexOf(a);
+        const bi = preferred.indexOf(b);
+        if (ai !== -1 || bi !== -1) return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+        return a.localeCompare(b);
+      });
+      document.getElementById("region-grid").innerHTML = regions.map((name) => {
+        const items = grouped.get(name);
+        const categories = new Set(items.map((item) => item.category));
+        const apiCount = items.filter((item) => /api|docs|developer|endpoint/i.test(`${item.notes} ${item.url} ${item.category}`)).length;
+        const link = name === "Taiwan" ? `<a class="button" href="../countries/taiwan-intel-tools.html">Open Taiwan Deep Dive</a>` : "";
+        return `<article class="region-card">
+          <h3>${esc(name)}</h3>
+          <p>${esc(regionSummary(name, items))}</p>
+          <div class="mini-stats">
+            <span class="tag">${items.length} resources</span>
+            <span class="tag blue">${categories.size} topics</span>
+            <span class="tag amber">${apiCount} API/data</span>
+          </div>
+          ${link}
+        </article>`;
+      }).join("");
+    }
+
+    function regionSummary(name, items) {
+      if (name.includes("Universal")) return "Cross-regional technical sources for satellite, aviation, maritime, conflict, OSINT, trade, sanctions, and infrastructure workflows.";
+      if (name === "Taiwan") return "Focused source set for cross-strait monitoring, MND reporting, PLA activity, maritime grey-zone analysis, and Taiwan local news.";
+      if (name.includes("API")) return "Programmatic access matrix for automation, dashboards, scheduled checks, and country-specific data collection.";
+      if (name.includes("Paid")) return "Commercial platforms that can supplement free OSINT where resolution, scale, language coverage, or enterprise support is required.";
+      return `Regional source set covering ${items.slice(0, 3).map((item) => item.category).join(", ")} and related monitoring workflows.`;
+    }
+
+    function updateFilters(resources) {
+      const regionSelect = document.getElementById("region-filter");
+      const categorySelect = document.getElementById("category-filter");
+      const regions = ["all", ...new Set(resources.map((resource) => resource.region))].sort((a, b) => a === "all" ? -1 : b === "all" ? 1 : a.localeCompare(b));
+      const categories = ["all", ...new Set(resources.map((resource) => resource.category))].sort((a, b) => a === "all" ? -1 : b === "all" ? 1 : a.localeCompare(b));
+      regionSelect.innerHTML = regions.map((region) => `<option value="${esc(region)}">${region === "all" ? "All regions" : esc(region)}</option>`).join("");
+      categorySelect.innerHTML = categories.map((category) => `<option value="${esc(category)}">${category === "all" ? "All topics" : esc(category)}</option>`).join("");
+    }
+
+    function filteredResources() {
+      const query = currentFilters.query.toLowerCase();
+      return allResources.filter((resource) => {
+        if (currentFilters.region !== "all" && resource.region !== currentFilters.region) return false;
+        if (currentFilters.category !== "all" && resource.category !== currentFilters.category) return false;
+        if (!query) return true;
+        return `${resource.name} ${resource.region} ${resource.category} ${resource.notes} ${resource.url}`.toLowerCase().includes(query);
+      });
+    }
+
+    function renderResources() {
+      const resources = filteredResources();
+      const container = document.getElementById("resource-sections");
+      if (!resources.length) {
+        container.innerHTML = `<div class="empty">No resources match the current filters.</div>`;
+        return;
+      }
+      const grouped = groupBy(resources, (resource) => resource.region);
+      container.innerHTML = [...grouped.entries()].map(([region, items]) => {
+        const byCategory = groupBy(items, (item) => item.category);
+        const groups = [...byCategory.entries()].map(([category, categoryItems]) => `
+          <div class="resource-section">
+            <h3>${esc(region)} / ${esc(category)}</h3>
+            <div class="resource-grid">${categoryItems.map(renderResourceCard).join("")}</div>
+          </div>`).join("");
+        return groups;
+      }).join("");
+      wireInfoButtons();
+    }
+
+    function renderResourceCard(resource) {
+      const host = resource.url ? new URL(resource.url, location.href).hostname.replace(/^www\./, "") : "No direct URL";
+      const link = resource.url ? `<a class="tool-link" href="${esc(resource.url)}" target="_blank" rel="noopener noreferrer">Open</a>` : `<span class="domain">Reference only</span>`;
+      const extraLinks = resource.links.filter((linkItem) => linkItem.url !== resource.url).slice(0, 3);
+      return `<article class="tool-card">
+        <div class="info">
+          <button class="info-button" type="button" aria-label="More about ${esc(resource.name)}">i</button>
+          <div class="popover">
+            <h4>${esc(resource.name)}</h4>
+            <p><strong>Region:</strong> ${esc(resource.region)}</p>
+            <p><strong>Topic:</strong> ${esc(resource.category)}</p>
+            <p>${esc(resource.notes || "Referenced in the guide.")}</p>
+            <ul>
+              <li>Access: ${esc(resource.cost || resource.kind)}</li>
+              <li>Use as: ${esc(useCaseFor(resource))}</li>
+              ${extraLinks.map((item) => `<li><a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.label || item.url)}</a></li>`).join("")}
+            </ul>
+          </div>
+        </div>
+        <h4>${esc(resource.name)}</h4>
+        <p>${esc(resource.notes || "Referenced in the resource guide.")}</p>
+        <div class="mini-stats">
+          <span class="tag">${esc(resource.kind)}</span>
+          <span class="tag blue">${esc(resource.category.split("(")[0].trim())}</span>
+        </div>
+        <div class="tool-bottom"><span class="domain">${esc(host)}</span>${link}</div>
+      </article>`;
+    }
+
+    function useCaseFor(resource) {
+      const text = `${resource.category} ${resource.notes} ${resource.name}`.toLowerCase();
+      if (text.includes("satellite") || text.includes("imagery") || text.includes("geospatial")) return "geospatial verification and map context";
+      if (text.includes("air") || text.includes("ads-b") || text.includes("flight")) return "aviation activity monitoring and movement leads";
+      if (text.includes("vessel") || text.includes("maritime") || text.includes("shipping")) return "maritime activity and chokepoint monitoring";
+      if (text.includes("think") || text.includes("analysis") || text.includes("research")) return "assessment context and strategic interpretation";
+      if (text.includes("news") || text.includes("media") || text.includes("journalism")) return "current reporting and source discovery";
+      if (text.includes("api") || text.includes("data")) return "automation and dashboard ingestion";
+      return "source discovery, corroboration, and collection planning";
+    }
+
+    function renderExamples(examples) {
+      const selected = examples.filter((example) => /FIRMS|Sentinel|ADS-B|Congress|ACLED|Overpass|Global Fishing/i.test(example.title + example.code)).slice(0, 6);
+      document.getElementById("code-grid").innerHTML = selected.map((example) => `<article class="code-panel">
+        <header><h3>${esc(example.title.slice(0, 72))}</h3><span class="tag">${esc(example.region)}</span></header>
+        <pre><code>${esc(example.code)}</code></pre>
+      </article>`).join("");
+    }
+
+    function wireInfoButtons() {
+      document.querySelectorAll(".info").forEach((info) => {
+        const button = info.querySelector(".info-button");
+        if (!button || button.dataset.bound === "true") return;
+        button.dataset.bound = "true";
+        button.setAttribute("aria-expanded", "false");
+        button.addEventListener("click", (event) => {
+          event.preventDefault();
+          const isOpen = info.dataset.open === "true";
+          document.querySelectorAll(".info[data-open='true']").forEach((openInfo) => {
+            openInfo.dataset.open = "false";
+            openInfo.querySelector(".info-button")?.setAttribute("aria-expanded", "false");
+          });
+          info.dataset.open = String(!isOpen);
+          button.setAttribute("aria-expanded", String(!isOpen));
+        });
+      });
+    }
+
+    document.addEventListener("click", (event) => {
+      if (event.target.closest(".info")) return;
+      document.querySelectorAll(".info[data-open='true']").forEach((openInfo) => {
+        openInfo.dataset.open = "false";
+        openInfo.querySelector(".info-button")?.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    async function init() {
+      try {
+        const response = await fetch(GUIDE_URL);
+        if (!response.ok) throw new Error(`Guide fetch failed: ${response.status}`);
+        const md = await response.text();
+        const parsed = parseGuide(md);
+        allResources = parsed.resources;
+        allExamples = parsed.examples;
+        document.getElementById("metric-resources").textContent = String(allResources.length);
+        document.getElementById("metric-regions").textContent = String(new Set(allResources.map((item) => item.region)).size);
+        document.getElementById("metric-apis").textContent = String(allResources.filter((item) => /api|docs|developer|endpoint/i.test(`${item.notes} ${item.url} ${item.category}`)).length);
+        document.getElementById("metric-paid").textContent = String(allResources.filter((item) => item.kind === "Paid").length);
+        renderDomains(allResources);
+        renderRegions(allResources);
+        updateFilters(allResources);
+        renderResources();
+        renderExamples(allExamples);
+      } catch (error) {
+        console.error(error);
+        document.getElementById("resource-sections").innerHTML = `<div class="empty">Could not load the Global OSINT resource guide. Check the committed Markdown file path and Cloudflare static asset routing.</div>`;
+      }
+    }
+
+    document.getElementById("resource-search").addEventListener("input", (event) => {
+      currentFilters.query = event.target.value;
+      renderResources();
+    });
+    document.getElementById("region-filter").addEventListener("change", (event) => {
+      currentFilters.region = event.target.value;
+      renderResources();
+    });
+    document.getElementById("category-filter").addEventListener("change", (event) => {
+      currentFilters.category = event.target.value;
+      renderResources();
+    });
+
+    init();
+  </script>
 </body>
 </html>
