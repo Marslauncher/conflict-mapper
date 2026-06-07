@@ -14,7 +14,9 @@ The check must pass before commit. It fails on the specific regressions that pre
 
 - Global resource-domain cards resolving to `0 resources`, especially Flight & Aircraft Tracking and Vessel Tracking.
 - Resource/count chips without hover overlays listing the exact resources behind the count.
-- Hub cards that are not navigable to a subpage, filtered section, or source URL.
+- Hub cards that are not navigable to the correct destination: source-family/domain cards open a resource preview overlay, country/region cards open the country page or filtered section, and source cards open source URLs.
+- Source-family/domain cards that scroll directly to the resource library instead of opening the preview overlay.
+- Preview overlays missing website screenshot thumbnail markup and direct source links.
 - Source cards missing inline website/resource previews.
 - Info/resource bubbles missing the established overlay assets or style hooks.
 - Prompt/template copy leaking into rendered pages.
@@ -31,7 +33,8 @@ Check desktop and mobile widths:
 - No clipped overlays; overlay content scrolls when long.
 - Hovering/focusing a resource count opens a resource list whose item count matches the visible number.
 - Hovering/focusing a non-local website link opens an external-source preview.
-- Clicking a domain card filters the resource library to that source family.
+- Clicking a domain card opens a resource preview overlay with provider cards, direct source links, and screenshot thumbnails where the source allows capture.
+- Clicking `Open Filtered Section` on a domain card filters the resource library to that source family.
 - Clicking a country/region card opens its Intel Tools page when one exists; otherwise it scrolls to the filtered resource section.
 - Clicking a source card opens the external tool URL; the explicit `Open` link still works.
 - Text in chips, overlays, and cards follows the established uppercase mono-label style and remains readable in light/dark themes.
@@ -39,7 +42,10 @@ Check desktop and mobile widths:
 ## Mitigation Rules
 
 - Use explicit source-family matchers for resource counts. Do not infer counts from the first word of a category heading; the guide uses emoji and long headings.
+- Source-family matchers must prefer category, provider name, and URL fields. Do not use broad notes text in a way that pulls unrelated news sources into technical domains such as Vessel Tracking.
 - Keep count generation and overlay generation coupled. A count chip must be created from the same resource array used to render its overlay.
+- Keep domain-card click behavior separate from filter navigation. Card click opens the preview overlay; only the explicit filtered-section control scrolls to the resource library.
+- Parse markdown links, explicit `https://` URLs, and bare domains such as `docs.planet.com`; do not silently convert these to `Reference only`.
 - Do not create text-only link directories. Each page needs resource cards, overlays, website previews, code/output examples, and use-case commentary.
 - Do not ship placeholder/template language. Replace page-contract wording with target-specific operational guidance before publishing.
 - New generated country pages must be produced through `scripts/generate-intel-tool-pages.mjs`, then validated with `npm run validate:intel-tools`.

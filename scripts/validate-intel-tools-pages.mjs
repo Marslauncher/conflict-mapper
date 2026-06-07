@@ -12,26 +12,32 @@ const COUNTRIES_DIR = path.join(ROOT, "countries");
 const DOMAIN_DEFS = [
   {
     title: "Satellite Imagery",
+    categoryMatcher: /satellite imagery|geospatial|environmental monitoring|api quick reference/i,
     matcher: /satellite|imagery|sentinel|landsat|worldview|gibs|firms|planet|maxar|sar|iceye|capella|blacksky|airbus|umbra|skyfi/i
   },
   {
     title: "Flight & Aircraft Tracking",
+    categoryMatcher: /flight & aircraft tracking|aviation|api quick reference/i,
     matcher: /flight|aircraft|aviation|ads-b|adsb|opensky|flightradar|faa|tail|icao/i
   },
   {
     title: "Vessel Tracking",
+    categoryMatcher: /vessel tracking|shipping \/ chokepoint|maritime|api quick reference/i,
     matcher: /vessel|maritime|marine|shipping|ais|ship|port|fishing|global fishing|chokepoint/i
   },
   {
     title: "Conflict & Geopolitical Mapping",
+    categoryMatcher: /conflict|geopolitical mapping|event database|frontline|violence/i,
     matcher: /conflict|geopolitical|acled|liveuamap|event|frontline|violence|incident|mapping/i
   },
   {
     title: "General OSINT Frameworks",
+    categoryMatcher: /osint|socmint|cyber|infrastructure|data portals/i,
     matcher: /osint|framework|shodan|maltego|overpass|socmint|social|graph|infrastructure|scada/i
   },
   {
     title: "Global Trade & Economic Intelligence",
+    categoryMatcher: /trade|economic|sanctions|spending|campaign finance|financial/i,
     matcher: /trade|economic|sanction|finance|financial|spending|campaign|comtrade|world bank|ofac|opensanctions|sipri/i
   }
 ];
@@ -47,6 +53,18 @@ const PROMPT_TEXT_BLOCKLIST = [
   "Template Validation Notes",
   "Rollout Rule"
 ];
+
+const URL_HINTS = new Map([
+  ["marinetraffic", "https://www.marinetraffic.com"],
+  ["vesselfinder", "https://www.vesselfinder.com"],
+  ["global fishing watch", "https://globalfishingwatch.org"],
+  ["parseek + translation plugins", "https://www.parseek.com"],
+  ["parseek", "https://www.parseek.com"],
+  ["iran monitor", "https://www.iranintl.com"],
+  ["signalcockpit", "https://signalcockpit.com"],
+  ["centcom us-vs-iran", "https://www.centcom.mil"],
+  ["centcom", "https://www.centcom.mil"]
+]);
 
 function fail(errors, message) {
   errors.push(message);
@@ -66,6 +84,19 @@ function stripMarkdown(value) {
     .trim();
 }
 
+function normalizeUrlCandidate(value) {
+  const candidate = String(value ?? "")
+    .replace(/[<>"'`]/g, "")
+    .replace(/[),.;:]+$/g, "")
+    .trim();
+  if (!candidate) return "";
+  if (/^https?:\/\//i.test(candidate)) return candidate;
+  if (/^(?:www\.)?[a-z0-9][a-z0-9-]*(?:\.[a-z][a-z0-9-]{1,})+(?:\/[^\s]*)?$/i.test(candidate)) {
+    return `https://${candidate.replace(/^www\./i, "")}`;
+  }
+  return "";
+}
+
 function splitTableRow(line) {
   return line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
 }
@@ -78,6 +109,11 @@ function extractLinks(value) {
   }
   for (const match of text.matchAll(/(^|\s)(https?:\/\/[^\s)]+)/g)) {
     if (!links.some((link) => link.url === match[2])) links.push({ label: match[2], url: match[2] });
+  }
+  const unlinkedText = text.replace(/\[[^\]]+\]\((https?:\/\/[^)]+)\)/g, " ");
+  for (const match of unlinkedText.matchAll(/(?:^|[\s(—-])((?:www\.)?[a-z0-9][a-z0-9-]*(?:\.[a-z][a-z0-9-]{1,})+(?:\/[^\s),;]*)?)/gi)) {
+    const url = normalizeUrlCandidate(match[1]);
+    if (url && !links.some((link) => link.url === url)) links.push({ label: match[1], url });
   }
   return links;
 }
@@ -99,11 +135,14 @@ function resourceFromTable(headers, cells, context) {
   const nameCell = row.source || row.tool || row.provider || row.platform || cells[0] || "Unnamed Resource";
   const linkCells = [row.url, row.api, row["api url"], row.notes, row.focus, row.price, row.pricing, ...cells];
   const links = linkCells.flatMap(extractLinks);
+  const name = stripMarkdown(nameCell);
+  const hintedUrl = URL_HINTS.get(name.toLowerCase());
+  if (hintedUrl && !links.some((link) => link.url === hintedUrl)) links.unshift({ label: name, url: hintedUrl });
   const url = links[0]?.url || "";
   const cost = stripMarkdown(row.cost || row.price || row.pricing || "");
   const notes = stripMarkdown(row.notes || row.focus || row.api || row["auth method"] || cells.slice(1).join(" "));
   return {
-    name: stripMarkdown(nameCell),
+    name,
     url,
     links,
     region: normalizeRegion(context.region),
@@ -168,7 +207,7 @@ function parseGuide(md) {
       const links = extractLinks(value);
       currentTool.links.push(...links);
       if ((key === "url" || key === "browser" || key === "api docs" || key === "api") && !currentTool.url) {
-        currentTool.url = links[0]?.url || stripMarkdown(value);
+        currentTool.url = links[0]?.url || normalizeUrlCandidate(stripMarkdown(value));
       }
       if (key === "cost" || key === "pricing") {
         currentTool.cost = stripMarkdown(value);
@@ -241,8 +280,14 @@ function validateHub(resources, errors) {
     "renderCountChip",
     "renderResourceOverlay",
     "renderSitePreview",
+    "openResourceModal",
+    "openDomainModal",
+    "resource-modal-grid",
+    "website-shot",
     "wireNavigableCards",
     "data-filter-domain",
+    "data-open-domain-link",
+    "data-filter-domain-link",
     "data-external-href",
     "currentFilters = { region: \"all\", category: \"all\", query: \"\", domain: \"all\" }"
   ].forEach((required) => {
@@ -252,12 +297,22 @@ function validateHub(resources, errors) {
   if (!/renderResourceCard[\s\S]+class="tool-card nav-card"[\s\S]+renderSitePreview/.test(html)) {
     fail(errors, "pages/intel-tools.html: resource cards must be navigable and include inline previews");
   }
+  if (!/if \(card\.dataset\.filterDomain\) \{[\s\S]+openDomainModal\(card\.dataset\.filterDomain\)/.test(html)) {
+    fail(errors, "pages/intel-tools.html: domain card click must open the resource preview overlay instead of scrolling directly");
+  }
+  if (!/data-filter-domain-link[\s\S]+filterToDomain/.test(html)) {
+    fail(errors, "pages/intel-tools.html: filtered resource-library navigation must remain an explicit secondary action");
+  }
   if (!/renderRegions[\s\S]+renderCountChip\(items, "resources"[\s\S]+wireNavigableCards/.test(html)) {
     fail(errors, "pages/intel-tools.html: region cards must expose resource overlays and be navigable");
   }
 
   const domainResults = DOMAIN_DEFS.map((domain) => {
-    const items = resources.filter((resource) => domain.matcher.test(`${resource.name} ${resource.region} ${resource.category} ${resource.notes} ${resource.url}`));
+    const items = resources.filter((resource) => {
+      const categoryHaystack = `${resource.category} ${resource.region}`;
+      const sourceHaystack = `${resource.name} ${resource.category} ${resource.url}`;
+      return domain.categoryMatcher.test(categoryHaystack) || domain.matcher.test(sourceHaystack);
+    });
     if (items.length === 0) fail(errors, `pages/intel-tools.html: ${domain.title} domain resolved to 0 resources`);
     return `${domain.title}: ${items.length}`;
   });
@@ -315,6 +370,8 @@ function main() {
   const errors = [];
   const resources = parseGuide(fs.readFileSync(GUIDE_PATH, "utf8"));
   if (resources.length < 250) fail(errors, `resource guide parse count is unexpectedly low: ${resources.length}`);
+  const linkedResources = resources.filter((resource) => resource.url).length;
+  if (linkedResources < 225) fail(errors, `direct source URL coverage is unexpectedly low: ${linkedResources}/${resources.length}`);
 
   const hub = validateHub(resources, errors);
   const countries = validateCountryPages(errors);
@@ -328,6 +385,7 @@ function main() {
 
   console.log("Intel Tools validation passed.");
   console.log(`Resources parsed: ${resources.length}`);
+  console.log(`Direct source URLs parsed: ${linkedResources}/${resources.length}`);
   console.log(`Domain counts: ${hub.domainResults.join("; ")}`);
   console.log(`Country pages checked: ${countries.countryPageCount}`);
 }

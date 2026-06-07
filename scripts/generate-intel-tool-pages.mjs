@@ -92,6 +92,17 @@ const URL_OVERRIDES = new Map([
   ["https://www.mnd.gov.tw", "https://x.com/MoNDefense"],
   ["https://api.adsb.lol", "https://adsb.lol/"]
 ]);
+const URL_HINTS = new Map([
+  ["marinetraffic", "https://www.marinetraffic.com"],
+  ["vesselfinder", "https://www.vesselfinder.com"],
+  ["global fishing watch", "https://globalfishingwatch.org"],
+  ["parseek + translation plugins", "https://www.parseek.com"],
+  ["parseek", "https://www.parseek.com"],
+  ["iran monitor", "https://www.iranintl.com"],
+  ["signalcockpit", "https://signalcockpit.com"],
+  ["centcom us-vs-iran", "https://www.centcom.mil"],
+  ["centcom", "https://www.centcom.mil"]
+]);
 
 function esc(value) {
   return String(value ?? "").replace(/[&<>"']/g, (char) => ({
@@ -121,6 +132,19 @@ function stripMarkdown(value) {
     .trim();
 }
 
+function normalizeUrlCandidate(value) {
+  const candidate = String(value ?? "")
+    .replace(/[<>"'`]/g, "")
+    .replace(/[),.;:]+$/g, "")
+    .trim();
+  if (!candidate) return "";
+  if (/^https?:\/\//i.test(candidate)) return candidate;
+  if (/^(?:www\.)?[a-z0-9][a-z0-9-]*(?:\.[a-z][a-z0-9-]{1,})+(?:\/[^\s]*)?$/i.test(candidate)) {
+    return `https://${candidate.replace(/^www\./i, "")}`;
+  }
+  return "";
+}
+
 function extractLinks(value) {
   const text = String(value ?? "");
   const links = [];
@@ -130,6 +154,11 @@ function extractLinks(value) {
   for (const match of text.matchAll(/(^|\s)(https?:\/\/[^\s)]+)/g)) {
     const url = match[2].replace(/[.,;]+$/, "");
     if (!links.some((link) => link.url === url)) links.push({ label: url, url });
+  }
+  const unlinkedText = text.replace(/\[[^\]]+\]\((https?:\/\/[^)]+)\)/g, " ");
+  for (const match of unlinkedText.matchAll(/(?:^|[\s(—-])((?:www\.)?[a-z0-9][a-z0-9-]*(?:\.[a-z][a-z0-9-]{1,})+(?:\/[^\s),;]*)?)/gi)) {
+    const url = normalizeUrlCandidate(match[1]);
+    if (url && !links.some((link) => link.url === url)) links.push({ label: match[1], url });
   }
   return links;
 }
@@ -150,11 +179,14 @@ function resourceFromTable(headers, cells, context) {
   const nameCell = row.source || row.tool || row.provider || row.platform || cells[0] || "Unnamed Resource";
   const linkCells = [row.url, row.api, row["api url"], row.notes, row.focus, row.price, row.pricing, ...cells];
   const links = linkCells.flatMap(extractLinks);
+  const name = stripMarkdown(nameCell);
+  const hintedUrl = URL_HINTS.get(name.toLowerCase());
+  if (hintedUrl && !links.some((link) => link.url === hintedUrl)) links.unshift({ label: name, url: hintedUrl });
   const url = normalizeUrl(links[0]?.url || "");
   const cost = stripMarkdown(row.cost || row.price || row.pricing || "");
   const notes = stripMarkdown(row.notes || row.focus || row.api || row["auth method"] || cells.slice(1).join(" "));
   return {
-    name: stripMarkdown(nameCell),
+    name,
     url,
     links: links.map((link) => ({ ...link, url: normalizeUrl(link.url) })),
     region: normalizeRegion(context.region),
@@ -244,10 +276,10 @@ function parseGuide(md) {
       const [label, ...rest] = clean.split(":");
       const key = stripMarkdown(label).toLowerCase();
       const value = rest.join(":").trim();
-          const links = extractLinks(value);
-          currentTool.links.push(...links.map((link) => ({ ...link, url: normalizeUrl(link.url) })));
-          if ((key === "url" || key === "browser" || key === "api docs" || key === "api") && !currentTool.url) {
-        currentTool.url = normalizeUrl(links[0]?.url || stripMarkdown(value));
+      const links = extractLinks(value);
+      currentTool.links.push(...links.map((link) => ({ ...link, url: normalizeUrl(link.url) })));
+      if ((key === "url" || key === "browser" || key === "api docs" || key === "api") && !currentTool.url) {
+        currentTool.url = normalizeUrl(links[0]?.url || normalizeUrlCandidate(stripMarkdown(value)));
       }
       if (key === "cost" || key === "pricing") {
         currentTool.cost = stripMarkdown(value);
