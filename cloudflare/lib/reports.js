@@ -1973,7 +1973,7 @@ function renderReportHtml({ title, body, articles }) {
   <title>${escapeHtml(title)}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQPD+0DgM52rONKgrLqMEw3u96rBKUE=" crossorigin="">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="/assets/user-style.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -2405,7 +2405,7 @@ function renderReportHtml({ title, body, articles }) {
     CONFLICT MAPPER - AUTO-GENERATED INTELLIGENCE BRIEF // ${escapeHtml(generatedDate.toUTCString())} // CLOUDFLARE R2/D1 BACKED // AI-ASSISTED ANALYSIS
   </div>
 </main>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     const reportMarkers = ${safeJson(mapMarkers)};
     const mapEl = document.getElementById('report-map');
