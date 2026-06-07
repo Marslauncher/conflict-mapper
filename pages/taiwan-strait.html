@@ -1708,6 +1708,29 @@ function chinaTaiwanTheaterArticles(articles) {
     });
 }
 
+function chinaTaiwanIntelligenceFeedArticles(articles) {
+  return (articles || [])
+    .filter(article => {
+      const text = articleText(article);
+      const headline = String(article.title || '').toLowerCase();
+      const directFeedTerms = [
+        'taiwan', 'taiwan strait', 'cross-strait', 'taipei', 'kinmen', 'matsu',
+        'penghu', 'rocaf', 'adiz', 'median line', 'first island chain',
+        'pla', 'plarf', 'pla navy', 'plan navy', 'eastern theater command',
+        'people liberation army', "people's liberation army", 'fujian',
+        'bashi channel', 'luzon strait', 'okinawa', 'ryukyu', 'philippine sea'
+      ];
+      const chinaTheaterTerms = [
+        'china', 'beijing', 'xi jinping', 'semiconductor', 'tsmc',
+        'south china sea', 'east china sea', 'philippines', 'japan'
+      ];
+      if (hasTerm(headline, TAIWAN_UNRELATED_TERMS) && !hasTerm(headline, directFeedTerms)) return false;
+      if (hasTerm(text, ['ukraine', 'russia', 'iran', 'gaza', 'israel', 'nato', 'estonia', 'rio summit', 'uk nuclear']) && !hasTerm(text, directFeedTerms)) return false;
+      return hasTerm(text, directFeedTerms) || (hasTerm(text, chinaTheaterTerms) && isChinaTaiwanTheaterRelevant(article));
+    })
+    .sort(sortByArticleDate);
+}
+
 function isTaiwanThinkTankRelevant(article) {
   const text = articleText(article);
   const headline = String(article.title || '').toLowerCase();
@@ -2118,8 +2141,10 @@ async function refreshFeed() {
     const thinkTankRelevant = allThinkTankArticles
       .filter(article => isTaiwanThinkTankRelevant(article) && isChinaTaiwanTheaterRelevant(article))
       .sort(sortByArticleDate);
+    const feedArticles = chinaTaiwanIntelligenceFeedArticles(relevant);
     const mapped = relevant.map(a => ({ ...a, cat: a.category || 'analysis' }));
-    renderFeed(mapped.slice(0, 40));
+    const mappedFeed = feedArticles.map(a => ({ ...a, cat: a.category || 'analysis' }));
+    renderFeed(mappedFeed.slice(0, 40));
     applyLiveArticleSignals(mapped);
     renderCurrentAssessment(mapped, thinkTankRelevant);
     renderStrategicAssessment(mapped, thinkTankRelevant);

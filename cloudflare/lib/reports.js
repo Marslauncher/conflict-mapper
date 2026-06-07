@@ -866,16 +866,18 @@ Hard requirements:
 - Distinguish reported facts from analytic assessment.
 - Include risk severity labels from this exact set: CRITICAL, HIGH, MEDIUM, LOW.
 - Include trajectory labels from this exact set: ESCALATING, STABLE, DE-ESCALATING.
-- Write 1,800-3,200 words unless source material is sparse. Favor depth, cited analytic detail, and operational implications over short summaries.
+- Write 1,400-2,600 words unless source material is sparse. Favor depth, cited analytic detail, and operational implications, but do not create walls of text.
 - Use the exact section structure below and preserve the class names because the renderer styles them.
+- No wall of text: use short paragraphs, feed rows, risk rows, theater rows, watch rows, badges, source-backed data, and scannable cards. Do not place more than 120 words in any single paragraph.
+- The renderer will add source visual cards, map, and a source signal matrix. Your body should complement those modules with concise analysis, not duplicate a long source list.
 - Do not invent exact casualty figures, classified intelligence, or unsupported claims.
-- Keep paragraphs tight. The reference style is dense, direct, and scannable.
+- Keep paragraphs tight. The reference style is dense, direct, multimodal, and scannable.
 ${watchInstruction}
 
 Use this HTML structure:
 <div class="exec-summary">
   <strong>EXECUTIVE SUMMARY</strong>
-  One dense paragraph summarizing the highest-impact global developments, including risk posture and operational implications.
+  Two or three short sentences summarizing the highest-impact global developments, including risk posture and operational implications.
 </div>
 
 <div class="section">
@@ -1953,9 +1955,11 @@ function renderReportHtml({ title, body, articles }) {
   const generatedAt = new Date().toISOString();
   const generatedDate = new Date(generatedAt);
   const displayTitle = escapeHtml(title).replace(' - ', ' &mdash; ');
-  const sanitizedBody = sanitizeReportHtml(extractReportBody(stripCodeFence(body)));
+  const sanitizedBody = closeUnbalancedDivs(sanitizeReportHtml(extractReportBody(stripCodeFence(body))));
   const mapMarkers = buildMapMarkers(articles);
   const topicLinks = buildTopicLinks(title, articles);
+  const sourceVisualBrief = buildSourceVisualBrief(articles);
+  const signalMatrix = buildSignalMatrix(articles, mapMarkers);
   const sourceList = articles.slice(0, 20).map((article) => (
     `<li><a href="${escapeAttr(article.link || '#')}" rel="noopener noreferrer">${escapeHtml(article.title || 'Untitled')}</a> <span>${escapeHtml(article.source || '')}</span></li>`
   )).join('');
@@ -2000,6 +2004,15 @@ function renderReportHtml({ title, body, articles }) {
       padding:clamp(16px, 2vw, 28px) 0 48px;
     }
     .report-shell * { max-width:100%; }
+    .article-map *,
+    .leaflet-container *,
+    .leaflet-pane *,
+    .leaflet-tile-container *,
+    .leaflet-tile {
+      max-width:none !important;
+      max-height:none !important;
+    }
+    .leaflet-container img { max-width:none !important; }
     .report-shell p,
     .report-shell li,
     .exec-summary,
@@ -2053,7 +2066,9 @@ function renderReportHtml({ title, body, articles }) {
       line-height:1.8;
       color:var(--report-text);
       margin-bottom:40px;
-      max-width:1100px;
+      max-width:none;
+      columns:2 360px;
+      column-gap:28px;
     }
     .exec-summary strong {
       display:block;
@@ -2062,8 +2077,11 @@ function renderReportHtml({ title, body, articles }) {
       color:var(--report-accent);
       letter-spacing:2px;
       margin-bottom:8px;
+      column-span:all;
     }
     .section { margin-bottom:40px; }
+    .generated-body { display:block; }
+    .generated-body::after { content:''; display:block; clear:both; }
     .section,
     .panel,
     .trend-card,
@@ -2121,6 +2139,98 @@ function renderReportHtml({ title, body, articles }) {
     }
     .trend-rank { opacity:.5; margin-right:8px; }
     .trend-card p { color:var(--report-text); line-height:1.7; margin-bottom:12px; }
+    .visual-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:14px;
+    }
+    .visual-card {
+      display:grid;
+      grid-template-rows:150px auto;
+      min-height:320px;
+      overflow:hidden;
+      border:1px solid color-mix(in srgb, var(--report-accent) 25%, var(--report-border));
+      border-radius:6px;
+      background:var(--report-surface);
+    }
+    .visual-card-media {
+      display:grid;
+      place-items:center;
+      min-height:150px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--report-accent) 18%, transparent), transparent 60%),
+        var(--report-surface-2);
+      border-bottom:1px solid var(--report-border);
+      overflow:hidden;
+    }
+    .visual-card-media img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .visual-card-placeholder {
+      width:100%;
+      height:100%;
+      display:grid;
+      align-content:center;
+      gap:8px;
+      padding:16px;
+      font-family:'Share Tech Mono', monospace;
+      color:var(--report-accent);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .visual-card-placeholder strong { display:block; color:var(--report-text); font-family:'Rajdhani', sans-serif; font-size:24px; letter-spacing:.08em; }
+    .visual-card-body { padding:14px; display:grid; gap:8px; align-content:start; }
+    .visual-card-title { color:var(--report-text); font-weight:700; line-height:1.25; }
+    .visual-card-summary { color:var(--report-muted); font-size:13px; line-height:1.55; }
+    .visual-card-meta {
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      font-family:'Share Tech Mono', monospace;
+      font-size:10px;
+      color:var(--report-faint);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .signal-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+      gap:10px;
+      padding:14px;
+    }
+    .signal-tile {
+      border:1px solid var(--report-border);
+      border-radius:6px;
+      background:var(--report-surface-2);
+      padding:12px;
+    }
+    .signal-value { color:var(--report-accent); font-family:'Rajdhani', sans-serif; font-size:30px; font-weight:700; line-height:1; }
+    .signal-label { margin-top:6px; color:var(--report-muted); font-family:'Share Tech Mono', monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; }
+    .source-data-table {
+      width:100%;
+      border-collapse:collapse;
+      font-size:13px;
+    }
+    .source-data-table th,
+    .source-data-table td {
+      padding:10px 12px;
+      border-bottom:1px solid var(--report-border);
+      text-align:left;
+      vertical-align:top;
+    }
+    .source-data-table th {
+      color:var(--report-accent);
+      font-family:'Share Tech Mono', monospace;
+      font-size:10px;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      background:color-mix(in srgb, var(--report-accent) 8%, transparent);
+    }
+    .source-data-table td { color:var(--report-text); }
+    .source-data-table .muted { color:var(--report-muted); }
     .regions-line {
       color:var(--report-muted);
       font-family:'Share Tech Mono', monospace;
@@ -2203,6 +2313,7 @@ function renderReportHtml({ title, body, articles }) {
       overflow:hidden;
       background:#05070a;
     }
+    .article-map .leaflet-tile { width:256px !important; height:256px !important; }
     .leaflet-container { background:#05070a; font-family:'Inter', system-ui, sans-serif; }
     .leaflet-popup-content-wrapper, .leaflet-popup-tip { background:var(--report-surface-2); color:var(--report-text); }
     .leaflet-popup-content a { color:var(--report-accent); }
@@ -2237,6 +2348,8 @@ function renderReportHtml({ title, body, articles }) {
       .trend-card-head { flex-direction:column; }
       .badge-row { margin-left:0; }
       .meta-row { gap:8px 18px; }
+      .visual-card { grid-template-rows:130px auto; }
+      .source-data-table { display:block; overflow-x:auto; }
     }
   </style>
 </head>
@@ -2252,7 +2365,13 @@ function renderReportHtml({ title, body, articles }) {
     </div>
   </div>
 
-  ${sanitizedBody}
+  ${sourceVisualBrief}
+
+  ${signalMatrix}
+
+  <div class="generated-body">
+    ${sanitizedBody}
+  </div>
 
   <div class="section">
     <div class="section-header">
@@ -2292,9 +2411,10 @@ function renderReportHtml({ title, body, articles }) {
     const mapEl = document.getElementById('report-map');
     if (mapEl && window.L) {
       const map = L.map(mapEl, { scrollWheelZoom: false, worldCopyJump: true }).setView([20, 0], 2);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         maxZoom: 8,
-        attribution: '&copy; OpenStreetMap contributors'
+        subdomains: 'abcd',
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
       }).addTo(map);
       const points = [];
       for (const marker of reportMarkers) {
@@ -2316,6 +2436,7 @@ function renderReportHtml({ title, body, articles }) {
       }
       if (points.length > 1) map.fitBounds(points, { padding: [28, 28] });
       if (points.length === 1) map.setView(points[0], 5);
+      requestAnimationFrame(() => map.invalidateSize());
     }
     function escapePopup(value) {
       return String(value || '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -2338,6 +2459,115 @@ function buildMapMarkers(articles) {
     }))
     .filter((marker) => Number.isFinite(marker.lat) && Number.isFinite(marker.lng))
     .slice(0, 60);
+}
+
+function buildSourceVisualBrief(articles = []) {
+  const visualArticles = articles
+    .filter((article) => article?.title || article?.description)
+    .slice(0, 6);
+  if (!visualArticles.length) return '';
+  const cards = visualArticles.map((article, index) => {
+    const image = articleImageUrl(article);
+    const title = article.title || 'Untitled source item';
+    const source = article.source || article.thinkTank || 'unknown source';
+    const date = article.pubDate || article.publishedAt || article.fetchedAt;
+    const dateLabel = date ? new Date(date).toISOString().slice(0, 10) : 'undated';
+    const summary = articleSummary(article);
+    const href = article.link || article.url || `https://news.google.com/search?q=${encodeURIComponent(title)}`;
+    const media = image
+      ? `<img src="${escapeAttr(image)}" alt="${escapeAttr(title)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.visual-card-media').innerHTML='<div class=&quot;visual-card-placeholder&quot;><span>Source preview</span><strong>${escapeAttr(source.slice(0, 18))}</strong><span>Image unavailable</span></div>'">`
+      : `<div class="visual-card-placeholder"><span>Source preview</span><strong>${escapeHtml(source.slice(0, 18))}</strong><span>${escapeHtml((article.category || 'reporting').toUpperCase())}</span></div>`;
+    return `<a class="visual-card" href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">
+      <div class="visual-card-media">${media}</div>
+      <div class="visual-card-body">
+        <div class="visual-card-meta"><span>#${index + 1}</span><span>${escapeHtml(source)}</span><span>${escapeHtml(dateLabel)}</span></div>
+        <div class="visual-card-title">${escapeHtml(title)}</div>
+        <div class="visual-card-summary">${escapeHtml(summary)}</div>
+      </div>
+    </a>`;
+  }).join('');
+
+  return `<div class="section">
+    <div class="section-header">
+      <span class="section-title">Source Visual Brief</span>
+      <span class="section-label">MULTIMODAL SOURCE PREVIEW</span>
+    </div>
+    <div class="visual-grid">${cards}</div>
+  </div>`;
+}
+
+function buildSignalMatrix(articles = [], mapMarkers = []) {
+  const recent24 = articles.filter((article) => articleWithinDays(article, 1)).length;
+  const recent7 = articles.filter((article) => articleWithinDays(article, 7)).length;
+  const sourceCounts = countBy(articles, (article) => article.source || article.thinkTank || 'unknown');
+  const categoryCounts = countBy(articles, (article) => article.category || 'analysis');
+  const topSource = Object.entries(sourceCounts).sort((a, b) => b[1] - a[1])[0] || ['unknown', 0];
+  const topCategory = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1])[0] || ['analysis', 0];
+  const rows = articles.slice(0, 8).map((article, index) => {
+    const date = article.pubDate || article.publishedAt || article.fetchedAt;
+    const dateLabel = date ? new Date(date).toISOString().slice(0, 10) : 'undated';
+    const place = article.geo?.place || article.geo?.country || article.country || 'unresolved';
+    return `<tr>
+      <td>${index + 1}</td>
+      <td><a href="${escapeAttr(article.link || article.url || '#')}" target="_blank" rel="noopener noreferrer">${escapeHtml(article.title || 'Untitled source item')}</a></td>
+      <td class="muted">${escapeHtml(article.source || article.thinkTank || 'unknown')}</td>
+      <td class="muted">${escapeHtml(place)}</td>
+      <td class="muted">${escapeHtml(dateLabel)}</td>
+    </tr>`;
+  }).join('');
+
+  return `<div class="section">
+    <div class="section-header">
+      <span class="section-title">Source Signal Matrix</span>
+      <span class="section-label">DATA VIEW</span>
+    </div>
+    <div class="panel">
+      <div class="signal-grid">
+        <div class="signal-tile"><div class="signal-value">${articles.length}</div><div class="signal-label">referenced source articles</div></div>
+        <div class="signal-tile"><div class="signal-value">${recent24}</div><div class="signal-label">published in last 24 hours</div></div>
+        <div class="signal-tile"><div class="signal-value">${recent7}</div><div class="signal-label">published in last 7 days</div></div>
+        <div class="signal-tile"><div class="signal-value">${mapMarkers.length}</div><div class="signal-label">geo-tagged map records</div></div>
+        <div class="signal-tile"><div class="signal-value">${escapeHtml(String(topSource[1]))}</div><div class="signal-label">top source: ${escapeHtml(topSource[0])}</div></div>
+        <div class="signal-tile"><div class="signal-value">${escapeHtml(String(topCategory[1]))}</div><div class="signal-label">top category: ${escapeHtml(topCategory[0])}</div></div>
+      </div>
+      <table class="source-data-table">
+        <thead><tr><th>#</th><th>Referenced Article</th><th>Source</th><th>Place</th><th>Date</th></tr></thead>
+        <tbody>${rows || '<tr><td colspan="5" class="muted">No source rows available.</td></tr>'}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function articleWithinDays(article, days) {
+  const raw = article?.pubDate || article?.publishedAt || article?.fetchedAt;
+  const time = raw ? new Date(raw).getTime() : 0;
+  return Number.isFinite(time) && time >= Date.now() - days * 86400000;
+}
+
+function articleSummary(article) {
+  const raw = article?.summary || article?.description || article?.contentSnippet || article?.title || 'No feed summary was available.';
+  return decodeHtmlEntities(String(raw).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()).slice(0, 220);
+}
+
+function articleImageUrl(article) {
+  const candidates = [
+    article?.image,
+    article?.imageUrl,
+    article?.thumbnail,
+    article?.media?.url,
+    article?.media?.thumbnail,
+    article?.enclosure?.url,
+    article?.ogImage,
+  ];
+  return candidates.find((value) => /^https?:\/\//i.test(String(value || '').trim())) || '';
+}
+
+function closeUnbalancedDivs(html) {
+  const value = String(html || '');
+  const openCount = (value.match(/<div\b/gi) || []).length;
+  const closeCount = (value.match(/<\/div>/gi) || []).length;
+  if (openCount <= closeCount) return value;
+  return `${value}${'</div>'.repeat(openCount - closeCount)}`;
 }
 
 function safeJson(value) {

@@ -104,10 +104,14 @@ async function maybeRefreshArticles(env, articleContext, plan, startedAt) {
       message: `${plan.label} refreshing RSS feeds before report generation`,
       startedAt,
     });
-    await refreshArticles(articleContext, {
-      limitFeeds: Number(env.REPORT_FEED_LIMIT || 80),
-      maxItemsPerFeed: Number(env.REPORT_FEED_ITEMS_PER_FEED || 20),
-    });
+    const timeoutMs = Number(env.REPORT_FEED_REFRESH_TIMEOUT_MS || 45000);
+    await Promise.race([
+      refreshArticles(articleContext, {
+        limitFeeds: Number(env.REPORT_FEED_LIMIT || 80),
+        maxItemsPerFeed: Number(env.REPORT_FEED_ITEMS_PER_FEED || 20),
+      }),
+      new Promise((_, reject) => setTimeout(() => reject(new Error(`Feed refresh exceeded ${timeoutMs}ms`)), timeoutMs)),
+    ]);
   } catch (err) {
     await appendReportLog(env, {
       level: 'warn',
