@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>North Korea Intel Tools | Conflict Mapper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/intel-link-previews.css">
+  <script src="../assets/user-style.js"></script>
+  <style>
+    :root{--bg:#061014;--panel:#10232c;--panel-2:#0c1c24;--line:rgba(103,232,221,.18);--line-strong:rgba(103,232,221,.38);--text:#e7f2f4;--muted:#9eb4bd;--faint:#617a85;--accent:#5eead4;--blue:#79a7ff;--amber:#f4b03a;--red:#f87171;--font-display:"Rajdhani",sans-serif;--font-mono:"Share Tech Mono",monospace;--font-body:"Inter",system-ui,sans-serif}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden}body{background:radial-gradient(circle at 15% 0,rgba(121,167,255,.1),transparent 34rem),radial-gradient(circle at 88% 4%,rgba(94,234,212,.12),transparent 34rem),linear-gradient(180deg,#07151b 0%,#041014 100%)}a{color:inherit}.page{width:100%;max-width:1440px;margin:0 auto;padding:26px clamp(12px,2vw,22px) 78px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-family:var(--font-mono);letter-spacing:.16em;text-transform:uppercase}.brand{color:var(--red);font-size:.78rem}.nav-links{display:flex;flex-wrap:wrap;gap:8px}.nav-links a,.source-link,.preview-body a{border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:rgba(16,35,44,.62);color:var(--muted);text-decoration:none;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.nav-links a:hover,.source-link:hover,.preview-body a:hover{border-color:var(--line-strong);color:var(--accent)}.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.72fr);gap:18px;align-items:stretch;padding:54px 0 36px}.hero-main,.hero-card,.tool-card,.workflow-card,.preview-card,.code-panel,.output-card{border:1px solid var(--line);border-radius:8px;background:linear-gradient(135deg,rgba(18,41,51,.9),rgba(6,19,25,.78));box-shadow:0 18px 60px rgba(0,0,0,.22)}.hero-main{padding:30px}.kicker{font-family:var(--font-mono);color:var(--accent);letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;margin-bottom:12px}h1{margin:0 0 16px;font-family:var(--font-display);font-size:clamp(3.2rem,8vw,7.5rem);letter-spacing:.13em;line-height:.86;text-transform:uppercase;color:#111827}h2{margin:0;font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);letter-spacing:.16em;text-transform:uppercase}h3{margin:0;font-family:var(--font-display);font-size:1.25rem;letter-spacing:.1em;text-transform:uppercase}.lead{max-width:880px;color:var(--muted);font-size:1.04rem;line-height:1.7}.hero-card{padding:20px;display:grid;gap:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:6px;padding:14px;background:rgba(255,255,255,.04)}.metric strong{display:block;color:var(--accent);font-family:var(--font-display);font-size:2rem;line-height:1}.metric span{font-family:var(--font-mono);color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.focus-box{border:1px solid var(--line);border-radius:6px;padding:14px;color:var(--muted);line-height:1.65}.section{padding:26px 0}.section-head{display:grid;grid-template-columns:minmax(0,.7fr) minmax(280px,.45fr);gap:18px;align-items:end;margin-bottom:16px;border-bottom:1px solid var(--line);padding:0 0 12px 18px}.section-head p{margin:0;color:var(--muted);line-height:1.65}.tool-grid,.workflow-grid,.preview-grid,.code-grid,.output-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}.tool-card{position:relative;min-height:255px;padding:18px;display:grid;grid-template-rows:auto 1fr auto}.tool-card p,.workflow-card p,.output-card p{color:var(--muted);line-height:1.62}.card-meta{display:flex;flex-wrap:wrap;gap:6px}.tag{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:4px 7px;color:var(--accent);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}.tag.blue{color:var(--blue)}.source-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;min-width:0}.domain{min-width:0;color:var(--faint);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;overflow-wrap:anywhere}.source-link.disabled{opacity:.6}.info{position:absolute;top:12px;right:12px;z-index:8}.info-button{width:24px;height:24px;border:1px solid var(--line-strong);border-radius:999px;background:rgba(94,234,212,.08);color:var(--accent);font-family:var(--font-mono);cursor:pointer}.popover{position:absolute;right:0;top:32px;width:min(390px,calc(100vw - 38px));max-height:310px;overflow:auto;padding:16px;border:1px solid var(--line-strong);border-radius:8px;background:#061014;box-shadow:0 18px 60px rgba(0,0,0,.42);opacity:0;pointer-events:none;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}.info:hover .popover,.info:focus-within .popover,.info[data-open=true] .popover{opacity:1;pointer-events:auto;transform:translateY(0)}.popover h4{margin:0 0 8px;font-family:var(--font-display);letter-spacing:.1em;text-transform:uppercase}.popover p,.popover li{color:var(--muted);font-size:.86rem;line-height:1.55}.workflow-card,.output-card{padding:18px}.step{display:inline-flex;margin-bottom:12px;color:var(--accent);font-family:var(--font-mono);letter-spacing:.18em}.preview-card{overflow:hidden}.browser-bar{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding:10px 14px;font-family:var(--font-mono);color:var(--faint);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.browser-bar span{width:9px;height:9px;border-radius:50%;background:var(--red)}.browser-bar span:nth-child(2){background:var(--amber)}.browser-bar span:nth-child(3){background:#6bd37b}.preview-body{padding:20px}.preview-line{height:10px;border-radius:999px;background:rgba(159,178,191,.22);margin:14px 0}.preview-line.short{width:54%}.preview-line.mid{width:78%}.code-panel{overflow:hidden}.code-panel header{display:flex;justify-content:space-between;gap:10px;padding:14px;border-bottom:1px solid var(--line)}pre{margin:0;max-height:420px;overflow:auto;padding:16px;background:rgba(0,0,0,.28);color:#cdebf0;font-family:var(--font-mono);font-size:.78rem;line-height:1.58}.mini-map{height:190px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(135deg,rgba(94,234,212,.13),transparent 45%),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px)}@media(max-width:860px){.hero,.section-head{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.hero-main{padding:22px}h1{font-size:3rem}.metric-grid{grid-template-columns:1fr}.section-head{padding-left:8px}.popover{right:-10px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="nav" aria-label="North Korea intel tools navigation">
+      <div class="brand">Conflict Mapper / North Korea Intel Tools</div>
+      <div class="nav-links">
+        <a href="../index.html">Dashboard</a>
+        <a href="../pages/intel-tools.html">Intel Tools Hub</a>
+        <a href="../countries/north-korea-dossier.html">North Korea Dossier</a>
+      </div>
+    </nav>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-main">
+        <div class="kicker">Country dossier module / Source-backed collection guide</div>
+        <h1 id="page-title">North Korea Intel Tools</h1>
+        <p class="lead">A focused OSINT reference for North Korea monitoring. The page down-selects from the Global OSINT resource guide and organizes sources by topic, use case, expected output, and corroboration workflow.</p>
+      </div>
+      <aside class="hero-card" aria-label="North Korea source summary">
+        <div class="metric-grid">
+          <div class="metric"><strong>28</strong><span>Guide sources</span></div>
+          <div class="metric"><strong>5</strong><span>Source topics</span></div>
+          <div class="metric"><strong>10</strong><span>API/data refs</span></div>
+          <div class="metric"><strong>3</strong><span>Paid tools</span></div>
+        </div>
+        <div class="focus-box"><strong>Collection focus:</strong> DPRK specialist reporting, regime messaging, sanctions, satellite analysis, internal economy, missile activity, and Korean Peninsula escalation indicators.</div>
+      </aside>
+    </section>
+
+    <section class="section" aria-labelledby="workflow-title">
+    <div class="section-head">
+      <h2 id="workflow-title">Analyst Workflow</h2>
+      <p>North Korea assessments should move from current reporting to corroborating source layers before final analysis language is published.</p>
+    </div>
+    <div class="workflow-grid">
+      <article class="workflow-card">
+        <span class="step">01</span>
+        <h3>Is the item regime messaging, specialist reporting, or external analysis?</h3>
+        <p>Start with local, official, or specialist reporting so the North Korea event baseline is not imported from a detached global headline.</p>
+      </article>
+<article class="workflow-card">
+        <span class="step">02</span>
+        <h3>Does it affect missile, nuclear, artillery, cyber, or sanctions posture?</h3>
+        <p>Cross-check with a second source family such as official records, satellite imagery, aircraft or maritime data, conflict-event databases, or research analysis.</p>
+      </article>
+<article class="workflow-card">
+        <span class="step">03</span>
+        <h3>Which satellite or think tank source corroborates it?</h3>
+        <p>Preserve source URLs, timestamps, and topic tags so later watch-page updates can cite the specific evidence trail.</p>
+      </article>
+<article class="workflow-card">
+        <span class="step">04</span>
+        <h3>Does it change ROK/US/Japan readiness context?</h3>
+        <p>Escalate language only when multiple independent indicators converge or when a primary source directly changes the operational picture.</p>
+      </article>
+    </div>
+  </section>
+    <section class="section" aria-labelledby="previews-title">
+    <div class="section-head">
+      <h2 id="previews-title">Website Preview Modules</h2>
+      <p>Preview cards summarize what each source family should provide without embedding third-party pages that may block iframes or break production rendering.</p>
+    </div>
+    <div class="preview-grid">
+      <article class="preview-card">
+        <div class="browser-bar"><span></span><span></span><span></span><b>38north.org</b></div>
+        <div class="preview-body">
+          <h3>38 North (Stimson Center)</h3>
+          <div class="preview-line"></div>
+          <div class="preview-line short"></div>
+          <div class="preview-line mid"></div>
+          <p>Use for map evidence, imagery checks, and North Korea location context.</p>
+          <a href="https://www.38north.org" target="_blank" rel="noopener noreferrer">Open Source</a>
+        </div>
+      </article>
+<article class="preview-card">
+        <div class="browser-bar"><span></span><span></span><span></span><b>nknews.org</b></div>
+        <div class="preview-body">
+          <h3>NK News</h3>
+          <div class="preview-line"></div>
+          <div class="preview-line short"></div>
+          <div class="preview-line mid"></div>
+          <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+          <a href="https://nknews.org" target="_blank" rel="noopener noreferrer">Open Source</a>
+        </div>
+      </article>
+<article class="preview-card">
+        <div class="browser-bar"><span></span><span></span><span></span><b>dailynk.com</b></div>
+        <div class="preview-body">
+          <h3>Daily NK</h3>
+          <div class="preview-line"></div>
+          <div class="preview-line short"></div>
+          <div class="preview-line mid"></div>
+          <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+          <a href="https://www.dailynk.com" target="_blank" rel="noopener noreferrer">Open Source</a>
+        </div>
+      </article>
+    </div>
+  </section>
+    
+    <section class="section" aria-labelledby="specialist-news-research-free-title">
+      <div class="section-head">
+        <h2 id="specialist-news-research-free-title">Specialist News &amp; Research Free</h2>
+        <p>Current reporting sources for North Korea; use them to establish the event baseline before assessment language changes.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about 38 North (Stimson Center)">i</button>
+      <div class="popover">
+        <h4>38 North (Stimson Center)</h4>
+        <p><strong>Operational use:</strong> Use for map evidence, imagery checks, and North Korea location context.</p>
+        <p><strong>Source context:</strong> Satellite imagery analysis of DPRK since 2011</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Specialist News &amp; Research Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>38 North (Stimson Center)</h3>
+    <p>Satellite imagery analysis of DPRK since 2011</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Specialist News &amp; Research Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">38north.org</span>
+      <a class="source-link" href="https://www.38north.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about NK News">i</button>
+      <div class="popover">
+        <h4>NK News</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> Specialist DPRK news; some articles free</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Specialist News &amp; Research Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>NK News</h3>
+    <p>Specialist DPRK news; some articles free</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Specialist News &amp; Research Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">nknews.org</span>
+      <a class="source-link" href="https://nknews.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Daily NK">i</button>
+      <div class="popover">
+        <h4>Daily NK</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> Sources inside North Korea; economic/political monitoring</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Specialist News &amp; Research Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Daily NK</h3>
+    <p>Sources inside North Korea; economic/political monitoring</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Specialist News &amp; Research Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">dailynk.com</span>
+      <a class="source-link" href="https://www.dailynk.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Radio Free Asia Korea">i</button>
+      <div class="popover">
+        <h4>Radio Free Asia Korea</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> First to break internal DPRK developments</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Specialist News &amp; Research Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Radio Free Asia Korea</h3>
+    <p>First to break internal DPRK developments</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Specialist News &amp; Research Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">rfa.org</span>
+      <a class="source-link" href="https://www.rfa.org/korean" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about North Korean Economy Watch">i</button>
+      <div class="popover">
+        <h4>North Korean Economy Watch</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> Specialist blog tracking DPRK economic developments</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Specialist News &amp; Research Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>North Korean Economy Watch</h3>
+    <p>Specialist blog tracking DPRK economic developments</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Specialist News &amp; Research Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">nkeconwatch.com</span>
+      <a class="source-link" href="https://www.nkeconwatch.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Naenara (DPRK Official Portal)">i</button>
+      <div class="popover">
+        <h4>Naenara (DPRK Official Portal)</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> Official North Korean government portal; monitor regime messaging</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Specialist News &amp; Research Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Naenara (DPRK Official Portal)</h3>
+    <p>Official North Korean government portal; monitor regime messaging</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Specialist News &amp; Research Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">kcnawatch.org</span>
+      <a class="source-link" href="https://kcnawatch.org/" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about NKDB Human Rights Database">i</button>
+      <div class="popover">
+        <h4>NKDB Human Rights Database</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> NGO database of North Korean human rights abuses</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Specialist News &amp; Research Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>NKDB Human Rights Database</h3>
+    <p>NGO database of North Korean human rights abuses</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Specialist News &amp; Research Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">nkdb.org</span>
+      <a class="source-link" href="https://www.nkdb.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about RUSI Project Sandstone">i</button>
+      <div class="popover">
+        <h4>RUSI Project Sandstone</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> DPRK illicit weapons and sanctions evasion networks</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Specialist News &amp; Research Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>RUSI Project Sandstone</h3>
+    <p>DPRK illicit weapons and sanctions evasion networks</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Specialist News &amp; Research Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">rusi.org</span>
+      <a class="source-link" href="https://www.rusi.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Korea Risk Group">i</button>
+      <div class="popover">
+        <h4>Korea Risk Group</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> DPRK economic and sanctions intelligence</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Specialist News &amp; Research Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Korea Risk Group</h3>
+    <p>DPRK economic and sanctions intelligence</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Specialist News &amp; Research Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">korearisk.com</span>
+      <a class="source-link" href="https://korearisk.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about 38 North S&amp;T Journals">i</button>
+      <div class="popover">
+        <h4>38 North S&amp;T Journals</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> DPRK scientific and technical journals translated</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Specialist News &amp; Research Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>38 North S&amp;T Journals</h3>
+    <p>DPRK scientific and technical journals translated</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Specialist News &amp; Research Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">38north.org</span>
+      <a class="source-link" href="https://www.38north.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article></div>
+    </section>
+  
+
+    <section class="section" aria-labelledby="think-tanks-satellite-analysis-free-title">
+      <div class="section-head">
+        <h2 id="think-tanks-satellite-analysis-free-title">Think Tanks &amp; Satellite Analysis Free</h2>
+        <p>Research and analysis sources that help decide whether North Korea reporting is routine, anomalous, or strategically meaningful.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about CSIS Beyond Parallel">i</button>
+      <div class="popover">
+        <h4>CSIS Beyond Parallel</h4>
+        <p><strong>Operational use:</strong> Use for map evidence, imagery checks, and North Korea location context.</p>
+        <p><strong>Source context:</strong> Declassified satellite imagery of DPRK nuclear/missile sites</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Think Tanks &amp; Satellite Analysis Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>CSIS Beyond Parallel</h3>
+    <p>Declassified satellite imagery of DPRK nuclear/missile sites</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Think Tanks &amp; Satellite Analysis Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">beyondparallel.csis.org</span>
+      <a class="source-link" href="https://beyondparallel.csis.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Stimson Center 38 North Satellite Program">i</button>
+      <div class="popover">
+        <h4>Stimson Center 38 North Satellite Program</h4>
+        <p><strong>Operational use:</strong> Use for map evidence, imagery checks, and North Korea location context.</p>
+        <p><strong>Source context:</strong> Monitors WMD, military infrastructure, telecom</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Think Tanks &amp; Satellite Analysis Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Stimson Center 38 North Satellite Program</h3>
+    <p>Monitors WMD, military infrastructure, telecom</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Think Tanks &amp; Satellite Analysis Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">stimson.org</span>
+      <a class="source-link" href="https://www.stimson.org/project/38-north-satellite-imagery-analysis/" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about CNS Missile Test Database">i</button>
+      <div class="popover">
+        <h4>CNS Missile Test Database</h4>
+        <p><strong>Operational use:</strong> Use for map evidence, imagery checks, and North Korea location context.</p>
+        <p><strong>Source context:</strong> All DPRK missile test records</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Think Tanks &amp; Satellite Analysis Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>CNS Missile Test Database</h3>
+    <p>All DPRK missile test records</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Think Tanks &amp; Satellite Analysis Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">nti.org</span>
+      <a class="source-link" href="https://www.nti.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about SIPRI DPRK Data">i</button>
+      <div class="popover">
+        <h4>SIPRI DPRK Data</h4>
+        <p><strong>Operational use:</strong> Use for map evidence, imagery checks, and North Korea location context.</p>
+        <p><strong>Source context:</strong> Independent arms, conflict, and disarmament research</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Think Tanks &amp; Satellite Analysis Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>SIPRI DPRK Data</h3>
+    <p>Independent arms, conflict, and disarmament research</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Think Tanks &amp; Satellite Analysis Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">sipri.org</span>
+      <a class="source-link" href="https://www.sipri.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article></div>
+    </section>
+  
+
+    <section class="section" aria-labelledby="data-portals-free-title">
+      <div class="section-head">
+        <h2 id="data-portals-free-title">Data Portals Free</h2>
+        <p>Guide-derived resources for North Korea monitoring and corroboration.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about DPRK Reports Database (RUSI/NK News)">i</button>
+      <div class="popover">
+        <h4>DPRK Reports Database (RUSI/NK News)</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Sanctions, entities, relationships linked to DPRK</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Data Portals Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>DPRK Reports Database (RUSI/NK News)</h3>
+    <p>Sanctions, entities, relationships linked to DPRK</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Data Portals Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">rusi.org</span>
+      <a class="source-link" href="https://www.rusi.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about DPRK Digital Atlas">i</button>
+      <div class="popover">
+        <h4>DPRK Digital Atlas</h4>
+        <p><strong>Operational use:</strong> Use for map evidence, imagery checks, and North Korea location context.</p>
+        <p><strong>Source context:</strong> Geospatial dataset of DPRK political/military infrastructure</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Data Portals Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>DPRK Digital Atlas</h3>
+    <p>Geospatial dataset of DPRK political/military infrastructure</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Data Portals Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">arcg.is</span>
+      <a class="source-link" href="https://arcg.is/DPRKAtlas" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about OpenSanctions DPRK">i</button>
+      <div class="popover">
+        <h4>OpenSanctions DPRK</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> 4,281 sanctioned DPRK entities</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Data Portals Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>OpenSanctions DPRK</h3>
+    <p>4,281 sanctioned DPRK entities</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Data Portals Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">opensanctions.org</span>
+      <a class="source-link" href="https://opensanctions.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about GitHub OSINT-Tools-North-Korea">i</button>
+      <div class="popover">
+        <h4>GitHub OSINT-Tools-North-Korea</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> Curated DPRK OSINT resource list</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Data Portals Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>GitHub OSINT-Tools-North-Korea</h3>
+    <p>Curated DPRK OSINT resource list</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Data Portals Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">github.com</span>
+      <a class="source-link" href="https://github.com/paulpogoda/OSINT-Tools-North-Korea" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about UNISHKA DPRK OSINT Toolkit">i</button>
+      <div class="popover">
+        <h4>UNISHKA DPRK OSINT Toolkit</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> Country-specific toolkit with case studies</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Data Portals Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>UNISHKA DPRK OSINT Toolkit</h3>
+    <p>Country-specific toolkit with case studies</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Data Portals Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">unishka.com</span>
+      <a class="source-link" href="https://unishka.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about World Bank Data — DPRK">i</button>
+      <div class="popover">
+        <h4>World Bank Data — DPRK</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> Limited but official economic indicators</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Data Portals Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>World Bank Data — DPRK</h3>
+    <p>Limited but official economic indicators</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Data Portals Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">data.worldbank.org</span>
+      <a class="source-link" href="https://data.worldbank.org/country/KP" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article></div>
+    </section>
+  
+
+    <section class="section" aria-labelledby="paid-north-korea-tools-title">
+      <div class="section-head">
+        <h2 id="paid-north-korea-tools-title">Paid North Korea Tools</h2>
+        <p>Commercial platforms from the guide that may add scale, resolution, language coverage, or enterprise support.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about NK Pro">i</button>
+      <div class="popover">
+        <h4>NK Pro</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and North Korea collection planning.</p>
+        <p><strong>Source context:</strong> Leadership tracker, expert directory, full-access reporting</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Paid North Korea Tools</li>
+          <li>Access: Subscription (contact)</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>NK Pro</h3>
+    <p>Leadership tracker, expert directory, full-access reporting</p>
+    <div class="card-meta">
+      <span class="tag">Paid</span>
+      <span class="tag blue">Paid North Korea Tools</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Maxar SecureWatch">i</button>
+      <div class="popover">
+        <h4>Maxar SecureWatch</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and North Korea collection planning.</p>
+        <p><strong>Source context:</strong> 30 cm on-demand tasking over DPRK sites</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Paid North Korea Tools</li>
+          <li>Access: Enterprise</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Maxar SecureWatch</h3>
+    <p>30 cm on-demand tasking over DPRK sites</p>
+    <div class="card-meta">
+      <span class="tag">Paid</span>
+      <span class="tag blue">Paid North Korea Tools</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Jane&#39;s / IHS Markit">i</button>
+      <div class="popover">
+        <h4>Jane&#39;s / IHS Markit</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and North Korea collection planning.</p>
+        <p><strong>Source context:</strong> DPRK military equipment assessments</p>
+        <ul>
+          <li>Region: North Korea / Korean Peninsula</li>
+          <li>Topic: Paid North Korea Tools</li>
+          <li>Access: Contact sales</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Jane&#39;s / IHS Markit</h3>
+    <p>DPRK military equipment assessments</p>
+    <div class="card-meta">
+      <span class="tag">Paid</span>
+      <span class="tag blue">Paid North Korea Tools</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article></div>
+    </section>
+  
+
+    <section class="section" aria-labelledby="global-trade-economic-intelligence-free-title">
+      <div class="section-head">
+        <h2 id="global-trade-economic-intelligence-free-title">Global Trade &amp; Economic Intelligence Free</h2>
+        <p>Guide-derived resources for North Korea monitoring and corroboration.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about UN Comtrade">i</button>
+      <div class="popover">
+        <h4>UN Comtrade</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and North Korea collection planning.</p>
+        <p><strong>Source context:</strong> Yes — free registration required</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>UN Comtrade</h3>
+    <p>Yes — free registration required</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">comtradeplus.un.org</span>
+      <a class="source-link" href="https://comtradeplus.un.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about World Bank Open Data">i</button>
+      <div class="popover">
+        <h4>World Bank Open Data</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> Yes — free, no key needed</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>World Bank Open Data</h3>
+    <p>Yes — free, no key needed</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">data.worldbank.org</span>
+      <a class="source-link" href="https://data.worldbank.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about OFAC Sanctions Search">i</button>
+      <div class="popover">
+        <h4>OFAC Sanctions Search</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and North Korea collection planning.</p>
+        <p><strong>Source context:</strong> Yes — SDN list downloadable as XML/CSV</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>OFAC Sanctions Search</h3>
+    <p>Yes — SDN list downloadable as XML/CSV</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">sanctionssearch.ofac.treas.gov</span>
+      <a class="source-link" href="https://sanctionssearch.ofac.treas.gov" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about OpenSanctions">i</button>
+      <div class="popover">
+        <h4>OpenSanctions</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> Yes — free bulk downloads; API from €200/mo for commercial</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>OpenSanctions</h3>
+    <p>Yes — free bulk downloads; API from €200/mo for commercial</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">opensanctions.org</span>
+      <a class="source-link" href="https://opensanctions.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about SIPRI Military Expenditure DB">i</button>
+      <div class="popover">
+        <h4>SIPRI Military Expenditure DB</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> No API; bulk download available free</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>SIPRI Military Expenditure DB</h3>
+    <p>No API; bulk download available free</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">sipri.org</span>
+      <a class="source-link" href="https://sipri.org/databases/milex" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article></div>
+    </section>
+  
+    <section class="section" aria-labelledby="examples-title">
+    <div class="section-head">
+      <h2 id="examples-title">Example Collection Code</h2>
+      <p>Credential-safe snippets from the resource guide. Replace placeholders with environment variables and preserve source timestamps in downstream reports.</p>
+    </div>
+    <div class="code-grid">
+      <article class="code-panel">
+        <header><h3>Python API Example — Get active fires in Ukraine</h3><span class="tag">Universal / Cross-Regional Tools</span></header>
+        <pre><code>import requests
+
+MAP_KEY = &quot;YOUR_FREE_MAP_KEY&quot;  # Sign up at firms.modaps.eosdis.nasa.gov/api/map_key
+# SOURCE options: VIIRS_SNPP_NRT, MODIS_NRT, VIIRS_NOAA20_NRT
+# AREA: west,south,east,north (bounding box)
+# DAY_RANGE: 1–10 days back
+
+url = f&quot;https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/VIIRS_SNPP_NRT/22,44,40,52/3&quot;
+response = requests.get(url)
+
+# Save to file for analysis
+with open(&quot;ukraine_fires.csv&quot;, &quot;w&quot;) as f:
+    f.write(response.text)
+
+print(response.text[:500])  # Preview first 500 chars</code></pre>
+      </article>
+<article class="code-panel">
+        <header><h3>🛰️ Satellite Imagery — Free</h3><span class="tag">Universal / Cross-Regional Tools</span></header>
+        <pre><code># Query a specific country (use ISO 3-letter code from /api/countries/)
+url = f&quot;https://firms.modaps.eosdis.nasa.gov/api/country/csv/{MAP_KEY}/VIIRS_SNPP_NRT/PRK/7&quot;
+# PRK = North Korea, UKR = Ukraine, SYR = Syria, IRN = Iran
+response = requests.get(url)
+print(response.text)</code></pre>
+      </article>
+<article class="code-panel">
+        <header><h3>Python API Example — Download Sentinel-2 imagery over Taiwan Strait</h3><span class="tag">Universal / Cross-Regional Tools</span></header>
+        <pre><code># pip install sentinelhub
+from sentinelhub import SHConfig, SentinelHubRequest, DataCollection, MimeType, BBox, CRS, bbox_to_dimensions
+
+config = SHConfig()
+config.sh_client_id = &quot;YOUR_CLIENT_ID&quot;       # From CDSE account
+config.sh_client_secret = &quot;YOUR_CLIENT_SECRET&quot;
+
+# Bounding box: Taiwan Strait region
+bbox = BBox(bbox=[119.5, 24.5, 122.5, 26.5], crs=CRS.WGS84)
+size = bbox_to_dimensions(bbox, resolution=60)  # 60m per pixel
+
+evalscript = &quot;&quot;&quot;
+//VERSION=3
+function setup() { return { input: [&quot;B04&quot;,&quot;B03&quot;,&quot;B02&quot;], output: { bands: 3 } }; }
+function evaluatePixel(sample) { return [sample.B04/3000, sample.B03/3000, sample.B02/3000]; }
+&quot;&quot;&quot;
+
+request = SentinelHubRequest(
+    evalscript=evalscript,
+    input_data=[SentinelHubRequest.input_data(
+        data_collection=DataCollection.SENTINEL2_L2A,
+        time_interval=(&quot;2026-05-01&quot;, &quot;2026-06-07&quot;),
+        mosaicking_order=&quot;leastCC&quot;
+    )],
+    responses=[SentinelHubRequest.output_response(&quot;default&quot;, MimeType.PNG)],
+    bbox=bbox,
+    size=size,
+    config=config
+)
+image = request.get_data()
+# image is a numpy array — save or display with matplotlib/PIL</code></pre>
+      </article>
+<article class="code-panel">
+        <header><h3>Python API Example — Track aircraft over the Korean Peninsula</h3><span class="tag">Universal / Cross-Regional Tools</span></header>
+        <pre><code>import requests
+import json
+
+# Bounding box for Korean Peninsula: lomin, lamin, lomax, lamax
+lomin, lamin, lomax, lamax = 124.0, 33.0, 131.0, 43.0
+
+url = (
+    f&quot;https://opensky-network.org/api/states/all&quot;
+    f&quot;?lamin={lamin}&amp;lomin={lomin}&amp;lamax={lamax}&amp;lomax={lomax}&quot;
+)
+# Add auth for higher rate limits: requests.get(url, auth=(&quot;username&quot;,&quot;password&quot;))
+response = requests.get(url)
+data = response.json()
+
+if data and data.get(&quot;states&quot;):
+    for aircraft in data[&quot;states&quot;][:10]:  # Show first 10
+        icao24, callsign, origin_country = aircraft, aircraft[^1], aircraft[^2]
+        latitude, longitude, altitude = aircraft[^6], aircraft[^5], aircraft[^7]
+        print(f&quot;ICAO: {icao24} | Call: {callsign} | Country: {origin_country} | &quot;
+              f&quot;Lat: {latitude} | Lon: {longitude} | Alt: {altitude}m&quot;)</code></pre>
+      </article>
+    </div>
+  </section>
+    <section class="section" aria-labelledby="outputs-title">
+    <div class="section-head">
+      <h2 id="outputs-title">Expected Output</h2>
+      <p>These panels show what usable output should look like after sources are converted into a repeatable North Korea workflow.</p>
+    </div>
+    <div class="output-grid">
+      <article class="output-card">
+        <h3>Source Table</h3>
+        <pre>{
+  "region": "North Korea",
+  "source": "Primary reporting",
+  "url": "https://example-source.invalid",
+  "confidence": "corroboration required"
+}</pre>
+      </article>
+      <article class="output-card">
+        <h3>Map Layer</h3>
+        <div class="mini-map" aria-label="North Korea example map layer"></div>
+        <p>Expected artifact: plotted incidents, infrastructure, route, or observation points with source URLs retained in feature properties.</p>
+      </article>
+      <article class="output-card">
+        <h3>Assessment Note</h3>
+        <p><strong>Analyst rule:</strong> a single source should not drive North Korea assessment language unless it is a primary source that directly changes the status picture.</p>
+      </article>
+    </div>
+  </section>
+  </main>
+  <script src="../assets/intel-link-previews.js"></script>
+  <script>
+    document.querySelectorAll(".info").forEach((info) => {
+      const button = info.querySelector(".info-button");
+      if (!button) return;
+      button.setAttribute("aria-expanded", "false");
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const isOpen = info.dataset.open === "true";
+        document.querySelectorAll(".info[data-open='true']").forEach((openInfo) => {
+          openInfo.dataset.open = "false";
+          openInfo.querySelector(".info-button")?.setAttribute("aria-expanded", "false");
+        });
+        info.dataset.open = String(!isOpen);
+        button.setAttribute("aria-expanded", String(!isOpen));
+      });
+    });
+    document.addEventListener("click", (event) => {
+      if (event.target.closest(".info")) return;
+      document.querySelectorAll(".info[data-open='true']").forEach((openInfo) => {
+        openInfo.dataset.open = "false";
+        openInfo.querySelector(".info-button")?.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
+</body>
+</html>

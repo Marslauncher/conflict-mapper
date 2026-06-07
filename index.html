@@ -4262,11 +4262,9 @@ function getCountrySubItems(slug) {
     { icon: '🗺', label: 'Live News Map', target: `pages/news-map.html?country=${slug}` },
     { icon: '📊', label: 'Current Analysis', target: `reports/countries/${slug}/current/report.html` },
     { icon: '📁', label: 'Historical Reports', target: `pages/historical.html?country=${slug}` },
-    { icon: '📋', label: 'Strategic Dossier', target: `countries/${slug}-dossier.html` }
+    { icon: '📋', label: 'Strategic Dossier', target: `countries/${slug}-dossier.html` },
+    { icon: '⌖', label: 'Intel Tools', target: `countries/${slug}-intel-tools.html` }
   ];
-  if (slug === 'taiwan') {
-    items.push({ icon: '⌖', label: 'Intel Tools', target: 'countries/taiwan-intel-tools.html' });
-  }
   return items;
 }
 
@@ -4870,10 +4868,9 @@ function renderMobileDrawer() {
                 <button class="mobile-dropdown-item" onclick="mobileLoadContent('pages/historical.html?country=${c.slug}', this)">
                   <span class="mobile-dropdown-item-label">Historical Reports</span>
                 </button>
-                ${c.slug === 'taiwan' ? `
-                <button class="mobile-dropdown-item" onclick="mobileLoadContent('countries/taiwan-intel-tools.html', this)">
+                <button class="mobile-dropdown-item" onclick="mobileLoadContent('countries/${c.slug}-intel-tools.html', this)">
                   <span class="mobile-dropdown-item-label">Intel Tools</span>
-                </button>` : ''}
+                </button>
               </div>
             </details>
           `).join('')}

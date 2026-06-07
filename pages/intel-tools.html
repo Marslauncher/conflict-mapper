@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Intel Tools | Conflict Mapper</title>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/intel-link-previews.css">
   <script src="../assets/user-style.js"></script>
   <style>
     :root {
@@ -560,7 +561,7 @@
       <div class="brand">Conflict Mapper / Intel Tools</div>
       <nav class="toplinks" aria-label="Intel tools quick links">
         <a href="../index.html">Main Dashboard</a>
-        <a href="../countries/taiwan-intel-tools.html">Taiwan Template</a>
+        <a href="../countries/taiwan-intel-tools.html">Taiwan Deep Dive</a>
         <a href="../pages/taiwan-strait.html">China/Taiwan Watch</a>
       </nav>
     </div>
@@ -588,7 +589,7 @@
     <section class="section" aria-labelledby="global-domains-title">
       <div class="section-head">
         <h2 id="global-domains-title">Global Resource Domains</h2>
-        <p>These domains summarize the cross-regional tooling layer before the country inventory. They should remain the starting point for any future country Intel Tools page.</p>
+        <p>These domains summarize the cross-regional tooling layer before the country inventory and provide the common source families used by focused country Intel Tools pages.</p>
       </div>
       <div class="domain-grid" id="domain-grid"></div>
     </section>
@@ -596,7 +597,7 @@
     <section class="section" aria-labelledby="regions-title">
       <div class="section-head">
         <h2 id="regions-title">Regional Coverage</h2>
-        <p>Each card summarizes the resources parsed from the guide for that country or theater. Taiwan remains the first fully implemented country-level template.</p>
+        <p>Each card summarizes the resources parsed from the guide for that country or theater and links to the matching focused Intel Tools page where available.</p>
       </div>
       <div class="region-grid" id="region-grid"></div>
     </section>
@@ -648,6 +649,7 @@
     </section>
   </main>
 
+  <script src="../assets/intel-link-previews.js"></script>
   <script>
     const GUIDE_URL = "../datasources/Global%20OSINT,%20News%20%26%20Satellite%20Intelligence%20Resource%20Guide%20%E2%80%94%20Enhanced%20Edition.md";
     const DOMAIN_DEFS = [
@@ -662,6 +664,17 @@
     let allResources = [];
     let allExamples = [];
     let currentFilters = { region: "all", category: "all", query: "" };
+    const REGION_DEEP_DIVE_LINKS = {
+      "United States": "../countries/usa-intel-tools.html",
+      "China": "../countries/china-intel-tools.html",
+      "Taiwan": "../countries/taiwan-intel-tools.html",
+      "North Korea / Korean Peninsula": "../countries/north-korea-intel-tools.html",
+      "Middle East": "../countries/iran-intel-tools.html",
+      "Ukraine": "../countries/ukraine-intel-tools.html",
+      "Russia": "../countries/russia-intel-tools.html",
+      "Pakistan": "../countries/pakistan-intel-tools.html",
+      "India": "../countries/india-intel-tools.html"
+    };
 
     const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
       "&": "&amp;",
@@ -872,7 +885,7 @@
         const items = grouped.get(name);
         const categories = new Set(items.map((item) => item.category));
         const apiCount = items.filter((item) => /api|docs|developer|endpoint/i.test(`${item.notes} ${item.url} ${item.category}`)).length;
-        const link = name === "Taiwan" ? `<a class="button" href="../countries/taiwan-intel-tools.html">Open Taiwan Deep Dive</a>` : "";
+        const link = REGION_DEEP_DIVE_LINKS[name] ? `<a class="button" href="${esc(REGION_DEEP_DIVE_LINKS[name])}">Open Intel Tools</a>` : "";
         return `<article class="region-card">
           <h3>${esc(name)}</h3>
           <p>${esc(regionSummary(name, items))}</p>
@@ -931,6 +944,7 @@
         return groups;
       }).join("");
       wireInfoButtons();
+      window.enhanceExternalLinkPreviews?.(container);
     }
 
     function renderResourceCard(resource) {
@@ -1025,6 +1039,7 @@
         updateFilters(allResources);
         renderResources();
         renderExamples(allExamples);
+        window.enhanceExternalLinkPreviews?.(document);
       } catch (error) {
         console.error(error);
         document.getElementById("resource-sections").innerHTML = `<div class="empty">Could not load the Global OSINT resource guide. Check the committed Markdown file path and Cloudflare static asset routing.</div>`;

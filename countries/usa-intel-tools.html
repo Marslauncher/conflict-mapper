@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>United States Intel Tools | Conflict Mapper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/intel-link-previews.css">
+  <script src="../assets/user-style.js"></script>
+  <style>
+    :root{--bg:#061014;--panel:#10232c;--panel-2:#0c1c24;--line:rgba(103,232,221,.18);--line-strong:rgba(103,232,221,.38);--text:#e7f2f4;--muted:#9eb4bd;--faint:#617a85;--accent:#5eead4;--blue:#79a7ff;--amber:#f4b03a;--red:#f87171;--font-display:"Rajdhani",sans-serif;--font-mono:"Share Tech Mono",monospace;--font-body:"Inter",system-ui,sans-serif}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden}body{background:radial-gradient(circle at 15% 0,rgba(121,167,255,.1),transparent 34rem),radial-gradient(circle at 88% 4%,rgba(94,234,212,.12),transparent 34rem),linear-gradient(180deg,#07151b 0%,#041014 100%)}a{color:inherit}.page{width:100%;max-width:1440px;margin:0 auto;padding:26px clamp(12px,2vw,22px) 78px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-family:var(--font-mono);letter-spacing:.16em;text-transform:uppercase}.brand{color:var(--red);font-size:.78rem}.nav-links{display:flex;flex-wrap:wrap;gap:8px}.nav-links a,.source-link,.preview-body a{border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:rgba(16,35,44,.62);color:var(--muted);text-decoration:none;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.nav-links a:hover,.source-link:hover,.preview-body a:hover{border-color:var(--line-strong);color:var(--accent)}.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.72fr);gap:18px;align-items:stretch;padding:54px 0 36px}.hero-main,.hero-card,.tool-card,.workflow-card,.preview-card,.code-panel,.output-card{border:1px solid var(--line);border-radius:8px;background:linear-gradient(135deg,rgba(18,41,51,.9),rgba(6,19,25,.78));box-shadow:0 18px 60px rgba(0,0,0,.22)}.hero-main{padding:30px}.kicker{font-family:var(--font-mono);color:var(--accent);letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;margin-bottom:12px}h1{margin:0 0 16px;font-family:var(--font-display);font-size:clamp(3.2rem,8vw,7.5rem);letter-spacing:.13em;line-height:.86;text-transform:uppercase;color:#111827}h2{margin:0;font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);letter-spacing:.16em;text-transform:uppercase}h3{margin:0;font-family:var(--font-display);font-size:1.25rem;letter-spacing:.1em;text-transform:uppercase}.lead{max-width:880px;color:var(--muted);font-size:1.04rem;line-height:1.7}.hero-card{padding:20px;display:grid;gap:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:6px;padding:14px;background:rgba(255,255,255,.04)}.metric strong{display:block;color:var(--accent);font-family:var(--font-display);font-size:2rem;line-height:1}.metric span{font-family:var(--font-mono);color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.focus-box{border:1px solid var(--line);border-radius:6px;padding:14px;color:var(--muted);line-height:1.65}.section{padding:26px 0}.section-head{display:grid;grid-template-columns:minmax(0,.7fr) minmax(280px,.45fr);gap:18px;align-items:end;margin-bottom:16px;border-bottom:1px solid var(--line);padding:0 0 12px 18px}.section-head p{margin:0;color:var(--muted);line-height:1.65}.tool-grid,.workflow-grid,.preview-grid,.code-grid,.output-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}.tool-card{position:relative;min-height:255px;padding:18px;display:grid;grid-template-rows:auto 1fr auto}.tool-card p,.workflow-card p,.output-card p{color:var(--muted);line-height:1.62}.card-meta{display:flex;flex-wrap:wrap;gap:6px}.tag{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:4px 7px;color:var(--accent);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}.tag.blue{color:var(--blue)}.source-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;min-width:0}.domain{min-width:0;color:var(--faint);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;overflow-wrap:anywhere}.source-link.disabled{opacity:.6}.info{position:absolute;top:12px;right:12px;z-index:8}.info-button{width:24px;height:24px;border:1px solid var(--line-strong);border-radius:999px;background:rgba(94,234,212,.08);color:var(--accent);font-family:var(--font-mono);cursor:pointer}.popover{position:absolute;right:0;top:32px;width:min(390px,calc(100vw - 38px));max-height:310px;overflow:auto;padding:16px;border:1px solid var(--line-strong);border-radius:8px;background:#061014;box-shadow:0 18px 60px rgba(0,0,0,.42);opacity:0;pointer-events:none;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}.info:hover .popover,.info:focus-within .popover,.info[data-open=true] .popover{opacity:1;pointer-events:auto;transform:translateY(0)}.popover h4{margin:0 0 8px;font-family:var(--font-display);letter-spacing:.1em;text-transform:uppercase}.popover p,.popover li{color:var(--muted);font-size:.86rem;line-height:1.55}.workflow-card,.output-card{padding:18px}.step{display:inline-flex;margin-bottom:12px;color:var(--accent);font-family:var(--font-mono);letter-spacing:.18em}.preview-card{overflow:hidden}.browser-bar{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding:10px 14px;font-family:var(--font-mono);color:var(--faint);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.browser-bar span{width:9px;height:9px;border-radius:50%;background:var(--red)}.browser-bar span:nth-child(2){background:var(--amber)}.browser-bar span:nth-child(3){background:#6bd37b}.preview-body{padding:20px}.preview-line{height:10px;border-radius:999px;background:rgba(159,178,191,.22);margin:14px 0}.preview-line.short{width:54%}.preview-line.mid{width:78%}.code-panel{overflow:hidden}.code-panel header{display:flex;justify-content:space-between;gap:10px;padding:14px;border-bottom:1px solid var(--line)}pre{margin:0;max-height:420px;overflow:auto;padding:16px;background:rgba(0,0,0,.28);color:#cdebf0;font-family:var(--font-mono);font-size:.78rem;line-height:1.58}.mini-map{height:190px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(135deg,rgba(94,234,212,.13),transparent 45%),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px)}@media(max-width:860px){.hero,.section-head{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.hero-main{padding:22px}h1{font-size:3rem}.metric-grid{grid-template-columns:1fr}.section-head{padding-left:8px}.popover{right:-10px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="nav" aria-label="United States intel tools navigation">
+      <div class="brand">Conflict Mapper / United States Intel Tools</div>
+      <div class="nav-links">
+        <a href="../index.html">Dashboard</a>
+        <a href="../pages/intel-tools.html">Intel Tools Hub</a>
+        <a href="../countries/usa-dossier.html">United States Dossier</a>
+      </div>
+    </nav>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-main">
+        <div class="kicker">Country dossier module / Source-backed collection guide</div>
+        <h1 id="page-title">United States Intel Tools</h1>
+        <p class="lead">A focused OSINT reference for United States monitoring. The page down-selects from the Global OSINT resource guide and organizes sources by topic, use case, expected output, and corroboration workflow.</p>
+      </div>
+      <aside class="hero-card" aria-label="United States source summary">
+        <div class="metric-grid">
+          <div class="metric"><strong>38</strong><span>Guide sources</span></div>
+          <div class="metric"><strong>5</strong><span>Source topics</span></div>
+          <div class="metric"><strong>10</strong><span>API/data refs</span></div>
+          <div class="metric"><strong>4</strong><span>Paid tools</span></div>
+        </div>
+        <div class="focus-box"><strong>Collection focus:</strong> domestic institutions, defense posture, infrastructure, legal records, accountability reporting, trade data, and public geospatial sources.</div>
+      </aside>
+    </section>
+
+    <section class="section" aria-labelledby="workflow-title">
+    <div class="section-head">
+      <h2 id="workflow-title">Analyst Workflow</h2>
+      <p>United States assessments should move from current reporting to corroborating source layers before final analysis language is published.</p>
+    </div>
+    <div class="workflow-grid">
+      <article class="workflow-card">
+        <span class="step">01</span>
+        <h3>What official record changed?</h3>
+        <p>Start with local, official, or specialist reporting so the United States event baseline is not imported from a detached global headline.</p>
+      </article>
+<article class="workflow-card">
+        <span class="step">02</span>
+        <h3>Which infrastructure layer is exposed?</h3>
+        <p>Cross-check with a second source family such as official records, satellite imagery, aircraft or maritime data, conflict-event databases, or research analysis.</p>
+      </article>
+<article class="workflow-card">
+        <span class="step">03</span>
+        <h3>Which agency or court source confirms it?</h3>
+        <p>Preserve source URLs, timestamps, and topic tags so later watch-page updates can cite the specific evidence trail.</p>
+      </article>
+<article class="workflow-card">
+        <span class="step">04</span>
+        <h3>What economic or cyber context changes the assessment?</h3>
+        <p>Escalate language only when multiple independent indicators converge or when a primary source directly changes the operational picture.</p>
+      </article>
+    </div>
+  </section>
+    <section class="section" aria-labelledby="previews-title">
+    <div class="section-head">
+      <h2 id="previews-title">Website Preview Modules</h2>
+      <p>Preview cards summarize what each source family should provide without embedding third-party pages that may block iframes or break production rendering.</p>
+    </div>
+    <div class="preview-grid">
+      <article class="preview-card">
+        <div class="browser-bar"><span></span><span></span><span></span><b>propublica.org</b></div>
+        <div class="preview-body">
+          <h3>ProPublica</h3>
+          <div class="preview-line"></div>
+          <div class="preview-line short"></div>
+          <div class="preview-line mid"></div>
+          <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+          <a href="https://www.propublica.org" target="_blank" rel="noopener noreferrer">Open Source</a>
+        </div>
+      </article>
+<article class="preview-card">
+        <div class="browser-bar"><span></span><span></span><span></span><b>theintercept.com</b></div>
+        <div class="preview-body">
+          <h3>The Intercept</h3>
+          <div class="preview-line"></div>
+          <div class="preview-line short"></div>
+          <div class="preview-line mid"></div>
+          <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+          <a href="https://theintercept.com" target="_blank" rel="noopener noreferrer">Open Source</a>
+        </div>
+      </article>
+<article class="preview-card">
+        <div class="browser-bar"><span></span><span></span><span></span><b>muckrock.com</b></div>
+        <div class="preview-body">
+          <h3>MuckRock</h3>
+          <div class="preview-line"></div>
+          <div class="preview-line short"></div>
+          <div class="preview-line mid"></div>
+          <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+          <a href="https://muckrock.com" target="_blank" rel="noopener noreferrer">Open Source</a>
+        </div>
+      </article>
+    </div>
+  </section>
+    
+    <section class="section" aria-labelledby="news-investigative-accountability-journalism-free-title">
+      <div class="section-head">
+        <h2 id="news-investigative-accountability-journalism-free-title">News Investigative &amp; Accountability Journalism Free</h2>
+        <p>Current reporting sources for United States; use them to establish the event baseline before assessment language changes.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about ProPublica">i</button>
+      <div class="popover">
+        <h4>ProPublica</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Nonprofit investigative; all 50 states; corruption, corporate misconduct</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>ProPublica</h3>
+    <p>Nonprofit investigative; all 50 states; corruption, corporate misconduct</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">propublica.org</span>
+      <a class="source-link" href="https://www.propublica.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about The Intercept">i</button>
+      <div class="popover">
+        <h4>The Intercept</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> NSA surveillance, intelligence, national security</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>The Intercept</h3>
+    <p>NSA surveillance, intelligence, national security</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">theintercept.com</span>
+      <a class="source-link" href="https://theintercept.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about MuckRock">i</button>
+      <div class="popover">
+        <h4>MuckRock</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> FOIA filing platform; 50,000+ completed requests publicly archived</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>MuckRock</h3>
+    <p>FOIA filing platform; 50,000+ completed requests publicly archived</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">muckrock.com</span>
+      <a class="source-link" href="https://muckrock.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about AP Wire">i</button>
+      <div class="popover">
+        <h4>AP Wire</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Primary-source breaking news</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>AP Wire</h3>
+    <p>Primary-source breaking news</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">apnews.com</span>
+      <a class="source-link" href="https://apnews.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Reuters">i</button>
+      <div class="popover">
+        <h4>Reuters</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Wire service; verified breaking news</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Reuters</h3>
+    <p>Wire service; verified breaking news</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">reuters.com</span>
+      <a class="source-link" href="https://reuters.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about NPR News">i</button>
+      <div class="popover">
+        <h4>NPR News</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Public radio; domestic and foreign policy</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>NPR News</h3>
+    <p>Public radio; domestic and foreign policy</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">npr.org</span>
+      <a class="source-link" href="https://www.npr.org/sections/news" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about The Guardian US">i</button>
+      <div class="popover">
+        <h4>The Guardian US</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> US politics, surveillance, civil liberties</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>The Guardian US</h3>
+    <p>US politics, surveillance, civil liberties</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">theguardian.com</span>
+      <a class="source-link" href="https://www.theguardian.com/us-news" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Washington Post">i</button>
+      <div class="popover">
+        <h4>Washington Post</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> National security, intelligence (limited free articles)</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Washington Post</h3>
+    <p>National security, intelligence (limited free articles)</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">washingtonpost.com</span>
+      <a class="source-link" href="https://washingtonpost.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Politico">i</button>
+      <div class="popover">
+        <h4>Politico</h4>
+        <p><strong>Operational use:</strong> Use for aircraft activity leads near United States; corroborate sensitive military claims before publication.</p>
+        <p><strong>Source context:</strong> Congress, White House, regulatory affairs</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Politico</h3>
+    <p>Congress, White House, regulatory affairs</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">politico.com</span>
+      <a class="source-link" href="https://politico.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about The Hill">i</button>
+      <div class="popover">
+        <h4>The Hill</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Congress, legislation, DC politics — free</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>The Hill</h3>
+    <p>Congress, legislation, DC politics — free</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">thehill.com</span>
+      <a class="source-link" href="https://thehill.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about DocumentCloud">i</button>
+      <div class="popover">
+        <h4>DocumentCloud</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Primary-source government document repository</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>DocumentCloud</h3>
+    <p>Primary-source government document repository</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">documentcloud.org</span>
+      <a class="source-link" href="https://documentcloud.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Just the News">i</button>
+      <div class="popover">
+        <h4>Just the News</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Conservative-leaning investigative reporting</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Just the News</h3>
+    <p>Conservative-leaning investigative reporting</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">justthenews.com</span>
+      <a class="source-link" href="https://justthenews.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about The Lever">i</button>
+      <div class="popover">
+        <h4>The Lever</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Corporate accountability, financial investigations</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: News Investigative &amp; Accountability Journalism Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>The Lever</h3>
+    <p>Corporate accountability, financial investigations</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">News Investigative &amp; Accountability Journalism Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">levernews.com</span>
+      <a class="source-link" href="https://levernews.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article></div>
+    </section>
+  
+
+    <section class="section" aria-labelledby="government-records-legal-osint-free-title">
+      <div class="section-head">
+        <h2 id="government-records-legal-osint-free-title">Government Records &amp; Legal OSINT Free</h2>
+        <p>Guide-derived resources for United States monitoring and corroboration.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about PACER">i</button>
+      <div class="popover">
+        <h4>PACER</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> Federal court records; $0.10/page after $30/quarter threshold</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Government Records &amp; Legal OSINT Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>PACER</h3>
+    <p>Federal court records; $0.10/page after $30/quarter threshold</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">pacer.gov</span>
+      <a class="source-link" href="https://pacer.gov" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about CourtListener / RECAP">i</button>
+      <div class="popover">
+        <h4>CourtListener / RECAP</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> Millions of free PACER docs; RECAP browser extension auto-uploads</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Government Records &amp; Legal OSINT Free</li>
+          <li>Access: Listed in guide</li>
+          <li><a href="https://www.courtlistener.com/api/" target="_blank" rel="noopener noreferrer">courtlistener.com/api</a></li><li><a href="https://www.courtlistener.com/api/" target="_blank" rel="noopener noreferrer">courtlistener.com/api</a></li>
+        </ul>
+      </div>
+    </div>
+    <h3>CourtListener / RECAP</h3>
+    <p>Millions of free PACER docs; RECAP browser extension auto-uploads</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">courtlistener.com</span>
+      <a class="source-link" href="https://courtlistener.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about FOIA.gov">i</button>
+      <div class="popover">
+        <h4>FOIA.gov</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> Submit/track FOIA requests to federal agencies</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Government Records &amp; Legal OSINT Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>FOIA.gov</h3>
+    <p>Submit/track FOIA requests to federal agencies</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">foia.gov</span>
+      <a class="source-link" href="https://foia.gov" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Congress.gov">i</button>
+      <div class="popover">
+        <h4>Congress.gov</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> Bill text, votes, committee reports; free API key</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Government Records &amp; Legal OSINT Free</li>
+          <li>Access: Listed in guide</li>
+          <li><a href="https://api.congress.gov" target="_blank" rel="noopener noreferrer">api.congress.gov</a></li><li><a href="https://api.congress.gov" target="_blank" rel="noopener noreferrer">api.congress.gov</a></li>
+        </ul>
+      </div>
+    </div>
+    <h3>Congress.gov</h3>
+    <p>Bill text, votes, committee reports; free API key</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">congress.gov</span>
+      <a class="source-link" href="https://congress.gov" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about SEC EDGAR">i</button>
+      <div class="popover">
+        <h4>SEC EDGAR</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> 10-K, 10-Q, insider trades; free</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Government Records &amp; Legal OSINT Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>SEC EDGAR</h3>
+    <p>10-K, 10-Q, insider trades; free</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">efts.sec.gov</span>
+      <a class="source-link" href="https://efts.sec.gov" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about FEC (Campaign Finance)">i</button>
+      <div class="popover">
+        <h4>FEC (Campaign Finance)</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> PAC donations, campaign spending; free key</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Government Records &amp; Legal OSINT Free</li>
+          <li>Access: Listed in guide</li>
+          <li><a href="https://api.open.fec.gov" target="_blank" rel="noopener noreferrer">api.open.fec.gov</a></li><li><a href="https://api.open.fec.gov" target="_blank" rel="noopener noreferrer">api.open.fec.gov</a></li>
+        </ul>
+      </div>
+    </div>
+    <h3>FEC (Campaign Finance)</h3>
+    <p>PAC donations, campaign spending; free key</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">fec.gov</span>
+      <a class="source-link" href="https://www.fec.gov/data/" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about USASpending.gov">i</button>
+      <div class="popover">
+        <h4>USASpending.gov</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> Federal contracts including defense; free</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Government Records &amp; Legal OSINT Free</li>
+          <li>Access: Listed in guide</li>
+          <li><a href="https://api.usaspending.gov" target="_blank" rel="noopener noreferrer">api.usaspending.gov</a></li><li><a href="https://api.usaspending.gov" target="_blank" rel="noopener noreferrer">api.usaspending.gov</a></li>
+        </ul>
+      </div>
+    </div>
+    <h3>USASpending.gov</h3>
+    <p>Federal contracts including defense; free</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">usaspending.gov</span>
+      <a class="source-link" href="https://www.usaspending.gov" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about OpenSecrets">i</button>
+      <div class="popover">
+        <h4>OpenSecrets</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> Lobbying, dark money, PAC tracking</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Government Records &amp; Legal OSINT Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>OpenSecrets</h3>
+    <p>Lobbying, dark money, PAC tracking</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">opensecrets.org</span>
+      <a class="source-link" href="https://opensecrets.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Violation Tracker">i</button>
+      <div class="popover">
+        <h4>Violation Tracker</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> Corporate misconduct database</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Government Records &amp; Legal OSINT Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Violation Tracker</h3>
+    <p>Corporate misconduct database</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">violationtracker.goodjobsfirst.org</span>
+      <a class="source-link" href="https://violationtracker.goodjobsfirst.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about GovTrack">i</button>
+      <div class="popover">
+        <h4>GovTrack</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> Legislation tracking; bill text and voting records</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Government Records &amp; Legal OSINT Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>GovTrack</h3>
+    <p>Legislation tracking; bill text and voting records</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">govtrack.us</span>
+      <a class="source-link" href="https://govtrack.us" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Judyrecords">i</button>
+      <div class="popover">
+        <h4>Judyrecords</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> Free search of hundreds of millions of US court cases</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Government Records &amp; Legal OSINT Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Judyrecords</h3>
+    <p>Free search of hundreds of millions of US court cases</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Government Records &amp; Legal OSINT Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">judyrecords.com</span>
+      <a class="source-link" href="https://judyrecords.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article></div>
+    </section>
+  
+
+    <section class="section" aria-labelledby="us-infrastructure-geospatial-free-title">
+      <div class="section-head">
+        <h2 id="us-infrastructure-geospatial-free-title">US Infrastructure &amp; Geospatial Free</h2>
+        <p>Visual and geospatial sources for confirming locations, infrastructure, damage, environmental context, or operational access.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about NOAA GOES Real-Time">i</button>
+      <div class="popover">
+        <h4>NOAA GOES Real-Time</h4>
+        <p><strong>Operational use:</strong> Use for map evidence, imagery checks, and United States location context.</p>
+        <p><strong>Source context:</strong> Satellite refresh every 15 minutes</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: US Infrastructure &amp; Geospatial Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>NOAA GOES Real-Time</h3>
+    <p>Satellite refresh every 15 minutes</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">goes.noaa.gov</span>
+      <a class="source-link" href="https://www.goes.noaa.gov" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about NASA FIRMS US/Canada">i</button>
+      <div class="popover">
+        <h4>NASA FIRMS US/Canada</h4>
+        <p><strong>Operational use:</strong> Use for map evidence, imagery checks, and United States location context.</p>
+        <p><strong>Source context:</strong> Real-time fire detection for US</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: US Infrastructure &amp; Geospatial Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>NASA FIRMS US/Canada</h3>
+    <p>Real-time fire detection for US</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">firms.modaps.eosdis.nasa.gov</span>
+      <a class="source-link" href="https://firms.modaps.eosdis.nasa.gov" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about HIFLD Open Data">i</button>
+      <div class="popover">
+        <h4>HIFLD Open Data</h4>
+        <p><strong>Operational use:</strong> Use for map evidence, imagery checks, and United States location context.</p>
+        <p><strong>Source context:</strong> Homeland Infrastructure GIS layers — power, telecom, pipelines</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: US Infrastructure &amp; Geospatial Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>HIFLD Open Data</h3>
+    <p>Homeland Infrastructure GIS layers — power, telecom, pipelines</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">hifld-geoplatform.opendata.arcgis.com</span>
+      <a class="source-link" href="https://hifld-geoplatform.opendata.arcgis.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about FAA Aircraft Registry">i</button>
+      <div class="popover">
+        <h4>FAA Aircraft Registry</h4>
+        <p><strong>Operational use:</strong> Use for map evidence, imagery checks, and United States location context.</p>
+        <p><strong>Source context:</strong> Look up any N-registered aircraft owner</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: US Infrastructure &amp; Geospatial Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>FAA Aircraft Registry</h3>
+    <p>Look up any N-registered aircraft owner</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">faa.gov</span>
+      <a class="source-link" href="https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about ADS-B Exchange">i</button>
+      <div class="popover">
+        <h4>ADS-B Exchange</h4>
+        <p><strong>Operational use:</strong> Use for map evidence, imagery checks, and United States location context.</p>
+        <p><strong>Source context:</strong> Unfiltered US military aircraft tracking</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: US Infrastructure &amp; Geospatial Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>ADS-B Exchange</h3>
+    <p>Unfiltered US military aircraft tracking</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">US Infrastructure &amp; Geospatial Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">adsbexchange.com</span>
+      <a class="source-link" href="https://adsbexchange.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article></div>
+    </section>
+  
+
+    <section class="section" aria-labelledby="paid-us-tools-title">
+      <div class="section-head">
+        <h2 id="paid-us-tools-title">Paid US Tools</h2>
+        <p>Commercial platforms from the guide that may add scale, resolution, language coverage, or enterprise support.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about LexisNexis / Nexis Uni">i</button>
+      <div class="popover">
+        <h4>LexisNexis / Nexis Uni</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Legal and news database; backgrounding individuals</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Paid US Tools</li>
+          <li>Access: $150–$400+/mo</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>LexisNexis / Nexis Uni</h3>
+    <p>Legal and news database; backgrounding individuals</p>
+    <div class="card-meta">
+      <span class="tag">Paid</span>
+      <span class="tag blue">Paid US Tools</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Palantir Gotham">i</button>
+      <div class="popover">
+        <h4>Palantir Gotham</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> AI-powered government intelligence integration</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Paid US Tools</li>
+          <li>Access: Enterprise (undisclosed)</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Palantir Gotham</h3>
+    <p>AI-powered government intelligence integration</p>
+    <div class="card-meta">
+      <span class="tag">Paid</span>
+      <span class="tag blue">Paid US Tools</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Recorded Future">i</button>
+      <div class="popover">
+        <h4>Recorded Future</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> Predictive threat intelligence; cyber and geopolitical</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Paid US Tools</li>
+          <li>Access: $50K–$500K+/year</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Recorded Future</h3>
+    <p>Predictive threat intelligence; cyber and geopolitical</p>
+    <div class="card-meta">
+      <span class="tag">Paid</span>
+      <span class="tag blue">Paid US Tools</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Bloomberg Terminal">i</button>
+      <div class="popover">
+        <h4>Bloomberg Terminal</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Financial news, data, trading tools</p>
+        <ul>
+          <li>Region: United States</li>
+          <li>Topic: Paid US Tools</li>
+          <li>Access: ~$2,000/month</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Bloomberg Terminal</h3>
+    <p>Financial news, data, trading tools</p>
+    <div class="card-meta">
+      <span class="tag">Paid</span>
+      <span class="tag blue">Paid US Tools</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article></div>
+    </section>
+  
+
+    <section class="section" aria-labelledby="global-trade-economic-intelligence-free-title">
+      <div class="section-head">
+        <h2 id="global-trade-economic-intelligence-free-title">Global Trade &amp; Economic Intelligence Free</h2>
+        <p>Guide-derived resources for United States monitoring and corroboration.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about UN Comtrade">i</button>
+      <div class="popover">
+        <h4>UN Comtrade</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> Yes — free registration required</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>UN Comtrade</h3>
+    <p>Yes — free registration required</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">comtradeplus.un.org</span>
+      <a class="source-link" href="https://comtradeplus.un.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about World Bank Open Data">i</button>
+      <div class="popover">
+        <h4>World Bank Open Data</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> Yes — free, no key needed</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>World Bank Open Data</h3>
+    <p>Yes — free, no key needed</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">data.worldbank.org</span>
+      <a class="source-link" href="https://data.worldbank.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about OFAC Sanctions Search">i</button>
+      <div class="popover">
+        <h4>OFAC Sanctions Search</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and United States collection planning.</p>
+        <p><strong>Source context:</strong> Yes — SDN list downloadable as XML/CSV</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>OFAC Sanctions Search</h3>
+    <p>Yes — SDN list downloadable as XML/CSV</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">sanctionssearch.ofac.treas.gov</span>
+      <a class="source-link" href="https://sanctionssearch.ofac.treas.gov" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about OpenSanctions">i</button>
+      <div class="popover">
+        <h4>OpenSanctions</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> Yes — free bulk downloads; API from €200/mo for commercial</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>OpenSanctions</h3>
+    <p>Yes — free bulk downloads; API from €200/mo for commercial</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">opensanctions.org</span>
+      <a class="source-link" href="https://opensanctions.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about SIPRI Military Expenditure DB">i</button>
+      <div class="popover">
+        <h4>SIPRI Military Expenditure DB</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> No API; bulk download available free</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>SIPRI Military Expenditure DB</h3>
+    <p>No API; bulk download available free</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">sipri.org</span>
+      <a class="source-link" href="https://sipri.org/databases/milex" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article></div>
+    </section>
+  
+    <section class="section" aria-labelledby="examples-title">
+    <div class="section-head">
+      <h2 id="examples-title">Example Collection Code</h2>
+      <p>Credential-safe snippets from the resource guide. Replace placeholders with environment variables and preserve source timestamps in downstream reports.</p>
+    </div>
+    <div class="code-grid">
+      <article class="code-panel">
+        <header><h3>Python API Example — Get active fires in Ukraine</h3><span class="tag">Universal / Cross-Regional Tools</span></header>
+        <pre><code>import requests
+
+MAP_KEY = &quot;YOUR_FREE_MAP_KEY&quot;  # Sign up at firms.modaps.eosdis.nasa.gov/api/map_key
+# SOURCE options: VIIRS_SNPP_NRT, MODIS_NRT, VIIRS_NOAA20_NRT
+# AREA: west,south,east,north (bounding box)
+# DAY_RANGE: 1–10 days back
+
+url = f&quot;https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/VIIRS_SNPP_NRT/22,44,40,52/3&quot;
+response = requests.get(url)
+
+# Save to file for analysis
+with open(&quot;ukraine_fires.csv&quot;, &quot;w&quot;) as f:
+    f.write(response.text)
+
+print(response.text[:500])  # Preview first 500 chars</code></pre>
+      </article>
+<article class="code-panel">
+        <header><h3>🛰️ Satellite Imagery — Free</h3><span class="tag">Universal / Cross-Regional Tools</span></header>
+        <pre><code># Query a specific country (use ISO 3-letter code from /api/countries/)
+url = f&quot;https://firms.modaps.eosdis.nasa.gov/api/country/csv/{MAP_KEY}/VIIRS_SNPP_NRT/PRK/7&quot;
+# PRK = North Korea, UKR = Ukraine, SYR = Syria, IRN = Iran
+response = requests.get(url)
+print(response.text)</code></pre>
+      </article>
+<article class="code-panel">
+        <header><h3>Python API Example — Download Sentinel-2 imagery over Taiwan Strait</h3><span class="tag">Universal / Cross-Regional Tools</span></header>
+        <pre><code># pip install sentinelhub
+from sentinelhub import SHConfig, SentinelHubRequest, DataCollection, MimeType, BBox, CRS, bbox_to_dimensions
+
+config = SHConfig()
+config.sh_client_id = &quot;YOUR_CLIENT_ID&quot;       # From CDSE account
+config.sh_client_secret = &quot;YOUR_CLIENT_SECRET&quot;
+
+# Bounding box: Taiwan Strait region
+bbox = BBox(bbox=[119.5, 24.5, 122.5, 26.5], crs=CRS.WGS84)
+size = bbox_to_dimensions(bbox, resolution=60)  # 60m per pixel
+
+evalscript = &quot;&quot;&quot;
+//VERSION=3
+function setup() { return { input: [&quot;B04&quot;,&quot;B03&quot;,&quot;B02&quot;], output: { bands: 3 } }; }
+function evaluatePixel(sample) { return [sample.B04/3000, sample.B03/3000, sample.B02/3000]; }
+&quot;&quot;&quot;
+
+request = SentinelHubRequest(
+    evalscript=evalscript,
+    input_data=[SentinelHubRequest.input_data(
+        data_collection=DataCollection.SENTINEL2_L2A,
+        time_interval=(&quot;2026-05-01&quot;, &quot;2026-06-07&quot;),
+        mosaicking_order=&quot;leastCC&quot;
+    )],
+    responses=[SentinelHubRequest.output_response(&quot;default&quot;, MimeType.PNG)],
+    bbox=bbox,
+    size=size,
+    config=config
+)
+image = request.get_data()
+# image is a numpy array — save or display with matplotlib/PIL</code></pre>
+      </article>
+<article class="code-panel">
+        <header><h3>Python API Example — Track aircraft over the Korean Peninsula</h3><span class="tag">Universal / Cross-Regional Tools</span></header>
+        <pre><code>import requests
+import json
+
+# Bounding box for Korean Peninsula: lomin, lamin, lomax, lamax
+lomin, lamin, lomax, lamax = 124.0, 33.0, 131.0, 43.0
+
+url = (
+    f&quot;https://opensky-network.org/api/states/all&quot;
+    f&quot;?lamin={lamin}&amp;lomin={lomin}&amp;lamax={lamax}&amp;lomax={lomax}&quot;
+)
+# Add auth for higher rate limits: requests.get(url, auth=(&quot;username&quot;,&quot;password&quot;))
+response = requests.get(url)
+data = response.json()
+
+if data and data.get(&quot;states&quot;):
+    for aircraft in data[&quot;states&quot;][:10]:  # Show first 10
+        icao24, callsign, origin_country = aircraft, aircraft[^1], aircraft[^2]
+        latitude, longitude, altitude = aircraft[^6], aircraft[^5], aircraft[^7]
+        print(f&quot;ICAO: {icao24} | Call: {callsign} | Country: {origin_country} | &quot;
+              f&quot;Lat: {latitude} | Lon: {longitude} | Alt: {altitude}m&quot;)</code></pre>
+      </article>
+    </div>
+  </section>
+    <section class="section" aria-labelledby="outputs-title">
+    <div class="section-head">
+      <h2 id="outputs-title">Expected Output</h2>
+      <p>These panels show what usable output should look like after sources are converted into a repeatable United States workflow.</p>
+    </div>
+    <div class="output-grid">
+      <article class="output-card">
+        <h3>Source Table</h3>
+        <pre>{
+  "region": "United States",
+  "source": "Primary reporting",
+  "url": "https://example-source.invalid",
+  "confidence": "corroboration required"
+}</pre>
+      </article>
+      <article class="output-card">
+        <h3>Map Layer</h3>
+        <div class="mini-map" aria-label="United States example map layer"></div>
+        <p>Expected artifact: plotted incidents, infrastructure, route, or observation points with source URLs retained in feature properties.</p>
+      </article>
+      <article class="output-card">
+        <h3>Assessment Note</h3>
+        <p><strong>Analyst rule:</strong> a single source should not drive United States assessment language unless it is a primary source that directly changes the status picture.</p>
+      </article>
+    </div>
+  </section>
+  </main>
+  <script src="../assets/intel-link-previews.js"></script>
+  <script>
+    document.querySelectorAll(".info").forEach((info) => {
+      const button = info.querySelector(".info-button");
+      if (!button) return;
+      button.setAttribute("aria-expanded", "false");
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const isOpen = info.dataset.open === "true";
+        document.querySelectorAll(".info[data-open='true']").forEach((openInfo) => {
+          openInfo.dataset.open = "false";
+          openInfo.querySelector(".info-button")?.setAttribute("aria-expanded", "false");
+        });
+        info.dataset.open = String(!isOpen);
+        button.setAttribute("aria-expanded", String(!isOpen));
+      });
+    });
+    document.addEventListener("click", (event) => {
+      if (event.target.closest(".info")) return;
+      document.querySelectorAll(".info[data-open='true']").forEach((openInfo) => {
+        openInfo.dataset.open = "false";
+        openInfo.querySelector(".info-button")?.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
+</body>
+</html>

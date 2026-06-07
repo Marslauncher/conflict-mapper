@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iran Intel Tools | Conflict Mapper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/intel-link-previews.css">
+  <script src="../assets/user-style.js"></script>
+  <style>
+    :root{--bg:#061014;--panel:#10232c;--panel-2:#0c1c24;--line:rgba(103,232,221,.18);--line-strong:rgba(103,232,221,.38);--text:#e7f2f4;--muted:#9eb4bd;--faint:#617a85;--accent:#5eead4;--blue:#79a7ff;--amber:#f4b03a;--red:#f87171;--font-display:"Rajdhani",sans-serif;--font-mono:"Share Tech Mono",monospace;--font-body:"Inter",system-ui,sans-serif}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden}body{background:radial-gradient(circle at 15% 0,rgba(121,167,255,.1),transparent 34rem),radial-gradient(circle at 88% 4%,rgba(94,234,212,.12),transparent 34rem),linear-gradient(180deg,#07151b 0%,#041014 100%)}a{color:inherit}.page{width:100%;max-width:1440px;margin:0 auto;padding:26px clamp(12px,2vw,22px) 78px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-family:var(--font-mono);letter-spacing:.16em;text-transform:uppercase}.brand{color:var(--red);font-size:.78rem}.nav-links{display:flex;flex-wrap:wrap;gap:8px}.nav-links a,.source-link,.preview-body a{border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:rgba(16,35,44,.62);color:var(--muted);text-decoration:none;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.nav-links a:hover,.source-link:hover,.preview-body a:hover{border-color:var(--line-strong);color:var(--accent)}.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.72fr);gap:18px;align-items:stretch;padding:54px 0 36px}.hero-main,.hero-card,.tool-card,.workflow-card,.preview-card,.code-panel,.output-card{border:1px solid var(--line);border-radius:8px;background:linear-gradient(135deg,rgba(18,41,51,.9),rgba(6,19,25,.78));box-shadow:0 18px 60px rgba(0,0,0,.22)}.hero-main{padding:30px}.kicker{font-family:var(--font-mono);color:var(--accent);letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;margin-bottom:12px}h1{margin:0 0 16px;font-family:var(--font-display);font-size:clamp(3.2rem,8vw,7.5rem);letter-spacing:.13em;line-height:.86;text-transform:uppercase;color:#111827}h2{margin:0;font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);letter-spacing:.16em;text-transform:uppercase}h3{margin:0;font-family:var(--font-display);font-size:1.25rem;letter-spacing:.1em;text-transform:uppercase}.lead{max-width:880px;color:var(--muted);font-size:1.04rem;line-height:1.7}.hero-card{padding:20px;display:grid;gap:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:6px;padding:14px;background:rgba(255,255,255,.04)}.metric strong{display:block;color:var(--accent);font-family:var(--font-display);font-size:2rem;line-height:1}.metric span{font-family:var(--font-mono);color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.focus-box{border:1px solid var(--line);border-radius:6px;padding:14px;color:var(--muted);line-height:1.65}.section{padding:26px 0}.section-head{display:grid;grid-template-columns:minmax(0,.7fr) minmax(280px,.45fr);gap:18px;align-items:end;margin-bottom:16px;border-bottom:1px solid var(--line);padding:0 0 12px 18px}.section-head p{margin:0;color:var(--muted);line-height:1.65}.tool-grid,.workflow-grid,.preview-grid,.code-grid,.output-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}.tool-card{position:relative;min-height:255px;padding:18px;display:grid;grid-template-rows:auto 1fr auto}.tool-card p,.workflow-card p,.output-card p{color:var(--muted);line-height:1.62}.card-meta{display:flex;flex-wrap:wrap;gap:6px}.tag{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:4px 7px;color:var(--accent);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}.tag.blue{color:var(--blue)}.source-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;min-width:0}.domain{min-width:0;color:var(--faint);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;overflow-wrap:anywhere}.source-link.disabled{opacity:.6}.info{position:absolute;top:12px;right:12px;z-index:8}.info-button{width:24px;height:24px;border:1px solid var(--line-strong);border-radius:999px;background:rgba(94,234,212,.08);color:var(--accent);font-family:var(--font-mono);cursor:pointer}.popover{position:absolute;right:0;top:32px;width:min(390px,calc(100vw - 38px));max-height:310px;overflow:auto;padding:16px;border:1px solid var(--line-strong);border-radius:8px;background:#061014;box-shadow:0 18px 60px rgba(0,0,0,.42);opacity:0;pointer-events:none;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}.info:hover .popover,.info:focus-within .popover,.info[data-open=true] .popover{opacity:1;pointer-events:auto;transform:translateY(0)}.popover h4{margin:0 0 8px;font-family:var(--font-display);letter-spacing:.1em;text-transform:uppercase}.popover p,.popover li{color:var(--muted);font-size:.86rem;line-height:1.55}.workflow-card,.output-card{padding:18px}.step{display:inline-flex;margin-bottom:12px;color:var(--accent);font-family:var(--font-mono);letter-spacing:.18em}.preview-card{overflow:hidden}.browser-bar{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding:10px 14px;font-family:var(--font-mono);color:var(--faint);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}.browser-bar span{width:9px;height:9px;border-radius:50%;background:var(--red)}.browser-bar span:nth-child(2){background:var(--amber)}.browser-bar span:nth-child(3){background:#6bd37b}.preview-body{padding:20px}.preview-line{height:10px;border-radius:999px;background:rgba(159,178,191,.22);margin:14px 0}.preview-line.short{width:54%}.preview-line.mid{width:78%}.code-panel{overflow:hidden}.code-panel header{display:flex;justify-content:space-between;gap:10px;padding:14px;border-bottom:1px solid var(--line)}pre{margin:0;max-height:420px;overflow:auto;padding:16px;background:rgba(0,0,0,.28);color:#cdebf0;font-family:var(--font-mono);font-size:.78rem;line-height:1.58}.mini-map{height:190px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(135deg,rgba(94,234,212,.13),transparent 45%),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 22px)}@media(max-width:860px){.hero,.section-head{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.hero-main{padding:22px}h1{font-size:3rem}.metric-grid{grid-template-columns:1fr}.section-head{padding-left:8px}.popover{right:-10px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="nav" aria-label="Iran intel tools navigation">
+      <div class="brand">Conflict Mapper / Iran Intel Tools</div>
+      <div class="nav-links">
+        <a href="../index.html">Dashboard</a>
+        <a href="../pages/intel-tools.html">Intel Tools Hub</a>
+        <a href="../countries/iran-dossier.html">Iran Dossier</a>
+      </div>
+    </nav>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-main">
+        <div class="kicker">Country dossier module / Source-backed collection guide</div>
+        <h1 id="page-title">Iran Intel Tools</h1>
+        <p class="lead">A focused OSINT reference for Iran monitoring. The page down-selects from the Global OSINT resource guide and organizes sources by topic, use case, expected output, and corroboration workflow.</p>
+      </div>
+      <aside class="hero-card" aria-label="Iran source summary">
+        <div class="metric-grid">
+          <div class="metric"><strong>26</strong><span>Guide sources</span></div>
+          <div class="metric"><strong>5</strong><span>Source topics</span></div>
+          <div class="metric"><strong>6</strong><span>API/data refs</span></div>
+          <div class="metric"><strong>0</strong><span>Paid tools</span></div>
+        </div>
+        <div class="focus-box"><strong>Collection focus:</strong> Iranian state messaging, Gulf shipping, sanctions, nuclear and missile context, regional proxies, and chokepoint monitoring.</div>
+      </aside>
+    </section>
+
+    <section class="section" aria-labelledby="workflow-title">
+    <div class="section-head">
+      <h2 id="workflow-title">Analyst Workflow</h2>
+      <p>Iran assessments should move from current reporting to corroborating source layers before final analysis language is published.</p>
+    </div>
+    <div class="workflow-grid">
+      <article class="workflow-card">
+        <span class="step">01</span>
+        <h3>Does the report affect Gulf maritime risk?</h3>
+        <p>Start with local, official, or specialist reporting so the Iran event baseline is not imported from a detached global headline.</p>
+      </article>
+<article class="workflow-card">
+        <span class="step">02</span>
+        <h3>Is the source state-linked, opposition-linked, or independent?</h3>
+        <p>Cross-check with a second source family such as official records, satellite imagery, aircraft or maritime data, conflict-event databases, or research analysis.</p>
+      </article>
+<article class="workflow-card">
+        <span class="step">03</span>
+        <h3>Which sanctions or shipping source corroborates it?</h3>
+        <p>Preserve source URLs, timestamps, and topic tags so later watch-page updates can cite the specific evidence trail.</p>
+      </article>
+<article class="workflow-card">
+        <span class="step">04</span>
+        <h3>Does the event change proxy, missile, nuclear, or cyber posture?</h3>
+        <p>Escalate language only when multiple independent indicators converge or when a primary source directly changes the operational picture.</p>
+      </article>
+    </div>
+  </section>
+    <section class="section" aria-labelledby="previews-title">
+    <div class="section-head">
+      <h2 id="previews-title">Website Preview Modules</h2>
+      <p>Preview cards summarize what each source family should provide without embedding third-party pages that may block iframes or break production rendering.</p>
+    </div>
+    <div class="preview-grid">
+      <article class="preview-card">
+        <div class="browser-bar"><span></span><span></span><span></span><b>middleeasteye.net</b></div>
+        <div class="preview-body">
+          <h3>Middle East Eye</h3>
+          <div class="preview-line"></div>
+          <div class="preview-line short"></div>
+          <div class="preview-line mid"></div>
+          <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+          <a href="https://www.middleeasteye.net" target="_blank" rel="noopener noreferrer">Open Source</a>
+        </div>
+      </article>
+<article class="preview-card">
+        <div class="browser-bar"><span></span><span></span><span></span><b>iranintl.com</b></div>
+        <div class="preview-body">
+          <h3>Iran International</h3>
+          <div class="preview-line"></div>
+          <div class="preview-line short"></div>
+          <div class="preview-line mid"></div>
+          <p>Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+          <a href="https://www.iranintl.com" target="_blank" rel="noopener noreferrer">Open Source</a>
+        </div>
+      </article>
+<article class="preview-card">
+        <div class="browser-bar"><span></span><span></span><span></span><b>al-monitor.com</b></div>
+        <div class="preview-body">
+          <h3>Al-Monitor</h3>
+          <div class="preview-line"></div>
+          <div class="preview-line short"></div>
+          <div class="preview-line mid"></div>
+          <p>Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+          <a href="https://www.al-monitor.com" target="_blank" rel="noopener noreferrer">Open Source</a>
+        </div>
+      </article>
+    </div>
+  </section>
+    
+    <section class="section" aria-labelledby="regional-news-free-title">
+      <div class="section-head">
+        <h2 id="regional-news-free-title">Regional News Free</h2>
+        <p>Current reporting sources for Iran; use them to establish the event baseline before assessment language changes.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Middle East Eye">i</button>
+      <div class="popover">
+        <h4>Middle East Eye</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Independent investigative journalism across the region</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Regional News Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Middle East Eye</h3>
+    <p>Independent investigative journalism across the region</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Regional News Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">middleeasteye.net</span>
+      <a class="source-link" href="https://www.middleeasteye.net" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Iran International">i</button>
+      <div class="popover">
+        <h4>Iran International</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Persian/English; critical of Iranian regime; London-based</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Regional News Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Iran International</h3>
+    <p>Persian/English; critical of Iranian regime; London-based</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Regional News Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">iranintl.com</span>
+      <a class="source-link" href="https://www.iranintl.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Al-Monitor">i</button>
+      <div class="popover">
+        <h4>Al-Monitor</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> Middle East intelligence and analysis</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Regional News Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Al-Monitor</h3>
+    <p>Middle East intelligence and analysis</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Regional News Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">al-monitor.com</span>
+      <a class="source-link" href="https://www.al-monitor.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Yemen Data Project">i</button>
+      <div class="popover">
+        <h4>Yemen Data Project</h4>
+        <p><strong>Operational use:</strong> Use for aircraft activity leads near Iran; corroborate sensitive military claims before publication.</p>
+        <p><strong>Source context:</strong> Documents Saudi-led coalition airstrikes in Yemen</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Regional News Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Yemen Data Project</h3>
+    <p>Documents Saudi-led coalition airstrikes in Yemen</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Regional News Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">yemendataproject.org</span>
+      <a class="source-link" href="https://www.yemendataproject.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Bellingcat Middle East">i</button>
+      <div class="popover">
+        <h4>Bellingcat Middle East</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Investigations; weapons tracking, atrocity documentation</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Regional News Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Bellingcat Middle East</h3>
+    <p>Investigations; weapons tracking, atrocity documentation</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Regional News Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">bellingcat.com</span>
+      <a class="source-link" href="https://www.bellingcat.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Agence France-Presse (AFP)">i</button>
+      <div class="popover">
+        <h4>Agence France-Presse (AFP)</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Wire service with strong Middle East bureau</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Regional News Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Agence France-Presse (AFP)</h3>
+    <p>Wire service with strong Middle East bureau</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Regional News Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">afp.com</span>
+      <a class="source-link" href="https://www.afp.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Middle East Monitor">i</button>
+      <div class="popover">
+        <h4>Middle East Monitor</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Palestine, Turkey, Egypt-focused coverage</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Regional News Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Middle East Monitor</h3>
+    <p>Palestine, Turkey, Egypt-focused coverage</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Regional News Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">middleeastmonitor.com</span>
+      <a class="source-link" href="https://www.middleeastmonitor.com" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Al Arabiya English">i</button>
+      <div class="popover">
+        <h4>Al Arabiya English</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> UAE-based; Gulf/regional perspective</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Regional News Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Al Arabiya English</h3>
+    <p>UAE-based; Gulf/regional perspective</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Regional News Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">english.alarabiya.net</span>
+      <a class="source-link" href="https://english.alarabiya.net" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article></div>
+    </section>
+  
+
+    <section class="section" aria-labelledby="think-tanks-analysis-free-title">
+      <div class="section-head">
+        <h2 id="think-tanks-analysis-free-title">Think Tanks &amp; Analysis Free</h2>
+        <p>Research and analysis sources that help decide whether Iran reporting is routine, anomalous, or strategically meaningful.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Carnegie Middle East Center">i</button>
+      <div class="popover">
+        <h4>Carnegie Middle East Center</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> Policy analysis across the Arab world</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Think Tanks &amp; Analysis Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Carnegie Middle East Center</h3>
+    <p>Policy analysis across the Arab world</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Think Tanks &amp; Analysis Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">carnegie-mec.org</span>
+      <a class="source-link" href="https://carnegie-mec.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about International Crisis Group — Middle East">i</button>
+      <div class="popover">
+        <h4>International Crisis Group — Middle East</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> Conflict prevention; field-based research</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Think Tanks &amp; Analysis Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>International Crisis Group — Middle East</h3>
+    <p>Conflict prevention; field-based research</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Think Tanks &amp; Analysis Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">crisisgroup.org</span>
+      <a class="source-link" href="https://www.crisisgroup.org/middle-east-north-africa" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Middle East Institute">i</button>
+      <div class="popover">
+        <h4>Middle East Institute</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> Academic analysis; Iran, Gulf, Israel-Palestine</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Think Tanks &amp; Analysis Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Middle East Institute</h3>
+    <p>Academic analysis; Iran, Gulf, Israel-Palestine</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Think Tanks &amp; Analysis Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">mei.edu</span>
+      <a class="source-link" href="https://www.mei.edu" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about ACLED Middle East">i</button>
+      <div class="popover">
+        <h4>ACLED Middle East</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> All conflict events from 2024 to present</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Think Tanks &amp; Analysis Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>ACLED Middle East</h3>
+    <p>All conflict events from 2024 to present</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Think Tanks &amp; Analysis Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">acleddata.com</span>
+      <a class="source-link" href="https://acleddata.com/region/middle-east" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about ITIC (Israeli Intelligence &amp; Terrorism Info Center)">i</button>
+      <div class="popover">
+        <h4>ITIC (Israeli Intelligence &amp; Terrorism Info Center)</h4>
+        <p><strong>Operational use:</strong> Use for interpretation and strategic context after current reporting establishes the event baseline.</p>
+        <p><strong>Source context:</strong> Hamas, Hezbollah, Palestinian groups analysis</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Think Tanks &amp; Analysis Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>ITIC (Israeli Intelligence &amp; Terrorism Info Center)</h3>
+    <p>Hamas, Hezbollah, Palestinian groups analysis</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Think Tanks &amp; Analysis Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">terrorism-info.org.il</span>
+      <a class="source-link" href="https://www.terrorism-info.org.il/en/" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article></div>
+    </section>
+  
+
+    <section class="section" aria-labelledby="iran-specific-osint-tools-free-title">
+      <div class="section-head">
+        <h2 id="iran-specific-osint-tools-free-title">Iran-Specific OSINT Tools Free</h2>
+        <p>Guide-derived resources for Iran monitoring and corroboration.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Parseek + Translation Plugins">i</button>
+      <div class="popover">
+        <h4>Parseek + Translation Plugins</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Persian media aggregator; combine with browser translation for full Persian content access</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Iran-Specific OSINT Tools Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Parseek + Translation Plugins</h3>
+    <p>Persian media aggregator; combine with browser translation for full Persian content access</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Iran-Specific OSINT Tools Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Iran Monitor">i</button>
+      <div class="popover">
+        <h4>Iran Monitor</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Real-time OSINT aggregating social media, news agencies, and broadcast sources</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Iran-Specific OSINT Tools Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Iran Monitor</h3>
+    <p>Real-time OSINT aggregating social media, news agencies, and broadcast sources</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Iran-Specific OSINT Tools Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about SignalCockpit">i</button>
+      <div class="popover">
+        <h4>SignalCockpit</h4>
+        <p><strong>Operational use:</strong> Use for current reporting, local framing, and early leads before source-family corroboration.</p>
+        <p><strong>Source context:</strong> Live situational awareness dashboard with social media integration and event tracking</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Iran-Specific OSINT Tools Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>SignalCockpit</h3>
+    <p>Live situational awareness dashboard with social media integration and event tracking</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Iran-Specific OSINT Tools Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about CENTCOM US-vs-Iran">i</button>
+      <div class="popover">
+        <h4>CENTCOM US-vs-Iran</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and Iran collection planning.</p>
+        <p><strong>Source context:</strong> Operational reporting and mapping of US-Iran security environment</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Iran-Specific OSINT Tools Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>CENTCOM US-vs-Iran</h3>
+    <p>Operational reporting and mapping of US-Iran security environment</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Iran-Specific OSINT Tools Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about MideastPulse.live">i</button>
+      <div class="popover">
+        <h4>MideastPulse.live</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and Iran collection planning.</p>
+        <p><strong>Source context:</strong> mideastpulse.live — AI OSINT dashboard; monitors Telegram; tags/geocodes military strikes in real-time</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Iran-Specific OSINT Tools Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>MideastPulse.live</h3>
+    <p>mideastpulse.live — AI OSINT dashboard; monitors Telegram; tags/geocodes military strikes in real-time</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Iran-Specific OSINT Tools Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">mideastpulse.live</span>
+      <a class="source-link" href="https://mideastpulse.live" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article></div>
+    </section>
+  
+
+    <section class="section" aria-labelledby="shipping-chokepoint-monitoring-free-title">
+      <div class="section-head">
+        <h2 id="shipping-chokepoint-monitoring-free-title">Shipping / Chokepoint Monitoring Free</h2>
+        <p>Guide-derived resources for Iran monitoring and corroboration.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about MarineTraffic">i</button>
+      <div class="popover">
+        <h4>MarineTraffic</h4>
+        <p><strong>Operational use:</strong> Use for maritime, port, shipping, and grey-zone activity relevant to Iran.</p>
+        <p><strong>Source context:</strong> Strait of Hormuz, Red Sea, Suez Canal vessel tracking (free web; paid API)</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Shipping / Chokepoint Monitoring Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>MarineTraffic</h3>
+    <p>Strait of Hormuz, Red Sea, Suez Canal vessel tracking (free web; paid API)</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Shipping / Chokepoint Monitoring Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about VesselFinder">i</button>
+      <div class="popover">
+        <h4>VesselFinder</h4>
+        <p><strong>Operational use:</strong> Use for maritime, port, shipping, and grey-zone activity relevant to Iran.</p>
+        <p><strong>Source context:</strong> Free AIS tracking; good alternative to MarineTraffic for basic use</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Shipping / Chokepoint Monitoring Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>VesselFinder</h3>
+    <p>Free AIS tracking; good alternative to MarineTraffic for basic use</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Shipping / Chokepoint Monitoring Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about Global Fishing Watch">i</button>
+      <div class="popover">
+        <h4>Global Fishing Watch</h4>
+        <p><strong>Operational use:</strong> Use for maritime, port, shipping, and grey-zone activity relevant to Iran.</p>
+        <p><strong>Source context:</strong> Monitors dark/untracked vessel activity in Gulf waters</p>
+        <ul>
+          <li>Region: Middle East</li>
+          <li>Topic: Shipping / Chokepoint Monitoring Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>Global Fishing Watch</h3>
+    <p>Monitors dark/untracked vessel activity in Gulf waters</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Shipping / Chokepoint Monitoring Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">Reference only</span>
+      <span class="source-link disabled">No direct URL</span>
+    </div>
+  </article></div>
+    </section>
+  
+
+    <section class="section" aria-labelledby="global-trade-economic-intelligence-free-title">
+      <div class="section-head">
+        <h2 id="global-trade-economic-intelligence-free-title">Global Trade &amp; Economic Intelligence Free</h2>
+        <p>Guide-derived resources for Iran monitoring and corroboration.</p>
+      </div>
+      <div class="tool-grid"><article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about UN Comtrade">i</button>
+      <div class="popover">
+        <h4>UN Comtrade</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and Iran collection planning.</p>
+        <p><strong>Source context:</strong> Yes — free registration required</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>UN Comtrade</h3>
+    <p>Yes — free registration required</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">comtradeplus.un.org</span>
+      <a class="source-link" href="https://comtradeplus.un.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about World Bank Open Data">i</button>
+      <div class="popover">
+        <h4>World Bank Open Data</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> Yes — free, no key needed</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>World Bank Open Data</h3>
+    <p>Yes — free, no key needed</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">data.worldbank.org</span>
+      <a class="source-link" href="https://data.worldbank.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about OFAC Sanctions Search">i</button>
+      <div class="popover">
+        <h4>OFAC Sanctions Search</h4>
+        <p><strong>Operational use:</strong> Use for source discovery, corroboration, and Iran collection planning.</p>
+        <p><strong>Source context:</strong> Yes — SDN list downloadable as XML/CSV</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>OFAC Sanctions Search</h3>
+    <p>Yes — SDN list downloadable as XML/CSV</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">sanctionssearch.ofac.treas.gov</span>
+      <a class="source-link" href="https://sanctionssearch.ofac.treas.gov" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about OpenSanctions">i</button>
+      <div class="popover">
+        <h4>OpenSanctions</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> Yes — free bulk downloads; API from €200/mo for commercial</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>OpenSanctions</h3>
+    <p>Yes — free bulk downloads; API from €200/mo for commercial</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">opensanctions.org</span>
+      <a class="source-link" href="https://opensanctions.org" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article>
+<article class="tool-card">
+    <div class="info">
+      <button class="info-button" type="button" aria-label="More about SIPRI Military Expenditure DB">i</button>
+      <div class="popover">
+        <h4>SIPRI Military Expenditure DB</h4>
+        <p><strong>Operational use:</strong> Use for repeatable collection, dashboards, and scheduled checks.</p>
+        <p><strong>Source context:</strong> No API; bulk download available free</p>
+        <ul>
+          <li>Region: Universal / Cross-Regional Tools</li>
+          <li>Topic: Global Trade &amp; Economic Intelligence Free</li>
+          <li>Access: Listed in guide</li>
+          
+        </ul>
+      </div>
+    </div>
+    <h3>SIPRI Military Expenditure DB</h3>
+    <p>No API; bulk download available free</p>
+    <div class="card-meta">
+      <span class="tag">Free</span>
+      <span class="tag blue">Global Trade &amp; Economic Intelligence Free</span>
+    </div>
+    <div class="source-row">
+      <span class="domain">sipri.org</span>
+      <a class="source-link" href="https://sipri.org/databases/milex" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  </article></div>
+    </section>
+  
+    <section class="section" aria-labelledby="examples-title">
+    <div class="section-head">
+      <h2 id="examples-title">Example Collection Code</h2>
+      <p>Credential-safe snippets from the resource guide. Replace placeholders with environment variables and preserve source timestamps in downstream reports.</p>
+    </div>
+    <div class="code-grid">
+      <article class="code-panel">
+        <header><h3>Python API Example — Get active fires in Ukraine</h3><span class="tag">Universal / Cross-Regional Tools</span></header>
+        <pre><code>import requests
+
+MAP_KEY = &quot;YOUR_FREE_MAP_KEY&quot;  # Sign up at firms.modaps.eosdis.nasa.gov/api/map_key
+# SOURCE options: VIIRS_SNPP_NRT, MODIS_NRT, VIIRS_NOAA20_NRT
+# AREA: west,south,east,north (bounding box)
+# DAY_RANGE: 1–10 days back
+
+url = f&quot;https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/VIIRS_SNPP_NRT/22,44,40,52/3&quot;
+response = requests.get(url)
+
+# Save to file for analysis
+with open(&quot;ukraine_fires.csv&quot;, &quot;w&quot;) as f:
+    f.write(response.text)
+
+print(response.text[:500])  # Preview first 500 chars</code></pre>
+      </article>
+<article class="code-panel">
+        <header><h3>🛰️ Satellite Imagery — Free</h3><span class="tag">Universal / Cross-Regional Tools</span></header>
+        <pre><code># Query a specific country (use ISO 3-letter code from /api/countries/)
+url = f&quot;https://firms.modaps.eosdis.nasa.gov/api/country/csv/{MAP_KEY}/VIIRS_SNPP_NRT/PRK/7&quot;
+# PRK = North Korea, UKR = Ukraine, SYR = Syria, IRN = Iran
+response = requests.get(url)
+print(response.text)</code></pre>
+      </article>
+<article class="code-panel">
+        <header><h3>Python API Example — Download Sentinel-2 imagery over Taiwan Strait</h3><span class="tag">Universal / Cross-Regional Tools</span></header>
+        <pre><code># pip install sentinelhub
+from sentinelhub import SHConfig, SentinelHubRequest, DataCollection, MimeType, BBox, CRS, bbox_to_dimensions
+
+config = SHConfig()
+config.sh_client_id = &quot;YOUR_CLIENT_ID&quot;       # From CDSE account
+config.sh_client_secret = &quot;YOUR_CLIENT_SECRET&quot;
+
+# Bounding box: Taiwan Strait region
+bbox = BBox(bbox=[119.5, 24.5, 122.5, 26.5], crs=CRS.WGS84)
+size = bbox_to_dimensions(bbox, resolution=60)  # 60m per pixel
+
+evalscript = &quot;&quot;&quot;
+//VERSION=3
+function setup() { return { input: [&quot;B04&quot;,&quot;B03&quot;,&quot;B02&quot;], output: { bands: 3 } }; }
+function evaluatePixel(sample) { return [sample.B04/3000, sample.B03/3000, sample.B02/3000]; }
+&quot;&quot;&quot;
+
+request = SentinelHubRequest(
+    evalscript=evalscript,
+    input_data=[SentinelHubRequest.input_data(
+        data_collection=DataCollection.SENTINEL2_L2A,
+        time_interval=(&quot;2026-05-01&quot;, &quot;2026-06-07&quot;),
+        mosaicking_order=&quot;leastCC&quot;
+    )],
+    responses=[SentinelHubRequest.output_response(&quot;default&quot;, MimeType.PNG)],
+    bbox=bbox,
+    size=size,
+    config=config
+)
+image = request.get_data()
+# image is a numpy array — save or display with matplotlib/PIL</code></pre>
+      </article>
+<article class="code-panel">
+        <header><h3>Python API Example — Track aircraft over the Korean Peninsula</h3><span class="tag">Universal / Cross-Regional Tools</span></header>
+        <pre><code>import requests
+import json
+
+# Bounding box for Korean Peninsula: lomin, lamin, lomax, lamax
+lomin, lamin, lomax, lamax = 124.0, 33.0, 131.0, 43.0
+
+url = (
+    f&quot;https://opensky-network.org/api/states/all&quot;
+    f&quot;?lamin={lamin}&amp;lomin={lomin}&amp;lamax={lamax}&amp;lomax={lomax}&quot;
+)
+# Add auth for higher rate limits: requests.get(url, auth=(&quot;username&quot;,&quot;password&quot;))
+response = requests.get(url)
+data = response.json()
+
+if data and data.get(&quot;states&quot;):
+    for aircraft in data[&quot;states&quot;][:10]:  # Show first 10
+        icao24, callsign, origin_country = aircraft, aircraft[^1], aircraft[^2]
+        latitude, longitude, altitude = aircraft[^6], aircraft[^5], aircraft[^7]
+        print(f&quot;ICAO: {icao24} | Call: {callsign} | Country: {origin_country} | &quot;
+              f&quot;Lat: {latitude} | Lon: {longitude} | Alt: {altitude}m&quot;)</code></pre>
+      </article>
+    </div>
+  </section>
+    <section class="section" aria-labelledby="outputs-title">
+    <div class="section-head">
+      <h2 id="outputs-title">Expected Output</h2>
+      <p>These panels show what usable output should look like after sources are converted into a repeatable Iran workflow.</p>
+    </div>
+    <div class="output-grid">
+      <article class="output-card">
+        <h3>Source Table</h3>
+        <pre>{
+  "region": "Iran",
+  "source": "Primary reporting",
+  "url": "https://example-source.invalid",
+  "confidence": "corroboration required"
+}</pre>
+      </article>
+      <article class="output-card">
+        <h3>Map Layer</h3>
+        <div class="mini-map" aria-label="Iran example map layer"></div>
+        <p>Expected artifact: plotted incidents, infrastructure, route, or observation points with source URLs retained in feature properties.</p>
+      </article>
+      <article class="output-card">
+        <h3>Assessment Note</h3>
+        <p><strong>Analyst rule:</strong> a single source should not drive Iran assessment language unless it is a primary source that directly changes the status picture.</p>
+      </article>
+    </div>
+  </section>
+  </main>
+  <script src="../assets/intel-link-previews.js"></script>
+  <script>
+    document.querySelectorAll(".info").forEach((info) => {
+      const button = info.querySelector(".info-button");
+      if (!button) return;
+      button.setAttribute("aria-expanded", "false");
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const isOpen = info.dataset.open === "true";
+        document.querySelectorAll(".info[data-open='true']").forEach((openInfo) => {
+          openInfo.dataset.open = "false";
+          openInfo.querySelector(".info-button")?.setAttribute("aria-expanded", "false");
+        });
+        info.dataset.open = String(!isOpen);
+        button.setAttribute("aria-expanded", String(!isOpen));
+      });
+    });
+    document.addEventListener("click", (event) => {
+      if (event.target.closest(".info")) return;
+      document.querySelectorAll(".info[data-open='true']").forEach((openInfo) => {
+        openInfo.dataset.open = "false";
+        openInfo.querySelector(".info-button")?.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
+</body>
+</html>
