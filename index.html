@@ -1126,84 +1126,115 @@
   line-height: 1.45;
 }
 .global-visual {
-  display: grid;
-  gap: var(--space-3);
+  display: flex;
+  min-width: 0;
+  align-self: start;
 }
-.global-map-card {
-  min-height: 248px;
-  border: 1px solid var(--color-border-dim);
-  border-radius: var(--radius-sm);
-  background:
-    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(255,255,255,0.04) 1px, transparent 1px),
-    radial-gradient(circle at 76% 35%, rgba(196,30,58,0.34), transparent 22%),
-    radial-gradient(circle at 58% 45%, rgba(245,158,11,0.26), transparent 20%),
-    radial-gradient(circle at 36% 38%, rgba(96,165,250,0.2), transparent 22%),
-    var(--color-surface-2);
-  background-size: 42px 42px, 42px 42px, auto, auto, auto, auto;
-  position: relative;
+.global-indicator-panel {
+  width: 100%;
+  min-width: 0;
+  color: #e8f3f7;
+  border: 1px solid rgba(81, 198, 190, 0.24);
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #111822, #122733 58%, #0b1118);
   overflow: hidden;
 }
-.global-map-card::before {
-  content: '';
-  position: absolute;
-  inset: 18px;
-  border: 1px dashed rgba(255,255,255,0.16);
-  border-radius: 50%;
-}
-.global-map-node {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  border: 2px solid var(--color-surface);
-  box-shadow: 0 0 0 6px rgba(196,30,58,0.16);
-}
-.global-map-node.n1 { left: 22%; top: 38%; background: var(--color-blue); box-shadow: 0 0 0 6px rgba(96,165,250,0.16); }
-.global-map-node.n2 { left: 47%; top: 31%; background: var(--color-accent); }
-.global-map-node.n3 { left: 62%; top: 50%; background: var(--color-amber); box-shadow: 0 0 0 6px rgba(245,158,11,0.16); }
-.global-map-node.n4 { left: 76%; top: 35%; background: var(--color-accent); }
-.global-map-caption {
-  position: absolute;
-  left: var(--space-4);
-  right: var(--space-4);
-  bottom: var(--space-4);
+.global-indicator-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: var(--space-3);
-  color: var(--color-text);
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.global-indicator-title {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.45vw, 1.35rem);
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: #f2fbff;
+  line-height: 1.15;
 }
-.global-domain-grid {
+.global-indicator-live {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232, 243, 247, 0.58);
+  white-space: nowrap;
+}
+.global-status-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-2);
+  padding: var(--space-4);
 }
-.global-domain {
-  border: 1px solid var(--color-border-dim);
+.global-status-item {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-sm);
-  background: var(--color-surface-2);
+  background: rgba(7, 17, 24, 0.62);
   padding: var(--space-3);
 }
-.global-domain span {
+.global-status-label {
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.76rem, var(--cm-side-menu-text-size, 10pt), 0.95rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(218, 232, 238, 0.82);
+  line-height: 1.35;
+}
+.global-status-badge {
+  font-family: var(--font-mono);
+  font-size: clamp(0.68rem, var(--cm-side-menu-text-size, 10pt), 0.88rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.global-status-badge.watch { background: rgba(245,158,11,0.15); color: var(--color-amber); }
+.global-status-badge.high { background: rgba(196,30,58,0.18); color: #ff7b8d; border: 1px solid rgba(196,30,58,0.25); }
+.global-status-badge.active { background: rgba(34,197,94,0.13); color: var(--color-green); }
+.global-status-badge.guarded { background: rgba(96,165,250,0.14); color: #93c5fd; }
+.global-status-badge.elevated { background: rgba(245,158,11,0.15); color: var(--color-amber); }
+.global-indicator-footer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+  padding: 0 var(--space-4) var(--space-4);
+}
+.global-focus-chip {
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  background: rgba(7, 17, 24, 0.4);
+  padding: var(--space-2) var(--space-3);
+}
+.global-focus-chip span {
   display: block;
   font-family: var(--font-mono);
-  color: var(--color-text-faint);
+  color: rgba(218, 232, 238, 0.54);
   font-size: 0.58rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: var(--space-1);
+  margin-bottom: 2px;
 }
-.global-domain strong {
-  color: var(--color-text);
+.global-focus-chip strong {
+  display: block;
+  color: #f2fbff;
   font-family: var(--font-display);
-  font-size: 0.95rem;
-  letter-spacing: 0.06em;
+  font-size: 0.88rem;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
+  line-height: 1.25;
 }
 .global-brief-actions {
   display: flex;
@@ -2523,12 +2554,18 @@
   }
 
   .global-signal-strip,
-  .global-domain-grid {
+  .global-indicator-footer,
+  .global-status-grid {
     grid-template-columns: 1fr;
   }
 
-  .global-map-card {
-    min-height: 210px;
+  .global-status-item {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .global-status-badge {
+    justify-self: start;
   }
 
   .brief-action {
@@ -2724,22 +2761,44 @@
                 <button class="brief-action" type="button" onclick="loadContent('pages/news-library.html', this)">News Library</button>
               </div>
             </div>
-            <div class="global-visual" aria-hidden="true">
-              <div class="global-map-card">
-                <span class="global-map-node n1"></span>
-                <span class="global-map-node n2"></span>
-                <span class="global-map-node n3"></span>
-                <span class="global-map-node n4"></span>
-                <div class="global-map-caption">
-                  <span>Regional signal fusion</span>
-                  <span>Daily matrix</span>
+            <div class="global-visual">
+              <div class="global-indicator-panel" aria-label="Current Global Threat Picture">
+                <div class="global-indicator-header">
+                  <div class="global-indicator-title">Current Global Threat Picture</div>
+                  <span class="global-indicator-live">Live</span>
                 </div>
-              </div>
-              <div class="global-domain-grid">
-                <div class="global-domain"><span>Primary theatres</span><strong>Europe / Indo-Pacific</strong></div>
-                <div class="global-domain"><span>Watch drivers</span><strong>Military / Cyber</strong></div>
-                <div class="global-domain"><span>Infrastructure</span><strong>Energy / Maritime</strong></div>
-                <div class="global-domain"><span>Escalation</span><strong>Nuclear / Alliance</strong></div>
+                <div class="global-status-grid">
+                  <div class="global-status-item">
+                    <span class="global-status-label">Military Posture</span>
+                    <span class="global-status-badge high">High</span>
+                  </div>
+                  <div class="global-status-item">
+                    <span class="global-status-label">Cyber / Space</span>
+                    <span class="global-status-badge active">Active</span>
+                  </div>
+                  <div class="global-status-item">
+                    <span class="global-status-label">Maritime Chokepoints</span>
+                    <span class="global-status-badge watch">Watch</span>
+                  </div>
+                  <div class="global-status-item">
+                    <span class="global-status-label">Energy Infrastructure</span>
+                    <span class="global-status-badge elevated">Elevated</span>
+                  </div>
+                  <div class="global-status-item">
+                    <span class="global-status-label">Nuclear Signaling</span>
+                    <span class="global-status-badge guarded">Guarded</span>
+                  </div>
+                  <div class="global-status-item">
+                    <span class="global-status-label">Alliance Coordination</span>
+                    <span class="global-status-badge active">Active</span>
+                  </div>
+                </div>
+                <div class="global-indicator-footer" aria-label="Global watch context">
+                  <div class="global-focus-chip"><span>Primary theatres</span><strong>Europe / Indo-Pacific</strong></div>
+                  <div class="global-focus-chip"><span>Watch drivers</span><strong>Military / Cyber</strong></div>
+                  <div class="global-focus-chip"><span>Infrastructure</span><strong>Energy / Maritime</strong></div>
+                  <div class="global-focus-chip"><span>Escalation</span><strong>Nuclear / Alliance</strong></div>
+                </div>
               </div>
             </div>
           </div>
