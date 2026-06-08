@@ -21,6 +21,9 @@ The check must pass before commit. It fails on the specific regressions that pre
 - Modal resource cards that do not open the provider website when clicked.
 - Modal resource card external-link previews using generic source-family copy instead of the specific provider title, URL, and summary.
 - Modal resource action buttons using generic `Open Source` text instead of provider-specific labels.
+- Known provider cards such as ADS-B Exchange, ADS-B Exchange API, FlightRadar24 API, MarineTraffic, MarineTraffic API, Global Fishing Watch, and Planet Labs resolving to `Reference only`.
+- Blocked external screenshot thumbnails being shown when a local curated preview asset exists.
+- Decorative preview-bar color indicators or tall oval chips appearing as visual artifacts.
 - Info/resource bubbles missing the established overlay assets or style hooks.
 - Prompt/template copy leaking into rendered pages.
 - Broken internal links, invalid external URLs, or missing link-preview assets.
@@ -39,6 +42,9 @@ Check desktop and mobile widths:
 - Clicking a domain card opens a resource preview overlay with provider cards, direct source links, and screenshot thumbnails where the source allows capture.
 - Inside the resource preview overlay, clicking a provider card or its website screenshot opens that provider/tool website in a new tab.
 - Hovering/focusing each provider card link shows a provider-specific preview. The title, summary, and URL must change per card; repeated generic source-family text is a failure.
+- Confirm known provider cards have direct URLs and provider-specific labels, especially ADS-B Exchange/API, MarineTraffic/API, FlightRadar24 API, OpenSky, Global Fishing Watch, and Planet Labs.
+- Confirm curated local screenshots are used where external capture is blocked. MarineTraffic should use `assets/previews/marinetraffic-map.png`.
+- Confirm chips stay single-line and do not stretch into tall vertical ovals under desktop, mobile, and configured text-size settings.
 - Clicking `Open Filtered Section` on a domain card filters the resource library to that source family.
 - Clicking a country/region card opens its Intel Tools page when one exists; otherwise it scrolls to the filtered resource section.
 - Clicking a source card opens the external tool URL; the explicit `Open` link still works.
@@ -52,6 +58,9 @@ Check desktop and mobile widths:
 - Keep domain-card click behavior separate from filter navigation. Card click opens the preview overlay; only the explicit filtered-section control scrolls to the resource library.
 - Modal resource cards must carry their own provider title/summary metadata for hover previews. Do not let external-source previews fall back to the modal header summary.
 - Use provider-specific action text such as `Open marinetraffic.com`; avoid generic repeated labels like `Open Source` when a direct URL exists.
+- Maintain explicit URL hints for resources whose markdown rows omit direct links but are well-known provider names.
+- Prefer local curated preview assets for providers that block third-party screenshot services; do not leave blocked verification pages as the primary card preview.
+- Do not use decorative red/yellow pseudo-elements in fallback website preview bars where they can read as status indicators or visual artifacts.
 - Parse markdown links, explicit `https://` URLs, and bare domains such as `docs.planet.com`; do not silently convert these to `Reference only`.
 - Do not create text-only link directories. Each page needs resource cards, overlays, website previews, code/output examples, and use-case commentary.
 - Do not ship placeholder/template language. Replace page-contract wording with target-specific operational guidance before publishing.

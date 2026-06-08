@@ -340,6 +340,9 @@
     }
 
     .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       color: var(--accent);
       border: 1px solid var(--line-strong);
       background: rgba(94, 234, 212, 0.055);
@@ -347,10 +350,21 @@
       padding: 6px 10px;
       font-family: var(--font-mono);
       font-size: 0.72rem;
+      line-height: 1;
       letter-spacing: 0.13em;
       text-transform: uppercase;
-      white-space: normal;
-      overflow-wrap: anywhere;
+      white-space: nowrap;
+      overflow-wrap: normal;
+      word-break: normal;
+      max-width: 100%;
+    }
+
+    .mini-stats .tag {
+      flex: 0 1 auto;
+      min-height: 26px;
+      max-height: 32px;
+      padding-top: 0;
+      padding-bottom: 0;
     }
 
     .resource-count {
@@ -562,18 +576,6 @@
       text-transform: uppercase;
       overflow-wrap: anywhere;
     }
-
-    .site-preview-bar::before,
-    .site-preview-bar::after {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex: 0 0 auto;
-    }
-
-    .site-preview-bar::before { background: var(--red); }
-    .site-preview-bar::after { background: var(--amber); }
 
     .site-preview-body {
       min-height: 82px;
@@ -985,9 +987,25 @@
   <script src="../assets/intel-link-previews.js"></script>
   <script>
     const URL_HINTS = new Map([
+      ["ads-b exchange", "https://www.adsbexchange.com"],
+      ["ads-b exchange (adsb.lol)", "https://adsb.lol"],
+      ["ads-b exchange api", "https://api.adsb.lol"],
+      ["airbus pléiades", "https://www.intelligence-airbusds.com/imagery/constellation/pleiades-neo/"],
+      ["airbus pléiades neo", "https://www.intelligence-airbusds.com/imagery/constellation/pleiades-neo/"],
+      ["blacksky", "https://www.blacksky.com"],
+      ["capella space (sar)", "https://www.capellaspace.com"],
+      ["flightradar24", "https://www.flightradar24.com"],
+      ["flightradar24 api", "https://fr24api.flightradar24.com"],
+      ["global fishing watch — west africa", "https://globalfishingwatch.org/our-map/"],
       ["marinetraffic", "https://www.marinetraffic.com"],
+      ["marinetraffic api", "https://servicedocs.marinetraffic.com"],
+      ["maxar securewatch", "https://www.maxar.com/products/securewatch"],
+      ["opensky network", "https://opensky-network.org"],
+      ["planet labs", "https://www.planet.com"],
       ["vesselfinder", "https://www.vesselfinder.com"],
       ["global fishing watch", "https://globalfishingwatch.org"],
+      ["iceye (sar)", "https://www.iceye.com"],
+      ["umbra (sar)", "https://umbra.space"],
       ["parseek + translation plugins", "https://www.parseek.com"],
       ["parseek", "https://www.parseek.com"],
       ["iran monitor", "https://www.iranintl.com"],
@@ -997,6 +1015,11 @@
     ]);
 
     const GUIDE_URL = "../datasources/Global%20OSINT,%20News%20%26%20Satellite%20Intelligence%20Resource%20Guide%20%E2%80%94%20Enhanced%20Edition.md";
+    const LOCAL_PREVIEW_IMAGES = new Map([
+      ["marinetraffic", "../assets/previews/marinetraffic-map.png"],
+      ["marinetraffic.com", "../assets/previews/marinetraffic-map.png"]
+    ]);
+
     const DOMAIN_DEFS = [
       {
         title: "Satellite Imagery",
@@ -1279,6 +1302,15 @@
       return `https://image.thum.io/get/width/900/crop/520/noanimate/${encodeURI(url)}`;
     }
 
+    function previewImageUrl(resource) {
+      if (!resource?.url) return "";
+      const nameKey = resource.name.toLowerCase();
+      const hostKey = safeHost(resource.url, "").toLowerCase();
+      if (LOCAL_PREVIEW_IMAGES.has(nameKey)) return LOCAL_PREVIEW_IMAGES.get(nameKey);
+      if (LOCAL_PREVIEW_IMAGES.has(hostKey)) return LOCAL_PREVIEW_IMAGES.get(hostKey);
+      return screenshotUrl(resource.url);
+    }
+
     function resourceListItems(items) {
       return items.map((item) => `<li>
         <strong>${esc(item.name)}</strong>
@@ -1321,7 +1353,7 @@
       const summary = resource.notes || useCase || "Referenced in the Global OSINT resource guide.";
       const previewAttrs = `data-preview-title="${esc(resource.name)}" data-preview-summary="${esc(summary)}"`;
       const sourceLink = resource.url ? `<a class="button source-link" href="${esc(resource.url)}" target="_blank" rel="noopener noreferrer" ${previewAttrs}>Open ${esc(host)}</a>` : `<span class="tag">Reference only</span>`;
-      const shot = resource.url ? `<a class="website-shot-link" href="${esc(resource.url)}" target="_blank" rel="noopener noreferrer" ${previewAttrs}><img class="website-shot" src="${esc(screenshotUrl(resource.url))}" alt="${esc(resource.name)} website screenshot preview" loading="lazy" referrerpolicy="no-referrer" onerror="this.dataset.failed='true'"></a>` : "";
+      const shot = resource.url ? `<a class="website-shot-link" href="${esc(resource.url)}" target="_blank" rel="noopener noreferrer" ${previewAttrs}><img class="website-shot" src="${esc(previewImageUrl(resource))}" alt="${esc(resource.name)} website screenshot preview" loading="lazy" referrerpolicy="no-referrer" onerror="this.dataset.failed='true'"></a>` : "";
       const navClass = resource.url ? " nav-card" : "";
       const navAttrs = resource.url ? ` tabindex="0" data-external-href="${esc(resource.url)}"` : "";
       return `<article class="modal-resource-card${navClass}"${navAttrs}>

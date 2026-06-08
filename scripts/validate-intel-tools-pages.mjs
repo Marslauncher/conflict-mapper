@@ -8,6 +8,7 @@ const ROOT = path.resolve(__dirname, "..");
 const GUIDE_PATH = path.join(ROOT, "datasources", "Global OSINT, News & Satellite Intelligence Resource Guide — Enhanced Edition.md");
 const HUB_PATH = path.join(ROOT, "pages", "intel-tools.html");
 const LINK_PREVIEW_PATH = path.join(ROOT, "assets", "intel-link-previews.js");
+const MARINETRAFFIC_PREVIEW_PATH = path.join(ROOT, "assets", "previews", "marinetraffic-map.png");
 const COUNTRIES_DIR = path.join(ROOT, "countries");
 
 const DOMAIN_DEFS = [
@@ -56,9 +57,25 @@ const PROMPT_TEXT_BLOCKLIST = [
 ];
 
 const URL_HINTS = new Map([
+  ["ads-b exchange", "https://www.adsbexchange.com"],
+  ["ads-b exchange (adsb.lol)", "https://adsb.lol"],
+  ["ads-b exchange api", "https://api.adsb.lol"],
+  ["airbus pléiades", "https://www.intelligence-airbusds.com/imagery/constellation/pleiades-neo/"],
+  ["airbus pléiades neo", "https://www.intelligence-airbusds.com/imagery/constellation/pleiades-neo/"],
+  ["blacksky", "https://www.blacksky.com"],
+  ["capella space (sar)", "https://www.capellaspace.com"],
+  ["flightradar24", "https://www.flightradar24.com"],
+  ["flightradar24 api", "https://fr24api.flightradar24.com"],
+  ["global fishing watch — west africa", "https://globalfishingwatch.org/our-map/"],
   ["marinetraffic", "https://www.marinetraffic.com"],
+  ["marinetraffic api", "https://servicedocs.marinetraffic.com"],
+  ["maxar securewatch", "https://www.maxar.com/products/securewatch"],
+  ["opensky network", "https://opensky-network.org"],
+  ["planet labs", "https://www.planet.com"],
   ["vesselfinder", "https://www.vesselfinder.com"],
   ["global fishing watch", "https://globalfishingwatch.org"],
+  ["iceye (sar)", "https://www.iceye.com"],
+  ["umbra (sar)", "https://umbra.space"],
   ["parseek + translation plugins", "https://www.parseek.com"],
   ["parseek", "https://www.parseek.com"],
   ["iran monitor", "https://www.iranintl.com"],
@@ -288,6 +305,9 @@ function validateHub(resources, errors) {
     "modal-resource-card",
     "website-shot",
     "website-shot-link",
+    "LOCAL_PREVIEW_IMAGES",
+    "previewImageUrl",
+    "marinetraffic-map.png",
     "source-link",
     "data-preview-title",
     "data-preview-summary",
@@ -309,7 +329,7 @@ function validateHub(resources, errors) {
   if (!/renderModalResourceCard[\s\S]+modal-resource-card\$\{navClass\}[\s\S]+data-external-href="\$\{esc\(resource\.url\)\}"/.test(html)) {
     fail(errors, "pages/intel-tools.html: modal resource cards with source URLs must be clickable provider cards");
   }
-  if (!/renderModalResourceCard[\s\S]+website-shot-link[\s\S]+screenshotUrl\(resource\.url\)/.test(html)
+  if (!/renderModalResourceCard[\s\S]+website-shot-link[\s\S]+previewImageUrl\(resource\)/.test(html)
     || !/renderModalResourceCard[\s\S]+source-link[\s\S]+Open \$\{esc\(host\)\}/.test(html)) {
     fail(errors, "pages/intel-tools.html: modal resource cards must include provider screenshot links and provider-specific open buttons");
   }
@@ -318,6 +338,16 @@ function validateHub(resources, errors) {
   }
   if (!/const previewAttrs = `data-preview-title="\$\{esc\(resource\.name\)\}" data-preview-summary="\$\{esc\(summary\)\}"/.test(html)) {
     fail(errors, "pages/intel-tools.html: modal resource external previews must use per-resource title and summary metadata");
+  }
+  if (!fs.existsSync(MARINETRAFFIC_PREVIEW_PATH)) {
+    fail(errors, "assets/previews/marinetraffic-map.png: local MarineTraffic preview asset is missing");
+  }
+  if (/site-preview-bar::before|site-preview-bar::after/.test(html)) {
+    fail(errors, "pages/intel-tools.html: site preview bars must not render decorative red/yellow indicator artifacts");
+  }
+  if (!/\.tag \{[\s\S]+display: inline-flex;[\s\S]+white-space: nowrap;/.test(html)
+    || !/\.mini-stats \.tag \{[\s\S]+max-height: 32px;/.test(html)) {
+    fail(errors, "pages/intel-tools.html: tag chips must use fixed-line inline-flex styling to prevent tall oval wrapping");
   }
   if (!/anchor\.closest\("[^"]*\.modal-resource-card/.test(previewJs)) {
     fail(errors, "assets/intel-link-previews.js: external preview helper must treat modal resource cards as their own context");
@@ -340,6 +370,23 @@ function validateHub(resources, errors) {
     });
     if (items.length === 0) fail(errors, `pages/intel-tools.html: ${domain.title} domain resolved to 0 resources`);
     return `${domain.title}: ${items.length}`;
+  });
+
+  [
+    "ADS-B Exchange",
+    "ADS-B Exchange API",
+    "Flightradar24 API",
+    "MarineTraffic",
+    "MarineTraffic API",
+    "Global Fishing Watch",
+    "Global Fishing Watch — West Africa",
+    "Planet Labs"
+  ].forEach((name) => {
+    const matches = resources.filter((resource) => resource.name === name);
+    if (!matches.length) fail(errors, `resource guide parse: expected resource not found: ${name}`);
+    matches.forEach((resource) => {
+      if (!resource.url) fail(errors, `resource guide parse: ${name} must resolve to a direct provider URL`);
+    });
   });
 
   return { domainResults };
