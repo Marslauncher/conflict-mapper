@@ -76,6 +76,100 @@ const GEO_PLACES = [
   { terms: ['middle east', 'persian gulf'], place: 'Middle East', country: 'Middle East', lat: 29.3, lng: 47.5 },
 ];
 
+const WORLD_GEO_PLACES = [
+  // Americas
+  { terms: ['mexico city', 'cdmx'], place: 'Mexico City', country: 'Mexico', lat: 19.4326, lng: -99.1332, confidence: 0.9 },
+  { terms: ['mexico', 'mexican'], place: 'Mexico', country: 'Mexico', lat: 23.6345, lng: -102.5528, confidence: 0.72 },
+  { terms: ['dominican republic', 'dominican'], place: 'Dominican Republic', country: 'Dominican Republic', lat: 18.7357, lng: -70.1627, confidence: 0.76 },
+  { terms: ['santo domingo'], place: 'Santo Domingo', country: 'Dominican Republic', lat: 18.4861, lng: -69.9312, confidence: 0.9 },
+  { terms: ['haiti', 'port au prince', 'port-au-prince'], place: 'Haiti', country: 'Haiti', lat: 18.5944, lng: -72.3074, confidence: 0.76 },
+  { terms: ['jamaica', 'kingston'], place: 'Jamaica', country: 'Jamaica', lat: 18.1096, lng: -77.2975, confidence: 0.76 },
+  { terms: ['cuba', 'havana'], place: 'Cuba', country: 'Cuba', lat: 21.5218, lng: -77.7812, confidence: 0.76 },
+  { terms: ['panama city'], place: 'Panama City', country: 'Panama', lat: 8.9824, lng: -79.5199, confidence: 0.9 },
+  { terms: ['panama'], place: 'Panama', country: 'Panama', lat: 8.538, lng: -80.7821, confidence: 0.72 },
+  { terms: ['guatemala'], place: 'Guatemala', country: 'Guatemala', lat: 15.7835, lng: -90.2308, confidence: 0.72 },
+  { terms: ['honduras'], place: 'Honduras', country: 'Honduras', lat: 15.2, lng: -86.2419, confidence: 0.72 },
+  { terms: ['el salvador'], place: 'El Salvador', country: 'El Salvador', lat: 13.7942, lng: -88.8965, confidence: 0.76 },
+  { terms: ['nicaragua'], place: 'Nicaragua', country: 'Nicaragua', lat: 12.8654, lng: -85.2072, confidence: 0.72 },
+  { terms: ['costa rica'], place: 'Costa Rica', country: 'Costa Rica', lat: 9.7489, lng: -83.7534, confidence: 0.76 },
+  { terms: ['canada', 'ottawa'], place: 'Canada', country: 'Canada', lat: 56.1304, lng: -106.3468, confidence: 0.72 },
+  { terms: ['brazil', 'brasilia', 'sao paulo', 'rio de janeiro'], place: 'Brazil', country: 'Brazil', lat: -14.235, lng: -51.9253, confidence: 0.72 },
+  { terms: ['argentina', 'buenos aires'], place: 'Argentina', country: 'Argentina', lat: -38.4161, lng: -63.6167, confidence: 0.72 },
+  { terms: ['chile', 'santiago'], place: 'Chile', country: 'Chile', lat: -35.6751, lng: -71.543, confidence: 0.72 },
+  { terms: ['colombia', 'bogota'], place: 'Colombia', country: 'Colombia', lat: 4.5709, lng: -74.2973, confidence: 0.72 },
+  { terms: ['venezuela', 'caracas'], place: 'Venezuela', country: 'Venezuela', lat: 6.4238, lng: -66.5897, confidence: 0.72 },
+  { terms: ['peru', 'lima'], place: 'Peru', country: 'Peru', lat: -9.19, lng: -75.0152, confidence: 0.72 },
+  { terms: ['ecuador', 'quito'], place: 'Ecuador', country: 'Ecuador', lat: -1.8312, lng: -78.1834, confidence: 0.72 },
+  { terms: ['bolivia', 'la paz'], place: 'Bolivia', country: 'Bolivia', lat: -16.2902, lng: -63.5887, confidence: 0.72 },
+  { terms: ['paraguay', 'asuncion'], place: 'Paraguay', country: 'Paraguay', lat: -23.4425, lng: -58.4438, confidence: 0.72 },
+  { terms: ['uruguay', 'montevideo'], place: 'Uruguay', country: 'Uruguay', lat: -32.5228, lng: -55.7658, confidence: 0.72 },
+
+  // Europe
+  { terms: ['united kingdom', 'uk ', 'britain', 'british', 'london'], place: 'United Kingdom', country: 'United Kingdom', lat: 55.3781, lng: -3.436, confidence: 0.72 },
+  { terms: ['france', 'french', 'paris'], place: 'France', country: 'France', lat: 46.2276, lng: 2.2137, confidence: 0.72 },
+  { terms: ['germany', 'german', 'berlin'], place: 'Germany', country: 'Germany', lat: 51.1657, lng: 10.4515, confidence: 0.72 },
+  { terms: ['italy', 'italian', 'rome'], place: 'Italy', country: 'Italy', lat: 41.8719, lng: 12.5674, confidence: 0.72 },
+  { terms: ['spain', 'spanish', 'madrid'], place: 'Spain', country: 'Spain', lat: 40.4637, lng: -3.7492, confidence: 0.72 },
+  { terms: ['netherlands', 'dutch', 'amsterdam'], place: 'Netherlands', country: 'Netherlands', lat: 52.1326, lng: 5.2913, confidence: 0.72 },
+  { terms: ['poland', 'polish', 'warsaw'], place: 'Poland', country: 'Poland', lat: 51.9194, lng: 19.1451, confidence: 0.72 },
+  { terms: ['romania', 'bucharest'], place: 'Romania', country: 'Romania', lat: 45.9432, lng: 24.9668, confidence: 0.72 },
+  { terms: ['moldova', 'transnistria'], place: 'Moldova', country: 'Moldova', lat: 47.4116, lng: 28.3699, confidence: 0.72 },
+  { terms: ['serbia', 'belgrade'], place: 'Serbia', country: 'Serbia', lat: 44.0165, lng: 21.0059, confidence: 0.72 },
+  { terms: ['greece', 'athens'], place: 'Greece', country: 'Greece', lat: 39.0742, lng: 21.8243, confidence: 0.72 },
+  { terms: ['turkey', 'türkiye', 'ankara', 'istanbul'], place: 'Turkey', country: 'Turkey', lat: 38.9637, lng: 35.2433, confidence: 0.72 },
+  { terms: ['sweden', 'stockholm'], place: 'Sweden', country: 'Sweden', lat: 60.1282, lng: 18.6435, confidence: 0.72 },
+  { terms: ['finland', 'helsinki'], place: 'Finland', country: 'Finland', lat: 61.9241, lng: 25.7482, confidence: 0.72 },
+  { terms: ['norway', 'oslo'], place: 'Norway', country: 'Norway', lat: 60.472, lng: 8.4689, confidence: 0.72 },
+  { terms: ['denmark', 'copenhagen'], place: 'Denmark', country: 'Denmark', lat: 56.2639, lng: 9.5018, confidence: 0.72 },
+
+  // Middle East / Africa
+  { terms: ['saudi arabia', 'saudi', 'riyadh'], place: 'Saudi Arabia', country: 'Saudi Arabia', lat: 23.8859, lng: 45.0792, confidence: 0.72 },
+  { terms: ['united arab emirates', 'uae', 'abu dhabi', 'dubai'], place: 'United Arab Emirates', country: 'United Arab Emirates', lat: 23.4241, lng: 53.8478, confidence: 0.72 },
+  { terms: ['qatar', 'doha'], place: 'Qatar', country: 'Qatar', lat: 25.3548, lng: 51.1839, confidence: 0.72 },
+  { terms: ['kuwait'], place: 'Kuwait', country: 'Kuwait', lat: 29.3117, lng: 47.4818, confidence: 0.72 },
+  { terms: ['bahrain'], place: 'Bahrain', country: 'Bahrain', lat: 26.0667, lng: 50.5577, confidence: 0.72 },
+  { terms: ['oman', 'muscat'], place: 'Oman', country: 'Oman', lat: 21.4735, lng: 55.9754, confidence: 0.72 },
+  { terms: ['iraq', 'baghdad'], place: 'Iraq', country: 'Iraq', lat: 33.2232, lng: 43.6793, confidence: 0.72 },
+  { terms: ['syria', 'damascus'], place: 'Syria', country: 'Syria', lat: 34.8021, lng: 38.9968, confidence: 0.72 },
+  { terms: ['jordan', 'amman'], place: 'Jordan', country: 'Jordan', lat: 30.5852, lng: 36.2384, confidence: 0.72 },
+  { terms: ['lebanon', 'beirut'], place: 'Lebanon', country: 'Lebanon', lat: 33.8547, lng: 35.8623, confidence: 0.72 },
+  { terms: ['afghanistan', 'kabul'], place: 'Afghanistan', country: 'Afghanistan', lat: 33.9391, lng: 67.71, confidence: 0.72 },
+  { terms: ['egypt', 'cairo'], place: 'Egypt', country: 'Egypt', lat: 26.8206, lng: 30.8025, confidence: 0.72 },
+  { terms: ['sudan', 'khartoum'], place: 'Sudan', country: 'Sudan', lat: 12.8628, lng: 30.2176, confidence: 0.72 },
+  { terms: ['ethiopia', 'addis ababa'], place: 'Ethiopia', country: 'Ethiopia', lat: 9.145, lng: 40.4897, confidence: 0.72 },
+  { terms: ['somalia', 'mogadishu'], place: 'Somalia', country: 'Somalia', lat: 5.1521, lng: 46.1996, confidence: 0.72 },
+  { terms: ['kenya', 'nairobi'], place: 'Kenya', country: 'Kenya', lat: -0.0236, lng: 37.9062, confidence: 0.72 },
+  { terms: ['nigeria', 'abuja'], place: 'Nigeria', country: 'Nigeria', lat: 9.082, lng: 8.6753, confidence: 0.72 },
+  { terms: ['south africa', 'pretoria', 'johannesburg'], place: 'South Africa', country: 'South Africa', lat: -30.5595, lng: 22.9375, confidence: 0.72 },
+  { terms: ['libya', 'tripoli'], place: 'Libya', country: 'Libya', lat: 26.3351, lng: 17.2283, confidence: 0.72 },
+  { terms: ['mali', 'bamako'], place: 'Mali', country: 'Mali', lat: 17.5707, lng: -3.9962, confidence: 0.72 },
+  { terms: ['niger', 'niamey'], place: 'Niger', country: 'Niger', lat: 17.6078, lng: 8.0817, confidence: 0.72 },
+  { terms: ['burkina faso'], place: 'Burkina Faso', country: 'Burkina Faso', lat: 12.2383, lng: -1.5616, confidence: 0.76 },
+  { terms: ['democratic republic of congo', 'drc', 'kinshasa'], place: 'Democratic Republic of Congo', country: 'Democratic Republic of Congo', lat: -4.0383, lng: 21.7587, confidence: 0.76 },
+  { terms: ['morocco', 'rabat'], place: 'Morocco', country: 'Morocco', lat: 31.7917, lng: -7.0926, confidence: 0.72 },
+  { terms: ['algeria', 'algiers'], place: 'Algeria', country: 'Algeria', lat: 28.0339, lng: 1.6596, confidence: 0.72 },
+
+  // Asia-Pacific
+  { terms: ['australia', 'canberra', 'sydney'], place: 'Australia', country: 'Australia', lat: -25.2744, lng: 133.7751, confidence: 0.72 },
+  { terms: ['new zealand', 'wellington'], place: 'New Zealand', country: 'New Zealand', lat: -40.9006, lng: 174.886, confidence: 0.76 },
+  { terms: ['indonesia', 'jakarta'], place: 'Indonesia', country: 'Indonesia', lat: -0.7893, lng: 113.9213, confidence: 0.72 },
+  { terms: ['malaysia', 'kuala lumpur'], place: 'Malaysia', country: 'Malaysia', lat: 4.2105, lng: 101.9758, confidence: 0.72 },
+  { terms: ['thailand', 'bangkok'], place: 'Thailand', country: 'Thailand', lat: 15.87, lng: 100.9925, confidence: 0.72 },
+  { terms: ['vietnam', 'hanoi'], place: 'Vietnam', country: 'Vietnam', lat: 14.0583, lng: 108.2772, confidence: 0.72 },
+  { terms: ['myanmar', 'burma', 'yangon'], place: 'Myanmar', country: 'Myanmar', lat: 21.9162, lng: 95.956, confidence: 0.72 },
+  { terms: ['singapore'], place: 'Singapore', country: 'Singapore', lat: 1.3521, lng: 103.8198, confidence: 0.72 },
+  { terms: ['bangladesh', 'dhaka'], place: 'Bangladesh', country: 'Bangladesh', lat: 23.685, lng: 90.3563, confidence: 0.72 },
+  { terms: ['sri lanka', 'colombo'], place: 'Sri Lanka', country: 'Sri Lanka', lat: 7.8731, lng: 80.7718, confidence: 0.76 },
+  { terms: ['nepal', 'kathmandu'], place: 'Nepal', country: 'Nepal', lat: 28.3949, lng: 84.124, confidence: 0.72 },
+  { terms: ['kazakhstan', 'astana'], place: 'Kazakhstan', country: 'Kazakhstan', lat: 48.0196, lng: 66.9237, confidence: 0.72 },
+  { terms: ['uzbekistan', 'tashkent'], place: 'Uzbekistan', country: 'Uzbekistan', lat: 41.3775, lng: 64.5853, confidence: 0.72 },
+  { terms: ['azerbaijan', 'baku'], place: 'Azerbaijan', country: 'Azerbaijan', lat: 40.1431, lng: 47.5769, confidence: 0.72 },
+  { terms: ['armenia', 'yerevan'], place: 'Armenia', country: 'Armenia', lat: 40.0691, lng: 45.0382, confidence: 0.72 },
+  { terms: ['georgia', 'tbilisi'], place: 'Georgia', country: 'Georgia', lat: 42.3154, lng: 43.3569, confidence: 0.72 },
+];
+
+const GEO_SEARCH_PLACES = [...GEO_PLACES, ...WORLD_GEO_PLACES];
+
 export async function loadArticleSet(context) {
   const staticPayload = await readAssetJson(context, '/data/articles.json', { articles: [] });
   const staticArticles = normalizeArticlesPayload(staticPayload);
@@ -95,7 +189,7 @@ export async function loadArticleSet(context) {
     const payload = storedPayload.payload;
     const kvArticles = normalizeArticlesPayload(payload);
     const articles = kvArticles.length
-      ? filterCachedArticles(kvArticles, monitoringConfig)
+      ? normalizeExistingArticles(kvArticles, monitoringConfig)
       : normalizeExistingArticles(staticArticles, monitoringConfig);
     return {
       articles,
@@ -443,7 +537,7 @@ async function parseFeedXml(xml, feed, { maxItemsPerFeed, fetchedAt, monitoringC
     const title = translated.title;
     const description = translated.description;
     const combined = `${title} ${description}`;
-    const geo = geotagArticle(combined, feed.country);
+    const geo = geotagArticle(combined, feed.country, title);
     if (geo?.lat && geo?.lng) stats.geotagged += 1;
     if (translated.translated) stats.translated += 1;
     const matchedCountry = findMatchingCountry(combined, monitoringConfig);
@@ -523,7 +617,7 @@ function normalizeExistingArticle(article, monitoringConfig) {
   if (!title && !description) return null;
 
   const combined = `${title} ${description} ${article.geo?.place || ''} ${article.geo?.country || ''}`;
-  const freshGeo = geotagArticle(combined, article.country || article.geo?.country || 'global');
+  const freshGeo = geotagArticle(combined, article.country || article.geo?.country || 'global', title);
   const existingGeo = validNonGenericGeo(article.geo) ? article.geo : null;
   const geo = freshGeo || existingGeo;
   const matchedCountry = findMatchingCountry(combined, monitoringConfig);
@@ -560,14 +654,12 @@ function validNonGenericGeo(geo) {
   const country = String(geo.country || '').toLowerCase();
   const confidence = Number(geo.confidence ?? 0.72);
   const genericPlaces = new Set([
-    'global', 'world', 'united states', 'china', 'russia', 'ukraine', 'iran', 'israel',
-    'north korea', 'south korea', 'japan', 'philippines', 'india', 'pakistan', 'europe',
-    'middle east', 'yemen', 'lebanon', 'belgium', 'american', 'chinese', 'german', 'ukrainian',
-    'iranian', 'indian', 'israeli', 'hezbollah', 'houthi', 'hamas', 'nato / brussels',
+    'global', 'world', 'american', 'chinese', 'german', 'ukrainian',
+    'iranian', 'indian', 'israeli', 'hezbollah', 'houthi', 'hamas',
   ]);
   if (confidence < 0.6) return false;
   if (genericPlaces.has(place)) return false;
-  if (place && country && place === country) return false;
+  if (country === 'global' || country === 'world') return false;
   return true;
 }
 
@@ -771,15 +863,22 @@ function classifyArticle(text, fallback = 'breaking') {
   return fallback || 'breaking';
 }
 
-function geotagArticle(text, fallbackCountry = 'global') {
+function geotagArticle(text, fallbackCountry = 'global', priorityText = '') {
   const value = normalizeSearchText(text);
+  const priorityValue = normalizeSearchText(priorityText);
   let best = null;
-  for (const place of GEO_PLACES) {
+  for (const place of GEO_SEARCH_PLACES) {
     if (isGenericGeoPlace(place)) continue;
     for (const term of place.terms) {
-      if (!hasSearchTerm(value, term)) continue;
-      const score = normalizeSearchText(term).trim().length;
-      if (!best || score > best.score) best = { place, score };
+      const position = searchTermIndex(value, term);
+      if (position < 0) continue;
+      const priorityPosition = searchTermIndex(priorityValue, term);
+      const score = normalizeSearchText(term).trim().length
+        + (priorityPosition >= 0 ? 1000 : 0)
+        + Number(place.confidence || 0);
+      if (!best || score > best.score || (score === best.score && position < best.position)) {
+        best = { place, score, position };
+      }
     }
   }
   if (best) {
@@ -788,7 +887,7 @@ function geotagArticle(text, fallbackCountry = 'global') {
       lng: best.place.lng,
       place: best.place.place,
       country: best.place.country,
-      confidence: 0.82,
+      confidence: best.place.confidence || 0.82,
     };
   }
 
@@ -797,9 +896,7 @@ function geotagArticle(text, fallbackCountry = 'global') {
 
 function isGenericGeoPlace(place) {
   const generic = new Set([
-    'taiwan', 'china', 'united states', 'russia', 'ukraine', 'iran', 'israel',
-    'north korea', 'south korea', 'japan', 'philippines', 'india', 'pakistan',
-    'yemen', 'lebanon', 'belgium', 'europe', 'middle east',
+    'global', 'world',
   ]);
   return generic.has(String(place.place || '').toLowerCase());
 }
@@ -838,12 +935,16 @@ function normalizeSearchText(value) {
 }
 
 function hasSearchTerm(normalizedText, term) {
+  return searchTermIndex(normalizedText, term) >= 0;
+}
+
+function searchTermIndex(normalizedText, term) {
   const normalizedTerm = normalizeSearchText(term).trim();
-  if (!normalizedTerm) return false;
+  if (!normalizedTerm) return -1;
   if (/^[a-z0-9.]+$/i.test(normalizedTerm)) {
-    return normalizedText.includes(` ${normalizedTerm} `);
+    return normalizedText.indexOf(` ${normalizedTerm} `);
   }
-  return normalizedText.includes(normalizedTerm);
+  return normalizedText.indexOf(normalizedTerm);
 }
 
 function normalizeCountrySlug(value) {
