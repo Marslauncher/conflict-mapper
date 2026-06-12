@@ -142,14 +142,20 @@
     try {
       const legacy = localStorage.getItem(LEGACY_THEME_KEY);
       if (legacy && !localStorage.getItem(STORAGE_KEY)) {
-        settings.mode = legacy === 'light' ? 'light' : 'dark';
+        const templateId = legacy === 'light' ? 'lightOps' : 'command';
+        const template = THEMES[templateId];
+        settings.template = templateId;
+        settings.mode = template.mode;
+        settings.fontScale = template.fontScale;
+        settings.colors = { ...template.colors };
       }
     } catch (_) {}
     return settings;
   }
 
   function normalize(input) {
-    const base = THEMES[input?.template] || THEMES.command;
+    const requestedTemplate = input?.template && THEMES[input.template] ? input.template : DEFAULT_SETTINGS.template;
+    const base = THEMES[requestedTemplate] || THEMES.lightOps;
     const fontScale = Number(input?.fontScale);
     const rawWidth = Number(input?.layout?.contentWidthPercent);
     const contentWidthPercent = Number.isFinite(rawWidth)
@@ -161,8 +167,8 @@
       textSizes[key] = Number.isFinite(value) ? Math.min(42, Math.max(7, value)) : defaultValue;
     }
     return {
-      template: input?.template && THEMES[input.template] ? input.template : 'command',
-      mode: input?.mode === 'light' ? 'light' : 'dark',
+      template: requestedTemplate,
+      mode: input?.mode === 'dark' || input?.mode === 'light' ? input.mode : base.mode,
       fontScale: Number.isFinite(fontScale) ? Math.min(1.35, Math.max(0.92, fontScale)) : base.fontScale,
       colors: { ...base.colors, ...(input?.colors || {}) },
       layout: { contentWidthPercent },

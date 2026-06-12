@@ -1133,10 +1133,11 @@
 .global-indicator-panel {
   width: 100%;
   min-width: 0;
-  color: #e8f3f7;
-  border: 1px solid rgba(81, 198, 190, 0.24);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, #111822, #122733 58%, #0b1118);
+  background:
+    linear-gradient(135deg, var(--color-surface), var(--color-surface-2) 58%, var(--color-bg));
   overflow: hidden;
 }
 .global-indicator-header {
@@ -1145,7 +1146,7 @@
   justify-content: space-between;
   gap: var(--space-4);
   padding: var(--space-4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--color-border-dim);
 }
 .global-indicator-title {
   font-family: var(--font-display);
@@ -1153,7 +1154,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #f2fbff;
+  color: var(--color-text);
   line-height: 1.15;
 }
 .global-indicator-live {
@@ -1161,7 +1162,7 @@
   font-size: 0.6rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(232, 243, 247, 0.58);
+  color: var(--color-text-faint);
   white-space: nowrap;
 }
 .global-status-grid {
@@ -1176,9 +1177,9 @@
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--space-3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border-dim);
   border-radius: var(--radius-sm);
-  background: rgba(7, 17, 24, 0.62);
+  background: color-mix(in srgb, var(--color-surface-2) 88%, transparent);
   padding: var(--space-3);
 }
 .global-status-label {
@@ -1187,7 +1188,7 @@
   font-size: clamp(0.76rem, var(--cm-side-menu-text-size, 10pt), 0.95rem);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(218, 232, 238, 0.82);
+  color: var(--color-text-muted);
   line-height: 1.35;
 }
 .global-status-badge {
@@ -1201,9 +1202,9 @@
   white-space: nowrap;
 }
 .global-status-badge.watch { background: rgba(245,158,11,0.15); color: var(--color-amber); }
-.global-status-badge.high { background: rgba(196,30,58,0.18); color: #ff7b8d; border: 1px solid rgba(196,30,58,0.25); }
+.global-status-badge.high { background: rgba(196,30,58,0.18); color: var(--color-accent); border: 1px solid rgba(196,30,58,0.25); }
 .global-status-badge.active { background: rgba(34,197,94,0.13); color: var(--color-green); }
-.global-status-badge.guarded { background: rgba(96,165,250,0.14); color: #93c5fd; }
+.global-status-badge.guarded { background: rgba(96,165,250,0.14); color: var(--color-blue); }
 .global-status-badge.elevated { background: rgba(245,158,11,0.15); color: var(--color-amber); }
 .global-indicator-footer {
   display: grid;
@@ -1213,15 +1214,15 @@
 }
 .global-focus-chip {
   min-width: 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border-dim);
   border-radius: var(--radius-sm);
-  background: rgba(7, 17, 24, 0.4);
+  background: color-mix(in srgb, var(--color-surface-2) 78%, transparent);
   padding: var(--space-2) var(--space-3);
 }
 .global-focus-chip span {
   display: block;
   font-family: var(--font-mono);
-  color: rgba(218, 232, 238, 0.54);
+  color: var(--color-text-faint);
   font-size: 0.58rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1229,7 +1230,7 @@
 }
 .global-focus-chip strong {
   display: block;
-  color: #f2fbff;
+  color: var(--color-text);
   font-family: var(--font-display);
   font-size: 0.88rem;
   letter-spacing: 0.07em;
@@ -3316,6 +3317,21 @@
                   <div class="progress-bar-wrap"><div class="progress-bar-fill" id="rss-progress-bar"></div></div>
                 </div>
 
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:var(--space-3);align-items:end;background:var(--color-surface-2);border:1px solid var(--color-border-dim);border-radius:var(--radius-md);padding:var(--space-4);margin-bottom:var(--space-4)">
+                  <label style="display:flex;align-items:center;gap:var(--space-2);font-family:var(--font-display);font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text)">
+                    <input type="checkbox" id="rss-auto-fetch" style="accent-color:var(--color-accent)" onchange="saveRefreshSettingsFromForm()">
+                    Auto-refresh feeds
+                  </label>
+                  <div class="form-field" style="margin-bottom:0">
+                    <label class="form-label" for="rss-refresh-interval">Refresh Interval (minutes)</label>
+                    <input class="form-input" id="rss-refresh-interval" type="number" min="1" max="1440" step="1" value="15" onchange="saveRefreshSettingsFromForm()">
+                  </div>
+                  <div style="display:grid;gap:var(--space-2);justify-items:end">
+                    <button class="btn btn-secondary btn-sm" onclick="saveRefreshSettingsFromForm()">Save Timer</button>
+                    <div id="rss-refresh-settings-label" style="font-family:var(--font-mono);font-size:0.62rem;color:var(--color-text-faint);text-align:right">Loading timer...</div>
+                  </div>
+                </div>
+
                 <div class="feed-list" id="feed-list">
                   <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--color-text-faint);padding:var(--space-4);text-align:center">Loading feeds...</div>
                 </div>
@@ -4126,6 +4142,15 @@ let _rptRunning = false;
 const STORAGE_CONFIG_KEY = 'conflictMapper.navConfig.v1';
 const STORAGE_THEME_KEY = 'conflictMapper.theme.v1';
 const STORAGE_DIAG_API_BASE_KEY = 'conflictMapper.diagnostics.apiBase.v1';
+const ARTICLE_CACHE_UPDATED_KEY = 'conflictMapper.articleCacheUpdated.v1';
+const DEFAULT_APP_SETTINGS = {
+  autoFetch: true,
+  feedRefreshIntervalMinutes: 15,
+  fetchIntervalMinutes: 15,
+  fetchIntervalHours: 0.25,
+};
+
+let _appSettings = { ...DEFAULT_APP_SETTINGS };
 
 /* ── Country data ───────────────────────────────────────── */
 const COUNTRIES = [
@@ -4502,30 +4527,49 @@ function getThemePref() {
   }
 }
 
+function settingsForThemeMode(theme, currentSettings = {}) {
+  const templates = window.ConflictMapperStyle?.templates || {};
+  const templateId = theme === 'light'
+    ? 'lightOps'
+    : (templates[currentSettings.template]?.mode === 'dark' ? currentSettings.template : 'command');
+  const template = templates[templateId] || {};
+  return {
+    ...currentSettings,
+    template: templateId,
+    mode: theme,
+    fontScale: currentSettings.fontScale || template.fontScale || 1.08,
+    colors: { ...(template.colors || currentSettings.colors || {}) },
+    layout: { ...(currentSettings.layout || window.ConflictMapperStyle?.defaults?.layout || { contentWidthPercent: 90 }) },
+    textSizes: { ...(currentSettings.textSizes || window.ConflictMapperStyle?.defaults?.textSizes || {}) },
+  };
+}
+
 /* ── Theme ──────────────────────────────────────────────── */
 function setTheme(theme) {
-  currentTheme = theme;
-  document.documentElement.setAttribute('data-theme', theme);
+  const nextTheme = theme === 'light' ? 'light' : 'dark';
+  currentTheme = nextTheme;
+  document.documentElement.setAttribute('data-theme', nextTheme);
   if (window.ConflictMapperStyle) {
     const settings = window.ConflictMapperStyle.read();
-    if (settings.mode !== theme) {
-      window.ConflictMapperStyle.write({ ...settings, mode: theme });
+    const modeSettings = settingsForThemeMode(nextTheme, settings);
+    if (settings.mode !== nextTheme || settings.template !== modeSettings.template) {
+      window.ConflictMapperStyle.write(modeSettings);
     } else {
       window.ConflictMapperStyle.apply(settings);
     }
   }
   const btn = document.getElementById('theme-toggle');
   if (!btn) return;
-  if (theme === 'dark') {
+  if (nextTheme === 'dark') {
     btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
     btn.setAttribute('aria-label', 'Switch to light mode');
   } else {
     btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
     btn.setAttribute('aria-label', 'Switch to dark mode');
   }
-  _storedTheme = theme;
+  _storedTheme = nextTheme;
   try {
-    localStorage.setItem(STORAGE_THEME_KEY, theme);
+    localStorage.setItem(STORAGE_THEME_KEY, nextTheme);
   } catch(e) {}
 }
 
@@ -4610,9 +4654,9 @@ function loadStyleSettingsToForm(settings = null) {
   const contentWidth = Number(next.layout?.contentWidthPercent || 90);
   const widthPreset = document.getElementById('style-content-width-preset');
   const widthCustom = document.getElementById('style-content-width-custom');
-  if (template) template.value = next.template || 'command';
-  if (mode) mode.value = next.mode || 'dark';
-  if (fontScale) fontScale.value = next.fontScale || 1.08;
+  if (template) template.value = next.template || 'lightOps';
+  if (mode) mode.value = next.mode || 'light';
+  if (fontScale) fontScale.value = next.fontScale || 1.06;
   if (widthPreset) widthPreset.value = ['70', '75', '80', '85', '90'].includes(String(contentWidth)) ? String(contentWidth) : 'custom';
   if (widthCustom) widthCustom.value = contentWidth;
   for (const [key] of STYLE_TEXT_SIZE_FIELDS) {
@@ -4639,9 +4683,9 @@ function collectStyleSettingsFromForm() {
     if (label && input?.value) label.textContent = input.value;
   }
   return {
-    template: document.getElementById('style-template')?.value || current.template || 'command',
-    mode: document.getElementById('style-mode')?.value || current.mode || 'dark',
-    fontScale: Number(document.getElementById('style-font-scale')?.value || current.fontScale || 1.08),
+    template: document.getElementById('style-template')?.value || current.template || 'lightOps',
+    mode: document.getElementById('style-mode')?.value || current.mode || 'light',
+    fontScale: Number(document.getElementById('style-font-scale')?.value || current.fontScale || 1.06),
     layout: {
       contentWidthPercent: Number(document.getElementById('style-content-width-custom')?.value || current.layout?.contentWidthPercent || 90),
     },
@@ -4708,7 +4752,7 @@ function updateStyleSummary(settings) {
   if (label) {
     const template = window.ConflictMapperStyle?.templates?.[settings.template]?.label || settings.template || 'custom';
     const width = Number(settings.layout?.contentWidthPercent || 90);
-    label.textContent = `${template} - ${settings.mode || 'dark'} - ${width}% width - ${pct}% scale`;
+    label.textContent = `${template} - ${settings.mode || 'light'} - ${width}% width - ${pct}% scale`;
   }
 }
 
@@ -5850,6 +5894,7 @@ const FEED_ZERO_STREAK_KEY = 'conflictMapper.feedZeroStreaks.v1';
 async function loadFeedsConfig() {
   const list = document.getElementById('feed-list');
   const countLabel = document.getElementById('feed-count-label');
+  loadRefreshSettings();
 
   try {
     const res = await fetch('/api/feeds');
@@ -5874,6 +5919,78 @@ async function loadFeedsConfig() {
 
   countLabel.textContent = `${Array.isArray(_feedsData) ? _feedsData.length : 0} feeds configured`;
   renderFeedList();
+}
+
+function normalizeAppSettings(input = {}) {
+  const legacyHours = Number(input.fetchIntervalHours);
+  const rawMinutes = Number(
+    input.feedRefreshIntervalMinutes
+      ?? input.fetchIntervalMinutes
+      ?? (Number.isFinite(legacyHours) ? legacyHours * 60 : DEFAULT_APP_SETTINGS.feedRefreshIntervalMinutes)
+  );
+  const feedRefreshIntervalMinutes = Number.isFinite(rawMinutes)
+    ? Math.min(1440, Math.max(1, Math.round(rawMinutes)))
+    : DEFAULT_APP_SETTINGS.feedRefreshIntervalMinutes;
+  return {
+    ...DEFAULT_APP_SETTINGS,
+    ...input,
+    autoFetch: input.autoFetch !== false,
+    feedRefreshIntervalMinutes,
+    fetchIntervalMinutes: feedRefreshIntervalMinutes,
+    fetchIntervalHours: Number((feedRefreshIntervalMinutes / 60).toFixed(2)),
+  };
+}
+
+async function loadRefreshSettings() {
+  try {
+    const res = await fetch('/api/settings');
+    if (!res.ok) throw new Error(`settings API returned ${res.status}`);
+    const json = await readApiJson(res, '/api/settings');
+    _appSettings = normalizeAppSettings(json.data?.settings || json.settings || {});
+  } catch (_) {
+    _appSettings = normalizeAppSettings(_appSettings);
+  }
+  renderRefreshSettingsForm(_appSettings);
+}
+
+function renderRefreshSettingsForm(settings) {
+  const normalized = normalizeAppSettings(settings);
+  const enabled = document.getElementById('rss-auto-fetch');
+  const interval = document.getElementById('rss-refresh-interval');
+  const label = document.getElementById('rss-refresh-settings-label');
+  if (enabled) enabled.checked = normalized.autoFetch;
+  if (interval) interval.value = normalized.feedRefreshIntervalMinutes;
+  if (label) {
+    label.textContent = normalized.autoFetch
+      ? `Every ${normalized.feedRefreshIntervalMinutes} min`
+      : 'Automatic refresh disabled';
+  }
+}
+
+async function saveRefreshSettingsFromForm() {
+  const enabled = document.getElementById('rss-auto-fetch');
+  const interval = document.getElementById('rss-refresh-interval');
+  const settings = normalizeAppSettings({
+    ..._appSettings,
+    autoFetch: enabled ? enabled.checked : true,
+    feedRefreshIntervalMinutes: interval ? Number(interval.value) : 15,
+  });
+  renderRefreshSettingsForm(settings);
+  try {
+    const res = await fetch('/api/settings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(settings),
+    });
+    const json = await readApiJson(res, '/api/settings');
+    if (!res.ok || json.success === false) throw new Error(json.error || `settings API returned ${res.status}`);
+    _appSettings = normalizeAppSettings(json.data?.settings || settings);
+    renderRefreshSettingsForm(_appSettings);
+    showToast(`Feed refresh timer saved: ${_appSettings.autoFetch ? `${_appSettings.feedRefreshIntervalMinutes} min` : 'disabled'}`);
+  } catch (err) {
+    showToast('Refresh timer not saved: ' + err.message, true);
+    renderRefreshSettingsForm(_appSettings);
+  }
 }
 
 const FEED_CATEGORIES = ['breaking','geopolitics','military','science','technology','ai','robotics','engineering','spaceflight','research','general'];
@@ -6113,6 +6230,21 @@ async function waitForFeedFetchResults(labelEl, maxPolls = 90) {
   return { status: null, feedResults: [], articlesAdded: 0 };
 }
 
+function notifyArticleCacheUpdated(details = {}) {
+  const payload = {
+    type: 'conflict-mapper:article-cache-updated',
+    updatedAt: new Date().toISOString(),
+    details,
+  };
+  try {
+    localStorage.setItem(ARTICLE_CACHE_UPDATED_KEY, JSON.stringify(payload));
+  } catch (_) {}
+  const frame = document.getElementById('content-iframe');
+  if (frame?.contentWindow) {
+    frame.contentWindow.postMessage(payload, window.location.origin);
+  }
+}
+
 async function fetchAllFeeds() {
   const progressEl = document.getElementById('rss-progress');
   const barEl = document.getElementById('rss-progress-bar');
@@ -6144,6 +6276,7 @@ async function fetchAllFeeds() {
       const repeatedZeroFeeds = applyFeedFetchResults(feedResults);
       const checked = feedResults.length || data.data?.feedsChecked || data.feedsChecked || enabledCount;
       labelEl.textContent = `Fetched ${articlesAdded} new articles from ${checked} feeds`;
+      notifyArticleCacheUpdated({ articlesAdded, feedsChecked: checked });
       showToast('Feeds fetched successfully');
       promptPurgeZeroFeeds(repeatedZeroFeeds);
     } else {

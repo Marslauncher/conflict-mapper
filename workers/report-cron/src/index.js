@@ -1,5 +1,6 @@
 import { appendReportLog, generateAndStoreReport, setReportStatus } from '../../../cloudflare/lib/reports.js';
-import { loadArticleSet, refreshArticles } from '../../../cloudflare/lib/articles.js';
+import { getArticleFetchStatus, loadArticleSet, refreshArticles } from '../../../cloudflare/lib/articles.js';
+import { loadAppSettings } from '../../../cloudflare/lib/app-settings.js';
 import { jsonResponse } from '../../../cloudflare/lib/http.js';
 
 const DEFAULT_COUNTRIES = [
@@ -18,6 +19,7 @@ const DEFAULT_COUNTRIES = [
 
 const DEFAULT_GLOBAL_CRON = '0 3 * * *';
 const DEFAULT_WATCH_CRON = '0 3 * * *';
+const DEFAULT_FEED_REFRESH_CRON = '* * * * *';
 const DEFAULT_WATCH_SLUGS = ['taiwan', 'korea'];
 const DEFAULT_COUNTRY_CRONS = [
   '30 8 * * *',
@@ -50,6 +52,10 @@ export default {
 
 async function runScheduledPlan(env, plan, trigger) {
   const startedAt = new Date().toISOString();
+  if (plan.feedOnly) {
+    return runFeedOnlyPlan(env, plan, trigger, startedAt);
+  }
+
   if (!plan.jobs.length) {
     await appendReportLog(env, {
       level: 'warn',
@@ -97,13 +103,15 @@ async function runScheduledPlan(env, plan, trigger) {
 async function maybeRefreshArticles(env, articleContext, plan, startedAt) {
   if (!plan.refreshFeeds) return;
   try {
-    await setReportStatus(env, {
-      running: true,
-      phase: 'scheduled-feed-refresh',
-      progress: 5,
-      message: `${plan.label} refreshing RSS feeds before report generation`,
-      startedAt,
-    });
+    if (!plan.feedOnly) {
+      await setReportStatus(env, {
+        running: true,
+        phase: 'scheduled-feed-refresh',
+        progress: 5,
+        message: `${plan.label} refreshing RSS feeds before report generation`,
+        startedAt,
+      });
+    }
     const timeoutMs = Number(env.REPORT_FEED_REFRESH_TIMEOUT_MS || 45000);
     await Promise.race([
       refreshArticles(articleContext, {
@@ -116,17 +124,87 @@ async function maybeRefreshArticles(env, articleContext, plan, startedAt) {
     await appendReportLog(env, {
       level: 'warn',
       category: 'rss',
-      message: `Scheduled feed refresh failed; using existing article cache: ${err.message}`,
+      message: plan.feedOnly
+        ? `Scheduled feed refresh failed: ${err.message}`
+        : `Scheduled feed refresh failed; using existing article cache: ${err.message}`,
       details: { plan: plan.label },
     });
-    await setReportStatus(env, {
-      running: true,
-      phase: 'scheduled-feed-warning',
-      progress: 8,
-      message: `Feed refresh failed; using existing article cache: ${err.message}`,
-      startedAt,
-    });
+    if (!plan.feedOnly) {
+      await setReportStatus(env, {
+        running: true,
+        phase: 'scheduled-feed-warning',
+        progress: 8,
+        message: `Feed refresh failed; using existing article cache: ${err.message}`,
+        startedAt,
+      });
+    }
   }
+}
+
+async function runFeedOnlyPlan(env, plan, trigger, startedAt) {
+  const decision = await shouldRunFeedRefresh(env);
+  if (!decision.run) {
+    if (env.LOG_SKIPPED_FEED_REFRESH === 'true') {
+      await appendReportLog(env, {
+        category: 'rss',
+        message: `Scheduled RSS refresh skipped: ${decision.reason}`,
+        details: { trigger, intervalMinutes: decision.intervalMinutes, lastFetch: decision.lastFetch },
+      });
+    }
+    return [];
+  }
+
+  await appendReportLog(env, {
+    category: 'rss',
+    message: `${plan.label} started by ${trigger}`,
+    details: { trigger, intervalMinutes: decision.intervalMinutes },
+  });
+  const articleContext = createArticleContext(env);
+  await maybeRefreshArticles(env, articleContext, plan, startedAt);
+  await appendReportLog(env, {
+    category: 'rss',
+    message: `${plan.label} complete`,
+    details: { trigger },
+  });
+  return [{ success: true, scope: 'rss', slug: 'articles' }];
+}
+
+async function shouldRunFeedRefresh(env) {
+  const settings = await loadAppSettings(env);
+  if (!settings.autoFetch) {
+    return {
+      run: false,
+      reason: 'automatic refresh disabled in settings',
+      intervalMinutes: settings.feedRefreshIntervalMinutes,
+    };
+  }
+
+  const status = await getArticleFetchStatus(env).catch(() => null);
+  if (status?.running) {
+    return {
+      run: false,
+      reason: 'previous feed refresh is still running',
+      intervalMinutes: settings.feedRefreshIntervalMinutes,
+      lastFetch: status.lastFetch || null,
+    };
+  }
+  const lastFetch = status?.lastFetch || null;
+  const lastFetchMs = lastFetch ? new Date(lastFetch).getTime() : 0;
+  const intervalMs = settings.feedRefreshIntervalMinutes * 60 * 1000;
+  if (Number.isFinite(lastFetchMs) && lastFetchMs > 0 && Date.now() - lastFetchMs < intervalMs - 60000) {
+    return {
+      run: false,
+      reason: 'configured interval has not elapsed',
+      intervalMinutes: settings.feedRefreshIntervalMinutes,
+      lastFetch,
+    };
+  }
+
+  return {
+    run: true,
+    intervalMinutes: settings.feedRefreshIntervalMinutes,
+    lastFetch,
+  };
 }
 
 async function runJobsWithConcurrency(env, jobs, articles, concurrency = 1) {
@@ -167,8 +245,18 @@ function createCronPlan(env, cron) {
   const countries = getReportCountries(env);
   const countryCrons = getCountryCrons(env);
   const countryIndex = countryCrons.indexOf(trigger);
+  const feedRefreshCron = normalizeCron(env.FEED_REFRESH_CRON || DEFAULT_FEED_REFRESH_CRON);
   const globalCron = normalizeCron(env.REPORT_GLOBAL_CRON || DEFAULT_GLOBAL_CRON);
   const watchCron = normalizeCron(env.REPORT_WATCH_CRON || DEFAULT_WATCH_CRON);
+  if (trigger === feedRefreshCron) {
+    return {
+      label: 'Scheduled RSS article refresh',
+      refreshFeeds: true,
+      feedOnly: true,
+      concurrency: 1,
+      jobs: [],
+    };
+  }
   const matchesGlobal = trigger === globalCron;
   const matchesWatch = trigger === watchCron;
   if (matchesGlobal || matchesWatch) {

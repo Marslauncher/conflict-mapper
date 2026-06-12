@@ -100,6 +100,8 @@ let fetchStatus = {
   message:  'Idle',
 };
 
+let autoFetchTimer = null;
+
 let analysisStatus = {
   running:   false,
   phase:     'idle',
@@ -109,6 +111,118 @@ let analysisStatus = {
   lastRun:   null,
   lastResult: null,
 };
+
+function queueFeedFetch(source = 'manual') {
+  if (fetchStatus.running) {
+    return {
+      queued: false,
+      status: fetchStatus,
+      message: 'Fetch already in progress',
+    };
+  }
+
+  const config = feedStore.getFeeds();
+  const enabledCount = (config.feeds || []).filter(f => f.enabled !== false).length;
+
+  if (enabledCount === 0) {
+    return {
+      queued: false,
+      error: 'No enabled feeds configured',
+    };
+  }
+
+  fetchStatus = {
+    running:  true,
+    progress: 0,
+    total:    enabledCount,
+    current:  'Starting...',
+    errors:   0,
+    lastRun:  new Date().toISOString(),
+    source,
+    message:  `Fetching ${enabledCount} feeds...`,
+  };
+
+  runQueuedFeedFetch(config, source).catch((err) => {
+    logger.log('rss', 'error', `RSS fetch failed: ${err.message}`, { stack: err.stack, source });
+    fetchStatus = {
+      running:  false,
+      progress: 0,
+      total:    0,
+      current:  'Error',
+      errors:   1,
+      lastRun:  new Date().toISOString(),
+      source,
+      message:  `Fetch failed: ${err.message}`,
+    };
+  });
+
+  return {
+    queued: true,
+    status: fetchStatus,
+    enabledCount,
+  };
+}
+
+async function runQueuedFeedFetch(config, source = 'manual') {
+  const enabledCount = (config.feeds || []).filter(f => f.enabled !== false).length;
+  logger.log('rss', 'info', `RSS fetch started for ${enabledCount} feeds`, { source });
+  const result = await rssEngine.fetchAllFeeds(config, (progress) => {
+    fetchStatus.progress = progress.fetched;
+    fetchStatus.current  = progress.current;
+    fetchStatus.errors   = progress.errors;
+    fetchStatus.message  = `Fetching: ${progress.current} (${progress.fetched}/${progress.total})`;
+  });
+
+  const saved = feedStore.saveArticles(result.articles);
+
+  logger.log('rss', 'info', 'RSS fetch complete', {
+    source,
+    totalFetched: result.totalFetched,
+    newArticles: saved.added,
+    feedErrors: result.errors,
+    feedCount: result.results.length,
+  });
+  fetchStatus = {
+    running:   false,
+    progress:  result.results.length,
+    total:     result.results.length,
+    current:   'Complete',
+    errors:    result.errors,
+    lastRun:   new Date().toISOString(),
+    source,
+    message:   `Fetch complete. ${saved.added} new articles. ${result.errors} feed errors.`,
+    lastResult: {
+      totalArticles: result.totalFetched,
+      newArticles:   saved.added,
+      savedTotal:    saved.total,
+      feedErrors:    result.errors,
+      feedResults:   result.results,
+    },
+  };
+}
+
+function scheduleAutoFetchFromSettings() {
+  if (autoFetchTimer) {
+    clearInterval(autoFetchTimer);
+    autoFetchTimer = null;
+  }
+
+  const settings = feedStore.getSettings();
+  if (!settings.autoFetch) {
+    logger.log('rss', 'info', 'Automatic RSS feed refresh disabled');
+    return;
+  }
+
+  const intervalMinutes = Math.min(1440, Math.max(1, Number(settings.feedRefreshIntervalMinutes) || 15));
+  const intervalMs = intervalMinutes * 60 * 1000;
+  autoFetchTimer = setInterval(() => {
+    const queued = queueFeedFetch('auto');
+    if (queued.error) {
+      logger.log('rss', 'warn', `Automatic RSS feed refresh skipped: ${queued.error}`);
+    }
+  }, intervalMs);
+  logger.log('rss', 'info', `Automatic RSS feed refresh scheduled every ${intervalMinutes} minutes`);
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPER: WRAP ROUTE HANDLER
@@ -196,89 +310,25 @@ app.post('/api/feeds/import', asyncRoute(async (req, res) => {
  * Returns immediately with a status message; use /api/feeds/fetch-status to poll.
  */
 app.post('/api/feeds/fetch', asyncRoute(async (req, res) => {
-  if (fetchStatus.running) {
+  const queued = queueFeedFetch('manual');
+  if (queued.error) {
+    return res.json({ success: false, error: queued.error });
+  }
+
+  if (!queued.queued) {
     return res.json({
       success: true,
-      data: { message: 'Fetch already in progress', status: fetchStatus },
+      data: { message: queued.message, status: queued.status },
     });
   }
 
-  const config = feedStore.getFeeds();
-  const enabledCount = (config.feeds || []).filter(f => f.enabled).length;
-
-  if (enabledCount === 0) {
-    return res.json({ success: false, error: 'No enabled feeds configured' });
-  }
-
-  // Start async fetch (non-blocking)
-  fetchStatus = {
-    running:  true,
-    progress: 0,
-    total:    enabledCount,
-    current:  'Starting...',
-    errors:   0,
-    lastRun:  new Date().toISOString(),
-    message:  `Fetching ${enabledCount} feeds...`,
-  };
-
-  // Respond immediately before starting the long operation
   res.json({
     success: true,
     data: {
-      message: `Feed fetch started for ${enabledCount} feeds`,
-      status:  fetchStatus,
+      message: `Feed fetch started for ${queued.enabledCount} feeds`,
+      status:  queued.status,
     },
   });
-
-  // Run fetch in background
-  try {
-    logger.log('rss', 'info', `RSS fetch started for ${enabledCount} feeds`);
-    const result = await rssEngine.fetchAllFeeds(config, (progress) => {
-      fetchStatus.progress = progress.fetched;
-      fetchStatus.current  = progress.current;
-      fetchStatus.errors   = progress.errors;
-      fetchStatus.message  = `Fetching: ${progress.current} (${progress.fetched}/${progress.total})`;
-    });
-
-    // Save articles
-    const saved = feedStore.saveArticles(result.articles);
-
-    logger.log('rss', 'info', `RSS fetch complete`, {
-      totalFetched: result.totalFetched,
-      newArticles: saved.added,
-      feedErrors: result.errors,
-      feedCount: result.results.length,
-    });
-    fetchStatus = {
-      running:   false,
-      progress:  result.results.length,
-      total:     result.results.length,
-      current:   'Complete',
-      errors:    result.errors,
-      lastRun:   new Date().toISOString(),
-      message:   `Fetch complete. ${saved.added} new articles. ${result.errors} feed errors.`,
-      lastResult: {
-        totalArticles: result.totalFetched,
-        newArticles:   saved.added,
-        savedTotal:    saved.total,
-        feedErrors:    result.errors,
-        feedResults:   result.results,
-      },
-    };
-
-    // (logged above)
-  } catch (err) {
-    logger.log('rss', 'error', `RSS fetch failed: ${err.message}`, { stack: err.stack });
-    fetchStatus = {
-      running:  false,
-      progress: 0,
-      total:    0,
-      current:  'Error',
-      errors:   1,
-      lastRun:  new Date().toISOString(),
-      message:  `Fetch failed: ${err.message}`,
-    };
-  }
 }));
 
 /**
@@ -948,8 +998,12 @@ app.post('/api/settings', asyncRoute(async (req, res) => {
     return res.status(400).json({ success: false, error: 'Request body must be an object' });
   }
 
-  feedStore.saveSettings(req.body);
-  logger.log('system', 'info', 'Settings updated', req.body);
+  const saved = feedStore.saveSettings(req.body);
+  logger.log('system', 'info', 'Settings updated', {
+    autoFetch: saved.autoFetch,
+    feedRefreshIntervalMinutes: saved.feedRefreshIntervalMinutes,
+  });
+  scheduleAutoFetchFromSettings();
   const settings = feedStore.getSettings();
   res.json({ success: true, data: { settings } });
 }));
@@ -1185,6 +1239,10 @@ app.get('/api/status', asyncRoute(async (req, res) => {
       },
       fetchStatus,
       analysisStatus,
+      settings: {
+        autoFetch: settings.autoFetch,
+        feedRefreshIntervalMinutes: settings.feedRefreshIntervalMinutes,
+      },
     },
   });
 }));
@@ -1292,6 +1350,7 @@ app.get('/{*catchAll}', (req, res, next) => {
 
 app.listen(PORT, '0.0.0.0', () => {
   logger.log('system', 'info', `Conflict Mapper API server started on port ${PORT}`);
+  scheduleAutoFetchFromSettings();
   console.log('');
   console.log('╔════════════════════════════════════════════════════╗');
   console.log('║         CONFLICT MAPPER — API SERVER v2.0          ║');

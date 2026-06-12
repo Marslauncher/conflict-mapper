@@ -291,6 +291,7 @@ body {
   <div class="top-actions">
     <a class="btn" href="map-feed.html">Open Map Feed</a>
     <button class="btn" type="button" onclick="loadArticles()">Refresh Library</button>
+    <span class="results-note" id="library-refresh-status" style="align-self:center;margin:0">Auto refresh: loading</span>
   </div>
 
   <section class="toolbar" aria-label="News library filters">
@@ -346,26 +347,70 @@ body {
 let allArticles = [];
 let renderLimit = 300;
 let lastFilterSignature = '';
+let lastArticleCacheFetch = null;
+let libraryRefreshTimer = null;
+let loadingArticles = false;
 
-async function loadArticles() {
+const ARTICLE_CACHE_UPDATED_KEY = 'conflictMapper.articleCacheUpdated.v1';
+const DEFAULT_REFRESH_MINUTES = 15;
+
+async function loadArticles(options = {}) {
+  if (loadingArticles) return;
+  loadingArticles = true;
+  const silent = options.silent === true;
   const target = document.getElementById('library-results');
-  target.innerHTML = '<div class="empty">Loading article cache...</div>';
+  if (!silent) target.innerHTML = '<div class="empty">Loading article cache...</div>';
   try {
-    const res = await fetch('/api/articles?limit=5000');
+    const res = await fetch('/api/articles?limit=5000', { cache: 'no-store' });
     const payload = await readJsonResponse(res, '/api/articles');
     allArticles = payload.data?.articles || payload.articles || [];
+    lastArticleCacheFetch = payload.data?.lastFetch || payload.lastFetch || new Date().toISOString();
   } catch (err) {
     try {
-      const res = await fetch('../data/articles.json');
+      const res = await fetch('../data/articles.json', { cache: 'no-store' });
       const payload = await res.json();
       allArticles = payload.articles || [];
+      lastArticleCacheFetch = payload.lastFetch || new Date().toISOString();
     } catch (_) {
       target.innerHTML = `<div class="empty">${escapeHtml(err.message || 'Unable to load article cache')}</div>`;
+      loadingArticles = false;
       return;
     }
   }
   populateFilters();
   renderLibrary();
+  updateRefreshStatus();
+  loadingArticles = false;
+}
+
+async function setupArticleAutoRefresh() {
+  const minutes = await loadRefreshIntervalMinutes();
+  if (libraryRefreshTimer) clearInterval(libraryRefreshTimer);
+  libraryRefreshTimer = setInterval(() => {
+    loadArticles({ silent: true });
+  }, minutes * 60 * 1000);
+  updateRefreshStatus(minutes);
+}
+
+async function loadRefreshIntervalMinutes() {
+  try {
+    const res = await fetch('/api/settings', { cache: 'no-store' });
+    if (!res.ok) throw new Error(`settings API returned ${res.status}`);
+    const payload = await readJsonResponse(res, '/api/settings');
+    const settings = payload.data?.settings || payload.settings || {};
+    const minutes = Number(settings.feedRefreshIntervalMinutes ?? settings.fetchIntervalMinutes ?? (Number(settings.fetchIntervalHours) * 60));
+    return Number.isFinite(minutes) ? Math.min(1440, Math.max(1, Math.round(minutes))) : DEFAULT_REFRESH_MINUTES;
+  } catch (_) {
+    return DEFAULT_REFRESH_MINUTES;
+  }
+}
+
+function updateRefreshStatus(intervalMinutes = null) {
+  const label = document.getElementById('library-refresh-status');
+  if (!label) return;
+  const refreshText = intervalMinutes ? `Auto refresh: ${intervalMinutes} min` : 'Auto refresh: active';
+  const cacheText = lastArticleCacheFetch ? ` · cache ${timeAgo(lastArticleCacheFetch)}` : '';
+  label.textContent = `${refreshText}${cacheText}`;
 }
 
 async function readJsonResponse(res, label) {
@@ -593,7 +638,23 @@ function escapeHtml(value) {
     .replace(/"/g, '&quot;');
 }
 
-window.addEventListener('DOMContentLoaded', loadArticles);
+window.addEventListener('storage', (event) => {
+  if (event.key === ARTICLE_CACHE_UPDATED_KEY) {
+    loadArticles({ silent: true });
+  }
+});
+
+window.addEventListener('message', (event) => {
+  if (event.origin !== window.location.origin) return;
+  if (event.data?.type === 'conflict-mapper:article-cache-updated') {
+    loadArticles({ silent: true });
+  }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  loadArticles();
+  setupArticleAutoRefresh();
+});
 </script>
 </body>
 </html>
