@@ -1244,6 +1244,155 @@ const AGE_COLORS = {
   archive: '#166534',
 };
 
+const MAP_GEO_PLACES = [
+  { terms: ['tehran'], place: 'Tehran', country: 'Iran', lat: 35.6892, lng: 51.389, confidence: 0.9 },
+  { terms: ['iran', 'iranian'], place: 'Iran', country: 'Iran', lat: 32.43, lng: 53.69, confidence: 0.82 },
+  { terms: ['strait of hormuz', 'hormuz'], place: 'Strait of Hormuz', country: 'Iran', lat: 26.5667, lng: 56.25, confidence: 0.9 },
+  { terms: ['mexico city', 'cdmx'], place: 'Mexico City', country: 'Mexico', lat: 19.4326, lng: -99.1332, confidence: 0.9 },
+  { terms: ['monterrey'], place: 'Monterrey', country: 'Mexico', lat: 25.6866, lng: -100.3161, confidence: 0.88 },
+  { terms: ['guadalajara'], place: 'Guadalajara', country: 'Mexico', lat: 20.6597, lng: -103.3496, confidence: 0.88 },
+  { terms: ['tijuana'], place: 'Tijuana', country: 'Mexico', lat: 32.5149, lng: -117.0382, confidence: 0.88 },
+  { terms: ['ciudad juarez', 'juarez'], place: 'Ciudad Juarez', country: 'Mexico', lat: 31.6904, lng: -106.4245, confidence: 0.86 },
+  { terms: ['mexico', 'mexican'], place: 'Mexico', country: 'Mexico', lat: 23.6345, lng: -102.5528, confidence: 0.72 },
+  { terms: ['dominican republic', 'dominican'], place: 'Dominican Republic', country: 'Dominican Republic', lat: 18.7357, lng: -70.1627, confidence: 0.76 },
+  { terms: ['santo domingo'], place: 'Santo Domingo', country: 'Dominican Republic', lat: 18.4861, lng: -69.9312, confidence: 0.9 },
+  { terms: ['new york state'], place: 'New York State', country: 'United States', lat: 42.9538, lng: -75.5268, confidence: 0.82 },
+  { terms: ['new york city', 'nyc', 'manhattan', 'new york'], place: 'New York City', country: 'United States', lat: 40.7128, lng: -74.006, confidence: 0.9 },
+  { terms: ['california'], place: 'California', country: 'United States', lat: 36.7783, lng: -119.4179, confidence: 0.82 },
+  { terms: ['los angeles'], place: 'Los Angeles', country: 'United States', lat: 34.0522, lng: -118.2437, confidence: 0.9 },
+  { terms: ['san francisco'], place: 'San Francisco', country: 'United States', lat: 37.7749, lng: -122.4194, confidence: 0.9 },
+  { terms: ['san diego'], place: 'San Diego', country: 'United States', lat: 32.7157, lng: -117.1611, confidence: 0.9 },
+  { terms: ['sacramento'], place: 'Sacramento', country: 'United States', lat: 38.5816, lng: -121.4944, confidence: 0.88 },
+  { terms: ['texas'], place: 'Texas', country: 'United States', lat: 31.9686, lng: -99.9018, confidence: 0.82 },
+  { terms: ['houston'], place: 'Houston', country: 'United States', lat: 29.7604, lng: -95.3698, confidence: 0.9 },
+  { terms: ['dallas'], place: 'Dallas', country: 'United States', lat: 32.7767, lng: -96.797, confidence: 0.9 },
+  { terms: ['austin'], place: 'Austin', country: 'United States', lat: 30.2672, lng: -97.7431, confidence: 0.9 },
+  { terms: ['san antonio'], place: 'San Antonio', country: 'United States', lat: 29.4241, lng: -98.4936, confidence: 0.9 },
+  { terms: ['florida'], place: 'Florida', country: 'United States', lat: 27.6648, lng: -81.5158, confidence: 0.82 },
+  { terms: ['miami'], place: 'Miami', country: 'United States', lat: 25.7617, lng: -80.1918, confidence: 0.9 },
+  { terms: ['tampa'], place: 'Tampa', country: 'United States', lat: 27.9506, lng: -82.4572, confidence: 0.88 },
+  { terms: ['orlando'], place: 'Orlando', country: 'United States', lat: 28.5383, lng: -81.3792, confidence: 0.88 },
+  { terms: ['jacksonville'], place: 'Jacksonville', country: 'United States', lat: 30.3322, lng: -81.6557, confidence: 0.88 },
+  { terms: ['illinois'], place: 'Illinois', country: 'United States', lat: 40.6331, lng: -89.3985, confidence: 0.82 },
+  { terms: ['chicago'], place: 'Chicago', country: 'United States', lat: 41.8781, lng: -87.6298, confidence: 0.9 },
+  { terms: ['atlanta'], place: 'Atlanta', country: 'United States', lat: 33.749, lng: -84.388, confidence: 0.9 },
+  { terms: ['georgia state', 'state of georgia'], place: 'Georgia State', country: 'United States', lat: 32.1656, lng: -82.9001, confidence: 0.82 },
+  { terms: ['arizona'], place: 'Arizona', country: 'United States', lat: 34.0489, lng: -111.0937, confidence: 0.82 },
+  { terms: ['phoenix'], place: 'Phoenix', country: 'United States', lat: 33.4484, lng: -112.074, confidence: 0.9 },
+  { terms: ['nevada'], place: 'Nevada', country: 'United States', lat: 38.8026, lng: -116.4194, confidence: 0.82 },
+  { terms: ['las vegas'], place: 'Las Vegas', country: 'United States', lat: 36.1699, lng: -115.1398, confidence: 0.9 },
+  { terms: ['colorado'], place: 'Colorado', country: 'United States', lat: 39.5501, lng: -105.7821, confidence: 0.82 },
+  { terms: ['denver'], place: 'Denver', country: 'United States', lat: 39.7392, lng: -104.9903, confidence: 0.9 },
+  { terms: ['washington state'], place: 'Washington State', country: 'United States', lat: 47.7511, lng: -120.7401, confidence: 0.84 },
+  { terms: ['seattle'], place: 'Seattle', country: 'United States', lat: 47.6062, lng: -122.3321, confidence: 0.9 },
+  { terms: ['olympia'], place: 'Olympia', country: 'United States', lat: 47.0379, lng: -122.9007, confidence: 0.86 },
+  { terms: ['oregon'], place: 'Oregon', country: 'United States', lat: 43.8041, lng: -120.5542, confidence: 0.82 },
+  { terms: ['portland'], place: 'Portland', country: 'United States', lat: 45.5152, lng: -122.6784, confidence: 0.86 },
+  { terms: ['pennsylvania'], place: 'Pennsylvania', country: 'United States', lat: 41.2033, lng: -77.1945, confidence: 0.82 },
+  { terms: ['philadelphia'], place: 'Philadelphia', country: 'United States', lat: 39.9526, lng: -75.1652, confidence: 0.9 },
+  { terms: ['pittsburgh'], place: 'Pittsburgh', country: 'United States', lat: 40.4406, lng: -79.9959, confidence: 0.88 },
+  { terms: ['ohio'], place: 'Ohio', country: 'United States', lat: 40.4173, lng: -82.9071, confidence: 0.82 },
+  { terms: ['columbus ohio'], place: 'Columbus, Ohio', country: 'United States', lat: 39.9612, lng: -82.9988, confidence: 0.9 },
+  { terms: ['cleveland'], place: 'Cleveland', country: 'United States', lat: 41.4993, lng: -81.6944, confidence: 0.88 },
+  { terms: ['michigan'], place: 'Michigan', country: 'United States', lat: 44.3148, lng: -85.6024, confidence: 0.82 },
+  { terms: ['detroit'], place: 'Detroit', country: 'United States', lat: 42.3314, lng: -83.0458, confidence: 0.9 },
+  { terms: ['north carolina'], place: 'North Carolina', country: 'United States', lat: 35.7596, lng: -79.0193, confidence: 0.82 },
+  { terms: ['charlotte'], place: 'Charlotte', country: 'United States', lat: 35.2271, lng: -80.8431, confidence: 0.88 },
+  { terms: ['raleigh'], place: 'Raleigh', country: 'United States', lat: 35.7796, lng: -78.6382, confidence: 0.88 },
+  { terms: ['virginia'], place: 'Virginia', country: 'United States', lat: 37.4316, lng: -78.6569, confidence: 0.82 },
+  { terms: ['norfolk'], place: 'Norfolk', country: 'United States', lat: 36.8508, lng: -76.2859, confidence: 0.9 },
+  { terms: ['richmond'], place: 'Richmond', country: 'United States', lat: 37.5407, lng: -77.436, confidence: 0.86 },
+  { terms: ['maryland'], place: 'Maryland', country: 'United States', lat: 39.0458, lng: -76.6413, confidence: 0.82 },
+  { terms: ['baltimore'], place: 'Baltimore', country: 'United States', lat: 39.2904, lng: -76.6122, confidence: 0.88 },
+  { terms: ['massachusetts'], place: 'Massachusetts', country: 'United States', lat: 42.4072, lng: -71.3824, confidence: 0.82 },
+  { terms: ['boston'], place: 'Boston', country: 'United States', lat: 42.3601, lng: -71.0589, confidence: 0.9 },
+  { terms: ['united states', 'u.s.', ' usa ', ' us ', 'america', 'washington dc', 'washington, d.c.', 'pentagon'], place: 'United States', country: 'United States', lat: 38.9, lng: -77.03, confidence: 0.72 },
+  { terms: ['beijing'], place: 'Beijing', country: 'China', lat: 39.9042, lng: 116.4074, confidence: 0.9 },
+  { terms: ['shanghai'], place: 'Shanghai', country: 'China', lat: 31.2304, lng: 121.4737, confidence: 0.9 },
+  { terms: ['hong kong'], place: 'Hong Kong', country: 'China', lat: 22.3193, lng: 114.1694, confidence: 0.9 },
+  { terms: ['guangzhou'], place: 'Guangzhou', country: 'China', lat: 23.1291, lng: 113.2644, confidence: 0.9 },
+  { terms: ['shenzhen'], place: 'Shenzhen', country: 'China', lat: 22.5431, lng: 114.0579, confidence: 0.9 },
+  { terms: ['wuhan'], place: 'Wuhan', country: 'China', lat: 30.5928, lng: 114.3055, confidence: 0.88 },
+  { terms: ['chengdu'], place: 'Chengdu', country: 'China', lat: 30.5728, lng: 104.0668, confidence: 0.88 },
+  { terms: ['xinjiang'], place: 'Xinjiang', country: 'China', lat: 43.793, lng: 87.6271, confidence: 0.86 },
+  { terms: ['tibet'], place: 'Tibet', country: 'China', lat: 29.65, lng: 91.1175, confidence: 0.86 },
+  { terms: ['china', 'chinese', 'beijing'], place: 'China', country: 'China', lat: 35.86, lng: 104.19, confidence: 0.82 },
+  { terms: ['taiwan', 'taipei'], place: 'Taiwan', country: 'Taiwan', lat: 23.7, lng: 121.0, confidence: 0.82 },
+  { terms: ['taiwan strait'], place: 'Taiwan Strait', country: 'Taiwan', lat: 24.2, lng: 119.8, confidence: 0.9 },
+  { terms: ['moscow'], place: 'Moscow', country: 'Russia', lat: 55.7558, lng: 37.6173, confidence: 0.9 },
+  { terms: ['st petersburg', 'saint petersburg'], place: 'Saint Petersburg', country: 'Russia', lat: 59.9311, lng: 30.3609, confidence: 0.9 },
+  { terms: ['vladivostok'], place: 'Vladivostok', country: 'Russia', lat: 43.1155, lng: 131.8855, confidence: 0.9 },
+  { terms: ['belgorod'], place: 'Belgorod', country: 'Russia', lat: 50.5954, lng: 36.5873, confidence: 0.88 },
+  { terms: ['kursk'], place: 'Kursk', country: 'Russia', lat: 51.7304, lng: 36.1926, confidence: 0.88 },
+  { terms: ['kaliningrad'], place: 'Kaliningrad', country: 'Russia', lat: 54.7104, lng: 20.4522, confidence: 0.88 },
+  { terms: ['siberia'], place: 'Siberia', country: 'Russia', lat: 60.0, lng: 90.0, confidence: 0.82 },
+  { terms: ['russia', 'russian'], place: 'Russia', country: 'Russia', lat: 55.76, lng: 37.62, confidence: 0.82 },
+  { terms: ['ukraine', 'ukrainian', 'kyiv', 'kiev'], place: 'Ukraine', country: 'Ukraine', lat: 49.0, lng: 31.0, confidence: 0.82 },
+  { terms: ['israel', 'israeli', 'jerusalem', 'tel aviv'], place: 'Israel', country: 'Israel', lat: 31.5, lng: 34.75, confidence: 0.82 },
+  { terms: ['gaza'], place: 'Gaza', country: 'Palestinian Territories', lat: 31.5017, lng: 34.4668, confidence: 0.9 },
+  { terms: ['north korea', 'dprk', 'pyongyang'], place: 'North Korea', country: 'North Korea', lat: 40.34, lng: 127.51, confidence: 0.82 },
+  { terms: ['south korea', 'korea', 'seoul'], place: 'South Korea', country: 'South Korea', lat: 36.5, lng: 127.8, confidence: 0.78 },
+  { terms: ['japan', 'tokyo', 'okinawa'], place: 'Japan', country: 'Japan', lat: 36.2, lng: 138.25, confidence: 0.78 },
+  { terms: ['philippines', 'manila'], place: 'Philippines', country: 'Philippines', lat: 12.88, lng: 121.77, confidence: 0.78 },
+  { terms: ['new delhi', 'delhi'], place: 'New Delhi', country: 'India', lat: 28.6139, lng: 77.209, confidence: 0.9 },
+  { terms: ['mumbai'], place: 'Mumbai', country: 'India', lat: 19.076, lng: 72.8777, confidence: 0.9 },
+  { terms: ['bengaluru', 'bangalore'], place: 'Bengaluru', country: 'India', lat: 12.9716, lng: 77.5946, confidence: 0.9 },
+  { terms: ['chennai'], place: 'Chennai', country: 'India', lat: 13.0827, lng: 80.2707, confidence: 0.88 },
+  { terms: ['hyderabad'], place: 'Hyderabad', country: 'India', lat: 17.385, lng: 78.4867, confidence: 0.88 },
+  { terms: ['kolkata'], place: 'Kolkata', country: 'India', lat: 22.5726, lng: 88.3639, confidence: 0.88 },
+  { terms: ['kashmir'], place: 'Kashmir', country: 'India', lat: 34.0837, lng: 74.7973, confidence: 0.86 },
+  { terms: ['india'], place: 'India', country: 'India', lat: 20.59, lng: 78.96, confidence: 0.78 },
+  { terms: ['pakistan', 'islamabad'], place: 'Pakistan', country: 'Pakistan', lat: 30.38, lng: 69.35, confidence: 0.78 },
+  { terms: ['lebanon', 'beirut'], place: 'Lebanon', country: 'Lebanon', lat: 33.8547, lng: 35.8623, confidence: 0.72 },
+  { terms: ['yemen', 'houthi', 'houthis'], place: 'Yemen', country: 'Yemen', lat: 15.55, lng: 48.5, confidence: 0.72 },
+  { terms: ['iraq', 'baghdad'], place: 'Iraq', country: 'Iraq', lat: 33.2232, lng: 43.6793, confidence: 0.72 },
+  { terms: ['syria', 'damascus'], place: 'Syria', country: 'Syria', lat: 34.8021, lng: 38.9968, confidence: 0.72 },
+  { terms: ['saudi arabia', 'saudi', 'riyadh'], place: 'Saudi Arabia', country: 'Saudi Arabia', lat: 23.8859, lng: 45.0792, confidence: 0.72 },
+  { terms: ['united arab emirates', 'uae', 'abu dhabi', 'dubai'], place: 'United Arab Emirates', country: 'United Arab Emirates', lat: 23.4241, lng: 53.8478, confidence: 0.72 },
+  { terms: ['qatar', 'doha'], place: 'Qatar', country: 'Qatar', lat: 25.3548, lng: 51.1839, confidence: 0.72 },
+  { terms: ['afghanistan', 'kabul'], place: 'Afghanistan', country: 'Afghanistan', lat: 33.9391, lng: 67.71, confidence: 0.72 },
+  { terms: ['red sea'], place: 'Red Sea', country: 'Red Sea', lat: 20.0, lng: 38.0, confidence: 0.9 },
+  { terms: ['suez canal', 'suez'], place: 'Suez Canal', country: 'Egypt', lat: 30.5852, lng: 32.2654, confidence: 0.9 },
+  { terms: ['south china sea', 'spratly', 'scarborough'], place: 'South China Sea', country: 'China', lat: 12.0, lng: 114.0, confidence: 0.9 },
+  { terms: ['black sea'], place: 'Black Sea', country: 'Black Sea', lat: 44.4, lng: 34.0, confidence: 0.9 },
+  { terms: ['toronto'], place: 'Toronto', country: 'Canada', lat: 43.6532, lng: -79.3832, confidence: 0.9 },
+  { terms: ['vancouver'], place: 'Vancouver', country: 'Canada', lat: 49.2827, lng: -123.1207, confidence: 0.9 },
+  { terms: ['montreal'], place: 'Montreal', country: 'Canada', lat: 45.5017, lng: -73.5673, confidence: 0.9 },
+  { terms: ['ottawa'], place: 'Ottawa', country: 'Canada', lat: 45.4215, lng: -75.6972, confidence: 0.9 },
+  { terms: ['alberta'], place: 'Alberta', country: 'Canada', lat: 53.9333, lng: -116.5765, confidence: 0.82 },
+  { terms: ['calgary'], place: 'Calgary', country: 'Canada', lat: 51.0447, lng: -114.0719, confidence: 0.88 },
+  { terms: ['quebec'], place: 'Quebec', country: 'Canada', lat: 46.8139, lng: -71.208, confidence: 0.82 },
+  { terms: ['british columbia'], place: 'British Columbia', country: 'Canada', lat: 53.7267, lng: -127.6476, confidence: 0.82 },
+  { terms: ['canada'], place: 'Canada', country: 'Canada', lat: 56.1304, lng: -106.3468, confidence: 0.72 },
+  { terms: ['haiti', 'port au prince', 'port-au-prince'], place: 'Haiti', country: 'Haiti', lat: 18.5944, lng: -72.3074, confidence: 0.76 },
+  { terms: ['cuba', 'havana'], place: 'Cuba', country: 'Cuba', lat: 21.5218, lng: -77.7812, confidence: 0.76 },
+  { terms: ['panama', 'panama city'], place: 'Panama', country: 'Panama', lat: 8.538, lng: -80.7821, confidence: 0.72 },
+  { terms: ['sao paulo'], place: 'Sao Paulo', country: 'Brazil', lat: -23.5505, lng: -46.6333, confidence: 0.9 },
+  { terms: ['rio de janeiro'], place: 'Rio de Janeiro', country: 'Brazil', lat: -22.9068, lng: -43.1729, confidence: 0.9 },
+  { terms: ['brasilia'], place: 'Brasilia', country: 'Brazil', lat: -15.7939, lng: -47.8828, confidence: 0.9 },
+  { terms: ['brazil'], place: 'Brazil', country: 'Brazil', lat: -14.235, lng: -51.9253, confidence: 0.72 },
+  { terms: ['argentina', 'buenos aires'], place: 'Argentina', country: 'Argentina', lat: -38.4161, lng: -63.6167, confidence: 0.72 },
+  { terms: ['colombia', 'bogota'], place: 'Colombia', country: 'Colombia', lat: 4.5709, lng: -74.2973, confidence: 0.72 },
+  { terms: ['venezuela', 'caracas'], place: 'Venezuela', country: 'Venezuela', lat: 6.4238, lng: -66.5897, confidence: 0.72 },
+  { terms: ['peru', 'lima'], place: 'Peru', country: 'Peru', lat: -9.19, lng: -75.0152, confidence: 0.72 },
+  { terms: ['united kingdom', 'uk ', 'britain', 'british', 'london'], place: 'United Kingdom', country: 'United Kingdom', lat: 55.3781, lng: -3.436, confidence: 0.72 },
+  { terms: ['france', 'french', 'paris'], place: 'France', country: 'France', lat: 46.2276, lng: 2.2137, confidence: 0.72 },
+  { terms: ['germany', 'german', 'berlin'], place: 'Germany', country: 'Germany', lat: 51.1657, lng: 10.4515, confidence: 0.72 },
+  { terms: ['italy', 'italian', 'rome'], place: 'Italy', country: 'Italy', lat: 41.8719, lng: 12.5674, confidence: 0.72 },
+  { terms: ['spain', 'spanish', 'madrid'], place: 'Spain', country: 'Spain', lat: 40.4637, lng: -3.7492, confidence: 0.72 },
+  { terms: ['poland', 'polish', 'warsaw'], place: 'Poland', country: 'Poland', lat: 51.9194, lng: 19.1451, confidence: 0.72 },
+  { terms: ['turkey', 'türkiye', 'ankara', 'istanbul'], place: 'Turkey', country: 'Turkey', lat: 38.9637, lng: 35.2433, confidence: 0.72 },
+  { terms: ['sydney'], place: 'Sydney', country: 'Australia', lat: -33.8688, lng: 151.2093, confidence: 0.9 },
+  { terms: ['melbourne'], place: 'Melbourne', country: 'Australia', lat: -37.8136, lng: 144.9631, confidence: 0.9 },
+  { terms: ['canberra'], place: 'Canberra', country: 'Australia', lat: -35.2809, lng: 149.13, confidence: 0.9 },
+  { terms: ['australia'], place: 'Australia', country: 'Australia', lat: -25.2744, lng: 133.7751, confidence: 0.72 },
+  { terms: ['indonesia', 'jakarta'], place: 'Indonesia', country: 'Indonesia', lat: -0.7893, lng: 113.9213, confidence: 0.72 },
+  { terms: ['malaysia', 'kuala lumpur'], place: 'Malaysia', country: 'Malaysia', lat: 4.2105, lng: 101.9758, confidence: 0.72 },
+  { terms: ['thailand', 'bangkok'], place: 'Thailand', country: 'Thailand', lat: 15.87, lng: 100.9925, confidence: 0.72 },
+  { terms: ['vietnam', 'hanoi'], place: 'Vietnam', country: 'Vietnam', lat: 14.0583, lng: 108.2772, confidence: 0.72 },
+  { terms: ['singapore'], place: 'Singapore', country: 'Singapore', lat: 1.3521, lng: 103.8198, confidence: 0.72 },
+];
+
 function loadReadArticleKeys() {
   try {
     const parsed = JSON.parse(localStorage.getItem(READ_ARTICLES_KEY) || '[]');
@@ -1324,7 +1473,8 @@ async function loadArticles(options = {}) {
       articleMap.set(a.id, { ...(articleMap.get(a.id) || {}), ...a });
     });
 
-    allArticles = articleMap.size ? Array.from(articleMap.values()) : geoArticles;
+    allArticles = (articleMap.size ? Array.from(articleMap.values()) : geoArticles)
+      .map(enrichArticleGeoForMap);
 
     if (!allArticles.length) {
       // Use mock data for demo
@@ -1773,6 +1923,125 @@ function getGeoCoords(a) {
   const lat = Number(a.lat ?? a.geo?.lat);
   const lng = Number(a.lng ?? a.geo?.lng);
   return Number.isFinite(lat) && Number.isFinite(lng) && !(lat === 0 && lng === 0) ? { lat, lng } : null;
+}
+
+function enrichArticleGeoForMap(article) {
+  if (!article) return article;
+  const existingCoords = getGeoCoords(article);
+  const geo = geotagArticleForMap(article);
+  if (!geo || (existingCoords && !shouldReplaceArticleGeo(article, geo))) return article;
+  return {
+    ...article,
+    country: normalizeMapCountrySlug(geo.country || article.country),
+    geo,
+  };
+}
+
+function geotagArticleForMap(article) {
+  const title = String(article.title || article.headline || '');
+  const text = [
+    title,
+    article.description,
+    article.summary,
+    ...(Array.isArray(article.tags) ? article.tags : []),
+  ].filter(Boolean).join(' ');
+  const value = normalizeMapSearchText(text);
+  const priorityValue = normalizeMapSearchText(title);
+  let best = null;
+  for (const place of MAP_GEO_PLACES) {
+    for (const term of place.terms || []) {
+      const position = mapSearchTermIndex(value, term);
+      if (position < 0) continue;
+      const priorityPosition = mapSearchTermIndex(priorityValue, term);
+      const score = normalizeMapSearchText(term).trim().length
+        + (priorityPosition >= 0 ? 1000 : 0)
+        + Number(place.confidence || 0);
+      if (!best || score > best.score || (score === best.score && position < best.position)) {
+        best = { place, score, position };
+      }
+    }
+  }
+  if (!best) return null;
+  return {
+    lat: best.place.lat,
+    lng: best.place.lng,
+    place: best.place.place,
+    country: best.place.country,
+    confidence: best.place.confidence || 0.72,
+    specificity: best.score,
+    inferred: true,
+  };
+}
+
+function shouldReplaceArticleGeo(article, candidateGeo) {
+  const existingGeo = article.geo || {
+    lat: article.lat,
+    lng: article.lng,
+    place: article.place,
+    country: article.country,
+  };
+  const existingPlace = String(existingGeo.place || article.place || '').trim().toLowerCase();
+  const candidatePlace = String(candidateGeo.place || '').trim().toLowerCase();
+  if (!candidatePlace || candidatePlace === existingPlace) return false;
+  const candidateSpecific = !isGenericMapPlace(candidatePlace) && Number(candidateGeo.confidence || 0) >= 0.84;
+  if (!candidateSpecific) return false;
+
+  const existingCountry = normalizeMapCountrySlug(existingGeo.country || article.country);
+  const candidateCountry = normalizeMapCountrySlug(candidateGeo.country);
+  if (existingCountry && candidateCountry && existingCountry !== candidateCountry && isGenericMapPlace(existingPlace)) {
+    return true;
+  }
+  if (isGenericMapPlace(existingPlace)) return true;
+  return existingCountry === candidateCountry && isGenericMapCoordinate(existingGeo);
+}
+
+function isGenericMapPlace(place) {
+  return new Set([
+    '', 'global', 'world', 'united states', 'washington dc', 'china', 'taiwan', 'russia', 'ukraine',
+    'iran', 'israel', 'north korea', 'south korea', 'japan', 'philippines', 'india', 'pakistan',
+    'canada', 'mexico', 'brazil', 'australia', 'united kingdom', 'france', 'germany', 'italy',
+    'spain', 'poland', 'turkey',
+  ]).has(String(place || '').toLowerCase());
+}
+
+function isGenericMapCoordinate(existingGeo) {
+  const lat = Number(existingGeo?.lat);
+  const lng = Number(existingGeo?.lng);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return false;
+  return MAP_GEO_PLACES.some((place) => {
+    const genericPlace = String(place.place || '').toLowerCase();
+    if (!isGenericMapPlace(genericPlace)) return false;
+    return Math.abs(Number(place.lat) - lat) < 0.25 && Math.abs(Number(place.lng) - lng) < 0.25;
+  });
+}
+
+function normalizeMapSearchText(value) {
+  return ` ${String(value || '')
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[^\p{L}\p{N}.]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()} `;
+}
+
+function mapSearchTermIndex(normalizedText, term) {
+  const normalizedTerm = normalizeMapSearchText(term).trim();
+  if (!normalizedTerm) return -1;
+  if (/^[a-z0-9.]+$/i.test(normalizedTerm)) {
+    return normalizedText.indexOf(` ${normalizedTerm} `);
+  }
+  return normalizedText.indexOf(normalizedTerm);
+}
+
+function normalizeMapCountrySlug(value) {
+  const normalized = String(value || '').trim().toLowerCase();
+  if (!normalized) return 'global';
+  const aliases = {
+    'united states': 'usa',
+    'north korea': 'north-korea',
+    'south korea': 'south-korea',
+  };
+  return aliases[normalized] || normalized.replace(/\s+/g, '-');
 }
 
 function buildPopup(article) {
