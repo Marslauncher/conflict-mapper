@@ -32,6 +32,17 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === '/__scheduled') {
       const plan = createManualPlan(env, url.searchParams);
+      if (url.searchParams.get('wait') === 'true') {
+        const results = await runScheduledPlan(env, plan, 'manual');
+        return jsonResponse({
+          success: true,
+          data: {
+            message: 'Scheduled report run completed',
+            plan: summarizePlan(plan),
+            results,
+          },
+        });
+      }
       ctx.waitUntil(runScheduledPlan(env, plan, 'manual'));
       return jsonResponse({
         success: true,
