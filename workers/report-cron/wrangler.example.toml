@@ -6,11 +6,13 @@ compatibility_date = "2026-05-28"
 enabled = true
 
 [triggers]
-# One feed-only RSS refresh plus independent daily report jobs. Keeping country
-# jobs separate prevents global/watch reports from timing out behind a full batch.
+# One feed-only RSS refresh plus independent daily report jobs. Keeping global,
+# watch, and country jobs separate prevents long runs from sharing one invocation.
 crons = [
   "* * * * *",
   "0 3 * * *",
+  "15 3 * * *",
+  "25 3 * * *",
   "30 8 * * *",
   "35 8 * * *",
   "40 8 * * *",
@@ -48,7 +50,7 @@ ALLOW_REPORT_FALLBACK = "true"
 REPORT_AI_TIMEOUT_MS = "75000"
 REPORT_AI_ARTICLE_LIMIT = "24"
 REPORT_GLOBAL_CRON = "0 3 * * *"
-REPORT_WATCH_CRON = "0 3 * * *"
+REPORT_WATCH_CRONS = "15 3 * * *|25 3 * * *"
 REPORT_WATCH_SLUGS = "taiwan,korea"
 REPORT_COUNTRY_CRONS = "30 8 * * *|35 8 * * *|40 8 * * *"
 REPORT_COUNTRY_PARALLELISM = "2"

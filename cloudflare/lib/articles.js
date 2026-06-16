@@ -486,7 +486,7 @@ export async function refreshArticles(context, {
   }
 
   const merged = dedupeArticles([...nextArticles, ...existing])
-    .sort((a, b) => new Date(b.pubDate || 0).getTime() - new Date(a.pubDate || 0).getTime())
+    .sort((a, b) => articleTimestamp(b) - articleTimestamp(a))
     .slice(0, 5000);
 
   const storageSource = await writeArticlePayload(context.env, {
@@ -551,6 +551,12 @@ export async function refreshArticles(context, {
     feedResults,
     lastFetch: fetchedAt,
   };
+}
+
+function articleTimestamp(article) {
+  const value = article?.pubDate || article?.publishedAt || article?.date || article?.fetchedAt;
+  const time = value ? new Date(value).getTime() : 0;
+  return Number.isFinite(time) ? time : 0;
 }
 
 export async function getArticleFetchStatus(env) {

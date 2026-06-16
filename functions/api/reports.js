@@ -18,8 +18,7 @@ export async function onRequestGet(context) {
     ? await listR2Reports(context.env, { scope, slug, prefix, limit })
     : [];
   const reports = mergeReports([...storageReports, ...dbReports.map(normalizeDbReport), ...staticReports])
-    .sort((a, b) => Number(Boolean(b.isCurrent)) - Number(Boolean(a.isCurrent))
-      || new Date(b.generatedAt || 0).getTime() - new Date(a.generatedAt || 0).getTime());
+    .sort(compareReportFreshness);
 
   return jsonResponse({
     success: true,
@@ -99,4 +98,11 @@ function mergeReports(reports) {
     });
   }
   return Array.from(seen.values());
+}
+
+function compareReportFreshness(a, b) {
+  const bTime = new Date(b.generatedAt || b.uploaded || 0).getTime();
+  const aTime = new Date(a.generatedAt || a.uploaded || 0).getTime();
+  return (Number.isFinite(bTime) ? bTime : 0) - (Number.isFinite(aTime) ? aTime : 0)
+    || Number(Boolean(b.isCurrent)) - Number(Boolean(a.isCurrent));
 }

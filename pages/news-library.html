@@ -533,8 +533,8 @@ function renderArticleCard(article) {
         <span class="pill topic">${escapeHtml(article.category || 'general')}</span>
         <span class="pill">${escapeHtml(article.source || 'unknown source')}</span>
         <span class="pill region">${escapeHtml(regionForArticle(article) || 'unresolved')}</span>
-        <span class="pill">${escapeHtml(formatArticleDate(article.pubDate || article.publishedAt || article.fetchedAt))}</span>
-        <span class="pill">${escapeHtml(timeAgo(article.pubDate || article.publishedAt))}</span>
+        <span class="pill">${escapeHtml(formatArticleDate(articleDateValue(article)))}</span>
+        <span class="pill">${escapeHtml(timeAgo(articleDateValue(article)))}</span>
       </div>
     </a>
   `;
@@ -588,7 +588,12 @@ function sinceTime(value) {
 }
 
 function dateValue(article) {
-  const value = article.pubDate || article.publishedAt || article.fetchedAt;
+  const time = articleDateValue(article);
+  return Number.isFinite(time) ? time : 0;
+}
+
+function articleDateValue(article) {
+  const value = article?.pubDate || article?.publishedAt || article?.date || article?.fetchedAt;
   const time = value ? new Date(value).getTime() : 0;
   return Number.isFinite(time) ? time : 0;
 }
@@ -601,7 +606,7 @@ function dateGroupId(date) {
 }
 
 function formatArticleDate(value) {
-  const time = value ? new Date(value).getTime() : 0;
+  const time = typeof value === 'number' ? value : (value ? new Date(value).getTime() : 0);
   if (!Number.isFinite(time) || !time) return 'date unknown';
   return new Date(time).toLocaleDateString(undefined, {
     year: 'numeric',
@@ -618,7 +623,7 @@ function cleanText(value) {
 }
 
 function timeAgo(value) {
-  const time = value ? new Date(value).getTime() : 0;
+  const time = typeof value === 'number' ? value : (value ? new Date(value).getTime() : 0);
   if (!time) return 'unknown';
   const diff = Date.now() - time;
   if (diff < 3600000) return `${Math.max(1, Math.floor(diff / 60000))}m ago`;

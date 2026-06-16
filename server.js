@@ -65,6 +65,107 @@ app.use((req, res, next) => {
   next();
 });
 
+const PRIVATE_STATIC_PREFIXES = [
+  '/cloudflare/',
+  '/data/',
+  '/datasources/',
+  '/docs/',
+  '/functions/',
+  '/generated-samples/',
+  '/lib/',
+  '/screenshots/',
+  '/scripts/',
+  '/workers/',
+  '/migrations/',
+  '/node_modules/',
+];
+
+const PRIVATE_STATIC_FILES = new Set([
+  '/server.js',
+  '/package.json',
+  '/package-lock.json',
+  '/wrangler.toml',
+  '/docker-compose.yml',
+  '/Dockerfile',
+  '/CONFLICT_MAPPER_STYLE_GUIDE.md',
+  '/COUNTRY_DOSSIER_TEMPLATE.md',
+  '/DOSSIER_MASTER_PLAN.md',
+  '/NEXT_STEPS.md',
+  '/THEATER_DOSSIER_TEMPLATE.md',
+  '/.env',
+  '/.dev.vars',
+  '/data/ai-config.json',
+  '/data/server.log',
+  '/data/settings.json',
+  '/data/flagged-articles.json',
+]);
+
+const ADMIN_REQUIRED_PREFIXES = [
+  '/api/ai/',
+  '/api/analysis/',
+  '/api/feeds/fetch',
+  '/api/logs',
+  '/api/prompts/',
+  '/api/storage/',
+];
+
+const ADMIN_REQUIRED_MUTATION_PREFIXES = [
+  '/api/countries',
+  '/api/feeds',
+  '/api/settings',
+  '/api/topics',
+  '/api/articles/flag',
+];
+
+app.use((req, res, next) => {
+  const pathname = new URL(req.originalUrl, `http://${req.headers.host || 'localhost'}`).pathname;
+  if (isPrivateStaticPath(pathname)) {
+    return res.status(404).type('text/plain').set('Cache-Control', 'no-store').send('Not found');
+  }
+  next();
+});
+
+app.use('/api', (req, res, next) => {
+  if (!requiresAdmin(req.method, req.path)) return next();
+  const expected = String(process.env.ADMIN_ACCESS_TOKEN || '').trim();
+  if (!expected) {
+    return res.status(503).json({ success: false, error: 'ADMIN_ACCESS_TOKEN is not configured' });
+  }
+  const provided = adminTokenFromRequest(req);
+  if (!constantTimeEqual(provided, expected)) {
+    return res.status(401).json({ success: false, error: 'Admin authentication required' });
+  }
+  next();
+});
+
+function isPrivateStaticPath(pathname) {
+  if (PRIVATE_STATIC_FILES.has(pathname)) return true;
+  if (/\/\.[^/]+/.test(pathname)) return true;
+  return PRIVATE_STATIC_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+}
+
+function requiresAdmin(method, apiPath) {
+  const path = `/api${apiPath}`;
+  if (path === '/api/admin/auth') return false;
+  if (ADMIN_REQUIRED_PREFIXES.some((prefix) => path === prefix.replace(/\/$/, '') || path.startsWith(prefix))) return true;
+  if (method !== 'GET' && ADMIN_REQUIRED_MUTATION_PREFIXES.some((prefix) => path === prefix || path.startsWith(`${prefix}/`))) return true;
+  return false;
+}
+
+function adminTokenFromRequest(req) {
+  const header = req.get('x-admin-token') || req.get('authorization') || '';
+  const bearer = header.match(/^Bearer\s+(.+)$/i)?.[1] || '';
+  return (bearer || header || readCookie(req.get('cookie') || '', 'cm_admin')).trim();
+}
+
+function readCookie(cookieHeader, name) {
+  const match = cookieHeader
+    .split(';')
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(`${name}=`));
+  return match ? decodeURIComponent(match.slice(name.length + 1)) : '';
+}
+
 // ── Static file serving ──────────────────────────────────────────────────────
 // Serve all static files from the project root.
 // This includes index.html, countries/*, theaters/*, assets/*, reports/*, etc.
@@ -1048,6 +1149,15 @@ app.post('/api/admin/auth', (req, res) => {
   }
 
   const authenticated = constantTimeEqual(provided, expected);
+  if (authenticated) {
+    res.cookie('cm_admin', provided, {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: req.secure || req.get('x-forwarded-proto') === 'https',
+      path: '/api',
+      maxAge: 6 * 60 * 60 * 1000,
+    });
+  }
   return res.status(authenticated ? 200 : 401).json({
     success: authenticated,
     data: {
@@ -1055,6 +1165,16 @@ app.post('/api/admin/auth', (req, res) => {
       authMode: 'env-secret',
     },
   });
+});
+
+app.delete('/api/admin/auth', (req, res) => {
+  res.clearCookie('cm_admin', {
+    httpOnly: true,
+    sameSite: 'strict',
+    secure: req.secure || req.get('x-forwarded-proto') === 'https',
+    path: '/api',
+  });
+  res.json({ success: true, data: { authenticated: false } });
 });
 
 function readCountriesConfig() {
@@ -1164,6 +1284,139 @@ app.delete('/api/topics/:id', asyncRoute(async (req, res) => {
   writeCountriesConfig(cfg);
   res.json({ success: true, data: cfg.topics });
 }));
+
+// ─────────────────────────────────────────────────────────────────────────────
+// === REPORT CATALOG ===
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * GET /api/reports
+ * Local read-only report metadata endpoint compatible with Cloudflare Pages.
+ * Query params: scope, slug, limit
+ */
+app.get('/api/reports', asyncRoute(async (req, res) => {
+  const scope = String(req.query.scope || '').trim();
+  const slug = String(req.query.slug || (scope === 'global' ? 'global' : '')).trim();
+  const limit = Math.max(1, Math.min(parseInt(req.query.limit, 10) || 200, 1000));
+  const reports = listLocalReports({ scope, slug, limit });
+
+  res.json({
+    success: true,
+    data: {
+      reports,
+      total: reports.length,
+      sources: {
+        local: reports.length,
+      },
+    },
+  });
+}));
+
+function listLocalReports({ scope = '', slug = '', limit = 200 } = {}) {
+  const roots = [];
+  if (!scope || scope === 'global') roots.push(path.join(__dirname, 'reports', 'global'));
+  if (!scope || scope === 'country') roots.push(path.join(__dirname, 'reports', 'countries'));
+  if (!scope || scope === 'watch') roots.push(path.join(__dirname, 'reports', 'watches'));
+
+  const reports = [];
+  for (const root of roots) collectReportFiles(root, reports);
+
+  return reports
+    .map(reportMetadataFromFile)
+    .filter(Boolean)
+    .filter(report => (!scope || report.scope === scope) && (!slug || report.slug === slug))
+    .sort(compareReportFreshness)
+    .slice(0, limit);
+}
+
+function compareReportFreshness(a, b) {
+  const bTime = new Date(b.generatedAt || b.uploaded || 0).getTime();
+  const aTime = new Date(a.generatedAt || a.uploaded || 0).getTime();
+  return (Number.isFinite(bTime) ? bTime : 0) - (Number.isFinite(aTime) ? aTime : 0)
+    || Number(Boolean(b.isCurrent)) - Number(Boolean(a.isCurrent));
+}
+
+function collectReportFiles(dir, reports) {
+  if (!fs.existsSync(dir)) return;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      collectReportFiles(fullPath, reports);
+    } else if (entry.isFile() && entry.name.endsWith('.html')) {
+      reports.push(fullPath);
+    }
+  }
+}
+
+function reportMetadataFromFile(filePath) {
+  const relativePath = path.relative(__dirname, filePath).split(path.sep).join('/');
+  const publicPath = `/${relativePath}`;
+  const parts = relativePath.split('/');
+  if (parts[0] !== 'reports') return null;
+
+  const stat = fs.statSync(filePath);
+  const isCurrent = parts.includes('current');
+  const generatedAt = isCurrent
+    ? stat.mtime.toISOString()
+    : reportDateFromFilename(parts[parts.length - 1], stat.mtime);
+
+  if (parts[1] === 'global') {
+    return {
+      id: `local:${relativePath}`,
+      source: 'local',
+      scope: 'global',
+      type: 'global',
+      slug: 'global',
+      title: 'Global Intelligence Report',
+      publicPath,
+      path: publicPath,
+      generatedAt,
+      reportDate: generatedAt.slice(0, 10),
+      isCurrent,
+      size: stat.size,
+      tags: ['Local', 'OSINT'],
+    };
+  }
+
+  const slug = parts[2] || '';
+  const scope = parts[1] === 'watches' ? 'watch' : 'country';
+  return {
+    id: `local:${relativePath}`,
+    source: 'local',
+    scope,
+    type: scope,
+    slug,
+    country: slug,
+    title: `${titleCaseSlug(slug)} Intelligence Report`,
+    publicPath,
+    path: publicPath,
+    generatedAt,
+    reportDate: generatedAt.slice(0, 10),
+    isCurrent,
+    size: stat.size,
+    tags: ['Local', scope === 'watch' ? 'Threat Watch' : 'Strategic'],
+  };
+}
+
+function reportDateFromFilename(fileName, fallbackDate) {
+  const match = String(fileName || '').match(/^report-(.+)\.html$/);
+  if (!match) return fallbackDate.toISOString();
+  const value = `${match[1].replace(/T(\d\d)-(\d\d)-(\d\d)$/, 'T$1:$2:$3')}Z`;
+  const time = new Date(value).getTime();
+  return Number.isFinite(time) ? new Date(time).toISOString() : fallbackDate.toISOString();
+}
+
+function titleCaseSlug(slug) {
+  const labels = {
+    usa: 'United States',
+    nato: 'NATO',
+  };
+  return labels[slug] || String(slug || 'unknown')
+    .split('-')
+    .filter(Boolean)
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // === REPORT UPLOAD ===

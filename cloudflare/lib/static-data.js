@@ -61,13 +61,17 @@ export function filterArticles(articles, { country = '', limit = 200, geoOnly = 
   }
 
   result.sort((a, b) => {
-    const ta = a.pubDate ? new Date(a.pubDate).getTime() : 0;
-    const tb = b.pubDate ? new Date(b.pubDate).getTime() : 0;
-    return tb - ta;
+    return articleTimestamp(b) - articleTimestamp(a);
   });
 
   if (limit > 0) result = result.slice(0, limit);
   return result;
+}
+
+function articleTimestamp(article) {
+  const value = article?.pubDate || article?.publishedAt || article?.date || article?.fetchedAt;
+  const time = value ? new Date(value).getTime() : 0;
+  return Number.isFinite(time) ? time : 0;
 }
 
 function countryAliases(slug) {

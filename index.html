@@ -1282,6 +1282,7 @@
 .daily-country-card.priority-high { --priority-color: var(--color-accent); }
 .daily-country-card.priority-watch { --priority-color: var(--color-amber); }
 .daily-country-card.priority-steady { --priority-color: var(--color-blue); }
+.daily-country-card.report-stale { --priority-color: var(--color-amber); }
 .daily-country-card::before {
   content: '';
   position: absolute;
@@ -1369,6 +1370,25 @@
   color: var(--color-text-muted);
   font-size: 0.84rem;
   line-height: 1.55;
+}
+.country-report-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 6px 8px;
+  border: 1px solid color-mix(in srgb, var(--priority-color) 28%, transparent);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--priority-color) 7%, transparent);
+  color: var(--color-text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.country-report-meta strong {
+  color: var(--priority-color);
+  font-weight: 700;
 }
 .country-domain-row {
   display: flex;
@@ -4258,6 +4278,7 @@ const DEFAULT_CONFIG = {
     { label: "News Library", type: "link", target: "pages/news-library.html", icon: "newspaper" },
     { label: "Global Analysis", type: "link", target: "reports/global/current/report.html", icon: "globe" },
     { label: "Intel Tools", type: "link", target: "pages/intel-tools.html", icon: "crosshair" },
+    { label: "Contact", type: "link", target: "pages/contact.html", icon: "mail" },
     {
       label: "Think Tanks",
       type: "dropdown",
@@ -4334,6 +4355,7 @@ const ICONS = {
   newspaper: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 22h14a2 2 0 0 0 2-2V7H4v15Z"/><path d="M16 2v5"/><path d="M8 2v5"/><path d="M3 7h18"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>`,
   bookOpen: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4h7a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/><path d="M22 4h-7a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h8z"/></svg>`,
   'book-open': `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4h7a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/><path d="M22 4h-7a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h8z"/></svg>`,
+  mail: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>`,
   flame: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
   chevron: `<svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>`,
   chevronRight: `<svg class="nested-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>`,
@@ -5025,6 +5047,7 @@ function renderWelcomeCards() {
   if (countryGrid && countrySection) {
     const countries = countrySection.countries || COUNTRIES;
     countryGrid.innerHTML = countries.map(c => renderDailyCountryCard(c)).join('');
+    refreshDailyCountryCards(countries);
   }
 }
 
@@ -5054,14 +5077,75 @@ function renderDailyCountryCard(country) {
       <div class="country-card-body">
         <div class="threat-spark" aria-label="${escHtml(country.label)} threat trend visual">${bars}</div>
         <p class="country-card-summary">${escHtml(meta.summary)}</p>
+        <div class="country-report-meta" data-country-report-meta="${escHtml(country.slug)}">
+          <span>Report sync</span><strong>Checking</strong>
+        </div>
         <div class="country-domain-row" aria-label="${escHtml(country.label)} key domains">${domains}</div>
       </div>
       <div class="country-card-actions">
-        <button type="button" onclick="loadContent('${escHtml(currentTarget)}', this)">Current Report</button>
+        <button type="button" data-country-report-button="${escHtml(country.slug)}" onclick="loadContent('${escHtml(currentTarget)}', this)">Current Report</button>
         <button type="button" onclick="loadContent('${escHtml(dossierTarget)}', this)">Dossier</button>
       </div>
     </article>
   `;
+}
+
+async function refreshDailyCountryCards(countries) {
+  const entries = await Promise.allSettled((countries || []).map(async (country) => {
+    const res = await fetch(`/api/reports?scope=country&slug=${encodeURIComponent(country.slug)}&limit=1&storage=1`, { cache: 'no-store' });
+    const payload = await readApiJson(res, `/api/reports?scope=country&slug=${country.slug}`);
+    const reports = payload.data?.reports || payload.reports || [];
+    return { country, report: reports.find(r => r.isCurrent) || reports[0] || null };
+  }));
+
+  entries.forEach((entry, index) => {
+    if (entry.status === 'fulfilled') {
+      updateDailyCountryCardReport(entry.value.country, entry.value.report);
+    } else if (countries[index]) {
+      updateDailyCountryCardReport(countries[index], null);
+    }
+  });
+}
+
+function updateDailyCountryCardReport(country, report) {
+  const metaEl = document.querySelector(`[data-country-report-meta="${cssEscape(country.slug)}"]`);
+  const button = document.querySelector(`[data-country-report-button="${cssEscape(country.slug)}"]`);
+  const card = metaEl?.closest('.daily-country-card');
+  if (!metaEl || !card) return;
+
+  if (!report?.generatedAt && !report?.uploaded) {
+    card.classList.add('report-stale');
+    metaEl.innerHTML = '<span>Report sync</span><strong>Unavailable</strong>';
+    return;
+  }
+
+  const generatedAt = report.generatedAt || report.uploaded;
+  const ageHours = (Date.now() - new Date(generatedAt).getTime()) / 3600000;
+  const stale = Number.isFinite(ageHours) && ageHours > 30;
+  card.classList.toggle('report-stale', stale);
+  metaEl.innerHTML = `
+    <span>${stale ? 'Report stale' : 'Report updated'}</span>
+    <strong>${escHtml(formatReportDate(generatedAt))}</strong>
+  `;
+
+  const publicPath = String(report.publicPath || report.path || `reports/countries/${country.slug}/current/report.html`).replace(/^\/+/, '');
+  const nextTarget = `${publicPath}?v=${encodeURIComponent(generatedAt)}`;
+  if (button) button.setAttribute('onclick', `loadContent('${escHtml(nextTarget)}', this)`);
+}
+
+function formatReportDate(value) {
+  const time = value ? new Date(value).getTime() : 0;
+  if (!Number.isFinite(time) || !time) return 'Unknown';
+  return new Date(time).toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+
+function cssEscape(value) {
+  if (window.CSS?.escape) return CSS.escape(String(value || ''));
+  return String(value || '').replace(/["\\]/g, '\\$&');
 }
 
 function renderWelcomeStats() {
@@ -5266,6 +5350,7 @@ function setSessionAuth(val) {
 }
 
 function logoutAdmin() {
+  fetch('/api/admin/auth', { method: 'DELETE' }).catch(() => {});
   setSessionAuth(false);
   document.getElementById('admin-content').classList.remove('visible');
   document.getElementById('admin-auth').classList.remove('hidden');

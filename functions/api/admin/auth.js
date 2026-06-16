@@ -10,6 +10,17 @@ export async function onRequestGet(context) {
   });
 }
 
+export async function onRequestDelete() {
+  return jsonResponse({
+    success: true,
+    data: { authenticated: false },
+  }, {
+    headers: {
+      'set-cookie': 'cm_admin=; Path=/api; HttpOnly; Secure; SameSite=Strict; Max-Age=0',
+    },
+  });
+}
+
 export async function onRequestPost(context) {
   try {
     const body = await readJsonRequest(context.request);
@@ -25,13 +36,17 @@ export async function onRequestPost(context) {
     }
 
     const authenticated = await constantTimeEqual(provided, expected);
-    return jsonResponse({
+    const response = jsonResponse({
       success: authenticated,
       data: {
         authenticated,
         authMode: 'cloudflare-secret',
       },
     }, { status: authenticated ? 200 : 401 });
+    if (authenticated) {
+      response.headers.set('set-cookie', cookieHeader('cm_admin', provided));
+    }
+    return response;
   } catch (err) {
     return jsonResponse({
       success: false,
@@ -40,10 +55,16 @@ export async function onRequestPost(context) {
   }
 }
 
+function cookieHeader(name, value) {
+  const encoded = encodeURIComponent(value);
+  return `${name}=${encoded}; Path=/api; HttpOnly; Secure; SameSite=Strict; Max-Age=21600`;
+}
+
 export async function onRequest(context) {
   if (context.request.method === 'GET') return onRequestGet(context);
   if (context.request.method === 'POST') return onRequestPost(context);
-  return methodNotAllowed(['GET', 'POST']);
+  if (context.request.method === 'DELETE') return onRequestDelete(context);
+  return methodNotAllowed(['GET', 'POST', 'DELETE']);
 }
 
 async function constantTimeEqual(a, b) {

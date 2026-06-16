@@ -29,6 +29,12 @@
       "icon": "crosshair"
     },
     {
+      "label": "Contact",
+      "type": "link",
+      "target": "pages/contact.html",
+      "icon": "mail"
+    },
+    {
       "label": "Think Tanks",
       "type": "dropdown",
       "icon": "book-open",

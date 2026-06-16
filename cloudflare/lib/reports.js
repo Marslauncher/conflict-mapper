@@ -6,6 +6,8 @@ const DEFAULT_STATUS_STALE_MINUTES = 5;
 const PROMPT_STORAGE_PREFIX = 'prompts/';
 const REPORT_ARTICLE_LIMIT = 80;
 const DEFAULT_REPORT_AI_ARTICLE_LIMIT = 24;
+const SOURCE_BRIEF_WINDOW_HOURS = 24;
+const SOURCE_BRIEF_ARTICLE_LIMIT = 80;
 
 const COUNTRY_LABELS = {
   usa: 'United States',
@@ -267,6 +269,13 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       limit: REPORT_ARTICLE_LIMIT,
     });
     const selectedArticles = selection.articles;
+    const sourceBrief = buildSourceBrief({
+      scope,
+      slug: normalizedSlug,
+      articles: selection.priorWindowArticles,
+      fallbackArticles: selectedArticles,
+      generatedAt: startedAt,
+    });
     const aiArticles = selectedArticles.slice(0, getReportAiArticleLimit(env, selectedArticles.length));
     await appendReportLog(env, {
       message: `Selected ${selectedArticles.length} source articles`,
@@ -274,12 +283,14 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
         scope,
         slug: normalizedSlug,
         selectedArticles: selectedArticles.length,
+        sourceBriefArticles: sourceBrief.articleCount,
+        sourceBriefWindowHours: SOURCE_BRIEF_WINDOW_HOURS,
         aiArticles: aiArticles.length,
         availableArticles: articles.length,
         excludedLowRelevance: selection.excludedLowRelevance,
         excludedStale: selection.excludedStale,
-        newestArticle: selectedArticles[0]?.pubDate || null,
-        oldestArticle: selectedArticles[selectedArticles.length - 1]?.pubDate || null,
+        newestArticle: selectedArticles[0]?.pubDate || selectedArticles[0]?.fetchedAt || null,
+        oldestArticle: selectedArticles[selectedArticles.length - 1]?.pubDate || selectedArticles[selectedArticles.length - 1]?.fetchedAt || null,
       },
     });
 
@@ -313,6 +324,7 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
         slug: normalizedSlug,
         title,
         articles: aiArticles,
+        sourceBrief: sourceBrief.text,
         promptId,
       });
       aiText = await generateReportText(
@@ -338,7 +350,7 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
         progress: 58,
         scope,
         slug: normalizedSlug,
-        message: 'AI provider failed; rendering deterministic source-based report',
+        message: 'AI provider failed; rendering source-based interim report',
         mitigation: failure.mitigation,
         errorType: failure.type,
         startedAt,
@@ -353,7 +365,7 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       await appendReportLog(env, {
         level: 'warn',
         category: 'analysis',
-        message: 'Using deterministic fallback report renderer',
+        message: 'Using source-based interim report renderer',
         details: {
           scope,
           slug: normalizedSlug,
@@ -636,6 +648,15 @@ function selectReportArticles(articles, { scope = 'global', slug = 'global', lim
       storyKey: reportStoryKey(article),
     }))
     .filter((item) => scope === 'global' || item.score.countryMatch);
+  const priorWindowArticles = scored
+    .filter((item) => item.ageDays <= SOURCE_BRIEF_WINDOW_HOURS / 24)
+    .sort((a, b) => articleTimestamp(b.article) - articleTimestamp(a.article)
+      || b.score.value - a.score.value)
+    .slice(0, SOURCE_BRIEF_ARTICLE_LIMIT)
+    .map((item) => ({
+      ...item.article,
+      relevanceScore: item.score.value,
+    }));
 
   const primaryMaxAge = scope === 'global' ? 21 : 45;
   const fallbackMaxAge = scope === 'global' ? 60 : 90;
@@ -670,6 +691,7 @@ function selectReportArticles(articles, { scope = 'global', slug = 'global', lim
       ...item.article,
       relevanceScore: item.score.value,
     })),
+    priorWindowArticles,
     excludedLowRelevance: scored.filter((item) => !selectedSet.has(item.article) && item.score.value < fallbackThreshold).length,
     excludedStale: scored.filter((item) => !selectedSet.has(item.article) && item.ageDays > fallbackMaxAge).length,
   };
@@ -685,17 +707,49 @@ function getReportAiArticleLimit(env, selectedCount = REPORT_ARTICLE_LIMIT) {
 
 function pickRankedArticles(scored, { limit, minScore, maxAgeDays }) {
   const seenStories = new Set();
-  return scored
+  const candidates = scored
     .filter((item) => item.score.value >= minScore && item.ageDays <= maxAgeDays)
     .sort((a, b) => b.score.value - a.score.value
-      || new Date(b.article.pubDate || 0).getTime() - new Date(a.article.pubDate || 0).getTime())
+      || articleTimestamp(b.article) - articleTimestamp(a.article))
     .filter((item) => {
       if (!item.storyKey) return true;
       if (seenStories.has(item.storyKey)) return false;
       seenStories.add(item.storyKey);
       return true;
-    })
-    .slice(0, Math.max(1, limit));
+    });
+  return limitSourceConcentration(candidates, Math.max(1, limit));
+}
+
+function limitSourceConcentration(items, limit, { maxShare = 0.22, minPerSource = 2 } = {}) {
+  const output = [];
+  const used = new Set();
+  const sourceCounts = new Map();
+  const maxPerSource = Math.max(minPerSource, Math.ceil(limit * maxShare));
+
+  for (const item of items) {
+    if (output.length >= limit) break;
+    const source = sourceKey(item.article);
+    const count = sourceCounts.get(source) || 0;
+    if (count >= maxPerSource) continue;
+    output.push(item);
+    used.add(item);
+    sourceCounts.set(source, count + 1);
+  }
+
+  for (const item of items) {
+    if (output.length >= limit) break;
+    if (used.has(item)) continue;
+    output.push(item);
+  }
+
+  return output;
+}
+
+function sourceKey(article) {
+  return String(article?.source || article?.thinkTank || article?.publisher || 'unknown')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ') || 'unknown';
 }
 
 function reportArticleScore(article, { scope, slug, now }) {
@@ -810,9 +864,15 @@ function reportSearchText(article) {
 }
 
 function articleAgeDays(article, now = Date.now()) {
-  const time = article.pubDate ? new Date(article.pubDate).getTime() : 0;
+  const time = articleTimestamp(article);
   if (!Number.isFinite(time) || time <= 0) return 3650;
   return Math.max(0, (now - time) / 86_400_000);
+}
+
+function articleTimestamp(article) {
+  const value = article?.pubDate || article?.publishedAt || article?.date || article?.fetchedAt;
+  const time = value ? new Date(value).getTime() : 0;
+  return Number.isFinite(time) ? time : 0;
 }
 
 function reportStoryKey(article) {
@@ -863,6 +923,8 @@ The target product is a compact but dense intelligence brief, not a narrative es
 Hard requirements:
 - Return an HTML body fragment only. Do not return <!DOCTYPE>, <html>, <head>, <body>, markdown fences, preamble, or JSON.
 - Use the provided article numbers as citations in bracket form, e.g. [3], [12].
+- Ground the report in the deterministic prior-24-hour source brief: roughly 70% of the analysis should come from the provided RSS/news/website/think-tank feed summary, and roughly 30% may come from live web/news search at prompt time to catch blind spots.
+- Do not let live web search displace the source brief unless it materially updates, contradicts, or fills a gap in the provided source corpus.
 - Distinguish reported facts from analytic assessment.
 - Include risk severity labels from this exact set: CRITICAL, HIGH, MEDIUM, LOW.
 - Include trajectory labels from this exact set: ESCALATING, STABLE, DE-ESCALATING.
@@ -954,10 +1016,11 @@ Use this HTML structure:
 </div>`;
 }
 
-export function buildUserPrompt({ scope, slug, title, articles }) {
+export function buildUserPrompt({ scope, slug, title, articles, sourceBrief = '' }) {
   const articleText = articles.length
     ? articles.map((article, index) => {
-        const date = article.pubDate ? new Date(article.pubDate).toISOString().slice(0, 10) : 'unknown-date';
+        const time = articleTimestamp(article);
+        const date = time ? new Date(time).toISOString().slice(0, 10) : 'unknown-date';
         return `[${index + 1}] ${date} | ${article.source || 'unknown source'}\nTitle: ${article.title}\nSummary: ${(article.description || '').slice(0, 400)}\nURL: ${article.link || 'n/a'}`;
       }).join('\n\n')
     : 'No recent articles were available. Use only cautious, general assessment language.';
@@ -996,6 +1059,9 @@ The report must match the historical Conflict Mapper report style:
 ${sectionTarget}
 
 Analytic emphasis:
+- First create your analysis from the prior-24-hour source brief below. The final report should be about 70% grounded in that sourced feed brief and about 30% informed by additional live web/news search at the time of prompting to catch blind spots.
+- Do not let web search override the sourced brief unless live search clearly updates, contradicts, or fills a material gap. Label externally discovered updates as live web checks in prose and keep bracket citations for provided source articles.
+- If the prior-24-hour source brief is sparse, state that coverage limitation and lean more heavily on monitorable indicators instead of inventing details.
 - Geopolitical escalation pathways
 - Military force posture and procurement signals
 - Cyber, telecom, energy, logistics, and maritime infrastructure implications
@@ -1014,9 +1080,99 @@ Formatting requirements:
 - Cite source articles by bracket number throughout.
 - Keep each card concise but information-rich.
 
+Prior-24-hour sourced feed brief:
+
+${sourceBrief || 'No deterministic source brief was available for this generation run.'}
+
 Source articles:
 
 ${articleText}`;
+}
+
+function buildSourceBrief({ scope, slug, articles = [], fallbackArticles = [], generatedAt = new Date().toISOString() }) {
+  const corpus = (articles.length ? articles : fallbackArticles).slice(0, SOURCE_BRIEF_ARTICLE_LIMIT);
+  const usedFallback = !articles.length && fallbackArticles.length > 0;
+  const scopeLine = scope === 'global' ? 'global' : scope === 'watch' ? `watch/${slug}` : `country/${slug}`;
+  if (!corpus.length) {
+    return {
+      articleCount: 0,
+      text: `Generated: ${generatedAt}\nScope: ${scopeLine}\nCorpus: 0 articles in the prior ${SOURCE_BRIEF_WINDOW_HOURS} hours. Use cautious language and identify RSS/feed coverage as a gap.`,
+    };
+  }
+
+  const sourceCounts = countBy(corpus, (article) => article.source || 'unknown source');
+  const topicCounts = countBy(corpus, (article) => article.category || 'general');
+  const countryCounts = countBy(corpus, (article) => article.country || article.geo?.country || 'unresolved');
+  const themes = buildBriefThemes(corpus);
+  const firstTime = Math.max(...corpus.map(articleTimestamp).filter(Boolean));
+  const lastTime = Math.min(...corpus.map(articleTimestamp).filter(Boolean));
+  const lines = corpus.map((article, index) => {
+    const time = articleTimestamp(article);
+    const date = time ? new Date(time).toISOString() : 'unknown-date';
+    const summary = cleanBriefText(article.description || article.summary || '').slice(0, 240);
+    return `[${index + 1}] ${date} | ${article.source || 'unknown source'} | ${article.category || 'general'} | ${article.country || 'global'}\nHeadline: ${cleanBriefText(article.title || 'Untitled')}\nSource summary: ${summary || 'No source summary available.'}\nURL: ${article.link || article.url || 'n/a'}`;
+  }).join('\n\n');
+
+  return {
+    articleCount: corpus.length,
+    text: `Generated: ${generatedAt}
+Scope: ${scopeLine}
+Corpus: ${corpus.length} ${usedFallback ? 'fallback selected' : `prior-${SOURCE_BRIEF_WINDOW_HOURS}h`} source articles.
+Window: ${lastTime ? new Date(lastTime).toISOString() : 'unknown'} to ${firstTime ? new Date(firstTime).toISOString() : 'unknown'}
+Source mix: ${formatTopCounts(sourceCounts, 12)}
+Topic mix: ${formatTopCounts(topicCounts, 12)}
+Country/place mix: ${formatTopCounts(countryCounts, 12)}
+Dominant source themes: ${themes.join('; ') || 'No dominant theme detected.'}
+Grounding rule: Use this source brief for roughly 70% of the analysis. Use live web/news search for roughly 30% to identify blind spots, recent updates, contradictions, or missing context. Preserve bracket citations for feed-derived claims.
+
+Source brief items:
+
+${lines}`,
+  };
+}
+
+function buildBriefThemes(articles) {
+  const themeDefs = [
+    ['military escalation', /\b(war|invasion|strike|missile|drone|frontline|troops?|military|naval|air defense|artillery|offensive)\b/i],
+    ['nuclear and strategic weapons', /\b(nuclear|uranium|iaea|missile defense|wmd|ballistic|hypersonic)\b/i],
+    ['cyber and critical infrastructure', /\b(cyber|ransomware|malware|sabotage|critical infrastructure|power grid|telecom|subsea|pipeline)\b/i],
+    ['maritime chokepoints and energy', /\b(red sea|hormuz|suez|black sea|south china sea|shipping|port|oil|gas|energy)\b/i],
+    ['alliances and sanctions', /\b(nato|g7|alliance|sanctions?|export controls?|aid package|defense pact)\b/i],
+    ['think-tank or research signal', /\b(think tank|report|analysis|briefing|csis|rusi|rand|isw|iiss|atlantic council)\b/i],
+  ];
+  return themeDefs
+    .map(([label, regex]) => {
+      const count = articles.filter((article) => regex.test(`${article.title || ''} ${article.description || ''} ${article.source || ''} ${article.category || ''}`)).length;
+      return { label, count };
+    })
+    .filter((item) => item.count > 0)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 8)
+    .map((item) => `${item.label} (${item.count})`);
+}
+
+function countBy(items, selector) {
+  const counts = new Map();
+  for (const item of items) {
+    const key = cleanBriefText(selector(item) || 'unknown').toLowerCase();
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  return counts;
+}
+
+function formatTopCounts(counts, limit) {
+  return Array.from(counts.entries())
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, limit)
+    .map(([key, count]) => `${key}: ${count}`)
+    .join(', ') || 'none';
+}
+
+function cleanBriefText(value) {
+  return String(value || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function buildKoreaWatchCompositionPrompt() {
@@ -1216,11 +1372,11 @@ export async function saveReportPromptTemplate(env, input = {}) {
   };
 }
 
-async function resolveGenerationPrompts(env, { scope, slug, title, articles, promptId = '' }) {
+async function resolveGenerationPrompts(env, { scope, slug, title, articles, sourceBrief = '', promptId = '' }) {
   if (!promptId) {
     return {
       systemPrompt: buildSystemPrompt(scope),
-      userPrompt: buildUserPrompt({ scope, slug, title, articles }),
+      userPrompt: buildUserPrompt({ scope, slug, title, articles, sourceBrief }),
     };
   }
 
@@ -1234,16 +1390,17 @@ async function resolveGenerationPrompts(env, { scope, slug, title, articles, pro
     });
     return {
       systemPrompt: buildSystemPrompt(scope),
-      userPrompt: buildUserPrompt({ scope, slug, title, articles }),
+      userPrompt: buildUserPrompt({ scope, slug, title, articles, sourceBrief }),
     };
   }
 
-  const dynamicPrompt = buildUserPrompt({ scope, slug, title, articles });
+  const dynamicPrompt = buildUserPrompt({ scope, slug, title, articles, sourceBrief });
   const sourceArticles = buildSourceArticleBlock(articles);
   const templated = applyPromptPlaceholders(template.fullPrompt || '', {
     title,
     scope,
     slug,
+    sourceBrief,
     sourceArticles,
     dynamicPrompt,
   });
@@ -1309,7 +1466,7 @@ function parseStoredPromptMarkdown(text, object) {
     size: object.size || 0,
     importNotes: [
       'Saved prompt template loaded from Cloudflare R2.',
-      'Use placeholders {{REPORT_TITLE}}, {{REPORT_SCOPE}}, {{REPORT_SLUG}}, {{SOURCE_ARTICLES}}, or {{DYNAMIC_REPORT_REQUEST}} for dynamic report context.',
+      'Use placeholders {{REPORT_TITLE}}, {{REPORT_SCOPE}}, {{REPORT_SLUG}}, {{SOURCE_BRIEF}}, {{SOURCE_ARTICLES}}, or {{DYNAMIC_REPORT_REQUEST}} for dynamic report context.',
     ],
   };
 }
@@ -1358,11 +1515,12 @@ function promptIdFromFilename(filename) {
     .replace(/^-|-$/g, '') || 'custom-report-prompt';
 }
 
-function applyPromptPlaceholders(prompt, { title, scope, slug, sourceArticles, dynamicPrompt }) {
+function applyPromptPlaceholders(prompt, { title, scope, slug, sourceBrief, sourceArticles, dynamicPrompt }) {
   return String(prompt || '')
     .replaceAll('{{REPORT_TITLE}}', title)
     .replaceAll('{{REPORT_SCOPE}}', scope)
     .replaceAll('{{REPORT_SLUG}}', slug)
+    .replaceAll('{{SOURCE_BRIEF}}', sourceBrief || '')
     .replaceAll('{{SOURCE_ARTICLES}}', sourceArticles)
     .replaceAll('{{DYNAMIC_REPORT_REQUEST}}', dynamicPrompt);
 }
@@ -1370,7 +1528,8 @@ function applyPromptPlaceholders(prompt, { title, scope, slug, sourceArticles, d
 function buildSourceArticleBlock(articles = []) {
   return articles.length
     ? articles.map((article, index) => {
-        const date = article.pubDate ? new Date(article.pubDate).toISOString().slice(0, 10) : 'unknown-date';
+        const time = articleTimestamp(article);
+        const date = time ? new Date(time).toISOString().slice(0, 10) : 'unknown-date';
         return `[${index + 1}] ${date} | ${article.source || 'unknown source'}\nTitle: ${article.title}\nSummary: ${(article.description || '').slice(0, 500)}\nURL: ${article.link || 'n/a'}`;
       }).join('\n\n')
     : 'No recent articles were available.';
@@ -1391,9 +1550,7 @@ function generateFallbackReportBody({ title, scope, slug, articles, error }) {
       ? watchTitle(slug)
       : (COUNTRY_LABELS[slug] || slug.replace(/-/g, ' '));
   const citations = topArticles.map((_, index) => `[${index + 1}]`).slice(0, 8).join(', ');
-  const errorLine = error
-    ? `Configured AI generation was unavailable for this run (${escapeHtml(error)}). The engine produced this deterministic source-based report so storage, archives, and review workflows still complete.`
-    : 'The engine produced this deterministic source-based report from the current RSS article cache.';
+  const summaryLead = 'This source-grounded interim brief was generated from the current feed corpus. It should be reviewed against the cited articles and replaced by the next provider-generated analytic pass when available.';
   const categoryCounts = countBy(topArticles, (article) => article.category || 'general');
   const regionCounts = countBy(topArticles, (article) => article.geo?.place || article.geo?.country || article.country || 'unresolved');
   const primaryCategories = Object.entries(categoryCounts)
@@ -1456,7 +1613,7 @@ function generateFallbackReportBody({ title, scope, slug, articles, error }) {
 
   return `<div class="exec-summary">
   <strong>EXECUTIVE SUMMARY</strong>
-  ${errorLine} Current ${escapeHtml(scopeName)} source coverage includes ${topArticles.length} article${topArticles.length === 1 ? '' : 's'} across ${escapeHtml(primaryCategories)}. Highest-signal reporting clusters around ${primaryRegions}. Analyst review should prioritize escalation indicators, operational infrastructure impacts, and cross-source validation using ${citations || 'the Source Articles section'}.
+  ${summaryLead} Current ${escapeHtml(scopeName)} source coverage includes ${topArticles.length} article${topArticles.length === 1 ? '' : 's'} across ${escapeHtml(primaryCategories)}. Highest-signal reporting clusters around ${primaryRegions}. Analyst review should prioritize escalation indicators, operational infrastructure impacts, and cross-source validation using ${citations || 'the Source Articles section'}.
 </div>
 
 <div class="section">
@@ -1496,7 +1653,7 @@ function generateFallbackReportBody({ title, scope, slug, articles, error }) {
     <span class="section-title">Near-Term Outlook</span>
     <span class="section-label">30-90 DAY FORECAST</span>
   </div>
-  <div class="outlook-box">Expect reporting volume and cross-source confirmation to determine whether these signals mature into persistent operational risk. Continue monitoring for repeated references to force posture, infrastructure disruption, cyber activity, shipping/logistics effects, sanctions exposure, and official government warnings. This fallback report should be replaced by a provider-generated analytic report once the AI credential or model issue is resolved.</div>
+  <div class="outlook-box">Expect reporting volume and cross-source confirmation to determine whether these signals mature into persistent operational risk. Continue monitoring for repeated references to force posture, infrastructure disruption, cyber activity, shipping/logistics effects, sanctions exposure, and official government warnings. Prioritize sources that independently corroborate the same operational indicators before escalating confidence.</div>
 </div>
 
 <div class="section">
@@ -2473,9 +2630,7 @@ function buildMapMarkers(articles) {
 }
 
 function buildSourceVisualBrief(articles = []) {
-  const visualArticles = articles
-    .filter((article) => article?.title || article?.description)
-    .slice(0, 6);
+  const visualArticles = selectDiverseSourcePreview(articles, 6);
   if (!visualArticles.length) return '';
   const cards = visualArticles.map((article, index) => {
     const image = articleImageUrl(article);
@@ -2502,10 +2657,45 @@ function buildSourceVisualBrief(articles = []) {
   return `<div class="section">
     <div class="section-header">
       <span class="section-title">Source Visual Brief</span>
-      <span class="section-label">MULTIMODAL SOURCE PREVIEW</span>
+      <span class="section-label">DIVERSE SOURCE PREVIEW</span>
     </div>
     <div class="visual-grid">${cards}</div>
   </div>`;
+}
+
+function selectDiverseSourcePreview(articles = [], limit = 6) {
+  const candidates = articles.filter((article) => article?.title || article?.description);
+  const selected = [];
+  const used = new Set();
+  const sourceCounts = new Map();
+
+  for (const article of candidates) {
+    if (selected.length >= limit) break;
+    const source = sourceKey(article);
+    const count = sourceCounts.get(source) || 0;
+    if (count >= 1) continue;
+    selected.push(article);
+    used.add(article);
+    sourceCounts.set(source, count + 1);
+  }
+
+  for (const article of candidates) {
+    if (selected.length >= limit) break;
+    if (used.has(article)) continue;
+    const source = sourceKey(article);
+    const count = sourceCounts.get(source) || 0;
+    if (count >= 2) continue;
+    selected.push(article);
+    used.add(article);
+    sourceCounts.set(source, count + 1);
+  }
+
+  for (const article of candidates) {
+    if (selected.length >= limit) break;
+    if (!used.has(article)) selected.push(article);
+  }
+
+  return selected;
 }
 
 function buildSignalMatrix(articles = [], mapMarkers = []) {

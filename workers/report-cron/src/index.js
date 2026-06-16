@@ -18,7 +18,7 @@ const DEFAULT_COUNTRIES = [
 ];
 
 const DEFAULT_GLOBAL_CRON = '0 3 * * *';
-const DEFAULT_WATCH_CRON = '0 3 * * *';
+const DEFAULT_WATCH_CRONS = ['15 3 * * *', '25 3 * * *'];
 const DEFAULT_FEED_REFRESH_CRON = '* * * * *';
 const DEFAULT_WATCH_SLUGS = ['taiwan', 'korea'];
 const DEFAULT_COUNTRY_CRONS = [
@@ -231,6 +231,17 @@ async function runReport(env, job) {
       })),
     };
   } catch (err) {
+    await appendReportLog(env, {
+      level: 'error',
+      category: 'analysis',
+      message: `Scheduled ${job.scope}:${job.slug} report failed: ${err.message}`,
+      details: {
+        scope: job.scope,
+        slug: job.slug,
+        promptId: job.promptId || defaultPromptIdForJob(env, job),
+        stack: String(err.stack || '').slice(0, 1600),
+      },
+    });
     return {
       success: false,
       scope: job.scope,
@@ -247,7 +258,7 @@ function createCronPlan(env, cron) {
   const countryIndex = countryCrons.indexOf(trigger);
   const feedRefreshCron = normalizeCron(env.FEED_REFRESH_CRON || DEFAULT_FEED_REFRESH_CRON);
   const globalCron = normalizeCron(env.REPORT_GLOBAL_CRON || DEFAULT_GLOBAL_CRON);
-  const watchCron = normalizeCron(env.REPORT_WATCH_CRON || DEFAULT_WATCH_CRON);
+  const watchCrons = getWatchCrons(env);
   if (trigger === feedRefreshCron) {
     return {
       label: 'Scheduled RSS article refresh',
@@ -258,19 +269,23 @@ function createCronPlan(env, cron) {
     };
   }
   const matchesGlobal = trigger === globalCron;
-  const matchesWatch = trigger === watchCron;
+  const watchIndex = watchCrons.indexOf(trigger);
+  const matchesWatch = watchIndex >= 0;
   if (matchesGlobal || matchesWatch) {
     const watchSlugs = getWatchSlugs(env);
+    const selectedWatchSlugs = matchesWatch
+      ? watchSlugs.filter((_, index) => index % watchCrons.length === watchIndex)
+      : [];
     const jobs = [
       ...(matchesGlobal ? [{ scope: 'global', slug: 'global' }] : []),
-      ...(matchesWatch ? watchSlugs.map((slug) => ({ scope: 'watch', slug })) : []),
+      ...selectedWatchSlugs.map((slug) => ({ scope: 'watch', slug })),
     ];
     return {
       label: matchesGlobal && matchesWatch
         ? 'Daily global and theater watch jobs'
         : matchesGlobal
           ? 'Daily global analysis job'
-          : 'Daily theater watch jobs',
+          : `Daily theater watch shard ${watchIndex + 1}/${watchCrons.length}`,
       refreshFeeds: matchesGlobal
         ? env.FETCH_FEEDS_BEFORE_REPORTS !== 'false'
         : env.FETCH_FEEDS_BEFORE_WATCH !== 'false' && env.FETCH_FEEDS_BEFORE_REPORTS === 'always',
@@ -338,6 +353,14 @@ function defaultPromptIdForJob(env, job) {
     return env.REPORT_WATCH_PROMPT_ID || 'watch-taiwan';
   }
   return env.REPORT_COUNTRY_PROMPT_ID || 'country';
+}
+
+function getWatchCrons(env) {
+  const configured = env.REPORT_WATCH_CRONS || env.REPORT_WATCH_CRON || DEFAULT_WATCH_CRONS.join('|');
+  return configured
+    .split('|')
+    .map(normalizeCron)
+    .filter(Boolean);
 }
 
 function getWatchSlugs(env) {

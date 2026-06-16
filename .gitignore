@@ -7,5 +7,6 @@ workers/report-cron/wrangler.toml
 generated-samples/
 .wrangler/
 .playwright-mcp/
+.codegraph/
 node_modules/.cache/
 node_modules/.mf/
