@@ -18,7 +18,8 @@ export async function onRequestGet(context) {
     ? await listR2Reports(context.env, { scope, slug, prefix, limit })
     : [];
   const reports = mergeReports([...storageReports, ...dbReports.map(normalizeDbReport), ...staticReports])
-    .sort(compareReportFreshness);
+    .sort(compareReportFreshness)
+    .slice(0, limit);
 
   return jsonResponse({
     success: true,
@@ -39,7 +40,7 @@ async function listR2Reports(env, { scope = '', slug = '', prefix = '', limit = 
   const listPrefix = prefix || r2PrefixForScope(scope, slug);
   const result = await env.REPORTS_BUCKET.list({
     prefix: listPrefix.replace(/^\/+/, ''),
-    limit: Math.max(limit, scope && !slug ? 1000 : limit),
+    limit: scope ? Math.max(limit, 1000) : limit,
   });
   return (result.objects || [])
     .filter((object) => object.key.endsWith('.html'))
