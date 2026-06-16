@@ -1151,17 +1151,9 @@ function buildBriefThemes(articles) {
     .map((item) => `${item.label} (${item.count})`);
 }
 
-function countBy(items, selector) {
-  const counts = new Map();
-  for (const item of items) {
-    const key = cleanBriefText(selector(item) || 'unknown').toLowerCase();
-    counts.set(key, (counts.get(key) || 0) + 1);
-  }
-  return counts;
-}
-
 function formatTopCounts(counts, limit) {
-  return Array.from(counts.entries())
+  const entries = counts instanceof Map ? Array.from(counts.entries()) : Object.entries(counts || {});
+  return entries
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .slice(0, limit)
     .map(([key, count]) => `${key}: ${count}`)
