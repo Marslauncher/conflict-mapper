@@ -36,8 +36,11 @@ export async function onRequestGet(context) {
 
 async function listR2Reports(env, { scope = '', slug = '', prefix = '', limit = 200 } = {}) {
   if (!env.REPORTS_BUCKET) return [];
-  const listPrefix = prefix || 'reports/';
-  const result = await env.REPORTS_BUCKET.list({ prefix: listPrefix.replace(/^\/+/, ''), limit });
+  const listPrefix = prefix || r2PrefixForScope(scope, slug);
+  const result = await env.REPORTS_BUCKET.list({
+    prefix: listPrefix.replace(/^\/+/, ''),
+    limit: Math.max(limit, scope && !slug ? 1000 : limit),
+  });
   return (result.objects || [])
     .filter((object) => object.key.endsWith('.html'))
     .map((object) => {
@@ -67,6 +70,13 @@ async function listR2Reports(env, { scope = '', slug = '', prefix = '', limit = 
       };
     })
     .filter((report) => (!scope || report.scope === scope) && (!slug || report.slug === slug));
+}
+
+function r2PrefixForScope(scope = '', slug = '') {
+  if (scope === 'global') return 'reports/global/';
+  if (scope === 'watch') return slug ? `reports/watches/${slug}/` : 'reports/watches/';
+  if (scope === 'country') return slug ? `reports/countries/${slug}/` : 'reports/countries/';
+  return 'reports/';
 }
 
 function normalizeDbReport(report) {
