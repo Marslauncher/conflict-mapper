@@ -245,7 +245,11 @@ export async function generateReportText(env, systemPrompt, userPrompt) {
   }
   const maxTokens = resolveReportMaxTokens(env, config.provider, providerConfig.model);
   const timeoutMs = resolveReportTimeoutMs(env, config.provider);
-  return callModel(config.provider, providerConfig, `${systemPrompt}\n\n${userPrompt}`, { maxTokens, timeoutMs, reportGeneration: true });
+  const modelCall = callModel(config.provider, providerConfig, `${systemPrompt}\n\n${userPrompt}`, { maxTokens, timeoutMs, reportGeneration: true });
+  return Promise.race([
+    modelCall,
+    rejectAfter(timeoutMs, `AI provider timed out after ${Math.round(timeoutMs / 1000)}s`),
+  ]);
 }
 
 export function getReportGenerationModel(provider, model = '') {
@@ -276,12 +280,18 @@ function resolveReportMaxTokens(env, provider, model = '') {
 
 function resolveReportTimeoutMs(env, provider = '') {
   const configured = Number(env.REPORT_AI_TIMEOUT_MS || 0);
-  const providerMinimum = provider === 'perplexity' ? 75000 : 5000;
-  const fallback = provider === 'perplexity' ? 75000 : 55000;
+  const providerMinimum = 5000;
+  const fallback = provider === 'perplexity' ? 35000 : 45000;
   if (Number.isFinite(configured) && configured >= 5000) {
     return Math.max(Math.floor(configured), providerMinimum);
   }
   return fallback;
+}
+
+function rejectAfter(timeoutMs, message) {
+  return new Promise((_, reject) => {
+    setTimeout(() => reject(new Error(message)), timeoutMs);
+  });
 }
 
 async function importEncryptionKey(secret) {
