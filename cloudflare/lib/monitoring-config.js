@@ -114,8 +114,9 @@ export function articleMatchesMonitoringConfig(article, config) {
   const countryTopicIds = country?.topics?.length
     ? country.topics
     : Array.from(new Set((config.countries || []).flatMap((item) => item.topics || [])));
+  const topicIds = countryTopicIds.length ? countryTopicIds : DEFAULT_TOPIC_IDS;
 
-  for (const topicId of countryTopicIds) {
+  for (const topicId of topicIds) {
     if (topicId !== 'breaking' && signalTagMatches(topicId, tags)) return true;
     if (topicKeywordsMatch(topicId, topicMap[topicId] || [], contentText)) return true;
   }
