@@ -416,8 +416,31 @@ function createArticleContext(env) {
     env: {
       ...env,
       ASSETS: {
-        fetch(request) {
+        async fetch(request) {
           const url = new URL(request.url);
+          if (url.pathname === '/data/articles.json') {
+            const limit = url.searchParams.get('limit') || '5000';
+            const response = await fetch(`${cleanBase}/api/articles?limit=${encodeURIComponent(limit)}`, {
+              headers: { accept: 'application/json' },
+            });
+            const payload = response.ok ? await response.json().catch(() => ({})) : {};
+            const data = payload.data || payload;
+            return jsonResponse({
+              articles: Array.isArray(data.articles) ? data.articles : [],
+              lastFetch: data.lastFetch || null,
+            }, { status: response.ok ? 200 : response.status });
+          }
+          if (url.pathname === '/data/feeds-config.json') {
+            const response = await fetch(`${cleanBase}/api/feeds`, {
+              headers: { accept: 'application/json' },
+            });
+            const payload = response.ok ? await response.json().catch(() => ({})) : {};
+            const data = payload.data || payload;
+            return jsonResponse({
+              feeds: Array.isArray(data.feeds) ? data.feeds : [],
+              categories: Array.isArray(data.categories) ? data.categories : [],
+            }, { status: response.ok ? 200 : response.status });
+          }
           return fetch(new Request(`${cleanBase}${url.pathname}${url.search}`, request));
         },
       },
