@@ -485,9 +485,11 @@ export async function refreshArticles(context, {
     }
   }
 
-  const merged = dedupeArticles([...nextArticles, ...existing])
+  const combinedBeforeDedupe = [...nextArticles, ...existing];
+  const merged = dedupeArticles(combinedBeforeDedupe)
     .sort((a, b) => articleTimestamp(b) - articleTimestamp(a))
     .slice(0, 5000);
+  const duplicatesRemoved = Math.max(0, combinedBeforeDedupe.length - merged.length);
 
   const storageSource = await writeArticlePayload(context.env, {
     version: 1,
@@ -518,6 +520,7 @@ export async function refreshArticles(context, {
     concurrency: safeConcurrency,
     articlesAdded: nextArticles.length,
     totalArticles: merged.length,
+    duplicatesRemoved,
     translatedArticles: translationState.translated,
     unmatchedArticles: feedResults.reduce((sum, item) => sum + Number(item.skippedUnmatched || 0), 0),
     feedFailures: feedResults.filter((item) => !item.ok).length,
@@ -532,6 +535,7 @@ export async function refreshArticles(context, {
       batchOffset: safeBatchOffset,
       concurrency: safeConcurrency,
       totalArticles: merged.length,
+      duplicatesRemoved,
       translatedArticles: translationState.translated,
       translationFailures: translationState.failed,
       unmatchedArticles: feedResults.reduce((sum, item) => sum + Number(item.skippedUnmatched || 0), 0),
@@ -543,6 +547,7 @@ export async function refreshArticles(context, {
   return {
     articlesAdded: nextArticles.length,
     totalArticles: merged.length,
+    duplicatesRemoved,
     feedsChecked: enabledFeeds.length,
     totalEnabledFeeds: allEnabledFeeds.length,
     batchOffset: safeBatchOffset,
@@ -889,10 +894,11 @@ function dedupeArticles(articles) {
   const seenExact = new Set();
   const groupsByStory = new Map();
   const result = [];
-  const sorted = [...articles].sort((a, b) => new Date(b.pubDate || 0).getTime() - new Date(a.pubDate || 0).getTime());
+  const sorted = [...articles].sort((a, b) => articleContextPriority(b) - articleContextPriority(a)
+    || articleTimestamp(b) - articleTimestamp(a));
 
   for (const article of sorted) {
-    const key = String(article.link || article.id || article.title || '').toLowerCase();
+    const key = articleCanonicalKey(article);
     if (!key || seenExact.has(key)) continue;
     seenExact.add(key);
 
@@ -911,6 +917,72 @@ function dedupeArticles(articles) {
     result.push(primary);
   }
   return result;
+}
+
+function articleCanonicalKey(article) {
+  const link = String(article.link || article.url || '').trim();
+  if (link) {
+    try {
+      const url = new URL(link);
+      url.hash = '';
+      url.search = '';
+      const host = url.hostname.replace(/^www\./, '').toLowerCase();
+      const pathname = url.pathname.replace(/\/+$/, '').toLowerCase();
+      if (host.includes('news.google.com')) return articleStoryKey(article) || `${host}${pathname}`;
+      return `${host}${pathname}`;
+    } catch (_) {
+      return link.toLowerCase().replace(/[?#].*$/, '').replace(/\/+$/, '');
+    }
+  }
+  return String(article.id || article.title || '').toLowerCase();
+}
+
+function articleContextPriority(article) {
+  const text = ` ${[
+    article.title,
+    article.description,
+    article.source,
+    article.category,
+    article.country,
+    article.geo?.place,
+    article.geo?.country,
+    ...(article.tags || []),
+  ].filter(Boolean).join(' ').toLowerCase()} `;
+  const category = String(article.category || '').toLowerCase();
+  const source = String(article.source || '').toLowerCase();
+  const timestamp = articleTimestamp(article);
+  const ageHours = timestamp ? Math.max(0, (Date.now() - timestamp) / 3_600_000) : 10_000;
+  let score = Math.max(0, 48 - Math.min(ageHours, 48));
+
+  const categoryWeights = {
+    military: 18,
+    geopolitics: 18,
+    cyber: 16,
+    infrastructure: 16,
+    nuclear: 16,
+    maritime: 15,
+    energy: 14,
+    economic: 13,
+    technology: 12,
+    political: 10,
+    research: 9,
+    breaking: 8,
+    science: 5,
+  };
+  score += categoryWeights[category] || 6;
+
+  if (/(missile|drone|airstrike|warship|troops?|nuclear|uranium|iaea|sanctions?|cyberattack|ransomware|subsea cable|pipeline|shipping lane|taiwan strait|south china sea|red sea|black sea|hormuz|gaza|iran|israel|ukraine|russia|china|north korea|nato|critical infrastructure|semiconductor|export control)/.test(text)) {
+    score += 18;
+  }
+  if (/(reuters|associated press|ap news|bbc|financial times|new york times|bloomberg|foreign policy|war on the rocks|csis|rusi|rand|iiss|atlantic council|usni|breaking defense|defense news|defence|radio free europe)/.test(source)) {
+    score += 8;
+  }
+  if (/google news/.test(source)) score -= 5;
+  if (/top stories/.test(source) && !/(war|military|security|gaza|iran|ukraine|china|russia|nato|cyber|maritime|energy)/.test(text)) score -= 8;
+  if (article.geo?.place || article.geo?.country) score += 4;
+  if (article.link || article.url) score += 2;
+  if (article.translated) score -= 1;
+  return score;
 }
 
 function articleStoryKey(article) {
