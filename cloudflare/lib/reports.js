@@ -273,7 +273,6 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       scope,
       slug: normalizedSlug,
       articles: selection.priorWindowArticles,
-      fallbackArticles: selectedArticles,
       generatedAt: startedAt,
     });
     const aiArticles = selectedArticles.slice(0, getReportAiArticleLimit(env, selectedArticles.length));
@@ -648,6 +647,7 @@ function selectReportArticles(articles, { scope = 'global', slug = 'global', lim
       storyKey: reportStoryKey(article),
     }))
     .filter((item) => scope === 'global' || item.score.countryMatch);
+  const recentScored = scored.filter((item) => item.ageDays <= SOURCE_BRIEF_WINDOW_HOURS / 24);
   const priorWindowArticles = scored
     .filter((item) => item.ageDays <= SOURCE_BRIEF_WINDOW_HOURS / 24)
     .sort((a, b) => articleTimestamp(b.article) - articleTimestamp(a.article)
@@ -658,30 +658,28 @@ function selectReportArticles(articles, { scope = 'global', slug = 'global', lim
       relevanceScore: item.score.value,
     }));
 
-  const primaryMaxAge = scope === 'global' ? 21 : 45;
-  const fallbackMaxAge = scope === 'global' ? 60 : 90;
   const primaryThreshold = scope === 'global' ? 12 : 8;
   const fallbackThreshold = scope === 'global' ? 8 : 5;
 
-  let selected = pickRankedArticles(scored, {
+  let selected = pickRankedArticles(recentScored, {
     limit,
     minScore: primaryThreshold,
-    maxAgeDays: primaryMaxAge,
+    maxAgeDays: SOURCE_BRIEF_WINDOW_HOURS / 24,
   });
 
   if (selected.length < Math.min(24, limit)) {
-    selected = pickRankedArticles(scored, {
+    selected = pickRankedArticles(recentScored, {
       limit,
       minScore: fallbackThreshold,
-      maxAgeDays: fallbackMaxAge,
+      maxAgeDays: SOURCE_BRIEF_WINDOW_HOURS / 24,
     });
   }
 
   if (selected.length < Math.min(12, limit)) {
-    selected = pickRankedArticles(scored, {
+    selected = pickRankedArticles(recentScored, {
       limit,
       minScore: 1,
-      maxAgeDays: 180,
+      maxAgeDays: SOURCE_BRIEF_WINDOW_HOURS / 24,
     });
   }
 
@@ -693,7 +691,7 @@ function selectReportArticles(articles, { scope = 'global', slug = 'global', lim
     })),
     priorWindowArticles,
     excludedLowRelevance: scored.filter((item) => !selectedSet.has(item.article) && item.score.value < fallbackThreshold).length,
-    excludedStale: scored.filter((item) => !selectedSet.has(item.article) && item.ageDays > fallbackMaxAge).length,
+    excludedStale: scored.filter((item) => !selectedSet.has(item.article) && item.ageDays > SOURCE_BRIEF_WINDOW_HOURS / 24).length,
   };
 }
 
@@ -1061,6 +1059,7 @@ ${sectionTarget}
 Analytic emphasis:
 - First create your analysis from the prior-24-hour source brief below. The final report should be about 70% grounded in that sourced feed brief and about 30% informed by additional live web/news search at the time of prompting to catch blind spots.
 - Do not let web search override the sourced brief unless live search clearly updates, contradicts, or fills a material gap. Label externally discovered updates as live web checks in prose and keep bracket citations for provided source articles.
+- Source article citations must only refer to the provided prior-24-hour feed items. Do not cite, quote, or reference older RSS/news/website/think-tank feed articles.
 - If the prior-24-hour source brief is sparse, state that coverage limitation and lean more heavily on monitorable indicators instead of inventing details.
 - Geopolitical escalation pathways
 - Military force posture and procurement signals
@@ -1089,9 +1088,8 @@ Source articles:
 ${articleText}`;
 }
 
-function buildSourceBrief({ scope, slug, articles = [], fallbackArticles = [], generatedAt = new Date().toISOString() }) {
-  const corpus = (articles.length ? articles : fallbackArticles).slice(0, SOURCE_BRIEF_ARTICLE_LIMIT);
-  const usedFallback = !articles.length && fallbackArticles.length > 0;
+function buildSourceBrief({ scope, slug, articles = [], generatedAt = new Date().toISOString() }) {
+  const corpus = articles.slice(0, SOURCE_BRIEF_ARTICLE_LIMIT);
   const scopeLine = scope === 'global' ? 'global' : scope === 'watch' ? `watch/${slug}` : `country/${slug}`;
   if (!corpus.length) {
     return {
@@ -1117,7 +1115,7 @@ function buildSourceBrief({ scope, slug, articles = [], fallbackArticles = [], g
     articleCount: corpus.length,
     text: `Generated: ${generatedAt}
 Scope: ${scopeLine}
-Corpus: ${corpus.length} ${usedFallback ? 'fallback selected' : `prior-${SOURCE_BRIEF_WINDOW_HOURS}h`} source articles.
+Corpus: ${corpus.length} prior-${SOURCE_BRIEF_WINDOW_HOURS}h source articles.
 Window: ${lastTime ? new Date(lastTime).toISOString() : 'unknown'} to ${firstTime ? new Date(firstTime).toISOString() : 'unknown'}
 Source mix: ${formatTopCounts(sourceCounts, 12)}
 Topic mix: ${formatTopCounts(topicCounts, 12)}
@@ -1619,7 +1617,7 @@ function generateFallbackReportBody({ title, scope, slug, articles, error }) {
 <div class="section">
   <div class="section-header">
     <span class="section-title">Breaking Developments</span>
-    <span class="section-label">LATEST FEED CACHE</span>
+    <span class="section-label">PRIOR 24H FEED CACHE</span>
   </div>
   <div class="panel">${developments}</div>
 </div>
