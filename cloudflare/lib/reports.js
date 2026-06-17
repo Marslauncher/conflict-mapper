@@ -665,6 +665,7 @@ function selectReportArticles(articles, { scope = 'global', slug = 'global', lim
     limit,
     minScore: primaryThreshold,
     maxAgeDays: SOURCE_BRIEF_WINDOW_HOURS / 24,
+    maxCategoryShare: globalCategoryShare(scope),
   });
 
   if (selected.length < Math.min(24, limit)) {
@@ -672,6 +673,7 @@ function selectReportArticles(articles, { scope = 'global', slug = 'global', lim
       limit,
       minScore: fallbackThreshold,
       maxAgeDays: SOURCE_BRIEF_WINDOW_HOURS / 24,
+      maxCategoryShare: globalCategoryShare(scope),
     });
   }
 
@@ -680,6 +682,7 @@ function selectReportArticles(articles, { scope = 'global', slug = 'global', lim
       limit,
       minScore: 1,
       maxAgeDays: SOURCE_BRIEF_WINDOW_HOURS / 24,
+      maxCategoryShare: globalCategoryShare(scope),
     });
   }
 
@@ -703,7 +706,11 @@ function getReportAiArticleLimit(env, selectedCount = REPORT_ARTICLE_LIMIT) {
   return Math.min(Math.max(12, Math.floor(limit)), REPORT_ARTICLE_LIMIT, Math.max(1, selectedCount));
 }
 
-function pickRankedArticles(scored, { limit, minScore, maxAgeDays }) {
+function globalCategoryShare(scope) {
+  return scope === 'global' ? 0.35 : 0.75;
+}
+
+function pickRankedArticles(scored, { limit, minScore, maxAgeDays, maxCategoryShare = 0.75 }) {
   const seenStories = new Set();
   const candidates = scored
     .filter((item) => item.score.value >= minScore && item.ageDays <= maxAgeDays)
@@ -715,23 +722,29 @@ function pickRankedArticles(scored, { limit, minScore, maxAgeDays }) {
       seenStories.add(item.storyKey);
       return true;
     });
-  return limitSourceConcentration(candidates, Math.max(1, limit));
+  return limitReportConcentration(candidates, Math.max(1, limit), { maxCategoryShare });
 }
 
-function limitSourceConcentration(items, limit, { maxShare = 0.22, minPerSource = 2 } = {}) {
+function limitReportConcentration(items, limit, { maxSourceShare = 0.22, maxCategoryShare = 0.75, minPerSource = 2, minPerCategory = 3 } = {}) {
   const output = [];
   const used = new Set();
   const sourceCounts = new Map();
-  const maxPerSource = Math.max(minPerSource, Math.ceil(limit * maxShare));
+  const categoryCounts = new Map();
+  const maxPerSource = Math.max(minPerSource, Math.ceil(limit * maxSourceShare));
+  const maxPerCategory = Math.max(minPerCategory, Math.ceil(limit * maxCategoryShare));
 
   for (const item of items) {
     if (output.length >= limit) break;
     const source = sourceKey(item.article);
+    const category = categoryKey(item.article);
     const count = sourceCounts.get(source) || 0;
+    const categoryCount = categoryCounts.get(category) || 0;
     if (count >= maxPerSource) continue;
+    if (categoryCount >= maxPerCategory) continue;
     output.push(item);
     used.add(item);
     sourceCounts.set(source, count + 1);
+    categoryCounts.set(category, categoryCount + 1);
   }
 
   for (const item of items) {
@@ -748,6 +761,13 @@ function sourceKey(article) {
     .trim()
     .toLowerCase()
     .replace(/\s+/g, ' ') || 'unknown';
+}
+
+function categoryKey(article) {
+  return String(article?.category || 'general')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ') || 'general';
 }
 
 function reportArticleScore(article, { scope, slug, now }) {
