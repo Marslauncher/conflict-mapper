@@ -726,6 +726,10 @@ function pickRankedArticles(scored, { limit, minScore, maxAgeDays, maxCategorySh
 }
 
 function limitReportConcentration(items, limit, { maxSourceShare = 0.22, maxCategoryShare = 0.75, minPerSource = 2, minPerCategory = 3 } = {}) {
+  if (maxCategoryShare <= 0.35) {
+    return interleaveReportCategories(items, limit, { maxSourceShare, maxCategoryShare, minPerSource, minPerCategory });
+  }
+
   const output = [];
   const used = new Set();
   const sourceCounts = new Map();
@@ -745,6 +749,59 @@ function limitReportConcentration(items, limit, { maxSourceShare = 0.22, maxCate
     used.add(item);
     sourceCounts.set(source, count + 1);
     categoryCounts.set(category, categoryCount + 1);
+  }
+
+  for (const item of items) {
+    if (output.length >= limit) break;
+    if (used.has(item)) continue;
+    output.push(item);
+  }
+
+  return output;
+}
+
+function interleaveReportCategories(items, limit, { maxSourceShare = 0.22, maxCategoryShare = 0.35, minPerSource = 2, minPerCategory = 3 } = {}) {
+  const output = [];
+  const used = new Set();
+  const sourceCounts = new Map();
+  const categoryCounts = new Map();
+  const maxPerSource = Math.max(minPerSource, Math.ceil(limit * maxSourceShare));
+  const maxPerCategory = Math.max(minPerCategory, Math.ceil(limit * maxCategoryShare));
+  const groups = new Map();
+
+  for (const item of items) {
+    const category = categoryKey(item.article);
+    if (!groups.has(category)) groups.set(category, []);
+    groups.get(category).push(item);
+  }
+
+  const categories = Array.from(groups.entries())
+    .sort((a, b) => (b[1][0]?.score?.value || 0) - (a[1][0]?.score?.value || 0) || b[1].length - a[1].length)
+    .map(([category]) => category);
+
+  let madeProgress = true;
+  while (output.length < limit && madeProgress) {
+    madeProgress = false;
+    for (const category of categories) {
+      if (output.length >= limit) break;
+      const group = groups.get(category) || [];
+      const categoryCount = categoryCounts.get(category) || 0;
+      if (categoryCount >= maxPerCategory) continue;
+
+      const next = group.find((item) => {
+        if (used.has(item)) return false;
+        const source = sourceKey(item.article);
+        return (sourceCounts.get(source) || 0) < maxPerSource;
+      });
+      if (!next) continue;
+
+      const source = sourceKey(next.article);
+      output.push(next);
+      used.add(next);
+      sourceCounts.set(source, (sourceCounts.get(source) || 0) + 1);
+      categoryCounts.set(category, categoryCount + 1);
+      madeProgress = true;
+    }
   }
 
   for (const item of items) {
