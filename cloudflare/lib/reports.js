@@ -7,7 +7,7 @@ const PROMPT_STORAGE_PREFIX = 'prompts/';
 const REPORT_ARTICLE_LIMIT = 80;
 const DEFAULT_REPORT_AI_ARTICLE_LIMIT = 24;
 const SOURCE_BRIEF_WINDOW_HOURS = 24;
-const SOURCE_BRIEF_ARTICLE_LIMIT = 80;
+const DEFAULT_SOURCE_BRIEF_ARTICLE_LIMIT = 500;
 
 const COUNTRY_LABELS = {
   usa: 'United States',
@@ -267,6 +267,7 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       scope,
       slug: normalizedSlug,
       limit: REPORT_ARTICLE_LIMIT,
+      sourceBriefLimit: getSourceBriefArticleLimit(env),
     });
     const selectedArticles = selection.articles;
     const sourceBrief = buildSourceBrief({
@@ -274,6 +275,7 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       slug: normalizedSlug,
       articles: selection.priorWindowArticles,
       generatedAt: startedAt,
+      maxArticles: getSourceBriefArticleLimit(env),
     });
     const aiArticles = selectedArticles.slice(0, getReportAiArticleLimit(env, selectedArticles.length));
     await appendReportLog(env, {
@@ -283,6 +285,7 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
         slug: normalizedSlug,
         selectedArticles: selectedArticles.length,
         sourceBriefArticles: sourceBrief.articleCount,
+        sourceBriefArticleLimit: getSourceBriefArticleLimit(env),
         sourceBriefWindowHours: SOURCE_BRIEF_WINDOW_HOURS,
         aiArticles: aiArticles.length,
         availableArticles: articles.length,
@@ -636,9 +639,15 @@ function watchTitle(slug) {
   return `${COUNTRY_LABELS[slug] || slug.toUpperCase()} Threat Watch`;
 }
 
-function selectReportArticles(articles, { scope = 'global', slug = 'global', limit = REPORT_ARTICLE_LIMIT } = {}) {
+function selectReportArticles(articles, {
+  scope = 'global',
+  slug = 'global',
+  limit = REPORT_ARTICLE_LIMIT,
+  sourceBriefLimit = DEFAULT_SOURCE_BRIEF_ARTICLE_LIMIT,
+} = {}) {
   const input = Array.isArray(articles) ? articles : [];
   const now = Date.now();
+  const briefLimit = normalizeArticleLimit(sourceBriefLimit, DEFAULT_SOURCE_BRIEF_ARTICLE_LIMIT);
   const scored = input
     .map((article) => ({
       article,
@@ -652,7 +661,7 @@ function selectReportArticles(articles, { scope = 'global', slug = 'global', lim
     .filter((item) => item.ageDays <= SOURCE_BRIEF_WINDOW_HOURS / 24)
     .sort((a, b) => articleTimestamp(b.article) - articleTimestamp(a.article)
       || b.score.value - a.score.value)
-    .slice(0, SOURCE_BRIEF_ARTICLE_LIMIT)
+    .slice(0, briefLimit)
     .map((item) => ({
       ...item.article,
       relevanceScore: item.score.value,
@@ -704,6 +713,16 @@ function getReportAiArticleLimit(env, selectedCount = REPORT_ARTICLE_LIMIT) {
     ? configured
     : DEFAULT_REPORT_AI_ARTICLE_LIMIT;
   return Math.min(Math.max(12, Math.floor(limit)), REPORT_ARTICLE_LIMIT, Math.max(1, selectedCount));
+}
+
+function getSourceBriefArticleLimit(env) {
+  return normalizeArticleLimit(env.SOURCE_BRIEF_ARTICLE_LIMIT, DEFAULT_SOURCE_BRIEF_ARTICLE_LIMIT);
+}
+
+function normalizeArticleLimit(value, fallback) {
+  const configured = Number(value || 0);
+  const limit = Number.isFinite(configured) && configured > 0 ? configured : fallback;
+  return Math.min(2000, Math.max(80, Math.floor(limit)));
 }
 
 function globalCategoryShare(scope) {
@@ -1165,8 +1184,14 @@ Source articles:
 ${articleText}`;
 }
 
-function buildSourceBrief({ scope, slug, articles = [], generatedAt = new Date().toISOString() }) {
-  const corpus = articles.slice(0, SOURCE_BRIEF_ARTICLE_LIMIT);
+function buildSourceBrief({
+  scope,
+  slug,
+  articles = [],
+  generatedAt = new Date().toISOString(),
+  maxArticles = DEFAULT_SOURCE_BRIEF_ARTICLE_LIMIT,
+}) {
+  const corpus = articles.slice(0, normalizeArticleLimit(maxArticles, DEFAULT_SOURCE_BRIEF_ARTICLE_LIMIT));
   const scopeLine = scope === 'global' ? 'global' : scope === 'watch' ? `watch/${slug}` : `country/${slug}`;
   if (!corpus.length) {
     return {

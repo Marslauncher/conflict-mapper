@@ -173,6 +173,7 @@ Set these as non-secret variables:
 | `ALLOW_REPORT_FALLBACK` | `true` |
 | `REPORT_AI_TIMEOUT_MS` | `35000` |
 | `REPORT_AI_ARTICLE_LIMIT` | `24` |
+| `SOURCE_BRIEF_ARTICLE_LIMIT` | `500` |
 
 Create secrets with Wrangler:
 
