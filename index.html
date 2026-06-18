@@ -4453,6 +4453,16 @@ function normalizeNavConfig(config) {
     });
   }
 
+  if (!next.nav.some(item => item.label === 'Contact')) {
+    const anchorIdx = next.nav.findIndex(item => item.label === 'Intel Tools');
+    next.nav.splice(anchorIdx >= 0 ? anchorIdx + 1 : next.nav.length, 0, {
+      label: 'Contact',
+      type: 'link',
+      target: 'contact.html',
+      icon: 'mail',
+    });
+  }
+
   if (!next.nav.some(item => item.label === 'Iran Conflict')) {
     const watchIdx = next.nav.findIndex(item => item.label === 'China/Taiwan Watch');
     next.nav.splice(watchIdx >= 0 ? watchIdx + 1 : next.nav.length, 0, {
@@ -4532,6 +4542,14 @@ function normalizeNavConfig(config) {
             { label: 'Nuclear Deep Dive', subtitle: 'Nuclear program assessment', target: 'pages/nuclear-deep-dive.html', image: 'assets/MidnightHammerFlightProfile-7.jpg' },
           ],
         },
+      };
+    }
+    if (item.label === 'Contact') {
+      return {
+        ...item,
+        type: 'link',
+        target: 'contact.html',
+        icon: item.icon || 'mail',
       };
     }
     return item;
