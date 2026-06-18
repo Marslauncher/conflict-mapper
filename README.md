@@ -171,9 +171,10 @@ Set these as non-secret variables:
 | `RSS_TRANSLATION_LIMIT` | `80` |
 | `REPORT_MAX_TOKENS` | `10000` on Pages, `12000` on cron worker |
 | `ALLOW_REPORT_FALLBACK` | `true` |
-| `REPORT_AI_TIMEOUT_MS` | `35000` |
+| `REPORT_AI_TIMEOUT_MS` | `90000` |
 | `REPORT_AI_ARTICLE_LIMIT` | `24` |
 | `SOURCE_BRIEF_ARTICLE_LIMIT` | `500` |
+| `REPORT_FEED_REFRESH_TIMEOUT_MS` | `120000` on cron worker |
 
 Create secrets with Wrangler:
 
