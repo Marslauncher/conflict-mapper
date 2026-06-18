@@ -254,7 +254,68 @@ const WORLD_GEO_PLACES = [
   { terms: ['georgia', 'tbilisi'], place: 'Georgia', country: 'Georgia', lat: 42.3154, lng: 43.3569, confidence: 0.72 },
 ];
 
-const GEO_SEARCH_PLACES = [...GEO_PLACES, ...WORLD_GEO_PLACES];
+const EXPANDED_LOCAL_GEO_PLACES = [
+  // Russia / Eurasia
+  { terms: ['rostov-on-don', 'rostov on don', 'rostov'], place: 'Rostov-on-Don', country: 'Russia', lat: 47.2357, lng: 39.7015, confidence: 0.9 },
+  { terms: ['krasnodar'], place: 'Krasnodar', country: 'Russia', lat: 45.0355, lng: 38.9753, confidence: 0.88 },
+  { terms: ['kazan', 'tatarstan'], place: 'Kazan / Tatarstan', country: 'Russia', lat: 55.7961, lng: 49.1064, confidence: 0.88 },
+  { terms: ['yekaterinburg', 'ekaterinburg'], place: 'Yekaterinburg', country: 'Russia', lat: 56.8389, lng: 60.6057, confidence: 0.88 },
+  { terms: ['nizhny novgorod'], place: 'Nizhny Novgorod', country: 'Russia', lat: 56.2965, lng: 43.9361, confidence: 0.88 },
+  { terms: ['samara'], place: 'Samara', country: 'Russia', lat: 53.1959, lng: 50.1002, confidence: 0.86 },
+
+  // China / Asia-Pacific
+  { terms: ['fujian'], place: 'Fujian', country: 'China', lat: 26.0789, lng: 117.9874, confidence: 0.88 },
+  { terms: ['xiamen'], place: 'Xiamen', country: 'China', lat: 24.4798, lng: 118.0894, confidence: 0.9 },
+  { terms: ['fuzhou'], place: 'Fuzhou', country: 'China', lat: 26.0745, lng: 119.2965, confidence: 0.88 },
+  { terms: ['hainan'], place: 'Hainan', country: 'China', lat: 19.1959, lng: 109.7453, confidence: 0.86 },
+  { terms: ['dalian'], place: 'Dalian', country: 'China', lat: 38.914, lng: 121.6147, confidence: 0.88 },
+  { terms: ['qingdao'], place: 'Qingdao', country: 'China', lat: 36.0671, lng: 120.3826, confidence: 0.88 },
+  { terms: ['tianjin'], place: 'Tianjin', country: 'China', lat: 39.3434, lng: 117.3616, confidence: 0.88 },
+  { terms: ['chongqing'], place: 'Chongqing', country: 'China', lat: 29.563, lng: 106.5516, confidence: 0.88 },
+  { terms: ['nanjing'], place: 'Nanjing', country: 'China', lat: 32.0603, lng: 118.7969, confidence: 0.88 },
+
+  // Australia / Oceania
+  { terms: ['victoria'], place: 'Victoria', country: 'Australia', lat: -36.9848, lng: 143.3906, confidence: 0.86 },
+  { terms: ['queensland'], place: 'Queensland', country: 'Australia', lat: -20.9176, lng: 142.7028, confidence: 0.86 },
+  { terms: ['western australia'], place: 'Western Australia', country: 'Australia', lat: -25.2303, lng: 121.0187, confidence: 0.86 },
+  { terms: ['northern territory'], place: 'Northern Territory', country: 'Australia', lat: -19.4914, lng: 132.5509, confidence: 0.86 },
+  { terms: ['brisbane'], place: 'Brisbane', country: 'Australia', lat: -27.4698, lng: 153.0251, confidence: 0.9 },
+  { terms: ['perth'], place: 'Perth', country: 'Australia', lat: -31.9523, lng: 115.8613, confidence: 0.9 },
+  { terms: ['adelaide'], place: 'Adelaide', country: 'Australia', lat: -34.9285, lng: 138.6007, confidence: 0.88 },
+  { terms: ['darwin'], place: 'Darwin', country: 'Australia', lat: -12.4634, lng: 130.8456, confidence: 0.88 },
+  { terms: ['townsville'], place: 'Townsville', country: 'Australia', lat: -19.259, lng: 146.8169, confidence: 0.88 },
+
+  // Africa
+  { terms: ['nairobi'], place: 'Nairobi', country: 'Kenya', lat: -1.2921, lng: 36.8219, confidence: 0.9 },
+  { terms: ['mombasa'], place: 'Mombasa', country: 'Kenya', lat: -4.0435, lng: 39.6682, confidence: 0.88 },
+  { terms: ['lagos'], place: 'Lagos', country: 'Nigeria', lat: 6.5244, lng: 3.3792, confidence: 0.9 },
+  { terms: ['johannesburg'], place: 'Johannesburg', country: 'South Africa', lat: -26.2041, lng: 28.0473, confidence: 0.9 },
+  { terms: ['cape town'], place: 'Cape Town', country: 'South Africa', lat: -33.9249, lng: 18.4241, confidence: 0.9 },
+  { terms: ['darfur'], place: 'Darfur', country: 'Sudan', lat: 13.62, lng: 25.35, confidence: 0.88 },
+  { terms: ['port sudan'], place: 'Port Sudan', country: 'Sudan', lat: 19.6158, lng: 37.2164, confidence: 0.9 },
+  { terms: ['el fasher', 'al fashir'], place: 'El Fasher', country: 'Sudan', lat: 13.6279, lng: 25.3494, confidence: 0.9 },
+  { terms: ['wad madani'], place: 'Wad Madani', country: 'Sudan', lat: 14.4012, lng: 33.5199, confidence: 0.88 },
+  { terms: ['tigray'], place: 'Tigray', country: 'Ethiopia', lat: 14.0323, lng: 38.3166, confidence: 0.88 },
+  { terms: ['oromia'], place: 'Oromia', country: 'Ethiopia', lat: 7.546, lng: 40.6347, confidence: 0.86 },
+  { terms: ['goma'], place: 'Goma', country: 'Democratic Republic of Congo', lat: -1.6585, lng: 29.2205, confidence: 0.9 },
+  { terms: ['north kivu', 'm23'], place: 'North Kivu', country: 'Democratic Republic of Congo', lat: -0.7918, lng: 29.0459, confidence: 0.88 },
+
+  // South America
+  { terms: ['buenos aires'], place: 'Buenos Aires', country: 'Argentina', lat: -34.6037, lng: -58.3816, confidence: 0.9 },
+  { terms: ['santiago'], place: 'Santiago', country: 'Chile', lat: -33.4489, lng: -70.6693, confidence: 0.9 },
+  { terms: ['bogota', 'bogotá'], place: 'Bogota', country: 'Colombia', lat: 4.711, lng: -74.0721, confidence: 0.9 },
+  { terms: ['caracas'], place: 'Caracas', country: 'Venezuela', lat: 10.4806, lng: -66.9036, confidence: 0.9 },
+  { terms: ['lima'], place: 'Lima', country: 'Peru', lat: -12.0464, lng: -77.0428, confidence: 0.9 },
+  { terms: ['quito'], place: 'Quito', country: 'Ecuador', lat: -0.1807, lng: -78.4678, confidence: 0.9 },
+  { terms: ['la paz'], place: 'La Paz', country: 'Bolivia', lat: -16.4897, lng: -68.1193, confidence: 0.88 },
+  { terms: ['asuncion', 'asunción'], place: 'Asuncion', country: 'Paraguay', lat: -25.2637, lng: -57.5759, confidence: 0.88 },
+  { terms: ['montevideo'], place: 'Montevideo', country: 'Uruguay', lat: -34.9011, lng: -56.1645, confidence: 0.9 },
+  { terms: ['amazonas', 'amazon basin', 'amazon rainforest'], place: 'Amazon Basin', country: 'Regional', lat: -3.4653, lng: -62.2159, confidence: 0.86 },
+  { terms: ['guyana'], place: 'Guyana', country: 'Guyana', lat: 4.8604, lng: -58.9302, confidence: 0.76 },
+  { terms: ['essequibo'], place: 'Essequibo', country: 'Guyana', lat: 6.8, lng: -58.8, confidence: 0.88 },
+];
+
+const GEO_SEARCH_PLACES = [...EXPANDED_LOCAL_GEO_PLACES, ...GEO_PLACES, ...WORLD_GEO_PLACES];
 
 export async function loadArticleSet(context) {
   const staticPayload = await readAssetJson(context, '/data/articles.json', { articles: [] });
@@ -1039,6 +1100,7 @@ function geotagArticle(text, fallbackCountry = 'global', priorityText = '') {
       const priorityPosition = searchTermIndex(priorityValue, term);
       const score = normalizeSearchText(term).trim().length
         + (priorityPosition >= 0 ? 1000 : 0)
+        + geoPlaceSpecificityBoost(place)
         + Number(place.confidence || 0);
       if (!best || score > best.score || (score === best.score && position < best.position)) {
         best = { place, score, position };
@@ -1063,6 +1125,26 @@ function isGenericGeoPlace(place) {
     'global', 'world',
   ]);
   return generic.has(String(place.place || '').toLowerCase());
+}
+
+function geoPlaceSpecificityBoost(place) {
+  const genericPlaces = new Set([
+    'united states', 'china', 'taiwan', 'russia', 'ukraine', 'iran', 'israel',
+    'north korea', 'south korea', 'japan', 'philippines', 'india', 'pakistan',
+    'nato / brussels', 'canada', 'mexico', 'brazil', 'australia', 'new zealand',
+    'united kingdom', 'france', 'germany', 'italy', 'spain', 'netherlands',
+    'poland', 'romania', 'serbia', 'greece', 'turkey', 'sweden', 'finland',
+    'norway', 'denmark', 'saudi arabia', 'united arab emirates', 'qatar',
+    'kuwait', 'bahrain', 'oman', 'iraq', 'syria', 'jordan', 'lebanon',
+    'afghanistan', 'egypt', 'sudan', 'ethiopia', 'somalia', 'kenya', 'nigeria',
+    'south africa', 'libya', 'mali', 'niger', 'burkina faso',
+    'democratic republic of congo', 'morocco', 'algeria', 'indonesia',
+    'malaysia', 'thailand', 'vietnam', 'myanmar', 'singapore', 'bangladesh',
+    'sri lanka', 'nepal', 'kazakhstan', 'uzbekistan', 'azerbaijan', 'armenia',
+    'georgia', 'argentina', 'chile', 'colombia', 'venezuela', 'peru',
+    'ecuador', 'bolivia', 'paraguay', 'uruguay', 'guyana',
+  ]);
+  return genericPlaces.has(String(place?.place || '').toLowerCase()) ? 0 : 250;
 }
 
 function buildTags(text, fallback) {
