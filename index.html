@@ -5172,7 +5172,7 @@ function updateDailyCountryCardReport(country, report) {
 }
 
 function updateDailyCountryCardSignals(country, articles) {
-  const cleanArticles = selectDailySignalArticles(articles || []);
+  const cleanArticles = selectDailySignalArticles(articles || [], country);
   if (!cleanArticles.length) return;
   const meta = COUNTRY_ANALYSIS_META[country.slug] || {};
   const summaryEl = document.querySelector(`[data-country-summary="${cssEscape(country.slug)}"]`);
@@ -5197,10 +5197,10 @@ function updateDailyCountryCardSignals(country, articles) {
   }
 }
 
-function selectDailySignalArticles(articles) {
+function selectDailySignalArticles(articles, country) {
   const seen = new Set();
   const ranked = sortArticlesNewest(articles)
-    .map(article => ({ article, score: scoreDailySignalArticle(article) }))
+    .map(article => ({ article, score: scoreDailySignalArticle(article, country) }))
     .filter(item => item.score > 0)
     .sort((a, b) => b.score - a.score || articleTimeValue(b.article) - articleTimeValue(a.article))
     .map(item => item.article);
@@ -5215,25 +5215,37 @@ function selectDailySignalArticles(articles) {
     .slice(0, 8);
 }
 
-function scoreDailySignalArticle(article) {
+function scoreDailySignalArticle(article, country) {
   const category = String(article.category || '').toLowerCase();
   const tags = (article.tags || []).map(tag => String(tag).toLowerCase());
-  const text = normalizeSignalText(`${article.title || ''} ${article.description || ''} ${tags.join(' ')}`);
+  const titleText = normalizeSignalText(article.title || '');
+  const contentText = normalizeSignalText(`${article.title || ''} ${article.description || ''}`);
+  const text = normalizeSignalText(`${contentText} ${tags.join(' ')}`);
+  const countryHit = countrySignalAliases(country)
+    .some(alias => aliasMatchesSignalText(contentText, alias));
+  const titleCountryHit = countrySignalAliases(country)
+    .some(alias => aliasMatchesSignalText(titleText, alias));
+  const storedCountry = normalizeSignalText(`${article.country || ''} ${article.geo?.country || ''} ${article.geo?.place || ''}`);
   let score = 0;
   if (['military', 'conflict', 'nuclear', 'terrorism'].includes(category)) score += 8;
   if (['cyber', 'infrastructure', 'maritime', 'energy', 'economic', 'technology'].includes(category)) score += 5;
   if (['geopolitics', 'political', 'breaking'].includes(category)) score += 3;
   if (tags.some(tag => ['military', 'conflict', 'nuclear', 'cyber', 'infrastructure', 'maritime', 'energy', 'sanctions', 'missiles', 'border', 'alliance'].includes(tag))) score += 4;
+  if (countryHit) score += 8;
+  else if (country?.slug && (storedCountry.includes(normalizeSignalText(country.slug)) || storedCountry.includes(normalizeSignalText(country.label)))) score += 4;
+  else if (tags.some(tag => countrySignalAliases(country).map(normalizeSignalText).includes(tag))) score += 2;
+  else score -= 4;
   if (/\b(war|ceasefire|strike|missile|drone|nuclear|blockade|invasion|attack|frontline|sanctions|escalation|deterrence|military|defense|defence|troops|naval|maritime|strait|border|cyber|ransomware|infrastructure|energy|oil|gas|alliance|nato|iaea|uranium|proxy|militia|terror|insurgent)\b/.test(text)) score += 7;
   if (/\b(killed|dead|launch|occupation|offensive|warning|alert|urgent|critical|mobilization|deployment|readiness)\b/.test(text)) score += 3;
   if (['science', 'research'].includes(category) && score < 7) score = 0;
+  if (/^(gao report to congress|report to congress|the following is the)/.test(titleText) && !titleCountryHit) score = 0;
   if (/\b(lottery|football|soccer|tennis|celebrity|horoscope|phd studies|research integrity|student geng)\b/.test(text)) score = 0;
   return score;
 }
 
 function buildDailySignalSummary(country, articles, domains) {
   const signals = articles.slice(0, 3)
-    .map(article => summarizeArticleSignal(article))
+    .map(article => summarizeArticleSignal(article, country))
     .filter(Boolean);
   const sourceCount = new Set(articles.map(article => article.source).filter(Boolean)).size;
   const domainText = domains.slice(0, 3).join(', ').toLowerCase();
@@ -5246,10 +5258,13 @@ function buildDailySignalSummary(country, articles, domains) {
   return `${lead}. ${sourceText} keep ${domainText || 'security'} indicators in focus.`;
 }
 
-function summarizeArticleSignal(article) {
+function summarizeArticleSignal(article, country) {
   const title = cleanSignalTitle(article.title || '');
   const description = cleanSignalTitle(article.description || '');
-  const text = title || description;
+  const aliases = countrySignalAliases(country);
+  const titleHasContext = aliases.some(alias => aliasMatchesSignalText(normalizeSignalText(title), alias));
+  const descriptionHasContext = aliases.some(alias => aliasMatchesSignalText(normalizeSignalText(description), alias));
+  const text = (!titleHasContext && descriptionHasContext ? description : title) || description;
   if (!text) return '';
   return clampSentence(text, 92);
 }
@@ -5280,9 +5295,15 @@ function deriveDailySignalDomains(articles, fallbackDomains = []) {
     breaking: 'Breaking',
   };
   const counts = new Map();
+  const excluded = new Set([
+    'usa', 'united states', 'america', 'china', 'chinese', 'taiwan', 'russia', 'russian',
+    'ukraine', 'iran', 'israel', 'india', 'pakistan', 'north korea', 'dprk', 'nato',
+    'lebanon', 'gaza', 'moscow', 'tehran', 'beijing', 'washington',
+  ]);
   articles.forEach(article => {
     [article.category, ...(article.tags || [])].filter(Boolean).forEach(item => {
       const key = String(item).toLowerCase();
+      if (excluded.has(key)) return;
       const label = labelMap[key] || titleCaseLabel(key);
       if (!label || label === 'General') return;
       counts.set(label, (counts.get(label) || 0) + 1);
@@ -5341,6 +5362,31 @@ function titleCaseLabel(value) {
     .replace(/[-_]+/g, ' ')
     .replace(/\b\w/g, char => char.toUpperCase())
     .trim();
+}
+
+function countrySignalAliases(country) {
+  const slug = country?.slug || '';
+  const map = {
+    usa: ['united states', 'u.s.', 'usa', 'american', 'washington'],
+    china: ['china', 'chinese', 'beijing', 'pla'],
+    russia: ['russia', 'russian', 'moscow'],
+    ukraine: ['ukraine', 'kyiv', 'kiev'],
+    taiwan: ['taiwan', 'taiwan strait', 'taipei'],
+    iran: ['iran', 'iranian', 'tehran'],
+    israel: ['israel', 'israeli', 'gaza', 'tel aviv', 'jerusalem'],
+    india: ['india', 'indian', 'new delhi'],
+    pakistan: ['pakistan', 'pakistani', 'islamabad'],
+    'north-korea': ['north korea', 'dprk', 'pyongyang'],
+    nato: ['nato', 'alliance', 'brussels', 'eastern flank'],
+  };
+  return map[slug] || [country?.label || slug, slug.replace(/-/g, ' ')].filter(Boolean);
+}
+
+function aliasMatchesSignalText(text, alias) {
+  const normalizedAlias = normalizeSignalText(alias);
+  if (!normalizedAlias) return false;
+  const escaped = normalizedAlias.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+');
+  return new RegExp(`(^|[^a-z0-9])${escaped}($|[^a-z0-9])`, 'i').test(String(text || ''));
 }
 
 function clampSentence(value, maxLength) {
