@@ -46,7 +46,7 @@ export function filterArticles(articles, { country = '', limit = 200, geoOnly = 
         article.description,
         ...(Array.isArray(article.tags) ? article.tags : []),
       ].filter(Boolean).join(' ').toLowerCase();
-      return aliases.some((alias) => fields.includes(alias));
+      return aliases.some((alias) => aliasMatchesText(fields, alias));
     });
   }
 
@@ -89,6 +89,13 @@ function countryAliases(slug) {
     nato: ['nato', 'brussels'],
   };
   return map[slug] || [slug.replace(/-/g, ' '), slug];
+}
+
+function aliasMatchesText(text, alias) {
+  const normalizedAlias = String(alias || '').trim().toLowerCase();
+  if (!normalizedAlias) return false;
+  const escaped = normalizedAlias.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+');
+  return new RegExp(`(^|[^a-z0-9])${escaped}($|[^a-z0-9])`, 'i').test(String(text || ''));
 }
 
 export function normalizeArticlesPayload(payload) {

@@ -5095,15 +5095,15 @@ function renderDailyCountryCard(country) {
           <strong>${escHtml(country.label)}</strong>
           <span>Daily Assessment</span>
         </div>
-        <span class="priority-badge">${escHtml(meta.badge)}</span>
+      <span class="priority-badge" data-country-priority="${escHtml(country.slug)}">${escHtml(meta.badge)}</span>
       </div>
       <div class="country-card-body">
-        <div class="threat-spark" aria-label="${escHtml(country.label)} threat trend visual">${bars}</div>
-        <p class="country-card-summary">${escHtml(meta.summary)}</p>
+        <div class="threat-spark" data-country-spark="${escHtml(country.slug)}" aria-label="${escHtml(country.label)} threat trend visual">${bars}</div>
+        <p class="country-card-summary" data-country-summary="${escHtml(country.slug)}">${escHtml(meta.summary)}</p>
         <div class="country-report-meta" data-country-report-meta="${escHtml(country.slug)}">
           <span>Report sync</span><strong>Checking</strong>
         </div>
-        <div class="country-domain-row" aria-label="${escHtml(country.label)} key domains">${domains}</div>
+        <div class="country-domain-row" data-country-domains="${escHtml(country.slug)}" aria-label="${escHtml(country.label)} key domains">${domains}</div>
       </div>
       <div class="country-card-actions">
         <button type="button" data-country-report-button="${escHtml(country.slug)}" onclick="loadContent('${escHtml(currentTarget)}', this)">Current Report</button>
@@ -5115,19 +5115,34 @@ function renderDailyCountryCard(country) {
 
 async function refreshDailyCountryCards(countries) {
   const entries = await Promise.allSettled((countries || []).map(async (country) => {
-    const res = await fetch(`/api/reports?scope=country&slug=${encodeURIComponent(country.slug)}&limit=1&storage=1`, { cache: 'no-store' });
-    const payload = await readApiJson(res, `/api/reports?scope=country&slug=${country.slug}`);
-    const reports = payload.data?.reports || payload.reports || [];
-    return { country, report: reports.find(r => r.isCurrent) || reports[0] || null };
+    const [report, articles] = await Promise.all([
+      fetchDailyCountryReport(country),
+      fetchDailyCountryArticles(country),
+    ]);
+    return { country, report, articles };
   }));
 
   entries.forEach((entry, index) => {
     if (entry.status === 'fulfilled') {
       updateDailyCountryCardReport(entry.value.country, entry.value.report);
+      updateDailyCountryCardSignals(entry.value.country, entry.value.articles);
     } else if (countries[index]) {
       updateDailyCountryCardReport(countries[index], null);
     }
   });
+}
+
+async function fetchDailyCountryReport(country) {
+  const res = await fetch(`/api/reports?scope=country&slug=${encodeURIComponent(country.slug)}&limit=1&storage=1`, { cache: 'no-store' });
+  const payload = await readApiJson(res, `/api/reports?scope=country&slug=${country.slug}`);
+  const reports = payload.data?.reports || payload.reports || [];
+  return reports.find(r => r.isCurrent) || reports[0] || null;
+}
+
+async function fetchDailyCountryArticles(country) {
+  const res = await fetch(`/api/articles?country=${encodeURIComponent(country.slug)}&limit=18`, { cache: 'no-store' });
+  const payload = await readApiJson(res, `/api/articles?country=${country.slug}`);
+  return payload.data?.articles || payload.articles || [];
 }
 
 function updateDailyCountryCardReport(country, report) {
@@ -5154,6 +5169,192 @@ function updateDailyCountryCardReport(country, report) {
   const publicPath = String(report.publicPath || report.path || `reports/countries/${country.slug}/current/report.html`).replace(/^\/+/, '');
   const nextTarget = `${publicPath}?v=${encodeURIComponent(generatedAt)}`;
   if (button) button.setAttribute('onclick', `loadContent('${escHtml(nextTarget)}', this)`);
+}
+
+function updateDailyCountryCardSignals(country, articles) {
+  const cleanArticles = selectDailySignalArticles(articles || []);
+  if (!cleanArticles.length) return;
+  const meta = COUNTRY_ANALYSIS_META[country.slug] || {};
+  const summaryEl = document.querySelector(`[data-country-summary="${cssEscape(country.slug)}"]`);
+  const domainsEl = document.querySelector(`[data-country-domains="${cssEscape(country.slug)}"]`);
+  const badgeEl = document.querySelector(`[data-country-priority="${cssEscape(country.slug)}"]`);
+  const sparkEl = document.querySelector(`[data-country-spark="${cssEscape(country.slug)}"]`);
+  const domains = deriveDailySignalDomains(cleanArticles, meta.domains || []);
+  const priority = deriveDailySignalPriority(cleanArticles, meta.priority || 'steady');
+
+  if (summaryEl) summaryEl.textContent = buildDailySignalSummary(country, cleanArticles, domains);
+  if (domainsEl) domainsEl.innerHTML = domains.map(domain => `<span class="domain-chip">${escHtml(domain)}</span>`).join('');
+  if (badgeEl) badgeEl.textContent = priority.badge;
+  const card = summaryEl?.closest('.daily-country-card');
+  if (card) {
+    card.classList.remove('priority-critical', 'priority-high', 'priority-watch', 'priority-steady');
+    card.classList.add(`priority-${priority.level}`);
+  }
+  if (sparkEl) {
+    sparkEl.innerHTML = buildDailySignalTrend(cleanArticles, priority.level)
+      .map(value => `<span style="--bar:${value}"></span>`)
+      .join('');
+  }
+}
+
+function selectDailySignalArticles(articles) {
+  const seen = new Set();
+  const ranked = sortArticlesNewest(articles)
+    .map(article => ({ article, score: scoreDailySignalArticle(article) }))
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score || articleTimeValue(b.article) - articleTimeValue(a.article))
+    .map(item => item.article);
+  return (ranked.length ? ranked : sortArticlesNewest(articles))
+    .filter(article => article && (article.title || article.description))
+    .filter(article => {
+      const key = normalizeSignalText(article.title || article.description).slice(0, 90);
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .slice(0, 8);
+}
+
+function scoreDailySignalArticle(article) {
+  const category = String(article.category || '').toLowerCase();
+  const tags = (article.tags || []).map(tag => String(tag).toLowerCase());
+  const text = normalizeSignalText(`${article.title || ''} ${article.description || ''} ${tags.join(' ')}`);
+  let score = 0;
+  if (['military', 'conflict', 'nuclear', 'terrorism'].includes(category)) score += 8;
+  if (['cyber', 'infrastructure', 'maritime', 'energy', 'economic', 'technology'].includes(category)) score += 5;
+  if (['geopolitics', 'political', 'breaking'].includes(category)) score += 3;
+  if (tags.some(tag => ['military', 'conflict', 'nuclear', 'cyber', 'infrastructure', 'maritime', 'energy', 'sanctions', 'missiles', 'border', 'alliance'].includes(tag))) score += 4;
+  if (/\b(war|ceasefire|strike|missile|drone|nuclear|blockade|invasion|attack|frontline|sanctions|escalation|deterrence|military|defense|defence|troops|naval|maritime|strait|border|cyber|ransomware|infrastructure|energy|oil|gas|alliance|nato|iaea|uranium|proxy|militia|terror|insurgent)\b/.test(text)) score += 7;
+  if (/\b(killed|dead|launch|occupation|offensive|warning|alert|urgent|critical|mobilization|deployment|readiness)\b/.test(text)) score += 3;
+  if (['science', 'research'].includes(category) && score < 7) score = 0;
+  if (/\b(lottery|football|soccer|tennis|celebrity|horoscope|phd studies|research integrity|student geng)\b/.test(text)) score = 0;
+  return score;
+}
+
+function buildDailySignalSummary(country, articles, domains) {
+  const signals = articles.slice(0, 3)
+    .map(article => summarizeArticleSignal(article))
+    .filter(Boolean);
+  const sourceCount = new Set(articles.map(article => article.source).filter(Boolean)).size;
+  const domainText = domains.slice(0, 3).join(', ').toLowerCase();
+  const lead = signals.length
+    ? signals.join('; ')
+    : `${country.label} reporting is active in the latest RSS cache`;
+  const sourceText = sourceCount > 1
+    ? `${sourceCount} sources`
+    : `${articles[0]?.source || 'the latest RSS source'}`;
+  return `${lead}. ${sourceText} keep ${domainText || 'security'} indicators in focus.`;
+}
+
+function summarizeArticleSignal(article) {
+  const title = cleanSignalTitle(article.title || '');
+  const description = cleanSignalTitle(article.description || '');
+  const text = title || description;
+  if (!text) return '';
+  return clampSentence(text, 92);
+}
+
+function cleanSignalTitle(value) {
+  return decodeHtmlText(value)
+    .replace(/^\s*[^|:]{2,28}\s+\|\s+/i, '')
+    .replace(/\s+-\s+[^-]{2,32}$/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function deriveDailySignalDomains(articles, fallbackDomains = []) {
+  const labelMap = {
+    geopolitics: 'Geopolitics',
+    military: 'Military',
+    political: 'Political',
+    economic: 'Economic',
+    cyber: 'Cyber',
+    infrastructure: 'Infrastructure',
+    maritime: 'Maritime',
+    energy: 'Energy',
+    nuclear: 'Nuclear',
+    terrorism: 'Insurgency',
+    technology: 'Technology',
+    research: 'Research',
+    conflict: 'Conflict',
+    breaking: 'Breaking',
+  };
+  const counts = new Map();
+  articles.forEach(article => {
+    [article.category, ...(article.tags || [])].filter(Boolean).forEach(item => {
+      const key = String(item).toLowerCase();
+      const label = labelMap[key] || titleCaseLabel(key);
+      if (!label || label === 'General') return;
+      counts.set(label, (counts.get(label) || 0) + 1);
+    });
+  });
+  const derived = [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([label]) => label)
+    .slice(0, 3);
+  return derived.length ? derived : fallbackDomains.slice(0, 3);
+}
+
+function deriveDailySignalPriority(articles, fallback = 'steady') {
+  const score = articles.reduce((sum, article) => {
+    const text = normalizeSignalText(`${article.title || ''} ${article.description || ''} ${(article.tags || []).join(' ')}`);
+    let next = sum + 1;
+    if (/\b(war|strike|missile|nuclear|blockade|invasion|attack|frontline|ceasefire|sanctions|escalation)\b/.test(text)) next += 2;
+    if (/\b(critical|urgent|breaking|dead|killed|launch|occupation|offensive)\b/.test(text)) next += 1;
+    if (['military', 'conflict', 'nuclear', 'terrorism'].includes(String(article.category || '').toLowerCase())) next += 1;
+    return next;
+  }, 0);
+  const level = score >= 22 ? 'critical' : score >= 13 ? 'high' : score >= 7 ? 'watch' : fallback;
+  const badges = { critical: 'Critical', high: 'High', watch: 'Watch', steady: 'Steady' };
+  return { level, badge: badges[level] || badges[fallback] || 'Steady' };
+}
+
+function buildDailySignalTrend(articles, priorityLevel) {
+  const base = { critical: 72, high: 60, watch: 48, steady: 36 }[priorityLevel] || 38;
+  const buckets = [0, 0, 0, 0, 0, 0];
+  articles.forEach(article => {
+    const time = new Date(article.pubDate || article.publishedAt || article.fetchedAt || Date.now()).getTime();
+    const ageHours = Math.max(0, (Date.now() - (Number.isFinite(time) ? time : Date.now())) / 3600000);
+    const index = Math.max(0, Math.min(5, 5 - Math.floor(ageHours / 4)));
+    buckets[index] += 1;
+  });
+  return buckets.map((count, index) => Math.max(14, Math.min(92, base + count * 8 + index * 2)));
+}
+
+function sortArticlesNewest(articles) {
+  return [...(articles || [])].sort((a, b) => {
+    return articleTimeValue(b) - articleTimeValue(a);
+  });
+}
+
+function articleTimeValue(article) {
+  const time = new Date(article?.pubDate || article?.publishedAt || article?.fetchedAt || 0).getTime();
+  return Number.isFinite(time) ? time : 0;
+}
+
+function normalizeSignalText(value) {
+  return decodeHtmlText(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+function titleCaseLabel(value) {
+  return String(value || '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, char => char.toUpperCase())
+    .trim();
+}
+
+function clampSentence(value, maxLength) {
+  const text = String(value || '').trim();
+  if (text.length <= maxLength) return text;
+  const clipped = text.slice(0, maxLength + 1);
+  const boundary = Math.max(clipped.lastIndexOf(' '), clipped.lastIndexOf(','));
+  return `${clipped.slice(0, boundary > 45 ? boundary : maxLength).trim()}...`;
+}
+
+function decodeHtmlText(value) {
+  const textarea = document.createElement('textarea');
+  textarea.innerHTML = String(value || '');
+  return textarea.value;
 }
 
 function formatReportDate(value) {
