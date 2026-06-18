@@ -316,6 +316,23 @@ const EXPANDED_LOCAL_GEO_PLACES = [
 ];
 
 const GEO_SEARCH_PLACES = [...EXPANDED_LOCAL_GEO_PLACES, ...GEO_PLACES, ...WORLD_GEO_PLACES];
+const GENERIC_GEO_PLACE_NAMES = new Set([
+  'global', 'world', 'united states', 'washington dc', 'china', 'taiwan',
+  'russia', 'ukraine', 'iran', 'israel', 'north korea', 'south korea',
+  'japan', 'philippines', 'india', 'pakistan', 'nato / brussels', 'canada',
+  'mexico', 'brazil', 'australia', 'new zealand', 'united kingdom', 'france',
+  'germany', 'italy', 'spain', 'netherlands', 'poland', 'romania', 'serbia',
+  'greece', 'turkey', 'sweden', 'finland', 'norway', 'denmark',
+  'saudi arabia', 'united arab emirates', 'qatar', 'kuwait', 'bahrain',
+  'oman', 'iraq', 'syria', 'jordan', 'lebanon', 'afghanistan', 'egypt',
+  'sudan', 'ethiopia', 'somalia', 'kenya', 'nigeria', 'south africa',
+  'libya', 'mali', 'niger', 'burkina faso', 'democratic republic of congo',
+  'morocco', 'algeria', 'indonesia', 'malaysia', 'thailand', 'vietnam',
+  'myanmar', 'singapore', 'bangladesh', 'sri lanka', 'nepal', 'kazakhstan',
+  'uzbekistan', 'azerbaijan', 'armenia', 'georgia', 'argentina', 'chile',
+  'colombia', 'venezuela', 'peru', 'ecuador', 'bolivia', 'paraguay',
+  'uruguay', 'guyana',
+]);
 
 export async function loadArticleSet(context) {
   const staticPayload = await readAssetJson(context, '/data/articles.json', { articles: [] });
@@ -403,7 +420,7 @@ async function writeArticlePayload(env, payload) {
 }
 
 function filterCachedArticles(articles, monitoringConfig) {
-  return (articles || [])
+  return normalizeExistingArticles(articles || [], monitoringConfig)
     .filter((article) => article && (article.title || article.description || article.link))
     .filter((article) => articleMatchesMonitoringConfig(article, monitoringConfig))
     .slice(0, 5000);
@@ -420,6 +437,64 @@ export async function loadArticles(context, { country = '', limit = 200, geoOnly
     returned: articles.length,
     lastFetch: payload.lastFetch,
     source: payload.source,
+  };
+}
+
+export async function reprocessStoredArticleCache(context) {
+  if (!context.env.CONFIG_KV && !context.env.REPORTS_BUCKET) {
+    throw new Error('REPORTS_BUCKET or CONFIG_KV binding is required to persist article cache updates');
+  }
+
+  const staticPayload = await readAssetJson(context, '/data/articles.json', { articles: [] });
+  const monitoringConfig = await loadMonitoringConfig(context);
+  const storedPayload = await readStoredArticlePayload(context);
+  const sourcePayload = storedPayload?.payload || staticPayload;
+  const sourceArticles = normalizeArticlesPayload(sourcePayload);
+  const reprocessedAt = new Date().toISOString();
+  const reprocessed = normalizeExistingArticles(sourceArticles, monitoringConfig);
+  const merged = dedupeArticles(reprocessed)
+    .sort((a, b) => articleTimestamp(b) - articleTimestamp(a))
+    .slice(0, 5000);
+  const changedGeoRecords = countChangedGeoRecords(sourceArticles, merged);
+  const storageSource = await writeArticlePayload(context.env, {
+    ...sourcePayload,
+    version: 1,
+    lastFetch: sourcePayload.lastFetch || staticPayload.lastFetch || reprocessedAt,
+    geoReprocessedAt: reprocessedAt,
+    articles: merged,
+    monitoring: {
+      countries: monitoringConfig.countries.length,
+      topics: monitoringConfig.topics.length,
+    },
+  });
+
+  await setArticleFetchStatus(context.env, {
+    running: false,
+    phase: 'geo-reprocess-complete',
+    message: `Reprocessed ${merged.length} cached RSS library articles for map geocoding`,
+    lastFetch: sourcePayload.lastFetch || staticPayload.lastFetch || null,
+    geoReprocessedAt: reprocessedAt,
+    totalArticles: merged.length,
+    changedGeoRecords,
+    storageSource,
+  });
+  await appendReportLog(context.env, {
+    category: 'rss',
+    message: `RSS cache geocoding reprocess complete: ${merged.length} articles`,
+    details: {
+      source: storedPayload?.source || 'static-asset',
+      totalArticles: merged.length,
+      changedGeoRecords,
+      storageSource,
+    },
+  });
+
+  return {
+    totalArticles: merged.length,
+    changedGeoRecords,
+    source: storedPayload?.source || 'static-asset',
+    storageSource,
+    geoReprocessedAt: reprocessedAt,
   };
 }
 
@@ -777,7 +852,7 @@ function normalizeExistingArticle(article, monitoringConfig) {
   const combined = `${title} ${description} ${article.geo?.place || ''} ${article.geo?.country || ''}`;
   const freshGeo = geotagArticle(combined, article.country || article.geo?.country || 'global', title);
   const existingGeo = validNonGenericGeo(article.geo) ? article.geo : null;
-  const geo = freshGeo || existingGeo;
+  const geo = chooseArticleGeo(existingGeo, freshGeo);
   const matchedCountry = findMatchingCountry(combined, monitoringConfig);
   const category = classifyArticle(combined, article.category);
   const tags = Array.from(new Set([
@@ -819,6 +894,69 @@ function validNonGenericGeo(geo) {
   if (genericPlaces.has(place)) return false;
   if (country === 'global' || country === 'world') return false;
   return true;
+}
+
+function chooseArticleGeo(existingGeo, freshGeo) {
+  if (!freshGeo) return existingGeo;
+  if (!existingGeo) return freshGeo;
+
+  const existingPlace = String(existingGeo.place || '').toLowerCase();
+  const freshPlace = String(freshGeo.place || '').toLowerCase();
+  if (existingPlace && existingPlace === freshPlace) return freshGeo;
+
+  const freshSpecific = !isGenericResolvedGeo(freshGeo);
+  const existingGeneric = isGenericResolvedGeo(existingGeo);
+  if (freshSpecific && existingGeneric) return freshGeo;
+  if (!freshSpecific && !existingGeneric) return existingGeo;
+  if (!freshSpecific && existingGeneric) return freshGeo;
+
+  const existingCountry = normalizeCountrySlug(existingGeo.country || '');
+  const freshCountry = normalizeCountrySlug(freshGeo.country || '');
+  if (freshSpecific && (!existingCountry || !freshCountry || existingCountry === freshCountry)) return freshGeo;
+  return existingGeo;
+}
+
+function isGenericResolvedGeo(geo) {
+  const place = String(geo?.place || '').toLowerCase();
+  if (!place) return true;
+  return GENERIC_GEO_PLACE_NAMES.has(place);
+}
+
+function countChangedGeoRecords(beforeArticles, afterArticles) {
+  const beforeByKey = new Map();
+  for (const article of beforeArticles || []) {
+    const key = articleIdentityKey(article);
+    if (key) beforeByKey.set(key, article);
+  }
+  let changed = 0;
+  for (const article of afterArticles || []) {
+    const before = beforeByKey.get(articleIdentityKey(article));
+    if (!before) continue;
+    if (!sameGeoRecord(before.geo, article.geo)) changed += 1;
+  }
+  return changed;
+}
+
+function sameGeoRecord(left, right) {
+  const leftLat = Number(left?.lat);
+  const leftLng = Number(left?.lng);
+  const rightLat = Number(right?.lat);
+  const rightLng = Number(right?.lng);
+  const sameCoords = (
+    Number.isFinite(leftLat)
+    && Number.isFinite(leftLng)
+    && Number.isFinite(rightLat)
+    && Number.isFinite(rightLng)
+    && Math.abs(leftLat - rightLat) < 0.0001
+    && Math.abs(leftLng - rightLng) < 0.0001
+  );
+  return sameCoords
+    && String(left?.place || '') === String(right?.place || '')
+    && String(left?.country || '') === String(right?.country || '');
+}
+
+function articleIdentityKey(article) {
+  return String(article?.id || article?.link || article?.url || article?.title || '').trim();
 }
 
 function extractSegments(xml, tagName) {
