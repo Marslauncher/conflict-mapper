@@ -4383,6 +4383,7 @@ async function init() {
     navConfig = await fetchConfig();
   }
   navConfig = normalizeNavConfig(navConfig);
+  persistStoredConfig(navConfig);
 
   const savedTheme = getThemePref();
   setTheme(savedTheme || navConfig.theme || 'dark');
@@ -4423,12 +4424,16 @@ function loadStoredConfig() {
 function saveConfig(config) {
   _storedConfig = JSON.parse(JSON.stringify(config));
   navConfig = config;
+  persistStoredConfig(_storedConfig);
+  updateConfigPreview();
+}
+
+function persistStoredConfig(config) {
   try {
-    localStorage.setItem(STORAGE_CONFIG_KEY, JSON.stringify(_storedConfig));
+    localStorage.setItem(STORAGE_CONFIG_KEY, JSON.stringify(config));
   } catch(e) {
     showToast('Config saved for this tab only', true);
   }
-  updateConfigPreview();
 }
 
 async function fetchConfig() {
