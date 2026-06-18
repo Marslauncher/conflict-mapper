@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - Conflict Mapper</title>
+<meta name="description" content="Contact Conflict Mapper and open the public GitHub repository.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="/assets/user-style.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --bg: #0a0c10;
+  --surface: #12151c;
+  --border: rgba(255,255,255,0.11);
+  --border-dim: rgba(255,255,255,0.06);
+  --accent: #c41e3a;
+  --accent-dim: rgba(196,30,58,0.12);
+  --text: #e8eaf0;
+  --text-muted: rgba(232,234,240,0.66);
+  --text-faint: rgba(232,234,240,0.38);
+  --font-display: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 72% -18%, rgba(196,30,58,0.12), transparent 34%),
+    linear-gradient(180deg, rgba(18,21,28,0.92), var(--bg));
+  color: var(--text);
+  font-family: var(--font-body);
+}
+a { color: inherit; }
+.contact-shell {
+  width: var(--cm-content-max-width, min(90vw, calc(100vw - 32px)));
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 42px 28px 64px;
+}
+.home-link {
+  display: inline-flex;
+  margin-bottom: 28px;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.home-link:hover { color: var(--accent); }
+.page-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.page-title {
+  margin: 8px 0 8px;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 4.6rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.page-subtitle {
+  max-width: 820px;
+  margin: 0 0 28px;
+  color: var(--text-muted);
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr));
+  gap: 14px;
+}
+.contact-card {
+  min-height: 180px;
+  display: grid;
+  align-content: space-between;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid var(--border-dim);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--surface), rgba(18,21,28,0.84));
+}
+.contact-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+.contact-card h2 {
+  margin: 4px 0 8px;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.contact-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid rgba(196,30,58,0.48);
+  border-radius: 5px;
+  background: var(--accent-dim);
+  color: #fda4af;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.contact-link:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+.security-note {
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid var(--border-dim);
+  border-radius: 8px;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+@media (max-width: 720px) {
+  .contact-shell { padding: 30px 16px 48px; }
+}
+</style>
+</head>
+<body>
+  <main class="contact-shell">
+    <a class="home-link" href="/">Back to Conflict Mapper</a>
+    <div class="page-kicker">Project Contact</div>
+    <h1 class="page-title">Contact</h1>
+    <p class="page-subtitle">
+      Conflict Mapper is maintained as an open-source geopolitical intelligence platform.
+      Use email for direct contact and GitHub for source review, issues, and implementation history.
+    </p>
+
+    <section class="contact-grid" aria-label="Contact links">
+      <article class="contact-card">
+        <div>
+          <div class="contact-label">Email</div>
+          <h2>Direct Contact</h2>
+          <p>Send questions, deployment notes, and responsible security reports directly to the project maintainer.</p>
+        </div>
+        <a class="contact-link" href="mailto:marslauncher@gmail.com">marslauncher@gmail.com</a>
+      </article>
+
+      <article class="contact-card">
+        <div>
+          <div class="contact-label">Repository</div>
+          <h2>Source Code</h2>
+          <p>Review the public repository, inspect changes, and track issues or pull requests through GitHub.</p>
+        </div>
+        <a class="contact-link" href="https://github.com/Marslauncher/conflict-mapper" target="_blank" rel="noopener noreferrer">Marslauncher/conflict-mapper</a>
+      </article>
+    </section>
+
+    <div class="security-note">
+      Do not send credentials, API keys, or private incident data through public GitHub issues.
+    </div>
+  </main>
+</body>
+</html>
