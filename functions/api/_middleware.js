@@ -19,6 +19,7 @@ const ADMIN_REQUIRED_MUTATION_PREFIXES = [
   '/api/feeds',
   '/api/settings',
   '/api/topics',
+  '/api/articles/link-check',
   '/api/articles/reprocess',
   '/api/articles/flag',
 ];

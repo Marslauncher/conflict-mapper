@@ -463,6 +463,54 @@ html, body {
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
+.cluster-selection-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.cluster-article-list {
+  display: grid;
+  gap: 8px;
+  max-height: min(52vh, 520px);
+  overflow-y: auto;
+  padding-right: 2px;
+}
+.cluster-article-card {
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 9px;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+.cluster-article-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: var(--accent-dim);
+}
+.cluster-article-title {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text);
+}
+.cluster-article-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 7px;
+}
+.cluster-article-actions .popup-btn {
+  padding: 4px 7px;
+  font-size: 0.56rem;
+}
 .alert-modal-list {
   display: flex;
   flex-direction: column;
@@ -1923,10 +1971,17 @@ function handleClusterClick(event) {
   const center = cluster.getLatLng ? cluster.getLatLng() : null;
   selectedLocationArticles = sortNewest(articles);
   selectedLocationLabel = locationLabelForArticles(selectedLocationArticles, center);
-  updateFeedList();
-  if (map && center) {
-    const nextZoom = Math.min(map.getMaxZoom(), Math.max(map.getZoom() + 2, 7));
-    map.setView(center, nextZoom, { animate: true });
+  if (!feedStripVisible) toggleArticleStrip();
+  updateVisibleArticlePanels();
+  showClusterArticleCard(selectedLocationArticles, selectedLocationLabel);
+  if (cluster.spiderfy) {
+    cluster.spiderfy();
+  }
+  if (map && center?.lat && center?.lng) {
+    map.panTo(center, { animate: true });
+  }
+  if (isMobileMapViewport()) {
+    openMobileSidebar();
   }
 }
 
@@ -2118,7 +2173,7 @@ function buildPopup(article) {
     <div style="font-size:0.7rem;color:#888;margin-bottom:8px">${timeAgo(article.pubDate || article.publishedAt)}</div>
     ${additionalCount ? `<div style="font-size:0.68rem;color:#aaa;margin-bottom:8px">${additionalCount} additional related report${additionalCount === 1 ? '' : 's'}</div>` : ''}
     <div class="popup-actions">
-      ${(article.link || article.url) ? `<a href="${escHtml(article.link || article.url)}" target="_blank" rel="noopener" class="popup-btn primary" style="text-decoration:none">Read</a>` : ''}
+      ${(article.link || article.url) ? `<button class="popup-btn primary" onclick="openArticleSource(${JSON.stringify(article.link || article.url).replace(/"/g, '&quot;')})">Open Source</button>` : ''}
       <button class="popup-btn" onclick="openFlagModal(${JSON.stringify({ id: article.id, title: article.title }).replace(/"/g, '&quot;')})">⚑ Flag</button>
       <button class="popup-btn" onclick="markArticleRead(${JSON.stringify(article).replace(/"/g, '&quot;')})">Mark Read</button>
     </div>
@@ -2288,6 +2343,52 @@ function markArticleRead(article) {
   showToast('Article hidden from map. It remains available in News Library.');
 }
 
+function showClusterArticleCard(articles, label) {
+  const card = document.getElementById('story-card');
+  const title = document.getElementById('story-card-title');
+  const body = document.getElementById('story-card-body');
+  if (!card || !title || !body) return;
+  const sorted = sortNewest(articles || []);
+  title.textContent = `${label || 'Selected location'} (${sorted.length})`;
+  body.innerHTML = `
+    <div class="cluster-selection-summary">
+      <span>${sorted.length} article${sorted.length === 1 ? '' : 's'} at this marker</span>
+      <button class="popup-btn" onclick="clearClusterSelection()">Clear</button>
+    </div>
+    <div class="cluster-article-list">
+      ${sorted.map(article => buildClusterArticleCard(article)).join('')}
+    </div>
+  `;
+  card.classList.add('visible');
+  attachArticleHoverHandlers(body);
+}
+
+function buildClusterArticleCard(article) {
+  const key = articleKey(article);
+  const sourceUrl = article.link || article.url || '';
+  return `
+    <div class="cluster-article-card" data-article-key="${escHtml(key)}" onclick="showStoryCard(${JSON.stringify(article).replace(/"/g, '&quot;')})">
+      <div class="cluster-article-title">${escHtml(article.title || 'Untitled')}</div>
+      <div class="story-card-meta" style="margin:6px 0 0">
+        <span class="cat-badge ${article.category || 'general'}">${escHtml(article.category || 'general')}</span>
+        <span>${escHtml(article.source || 'Unknown source')}</span>
+        <span>${timeAgo(article.pubDate || article.publishedAt)}</span>
+        ${article.geo?.place || article.location ? `<span>${escHtml(article.geo?.place || article.location)}</span>` : ''}
+      </div>
+      <div class="cluster-article-actions">
+        ${sourceUrl ? `<button class="popup-btn primary" onclick="event.stopPropagation(); openArticleSource(${JSON.stringify(sourceUrl).replace(/"/g, '&quot;')})">Open Source</button>` : ''}
+        <button class="popup-btn" onclick="event.stopPropagation(); openFlagModal(${JSON.stringify({ id: article.id, title: article.title }).replace(/"/g, '&quot;')})">Flag</button>
+        <button class="popup-btn" onclick="event.stopPropagation(); markArticleRead(${JSON.stringify(article).replace(/"/g, '&quot;')})">Mark Read</button>
+      </div>
+    </div>
+  `;
+}
+
+function clearClusterSelection() {
+  clearLocationSelection();
+  closeStoryCard();
+}
+
 function showStoryCard(article) {
   const card = document.getElementById('story-card');
   const title = document.getElementById('story-card-title');
@@ -2306,7 +2407,7 @@ function showStoryCard(article) {
     </div>
     <div>${escHtml(article.description || article.summary || 'No parsed summary is available for this article yet.')}</div>
     <div class="story-card-actions">
-      ${(article.link || article.url) ? `<a href="${escHtml(article.link || article.url)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="text-decoration:none">Open Source</a>` : ''}
+      ${(article.link || article.url) ? `<button class="btn btn-primary btn-sm" onclick="openArticleSource(${JSON.stringify(article.link || article.url).replace(/"/g, '&quot;')})">Open Source</button>` : ''}
       <button class="btn btn-secondary btn-sm" onclick="openFlagModal(${JSON.stringify({ id: article.id, title: article.title }).replace(/"/g, '&quot;')})">Flag</button>
       <button class="btn btn-secondary btn-sm" onclick="markArticleRead(${JSON.stringify(article).replace(/"/g, '&quot;')})">Mark Read</button>
     </div>
@@ -2322,6 +2423,11 @@ function showStoryCard(article) {
   `;
   card.classList.add('visible');
   if (isMobileMapViewport()) openMobileSidebar();
+}
+
+function openArticleSource(url) {
+  if (!url) return;
+  window.open(url, '_blank', 'noopener,noreferrer');
 }
 
 function closeStoryCard() {

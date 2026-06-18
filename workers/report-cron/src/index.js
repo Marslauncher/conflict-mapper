@@ -1,5 +1,10 @@
 import { appendReportLog, generateAndStoreReport, setReportStatus } from '../../../cloudflare/lib/reports.js';
-import { getArticleFetchStatus, loadArticleSet, refreshArticles } from '../../../cloudflare/lib/articles.js';
+import {
+  getArticleFetchStatus,
+  loadArticleSet,
+  refreshArticles,
+  validateCachedArticleLinks,
+} from '../../../cloudflare/lib/articles.js';
 import { loadAppSettings } from '../../../cloudflare/lib/app-settings.js';
 import { jsonResponse } from '../../../cloudflare/lib/http.js';
 
@@ -155,6 +160,7 @@ async function maybeRefreshArticles(env, articleContext, plan, startedAt) {
 async function runFeedOnlyPlan(env, plan, trigger, startedAt) {
   const decision = await shouldRunFeedRefresh(env);
   if (!decision.run) {
+    await maybeValidateArticleLinks(env, trigger);
     if (env.LOG_SKIPPED_FEED_REFRESH === 'true') {
       await appendReportLog(env, {
         category: 'rss',
@@ -172,12 +178,37 @@ async function runFeedOnlyPlan(env, plan, trigger, startedAt) {
   });
   const articleContext = createArticleContext(env);
   await maybeRefreshArticles(env, articleContext, plan, startedAt);
+  await maybeValidateArticleLinks(env, trigger);
   await appendReportLog(env, {
     category: 'rss',
     message: `${plan.label} complete`,
     details: { trigger },
   });
   return [{ success: true, scope: 'rss', slug: 'articles' }];
+}
+
+async function maybeValidateArticleLinks(env, trigger) {
+  if (env.ARTICLE_LINK_CHECK_ENABLED === 'false') return;
+  try {
+    const result = await validateCachedArticleLinks(createArticleContext(env), {
+      limit: Number(env.ARTICLE_LINK_CHECK_LIMIT || 20),
+      intervalMinutes: Number(env.ARTICLE_LINK_CHECK_INTERVAL_MINUTES || 60),
+    });
+    if (!result?.skipped) {
+      await appendReportLog(env, {
+        category: 'rss',
+        message: `Scheduled article link validation complete: ${result.checked || 0} checked, ${result.removed || 0} removed`,
+        details: { trigger, ...result },
+      });
+    }
+  } catch (err) {
+    await appendReportLog(env, {
+      level: 'warn',
+      category: 'rss',
+      message: `Scheduled article link validation failed: ${err.message}`,
+      details: { trigger },
+    });
+  }
 }
 
 async function shouldRunFeedRefresh(env) {

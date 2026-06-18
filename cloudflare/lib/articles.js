@@ -9,8 +9,11 @@ import { appendReportLog } from './reports.js';
 const ARTICLES_KV_KEY = 'articles:v1';
 const ARTICLES_R2_KEY = 'articles/cache.json';
 const ARTICLE_FETCH_STATUS_KEY = 'articles:fetch:status';
+const ARTICLE_LINK_CHECK_STATUS_KEY = 'articles:link-check:status';
 const MAX_FEED_BYTES = 2_000_000;
 const DEFAULT_TRANSLATION_LIMIT = 80;
+const DEFAULT_LINK_CHECK_LIMIT = 20;
+const DEFAULT_LINK_CHECK_INTERVAL_MINUTES = 60;
 
 const GEO_PLACES = [
   { terms: ['沖縄', '那覇', 'naha', 'okinawa'], place: 'Okinawa / Naha', country: 'Japan', lat: 26.2124, lng: 127.6792 },
@@ -498,6 +501,111 @@ export async function reprocessStoredArticleCache(context) {
   };
 }
 
+export async function getArticleLinkCheckStatus(env) {
+  if (!env.CONFIG_KV) return null;
+  const raw = await env.CONFIG_KV.get(ARTICLE_LINK_CHECK_STATUS_KEY);
+  return raw ? JSON.parse(raw) : null;
+}
+
+export async function validateCachedArticleLinks(context, {
+  limit = DEFAULT_LINK_CHECK_LIMIT,
+  intervalMinutes = DEFAULT_LINK_CHECK_INTERVAL_MINUTES,
+  force = false,
+} = {}) {
+  if (!context.env.CONFIG_KV && !context.env.REPORTS_BUCKET) {
+    throw new Error('REPORTS_BUCKET or CONFIG_KV binding is required to persist article link validation updates');
+  }
+
+  const lastStatus = await getArticleLinkCheckStatus(context.env).catch(() => null);
+  const lastCheckedMs = lastStatus?.checkedAt ? new Date(lastStatus.checkedAt).getTime() : 0;
+  const intervalMs = Math.max(1, Number(intervalMinutes) || DEFAULT_LINK_CHECK_INTERVAL_MINUTES) * 60 * 1000;
+  if (!force && Number.isFinite(lastCheckedMs) && lastCheckedMs > 0 && Date.now() - lastCheckedMs < intervalMs) {
+    return {
+      skipped: true,
+      reason: 'link check interval has not elapsed',
+      checkedAt: lastStatus.checkedAt,
+      nextCheckAfter: new Date(lastCheckedMs + intervalMs).toISOString(),
+    };
+  }
+
+  const staticPayload = await readAssetJson(context, '/data/articles.json', { articles: [] });
+  const monitoringConfig = await loadMonitoringConfig(context);
+  const storedPayload = await readStoredArticlePayload(context);
+  const sourcePayload = storedPayload?.payload || staticPayload;
+  const sourceArticles = normalizeArticlesPayload(sourcePayload);
+  const normalized = normalizeExistingArticles(sourceArticles, monitoringConfig);
+  const candidates = normalized
+    .filter((article) => article && (article.link || article.url))
+    .sort((a, b) => linkHealthTimestamp(a) - linkHealthTimestamp(b))
+    .slice(0, Math.max(1, Math.min(Number(limit) || DEFAULT_LINK_CHECK_LIMIT, 250)));
+  const checkedAt = new Date().toISOString();
+  const results = [];
+  for (const article of candidates) {
+    results.push(await checkArticleLink(article, checkedAt));
+  }
+
+  const deadKeys = new Set(results.filter((item) => item.action === 'remove').map((item) => item.key));
+  const resultByKey = new Map(results.map((item) => [item.key, item]));
+  const keptArticles = normalized
+    .filter((article) => !deadKeys.has(articleIdentityKey(article)))
+    .map((article) => {
+      const result = resultByKey.get(articleIdentityKey(article));
+      if (!result) return article;
+      return {
+        ...article,
+        linkHealth: {
+          checkedAt,
+          ok: result.ok,
+          status: result.status,
+          reason: result.reason,
+        },
+      };
+    });
+  const merged = dedupeArticles(keptArticles)
+    .sort((a, b) => articleTimestamp(b) - articleTimestamp(a))
+    .slice(0, 5000);
+  const removed = deadKeys.size;
+  const storageSource = await writeArticlePayload(context.env, {
+    ...sourcePayload,
+    version: 1,
+    lastFetch: sourcePayload.lastFetch || staticPayload.lastFetch || checkedAt,
+    linkCheckedAt: checkedAt,
+    articles: merged,
+    monitoring: {
+      countries: monitoringConfig.countries.length,
+      topics: monitoringConfig.topics.length,
+    },
+    linkValidation: {
+      checkedAt,
+      checked: results.length,
+      removed,
+      ok: results.filter((item) => item.ok).length,
+      retainedUnverified: results.filter((item) => item.action === 'retain-unverified').length,
+    },
+  });
+  const status = {
+    running: false,
+    checkedAt,
+    checked: results.length,
+    removed,
+    totalArticles: merged.length,
+    storageSource,
+  };
+  await setArticleLinkCheckStatus(context.env, status);
+  await appendReportLog(context.env, {
+    category: 'rss',
+    message: `Article link validation complete: ${results.length} checked, ${removed} removed`,
+    details: {
+      source: storedPayload?.source || 'static-asset',
+      storageSource,
+      checked: results.length,
+      removed,
+      retainedUnverified: results.filter((item) => item.action === 'retain-unverified').length,
+    },
+  });
+  return status;
+}
+
 export async function refreshArticles(context, {
   limitFeeds = 6,
   maxItemsPerFeed = 4,
@@ -716,6 +824,103 @@ async function setArticleFetchStatus(env, status) {
   } catch (err) {
     console.warn(`Article fetch status write skipped: ${err.message}`);
   }
+}
+
+async function setArticleLinkCheckStatus(env, status) {
+  if (!env.CONFIG_KV) return;
+  try {
+    await env.CONFIG_KV.put(ARTICLE_LINK_CHECK_STATUS_KEY, JSON.stringify({
+      updatedAt: new Date().toISOString(),
+      ...status,
+    }));
+  } catch (err) {
+    console.warn(`Article link check status write skipped: ${err.message}`);
+  }
+}
+
+function linkHealthTimestamp(article) {
+  const value = article?.linkHealth?.checkedAt || article?.fetchedAt || article?.pubDate || article?.publishedAt || article?.date;
+  const time = value ? new Date(value).getTime() : 0;
+  return Number.isFinite(time) ? time : 0;
+}
+
+async function checkArticleLink(article, checkedAt) {
+  const url = article.link || article.url || '';
+  const key = articleIdentityKey(article);
+  if (!isValidHttpUrl(url)) {
+    return { key, url, checkedAt, ok: false, status: 0, reason: 'invalid-url', action: 'remove' };
+  }
+
+  try {
+    const head = await fetchArticleLink(url, 'HEAD');
+    if (isLiveArticleStatus(head.status)) {
+      return { key, url, checkedAt, ok: true, status: head.status, reason: 'ok', action: 'keep' };
+    }
+    if (shouldRetryArticleLinkWithGet(head.status)) {
+      const get = await fetchArticleLink(url, 'GET');
+      if (isLiveArticleStatus(get.status)) {
+        return { key, url, checkedAt, ok: true, status: get.status, reason: 'ok-get-fallback', action: 'keep' };
+      }
+      if (isConfirmedDeadArticleStatus(get.status)) {
+        return { key, url, checkedAt, ok: false, status: get.status, reason: 'dead-get-fallback', action: 'remove' };
+      }
+      return { key, url, checkedAt, ok: false, status: get.status, reason: 'unverified-get-fallback', action: 'retain-unverified' };
+    }
+    if (isConfirmedDeadArticleStatus(head.status)) {
+      return { key, url, checkedAt, ok: false, status: head.status, reason: 'dead', action: 'remove' };
+    }
+    return { key, url, checkedAt, ok: false, status: head.status, reason: 'unverified-status', action: 'retain-unverified' };
+  } catch (err) {
+    return {
+      key,
+      url,
+      checkedAt,
+      ok: false,
+      status: 0,
+      reason: `fetch-error:${String(err.message || err).slice(0, 80)}`,
+      action: 'retain-unverified',
+    };
+  }
+}
+
+async function fetchArticleLink(url, method) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort('timeout'), 8000);
+  try {
+    return await fetch(url, {
+      method,
+      redirect: 'follow',
+      headers: {
+        accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.5',
+        'user-agent': 'ConflictMapper-LinkCheck/1.0 (+https://conflictmapper.com)',
+        ...(method === 'GET' ? { range: 'bytes=0-2048' } : {}),
+      },
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function isValidHttpUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch (_) {
+    return false;
+  }
+}
+
+function isLiveArticleStatus(status) {
+  return status >= 200 && status < 400;
+}
+
+function isConfirmedDeadArticleStatus(status) {
+  return [404, 410, 451].includes(Number(status));
+}
+
+function shouldRetryArticleLinkWithGet(status) {
+  return [0, 403, 405, 406, 429, 500, 502, 503, 504].includes(Number(status));
 }
 
 async function fetchFeedArticles(feed, { maxItemsPerFeed, fetchedAt, monitoringConfig, translationState }) {
