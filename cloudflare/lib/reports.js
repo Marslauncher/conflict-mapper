@@ -277,6 +277,7 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
       generatedAt: startedAt,
       maxArticles: getSourceBriefArticleLimit(env),
     });
+    const zeroSourceGlobal = scope === 'global' && sourceBrief.articleCount === 0;
     const aiArticles = selectedArticles.slice(0, getReportAiArticleLimit(env, selectedArticles.length));
     await appendReportLog(env, {
       message: `Selected ${selectedArticles.length} source articles`,
@@ -334,8 +335,11 @@ export async function generateAndStoreReport(env, { scope = 'global', slug = 'gl
         prompts.systemPrompt,
         prompts.userPrompt,
       );
+      if (zeroSourceGlobal && containsForbiddenNoSourceLanguage(aiText)) {
+        throw new Error('AI provider returned zero-source coverage-gap language for a global report; refusing to publish it');
+      }
     } catch (err) {
-      const allowFallback = env.ALLOW_REPORT_FALLBACK !== 'false';
+      const allowFallback = env.ALLOW_REPORT_FALLBACK !== 'false' && !zeroSourceGlobal;
       const failure = describeReportFailure(err);
       await appendReportLog(env, {
         level: 'error',
@@ -1022,7 +1026,7 @@ Hard requirements:
 - Distinguish reported facts from analytic assessment.
 - Include risk severity labels from this exact set: CRITICAL, HIGH, MEDIUM, LOW.
 - Include trajectory labels from this exact set: ESCALATING, STABLE, DE-ESCALATING.
-- Write 1,400-2,600 words unless source material is sparse. Favor depth, cited analytic detail, and operational implications, but do not create walls of text.
+- Write 1,400-2,600 words unless the source material is sparse but non-empty. Favor depth, cited analytic detail, and operational implications, but do not create walls of text.
 - Use the exact section structure below and preserve the class names because the renderer styles them.
 - No wall of text: use short paragraphs, feed rows, risk rows, theater rows, watch rows, badges, source-backed data, and scannable cards. Do not place more than 120 words in any single paragraph.
 - The renderer will add source visual cards, map, and a source signal matrix. Your body should complement those modules with concise analysis, not duplicate a long source list.
@@ -1117,7 +1121,7 @@ export function buildUserPrompt({ scope, slug, title, articles, sourceBrief = ''
         const date = time ? new Date(time).toISOString().slice(0, 10) : 'unknown-date';
         return `[${index + 1}] ${date} | ${article.source || 'unknown source'}\nTitle: ${article.title}\nSummary: ${(article.description || '').slice(0, 400)}\nURL: ${article.link || 'n/a'}`;
       }).join('\n\n')
-    : 'No recent articles were available. Use only cautious, general assessment language.';
+    : 'No RSS/feed articles were selected for this run. Use live web/news search at prompt time to find current reputable source articles, cite those live-source findings in prose, and do not publish a generic no-source coverage-gap report.';
 
   const scopeLine = scope === 'global' ? 'global' : scope === 'watch' ? `watch/${slug}` : `country/${slug}`;
   const watchSlug = String(slug || '').toLowerCase();
@@ -1156,7 +1160,7 @@ Analytic emphasis:
 - First create your analysis from the prior-24-hour source brief below. The final report should be about 70% grounded in that sourced feed brief and about 30% informed by additional live web/news search at the time of prompting to catch blind spots.
 - Do not let web search override the sourced brief unless live search clearly updates, contradicts, or fills a material gap. Label externally discovered updates as live web checks in prose and keep bracket citations for provided source articles.
 - Source article citations must only refer to the provided prior-24-hour feed items. Do not cite, quote, or reference older RSS/news/website/think-tank feed articles.
-- If the prior-24-hour source brief is sparse, state that coverage limitation and lean more heavily on monitorable indicators instead of inventing details.
+- If the prior-24-hour source brief is sparse but non-empty, acknowledge source limits briefly and lean more heavily on monitorable indicators instead of inventing details. If it is empty, use live web/news search for current reputable sources and do not publish generic no-source coverage-gap language.
 - Geopolitical escalation pathways
 - Military force posture and procurement signals
 - Cyber, telecom, energy, logistics, and maritime infrastructure implications
@@ -1184,6 +1188,19 @@ Source articles:
 ${articleText}`;
 }
 
+function containsForbiddenNoSourceLanguage(value) {
+  const text = String(value || '').toLowerCase();
+  return [
+    'rss/feed coverage gap',
+    'no vetted prior-day source articles',
+    'generalized open-source patterns',
+    'forward-looking risk and indicator map rather than a confirmation',
+    'no prior-24h curated feed',
+    'no source articles attached',
+    'no source rows available',
+  ].some((phrase) => text.includes(phrase));
+}
+
 function buildSourceBrief({
   scope,
   slug,
@@ -1196,7 +1213,10 @@ function buildSourceBrief({
   if (!corpus.length) {
     return {
       articleCount: 0,
-      text: `Generated: ${generatedAt}\nScope: ${scopeLine}\nCorpus: 0 articles in the prior ${SOURCE_BRIEF_WINDOW_HOURS} hours. Use cautious language and identify RSS/feed coverage as a gap.`,
+      text: `Generated: ${generatedAt}
+Scope: ${scopeLine}
+Corpus: 0 RSS/news/website/think-tank feed articles were selected inside the prior ${SOURCE_BRIEF_WINDOW_HOURS} hours.
+Required behavior: treat this as a feed-selection/cache gap, not as evidence that no events occurred. Use live web/news search at prompt time to build the report from current reputable sources. Do not publish language saying there are "no vetted prior-day source articles", "RSS/feed coverage gap", or that judgments rely on generalized historical patterns. If live search cannot produce current source-backed findings, fail the generation rather than producing a generic no-source report.`,
     };
   }
 
@@ -1624,7 +1644,7 @@ function buildSourceArticleBlock(articles = []) {
         const date = time ? new Date(time).toISOString().slice(0, 10) : 'unknown-date';
         return `[${index + 1}] ${date} | ${article.source || 'unknown source'}\nTitle: ${article.title}\nSummary: ${(article.description || '').slice(0, 500)}\nURL: ${article.link || 'n/a'}`;
       }).join('\n\n')
-    : 'No recent articles were available.';
+    : 'No RSS/feed articles were selected for this run. Use live web/news search at prompt time to find current reputable source articles, and do not publish generic no-source coverage-gap language.';
 }
 
 function generateFallbackReportBody({ title, scope, slug, articles, error }) {

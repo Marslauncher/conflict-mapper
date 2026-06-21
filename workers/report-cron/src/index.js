@@ -94,7 +94,7 @@ async function runScheduledPlan(env, plan, trigger) {
 
   const articleContext = createArticleContext(env);
   await maybeRefreshArticles(env, articleContext, plan, startedAt);
-  const payload = await loadArticleSet(articleContext);
+  const payload = await loadArticleSetForReports(env, articleContext, plan, startedAt);
   const articles = payload.articles;
   await appendReportLog(env, {
     category: 'analysis',
@@ -155,6 +155,70 @@ async function maybeRefreshArticles(env, articleContext, plan, startedAt) {
       });
     }
   }
+}
+
+async function loadArticleSetForReports(env, articleContext, plan, startedAt) {
+  let payload = await loadArticleSet(articleContext);
+  if (!plan.jobs.some((job) => job.scope === 'global')) return payload;
+
+  const minRecent = positiveInteger(env.REPORT_MIN_GLOBAL_SOURCE_ARTICLES, 1);
+  const waitMs = nonNegativeInteger(env.REPORT_ARTICLE_CACHE_WAIT_MS, 60000);
+  const deadline = Date.now() + waitMs;
+  let recentCount = countRecentSourceArticles(payload.articles);
+
+  while (recentCount < minRecent && Date.now() < deadline) {
+    await appendReportLog(env, {
+      level: 'warn',
+      category: 'analysis',
+      message: `Waiting for prior-24h article cache before global report: ${recentCount}/${minRecent} available`,
+      details: {
+        startedAt,
+        waitMs,
+        lastFetch: payload.lastFetch || null,
+        totalArticles: payload.articles?.length || 0,
+      },
+    });
+    await delay(Math.min(5000, Math.max(1000, deadline - Date.now())));
+    payload = await loadArticleSet(articleContext);
+    recentCount = countRecentSourceArticles(payload.articles);
+  }
+
+  if (recentCount < minRecent) {
+    await appendReportLog(env, {
+      level: 'error',
+      category: 'analysis',
+      message: `Global report article cache still below prior-24h minimum after wait: ${recentCount}/${minRecent}`,
+      details: {
+        startedAt,
+        waitMs,
+        lastFetch: payload.lastFetch || null,
+        totalArticles: payload.articles?.length || 0,
+      },
+    });
+  }
+
+  return payload;
+}
+
+function countRecentSourceArticles(articles, now = Date.now()) {
+  return (articles || []).filter((article) => {
+    const time = new Date(article.pubDate || article.publishedAt || article.fetchedAt || article.date || 0).getTime();
+    return Number.isFinite(time) && time > 0 && now - time <= 24 * 60 * 60 * 1000;
+  }).length;
+}
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function positiveInteger(value, fallback) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : fallback;
+}
+
+function nonNegativeInteger(value, fallback) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed >= 0 ? Math.floor(parsed) : fallback;
 }
 
 async function runFeedOnlyPlan(env, plan, trigger, startedAt) {
